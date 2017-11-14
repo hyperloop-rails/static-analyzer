@@ -33,7 +33,7 @@ $ruby main.rb -a -d DIR_TO_APP_FILES
 ```
 
 Results will be saved to the folder under the app directory.
-The folder name is defined under global.rb, and by default is /result/.
+The folder name is defined under global.rb, and by default is `/result/`.
 
 1. Analysis
 
@@ -44,12 +44,12 @@ not used by the action.
 2. Applications:
 
 There are already many applications that are preprocessed and ready to be analyzed by this tool. 
-These apps lie under the applications/ directory.
+These apps lie under the `applications/` directory.
 
 To analyze your own applications, there are some preprocessing work to do:
 (not completed yet...)
 
-* copy the ruby files to some directory APPDIR, under the applications/ folder:
+* copy the ruby files to some directory APPDIR, under the `applications/` folder:
 ```
 $cd applications/
 $mkdir APPNAME/
@@ -60,13 +60,13 @@ $cd ..
 ```
 $rake routes | tail -n +2 | awk '{ for (i=1;i<=NF;i++) if (match($i, /.#./)) print $i}' | sed -e 's/#/,/g' | sort | uniq
 ```
-to get the list of actions that can be invoked by the app, copy it to APPDIR/calls.txt
+to get the list of actions that can be invoked by the app, copy it to `APPDIR/calls.txt`
 
-* go to preprocess\_views/ folder, and check the README.md there to extract the code from view.
+* go to `preprocess\_views/` folder, and check the README.md there to extract the code from view.
 
 If there are only .erb files in views, it is probably fine. But if you are using haml, the convertion from haml to erb may run into some trouble.
 
-* copy schema.rb in your app to APPDIR/.
+* copy schema.rb in your app to `APPDIR/`.
 
 * use JRuby to "compile" your app into JRuby IR. The modified JRuby is also in this repository. Follow the `jruby/README.md` to deploy jruby. 
 
