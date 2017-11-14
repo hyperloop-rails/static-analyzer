@@ -139,7 +139,7 @@ opt_parser = OptionParser.new do |opt|
   end
 
 
-	opt.on("-d","--dir DIR",String,"the application directory, for example, -d /home/congy/lobsters/app, by default it is ./losters,","where the controllers/models/logs of lobsters application is located") do |dir|
+	opt.on("-d","--dir DIR",String,"the application directory, for example, -d ../applications/forem/","where the controllers/models/logs of lobsters application is located") do |dir|
    	options[:dir] = dir
   end
 
