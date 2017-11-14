@@ -1,0 +1,315 @@
+SET IRMethod, name = remove_user_from_group_message instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_group 
+		 6: RECEIVEARG def_member 
+		 7: 
+		 8: member->user def_%v_3 member[2.6,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_3[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Are you sure you want to remove "" def_%v_4 
+		 2: member->user def_%v_5 member[2.6,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->name def_%v_6 %v_5[3.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "" from "" def_%v_7 
+		 5: group->name def_%v_8 group[2.5,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral ""?" def_%v_9 
+		 7: BUILDSTRING def_%v_10 %v_4[3.1,] %v_6[3.3,] %v_7[3.4,] %v_8[3.5,] %v_9[3.6,] 
+		 8: RETURN %v_10[3.7,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Are you sure you want to revoke the invitation for "" def_%v_11 
+		 2: member->invite_email def_%v_12 member[2.6,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "" to join "" def_%v_13 
+		 4: group->name def_%v_14 group[2.5,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral ""?" def_%v_15 
+		 6: BUILDSTRING def_%v_16 %v_11[4.1,] %v_12[4.2,] %v_13[4.3,] %v_14[4.4,] %v_15[4.5,] 
+		 7: RETURN %v_16[4.6,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = leave_group_message instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_group 
+		 6: 
+		 7: COPY TYPE_StringLiteral "Are you sure you want to leave "" def_%v_3 
+		 8: COPY TYPE_StringLiteral "" group?" def_%v_4 
+		 9: BUILDSTRING def_%v_5 %v_3[2.7,] group[2.5,] %v_4[2.8,] 
+		 10: RETURN %v_5[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = should_user_see_group_roles? instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_group 
+		 7: 
+		 8: BRANCH user[2.5,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user->is_admin? def_%v_3 user[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_3[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: group->members def_%v_4 group[2.6,] 	 SYMBOL:	 ARGS:
+		 1: user->id def_%v_5 user[2.5,] 	 SYMBOL:	 ARGS:
+		 2: HASH-user_id- def_%v_6 %v_5[4.1,] 
+		 3: %v_4->exists? def_%v_7 %v_4[4.0,] %v_6[4.2,] 	 SYMBOL:	 ARGS:%v_6,
+		 4: COPY TYPE_PASS def_%v_3 %v_7[4.3,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[4.4,3.1,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_change_group_visibility_level? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_group 
+		 6: 
+		 7: %self->current_user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %self->can? def_%v_4 %self[2.0,2.7,] %v_3[2.7,] group[2.5,] 	 SYMBOL:change_visibility_level,	 ARGS:%v_3,Symbol,group,
+		 9: RETURN %v_4[2.8,] %self[2.0,2.7,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = group_icon instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_group 
+		 6: 
+		 7: (String) def_%v_3 
+		 8: group->is_a? def_%v_4 group[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Group) def_%v_5 
+		 2: HASH-path- def_%v_6 group[2.5,] 
+		 3: %v_5->find_by def_%v_7 %v_5[3.1,] %v_6[3.2,] 	 SYMBOL:	 ARGS:%v_6,
+		 4: COPY TYPE_PASS def_group %v_7[3.3,] 
+		 5: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_8 group[3.4,2.5,] 
+		 2: BRANCH group[3.4,2.5,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: group->avatar def_%v_9 group[3.4,2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_9->present? def_%v_10 %v_9[6.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_8 %v_10[6.1,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_8[6.2,5.1,] 
+BB 8
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: group->avatar def_%v_11 group[3.4,2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_11->url def_%v_12 %v_11[8.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %v_12[8.2,] %self[2.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "no_group_avatar.png" def_%v_13 
+		 2: RETURN %v_13[9.1,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = group_title instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_group 
+		 6: RECEIVECONSTARG def_name 
+		 7: name[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_name 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_url 
+		 1: url[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_url 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: group->name def_%v_3 group[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %self->simple_sanitize def_%v_4 %self[2.0,] %v_3[6.1,] 	 SYMBOL:	 ARGS:%v_3,
+		 3: %self->group_path def_%v_5 %self[6.2,2.0,] group[6.1,2.5,] 	 SYMBOL:	 ARGS:group,
+		 4: %self->link_to def_%v_6 %self[6.2,6.3,2.0,] %v_4[6.2,] %v_5[6.3,] 	 SYMBOL:	 ARGS:%v_4,%v_5,
+		 5: COPY TYPE_PASS def_full_title %v_6[6.4,] 
+		 6: 
+		 7: BRANCH name[3.0,2.6,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral " &middot; " def_%v_7 
+		 1: %v_7->html_safe def_%v_8 %v_7[7.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->simple_sanitize def_%v_9 %self[2.0,] name[3.0,2.6,] 	 SYMBOL:	 ARGS:name,
+		 3: %self->link_to def_%v_10 %self[7.2,2.0,] %v_9[7.2,] url[5.0,4.0,] 	 SYMBOL:	 ARGS:%v_9,url,
+		 4: %v_8->+ def_%v_11 %v_8[7.1,] %v_10[7.3,] 	 SYMBOL:	 ARGS:%v_10,
+		 5: full_title->+ def_%v_12 full_title[6.5,] %v_11[7.4,] 	 SYMBOL:	 ARGS:%v_11,
+		 6: COPY TYPE_PASS def_full_title %v_12[7.5,] 
+		 7: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->content_tag def_%v_13 %self[2.0,] %self[2.0,] 	 SYMBOL:span,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: full_title[7.6,6.5,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RETURN full_title[] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: RETURN %v_13[9.1,] %self[9.1,2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+

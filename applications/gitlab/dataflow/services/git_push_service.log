@@ -1,0 +1,1288 @@
+SET IRMethod, name = execute instanceMethod = true
+BB 1
+	outgoing: 21 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->project def_%v_3 %self[2.0,] 
+		 7: %v_3->empty_repo? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->project def_%v_5 %self[2.0,] 
+		 1: %v_5->repository def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->after_create def_%v_7 %v_6[3.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->project def_%v_8 %self[2.0,] 
+		 2: %v_8->repository def_%v_9 %v_8[5.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->branch_name def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %self->params def_%v_11 %self[5.3,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_11->[] def_%v_12 %v_11[5.4,] 	 SYMBOL:newrev,	 ARGS:Symbol,
+		 6: %v_9->after_push_commit def_%v_13 %v_9[5.2,] %v_10[5.3,] %v_12[5.5,] 	 SYMBOL:	 ARGS:%v_10,%v_12,
+		 7: 
+		 8: %self->push_remove_branch? def_%v_14 %self[5.3,5.4,2.0,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_14[5.8,] 
+BB 6
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->project def_%v_15 %self[2.0,] 
+		 2: %v_15->repository def_%v_16 %v_15[6.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_16->after_remove_branch def_%v_17 %v_16[6.2,] 	 SYMBOL:	 ARGS:
+		 4: 
+		 5: COPY TYPE_Array def_%v_18 
+		 6: ATTRASSIGN %self->push_commits %v_18[6.5,] 
+		 7: 
+BB 7
+	outgoing: 8 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->push_to_new_branch? def_%v_19 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_19[7.1,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->project def_%v_20 %self[2.0,] 
+		 2: %v_20->repository def_%v_21 %v_20[8.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_21->after_create_branch def_%v_22 %v_21[8.2,] 	 SYMBOL:	 ARGS:
+		 4: 
+		 5: %self->is_default_branch? def_%v_23 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %v_23[8.5,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->process_default_branch def_%v_24 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->project def_%v_25 %self[2.0,] 
+		 2: %v_25->repository def_%v_26 %v_25[10.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->project def_%v_27 %self[2.0,] 
+		 4: %v_27->default_branch def_%v_28 %v_27[10.3,] 	 SYMBOL:	 ARGS:
+		 5: %self->params def_%v_29 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 6: %v_29->[] def_%v_30 %v_29[10.5,] 	 SYMBOL:newrev,	 ARGS:Symbol,
+		 7: %v_26->commits_between def_%v_31 %v_26[10.2,] %v_28[10.4,] %v_30[10.6,] 	 SYMBOL:	 ARGS:%v_28,%v_30,
+		 8: ATTRASSIGN %self->push_commits %v_31[10.7,] 
+		 9: 
+		 10: %self->process_commit_messages def_%v_32 %self[10.5,10.8,2.0,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_PASS def_%v_24 %v_32[10.10,] 
+BB 11
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+BB 12
+	outgoing: 13 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->push_to_existing_branch? def_%v_33 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_33[12.1,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->project def_%v_34 %self[2.0,] 
+		 2: %v_34->repository def_%v_35 %v_34[13.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->params def_%v_36 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_36->[] def_%v_37 %v_36[13.3,] 	 SYMBOL:oldrev,	 ARGS:Symbol,
+		 5: %self->params def_%v_38 %self[13.3,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %v_38->[] def_%v_39 %v_38[13.5,] 	 SYMBOL:newrev,	 ARGS:Symbol,
+		 7: %v_35->commits_between def_%v_40 %v_35[13.2,] %v_37[13.4,] %v_39[13.6,] 	 SYMBOL:	 ARGS:%v_37,%v_39,
+		 8: ATTRASSIGN %self->push_commits %v_40[13.7,] 
+		 9: 
+		 10: %self->process_commit_messages def_%v_41 %self[13.3,13.5,13.8,2.0,] 	 SYMBOL:	 ARGS:
+		 11: 
+		 12: %self->is_default_branch? def_%v_42 %self[13.3,13.5,13.8,13.10,2.0,] 	 SYMBOL:	 ARGS:
+		 13: BRANCH %v_42[13.12,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: %self->update_gitattributes def_%v_43 %self[13.8,2.0,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_43 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_43 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_24 %v_43[17.0,15.0,14.0,] 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_18 %v_24[18.0,10.11,9.1,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->update_merge_requests def_%v_44 %self[6.6,10.8,2.0,13.8,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: %self->update_main_language def_%v_45 %self[20.1,6.6,10.8,2.0,13.8,] 	 SYMBOL:	 ARGS:
+		 4: 
+		 5: %self->perform_housekeeping def_%v_46 %self[20.1,20.3,6.6,10.8,2.0,13.8,] 	 SYMBOL:	 ARGS:
+		 6: RETURN %v_46[20.5,] %self[20.1,20.3,20.5,6.6,10.8,2.0,13.8,] 
+BB 21
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_gitattributes instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->project def_%v_3 %self[2.0,] 
+		 7: %v_3->repository def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->params def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->[] def_%v_6 %v_5[2.8,] 	 SYMBOL:ref,	 ARGS:Symbol,
+		 10: %v_4->copy_gitattributes def_%v_7 %v_4[2.7,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: RETURN %v_7[2.10,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_main_language instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->project def_%v_3 %self[2.0,] 
+		 7: %v_3->main_language def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->present? def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: %self->is_default_branch? def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_7[4.2,] 
+BB 6
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: %self->push_to_new_branch? def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_9[6.2,] 
+BB 7
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %self->push_to_existing_branch? def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_9 %v_10[9.0,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_9[9.1,6.2,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+		 1: 
+		 2: GETFIELD %self->project def_%v_12 %self[2.0,] 
+		 3: %v_12->repository def_%v_13 %v_12[11.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_13->main_language def_%v_14 %v_13[11.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_current_language %v_14[11.4,] 
+		 6: 
+		 7: GETFIELD %self->project def_%v_15 %self[2.0,] 
+		 8: HASH-main_language- def_%v_16 %v_14[11.4,] 
+		 9: %v_15->update_attributes def_%v_17 %v_15[11.7,] %v_16[11.8,] 	 SYMBOL:	 ARGS:%v_16,
+		 10: 
+		 11: RETURN %self[2.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_merge_requests instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->project def_%v_3 %self[2.0,] 
+		 7: %self->params def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->[] def_%v_5 %v_4[2.7,] 	 SYMBOL:oldrev,	 ARGS:Symbol,
+		 9: %self->params def_%v_6 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 10: %v_6->[] def_%v_7 %v_6[2.9,] 	 SYMBOL:newrev,	 ARGS:Symbol,
+		 11: %self->params def_%v_8 %self[2.0,2.7,2.9,] 	 SYMBOL:	 ARGS:
+		 12: %v_8->[] def_%v_9 %v_8[2.11,] 	 SYMBOL:ref,	 ARGS:Symbol,
+		 13: %self->current_user def_%v_10 %self[2.0,2.7,2.9,2.11,] 	 SYMBOL:	 ARGS:
+		 14: %v_3->update_merge_requests def_%v_11 %v_3[2.6,] %v_5[2.8,] %v_7[2.10,] %v_9[2.12,] %v_10[2.13,] 	 SYMBOL:	 ARGS:%v_5,%v_7,%v_9,%v_10,
+		 15: 
+		 16: (EventCreateService) def_%v_12 
+		 17: %v_12->new def_%v_13 %v_12[2.16,] 	 SYMBOL:	 ARGS:
+		 18: GETFIELD %self->project def_%v_14 %self[2.0,2.7,2.9,2.11,2.13,] 
+		 19: %self->current_user def_%v_15 %self[2.0,2.7,2.9,2.11,2.13,] 	 SYMBOL:	 ARGS:
+		 20: %self->build_push_data def_%v_16 %self[2.0,2.7,2.9,2.11,2.13,2.19,] 	 SYMBOL:	 ARGS:
+		 21: %v_13->push def_%v_17 %v_13[2.17,] %v_14[2.18,] %v_15[2.19,] %v_16[2.20,] 	 SYMBOL:	 ARGS:%v_14,%v_15,%v_16,
+		 22: 
+		 23: (SystemHooksService) def_%v_18 
+		 24: %v_18->new def_%v_19 %v_18[2.23,] 	 SYMBOL:	 ARGS:
+		 25: %self->build_push_data_system_hook def_%v_20 %self[2.0,2.7,2.9,2.11,2.13,2.19,2.20,] 	 SYMBOL:	 ARGS:
+		 26: %v_20->dup def_%v_21 %v_20[2.25,] 	 SYMBOL:	 ARGS:
+		 27: %v_19->execute_hooks def_%v_22 %v_19[2.24,] %v_21[2.26,] 	 SYMBOL:push_hooks,	 ARGS:%v_21,Symbol,
+		 28: 
+		 29: GETFIELD %self->project def_%v_23 %self[2.0,2.7,2.9,2.11,2.13,2.19,2.20,2.25,] 
+		 30: %self->build_push_data def_%v_24 %self[2.0,2.7,2.9,2.11,2.13,2.19,2.20,2.25,] 	 SYMBOL:	 ARGS:
+		 31: %v_24->dup def_%v_25 %v_24[2.30,] 	 SYMBOL:	 ARGS:
+		 32: %v_23->execute_hooks def_%v_26 %v_23[2.29,] %v_25[2.31,] 	 SYMBOL:push_hooks,	 ARGS:%v_25,Symbol,
+		 33: 
+		 34: GETFIELD %self->project def_%v_27 %self[2.0,2.7,2.9,2.11,2.13,2.19,2.20,2.25,2.30,] 
+		 35: %self->build_push_data def_%v_28 %self[2.0,2.7,2.9,2.11,2.13,2.19,2.20,2.25,2.30,] 	 SYMBOL:	 ARGS:
+		 36: %v_28->dup def_%v_29 %v_28[2.35,] 	 SYMBOL:	 ARGS:
+		 37: %v_27->execute_services def_%v_30 %v_27[2.34,] %v_29[2.36,] 	 SYMBOL:push_hooks,	 ARGS:%v_29,Symbol,
+		 38: 
+		 39: (CreateCommitBuildsService) def_%v_31 
+		 40: %v_31->new def_%v_32 %v_31[2.39,] 	 SYMBOL:	 ARGS:
+		 41: GETFIELD %self->project def_%v_33 %self[2.0,2.7,2.9,2.11,2.13,2.19,2.20,2.25,2.30,2.35,] 
+		 42: %self->current_user def_%v_34 %self[2.0,2.7,2.9,2.11,2.13,2.19,2.20,2.25,2.30,2.35,] 	 SYMBOL:	 ARGS:
+		 43: %self->build_push_data def_%v_35 %self[2.0,2.7,2.9,2.11,2.13,2.19,2.20,2.25,2.30,2.35,2.42,] 	 SYMBOL:	 ARGS:
+		 44: %v_32->execute def_%v_36 %v_32[2.40,] %v_33[2.41,] %v_34[2.42,] %v_35[2.43,] 	 SYMBOL:	 ARGS:%v_33,%v_34,%v_35,
+		 45: 
+		 46: (ProjectCacheWorker) def_%v_37 
+		 47: GETFIELD %self->project def_%v_38 %self[2.0,2.7,2.9,2.11,2.13,2.19,2.20,2.25,2.30,2.35,2.42,2.43,] 
+		 48: %v_38->id def_%v_39 %v_38[2.47,] 	 SYMBOL:	 ARGS:
+		 49: %v_37->perform_async def_%v_40 %v_37[2.46,] %v_39[2.48,] 	 SYMBOL:	 ARGS:%v_39,
+		 50: RETURN %v_40[2.49,] %self[2.0,2.7,2.9,2.11,2.13,2.19,2.20,2.25,2.30,2.35,2.42,2.43,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = perform_housekeeping instanceMethod = true
+BB 1
+	outgoing: 21 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (Projects) def_%v_6 
+		 3: (inherit HousekeepingService) def_%v_7 %v_6[4.2,] 
+		 4: %v_7[4.3,] 
+BB 5
+	outgoing: 6 11 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[4.2,] 	 SYMBOL:HousekeepingService,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 11 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->project def_%v_8 %self[2.0,] 
+		 1: %v_7->new def_%v_9 %v_7[5.0,4.3,] %v_8[6.0,] 	 SYMBOL:	 ARGS:%v_8,
+		 2: COPY TYPE_PASS def_housekeeping %v_9[6.1,] 
+		 3: 
+		 4: %v_9->increment! def_%v_10 %v_9[6.1,] 	 SYMBOL:	 ARGS:
+		 5: 
+		 6: housekeeping->needed? def_%v_11 housekeeping[6.2,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_11[6.6,] 
+BB 7
+	outgoing: 9 11 
+	datadep: 
+	instructions:
+		 0: housekeeping->execute def_%v_12 housekeeping[6.2,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_5 %v_12[8.0,7.0,] 
+		 1: 
+		 2: %v_3[2.5,] 
+BB 10
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+BB 11
+	outgoing: 12 13 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_13 
+		 2: (Projects) def_%v_14 
+		 3: (inherit HousekeepingService) def_%v_15 %v_14[11.2,] 
+		 4: %v_15[11.3,] 
+BB 12
+	outgoing: 13 19 
+	datadep: 
+	instructions:
+		 0: %v_14->const_missing def_%v_15 %v_14[11.2,] 	 SYMBOL:HousekeepingService,	 ARGS:Symbol,
+BB 13
+	outgoing: 14 15 19 
+	datadep: 
+	instructions:
+		 0: (inherit LeaseTaken) def_%v_16 %v_15[12.0,11.3,] 
+		 1: %v_16[13.0,] 
+BB 14
+	outgoing: 15 19 
+	datadep: 
+	instructions:
+		 0: %v_15->const_missing def_%v_16 %v_15[12.0,11.3,] 	 SYMBOL:LeaseTaken,	 ARGS:Symbol,
+BB 15
+	outgoing: 16 17 19 
+	datadep: 
+	instructions:
+		 0: def_%v_17 %v_16[14.0,13.0,] %v_13[11.1,] 
+		 1: BRANCH %v_17[15.0,] 
+BB 16
+	outgoing: 19 21 
+	datadep: 
+	instructions:
+		 0: %v_13[11.1,] 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: %v_3[2.5,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+BB 19
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: def_%v_18 
+		 1: def_%v_19 %v_18[19.0,] %v_3[2.5,] 
+		 2: %v_18[19.0,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[9.0,17.0,] %self[2.0,] 
+BB 21
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = process_default_branch instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->project def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->repository def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->params def_%v_5 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->[] def_%v_6 %v_5[2.8,] 	 SYMBOL:newrev,	 ARGS:Symbol,
+		 10: %v_4->commits def_%v_7 %v_4[2.7,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: ATTRASSIGN %self->push_commits %v_7[2.10,] 
+		 12: 
+		 13: %self->project def_%v_8 %self[2.0,2.6,2.8,2.11,] 	 SYMBOL:	 ARGS:
+		 14: %self->branch_name def_%v_9 %self[2.0,2.6,2.8,2.11,2.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_8->change_head def_%v_10 %v_8[2.13,] %v_9[2.14,] 	 SYMBOL:	 ARGS:%v_9,
+		 16: 
+		 17: %self->current_application_settings def_%v_11 %self[2.0,2.6,2.8,2.11,2.13,2.14,] 	 SYMBOL:	 ARGS:
+		 18: %v_11->default_branch_protection def_%v_12 %v_11[2.17,] 	 SYMBOL:	 ARGS:
+		 19: (PROTECTION_NONE) def_%v_13 
+		 20: %v_12->!= def_%v_14 %v_12[2.18,] %v_13[2.19,] 	 SYMBOL:	 ARGS:%v_13,
+		 21: BRANCH %v_14[2.20,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->current_application_settings def_%v_15 %self[2.0,2.11,] 	 SYMBOL:	 ARGS:
+		 2: %v_15->default_branch_protection def_%v_16 %v_15[3.1,] 	 SYMBOL:	 ARGS:
+		 3: (PROTECTION_DEV_CAN_PUSH) def_%v_17 
+		 4: %v_16->== def_%v_18 %v_16[3.2,] %v_17[3.3,] 	 SYMBOL:	 ARGS:%v_17,
+		 5: BRANCH %v_18[3.4,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Boolean def_%v_19 
+		 1: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Boolean def_%v_19 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_developers_can_push %v_19[5.0,4.0,] 
+		 1: 
+		 2: GETFIELD %self->project def_%v_20 %self[2.0,] 
+		 3: %v_20->protected_branches def_%v_21 %v_20[6.2,] 	 SYMBOL:	 ARGS:
+		 4: GETFIELD %self->project def_%v_22 %self[2.0,] 
+		 5: %v_22->default_branch def_%v_23 %v_22[6.4,] 	 SYMBOL:	 ARGS:
+		 6: HASH-name-developers_can_push- def_%v_24 %v_23[6.5,] developers_can_push[6.0,] 
+		 7: %v_21->create def_%v_25 %v_21[6.3,] %v_24[6.6,] 	 SYMBOL:	 ARGS:%v_24,
+		 8: RETURN %v_25[6.7,] %self[2.0,2.11,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,2.11,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = process_commit_messages instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->is_default_branch? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_PASS def_is_default_branch %v_3[2.6,] 
+		 8: 
+		 9: (Hash) def_%v_4 
+		 10: %v_4->new def_%v_5 %v_4[2.9,] %self[2.0,2.6,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: commit[] hash[] email[] %self[2.0,2.6,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_hash 
+		 3: RECEIVEARG def_commit 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: commit->author_email def_%cl_1_3 commit[2.3,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_email %cl_1_3[3.1,] 
+		 3: 
+		 4: hash->has_key? def_%cl_1_4 hash[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:email,
+		 5: BRANCH %cl_1_4[3.4,] 
+BB 4
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: hash->[] def_%cl_1_5 hash[2.2,] email[3.2,] 	 SYMBOL:	 ARGS:email,
+		 1: 
+		 2: RETURN %cl_1_5[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_6 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->commit_user def_%cl_1_7 %self[2.0,] commit[2.3,] 	 SYMBOL:	 ARGS:commit,
+		 2: ATTRASSIGN hash->[] email[3.2,] %cl_1_7[6.1,] 
+		 3: RETURN %cl_1_7[6.1,] %self[6.1,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[7.0,] 
+		 2: RETURN %cl_1_9[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: commit[2.3,] email[3.2,] 
+		 11: COPY TYPE_PASS def_authors %v_5[2.10,] 
+		 12: 
+		 13: GETFIELD %self->push_commits def_%v_6 %self[2.0,2.6,] 
+		 14: %v_6->each def_%v_7 %v_6[2.13,] %self[2.0,2.6,] 	 SYMBOL:	 ARGS:%v_6,
+CLOSURE BEGIN: is_default_branch[2.7,] %self[2.0,2.6,] commit[2.10,] issue[] authors[2.11,] closed_issues[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_commit 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+		 5: 
+		 6: COPY TYPE_Array def_%cl_2_3 
+		 7: COPY TYPE_PASS def_closed_issues %cl_2_3[2.6,] 
+		 8: 
+		 9: BRANCH is_default_branch[] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->current_user def_%cl_2_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: commit->closes_issues def_%cl_2_5 commit[2.2,] %cl_2_4[4.1,] 	 SYMBOL:	 ARGS:%cl_2_4,
+		 3: COPY TYPE_PASS def_closed_issues %cl_2_5[4.2,] 
+		 4: 
+		 5: %cl_2_5->each def_%cl_2_6 %cl_2_5[4.2,] %self[4.1,2.0,] 	 SYMBOL:	 ARGS:%cl_2_5,
+CLOSURE BEGIN: %self[4.1,2.0,] issue[] authors[] commit[4.2,2.2,] 
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_issue 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->current_user def_%cl_3_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->can? def_%cl_3_4 %self[3.1,2.0,] %cl_3_3[3.1,] issue[2.2,] 	 SYMBOL:update_issue,	 ARGS:%cl_3_3,Symbol,issue,
+		 3: BRANCH %cl_3_4[3.2,] 
+BB 4
+	outgoing: 5 6 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Issues) def_%cl_3_5 
+		 2: (inherit CloseService) def_%cl_3_6 %cl_3_5[4.1,] 
+		 3: %cl_3_6[4.2,] 
+BB 5
+	outgoing: 6 9 
+	datadep: 
+	instructions:
+		 0: %cl_3_5->const_missing def_%cl_3_6 %cl_3_5[4.1,] 	 SYMBOL:CloseService,	 ARGS:Symbol,
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: %self->project def_%cl_3_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: authors->[] def_%cl_3_8 authors[] commit[] 	 SYMBOL:	 ARGS:commit,
+		 2: HASH- def_%cl_3_9 
+		 3: %cl_3_6->new def_%cl_3_10 %cl_3_6[5.0,4.2,] %cl_3_7[6.0,] %cl_3_8[6.1,] %cl_3_9[6.2,] 	 SYMBOL:	 ARGS:%cl_3_7,%cl_3_8,%cl_3_9,
+		 4: HASH-commit- def_%cl_3_11 commit[] 
+		 5: %cl_3_10->execute def_%cl_3_12 %cl_3_10[6.3,] issue[2.2,] %cl_3_11[6.4,] 	 SYMBOL:	 ARGS:issue,%cl_3_11,
+		 6: 
+BB 7
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_3_12[6.5,] %self[2.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_13 
+		 1: def_%cl_3_14 %cl_3_13[9.0,] 
+		 2: RETURN %cl_3_14[9.1,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 6: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_2_6 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: authors->[] def_%cl_2_7 authors[] commit[2.2,] 	 SYMBOL:	 ARGS:commit,
+		 2: commit->create_cross_references! def_%cl_2_8 commit[2.2,] %cl_2_7[6.1,] closed_issues[4.3,2.7,] 	 SYMBOL:	 ARGS:%cl_2_7,closed_issues,
+		 3: RETURN %cl_2_8[6.2,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_9 
+		 1: def_%cl_2_10 %cl_2_9[7.0,] 
+		 2: RETURN %cl_2_10[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: closed_issues[4.3,2.7,] 
+		 15: RETURN %v_7[2.14,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_push_data instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->push_data def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (Gitlab) def_%v_6 
+		 1: (inherit PushDataBuilder) def_%v_7 %v_6[5.0,] 
+		 2: %v_7[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[5.0,] 	 SYMBOL:PushDataBuilder,	 ARGS:Symbol,
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->project def_%v_8 %self[2.0,] 
+		 1: %self->current_user def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->params def_%v_10 %self[7.1,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_10->[] def_%v_11 %v_10[7.2,] 	 SYMBOL:oldrev,	 ARGS:Symbol,
+		 4: %self->params def_%v_12 %self[7.1,7.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_12->[] def_%v_13 %v_12[7.4,] 	 SYMBOL:newrev,	 ARGS:Symbol,
+		 6: %self->params def_%v_14 %self[7.1,7.2,7.4,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_14->[] def_%v_15 %v_14[7.6,] 	 SYMBOL:ref,	 ARGS:Symbol,
+		 8: %self->push_commits def_%v_16 %self[7.1,7.2,7.4,7.6,2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_7->build def_%v_17 %v_7[6.0,5.1,] %v_8[7.0,] %v_9[7.1,] %v_11[7.3,] %v_13[7.5,] %v_15[7.7,] %v_16[7.8,] 	 SYMBOL:	 ARGS:%v_8,%v_9,%v_11,%v_13,%v_15,%v_16,
+		 10: ATTRASSIGN %self->push_data %v_17[7.9,] 
+		 11: RETURN %v_17[7.9,] %self[7.1,7.2,7.4,7.6,7.8,7.10,2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_push_data_system_hook instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->push_data_system def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (Gitlab) def_%v_6 
+		 1: (inherit PushDataBuilder) def_%v_7 %v_6[5.0,] 
+		 2: %v_7[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[5.0,] 	 SYMBOL:PushDataBuilder,	 ARGS:Symbol,
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->project def_%v_8 %self[2.0,] 
+		 1: %self->current_user def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->params def_%v_10 %self[7.1,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_10->[] def_%v_11 %v_10[7.2,] 	 SYMBOL:oldrev,	 ARGS:Symbol,
+		 4: %self->params def_%v_12 %self[7.1,7.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_12->[] def_%v_13 %v_12[7.4,] 	 SYMBOL:newrev,	 ARGS:Symbol,
+		 6: %self->params def_%v_14 %self[7.1,7.2,7.4,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_14->[] def_%v_15 %v_14[7.6,] 	 SYMBOL:ref,	 ARGS:Symbol,
+		 8: COPY TYPE_Array def_%v_16 
+		 9: %v_7->build def_%v_17 %v_7[6.0,5.1,] %v_8[7.0,] %v_9[7.1,] %v_11[7.3,] %v_13[7.5,] %v_15[7.7,] %v_16[7.8,] 	 SYMBOL:	 ARGS:%v_8,%v_9,%v_11,%v_13,%v_15,%v_16,
+		 10: ATTRASSIGN %self->push_data_system %v_17[7.9,] 
+		 11: RETURN %v_17[7.9,] %self[7.1,7.2,7.4,7.6,7.10,2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = push_to_existing_branch? instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Gitlab) def_%v_3 
+		 7: (inherit Git) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Git,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->[] def_%v_6 %v_5[4.0,] 	 SYMBOL:ref,	 ARGS:Symbol,
+		 2: %v_4->branch_ref? def_%v_7 %v_4[3.0,2.7,] %v_6[4.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: BRANCH %v_7[4.2,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (Gitlab) def_%v_8 
+		 1: (inherit Git) def_%v_9 %v_8[5.0,] 
+		 2: %v_9[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_8->const_missing def_%v_9 %v_8[5.0,] 	 SYMBOL:Git,	 ARGS:Symbol,
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_10->[] def_%v_11 %v_10[7.0,] 	 SYMBOL:oldrev,	 ARGS:Symbol,
+		 2: %v_9->blank_ref? def_%v_12 %v_9[6.0,5.1,] %v_11[7.1,] 	 SYMBOL:	 ARGS:%v_11,
+		 3: %v_12->! def_%v_13 %v_12[7.2,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %v_13[7.3,] %self[7.0,2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_7[4.2,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = push_to_new_branch? instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Gitlab) def_%v_3 
+		 7: (inherit Git) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Git,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->[] def_%v_6 %v_5[4.0,] 	 SYMBOL:ref,	 ARGS:Symbol,
+		 2: %v_4->branch_ref? def_%v_7 %v_4[3.0,2.7,] %v_6[4.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: BRANCH %v_7[4.2,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (Gitlab) def_%v_8 
+		 1: (inherit Git) def_%v_9 %v_8[5.0,] 
+		 2: %v_9[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_8->const_missing def_%v_9 %v_8[5.0,] 	 SYMBOL:Git,	 ARGS:Symbol,
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_10->[] def_%v_11 %v_10[7.0,] 	 SYMBOL:oldrev,	 ARGS:Symbol,
+		 2: %v_9->blank_ref? def_%v_12 %v_9[6.0,5.1,] %v_11[7.1,] 	 SYMBOL:	 ARGS:%v_11,
+		 3: RETURN %v_12[7.2,] %self[7.0,2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_7[4.2,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = push_remove_branch? instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Gitlab) def_%v_3 
+		 7: (inherit Git) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Git,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->[] def_%v_6 %v_5[4.0,] 	 SYMBOL:ref,	 ARGS:Symbol,
+		 2: %v_4->branch_ref? def_%v_7 %v_4[3.0,2.7,] %v_6[4.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: BRANCH %v_7[4.2,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (Gitlab) def_%v_8 
+		 1: (inherit Git) def_%v_9 %v_8[5.0,] 
+		 2: %v_9[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_8->const_missing def_%v_9 %v_8[5.0,] 	 SYMBOL:Git,	 ARGS:Symbol,
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_10->[] def_%v_11 %v_10[7.0,] 	 SYMBOL:newrev,	 ARGS:Symbol,
+		 2: %v_9->blank_ref? def_%v_12 %v_9[6.0,5.1,] %v_11[7.1,] 	 SYMBOL:	 ARGS:%v_11,
+		 3: RETURN %v_12[7.2,] %self[7.0,2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_7[4.2,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = push_to_branch? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Gitlab) def_%v_3 
+		 7: (inherit Git) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Git,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->[] def_%v_6 %v_5[4.0,] 	 SYMBOL:ref,	 ARGS:Symbol,
+		 2: %v_4->branch_ref? def_%v_7 %v_4[3.0,2.7,] %v_6[4.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: RETURN %v_7[4.2,] %self[4.0,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = is_default_branch? instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Gitlab) def_%v_3 
+		 7: (inherit Git) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Git,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 10 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->[] def_%v_6 %v_5[4.0,] 	 SYMBOL:ref,	 ARGS:Symbol,
+		 2: %v_4->branch_ref? def_%v_7 %v_4[3.0,2.7,] %v_6[4.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: BRANCH %v_7[4.2,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Gitlab) def_%v_8 
+		 2: (inherit Git) def_%v_9 %v_8[5.1,] 
+		 3: %v_9[5.2,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_8->const_missing def_%v_9 %v_8[5.1,] 	 SYMBOL:Git,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_10->[] def_%v_11 %v_10[7.0,] 	 SYMBOL:ref,	 ARGS:Symbol,
+		 2: %v_9->ref_name def_%v_12 %v_9[6.0,5.2,] %v_11[7.1,] 	 SYMBOL:	 ARGS:%v_11,
+		 3: %self->project def_%v_13 %self[7.0,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_13->default_branch def_%v_14 %v_13[7.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_12->== def_%v_15 %v_12[7.2,] %v_14[7.4,] 	 SYMBOL:	 ARGS:%v_14,
+		 6: BRANCH %v_15[7.5,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %self->project def_%v_16 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_16->default_branch def_%v_17 %v_16[8.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_17->nil? def_%v_18 %v_17[8.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_15 %v_18[8.2,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %v_15[8.3,7.5,] %self[2.0,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %v_7[4.2,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = commit_user instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_commit 
+		 6: 
+		 7: commit->author def_%v_3 commit[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->current_user def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_4[3.0,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.7,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = branch_name instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->branch_name def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (Gitlab) def_%v_6 
+		 1: (inherit Git) def_%v_7 %v_6[5.0,] 
+		 2: %v_7[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[5.0,] 	 SYMBOL:Git,	 ARGS:Symbol,
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_8->[] def_%v_9 %v_8[7.0,] 	 SYMBOL:ref,	 ARGS:Symbol,
+		 2: %v_7->ref_name def_%v_10 %v_7[6.0,5.1,] %v_9[7.1,] 	 SYMBOL:	 ARGS:%v_9,
+		 3: ATTRASSIGN %self->branch_name %v_10[7.2,] 
+		 4: RETURN %v_10[7.2,] %self[7.0,7.3,2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+

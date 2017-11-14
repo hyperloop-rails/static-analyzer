@@ -1,0 +1,69 @@
+SET IRMethod, name = execute instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_merge_request 
+		 6: RECEIVECONSTARG def_commit 
+		 7: commit[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_commit 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN merge_request->allow_broken 
+		 2: 
+		 3: merge_request->close def_%v_3 merge_request[4.1,2.5,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_3[4.3,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->event_service def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->current_user def_%v_5 %self[5.1,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_4->close_mr def_%v_6 %v_4[5.1,] merge_request[4.1,2.5,] %v_5[5.2,] 	 SYMBOL:	 ARGS:merge_request,%v_5,
+		 4: 
+		 5: %self->create_note def_%v_7 %self[5.1,5.2,2.0,] merge_request[4.1,2.5,] 	 SYMBOL:	 ARGS:merge_request,
+		 6: 
+		 7: %self->notification_service def_%v_8 %self[5.1,5.2,5.5,2.0,] 	 SYMBOL:	 ARGS:
+		 8: %self->current_user def_%v_9 %self[5.1,5.2,5.5,5.7,2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_8->close_mr def_%v_10 %v_8[5.7,] merge_request[4.1,2.5,] %v_9[5.8,] 	 SYMBOL:	 ARGS:merge_request,%v_9,
+		 10: 
+		 11: %self->todo_service def_%v_11 %self[5.1,5.2,5.5,5.7,5.8,2.0,] 	 SYMBOL:	 ARGS:
+		 12: %self->current_user def_%v_12 %self[5.1,5.2,5.5,5.7,5.8,5.11,2.0,] 	 SYMBOL:	 ARGS:
+		 13: %v_11->close_merge_request def_%v_13 %v_11[5.11,] merge_request[4.1,2.5,] %v_12[5.12,] 	 SYMBOL:	 ARGS:merge_request,%v_12,
+		 14: 
+		 15: COPY TYPE_StringLiteral "close" def_%v_14 
+		 16: %self->execute_hooks def_%v_15 %self[5.1,5.2,5.5,5.7,5.8,5.11,5.12,2.0,] merge_request[4.1,2.5,] %v_14[5.15,] 	 SYMBOL:	 ARGS:merge_request,%v_14,
+		 17: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN merge_request[4.1,2.5,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+

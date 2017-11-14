@@ -1,0 +1,544 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_guardian 
+		 6: guardian[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_guardian 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_user 
+		 1: user[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_user 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->guardian guardian[3.0,2.5,] 
+		 2: 
+		 3: ATTRASSIGN %self->user user[5.0,4.0,] 
+		 4: RETURN user[5.0,4.0,] %self[6.1,6.3,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = human_attribute_name instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_name 
+		 6: RECEIVECONSTARG def_options 
+		 7: options[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%v_4 
+		 2: %v_4->human_attribute_name def_%v_5 %v_4[4.1,] name[2.5,] options[3.1,2.6,] 	 SYMBOL:	 ARGS:name,options,
+		 3: RETURN %v_5[4.2,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = authorize_both? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->user def_%v_3 %self[2.0,] 
+		 7: %v_3->staff? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = change_to instanceMethod = true
+BB 1
+	outgoing: 18 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_email_input 
+		 6: 
+		 7: GETFIELD %self->guardian def_%v_3 %self[2.0,] 
+		 8: GETFIELD %self->user def_%v_4 %self[2.0,] 
+		 9: %v_3->ensure_can_edit_email! def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: 
+		 11: (Email) def_%v_6 
+		 12: email_input->strip def_%v_7 email_input[2.5,] 	 SYMBOL:	 ARGS:
+		 13: %v_6->downcase def_%v_8 %v_6[2.11,] %v_7[2.12,] 	 SYMBOL:	 ARGS:%v_7,
+		 14: COPY TYPE_PASS def_email %v_8[2.13,] 
+		 15: 
+		 16: (EmailValidator) def_%v_9 
+		 17: HASH-attributes- def_%v_10 
+		 18: %v_9->new def_%v_11 %v_9[2.16,] %v_10[2.17,] 	 SYMBOL:	 ARGS:%v_10,
+		 19: %v_11->validate_each def_%v_12 %v_11[2.18,] %self[2.0,] email[2.14,] 	 SYMBOL:email,	 ARGS:%self,Symbol,email,
+		 20: 
+		 21: (User) def_%v_13 
+		 22: %v_13->find_by_email def_%v_14 %v_13[2.21,] email[2.14,] 	 SYMBOL:	 ARGS:email,
+		 23: BRANCH %v_14[2.22,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->errors def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: (I18n) def_%v_16 
+		 2: COPY TYPE_StringLiteral "change_email.error" def_%v_17 
+		 3: %v_16->t def_%v_18 %v_16[3.1,] %v_17[3.2,] 	 SYMBOL:	 ARGS:%v_17,
+		 4: %v_15->add def_%v_19 %v_15[3.0,] %v_18[3.3,] 	 SYMBOL:base,	 ARGS:Symbol,%v_18,
+		 5: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_19 
+BB 5
+	outgoing: 6 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->errors def_%v_20 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_20->blank? def_%v_21 %v_20[5.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_21[5.2,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%v_22 %self[2.0,] 
+		 2: %v_22->email def_%v_23 %v_22[6.1,] 	 SYMBOL:	 ARGS:
+		 3: HASH-old_email-new_email- def_%v_24 %v_23[6.2,] email[2.14,] 
+		 4: COPY TYPE_PASS def_args %v_24[6.3,] 
+		 5: 
+		 6: %self->authorize_both? def_%v_25 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_25[6.6,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (EmailChangeRequest) def_%v_26 
+		 2: %v_26->states def_%v_27 %v_26[7.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_27->[] def_%v_28 %v_27[7.2,] 	 SYMBOL:authorizing_old,	 ARGS:Symbol,
+		 4: ATTRASSIGN args->[] %v_28[7.3,] 
+		 5: 
+		 6: GETFIELD %self->user def_%v_29 %self[2.0,] 
+		 7: %v_29->email_tokens def_%v_30 %v_29[7.6,] 	 SYMBOL:	 ARGS:
+		 8: args->[] def_%v_31 args[7.4,6.4,] 	 SYMBOL:old_email,	 ARGS:Symbol,
+		 9: HASH-email- def_%v_32 %v_31[7.8,] 
+		 10: %v_30->create def_%v_33 %v_30[7.7,] %v_32[7.9,] 	 SYMBOL:	 ARGS:%v_32,
+		 11: COPY TYPE_PASS def_email_token %v_33[7.10,] 
+		 12: 
+		 13: ATTRASSIGN args->[] %v_33[7.10,] 
+		 14: COPY TYPE_PASS def_%v_34 email_token[7.11,] 
+		 15: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (EmailChangeRequest) def_%v_35 
+		 2: %v_35->states def_%v_36 %v_35[8.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_36->[] def_%v_37 %v_36[8.2,] 	 SYMBOL:authorizing_new,	 ARGS:Symbol,
+		 4: ATTRASSIGN args->[] %v_37[8.3,] 
+		 5: 
+		 6: GETFIELD %self->user def_%v_38 %self[2.0,] 
+		 7: %v_38->email_tokens def_%v_39 %v_38[8.6,] 	 SYMBOL:	 ARGS:
+		 8: args->[] def_%v_40 args[8.4,6.4,] 	 SYMBOL:new_email,	 ARGS:Symbol,
+		 9: HASH-email- def_%v_41 %v_40[8.8,] 
+		 10: %v_39->create def_%v_42 %v_39[8.7,] %v_41[8.9,] 	 SYMBOL:	 ARGS:%v_41,
+		 11: COPY TYPE_PASS def_email_token %v_42[8.10,] 
+		 12: 
+		 13: ATTRASSIGN args->[] %v_42[8.10,] 
+		 14: COPY TYPE_PASS def_%v_34 email_token[8.11,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%v_43 %self[2.0,] 
+		 2: %v_43->email_change_requests def_%v_44 %v_43[9.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_44->create def_%v_45 %v_44[9.2,] args[8.4,8.13,7.4,7.13,6.4,] 	 SYMBOL:	 ARGS:args,
+		 4: 
+		 5: args->[] def_%v_46 args[8.4,8.13,7.4,7.13,6.4,] 	 SYMBOL:change_state,	 ARGS:Symbol,
+		 6: (EmailChangeRequest) def_%v_47 
+		 7: %v_47->states def_%v_48 %v_47[9.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_48->[] def_%v_49 %v_48[9.7,] 	 SYMBOL:authorizing_new,	 ARGS:Symbol,
+		 9: %v_46->== def_%v_50 %v_46[9.5,] %v_49[9.8,] 	 SYMBOL:	 ARGS:%v_49,
+		 10: BRANCH %v_50[9.9,] 
+BB 10
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->send_email def_%v_51 %self[2.0,] email_token[8.11,7.11,] 	 SYMBOL:confirm_new_email,	 ARGS:Symbol,email_token,
+		 2: 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: args->[] def_%v_52 args[8.4,8.13,7.4,7.13,6.4,] 	 SYMBOL:change_state,	 ARGS:Symbol,
+		 2: (EmailChangeRequest) def_%v_53 
+		 3: %v_53->states def_%v_54 %v_53[11.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_54->[] def_%v_55 %v_54[11.3,] 	 SYMBOL:authorizing_old,	 ARGS:Symbol,
+		 5: %v_52->== def_%v_56 %v_52[11.1,] %v_55[11.4,] 	 SYMBOL:	 ARGS:%v_55,
+		 6: BRANCH %v_56[11.5,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->send_email def_%v_57 %self[2.0,] email_token[8.11,7.11,] 	 SYMBOL:confirm_old_email,	 ARGS:Symbol,email_token,
+		 2: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_57 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_51 %v_57[13.0,12.1,] 
+BB 15
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: RETURN %v_51[14.0,10.1,] %self[2.0,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 18
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = confirm instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_token 
+		 6: 
+		 7: COPY TYPE_Nil def_confirm_result 
+		 8: 
+		 9: COPY TYPE_Nil def_change_req 
+		 10: 
+		 11: (User) def_%v_3 
+		 12: %v_3->transaction def_%v_4 %v_3[2.11,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: token[2.5,] result[] %self[2.0,] change_req[2.9,] new_token[] 
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 11 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (EmailToken) def_%cl_1_3 
+		 2: %cl_1_3->atomic_confirm def_%cl_1_4 %cl_1_3[3.1,] token[] 	 SYMBOL:	 ARGS:token,
+		 3: COPY TYPE_PASS def_result %cl_1_4[3.2,] 
+		 4: 
+		 5: %cl_1_4->[] def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:success,	 ARGS:Symbol,
+		 6: BRANCH %cl_1_5[3.5,] 
+BB 4
+	outgoing: 5 7 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: result->[] def_%cl_1_6 result[3.3,] 	 SYMBOL:email_token,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_token %cl_1_6[4.1,] 
+		 3: 
+		 4: %cl_1_6->user def_%cl_1_7 %cl_1_6[4.1,] 	 SYMBOL:	 ARGS:
+		 5: ATTRASSIGN %self->user %cl_1_7[4.4,] 
+		 6: 
+		 7: %self->user def_%cl_1_8 %self[4.5,2.0,] 	 SYMBOL:	 ARGS:
+		 8: %cl_1_8->email_change_requests def_%cl_1_9 %cl_1_8[4.7,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_StringLiteral "old_email_token_id = :token_id OR new_email_token_id = :token_id" def_%cl_1_10 
+		 10: token->id def_%cl_1_11 token[4.2,] 	 SYMBOL:	 ARGS:
+		 11: HASH-token_id- def_%cl_1_12 %cl_1_11[4.10,] 
+		 12: %cl_1_9->where def_%cl_1_13 %cl_1_9[4.8,] %cl_1_10[4.9,] %cl_1_12[4.11,] 	 SYMBOL:	 ARGS:%cl_1_10,%cl_1_12,
+		 13: %cl_1_13->first def_%cl_1_14 %cl_1_13[4.12,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_PASS def_change_req %cl_1_14[4.13,] 
+		 15: 
+		 16: %cl_1_14->try def_%cl_1_15 %cl_1_14[4.13,] 	 SYMBOL:change_state,	 ARGS:Symbol,
+		 17: (EmailChangeRequest) def_%cl_1_18 
+		 18: %cl_1_18->states def_%cl_1_19 %cl_1_18[4.17,] 	 SYMBOL:	 ARGS:
+		 19: %cl_1_19->[] def_%cl_1_20 %cl_1_19[4.18,] 	 SYMBOL:authorizing_old,	 ARGS:Symbol,
+		 20: def_%cl_1_17 %cl_1_20[4.19,] %cl_1_15[4.16,] 
+		 21: BRANCH %cl_1_17[4.20,] 
+BB 5
+	outgoing: 6 8 13 
+	datadep: 
+	instructions:
+		 0: (EmailChangeRequest) def_%cl_1_22 
+		 1: %cl_1_22->states def_%cl_1_23 %cl_1_22[5.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_23->[] def_%cl_1_24 %cl_1_23[5.1,] 	 SYMBOL:authorizing_new,	 ARGS:Symbol,
+		 3: def_%cl_1_21 %cl_1_24[5.2,] %cl_1_15[4.16,] 
+		 4: BRANCH %cl_1_21[5.3,] 
+BB 6
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_16 
+		 1: 
+BB 7
+	outgoing: 10 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->user def_%cl_1_25 %self[4.5,2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_25->email_tokens def_%cl_1_26 %cl_1_25[7.1,] 	 SYMBOL:	 ARGS:
+		 3: change_req->new_email def_%cl_1_27 change_req[4.14,] 	 SYMBOL:	 ARGS:
+		 4: HASH-email- def_%cl_1_28 %cl_1_27[7.3,] 
+		 5: %cl_1_26->create def_%cl_1_29 %cl_1_26[7.2,] %cl_1_28[7.4,] 	 SYMBOL:	 ARGS:%cl_1_28,
+		 6: COPY TYPE_PASS def_new_token %cl_1_29[7.5,] 
+		 7: 
+		 8: (EmailChangeRequest) def_%cl_1_30 
+		 9: %cl_1_30->states def_%cl_1_31 %cl_1_30[7.8,] 	 SYMBOL:	 ARGS:
+		 10: %cl_1_31->[] def_%cl_1_32 %cl_1_31[7.9,] 	 SYMBOL:authorizing_new,	 ARGS:Symbol,
+		 11: new_token->id def_%cl_1_33 new_token[7.6,] 	 SYMBOL:	 ARGS:
+		 12: HASH-change_state-new_email_token_id- def_%cl_1_34 %cl_1_32[7.10,] %cl_1_33[7.11,] 
+		 13: change_req->update_columns def_%cl_1_35 change_req[7.3,4.14,] %cl_1_34[7.12,] 	 SYMBOL:	 ARGS:%cl_1_34,
+		 14: 
+		 15: %self->send_email def_%cl_1_36 %self[7.1,4.5,2.0,] new_token[7.6,7.11,] 	 SYMBOL:confirm_new_email,	 ARGS:Symbol,new_token,
+		 16: 
+		 17: COPY TYPE_Symbol def_confirm_result 
+		 18: COPY TYPE_Symbol def_%cl_1_16 
+		 19: 
+BB 8
+	outgoing: 10 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (EmailChangeRequest) def_%cl_1_37 
+		 2: %cl_1_37->states def_%cl_1_38 %cl_1_37[8.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_38->[] def_%cl_1_39 %cl_1_38[8.2,] 	 SYMBOL:complete,	 ARGS:Symbol,
+		 4: change_req->update_column def_%cl_1_40 change_req[4.14,] %cl_1_39[8.3,] 	 SYMBOL:change_state,	 ARGS:Symbol,%cl_1_39,
+		 5: 
+		 6: %self->user def_%cl_1_41 %self[4.5,2.0,] 	 SYMBOL:	 ARGS:
+		 7: token->email def_%cl_1_42 token[4.2,] 	 SYMBOL:	 ARGS:
+		 8: %cl_1_41->update_column def_%cl_1_43 %cl_1_41[8.6,] %cl_1_42[8.7,] 	 SYMBOL:email,	 ARGS:Symbol,%cl_1_42,
+		 9: 
+		 10: COPY TYPE_Symbol def_confirm_result 
+		 11: COPY TYPE_Symbol def_%cl_1_16 
+		 12: 
+BB 10
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_16[7.18,8.11,6.0,] %self[4.5,2.0,] 
+BB 11
+	outgoing: 13 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->errors def_%cl_1_44 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: (I18n) def_%cl_1_45 
+		 3: COPY TYPE_StringLiteral "change_email.already_done" def_%cl_1_46 
+		 4: %cl_1_45->t def_%cl_1_47 %cl_1_45[11.2,] %cl_1_46[11.3,] 	 SYMBOL:	 ARGS:%cl_1_46,
+		 5: %cl_1_44->add def_%cl_1_48 %cl_1_44[11.1,] %cl_1_47[11.4,] 	 SYMBOL:base,	 ARGS:Symbol,%cl_1_47,
+		 6: 
+		 7: COPY TYPE_Symbol def_confirm_result 
+		 8: RETURN %self[11.1,2.0,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_49 
+		 1: def_%cl_1_50 %cl_1_49[13.0,] 
+		 2: RETURN %cl_1_50[13.1,] %self[4.5,2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: confirm_result[11.7,7.17,8.10,] change_req[4.14,] new_token[7.6,] token[4.2,] 
+		 13: 
+		 14: confirm_result->== def_%v_5 confirm_result[2.7,2.12,] 	 SYMBOL:complete,	 ARGS:Symbol,
+		 15: BRANCH %v_5[2.14,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: change_req->old_email_token_id def_%v_6 change_req[2.9,2.12,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->blank? def_%v_7 %v_6[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_5 %v_7[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[3.2,2.14,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: change_req->old_email def_%v_8 change_req[2.9,2.12,] 	 SYMBOL:	 ARGS:
+		 2: token->email def_%v_9 token[2.5,2.12,] 	 SYMBOL:	 ARGS:
+		 3: %self->notify_old def_%v_10 %self[2.0,] %v_8[5.1,] %v_9[5.2,] 	 SYMBOL:	 ARGS:%v_8,%v_9,
+		 4: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_11 confirm_result[2.7,2.12,] 
+		 2: BRANCH confirm_result[2.7,2.12,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: RETURN %v_11[7.1,] %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = notify_old instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_old_email 
+		 6: RECEIVEARG def_new_email 
+		 7: 
+		 8: (Jobs) def_%v_3 
+		 9: GETFIELD %self->user def_%v_4 %self[2.0,] 
+		 10: %v_4->id def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 11: HASH-to_address-type-user_id- def_%v_6 old_email[2.5,] %v_5[2.10,] 
+		 12: %v_3->enqueue def_%v_7 %v_3[2.8,] %v_6[2.11,] 	 SYMBOL:user_email,	 ARGS:Symbol,%v_6,
+		 13: RETURN %v_7[2.12,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = send_email instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_type 
+		 6: RECEIVEARG def_email_token 
+		 7: 
+		 8: (Jobs) def_%v_3 
+		 9: email_token->email def_%v_4 email_token[2.6,] 	 SYMBOL:	 ARGS:
+		 10: GETFIELD %self->user def_%v_5 %self[2.0,] 
+		 11: %v_5->id def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: email_token->token def_%v_7 email_token[2.6,2.9,] 	 SYMBOL:	 ARGS:
+		 13: HASH-to_address-type-user_id-email_token- def_%v_8 %v_4[2.9,] type[2.5,] %v_6[2.11,] %v_7[2.12,] 
+		 14: %v_3->enqueue def_%v_9 %v_3[2.8,] %v_8[2.13,] 	 SYMBOL:user_email,	 ARGS:Symbol,%v_8,
+		 15: RETURN %v_9[2.14,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

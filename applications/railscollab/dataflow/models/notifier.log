@@ -1,0 +1,390 @@
+SET IRMethod, name = message instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_msg 
+		 7: RECEIVECONSTARG def_sent_at 
+		 8: sent_at[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (Time) def_%v_3 
+		 1: %v_3->now def_%v_4 %v_3[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_sent_at %v_4[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Rails) def_%v_5 
+		 2: %v_5->configuration def_%v_6 %v_5[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_6->site_name def_%v_7 %v_6[4.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral " - " def_%v_8 
+		 5: (I18n) def_%v_9 
+		 6: COPY TYPE_StringLiteral "notifier_subject_new_message" def_%v_10 
+		 7: msg->title def_%v_11 msg[2.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-title- def_%v_12 %v_11[4.7,] 
+		 9: %v_9->t def_%v_13 %v_9[4.5,] %v_10[4.6,] %v_12[4.8,] 	 SYMBOL:	 ARGS:%v_10,%v_12,
+		 10: BUILDSTRING def_%v_14 %v_7[4.3,] %v_8[4.4,] %v_13[4.9,] 
+		 11: ATTRASSIGN %self->subject %v_14[4.10,] 
+		 12: 
+		 13: user->email def_%v_15 user[2.5,] 	 SYMBOL:	 ARGS:
+		 14: ATTRASSIGN %self->recipients %v_15[4.13,] 
+		 15: 
+		 16: (Rails) def_%v_16 
+		 17: %v_16->configuration def_%v_17 %v_16[4.16,] 	 SYMBOL:	 ARGS:
+		 18: %v_17->notification_email_address def_%v_18 %v_17[4.17,] 	 SYMBOL:	 ARGS:
+		 19: ATTRASSIGN %self->from %v_18[4.18,] 
+		 20: 
+		 21: ATTRASSIGN %self->sent_on sent_at[3.2,2.7,] 
+		 22: 
+		 23: HASH- def_%v_19 
+		 24: ATTRASSIGN %self->headers %v_19[4.23,] 
+		 25: 
+		 26: (Rails) def_%v_20 
+		 27: %v_20->configuration def_%v_21 %v_20[4.26,] 	 SYMBOL:	 ARGS:
+		 28: %v_21->site_name def_%v_22 %v_21[4.27,] 	 SYMBOL:	 ARGS:
+		 29: HASH-site_name-message-user-sent_on- def_%v_23 %v_22[4.28,] msg[4.7,2.6,] user[4.13,2.5,] sent_at[3.2,2.7,] 
+		 30: ATTRASSIGN %self->body %v_23[4.29,] 
+		 31: RETURN %v_23[4.29,] %self[4.11,4.14,4.19,4.21,4.24,4.30,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = task instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_task 
+		 7: RECEIVECONSTARG def_sent_at 
+		 8: sent_at[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (Time) def_%v_3 
+		 1: %v_3->now def_%v_4 %v_3[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_sent_at %v_4[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Rails) def_%v_5 
+		 2: %v_5->configuration def_%v_6 %v_5[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_6->site_name def_%v_7 %v_6[4.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral " - " def_%v_8 
+		 5: (I18n) def_%v_9 
+		 6: COPY TYPE_StringLiteral "notifier_subject_new_task" def_%v_10 
+		 7: %v_9->t def_%v_11 %v_9[4.5,] %v_10[4.6,] 	 SYMBOL:	 ARGS:%v_10,
+		 8: BUILDSTRING def_%v_12 %v_7[4.3,] %v_8[4.4,] %v_11[4.7,] 
+		 9: ATTRASSIGN %self->subject %v_12[4.8,] 
+		 10: 
+		 11: user->email def_%v_13 user[2.5,] 	 SYMBOL:	 ARGS:
+		 12: ATTRASSIGN %self->recipients %v_13[4.11,] 
+		 13: 
+		 14: (Rails) def_%v_14 
+		 15: %v_14->configuration def_%v_15 %v_14[4.14,] 	 SYMBOL:	 ARGS:
+		 16: %v_15->notification_email_address def_%v_16 %v_15[4.15,] 	 SYMBOL:	 ARGS:
+		 17: ATTRASSIGN %self->from %v_16[4.16,] 
+		 18: 
+		 19: ATTRASSIGN %self->sent_on sent_at[3.2,2.7,] 
+		 20: 
+		 21: HASH- def_%v_17 
+		 22: ATTRASSIGN %self->headers %v_17[4.21,] 
+		 23: 
+		 24: (Rails) def_%v_18 
+		 25: %v_18->configuration def_%v_19 %v_18[4.24,] 	 SYMBOL:	 ARGS:
+		 26: %v_19->site_name def_%v_20 %v_19[4.25,] 	 SYMBOL:	 ARGS:
+		 27: HASH-site_name-task-user-sent_on- def_%v_21 %v_20[4.26,] task[2.6,] user[4.11,2.5,] sent_at[3.2,2.7,] 
+		 28: ATTRASSIGN %self->body %v_21[4.27,] 
+		 29: RETURN %v_21[4.27,] %self[4.9,4.12,4.17,4.19,4.22,4.28,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = milestone instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_milestone 
+		 7: RECEIVECONSTARG def_sent_at 
+		 8: sent_at[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (Time) def_%v_3 
+		 1: %v_3->now def_%v_4 %v_3[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_sent_at %v_4[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Rails) def_%v_5 
+		 2: %v_5->configuration def_%v_6 %v_5[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_6->site_name def_%v_7 %v_6[4.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral " - " def_%v_8 
+		 5: (I18n) def_%v_9 
+		 6: COPY TYPE_StringLiteral "notifier_subject_new_milestone" def_%v_10 
+		 7: milestone->name def_%v_11 milestone[2.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-name- def_%v_12 %v_11[4.7,] 
+		 9: %v_9->t def_%v_13 %v_9[4.5,] %v_10[4.6,] %v_12[4.8,] 	 SYMBOL:	 ARGS:%v_10,%v_12,
+		 10: BUILDSTRING def_%v_14 %v_7[4.3,] %v_8[4.4,] %v_13[4.9,] 
+		 11: ATTRASSIGN %self->subject %v_14[4.10,] 
+		 12: 
+		 13: user->email def_%v_15 user[2.5,] 	 SYMBOL:	 ARGS:
+		 14: ATTRASSIGN %self->recipients %v_15[4.13,] 
+		 15: 
+		 16: (Rails) def_%v_16 
+		 17: %v_16->configuration def_%v_17 %v_16[4.16,] 	 SYMBOL:	 ARGS:
+		 18: %v_17->notification_email_address def_%v_18 %v_17[4.17,] 	 SYMBOL:	 ARGS:
+		 19: ATTRASSIGN %self->from %v_18[4.18,] 
+		 20: 
+		 21: ATTRASSIGN %self->sent_on sent_at[3.2,2.7,] 
+		 22: 
+		 23: HASH- def_%v_19 
+		 24: ATTRASSIGN %self->headers %v_19[4.23,] 
+		 25: 
+		 26: (Rails) def_%v_20 
+		 27: %v_20->configuration def_%v_21 %v_20[4.26,] 	 SYMBOL:	 ARGS:
+		 28: %v_21->site_name def_%v_22 %v_21[4.27,] 	 SYMBOL:	 ARGS:
+		 29: HASH-site_name-milestone-user-sent_on- def_%v_23 %v_22[4.28,] milestone[4.7,2.6,] user[4.13,2.5,] sent_at[3.2,2.7,] 
+		 30: ATTRASSIGN %self->body %v_23[4.29,] 
+		 31: RETURN %v_23[4.29,] %self[4.11,4.14,4.19,4.21,4.24,4.30,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = message_comment instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_comment 
+		 7: RECEIVEARG def_msg 
+		 8: RECEIVECONSTARG def_sent_at 
+		 9: sent_at[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (Time) def_%v_3 
+		 1: %v_3->now def_%v_4 %v_3[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_sent_at %v_4[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Rails) def_%v_5 
+		 2: %v_5->configuration def_%v_6 %v_5[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_6->site_name def_%v_7 %v_6[4.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral " - " def_%v_8 
+		 5: (I18n) def_%v_9 
+		 6: COPY TYPE_StringLiteral "notifier_subject_new_comment" def_%v_10 
+		 7: msg->title def_%v_11 msg[2.7,] 	 SYMBOL:	 ARGS:
+		 8: HASH-title- def_%v_12 %v_11[4.7,] 
+		 9: %v_9->t def_%v_13 %v_9[4.5,] %v_10[4.6,] %v_12[4.8,] 	 SYMBOL:	 ARGS:%v_10,%v_12,
+		 10: BUILDSTRING def_%v_14 %v_7[4.3,] %v_8[4.4,] %v_13[4.9,] 
+		 11: ATTRASSIGN %self->subject %v_14[4.10,] 
+		 12: 
+		 13: user->email def_%v_15 user[2.5,] 	 SYMBOL:	 ARGS:
+		 14: ATTRASSIGN %self->recipients %v_15[4.13,] 
+		 15: 
+		 16: (Rails) def_%v_16 
+		 17: %v_16->configuration def_%v_17 %v_16[4.16,] 	 SYMBOL:	 ARGS:
+		 18: %v_17->notification_email_address def_%v_18 %v_17[4.17,] 	 SYMBOL:	 ARGS:
+		 19: ATTRASSIGN %self->from %v_18[4.18,] 
+		 20: 
+		 21: ATTRASSIGN %self->sent_on sent_at[3.2,2.8,] 
+		 22: 
+		 23: HASH- def_%v_19 
+		 24: ATTRASSIGN %self->headers %v_19[4.23,] 
+		 25: 
+		 26: (Rails) def_%v_20 
+		 27: %v_20->configuration def_%v_21 %v_20[4.26,] 	 SYMBOL:	 ARGS:
+		 28: %v_21->site_name def_%v_22 %v_21[4.27,] 	 SYMBOL:	 ARGS:
+		 29: HASH-site_name-message-comment-user-sent_on- def_%v_23 %v_22[4.28,] msg[4.7,2.7,] comment[2.6,] user[4.13,2.5,] sent_at[3.2,2.8,] 
+		 30: ATTRASSIGN %self->body %v_23[4.29,] 
+		 31: RETURN %v_23[4.29,] %self[4.11,4.14,4.19,4.21,4.24,4.30,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = password_reset instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVECONSTARG def_sent_at 
+		 7: sent_at[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (Time) def_%v_3 
+		 1: %v_3->now def_%v_4 %v_3[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_sent_at %v_4[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Rails) def_%v_5 
+		 2: %v_5->configuration def_%v_6 %v_5[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_6->site_name def_%v_7 %v_6[4.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral " - " def_%v_8 
+		 5: (I18n) def_%v_9 
+		 6: COPY TYPE_StringLiteral "notifier_subject_reset_password_request" def_%v_10 
+		 7: %v_9->t def_%v_11 %v_9[4.5,] %v_10[4.6,] 	 SYMBOL:	 ARGS:%v_10,
+		 8: BUILDSTRING def_%v_12 %v_7[4.3,] %v_8[4.4,] %v_11[4.7,] 
+		 9: ATTRASSIGN %self->subject %v_12[4.8,] 
+		 10: 
+		 11: user->email def_%v_13 user[2.5,] 	 SYMBOL:	 ARGS:
+		 12: ATTRASSIGN %self->recipients %v_13[4.11,] 
+		 13: 
+		 14: (Rails) def_%v_14 
+		 15: %v_14->configuration def_%v_15 %v_14[4.14,] 	 SYMBOL:	 ARGS:
+		 16: %v_15->notification_email_address def_%v_16 %v_15[4.15,] 	 SYMBOL:	 ARGS:
+		 17: ATTRASSIGN %self->from %v_16[4.16,] 
+		 18: 
+		 19: ATTRASSIGN %self->sent_on sent_at[3.2,2.6,] 
+		 20: 
+		 21: HASH- def_%v_17 
+		 22: ATTRASSIGN %self->headers %v_17[4.21,] 
+		 23: 
+		 24: (Rails) def_%v_18 
+		 25: %v_18->configuration def_%v_19 %v_18[4.24,] 	 SYMBOL:	 ARGS:
+		 26: %v_19->site_name def_%v_20 %v_19[4.25,] 	 SYMBOL:	 ARGS:
+		 27: HASH-site_name-user-sent_on- def_%v_21 %v_20[4.26,] user[4.11,2.5,] sent_at[3.2,2.6,] 
+		 28: ATTRASSIGN %self->body %v_21[4.27,] 
+		 29: RETURN %v_21[4.27,] %self[4.9,4.12,4.17,4.19,4.22,4.28,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = account_new_info instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_password 
+		 7: RECEIVECONSTARG def_sent_at 
+		 8: sent_at[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (Time) def_%v_3 
+		 1: %v_3->now def_%v_4 %v_3[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_sent_at %v_4[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Rails) def_%v_5 
+		 2: %v_5->configuration def_%v_6 %v_5[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_6->site_name def_%v_7 %v_6[4.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral " - " def_%v_8 
+		 5: (I18n) def_%v_9 
+		 6: COPY TYPE_StringLiteral "notifier_subject_new_account" def_%v_10 
+		 7: %v_9->t def_%v_11 %v_9[4.5,] %v_10[4.6,] 	 SYMBOL:	 ARGS:%v_10,
+		 8: BUILDSTRING def_%v_12 %v_7[4.3,] %v_8[4.4,] %v_11[4.7,] 
+		 9: ATTRASSIGN %self->subject %v_12[4.8,] 
+		 10: 
+		 11: user->email def_%v_13 user[2.5,] 	 SYMBOL:	 ARGS:
+		 12: ATTRASSIGN %self->recipients %v_13[4.11,] 
+		 13: 
+		 14: (Rails) def_%v_14 
+		 15: %v_14->configuration def_%v_15 %v_14[4.14,] 	 SYMBOL:	 ARGS:
+		 16: %v_15->notification_email_address def_%v_16 %v_15[4.15,] 	 SYMBOL:	 ARGS:
+		 17: ATTRASSIGN %self->from %v_16[4.16,] 
+		 18: 
+		 19: ATTRASSIGN %self->sent_on sent_at[3.2,2.7,] 
+		 20: 
+		 21: HASH- def_%v_17 
+		 22: ATTRASSIGN %self->headers %v_17[4.21,] 
+		 23: 
+		 24: (Rails) def_%v_18 
+		 25: %v_18->configuration def_%v_19 %v_18[4.24,] 	 SYMBOL:	 ARGS:
+		 26: %v_19->site_name def_%v_20 %v_19[4.25,] 	 SYMBOL:	 ARGS:
+		 27: HASH-site_name-user-password-sent_on- def_%v_21 %v_20[4.26,] user[4.11,2.5,] password[2.6,] sent_at[3.2,2.7,] 
+		 28: ATTRASSIGN %self->body %v_21[4.27,] 
+		 29: RETURN %v_21[4.27,] %self[4.9,4.12,4.17,4.19,4.22,4.28,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

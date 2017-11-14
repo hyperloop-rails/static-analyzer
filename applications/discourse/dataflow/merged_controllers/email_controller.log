@@ -1,0 +1,1284 @@
+SET IRMethod, name = preferences_redirect instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->current_user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->username_lower def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->email_preferences_path def_%v_5 %self[2.0,2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: %self->redirect_to def_%v_6 %self[2.0,2.6,2.8,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,2.6,2.8,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = unsubscribe instanceMethod = true
+BB 1
+	outgoing: 19 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (DigestUnsubscribeKey) def_%v_3 
+		 7: %self->params def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->[] def_%v_5 %v_4[2.7,] 	 SYMBOL:key,	 ARGS:Symbol,
+		 9: %v_3->user_for_key def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: ATTRASSIGN %self->user %v_6[2.9,] 
+		 11: 
+		 12: GETFIELD %self->user def_%v_7 %self[2.0,2.7,2.10,] 
+		 13: BRANCH %v_7[2.12,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_8 %self[2.0,2.10,] 
+		 1: %v_8->staff? def_%v_9 %v_8[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_7 %v_9[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_7[3.2,2.12,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: (RateLimiter) def_%v_11 
+		 1: GETFIELD %self->user def_%v_12 %self[2.0,2.10,] 
+		 2: COPY TYPE_StringLiteral "unsubscribe_via_email" def_%v_13 
+		 3: CONSTANT def_%v_14 	 SYMBOL:	 ARGS:
+		 4: %v_11->new def_%v_15 %v_11[6.0,] %v_12[6.1,] %v_13[6.2,] %v_14[6.3,] 	 SYMBOL:	 ARGS:%v_12,%v_13,Fixnum,%v_14,
+		 5: %v_15->performed! def_%v_16 %v_15[6.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_PASS def_%v_10 %v_16[6.5,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->current_user def_%v_17 %self[2.0,2.10,] 	 SYMBOL:	 ARGS:
+		 2: %v_17->present? def_%v_18 %v_17[7.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_18[7.2,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_19 %self[2.0,2.10,] 
+		 1: %self->current_user def_%v_20 %self[2.0,2.10,] 	 SYMBOL:	 ARGS:
+		 2: %v_19->!= def_%v_21 %v_19[8.0,] %v_20[8.1,] 	 SYMBOL:	 ARGS:%v_20,
+		 3: COPY TYPE_PASS def_%v_18 %v_21[8.2,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_18[8.3,7.2,] 
+BB 10
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->different_user 
+		 2: 
+		 3: RETURN %self[10.1,2.0,2.10,] 
+BB 11
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+		 1: 
+		 2: GETFIELD %self->user def_%v_23 %self[2.0,2.10,] 
+		 3: %v_23->blank? def_%v_24 %v_23[11.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_24[11.3,] 
+BB 13
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->not_found 
+		 2: 
+		 3: RETURN %self[13.1,2.0,2.10,] 
+BB 14
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_25 
+		 1: 
+		 2: %self->params def_%v_26 %self[2.0,2.10,] 	 SYMBOL:	 ARGS:
+		 3: %v_26->[] def_%v_27 %v_26[14.2,] 	 SYMBOL:from_all,	 ARGS:Symbol,
+		 4: BRANCH %v_27[14.3,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%v_28 %self[2.0,2.10,] 
+		 2: %v_28->user_option def_%v_29 %v_28[16.1,] 	 SYMBOL:	 ARGS:
+		 3: HASH-email_always-email_digests-email_direct-email_private_messages- def_%v_30 
+		 4: %v_29->update_columns def_%v_31 %v_29[16.2,] %v_30[16.3,] 	 SYMBOL:	 ARGS:%v_30,
+		 5: 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%v_32 %self[2.0,2.10,] 
+		 2: %v_32->user_option def_%v_33 %v_32[17.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_33->update_column def_%v_34 %v_33[17.2,] 	 SYMBOL:email_digests,	 ARGS:Symbol,Boolean,
+		 4: COPY TYPE_PASS def_%v_31 %v_34[17.3,] 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->success 
+		 2: 
+		 3: %self->ruby_code_from_view def_%v_35 %self[18.1,2.0,2.10,] 	 SYMBOL:	 ARGS:
+		 4: %v_35->ruby_code_from_view def_%v_36 %v_35[18.3,] %self[18.1,18.3,2.0,2.10,] 	 SYMBOL:	 ARGS:%v_35,
+CLOSURE BEGIN: %self[18.1,18.3,2.0,2.10,] 
+BB 1
+	outgoing: 72 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_rb_from_view 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%cl_1_3 
+		 2: %cl_1_3->default_locale def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: (SiteSetting) def_%cl_1_5 
+		 5: %cl_1_5->title def_%cl_1_6 %cl_1_5[3.4,] 	 SYMBOL:	 ARGS:
+		 6: 
+		 7: (Discourse) def_%cl_1_7 
+		 8: (inherit VERSION) def_%cl_1_8 %cl_1_7[3.7,] 
+		 9: %cl_1_8[3.8,] 
+BB 4
+	outgoing: 5 70 
+	datadep: 
+	instructions:
+		 0: %cl_1_7->const_missing def_%cl_1_8 %cl_1_7[3.7,] 	 SYMBOL:VERSION,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 7 70 
+	datadep: 
+	instructions:
+		 0: (inherit STRING) def_%cl_1_9 %cl_1_8[4.0,3.8,] 
+		 1: %cl_1_9[5.0,] 
+BB 6
+	outgoing: 7 70 
+	datadep: 
+	instructions:
+		 0: %cl_1_8->const_missing def_%cl_1_9 %cl_1_8[4.0,3.8,] 	 SYMBOL:STRING,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 9 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Discourse) def_%cl_1_10 
+		 2: %cl_1_10->git_version def_%cl_1_11 %cl_1_10[7.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: (SiteSetting) def_%cl_1_12 
+		 5: %cl_1_12->favicon_url def_%cl_1_13 %cl_1_12[7.4,] 	 SYMBOL:	 ARGS:
+		 6: %cl_1_13->present? def_%cl_1_14 %cl_1_13[7.5,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %cl_1_14[7.6,] 
+BB 8
+	outgoing: 10 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%cl_1_15 
+		 2: %cl_1_15->favicon_url def_%cl_1_16 %cl_1_15[8.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_16 
+BB 10
+	outgoing: 11 12 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%cl_1_17 
+		 2: %cl_1_17->apple_touch_icon_url def_%cl_1_18 %cl_1_17[10.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_18->present? def_%cl_1_19 %cl_1_18[10.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %cl_1_19[10.3,] 
+BB 11
+	outgoing: 13 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%cl_1_20 
+		 2: %cl_1_20->apple_touch_icon_url def_%cl_1_21 %cl_1_20[11.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_21 
+BB 13
+	outgoing: 14 15 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%cl_1_22 
+		 2: %cl_1_22->apple_touch_icon_url def_%cl_1_23 %cl_1_22[13.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "/images/default-apple-touch-icon.png" def_%cl_1_24 
+		 4: %cl_1_23->!= def_%cl_1_25 %cl_1_23[13.2,] %cl_1_24[13.3,] 	 SYMBOL:	 ARGS:%cl_1_24,
+		 5: BRANCH %cl_1_25[13.4,] 
+BB 14
+	outgoing: 15 70 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%cl_1_26 
+		 1: %cl_1_26->apple_touch_icon_url def_%cl_1_27 %cl_1_26[14.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_27->present? def_%cl_1_28 %cl_1_27[14.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%cl_1_25 %cl_1_28[14.2,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_25[14.3,13.4,] 
+BB 16
+	outgoing: 18 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%cl_1_29 
+		 2: %cl_1_29->apple_touch_icon_url def_%cl_1_30 %cl_1_29[16.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_30 
+BB 18
+	outgoing: 19 23 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ColorScheme) def_%cl_1_31 
+		 2: COPY TYPE_StringLiteral "header_background" def_%cl_1_32 
+		 3: %cl_1_31->hex_for_name def_%cl_1_33 %cl_1_31[18.1,] %cl_1_32[18.2,] 	 SYMBOL:	 ARGS:%cl_1_32,
+		 4: 
+		 5: %self->canonical_link_tag def_%cl_1_34 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 6: 
+		 7: %self->request def_%cl_1_35 %self[18.5,2.0,] 	 SYMBOL:	 ARGS:
+		 8: %cl_1_35->protocol def_%cl_1_36 %cl_1_35[18.7,] 	 SYMBOL:	 ARGS:
+		 9: %self->request def_%cl_1_37 %self[18.5,18.7,2.0,] 	 SYMBOL:	 ARGS:
+		 10: %cl_1_37->host_with_port def_%cl_1_38 %cl_1_37[18.9,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_StringLiteral "&2" def_%cl_1_39 
+		 12: BUILDSTRING def_%cl_1_40 %cl_1_36[18.8,] %cl_1_38[18.10,] %cl_1_39[18.11,] 
+		 13: COPY TYPE_PASS def_font_domain %cl_1_40[18.12,] 
+		 14: 
+		 15: COPY TYPE_StringLiteral "fontawesome-webfont.eot" def_%cl_1_41 
+		 16: %self->asset_path def_%cl_1_42 %self[18.5,18.7,18.9,2.0,] %cl_1_41[18.15,] 	 SYMBOL:	 ARGS:%cl_1_41,
+		 17: 
+		 18: 
+		 19: COPY TYPE_StringLiteral "fontawesome-webfont.eot" def_%cl_1_43 
+		 20: %self->asset_path def_%cl_1_44 %self[18.5,18.7,18.9,18.16,2.0,] %cl_1_43[18.19,] 	 SYMBOL:	 ARGS:%cl_1_43,
+		 21: 
+		 22: 
+		 23: COPY TYPE_StringLiteral "fontawesome-webfont.woff2" def_%cl_1_45 
+		 24: %self->asset_path def_%cl_1_46 %self[18.5,18.7,18.9,18.16,18.20,2.0,] %cl_1_45[18.23,] 	 SYMBOL:	 ARGS:%cl_1_45,
+		 25: 
+		 26: 
+		 27: COPY TYPE_StringLiteral "fontawesome-webfont.woff" def_%cl_1_47 
+		 28: %self->asset_path def_%cl_1_48 %self[18.5,18.7,18.9,18.16,18.20,18.24,2.0,] %cl_1_47[18.27,] 	 SYMBOL:	 ARGS:%cl_1_47,
+		 29: 
+		 30: 
+		 31: COPY TYPE_StringLiteral "fontawesome-webfont.ttf" def_%cl_1_49 
+		 32: %self->asset_path def_%cl_1_50 %self[18.5,18.7,18.9,18.16,18.20,18.24,18.28,2.0,] %cl_1_49[18.31,] 	 SYMBOL:	 ARGS:%cl_1_49,
+		 33: 
+		 34: 
+		 35: %self->rtl? def_%cl_1_51 %self[18.5,18.7,18.9,18.16,18.20,18.24,18.28,18.32,2.0,] 	 SYMBOL:	 ARGS:
+		 36: BRANCH %cl_1_51[18.35,] 
+BB 19
+	outgoing: 20 21 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (DiscourseStylesheets) def_%cl_1_52 
+		 2: %self->mobile_view? def_%cl_1_53 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_1_53[19.2,] 
+BB 20
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%cl_1_54 
+		 1: 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%cl_1_54 
+BB 22
+	outgoing: 27 70 
+	datadep: 
+	instructions:
+		 0: %cl_1_52->stylesheet_link_tag def_%cl_1_55 %cl_1_52[19.1,] %cl_1_54[21.0,20.0,] 	 SYMBOL:	 ARGS:%cl_1_54,
+		 1: 
+BB 23
+	outgoing: 24 25 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (DiscourseStylesheets) def_%cl_1_56 
+		 2: %self->mobile_view? def_%cl_1_57 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_1_57[23.2,] 
+BB 24
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%cl_1_58 
+		 1: 
+BB 25
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%cl_1_58 
+BB 26
+	outgoing: 27 70 
+	datadep: 
+	instructions:
+		 0: %cl_1_56->stylesheet_link_tag def_%cl_1_59 %cl_1_56[23.1,] %cl_1_58[25.0,24.0,] 	 SYMBOL:	 ARGS:%cl_1_58,
+		 1: COPY TYPE_PASS def_%cl_1_55 %cl_1_59[26.0,] 
+BB 27
+	outgoing: 28 29 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->staff? def_%cl_1_60 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_60[27.1,] 
+BB 28
+	outgoing: 30 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (DiscourseStylesheets) def_%cl_1_61 
+		 2: %cl_1_61->stylesheet_link_tag def_%cl_1_62 %cl_1_61[28.1,] 	 SYMBOL:admin,	 ARGS:Symbol,
+		 3: 
+BB 29
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_62 
+BB 30
+	outgoing: 31 32 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->customization_disabled? def_%cl_1_63 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_63[30.1,] 
+BB 31
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_64 
+		 1: 
+BB 32
+	outgoing: 33 34 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteCustomization) def_%cl_1_65 
+		 2: %self->session def_%cl_1_66 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_66->[] def_%cl_1_67 %cl_1_66[32.2,] 	 SYMBOL:preview_style,	 ARGS:Symbol,
+		 4: %self->mobile_view? def_%cl_1_68 %self[32.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %cl_1_68[32.4,] 
+BB 33
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%cl_1_69 
+		 1: 
+BB 34
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%cl_1_69 
+BB 35
+	outgoing: 36 70 
+	datadep: 
+	instructions:
+		 0: %cl_1_65->custom_stylesheet def_%cl_1_70 %cl_1_65[32.1,] %cl_1_67[32.3,] %cl_1_69[34.0,33.0,] 	 SYMBOL:	 ARGS:%cl_1_67,%cl_1_69,
+		 1: COPY TYPE_PASS def_%cl_1_64 %cl_1_70[35.0,] 
+BB 36
+	outgoing: 37 38 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->discourse_csrf_tags def_%cl_1_71 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: %self->customization_disabled? def_%cl_1_72 %self[36.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %cl_1_72[36.3,] 
+BB 37
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_73 
+		 1: 
+BB 38
+	outgoing: 39 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteCustomization) def_%cl_1_74 
+		 2: %self->session def_%cl_1_75 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_75->[] def_%cl_1_76 %cl_1_75[38.2,] 	 SYMBOL:preview_style,	 ARGS:Symbol,
+		 4: %cl_1_74->custom_head_tag def_%cl_1_77 %cl_1_74[38.1,] %cl_1_76[38.3,] 	 SYMBOL:	 ARGS:%cl_1_76,
+		 5: %self->raw def_%cl_1_78 %self[38.2,2.0,] %cl_1_77[38.4,] 	 SYMBOL:	 ARGS:%cl_1_77,
+		 6: COPY TYPE_PASS def_%cl_1_73 %cl_1_78[38.5,] 
+BB 39
+	outgoing: 40 41 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%cl_1_79 %cl_1_0[2.1,] 
+		 2: 
+		 3: %self->customization_disabled? def_%cl_1_80 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %cl_1_80[39.3,] 
+BB 40
+	outgoing: 45 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_81 
+		 1: 
+BB 41
+	outgoing: 42 43 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteCustomization) def_%cl_1_82 
+		 2: %self->session def_%cl_1_83 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_83->[] def_%cl_1_84 %cl_1_83[41.2,] 	 SYMBOL:preview_style,	 ARGS:Symbol,
+		 4: %self->mobile_view? def_%cl_1_85 %self[41.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %cl_1_85[41.4,] 
+BB 42
+	outgoing: 44 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%cl_1_86 
+		 1: 
+BB 43
+	outgoing: 44 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%cl_1_86 
+BB 44
+	outgoing: 45 70 
+	datadep: 
+	instructions:
+		 0: %cl_1_82->custom_header def_%cl_1_87 %cl_1_82[41.1,] %cl_1_84[41.3,] %cl_1_86[43.0,42.0,] 	 SYMBOL:	 ARGS:%cl_1_84,%cl_1_86,
+		 1: COPY TYPE_PASS def_%cl_1_81 %cl_1_87[44.0,] 
+BB 45
+	outgoing: 46 47 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "/" def_%cl_1_88 
+		 2: %self->path def_%cl_1_89 %self[2.0,] %cl_1_88[45.1,] 	 SYMBOL:	 ARGS:%cl_1_88,
+		 3: 
+		 4: %self->application_logo_url def_%cl_1_90 %self[45.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_90->present? def_%cl_1_91 %cl_1_90[45.4,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %cl_1_91[45.5,] 
+BB 46
+	outgoing: 48 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->application_logo_url def_%cl_1_92 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: (SiteSetting) def_%cl_1_93 
+		 4: %cl_1_93->title def_%cl_1_94 %cl_1_93[46.3,] 	 SYMBOL:	 ARGS:
+		 5: 
+BB 47
+	outgoing: 48 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%cl_1_95 
+		 2: %cl_1_95->title def_%cl_1_96 %cl_1_95[47.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%cl_1_94 %cl_1_96[47.2,] 
+BB 48
+	outgoing: 49 50 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->current_user def_%cl_1_97 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_97[48.1,] 
+BB 49
+	outgoing: 51 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_98 
+		 1: 
+BB 50
+	outgoing: 51 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "/login" def_%cl_1_99 
+		 2: %self->path def_%cl_1_100 %self[2.0,] %cl_1_99[50.1,] 	 SYMBOL:	 ARGS:%cl_1_99,
+		 3: 
+		 4: (I18n) def_%cl_1_101 
+		 5: COPY TYPE_StringLiteral "log_in" def_%cl_1_102 
+		 6: %cl_1_101->t def_%cl_1_103 %cl_1_101[50.4,] %cl_1_102[50.5,] 	 SYMBOL:	 ARGS:%cl_1_102,
+		 7: COPY TYPE_PASS def_%cl_1_98 %cl_1_103[50.6,] 
+BB 51
+	outgoing: 52 53 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->container_class def_%cl_1_104 %self[2.0,] 
+		 2: BRANCH %cl_1_104[51.1,] 
+BB 52
+	outgoing: 54 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->container_class def_%cl_1_105 %self[2.0,] 
+		 1: 
+BB 53
+	outgoing: 54 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "wrap" def_%cl_1_106 
+		 1: COPY TYPE_PASS def_%cl_1_105 %cl_1_106[53.0,] 
+BB 54
+	outgoing: 55 56 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: GETFIELD %self->success def_%cl_1_107 %self[2.0,] 
+		 3: BRANCH %cl_1_107[54.2,] 
+BB 55
+	outgoing: 63 70 
+	datadep: 
+	instructions:
+		 0: %self->t def_%cl_1_108 %self[2.0,] 	 SYMBOL:unsubscribed.title,	 ARGS:Symbol,
+		 1: 
+		 2: %self->t def_%cl_1_109 %self[55.0,2.0,] 	 SYMBOL:unsubscribed.description,	 ARGS:Symbol,
+		 3: 
+		 4: %self->t def_%cl_1_110 %self[55.0,55.2,2.0,] 	 SYMBOL:unsubscribed.oops,	 ARGS:Symbol,
+		 5: 
+		 6: %self->params def_%cl_1_111 %self[55.0,55.2,55.4,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %cl_1_111->[] def_%cl_1_112 %cl_1_111[55.6,] 	 SYMBOL:key,	 ARGS:Symbol,
+		 8: HASH-key- def_%cl_1_113 %cl_1_112[55.7,] 
+		 9: %self->email_resubscribe_path def_%cl_1_114 %self[55.0,55.2,55.4,55.6,2.0,] %cl_1_113[55.8,] 	 SYMBOL:	 ARGS:%cl_1_113,
+		 10: %self->form_tag def_%cl_1_115 %self[55.0,55.2,55.4,55.6,55.9,2.0,] %cl_1_114[55.9,] %self[55.0,55.2,55.4,55.6,55.9,2.0,] 	 SYMBOL:	 ARGS:%cl_1_114,%self,
+CLOSURE BEGIN: %self[55.0,55.2,55.4,55.6,55.9,2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->t def_%cl_2_3 %self[2.0,] 	 SYMBOL:resubscribe.action,	 ARGS:Symbol,
+		 2: COPY TYPE_StringLiteral "btn btn-danger" def_%cl_2_4 
+		 3: HASH-class- def_%cl_2_5 %cl_2_4[3.2,] 
+		 4: %self->submit_tag def_%cl_2_6 %self[3.1,2.0,] %cl_2_3[3.1,] %cl_2_5[3.3,] 	 SYMBOL:	 ARGS:%cl_2_3,%cl_2_5,
+		 5: RETURN %cl_2_6[3.4,] %self[3.1,3.4,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_7 
+		 1: def_%cl_2_8 %cl_2_7[4.0,] 
+		 2: RETURN %cl_2_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 11: 
+BB 56
+	outgoing: 57 58 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->t def_%cl_1_116 %self[2.0,] 	 SYMBOL:unsubscribed.error,	 ARGS:Symbol,
+		 2: 
+		 3: 
+		 4: GETFIELD %self->different_user def_%cl_1_117 %self[56.1,2.0,] 
+		 5: BRANCH %cl_1_117[56.4,] 
+BB 57
+	outgoing: 59 70 
+	datadep: 
+	instructions:
+		 0: %self->t def_%cl_1_118 %self[2.0,] 	 SYMBOL:unsubscribed.different_user_description,	 ARGS:Symbol,
+		 1: 
+BB 58
+	outgoing: 59 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_118 
+BB 59
+	outgoing: 60 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: GETFIELD %self->not_found def_%cl_1_119 %self[2.0,] 
+		 3: BRANCH %cl_1_119[59.2,] 
+BB 60
+	outgoing: 62 70 
+	datadep: 
+	instructions:
+		 0: %self->t def_%cl_1_120 %self[2.0,] 	 SYMBOL:unsubscribed.not_found_description,	 ARGS:Symbol,
+		 1: 
+BB 61
+	outgoing: 62 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_120 
+BB 62
+	outgoing: 63 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->t def_%cl_1_121 %self[2.0,] 	 SYMBOL:unsubscribed.preferences_link,	 ARGS:Symbol,
+		 2: %self->raw def_%cl_1_122 %self[62.1,2.0,] %cl_1_121[62.1,] 	 SYMBOL:	 ARGS:%cl_1_121,
+		 3: COPY TYPE_PASS def_%cl_1_115 %cl_1_122[62.2,] 
+BB 63
+	outgoing: 64 65 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->customization_disabled? def_%cl_1_123 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_123[63.1,] 
+BB 64
+	outgoing: 72 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_124 
+		 1: RETURN %cl_1_124[64.0,] %self[2.0,] 
+BB 65
+	outgoing: 66 67 70 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteCustomization) def_%cl_1_125 
+		 2: %self->session def_%cl_1_126 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_126->[] def_%cl_1_127 %cl_1_126[65.2,] 	 SYMBOL:preview_style,	 ARGS:Symbol,
+		 4: %self->mobile_view? def_%cl_1_128 %self[65.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %cl_1_128[65.4,] 
+BB 66
+	outgoing: 68 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%cl_1_129 
+		 1: 
+BB 67
+	outgoing: 68 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%cl_1_129 
+BB 68
+	outgoing: 70 72 
+	datadep: 
+	instructions:
+		 0: %cl_1_125->custom_footer def_%cl_1_130 %cl_1_125[65.1,] %cl_1_127[65.3,] %cl_1_129[67.0,66.0,] 	 SYMBOL:	 ARGS:%cl_1_127,%cl_1_129,
+		 1: RETURN %cl_1_130[68.0,] %self[2.0,] 
+BB 70
+	outgoing: 72 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_131 
+		 1: def_%cl_1_132 %cl_1_131[70.0,] 
+		 2: RETURN %cl_1_132[70.1,] %self[2.0,] 
+BB 72
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: font_domain[18.13,] 
+		 5: RETURN %v_36[18.4,] %self[18.1,18.3,2.0,2.10,] 
+BB 19
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = resubscribe instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (DigestUnsubscribeKey) def_%v_3 
+		 7: %self->params def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->[] def_%v_5 %v_4[2.7,] 	 SYMBOL:key,	 ARGS:Symbol,
+		 9: %v_3->user_for_key def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: ATTRASSIGN %self->user %v_6[2.9,] 
+		 11: 
+		 12: GETFIELD %self->user def_%v_7 %self[2.0,2.7,2.10,] 
+		 13: %v_7->present? def_%v_8 %v_7[2.12,] 	 SYMBOL:	 ARGS:
+		 14: BRANCH %v_8[2.13,] 
+BB 3
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (Discourse) def_%v_10 
+		 1: (inherit NotFound) def_%v_11 %v_10[4.0,] 
+		 2: %v_11[4.1,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_10->const_missing def_%v_11 %v_10[4.0,] 	 SYMBOL:NotFound,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->raise def_%v_12 %self[2.0,2.10,] %v_11[5.0,4.1,] 	 SYMBOL:	 ARGS:%v_11,
+		 1: COPY TYPE_PASS def_%v_9 %v_12[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%v_13 %self[2.0,2.10,] 
+		 2: %v_13->user_option def_%v_14 %v_13[7.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_14->update_column def_%v_15 %v_14[7.2,] 	 SYMBOL:email_digests,	 ARGS:Symbol,Boolean,
+		 4: 
+		 5: %self->ruby_code_from_view def_%v_16 %self[2.0,2.10,] 	 SYMBOL:	 ARGS:
+		 6: %v_16->ruby_code_from_view def_%v_17 %v_16[7.5,] %self[7.5,2.0,2.10,] 	 SYMBOL:	 ARGS:%v_16,
+CLOSURE BEGIN: %self[7.5,2.0,2.10,] 
+BB 1
+	outgoing: 63 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_rb_from_view 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%cl_1_3 
+		 2: %cl_1_3->default_locale def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: (SiteSetting) def_%cl_1_5 
+		 5: %cl_1_5->title def_%cl_1_6 %cl_1_5[3.4,] 	 SYMBOL:	 ARGS:
+		 6: 
+		 7: (Discourse) def_%cl_1_7 
+		 8: (inherit VERSION) def_%cl_1_8 %cl_1_7[3.7,] 
+		 9: %cl_1_8[3.8,] 
+BB 4
+	outgoing: 5 61 
+	datadep: 
+	instructions:
+		 0: %cl_1_7->const_missing def_%cl_1_8 %cl_1_7[3.7,] 	 SYMBOL:VERSION,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 7 61 
+	datadep: 
+	instructions:
+		 0: (inherit STRING) def_%cl_1_9 %cl_1_8[4.0,3.8,] 
+		 1: %cl_1_9[5.0,] 
+BB 6
+	outgoing: 7 61 
+	datadep: 
+	instructions:
+		 0: %cl_1_8->const_missing def_%cl_1_9 %cl_1_8[4.0,3.8,] 	 SYMBOL:STRING,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 9 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Discourse) def_%cl_1_10 
+		 2: %cl_1_10->git_version def_%cl_1_11 %cl_1_10[7.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: (SiteSetting) def_%cl_1_12 
+		 5: %cl_1_12->favicon_url def_%cl_1_13 %cl_1_12[7.4,] 	 SYMBOL:	 ARGS:
+		 6: %cl_1_13->present? def_%cl_1_14 %cl_1_13[7.5,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %cl_1_14[7.6,] 
+BB 8
+	outgoing: 10 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%cl_1_15 
+		 2: %cl_1_15->favicon_url def_%cl_1_16 %cl_1_15[8.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_16 
+BB 10
+	outgoing: 11 12 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%cl_1_17 
+		 2: %cl_1_17->apple_touch_icon_url def_%cl_1_18 %cl_1_17[10.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_18->present? def_%cl_1_19 %cl_1_18[10.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %cl_1_19[10.3,] 
+BB 11
+	outgoing: 13 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%cl_1_20 
+		 2: %cl_1_20->apple_touch_icon_url def_%cl_1_21 %cl_1_20[11.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_21 
+BB 13
+	outgoing: 14 15 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%cl_1_22 
+		 2: %cl_1_22->apple_touch_icon_url def_%cl_1_23 %cl_1_22[13.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "/images/default-apple-touch-icon.png" def_%cl_1_24 
+		 4: %cl_1_23->!= def_%cl_1_25 %cl_1_23[13.2,] %cl_1_24[13.3,] 	 SYMBOL:	 ARGS:%cl_1_24,
+		 5: BRANCH %cl_1_25[13.4,] 
+BB 14
+	outgoing: 15 61 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%cl_1_26 
+		 1: %cl_1_26->apple_touch_icon_url def_%cl_1_27 %cl_1_26[14.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_27->present? def_%cl_1_28 %cl_1_27[14.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%cl_1_25 %cl_1_28[14.2,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_25[14.3,13.4,] 
+BB 16
+	outgoing: 18 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%cl_1_29 
+		 2: %cl_1_29->apple_touch_icon_url def_%cl_1_30 %cl_1_29[16.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_30 
+BB 18
+	outgoing: 19 23 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ColorScheme) def_%cl_1_31 
+		 2: COPY TYPE_StringLiteral "header_background" def_%cl_1_32 
+		 3: %cl_1_31->hex_for_name def_%cl_1_33 %cl_1_31[18.1,] %cl_1_32[18.2,] 	 SYMBOL:	 ARGS:%cl_1_32,
+		 4: 
+		 5: %self->canonical_link_tag def_%cl_1_34 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 6: 
+		 7: %self->request def_%cl_1_35 %self[18.5,2.0,] 	 SYMBOL:	 ARGS:
+		 8: %cl_1_35->protocol def_%cl_1_36 %cl_1_35[18.7,] 	 SYMBOL:	 ARGS:
+		 9: %self->request def_%cl_1_37 %self[18.5,18.7,2.0,] 	 SYMBOL:	 ARGS:
+		 10: %cl_1_37->host_with_port def_%cl_1_38 %cl_1_37[18.9,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_StringLiteral "&2" def_%cl_1_39 
+		 12: BUILDSTRING def_%cl_1_40 %cl_1_36[18.8,] %cl_1_38[18.10,] %cl_1_39[18.11,] 
+		 13: COPY TYPE_PASS def_font_domain %cl_1_40[18.12,] 
+		 14: 
+		 15: COPY TYPE_StringLiteral "fontawesome-webfont.eot" def_%cl_1_41 
+		 16: %self->asset_path def_%cl_1_42 %self[18.5,18.7,18.9,2.0,] %cl_1_41[18.15,] 	 SYMBOL:	 ARGS:%cl_1_41,
+		 17: 
+		 18: 
+		 19: COPY TYPE_StringLiteral "fontawesome-webfont.eot" def_%cl_1_43 
+		 20: %self->asset_path def_%cl_1_44 %self[18.5,18.7,18.9,18.16,2.0,] %cl_1_43[18.19,] 	 SYMBOL:	 ARGS:%cl_1_43,
+		 21: 
+		 22: 
+		 23: COPY TYPE_StringLiteral "fontawesome-webfont.woff2" def_%cl_1_45 
+		 24: %self->asset_path def_%cl_1_46 %self[18.5,18.7,18.9,18.16,18.20,2.0,] %cl_1_45[18.23,] 	 SYMBOL:	 ARGS:%cl_1_45,
+		 25: 
+		 26: 
+		 27: COPY TYPE_StringLiteral "fontawesome-webfont.woff" def_%cl_1_47 
+		 28: %self->asset_path def_%cl_1_48 %self[18.5,18.7,18.9,18.16,18.20,18.24,2.0,] %cl_1_47[18.27,] 	 SYMBOL:	 ARGS:%cl_1_47,
+		 29: 
+		 30: 
+		 31: COPY TYPE_StringLiteral "fontawesome-webfont.ttf" def_%cl_1_49 
+		 32: %self->asset_path def_%cl_1_50 %self[18.5,18.7,18.9,18.16,18.20,18.24,18.28,2.0,] %cl_1_49[18.31,] 	 SYMBOL:	 ARGS:%cl_1_49,
+		 33: 
+		 34: 
+		 35: %self->rtl? def_%cl_1_51 %self[18.5,18.7,18.9,18.16,18.20,18.24,18.28,18.32,2.0,] 	 SYMBOL:	 ARGS:
+		 36: BRANCH %cl_1_51[18.35,] 
+BB 19
+	outgoing: 20 21 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (DiscourseStylesheets) def_%cl_1_52 
+		 2: %self->mobile_view? def_%cl_1_53 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_1_53[19.2,] 
+BB 20
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%cl_1_54 
+		 1: 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%cl_1_54 
+BB 22
+	outgoing: 27 61 
+	datadep: 
+	instructions:
+		 0: %cl_1_52->stylesheet_link_tag def_%cl_1_55 %cl_1_52[19.1,] %cl_1_54[21.0,20.0,] 	 SYMBOL:	 ARGS:%cl_1_54,
+		 1: 
+BB 23
+	outgoing: 24 25 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (DiscourseStylesheets) def_%cl_1_56 
+		 2: %self->mobile_view? def_%cl_1_57 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_1_57[23.2,] 
+BB 24
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%cl_1_58 
+		 1: 
+BB 25
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%cl_1_58 
+BB 26
+	outgoing: 27 61 
+	datadep: 
+	instructions:
+		 0: %cl_1_56->stylesheet_link_tag def_%cl_1_59 %cl_1_56[23.1,] %cl_1_58[25.0,24.0,] 	 SYMBOL:	 ARGS:%cl_1_58,
+		 1: COPY TYPE_PASS def_%cl_1_55 %cl_1_59[26.0,] 
+BB 27
+	outgoing: 28 29 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->staff? def_%cl_1_60 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_60[27.1,] 
+BB 28
+	outgoing: 30 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (DiscourseStylesheets) def_%cl_1_61 
+		 2: %cl_1_61->stylesheet_link_tag def_%cl_1_62 %cl_1_61[28.1,] 	 SYMBOL:admin,	 ARGS:Symbol,
+		 3: 
+BB 29
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_62 
+BB 30
+	outgoing: 31 32 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->customization_disabled? def_%cl_1_63 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_63[30.1,] 
+BB 31
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_64 
+		 1: 
+BB 32
+	outgoing: 33 34 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteCustomization) def_%cl_1_65 
+		 2: %self->session def_%cl_1_66 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_66->[] def_%cl_1_67 %cl_1_66[32.2,] 	 SYMBOL:preview_style,	 ARGS:Symbol,
+		 4: %self->mobile_view? def_%cl_1_68 %self[32.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %cl_1_68[32.4,] 
+BB 33
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%cl_1_69 
+		 1: 
+BB 34
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%cl_1_69 
+BB 35
+	outgoing: 36 61 
+	datadep: 
+	instructions:
+		 0: %cl_1_65->custom_stylesheet def_%cl_1_70 %cl_1_65[32.1,] %cl_1_67[32.3,] %cl_1_69[34.0,33.0,] 	 SYMBOL:	 ARGS:%cl_1_67,%cl_1_69,
+		 1: COPY TYPE_PASS def_%cl_1_64 %cl_1_70[35.0,] 
+BB 36
+	outgoing: 37 38 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->discourse_csrf_tags def_%cl_1_71 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: %self->customization_disabled? def_%cl_1_72 %self[36.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %cl_1_72[36.3,] 
+BB 37
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_73 
+		 1: 
+BB 38
+	outgoing: 39 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteCustomization) def_%cl_1_74 
+		 2: %self->session def_%cl_1_75 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_75->[] def_%cl_1_76 %cl_1_75[38.2,] 	 SYMBOL:preview_style,	 ARGS:Symbol,
+		 4: %cl_1_74->custom_head_tag def_%cl_1_77 %cl_1_74[38.1,] %cl_1_76[38.3,] 	 SYMBOL:	 ARGS:%cl_1_76,
+		 5: %self->raw def_%cl_1_78 %self[38.2,2.0,] %cl_1_77[38.4,] 	 SYMBOL:	 ARGS:%cl_1_77,
+		 6: COPY TYPE_PASS def_%cl_1_73 %cl_1_78[38.5,] 
+BB 39
+	outgoing: 40 41 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%cl_1_79 %cl_1_0[2.1,] 
+		 2: 
+		 3: %self->customization_disabled? def_%cl_1_80 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %cl_1_80[39.3,] 
+BB 40
+	outgoing: 45 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_81 
+		 1: 
+BB 41
+	outgoing: 42 43 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteCustomization) def_%cl_1_82 
+		 2: %self->session def_%cl_1_83 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_83->[] def_%cl_1_84 %cl_1_83[41.2,] 	 SYMBOL:preview_style,	 ARGS:Symbol,
+		 4: %self->mobile_view? def_%cl_1_85 %self[41.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %cl_1_85[41.4,] 
+BB 42
+	outgoing: 44 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%cl_1_86 
+		 1: 
+BB 43
+	outgoing: 44 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%cl_1_86 
+BB 44
+	outgoing: 45 61 
+	datadep: 
+	instructions:
+		 0: %cl_1_82->custom_header def_%cl_1_87 %cl_1_82[41.1,] %cl_1_84[41.3,] %cl_1_86[43.0,42.0,] 	 SYMBOL:	 ARGS:%cl_1_84,%cl_1_86,
+		 1: COPY TYPE_PASS def_%cl_1_81 %cl_1_87[44.0,] 
+BB 45
+	outgoing: 46 47 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "/" def_%cl_1_88 
+		 2: %self->path def_%cl_1_89 %self[2.0,] %cl_1_88[45.1,] 	 SYMBOL:	 ARGS:%cl_1_88,
+		 3: 
+		 4: %self->application_logo_url def_%cl_1_90 %self[45.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_90->present? def_%cl_1_91 %cl_1_90[45.4,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %cl_1_91[45.5,] 
+BB 46
+	outgoing: 48 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->application_logo_url def_%cl_1_92 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: (SiteSetting) def_%cl_1_93 
+		 4: %cl_1_93->title def_%cl_1_94 %cl_1_93[46.3,] 	 SYMBOL:	 ARGS:
+		 5: 
+BB 47
+	outgoing: 48 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%cl_1_95 
+		 2: %cl_1_95->title def_%cl_1_96 %cl_1_95[47.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%cl_1_94 %cl_1_96[47.2,] 
+BB 48
+	outgoing: 49 50 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->current_user def_%cl_1_97 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_97[48.1,] 
+BB 49
+	outgoing: 51 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_98 
+		 1: 
+BB 50
+	outgoing: 51 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "/login" def_%cl_1_99 
+		 2: %self->path def_%cl_1_100 %self[2.0,] %cl_1_99[50.1,] 	 SYMBOL:	 ARGS:%cl_1_99,
+		 3: 
+		 4: (I18n) def_%cl_1_101 
+		 5: COPY TYPE_StringLiteral "log_in" def_%cl_1_102 
+		 6: %cl_1_101->t def_%cl_1_103 %cl_1_101[50.4,] %cl_1_102[50.5,] 	 SYMBOL:	 ARGS:%cl_1_102,
+		 7: COPY TYPE_PASS def_%cl_1_98 %cl_1_103[50.6,] 
+BB 51
+	outgoing: 52 53 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->container_class def_%cl_1_104 %self[2.0,] 
+		 2: BRANCH %cl_1_104[51.1,] 
+BB 52
+	outgoing: 54 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->container_class def_%cl_1_105 %self[2.0,] 
+		 1: 
+BB 53
+	outgoing: 54 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "wrap" def_%cl_1_106 
+		 1: COPY TYPE_PASS def_%cl_1_105 %cl_1_106[53.0,] 
+BB 54
+	outgoing: 55 56 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->t def_%cl_1_107 %self[2.0,] 	 SYMBOL:resubscribe.title,	 ARGS:Symbol,
+		 2: 
+		 3: %self->t def_%cl_1_108 %self[54.1,2.0,] 	 SYMBOL:resubscribe.description,	 ARGS:Symbol,
+		 4: 
+		 5: %self->customization_disabled? def_%cl_1_109 %self[54.1,54.3,2.0,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %cl_1_109[54.5,] 
+BB 55
+	outgoing: 63 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_110 
+		 1: RETURN %cl_1_110[55.0,] %self[2.0,] 
+BB 56
+	outgoing: 57 58 61 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteCustomization) def_%cl_1_111 
+		 2: %self->session def_%cl_1_112 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_112->[] def_%cl_1_113 %cl_1_112[56.2,] 	 SYMBOL:preview_style,	 ARGS:Symbol,
+		 4: %self->mobile_view? def_%cl_1_114 %self[56.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %cl_1_114[56.4,] 
+BB 57
+	outgoing: 59 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%cl_1_115 
+		 1: 
+BB 58
+	outgoing: 59 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%cl_1_115 
+BB 59
+	outgoing: 61 63 
+	datadep: 
+	instructions:
+		 0: %cl_1_111->custom_footer def_%cl_1_116 %cl_1_111[56.1,] %cl_1_113[56.3,] %cl_1_115[58.0,57.0,] 	 SYMBOL:	 ARGS:%cl_1_113,%cl_1_115,
+		 1: RETURN %cl_1_116[59.0,] %self[2.0,] 
+BB 61
+	outgoing: 63 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_117 
+		 1: def_%cl_1_118 %cl_1_117[61.0,] 
+		 2: RETURN %cl_1_118[61.1,] %self[2.0,] 
+BB 63
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: font_domain[18.13,] 
+		 7: RETURN %v_17[7.6,] %self[7.5,2.0,2.10,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+

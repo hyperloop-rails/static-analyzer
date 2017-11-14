@@ -1,0 +1,359 @@
+SET IRMethod, name = new instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "members" def_%v_3 
+		 7: ATTRASSIGN %self->selected_tribe_navi_tab %v_3[2.6,] 
+		 8: 
+		 9: (Invitation) def_%v_4 
+		 10: %v_4->new def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 11: ATTRASSIGN %self->invitation %v_5[2.10,] 
+		 12: 
+		 13: GETFIELD %self->current_community def_%v_6 %self[2.0,] 
+		 14: %v_6->join_with_invite_only def_%v_7 %v_6[2.13,] 	 SYMBOL:	 ARGS:
+		 15: BRANCH %v_7[2.14,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (Invitation) def_%v_8 
+		 1: %v_8->invite_only_invitation_limit def_%v_9 %v_8[3.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (Invitation) def_%v_10 
+		 1: %v_10->invitation_limit def_%v_11 %v_10[4.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_9 %v_11[4.1,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_invitation_limit %v_9[4.2,3.1,] 
+		 1: 
+		 2: GETFIELD %self->current_user def_%v_12 %self[2.0,] 
+		 3: GETFIELD %self->current_community def_%v_13 %self[2.0,] 
+		 4: %v_12->has_admin_rights_in? def_%v_14 %v_12[5.2,] %v_13[5.3,] 	 SYMBOL:	 ARGS:%v_13,
+		 5: HASH-invitation_limit-has_admin_rights- def_%v_15 invitation_limit[5.0,] %v_14[5.4,] 
+		 6: HASH-locals- def_%v_16 %v_15[5.5,] 
+		 7: %self->render def_%v_17 %self[2.0,2.7,2.11,] %v_16[5.6,] 	 SYMBOL:	 ARGS:%v_16,
+		 8: RETURN %v_17[5.7,] %self[5.7,2.0,2.7,2.11,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:invitation,	 ARGS:Symbol,
+		 8: %v_4->[] def_%v_5 %v_4[2.7,] 	 SYMBOL:email,	 ARGS:Symbol,
+		 9: COPY TYPE_StringLiteral "," def_%v_6 
+		 10: %v_5->split def_%v_7 %v_5[2.8,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: COPY TYPE_PASS def_invitation_emails %v_7[2.10,] 
+		 12: 
+		 13: GETFIELD %self->current_user def_%v_8 %self[2.0,2.6,] 
+		 14: %v_8->id def_%v_9 %v_8[2.13,] 	 SYMBOL:	 ARGS:
+		 15: invitation_emails->size def_%v_10 invitation_emails[2.11,] 	 SYMBOL:	 ARGS:
+		 16: GETFIELD %self->current_community def_%v_11 %self[2.0,2.6,] 
+		 17: %self->validate_daily_limit def_%v_12 %self[2.0,2.6,] %v_9[2.14,] %v_10[2.15,] %v_11[2.16,] 	 SYMBOL:	 ARGS:%v_9,%v_10,%v_11,
+		 18: BRANCH %v_12[2.17,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+		 1: 
+		 2: COPY TYPE_Nil def_sending_problems 
+		 3: 
+		 4: invitation_emails->each def_%v_20 invitation_emails[2.11,] %self[2.0,] 	 SYMBOL:	 ARGS:invitation_emails,
+CLOSURE BEGIN: %self[2.0,] email[] invitation[] 
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_email 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Invitation) def_%cl_1_3 
+		 2: %self->params def_%cl_1_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_4->[] def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:invitation,	 ARGS:Symbol,
+		 4: email->strip def_%cl_1_6 email[2.2,] 	 SYMBOL:	 ARGS:
+		 5: GETFIELD %self->current_user def_%cl_1_7 %self[3.2,2.0,] 
+		 6: HASH-email-inviter- def_%cl_1_8 %cl_1_6[3.4,] %cl_1_7[3.5,] 
+		 7: %cl_1_5->merge! def_%cl_1_9 %cl_1_5[3.3,] %cl_1_8[3.6,] 	 SYMBOL:	 ARGS:%cl_1_8,
+		 8: %cl_1_3->new def_%cl_1_10 %cl_1_3[3.1,] %cl_1_9[3.7,] 	 SYMBOL:	 ARGS:%cl_1_9,
+		 9: COPY TYPE_PASS def_invitation %cl_1_10[3.8,] 
+		 10: 
+		 11: %cl_1_10->save def_%cl_1_11 %cl_1_10[3.8,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %cl_1_11[3.11,] 
+BB 4
+	outgoing: 5 6 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Delayed) def_%cl_1_12 
+		 2: (inherit Job) def_%cl_1_13 %cl_1_12[4.1,] 
+		 3: %cl_1_13[4.2,] 
+BB 5
+	outgoing: 6 9 
+	datadep: 
+	instructions:
+		 0: %cl_1_12->const_missing def_%cl_1_13 %cl_1_12[4.1,] 	 SYMBOL:Job,	 ARGS:Symbol,
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: (InvitationCreatedJob) def_%cl_1_14 
+		 1: invitation->id def_%cl_1_15 invitation[3.9,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->current_community def_%cl_1_16 %self[2.0,] 
+		 3: %cl_1_16->id def_%cl_1_17 %cl_1_16[6.2,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_14->new def_%cl_1_18 %cl_1_14[6.0,] %cl_1_15[6.1,] %cl_1_17[6.3,] 	 SYMBOL:	 ARGS:%cl_1_15,%cl_1_17,
+		 5: %cl_1_13->enqueue def_%cl_1_19 %cl_1_13[5.0,4.2,] %cl_1_18[6.4,] 	 SYMBOL:	 ARGS:%cl_1_18,
+		 6: 
+BB 7
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Boolean def_sending_problems 
+		 2: RETURN %self[2.0,] 
+BB 8
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_19[6.5,] %self[2.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_20 
+		 1: def_%cl_1_21 %cl_1_20[9.0,] 
+		 2: RETURN %cl_1_21[9.1,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: invitation[3.9,] sending_problems[7.1,] 
+		 5: 
+		 6: BRANCH sending_problems[3.2,3.4,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->new_invitation_path def_%v_14 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "layouts.notifications.invitation_limit_reached" def_%v_15 
+		 3: %self->t def_%v_16 %self[4.1,2.0,] %v_15[4.2,] 	 SYMBOL:	 ARGS:%v_15,
+		 4: HASH-error- def_%v_17 %v_16[4.3,] 
+		 5: HASH-flash- def_%v_18 %v_17[4.4,] 
+		 6: %self->redirect_to def_%v_19 %self[4.1,4.3,2.0,] %v_14[4.1,] %v_18[4.5,] 	 SYMBOL:	 ARGS:%v_14,%v_18,
+		 7: RETURN %v_19[4.6,] %self[4.1,4.3,4.6,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_21 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "layouts.notifications.invitation_cannot_be_sent" def_%v_22 
+		 3: %self->t def_%v_23 %self[6.1,2.0,] %v_22[6.2,] 	 SYMBOL:	 ARGS:%v_22,
+		 4: ATTRASSIGN %v_21->[] %v_23[6.3,] 
+		 5: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_24 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "layouts.notifications.invitation_sent" def_%v_25 
+		 3: %self->t def_%v_26 %self[7.1,2.0,] %v_25[7.2,] 	 SYMBOL:	 ARGS:%v_25,
+		 4: ATTRASSIGN %v_24->[] %v_26[7.3,] 
+		 5: COPY TYPE_PASS def_%v_23 %v_26[7.3,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->new_invitation_path def_%v_27 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->redirect_to def_%v_28 %self[8.1,2.0,] %v_27[8.1,] 	 SYMBOL:	 ARGS:%v_27,
+		 3: RETURN %v_28[8.2,] %self[8.1,8.2,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = users_can_invite_new_users instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->current_community def_%v_3 %self[2.0,] 
+		 7: GETFIELD %self->current_user def_%v_4 %self[2.0,] 
+		 8: %v_3->allows_user_to_send_invitations? def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: RETURN %v_6[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "layouts.notifications.inviting_new_users_is_not_allowed_in_this_community" def_%v_8 
+		 3: %self->t def_%v_9 %self[4.1,2.0,] %v_8[4.2,] 	 SYMBOL:	 ARGS:%v_8,
+		 4: ATTRASSIGN %v_7->[] %v_9[4.3,] 
+		 5: 
+		 6: %self->root def_%v_10 %self[4.1,4.3,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->redirect_to def_%v_11 %self[4.1,4.3,4.6,2.0,] %v_10[4.6,] 	 SYMBOL:	 ARGS:%v_10,
+		 8: BRANCH %v_11[4.7,] 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_11[4.7,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = validate_daily_limit instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_inviter_id 
+		 6: RECEIVEARG def_number_of_emails 
+		 7: RECEIVEARG def_community 
+		 8: 
+		 9: %self->daily_email_count def_%v_3 %self[2.0,] inviter_id[2.5,] 	 SYMBOL:	 ARGS:inviter_id,
+		 10: number_of_emails->+ def_%v_4 number_of_emails[2.6,] %v_3[2.9,] 	 SYMBOL:	 ARGS:%v_3,
+		 11: COPY TYPE_PASS def_email_count %v_4[2.10,] 
+		 12: 
+		 13: (Invitation) def_%v_5 
+		 14: %v_5->invitation_limit def_%v_6 %v_5[2.13,] 	 SYMBOL:	 ARGS:
+		 15: email_count->< def_%v_7 email_count[2.11,] %v_6[2.14,] 	 SYMBOL:	 ARGS:%v_6,
+		 16: BRANCH %v_7[2.15,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: community->join_with_invite_only def_%v_8 community[2.7,] 	 SYMBOL:	 ARGS:
+		 1: BRANCH %v_8[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (Invitation) def_%v_9 
+		 1: %v_9->invite_only_invitation_limit def_%v_10 %v_9[4.0,] 	 SYMBOL:	 ARGS:
+		 2: email_count->< def_%v_11 email_count[2.11,] %v_10[4.1,] 	 SYMBOL:	 ARGS:%v_10,
+		 3: COPY TYPE_PASS def_%v_8 %v_11[4.2,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_8[4.3,3.0,] %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_7[2.15,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = daily_email_count instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_inviter_id 
+		 6: 
+		 7: (Invitation) def_%v_3 
+		 8: CONSTANT def_%v_5 	 SYMBOL:	 ARGS:
+		 9: %v_5->ago def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: (Time) def_%v_7 
+		 11: %v_7->now def_%v_8 %v_7[2.10,] 	 SYMBOL:	 ARGS:
+		 12: CONSTANT def_%v_4 %v_6[2.9,] %v_8[2.11,] 
+		 13: HASH-inviter_id-created_at- def_%v_9 inviter_id[2.5,] %v_4[2.12,] 
+		 14: %v_3->where def_%v_10 %v_3[2.7,] %v_9[2.13,] 	 SYMBOL:	 ARGS:%v_9,
+		 15: %v_10->count def_%v_11 %v_10[2.14,] 	 SYMBOL:	 ARGS:
+		 16: RETURN %v_11[2.15,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

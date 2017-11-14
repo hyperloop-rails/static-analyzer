@@ -1,0 +1,89 @@
+SET IRMethod, name = before instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_job 
+		 6: 
+		 7: (ApplicationHelper) def_%v_3 
+		 8: %self->community_id def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->store_community_service_name_to_thread_from_community_id def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: RETURN %v_5[2.9,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = perform instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Transaction) def_%v_3 
+		 7: %self->conversation_id def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->find def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: COPY TYPE_PASS def_transaction %v_5[2.8,] 
+		 10: 
+		 11: (Community) def_%v_6 
+		 12: %self->community_id def_%v_7 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 13: %v_6->find def_%v_8 %v_6[2.11,] %v_7[2.12,] 	 SYMBOL:	 ARGS:%v_7,
+		 14: COPY TYPE_PASS def_community %v_8[2.13,] 
+		 15: 
+		 16: transaction->status def_%v_9 transaction[2.9,] 	 SYMBOL:	 ARGS:
+		 17: COPY TYPE_StringLiteral "accepted" def_%v_10 
+		 18: %v_9->eql? def_%v_11 %v_9[2.16,] %v_10[2.17,] 	 SYMBOL:	 ARGS:%v_10,
+		 19: BRANCH %v_11[2.18,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: transaction->status def_%v_12 transaction[2.9,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "paid" def_%v_13 
+		 2: %v_12->eql? def_%v_14 %v_12[3.0,] %v_13[3.1,] 	 SYMBOL:	 ARGS:%v_13,
+		 3: COPY TYPE_PASS def_%v_11 %v_14[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_11[3.3,2.18,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PersonMailer) def_%v_15 
+		 2: COPY TYPE_StringLiteral "confirm_reminder" def_%v_16 
+		 3: transaction->buyer def_%v_17 transaction[2.9,] 	 SYMBOL:	 ARGS:
+		 4: %self->days_to_cancel def_%v_18 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_15->send def_%v_19 %v_15[5.1,] %v_16[5.2,] transaction[5.3,2.9,] %v_17[5.3,] community[2.14,] %v_18[5.4,] 	 SYMBOL:	 ARGS:%v_16,transaction,%v_17,community,%v_18,
+		 6: %v_19->deliver def_%v_20 %v_19[5.5,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %v_20[5.6,] %self[5.4,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+

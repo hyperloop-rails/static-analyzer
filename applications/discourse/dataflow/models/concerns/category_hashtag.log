@@ -1,0 +1,77 @@
+SET IRMethod, name = query_from_hashtag_slug instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_category_slug 
+		 6: 
+		 7: (SEPARATOR) def_%v_3 
+		 8: category_slug->split def_%v_4 category_slug[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,Fixnum,
+		 9: def_%v_5 %v_4[2.8,] 
+		 10: def_%v_6 %v_5[2.9,] 
+		 11: def_%v_7 %v_5[2.9,] 
+		 12: COPY TYPE_PASS def_parent_slug %v_6[2.10,] 
+		 13: COPY TYPE_PASS def_child_slug %v_7[2.11,] 
+		 14: 
+		 15: (Category) def_%v_8 
+		 16: HASH-slug-parent_category_id- def_%v_9 %v_6[2.10,] 
+		 17: %v_8->where def_%v_10 %v_8[2.15,] %v_9[2.16,] 	 SYMBOL:	 ARGS:%v_9,
+		 18: COPY TYPE_PASS def_category %v_10[2.17,] 
+		 19: 
+		 20: BRANCH child_slug[2.13,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Category) def_%v_11 
+		 2: category->pluck def_%v_12 category[2.18,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 3: %v_12->first def_%v_13 %v_12[3.2,] 	 SYMBOL:	 ARGS:
+		 4: HASH-slug-parent_category_id- def_%v_14 child_slug[2.13,] %v_13[3.3,] 
+		 5: %v_11->where def_%v_15 %v_11[3.1,] %v_14[3.4,] 	 SYMBOL:	 ARGS:%v_14,
+		 6: %v_15->first def_%v_16 %v_15[3.5,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %v_16[3.6,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: category->first def_%v_17 category[2.18,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_17[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = hashtag_slug instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SEPARATOR) def_%v_3 
+		 7: %self->full_slug def_%v_4 %self[2.0,] %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_3,
+		 8: RETURN %v_4[2.7,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

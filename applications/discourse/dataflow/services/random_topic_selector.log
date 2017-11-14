@@ -1,0 +1,488 @@
+SET IRMethod, name = backfill instanceMethod = false
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_category 
+		 6: category[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_category 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: category->try def_%v_3 category[3.0,2.5,] 	 SYMBOL:topic_id,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_exclude %v_3[4.1,] 
+		 3: 
+		 4: BRANCH category[4.1,3.0,2.5,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: (CategoryFeaturedTopic) def_%v_4 
+		 1: %v_4->fake_admin def_%v_5 %v_4[5.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_user %v_5[6.0,5.1,] 
+		 1: 
+		 2: (SiteSetting) def_%v_6 
+		 3: %v_6->category_featured_topics def_%v_7 %v_6[7.2,] 	 SYMBOL:	 ARGS:
+		 4: HASH-per_page-visible-no_definitions- def_%v_8 %v_7[7.3,] 
+		 5: COPY TYPE_PASS def_options %v_8[7.4,] 
+		 6: 
+		 7: BRANCH exclude[4.2,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: category->topic_id def_%v_9 category[3.0,2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_Array def_%v_10 %v_9[8.0,] 
+		 2: ATTRASSIGN options->[] %v_10[8.1,] 
+		 3: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH category[3.0,2.5,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: category->id def_%v_11 category[3.0,2.5,] 	 SYMBOL:	 ARGS:
+		 1: ATTRASSIGN options->[] %v_11[11.0,] 
+		 2: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TopicQuery) def_%v_12 
+		 2: %v_12->new def_%v_13 %v_12[13.1,] user[7.0,] options[11.1,8.2,7.5,] 	 SYMBOL:	 ARGS:user,options,
+		 3: COPY TYPE_PASS def_query %v_13[13.2,] 
+		 4: 
+		 5: %v_13->latest_results def_%v_14 %v_13[13.2,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral "RANDOM()" def_%v_15 
+		 7: %v_14->order def_%v_16 %v_14[13.5,] %v_15[13.6,] 	 SYMBOL:	 ARGS:%v_15,
+		 8: HASH-closed-archived- def_%v_17 
+		 9: %v_16->where def_%v_18 %v_16[13.7,] %v_17[13.8,] 	 SYMBOL:	 ARGS:%v_17,
+		 10: (BACKFILL_SIZE) def_%v_19 
+		 11: %v_18->limit def_%v_20 %v_18[13.9,] %v_19[13.10,] 	 SYMBOL:	 ARGS:%v_19,
+		 12: COPY TYPE_StringLiteral "RANDOM()" def_%v_21 
+		 13: %v_20->reorder def_%v_22 %v_20[13.11,] %v_21[13.12,] 	 SYMBOL:	 ARGS:%v_21,
+		 14: %v_22->pluck def_%v_23 %v_22[13.13,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 15: COPY TYPE_PASS def_results %v_23[13.14,] 
+		 16: 
+		 17: %self->cache_key def_%v_24 %self[2.0,] category[3.0,2.5,] 	 SYMBOL:	 ARGS:category,
+		 18: COPY TYPE_PASS def_key %v_24[13.17,] 
+		 19: 
+		 20: results->each def_%v_25 results[13.15,] %self[13.17,2.0,] 	 SYMBOL:	 ARGS:results,
+CLOSURE BEGIN: key[13.18,] id[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_id 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $redis def_%cl_1_3 
+		 2: %cl_1_3->rpush def_%cl_1_4 %cl_1_3[3.1,] key[] id[2.2,] 	 SYMBOL:	 ARGS:key,id,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 21: 
+		 22: GLOBALVAR $redis def_%v_26 
+		 23: CONSTANT def_%v_27 	 SYMBOL:	 ARGS:
+		 24: %v_26->expire def_%v_28 %v_26[13.22,] key[13.18,] %v_27[13.23,] 	 SYMBOL:	 ARGS:key,%v_27,
+		 25: 
+		 26: RETURN results[13.15,13.20,] %self[13.17,2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = next instanceMethod = false
+BB 1
+	outgoing: 21 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_count 
+		 6: RECEIVECONSTARG def_category 
+		 7: category[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_category 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->cache_key def_%v_3 %self[2.0,] category[3.0,2.6,] 	 SYMBOL:	 ARGS:category,
+		 2: COPY TYPE_PASS def_key %v_3[4.1,] 
+		 3: 
+		 4: COPY TYPE_Array def_%v_4 
+		 5: COPY TYPE_PASS def_results %v_4[4.4,] 
+		 6: 
+		 7: count->< def_%v_5 count[2.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: BRANCH %v_5[4.7,] 
+BB 5
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: RETURN results[4.5,] %self[2.0,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: GLOBALVAR $redis def_%v_7 
+		 3: %v_7->multi def_%v_8 %v_7[6.2,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: count[2.5,] key[4.2,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $redis def_%cl_1_3 
+		 2: count->- def_%cl_1_4 count[] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: %cl_1_3->lrange def_%cl_1_5 %cl_1_3[3.1,] key[] %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:key,Fixnum,%cl_1_4,
+		 4: 
+		 5: GLOBALVAR $redis def_%cl_1_6 
+		 6: %cl_1_6->ltrim def_%cl_1_7 %cl_1_6[3.5,] key[] count[3.2,] 	 SYMBOL:	 ARGS:key,count,Fixnum,
+		 7: RETURN %cl_1_7[3.6,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[4.0,] 
+		 2: RETURN %cl_1_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: COPY TYPE_PASS def_results %v_8[6.3,] 
+		 5: 
+		 6: (Array) def_%v_9 
+		 7: %v_8->is_a? def_%v_10 %v_8[6.3,] %v_9[6.6,] 	 SYMBOL:	 ARGS:%v_9,
+		 8: %v_10->! def_%v_11 %v_10[6.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_11[6.8,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $redis def_%v_12 
+		 2: count->- def_%v_13 count[2.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: %v_12->lrange def_%v_14 %v_12[8.1,] key[4.2,] %v_13[8.2,] 	 SYMBOL:	 ARGS:key,Fixnum,%v_13,
+		 4: COPY TYPE_PASS def_results %v_14[8.3,] 
+		 5: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: results->[] def_%v_15 results[6.4,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: COPY TYPE_PASS def_results %v_15[9.1,] 
+		 3: COPY TYPE_PASS def_%v_14 %v_15[9.1,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: results->map! def_%v_16 results[9.2,8.4,] 	 SYMBOL:to_i,	 ARGS:
+		 2: 
+		 3: results->length def_%v_17 results[10.1,9.2,8.4,] 	 SYMBOL:	 ARGS:
+		 4: count->- def_%v_18 count[2.5,] %v_17[10.3,] 	 SYMBOL:	 ARGS:%v_17,
+		 5: COPY TYPE_PASS def_left %v_18[10.4,] 
+		 6: 
+		 7: COPY TYPE_Boolean def_backfilled 
+		 8: 
+		 9: %v_18->> def_%v_19 %v_18[10.4,] 	 SYMBOL:	 ARGS:Fixnum,
+		 10: BRANCH %v_19[10.9,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->backfill def_%v_20 %self[2.0,] category[3.0,2.6,] 	 SYMBOL:	 ARGS:category,
+		 2: COPY TYPE_PASS def_ids %v_20[11.1,] 
+		 3: 
+		 4: COPY TYPE_Boolean def_backfilled 
+		 5: 
+		 6: CONSTANT def_%v_21 count[2.5,] 
+		 7: %v_20->[] def_%v_22 %v_20[11.1,] %v_21[11.6,] 	 SYMBOL:	 ARGS:%v_21,
+		 8: results->+ def_%v_23 results[9.2,8.4,] %v_22[11.7,] 	 SYMBOL:	 ARGS:%v_22,
+		 9: COPY TYPE_PASS def_results %v_23[11.8,] 
+		 10: 
+		 11: %v_23->uniq! def_%v_24 %v_23[11.8,] 	 SYMBOL:	 ARGS:
+		 12: 
+		 13: CONSTANT def_%v_25 count[2.5,] 
+		 14: results->[] def_%v_26 results[11.8,11.9,] %v_25[11.13,] 	 SYMBOL:	 ARGS:%v_25,
+		 15: COPY TYPE_PASS def_results %v_26[11.14,] 
+		 16: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_26 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: backfilled->! def_%v_27 backfilled[11.4,10.7,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_27[13.1,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $redis def_%v_28 
+		 1: %v_28->llen def_%v_29 %v_28[14.0,] key[4.2,] 	 SYMBOL:	 ARGS:key,
+		 2: (BACKFILL_LOW_WATER_MARK) def_%v_30 
+		 3: %v_29->< def_%v_31 %v_29[14.1,] %v_30[14.2,] 	 SYMBOL:	 ARGS:%v_30,
+		 4: COPY TYPE_PASS def_%v_27 %v_31[14.3,] 
+BB 15
+	outgoing: 16 19 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_27[14.4,13.1,] 
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Scheduler) def_%v_32 
+		 2: (inherit Defer) def_%v_33 %v_32[16.1,] 
+		 3: %v_33[16.2,] 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: %v_32->const_missing def_%v_33 %v_32[16.1,] 	 SYMBOL:Defer,	 ARGS:Symbol,
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "backfill" def_%v_34 
+		 1: %v_33->later def_%v_35 %v_33[17.0,16.2,] %v_34[18.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_34,%v_33,
+CLOSURE BEGIN: %self[2.0,] category[3.0,2.6,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->backfill def_%cl_2_3 %self[2.0,] category[] 	 SYMBOL:	 ARGS:category,
+		 2: RETURN %cl_2_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_4 
+		 1: def_%cl_2_5 %cl_2_4[4.0,] 
+		 2: RETURN %cl_2_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_35 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN results[11.9,11.15,9.2,8.4,] %self[2.0,] 
+BB 21
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = clear_cache! instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GLOBALVAR $redis def_%v_3 
+		 7: COPY TYPE_StringLiteral "random_topic_cache*" def_%v_4 
+		 8: %v_3->keys def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: %v_5->each def_%v_6 %v_5[2.8,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_5,
+CLOSURE BEGIN: k[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_k 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $redis def_%cl_1_3 
+		 2: %cl_1_3->del def_%cl_1_4 %cl_1_3[3.1,] k[2.2,] 	 SYMBOL:	 ARGS:k,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: RETURN %v_6[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cache_key instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_category 
+		 6: category[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_category 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "random_topic_cache_" def_%v_3 
+		 2: category->try def_%v_4 category[3.0,2.5,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 3: BUILDSTRING def_%v_5 %v_3[4.1,] %v_4[4.2,] 
+		 4: RETURN %v_5[4.3,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

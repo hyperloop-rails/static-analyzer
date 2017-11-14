@@ -1,0 +1,529 @@
+SET IRMethod, name = project instanceMethod = true
+BB 1
+	outgoing: 22 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: 
+		 7: GETFIELD %self->project def_%v_3 %self[2.0,] 
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->[] def_%v_6 %v_5[4.0,] 	 SYMBOL:namespace_id,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_namespace %v_6[4.1,] 
+		 3: 
+		 4: %self->params def_%v_7 %self[4.0,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_7->[] def_%v_8 %v_7[4.4,] 	 SYMBOL:project_id,	 ARGS:Symbol,
+		 6: BRANCH %v_8[4.5,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_9->[] def_%v_10 %v_9[5.0,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%v_8 %v_10[5.1,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_id %v_8[5.2,4.5,] 
+		 1: 
+		 2: COPY TYPE_Regexp def_%v_11 
+		 3: %v_8->=~ def_%v_12 %v_8[5.2,4.5,] 	 SYMBOL:	 ARGS:%v_11,
+		 4: BRANCH %v_12[6.3,] 
+BB 7
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->request def_%v_13 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_13->original_url def_%v_14 %v_13[7.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_Regexp def_%v_15 
+		 4: COPY TYPE_StringLiteral "" def_%v_16 
+		 5: %v_14->gsub def_%v_17 %v_14[7.2,] %v_16[7.4,] 	 SYMBOL:	 ARGS:%v_15,%v_16,
+		 6: %self->redirect_to def_%v_18 %self[7.1,2.0,] %v_17[7.5,] 	 SYMBOL:	 ARGS:%v_17,
+		 7: 
+		 8: RETURN %self[7.1,7.6,2.0,] 
+BB 8
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_19 
+		 1: 
+		 2: COPY TYPE_StringLiteral "/" def_%v_20 
+		 3: BUILDSTRING def_%v_21 namespace[4.2,] %v_20[8.2,] id[6.0,] 
+		 4: COPY TYPE_PASS def_project_path %v_21[8.3,] 
+		 5: 
+		 6: (Project) def_%v_22 
+		 7: %v_22->find_with_namespace def_%v_23 %v_22[8.6,] %v_21[8.3,] 	 SYMBOL:	 ARGS:project_path,
+		 8: ATTRASSIGN %self->project %v_23[8.7,] 
+		 9: 
+		 10: GETFIELD %self->project def_%v_24 %self[8.8,2.0,] 
+		 11: BRANCH %v_24[8.10,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %self->current_user def_%v_25 %self[8.8,2.0,] 	 SYMBOL:	 ARGS:
+		 1: GETFIELD %self->project def_%v_26 %self[10.0,8.8,2.0,] 
+		 2: %self->can? def_%v_27 %self[10.0,8.8,2.0,] %v_25[10.0,] %v_26[10.1,] 	 SYMBOL:read_project,	 ARGS:%v_25,Symbol,%v_26,
+		 3: COPY TYPE_PASS def_%v_24 %v_27[10.2,] 
+BB 11
+	outgoing: 12 16 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_24[10.3,8.10,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->project def_%v_28 %self[8.8,2.0,] 
+		 2: %v_28->path_with_namespace def_%v_29 %v_28[12.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_29->!= def_%v_30 %v_29[12.2,] project_path[8.4,] 	 SYMBOL:	 ARGS:project_path,
+		 4: BRANCH %v_30[12.3,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->request def_%v_31 %self[8.8,2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_31->original_url def_%v_32 %v_31[13.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->project def_%v_33 %self[13.1,8.8,2.0,] 
+		 4: %v_33->path_with_namespace def_%v_34 %v_33[13.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_32->gsub def_%v_35 %v_32[13.2,] project_path[8.4,] %v_34[13.4,] 	 SYMBOL:	 ARGS:project_path,%v_34,
+		 6: %self->redirect_to def_%v_36 %self[13.1,8.8,2.0,] %v_35[13.5,] 	 SYMBOL:	 ARGS:%v_35,
+		 7: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_36 
+BB 15
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->project 
+		 2: 
+		 3: %self->current_user def_%v_37 %self[16.1,8.8,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_37->nil? def_%v_38 %v_37[16.3,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %v_38[16.4,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->authenticate_user! def_%v_39 %self[16.1,8.8,2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->render_404 def_%v_40 %self[16.1,8.8,2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_39 %v_40[18.1,] 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_36 %v_39[18.2,17.1,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_4 %v_36[19.0,14.0,13.6,] 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->project def_%v_41 %self[2.0,16.1,8.8,] 
+		 2: RETURN %v_41[21.1,] %self[2.0,16.1,8.8,] 
+BB 22
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = repository instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->repository def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->project def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->repository def_%v_7 %v_6[5.0,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %self->repository %v_7[5.1,] 
+		 3: RETURN %v_7[5.1,] %self[5.0,5.2,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_collaborate_with_project? instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_project 
+		 6: project[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_project 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_3 project[3.0,2.5,] 
+		 2: COPY TYPE_PASS def_%v_4 project[3.0,2.5,] 
+		 3: BRANCH project[3.0,2.5,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->project def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_project %v_5[5.0,] 
+		 2: COPY TYPE_PASS def_%v_4 %v_5[5.0,] 
+BB 6
+	outgoing: 7 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->current_user def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->can? def_%v_7 %self[6.1,2.0,] %v_6[6.1,] project[5.1,3.0,2.5,] 	 SYMBOL:push_code,	 ARGS:%v_6,Symbol,project,
+		 3: BRANCH %v_7[6.2,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->current_user def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_8[7.1,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %self->current_user def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_9->already_forked? def_%v_10 %v_9[8.0,] project[5.1,3.0,2.5,] 	 SYMBOL:	 ARGS:project,
+		 2: COPY TYPE_PASS def_%v_8 %v_10[8.1,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %v_8[8.2,7.1,] %self[2.0,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %v_7[6.2,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = authorize_project! instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_action 
+		 6: 
+		 7: %self->current_user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %self->project def_%v_4 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 9: %self->can? def_%v_5 %self[2.0,2.7,2.8,] %v_3[2.7,] action[2.5,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_3,action,%v_4,
+		 10: BRANCH %v_5[2.9,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: RETURN %v_6[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->access_denied! def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_7[4.0,] %self[4.0,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = method_missing instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_method_sym 
+		 6: RECEIVEARG def_arguments 
+		 7: def_%v_3 
+		 8: COPY TYPE_PASS def_block %v_3[2.7,] 
+		 9: 
+		 10: method_sym->to_s def_%v_4 method_sym[2.5,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_Regexp def_%v_5 
+		 12: %v_4->=~ def_%v_6 %v_4[2.10,] 	 SYMBOL:	 ARGS:%v_5,
+		 13: BRANCH %v_6[2.12,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_NthRef def_%v_7 
+		 2: %v_7->to_sym def_%v_8 %v_7[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->authorize_project! def_%v_9 %self[2.0,] %v_8[3.2,] 	 SYMBOL:	 ARGS:%v_8,
+		 4: RETURN %v_9[3.3,] %self[3.3,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->super def_%v_10 %current_module[2.3,] method_sym[2.5,] arguments[2.6,] %v_0[2.1,] 	 SYMBOL:	 ARGS:method_sym,Splat,
+		 2: RETURN %v_10[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = require_non_empty_project instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->project def_%v_3 %self[2.0,] 
+		 7: %v_3->empty_repo? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->project def_%v_5 %self[2.0,] 
+		 1: %v_5->namespace def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->project def_%v_7 %self[2.0,] 
+		 3: %self->namespace_project_path def_%v_8 %self[2.0,] %v_6[3.1,] %v_7[3.2,] 	 SYMBOL:	 ARGS:%v_6,%v_7,
+		 4: HASH-status- def_%v_9 
+		 5: %self->redirect_to def_%v_10 %self[3.3,2.0,] %v_8[3.3,] %v_9[3.4,] 	 SYMBOL:	 ARGS:%v_8,%v_9,
+		 6: RETURN %v_10[3.5,] %self[3.3,3.5,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = require_branch_head instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->repository def_%v_3 %self[2.0,] 
+		 7: %v_3->branch_names def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: GETFIELD %self->ref def_%v_5 %self[2.0,] 
+		 9: %v_4->include? def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: BRANCH %v_6[2.9,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: RETURN %v_7[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->project def_%v_8 %self[2.0,] 
+		 2: %v_8->namespace def_%v_9 %v_8[4.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->project def_%v_10 %self[2.0,] 
+		 4: GETFIELD %self->ref def_%v_11 %self[2.0,] 
+		 5: %self->namespace_project_tree_path def_%v_12 %self[2.0,] %v_9[4.2,] %v_10[4.3,] %v_11[4.4,] 	 SYMBOL:	 ARGS:%v_9,%v_10,%v_11,
+		 6: COPY TYPE_StringLiteral "This action is not allowed unless you are on a branch" def_%v_13 
+		 7: HASH-notice- def_%v_14 %v_13[4.6,] 
+		 8: %self->redirect_to def_%v_15 %self[4.5,2.0,] %v_12[4.5,] %v_14[4.7,] 	 SYMBOL:	 ARGS:%v_12,%v_14,
+		 9: RETURN %v_15[4.8,] %self[4.5,4.8,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = apply_diff_view_cookie! instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:view,	 ARGS:Symbol,
+		 8: %v_4->present? def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->cookies def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->permanent def_%v_7 %v_6[3.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->params def_%v_8 %self[3.0,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_8->delete def_%v_9 %v_8[3.2,] 	 SYMBOL:view,	 ARGS:Symbol,
+		 4: ATTRASSIGN %v_7->[] %v_9[3.3,] 
+		 5: RETURN %v_9[3.3,] %self[3.0,3.2,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = builds_enabled instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->project def_%v_3 %self[2.0,] 
+		 7: %v_3->builds_enabled? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: RETURN %v_5[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->render_404 def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_6[4.0,] %self[4.0,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

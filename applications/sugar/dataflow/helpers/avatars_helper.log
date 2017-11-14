@@ -1,0 +1,136 @@
+SET IRMethod, name = gravatar_url instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_email 
+		 6: RECEIVECONSTARG def_options 
+		 7: options[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-size- def_%v_4 
+		 2: %v_4->merge def_%v_5 %v_4[4.1,] options[3.1,2.6,] 	 SYMBOL:	 ARGS:options,
+		 3: COPY TYPE_PASS def_options %v_5[4.2,] 
+		 4: 
+		 5: (Digest) def_%v_6 
+		 6: (inherit MD5) def_%v_7 %v_6[4.5,] 
+		 7: %v_7[4.6,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[4.5,] 	 SYMBOL:MD5,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_7->hexdigest def_%v_8 %v_7[5.0,4.6,] email[2.5,] 	 SYMBOL:	 ARGS:email,
+		 1: COPY TYPE_PASS def_hash %v_8[6.0,] 
+		 2: 
+		 3: COPY TYPE_StringLiteral "https://secure.gravatar.com/avatar/" def_%v_9 
+		 4: COPY TYPE_StringLiteral "?s=" def_%v_10 
+		 5: 
+		 6: options->[] def_%v_11 options[4.3,] 	 SYMBOL:size,	 ARGS:Symbol,
+		 7: COPY TYPE_StringLiteral "&r=x&d=identicon" def_%v_12 
+		 8: BUILDSTRING def_%v_13 %v_10[6.4,] %v_11[6.6,] %v_12[6.7,] 
+		 9: BUILDSTRING def_%v_14 %v_9[6.3,] hash[6.1,] %v_13[6.8,] 
+		 10: RETURN %v_14[6.9,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = avatar_image_tag instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: COPY TYPE_StringLiteral "96x96" def_%v_3 
+		 8: user->username def_%v_4 user[2.5,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_StringLiteral "avatar-image" def_%v_5 
+		 10: HASH-size-alt-class- def_%v_6 %v_3[2.7,] %v_4[2.8,] %v_5[2.9,] 
+		 11: COPY TYPE_PASS def_html_options %v_6[2.10,] 
+		 12: 
+		 13: user->avatar def_%v_7 user[2.5,2.8,] 	 SYMBOL:	 ARGS:
+		 14: BRANCH %v_7[2.13,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user->avatar def_%v_8 user[2.5,] 	 SYMBOL:	 ARGS:
+		 2: HASH-crop- def_%v_9 
+		 3: %v_9->merge def_%v_10 %v_9[3.2,] html_options[2.11,] 	 SYMBOL:	 ARGS:html_options,
+		 4: %self->dynamic_image_tag def_%v_11 %self[2.0,] %v_8[3.1,] %v_10[3.3,] 	 SYMBOL:	 ARGS:%v_8,%v_10,
+		 5: RETURN %v_11[3.4,] %self[3.4,2.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user->email? def_%v_12 user[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_12[4.1,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user->email def_%v_13 user[2.5,] 	 SYMBOL:	 ARGS:
+		 2: HASH-size- def_%v_14 
+		 3: %self->gravatar_url def_%v_15 %self[2.0,] %v_13[5.1,] %v_14[5.2,] 	 SYMBOL:	 ARGS:%v_13,%v_14,
+		 4: %self->image_tag def_%v_16 %self[5.3,2.0,] %v_15[5.3,] html_options[2.11,] 	 SYMBOL:	 ARGS:%v_15,html_options,
+		 5: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: user->id def_%v_17 user[2.5,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "@" def_%v_18 
+		 4: %self->request def_%v_19 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_19->host def_%v_20 %v_19[6.4,] 	 SYMBOL:	 ARGS:
+		 6: BUILDSTRING def_%v_21 %v_17[6.2,] %v_18[6.3,] %v_20[6.5,] 
+		 7: HASH-size- def_%v_22 
+		 8: %self->gravatar_url def_%v_23 %self[6.4,2.0,] %v_21[6.6,] %v_22[6.7,] 	 SYMBOL:	 ARGS:%v_21,%v_22,
+		 9: %self->image_tag def_%v_24 %self[6.4,6.8,2.0,] %v_23[6.8,] html_options[2.11,] 	 SYMBOL:	 ARGS:%v_23,html_options,
+		 10: COPY TYPE_PASS def_%v_16 %v_24[6.9,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_16[6.10,5.4,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+

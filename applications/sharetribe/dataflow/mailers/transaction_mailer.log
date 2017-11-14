@@ -1,0 +1,2042 @@
+SET IRMethod, name = transaction_created instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_transaction 
+		 6: 
+		 7: transaction->community def_%v_3 transaction[2.5,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_community %v_3[2.7,] 
+		 9: 
+		 10: transaction->author def_%v_4 transaction[2.5,2.7,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_PASS def_recipient %v_4[2.10,] 
+		 12: 
+		 13: transaction->starter def_%v_5 transaction[2.5,2.7,2.10,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_PASS def_sender %v_5[2.13,] 
+		 15: 
+		 16: %v_5->name def_%v_6 %v_5[2.13,] community[2.8,] 	 SYMBOL:	 ARGS:community,
+		 17: COPY TYPE_PASS def_sender_name %v_6[2.16,] 
+		 18: 
+		 19: %self->build_url_params def_%v_7 %self[2.0,] community[2.8,] recipient[2.11,] 	 SYMBOL:	 ARGS:community,recipient,
+		 20: COPY TYPE_PASS def_url_params %v_7[2.19,] 
+		 21: 
+		 22: transaction->id def_%v_8 transaction[2.5,2.7,2.10,2.13,] 	 SYMBOL:	 ARGS:
+		 23: HASH-id- def_%v_9 %v_8[2.22,] 
+		 24: url_params->merge def_%v_10 url_params[2.20,] %v_9[2.23,] 	 SYMBOL:	 ARGS:%v_9,
+		 25: %self->person_transaction_url def_%v_11 %self[2.0,2.19,] recipient[2.11,] %v_10[2.24,] 	 SYMBOL:	 ARGS:recipient,%v_10,
+		 26: COPY TYPE_PASS def_reply_url %v_11[2.25,] 
+		 27: 
+		 28: %self->prepare_template def_%v_12 %self[2.0,2.19,2.25,] community[2.8,] recipient[2.11,] 	 SYMBOL:	 ARGS:community,recipient,
+		 29: 
+		 30: recipient->locale def_%v_13 recipient[2.11,] 	 SYMBOL:	 ARGS:
+		 31: community->locales def_%v_14 community[2.8,] 	 SYMBOL:	 ARGS:
+		 32: %v_14->map def_%v_15 %v_14[2.31,] 	 SYMBOL:to_sym,	 ARGS:
+		 33: community->id def_%v_16 community[2.8,2.31,] 	 SYMBOL:	 ARGS:
+		 34: %self->with_locale def_%v_17 %self[2.0,2.19,2.25,2.28,] %v_13[2.30,] %v_15[2.32,] %v_16[2.33,] %self[2.0,2.19,2.25,2.28,] 	 SYMBOL:	 ARGS:%v_13,%v_15,%v_16,%self,
+CLOSURE BEGIN: sender_name[2.17,] %self[2.0,2.19,2.25,2.28,] recipient[2.11,2.30,] community[2.8,2.31,2.33,] format[] reply_url[2.26,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "emails.new_message.you_have_a_new_message" def_%cl_1_3 
+		 2: HASH-sender_name- def_%cl_1_4 sender_name[] 
+		 3: %self->t def_%cl_1_5 %self[2.0,] %cl_1_3[3.1,] %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:%cl_1_3,%cl_1_4,
+		 4: %self->mail_params def_%cl_1_6 %self[3.3,2.0,] recipient[] community[] %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:recipient,community,%cl_1_5,
+		 5: %self->premailer_mail def_%cl_1_7 %self[3.3,3.4,2.0,] %cl_1_6[3.4,] %self[3.3,3.4,2.0,] 	 SYMBOL:	 ARGS:%cl_1_6,%self,
+CLOSURE BEGIN: format[] %self[3.3,3.4,2.0,] recipient[] reply_url[] sender_name[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_format 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: format->html def_%cl_2_3 format[2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:format,
+CLOSURE BEGIN: recipient[] reply_url[] sender_name[] %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-recipient-reply_url-sender_name- def_%cl_3_3 recipient[] reply_url[] sender_name[] 
+		 2: HASH-locals- def_%cl_3_4 %cl_3_3[3.1,] 
+		 3: %self->render def_%cl_3_5 %self[2.0,] %cl_3_4[3.2,] 	 SYMBOL:	 ARGS:%cl_3_4,
+		 4: RETURN %cl_3_5[3.3,] %self[3.3,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_6 
+		 1: def_%cl_3_7 %cl_3_6[4.0,] 
+		 2: RETURN %cl_3_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: RETURN %cl_2_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_4 
+		 1: def_%cl_2_5 %cl_2_4[4.0,] 
+		 2: RETURN %cl_2_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 6: RETURN %cl_1_7[3.5,] %self[3.3,3.4,3.5,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[4.0,] 
+		 2: RETURN %cl_1_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 35: RETURN %v_17[2.34,] %self[2.0,2.19,2.25,2.28,2.34,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = transaction_preauthorized instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_transaction 
+		 6: 
+		 7: ATTRASSIGN %self->transaction transaction[2.5,] 
+		 8: 
+		 9: transaction->community def_%v_3 transaction[2.5,] 	 SYMBOL:	 ARGS:
+		 10: ATTRASSIGN %self->community %v_3[2.9,] 
+		 11: 
+		 12: transaction->author def_%v_4 transaction[2.5,2.9,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_PASS def_recipient %v_4[2.12,] 
+		 14: 
+		 15: transaction->community def_%v_5 transaction[2.5,2.9,2.12,] 	 SYMBOL:	 ARGS:
+		 16: %self->set_up_urls def_%v_6 %self[2.0,2.7,2.10,] recipient[2.13,] %v_5[2.15,] 	 SYMBOL:	 ARGS:recipient,%v_5,
+		 17: 
+		 18: recipient->locale def_%v_7 recipient[2.13,] 	 SYMBOL:	 ARGS:
+		 19: transaction->community def_%v_8 transaction[2.5,2.9,2.12,2.15,] 	 SYMBOL:	 ARGS:
+		 20: %v_8->locales def_%v_9 %v_8[2.19,] 	 SYMBOL:	 ARGS:
+		 21: %v_9->map def_%v_10 %v_9[2.20,] 	 SYMBOL:to_sym,	 ARGS:
+		 22: transaction->community def_%v_11 transaction[2.5,2.9,2.12,2.15,2.19,] 	 SYMBOL:	 ARGS:
+		 23: %v_11->id def_%v_12 %v_11[2.22,] 	 SYMBOL:	 ARGS:
+		 24: %self->with_locale def_%v_13 %self[2.0,2.7,2.10,2.16,] %v_7[2.18,] %v_10[2.21,] %v_12[2.23,] %self[2.0,2.7,2.10,2.16,] 	 SYMBOL:	 ARGS:%v_7,%v_10,%v_12,%self,
+CLOSURE BEGIN: %self[2.0,2.7,2.10,2.16,] payment_type[] transaction[2.5,2.9,2.12,2.15,2.19,2.22,] gateway_expires[] booking_end[] expires[] format[] expires_in[] 
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (MarketplaceService) def_%cl_1_3 
+		 2: (inherit Community) def_%cl_1_4 %cl_1_3[3.1,] 
+		 3: %cl_1_4[3.2,] 
+BB 4
+	outgoing: 5 12 
+	datadep: 
+	instructions:
+		 0: %cl_1_3->const_missing def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:Community,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 7 12 
+	datadep: 
+	instructions:
+		 0: (inherit Query) def_%cl_1_5 %cl_1_4[4.0,3.2,] 
+		 1: %cl_1_5[5.0,] 
+BB 6
+	outgoing: 7 12 
+	datadep: 
+	instructions:
+		 0: %cl_1_4->const_missing def_%cl_1_5 %cl_1_4[4.0,3.2,] 	 SYMBOL:Query,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 9 12 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->community def_%cl_1_6 %self[2.0,] 
+		 1: %cl_1_6->id def_%cl_1_7 %cl_1_6[7.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_5->payment_type def_%cl_1_8 %cl_1_5[6.0,5.0,] %cl_1_7[7.1,] 	 SYMBOL:	 ARGS:%cl_1_7,
+		 3: COPY TYPE_PASS def_payment_type %cl_1_8[7.2,] 
+		 4: 
+		 5: (MarketplaceService) def_%cl_1_9 
+		 6: (inherit Transaction) def_%cl_1_10 %cl_1_9[7.5,] 
+		 7: %cl_1_10[7.6,] 
+BB 8
+	outgoing: 9 12 
+	datadep: 
+	instructions:
+		 0: %cl_1_9->const_missing def_%cl_1_10 %cl_1_9[7.5,] 	 SYMBOL:Transaction,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 11 12 
+	datadep: 
+	instructions:
+		 0: (inherit Entity) def_%cl_1_11 %cl_1_10[8.0,7.6,] 
+		 1: %cl_1_11[9.0,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: %cl_1_10->const_missing def_%cl_1_11 %cl_1_10[8.0,7.6,] 	 SYMBOL:Entity,	 ARGS:Symbol,
+BB 11
+	outgoing: 12 14 
+	datadep: 
+	instructions:
+		 0: %cl_1_11->authorization_expiration_period def_%cl_1_12 %cl_1_11[10.0,9.0,] payment_type[7.3,] 	 SYMBOL:	 ARGS:payment_type,
+		 1: COPY TYPE_PASS def_gateway_expires %cl_1_12[11.0,] 
+		 2: 
+		 3: %self->Maybe def_%cl_1_13 %self[2.0,] transaction[] 	 SYMBOL:	 ARGS:transaction,
+		 4: %cl_1_13->booking def_%cl_1_14 %cl_1_13[11.3,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_14->end_on def_%cl_1_15 %cl_1_14[11.4,] 	 SYMBOL:	 ARGS:
+		 6: %cl_1_15->map def_%cl_1_16 %cl_1_15[11.5,] %self[11.3,2.0,] 	 SYMBOL:	 ARGS:%cl_1_15,
+CLOSURE BEGIN: gateway_expires[11.1,] booking_end[] 
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_booking_end 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (MarketplaceService) def_%cl_2_3 
+		 2: (inherit Transaction) def_%cl_2_4 %cl_2_3[3.1,] 
+		 3: %cl_2_4[3.2,] 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: %cl_2_3->const_missing def_%cl_2_4 %cl_2_3[3.1,] 	 SYMBOL:Transaction,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 7 8 
+	datadep: 
+	instructions:
+		 0: (inherit Entity) def_%cl_2_5 %cl_2_4[4.0,3.2,] 
+		 1: %cl_2_5[5.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: %cl_2_4->const_missing def_%cl_2_5 %cl_2_4[4.0,3.2,] 	 SYMBOL:Entity,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 10 
+	datadep: 
+	instructions:
+		 0: gateway_expires->days def_%cl_2_6 gateway_expires[] 	 SYMBOL:	 ARGS:
+		 1: %cl_2_6->from_now def_%cl_2_7 %cl_2_6[7.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_2_5->preauth_expires_at def_%cl_2_8 %cl_2_5[6.0,5.0,] %cl_2_7[7.1,] booking_end[2.2,] 	 SYMBOL:	 ARGS:%cl_2_7,booking_end,
+		 3: RETURN %cl_2_8[7.2,] %self[2.0,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_9 
+		 1: def_%cl_2_10 %cl_2_9[8.0,] 
+		 2: RETURN %cl_2_10[8.1,] %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 7: gateway_expires->days def_%cl_1_17 gateway_expires[11.1,] 	 SYMBOL:	 ARGS:
+		 8: %cl_1_17->from_now def_%cl_1_18 %cl_1_17[11.7,] 	 SYMBOL:	 ARGS:
+		 9: %cl_1_16->or_else def_%cl_1_19 %cl_1_16[11.6,] %cl_1_18[11.8,] 	 SYMBOL:	 ARGS:%cl_1_18,
+		 10: COPY TYPE_PASS def_expires %cl_1_19[11.9,] 
+		 11: 
+		 12: CONSTANT def_%cl_1_20 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_PASS def_buffer %cl_1_20[11.12,] 
+		 14: 
+		 15: (TimeUtils) def_%cl_1_21 
+		 16: expires->+ def_%cl_1_22 expires[11.10,] %cl_1_20[11.12,] 	 SYMBOL:	 ARGS:buffer,
+		 17: %cl_1_21->time_to def_%cl_1_23 %cl_1_21[11.15,] %cl_1_22[11.16,] 	 SYMBOL:	 ARGS:%cl_1_22,
+		 18: COPY TYPE_PASS def_expires_in %cl_1_23[11.17,] 
+		 19: 
+		 20: GETFIELD %self->recipient def_%cl_1_24 %self[11.3,2.0,] 
+		 21: GETFIELD %self->community def_%cl_1_25 %self[11.3,2.0,] 
+		 22: COPY TYPE_StringLiteral "emails.transaction_preauthorized.subject" def_%cl_1_26 
+		 23: transaction->starter def_%cl_1_27 transaction[] 	 SYMBOL:	 ARGS:
+		 24: GETFIELD %self->community def_%cl_1_28 %self[11.3,2.0,] 
+		 25: %cl_1_27->name def_%cl_1_29 %cl_1_27[11.23,] %cl_1_28[11.24,] 	 SYMBOL:	 ARGS:%cl_1_28,
+		 26: transaction->listing def_%cl_1_30 transaction[11.23,] 	 SYMBOL:	 ARGS:
+		 27: %cl_1_30->title def_%cl_1_31 %cl_1_30[11.26,] 	 SYMBOL:	 ARGS:
+		 28: HASH-requester-listing_title- def_%cl_1_32 %cl_1_29[11.25,] %cl_1_31[11.27,] 
+		 29: %self->t def_%cl_1_33 %self[11.3,2.0,] %cl_1_26[11.22,] %cl_1_32[11.28,] 	 SYMBOL:	 ARGS:%cl_1_26,%cl_1_32,
+		 30: %self->mail_params def_%cl_1_34 %self[11.3,11.29,2.0,] %cl_1_24[11.20,] %cl_1_25[11.21,] %cl_1_33[11.29,] 	 SYMBOL:	 ARGS:%cl_1_24,%cl_1_25,%cl_1_33,
+		 31: %self->premailer_mail def_%cl_1_35 %self[11.3,11.29,11.30,2.0,] %cl_1_34[11.30,] %self[11.3,11.29,11.30,2.0,] 	 SYMBOL:	 ARGS:%cl_1_34,%self,
+CLOSURE BEGIN: format[] %self[11.3,11.29,11.30,2.0,] expires_in[11.18,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_format 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: format->html def_%cl_3_3 format[2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:format,
+CLOSURE BEGIN: expires_in[] %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: expires_in->[] def_%cl_4_3 expires_in[] 	 SYMBOL:unit,	 ARGS:Symbol,
+		 2: expires_in->[] def_%cl_4_4 expires_in[3.1,] 	 SYMBOL:count,	 ARGS:Symbol,
+		 3: HASH-payment_expires_in_unit-payment_expires_in_count- def_%cl_4_5 %cl_4_3[3.1,] %cl_4_4[3.2,] 
+		 4: HASH-locals- def_%cl_4_6 %cl_4_5[3.3,] 
+		 5: %self->render def_%cl_4_7 %self[2.0,] %cl_4_6[3.4,] 	 SYMBOL:	 ARGS:%cl_4_6,
+		 6: RETURN %cl_4_7[3.5,] %self[3.5,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_4_8 
+		 1: def_%cl_4_9 %cl_4_8[4.0,] 
+		 2: RETURN %cl_4_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: RETURN %cl_3_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_4 
+		 1: def_%cl_3_5 %cl_3_4[4.0,] 
+		 2: RETURN %cl_3_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 32: RETURN %cl_1_35[11.31,] %self[11.3,11.29,11.30,11.31,2.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_36 
+		 1: def_%cl_1_37 %cl_1_36[12.0,] 
+		 2: RETURN %cl_1_37[12.1,] %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: gateway_expires[11.1,] expires[11.10,] buffer[11.13,] expires_in[11.18,] 
+		 25: RETURN %v_13[2.24,] %self[2.0,2.7,2.10,2.16,2.24,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = transaction_preauthorized_reminder instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_transaction 
+		 6: 
+		 7: ATTRASSIGN %self->transaction transaction[2.5,] 
+		 8: 
+		 9: transaction->community def_%v_3 transaction[2.5,] 	 SYMBOL:	 ARGS:
+		 10: ATTRASSIGN %self->community %v_3[2.9,] 
+		 11: 
+		 12: transaction->author def_%v_4 transaction[2.5,2.9,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_PASS def_recipient %v_4[2.12,] 
+		 14: 
+		 15: transaction->community def_%v_5 transaction[2.5,2.9,2.12,] 	 SYMBOL:	 ARGS:
+		 16: %self->set_up_urls def_%v_6 %self[2.0,2.7,2.10,] recipient[2.13,] %v_5[2.15,] 	 SYMBOL:	 ARGS:recipient,%v_5,
+		 17: 
+		 18: recipient->locale def_%v_7 recipient[2.13,] 	 SYMBOL:	 ARGS:
+		 19: transaction->community def_%v_8 transaction[2.5,2.9,2.12,2.15,] 	 SYMBOL:	 ARGS:
+		 20: %v_8->locales def_%v_9 %v_8[2.19,] 	 SYMBOL:	 ARGS:
+		 21: %v_9->map def_%v_10 %v_9[2.20,] 	 SYMBOL:to_sym,	 ARGS:
+		 22: transaction->community def_%v_11 transaction[2.5,2.9,2.12,2.15,2.19,] 	 SYMBOL:	 ARGS:
+		 23: %v_11->id def_%v_12 %v_11[2.22,] 	 SYMBOL:	 ARGS:
+		 24: %self->with_locale def_%v_13 %self[2.0,2.7,2.10,2.16,] %v_7[2.18,] %v_10[2.21,] %v_12[2.23,] %self[2.0,2.7,2.10,2.16,] 	 SYMBOL:	 ARGS:%v_7,%v_10,%v_12,%self,
+CLOSURE BEGIN: %self[2.0,2.7,2.10,2.16,] transaction[2.5,2.9,2.12,2.15,2.19,2.22,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->recipient def_%cl_1_3 %self[2.0,] 
+		 2: GETFIELD %self->community def_%cl_1_4 %self[2.0,] 
+		 3: COPY TYPE_StringLiteral "emails.transaction_preauthorized_reminder.subject" def_%cl_1_5 
+		 4: transaction->starter def_%cl_1_6 transaction[] 	 SYMBOL:	 ARGS:
+		 5: GETFIELD %self->community def_%cl_1_7 %self[2.0,] 
+		 6: %cl_1_6->name def_%cl_1_8 %cl_1_6[3.4,] %cl_1_7[3.5,] 	 SYMBOL:	 ARGS:%cl_1_7,
+		 7: transaction->listing def_%cl_1_9 transaction[3.4,] 	 SYMBOL:	 ARGS:
+		 8: %cl_1_9->title def_%cl_1_10 %cl_1_9[3.7,] 	 SYMBOL:	 ARGS:
+		 9: HASH-requester-listing_title- def_%cl_1_11 %cl_1_8[3.6,] %cl_1_10[3.8,] 
+		 10: %self->t def_%cl_1_12 %self[2.0,] %cl_1_5[3.3,] %cl_1_11[3.9,] 	 SYMBOL:	 ARGS:%cl_1_5,%cl_1_11,
+		 11: %self->mail_params def_%cl_1_13 %self[3.10,2.0,] %cl_1_3[3.1,] %cl_1_4[3.2,] %cl_1_12[3.10,] 	 SYMBOL:	 ARGS:%cl_1_3,%cl_1_4,%cl_1_12,
+		 12: %self->premailer_mail def_%cl_1_14 %self[3.10,3.11,2.0,] %cl_1_13[3.11,] 	 SYMBOL:	 ARGS:%cl_1_13,
+		 13: RETURN %cl_1_14[3.12,] %self[3.10,3.11,3.12,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_15 
+		 1: def_%cl_1_16 %cl_1_15[4.0,] 
+		 2: RETURN %cl_1_16[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 25: RETURN %v_13[2.24,] %self[2.0,2.7,2.10,2.16,2.24,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = braintree_new_payment instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_payment 
+		 6: RECEIVEARG def_community 
+		 7: 
+		 8: payment->recipient def_%v_3 payment[2.5,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_PASS def_recipient %v_3[2.8,] 
+		 10: 
+		 11: payment->recipient def_%v_4 payment[2.5,2.8,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral "email_about_new_payments" def_%v_5 
+		 13: %self->prepare_template def_%v_6 %self[2.0,] community[2.6,] %v_4[2.11,] %v_5[2.12,] 	 SYMBOL:	 ARGS:community,%v_4,%v_5,
+		 14: 
+		 15: recipient->locale def_%v_7 recipient[2.9,] 	 SYMBOL:	 ARGS:
+		 16: community->locales def_%v_8 community[2.6,] 	 SYMBOL:	 ARGS:
+		 17: %v_8->map def_%v_9 %v_8[2.16,] 	 SYMBOL:to_sym,	 ARGS:
+		 18: community->id def_%v_10 community[2.6,2.16,] 	 SYMBOL:	 ARGS:
+		 19: %self->with_locale def_%v_11 %self[2.0,2.13,] %v_7[2.15,] %v_9[2.17,] %v_10[2.18,] %self[2.0,2.13,] 	 SYMBOL:	 ARGS:%v_7,%v_9,%v_10,%self,
+CLOSURE BEGIN: payment[2.5,2.8,2.11,] %self[2.0,2.13,] t[] community[2.6,2.16,2.18,] format[] unit_type[] service_fee[] you_get[] duration[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: payment->total_commission def_%cl_1_3 payment[] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_service_fee %cl_1_3[3.1,] 
+		 3: 
+		 4: payment->seller_gets def_%cl_1_4 payment[3.1,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_you_get %cl_1_4[3.4,] 
+		 6: 
+		 7: payment->transaction def_%cl_1_5 payment[3.1,3.4,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_transaction %cl_1_5[3.7,] 
+		 9: 
+		 10: %self->Maybe def_%cl_1_6 %self[2.0,] %cl_1_5[3.7,] 	 SYMBOL:	 ARGS:transaction,
+		 11: %cl_1_6->select def_%cl_1_7 %cl_1_6[3.10,] %self[3.10,2.0,] 	 SYMBOL:	 ARGS:%cl_1_6,
+CLOSURE BEGIN: t[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_t 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: t->unit_type def_%cl_2_3 t[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_2_3->present? def_%cl_2_4 %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %cl_2_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_5 
+		 1: def_%cl_2_6 %cl_2_5[4.0,] 
+		 2: RETURN %cl_2_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 12: %cl_1_7->map def_%cl_1_8 %cl_1_7[3.11,] %self[3.10,2.0,] 	 SYMBOL:	 ARGS:%cl_1_7,
+CLOSURE BEGIN: t[3.11,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_t 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ListingViewUtils) def_%cl_3_3 
+		 2: t->unit_type def_%cl_3_4 t[2.2,] 	 SYMBOL:	 ARGS:
+		 3: t->unit_tr_key def_%cl_3_5 t[3.2,2.2,] 	 SYMBOL:	 ARGS:
+		 4: %cl_3_3->translate_unit def_%cl_3_6 %cl_3_3[3.1,] %cl_3_4[3.2,] %cl_3_5[3.3,] 	 SYMBOL:	 ARGS:%cl_3_4,%cl_3_5,
+		 5: RETURN %cl_3_6[3.4,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_7 
+		 1: def_%cl_3_8 %cl_3_7[4.0,] 
+		 2: RETURN %cl_3_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 13: %cl_1_8->or_else def_%cl_1_9 %cl_1_8[3.12,] 	 SYMBOL:	 ARGS:Nil,
+		 14: COPY TYPE_PASS def_unit_type %cl_1_9[3.13,] 
+		 15: 
+		 16: payment->transaction def_%cl_1_10 payment[3.1,3.4,3.7,] 	 SYMBOL:	 ARGS:
+		 17: %cl_1_10->booking def_%cl_1_11 %cl_1_10[3.16,] 	 SYMBOL:	 ARGS:
+		 18: %cl_1_11->present? def_%cl_1_12 %cl_1_11[3.17,] 	 SYMBOL:	 ARGS:
+		 19: BRANCH %cl_1_12[3.18,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: payment->transaction def_%cl_1_13 payment[] 	 SYMBOL:	 ARGS:
+		 1: %cl_1_13->booking def_%cl_1_14 %cl_1_13[4.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_14->duration def_%cl_1_15 %cl_1_14[4.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_15 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_duration %cl_1_15[5.0,4.2,] 
+		 1: 
+		 2: payment->recipient def_%cl_1_16 payment[] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_16->confirmed_notification_emails_to def_%cl_1_17 %cl_1_16[6.2,] 	 SYMBOL:	 ARGS:
+		 4: %self->community_specific_sender def_%cl_1_18 %self[2.0,] community[] 	 SYMBOL:	 ARGS:community,
+		 5: COPY TYPE_StringLiteral "emails.new_payment.new_payment" def_%cl_1_19 
+		 6: %self->t def_%cl_1_20 %self[6.4,2.0,] %cl_1_19[6.5,] 	 SYMBOL:	 ARGS:%cl_1_19,
+		 7: HASH-to-from-subject- def_%cl_1_21 %cl_1_17[6.3,] %cl_1_18[6.4,] %cl_1_20[6.6,] 
+		 8: %self->premailer_mail def_%cl_1_22 %self[6.4,6.6,2.0,] %cl_1_21[6.7,] %self[6.4,6.6,2.0,] 	 SYMBOL:	 ARGS:%cl_1_21,%self,
+CLOSURE BEGIN: format[] %self[6.4,6.6,2.0,] payment[6.2,] unit_type[3.14,] service_fee[3.2,] you_get[3.5,] community[] duration[6.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: RECEIVEARG def_format 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: format->html def_%cl_4_3 format[2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:format,
+CLOSURE BEGIN: payment[] %self[2.0,] unit_type[] service_fee[] you_get[] community[] duration[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_5_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "braintree_payment_receipt_to_seller" def_%cl_5_3 
+		 2: payment->recipient def_%cl_5_4 payment[] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->url_params def_%cl_5_5 %self[2.0,] 
+		 4: payment->transaction def_%cl_5_6 payment[3.2,] 	 SYMBOL:	 ARGS:
+		 5: %cl_5_6->id def_%cl_5_7 %cl_5_6[3.4,] 	 SYMBOL:	 ARGS:
+		 6: %cl_5_7->to_s def_%cl_5_8 %cl_5_7[3.5,] 	 SYMBOL:	 ARGS:
+		 7: HASH-id- def_%cl_5_9 %cl_5_8[3.6,] 
+		 8: %cl_5_5->merge def_%cl_5_10 %cl_5_5[3.3,] %cl_5_9[3.7,] 	 SYMBOL:	 ARGS:%cl_5_9,
+		 9: %self->person_transaction_url def_%cl_5_11 %self[2.0,] %cl_5_4[3.2,] %cl_5_10[3.8,] 	 SYMBOL:	 ARGS:%cl_5_4,%cl_5_10,
+		 10: payment->transaction def_%cl_5_12 payment[3.2,3.4,] 	 SYMBOL:	 ARGS:
+		 11: %cl_5_12->listing_title def_%cl_5_13 %cl_5_12[3.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral "emails.new_payment.price_per_unit_type" def_%cl_5_14 
+		 13: HASH-unit_type- def_%cl_5_15 unit_type[] 
+		 14: %self->t def_%cl_5_16 %self[3.9,2.0,] %cl_5_14[3.12,] %cl_5_15[3.13,] 	 SYMBOL:	 ARGS:%cl_5_14,%cl_5_15,
+		 15: payment->transaction def_%cl_5_17 payment[3.2,3.4,3.10,] 	 SYMBOL:	 ARGS:
+		 16: %cl_5_17->unit_price def_%cl_5_18 %cl_5_17[3.15,] 	 SYMBOL:	 ARGS:
+		 17: %self->humanized_money_with_symbol def_%cl_5_19 %self[3.9,3.14,2.0,] %cl_5_18[3.16,] 	 SYMBOL:	 ARGS:%cl_5_18,
+		 18: payment->transaction def_%cl_5_20 payment[3.2,3.4,3.10,3.15,] 	 SYMBOL:	 ARGS:
+		 19: %cl_5_20->listing_quantity def_%cl_5_21 %cl_5_20[3.18,] 	 SYMBOL:	 ARGS:
+		 20: payment->total_sum def_%cl_5_22 payment[3.2,3.4,3.10,3.15,3.18,] 	 SYMBOL:	 ARGS:
+		 21: %self->humanized_money_with_symbol def_%cl_5_23 %self[3.9,3.14,3.17,2.0,] %cl_5_22[3.20,] 	 SYMBOL:	 ARGS:%cl_5_22,
+		 22: service_fee->-@ def_%cl_5_24 service_fee[] 	 SYMBOL:	 ARGS:
+		 23: %self->humanized_money_with_symbol def_%cl_5_25 %self[3.9,3.14,3.17,3.21,2.0,] %cl_5_24[3.22,] 	 SYMBOL:	 ARGS:%cl_5_24,
+		 24: %self->humanized_money_with_symbol def_%cl_5_26 %self[3.9,3.14,3.17,3.21,3.23,2.0,] you_get[] 	 SYMBOL:	 ARGS:you_get,
+		 25: payment->payer def_%cl_5_27 payment[3.2,3.4,3.10,3.15,3.18,3.20,] 	 SYMBOL:	 ARGS:
+		 26: %cl_5_27->name def_%cl_5_28 %cl_5_27[3.25,] community[] 	 SYMBOL:	 ARGS:community,
+		 27: payment->payer def_%cl_5_29 payment[3.2,3.4,3.10,3.15,3.18,3.20,3.25,] 	 SYMBOL:	 ARGS:
+		 28: %cl_5_29->given_name_or_username def_%cl_5_30 %cl_5_29[3.27,] 	 SYMBOL:	 ARGS:
+		 29: payment->transaction def_%cl_5_31 payment[3.2,3.4,3.10,3.15,3.18,3.20,3.25,3.27,] 	 SYMBOL:	 ARGS:
+		 30: %cl_5_31->automatic_confirmation_after_days def_%cl_5_32 %cl_5_31[3.29,] 	 SYMBOL:	 ARGS:
+		 31: HASH-conversation_url-listing_title-price_per_unit_title-listing_price-listing_quantity-duration-payment_total-payment_service_fee-payment_seller_gets-payer_full_name-payer_given_name-automatic_confirmation_days-show_money_will_be_transferred_note- def_%cl_5_33 %cl_5_11[3.9,] %cl_5_13[3.11,] %cl_5_16[3.14,] %cl_5_19[3.17,] %cl_5_21[3.19,] duration[] %cl_5_23[3.21,] %cl_5_25[3.23,] %cl_5_26[3.24,] %cl_5_28[3.26,] %cl_5_30[3.28,] %cl_5_32[3.30,] 
+		 32: HASH-locals- def_%cl_5_34 %cl_5_33[3.31,] 
+		 33: %self->render def_%cl_5_35 %self[3.9,3.14,3.17,3.21,3.23,3.24,2.0,] %cl_5_3[3.1,] %cl_5_34[3.32,] 	 SYMBOL:	 ARGS:%cl_5_3,%cl_5_34,
+		 34: RETURN %cl_5_35[3.33,] %self[3.9,3.14,3.17,3.21,3.23,3.24,3.33,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_5_36 
+		 1: def_%cl_5_37 %cl_5_36[4.0,] 
+		 2: RETURN %cl_5_37[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: RETURN %cl_4_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_4_4 
+		 1: def_%cl_4_5 %cl_4_4[4.0,] 
+		 2: RETURN %cl_4_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: RETURN %cl_1_22[6.8,] %self[6.4,6.6,6.8,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_23 
+		 1: def_%cl_1_24 %cl_1_23[7.0,] 
+		 2: RETURN %cl_1_24[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: duration[6.0,] unit_type[3.14,] transaction[3.8,] you_get[3.5,] 
+		 20: RETURN %v_11[2.19,] %self[2.0,2.13,2.19,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = braintree_receipt_to_payer instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_payment 
+		 6: RECEIVEARG def_community 
+		 7: 
+		 8: payment->payer def_%v_3 payment[2.5,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_PASS def_recipient %v_3[2.8,] 
+		 10: 
+		 11: COPY TYPE_StringLiteral "email_about_new_payments" def_%v_4 
+		 12: %self->prepare_template def_%v_5 %self[2.0,] community[2.6,] %v_3[2.8,] %v_4[2.11,] 	 SYMBOL:	 ARGS:community,recipient,%v_4,
+		 13: 
+		 14: recipient->locale def_%v_6 recipient[2.9,] 	 SYMBOL:	 ARGS:
+		 15: community->locales def_%v_7 community[2.6,] 	 SYMBOL:	 ARGS:
+		 16: %v_7->map def_%v_8 %v_7[2.15,] 	 SYMBOL:to_sym,	 ARGS:
+		 17: community->id def_%v_9 community[2.6,2.15,] 	 SYMBOL:	 ARGS:
+		 18: %self->with_locale def_%v_10 %self[2.0,2.12,] %v_6[2.14,] %v_8[2.16,] %v_9[2.17,] %self[2.0,2.12,] 	 SYMBOL:	 ARGS:%v_6,%v_8,%v_9,%self,
+CLOSURE BEGIN: payment[2.5,2.8,] %self[2.0,2.12,] t[] community[2.6,2.15,2.17,] format[] unit_type[] duration[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: payment->transaction def_%cl_1_3 payment[] 	 SYMBOL:	 ARGS:
+		 2: %self->Maybe def_%cl_1_4 %self[2.0,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: %cl_1_4->select def_%cl_1_5 %cl_1_4[3.2,] %self[3.2,2.0,] 	 SYMBOL:	 ARGS:%cl_1_4,
+CLOSURE BEGIN: t[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_t 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: t->unit_type def_%cl_2_3 t[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_2_3->present? def_%cl_2_4 %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %cl_2_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_5 
+		 1: def_%cl_2_6 %cl_2_5[4.0,] 
+		 2: RETURN %cl_2_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: %cl_1_5->map def_%cl_1_6 %cl_1_5[3.3,] %self[3.2,2.0,] 	 SYMBOL:	 ARGS:%cl_1_5,
+CLOSURE BEGIN: t[3.3,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_t 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ListingViewUtils) def_%cl_3_3 
+		 2: t->unit_type def_%cl_3_4 t[2.2,] 	 SYMBOL:	 ARGS:
+		 3: t->unit_tr_key def_%cl_3_5 t[3.2,2.2,] 	 SYMBOL:	 ARGS:
+		 4: %cl_3_3->translate_unit def_%cl_3_6 %cl_3_3[3.1,] %cl_3_4[3.2,] %cl_3_5[3.3,] 	 SYMBOL:	 ARGS:%cl_3_4,%cl_3_5,
+		 5: RETURN %cl_3_6[3.4,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_7 
+		 1: def_%cl_3_8 %cl_3_7[4.0,] 
+		 2: RETURN %cl_3_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 5: %cl_1_6->or_else def_%cl_1_7 %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:Nil,
+		 6: COPY TYPE_PASS def_unit_type %cl_1_7[3.5,] 
+		 7: 
+		 8: payment->transaction def_%cl_1_8 payment[3.1,] 	 SYMBOL:	 ARGS:
+		 9: %cl_1_8->booking def_%cl_1_9 %cl_1_8[3.8,] 	 SYMBOL:	 ARGS:
+		 10: %cl_1_9->present? def_%cl_1_10 %cl_1_9[3.9,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %cl_1_10[3.10,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: payment->transaction def_%cl_1_11 payment[] 	 SYMBOL:	 ARGS:
+		 1: %cl_1_11->booking def_%cl_1_12 %cl_1_11[4.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_12->duration def_%cl_1_13 %cl_1_12[4.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_13 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_duration %cl_1_13[5.0,4.2,] 
+		 1: 
+		 2: payment->payer def_%cl_1_14 payment[] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_14->confirmed_notification_emails_to def_%cl_1_15 %cl_1_14[6.2,] 	 SYMBOL:	 ARGS:
+		 4: %self->community_specific_sender def_%cl_1_16 %self[2.0,] community[] 	 SYMBOL:	 ARGS:community,
+		 5: COPY TYPE_StringLiteral "emails.receipt_to_payer.receipt_of_payment" def_%cl_1_17 
+		 6: %self->t def_%cl_1_18 %self[6.4,2.0,] %cl_1_17[6.5,] 	 SYMBOL:	 ARGS:%cl_1_17,
+		 7: HASH-to-from-subject- def_%cl_1_19 %cl_1_15[6.3,] %cl_1_16[6.4,] %cl_1_18[6.6,] 
+		 8: %self->premailer_mail def_%cl_1_20 %self[6.4,6.6,2.0,] %cl_1_19[6.7,] %self[6.4,6.6,2.0,] 	 SYMBOL:	 ARGS:%cl_1_19,%self,
+CLOSURE BEGIN: format[] %self[6.4,6.6,2.0,] payment[6.2,] unit_type[3.6,] community[] duration[6.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: RECEIVEARG def_format 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: format->html def_%cl_4_3 format[2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:format,
+CLOSURE BEGIN: payment[] %self[2.0,] unit_type[] community[] duration[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_5_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "payment_receipt_to_buyer" def_%cl_5_3 
+		 2: payment->payer def_%cl_5_4 payment[] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->url_params def_%cl_5_5 %self[2.0,] 
+		 4: payment->transaction def_%cl_5_6 payment[3.2,] 	 SYMBOL:	 ARGS:
+		 5: %cl_5_6->id def_%cl_5_7 %cl_5_6[3.4,] 	 SYMBOL:	 ARGS:
+		 6: %cl_5_7->to_s def_%cl_5_8 %cl_5_7[3.5,] 	 SYMBOL:	 ARGS:
+		 7: HASH-id- def_%cl_5_9 %cl_5_8[3.6,] 
+		 8: %cl_5_5->merge def_%cl_5_10 %cl_5_5[3.3,] %cl_5_9[3.7,] 	 SYMBOL:	 ARGS:%cl_5_9,
+		 9: %self->person_transaction_url def_%cl_5_11 %self[2.0,] %cl_5_4[3.2,] %cl_5_10[3.8,] 	 SYMBOL:	 ARGS:%cl_5_4,%cl_5_10,
+		 10: payment->transaction def_%cl_5_12 payment[3.2,3.4,] 	 SYMBOL:	 ARGS:
+		 11: %cl_5_12->listing_title def_%cl_5_13 %cl_5_12[3.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral "emails.new_payment.price_per_unit_type" def_%cl_5_14 
+		 13: HASH-unit_type- def_%cl_5_15 unit_type[] 
+		 14: %self->t def_%cl_5_16 %self[3.9,2.0,] %cl_5_14[3.12,] %cl_5_15[3.13,] 	 SYMBOL:	 ARGS:%cl_5_14,%cl_5_15,
+		 15: payment->transaction def_%cl_5_17 payment[3.2,3.4,3.10,] 	 SYMBOL:	 ARGS:
+		 16: %cl_5_17->unit_price def_%cl_5_18 %cl_5_17[3.15,] 	 SYMBOL:	 ARGS:
+		 17: %self->humanized_money_with_symbol def_%cl_5_19 %self[3.9,3.14,2.0,] %cl_5_18[3.16,] 	 SYMBOL:	 ARGS:%cl_5_18,
+		 18: payment->transaction def_%cl_5_20 payment[3.2,3.4,3.10,3.15,] 	 SYMBOL:	 ARGS:
+		 19: %cl_5_20->listing_quantity def_%cl_5_21 %cl_5_20[3.18,] 	 SYMBOL:	 ARGS:
+		 20: payment->total_sum def_%cl_5_22 payment[3.2,3.4,3.10,3.15,3.18,] 	 SYMBOL:	 ARGS:
+		 21: %self->humanized_money_with_symbol def_%cl_5_23 %self[3.9,3.14,3.17,2.0,] %cl_5_22[3.20,] 	 SYMBOL:	 ARGS:%cl_5_22,
+		 22: payment->total_sum def_%cl_5_24 payment[3.2,3.4,3.10,3.15,3.18,3.20,] 	 SYMBOL:	 ARGS:
+		 23: %self->humanized_money_with_symbol def_%cl_5_25 %self[3.9,3.14,3.17,3.21,2.0,] %cl_5_24[3.22,] 	 SYMBOL:	 ARGS:%cl_5_24,
+		 24: payment->recipient def_%cl_5_26 payment[3.2,3.4,3.10,3.15,3.18,3.20,3.22,] 	 SYMBOL:	 ARGS:
+		 25: %cl_5_26->name def_%cl_5_27 %cl_5_26[3.24,] community[] 	 SYMBOL:	 ARGS:community,
+		 26: payment->recipient def_%cl_5_28 payment[3.2,3.4,3.10,3.15,3.18,3.20,3.22,3.24,] 	 SYMBOL:	 ARGS:
+		 27: %cl_5_28->given_name_or_username def_%cl_5_29 %cl_5_28[3.26,] 	 SYMBOL:	 ARGS:
+		 28: payment->transaction def_%cl_5_30 payment[3.2,3.4,3.10,3.15,3.18,3.20,3.22,3.24,3.26,] 	 SYMBOL:	 ARGS:
+		 29: %cl_5_30->automatic_confirmation_after_days def_%cl_5_31 %cl_5_30[3.28,] 	 SYMBOL:	 ARGS:
+		 30: HASH-conversation_url-listing_title-price_per_unit_title-listing_price-listing_quantity-duration-payment_total-subtotal-shipping_total-recipient_full_name-recipient_given_name-automatic_confirmation_days-show_money_will_be_transferred_note- def_%cl_5_32 %cl_5_11[3.9,] %cl_5_13[3.11,] %cl_5_16[3.14,] %cl_5_19[3.17,] %cl_5_21[3.19,] duration[] %cl_5_23[3.21,] %cl_5_25[3.23,] %cl_5_27[3.25,] %cl_5_29[3.27,] %cl_5_31[3.29,] 
+		 31: HASH-locals- def_%cl_5_33 %cl_5_32[3.30,] 
+		 32: %self->render def_%cl_5_34 %self[3.9,3.14,3.17,3.21,3.23,2.0,] %cl_5_3[3.1,] %cl_5_33[3.31,] 	 SYMBOL:	 ARGS:%cl_5_3,%cl_5_33,
+		 33: RETURN %cl_5_34[3.32,] %self[3.9,3.14,3.17,3.21,3.23,3.32,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_5_35 
+		 1: def_%cl_5_36 %cl_5_35[4.0,] 
+		 2: RETURN %cl_5_36[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: RETURN %cl_4_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_4_4 
+		 1: def_%cl_4_5 %cl_4_4[4.0,] 
+		 2: RETURN %cl_4_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: RETURN %cl_1_20[6.8,] %self[6.4,6.6,6.8,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_21 
+		 1: def_%cl_1_22 %cl_1_21[7.0,] 
+		 2: RETURN %cl_1_22[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: duration[6.0,] 
+		 19: RETURN %v_10[2.18,] %self[2.0,2.12,2.18,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = paypal_new_payment instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_transaction 
+		 6: RECEIVECONSTARG def_seller_model 
+		 7: seller_model[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_seller_model 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_buyer_model 
+		 1: buyer_model[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_buyer_model 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_community 
+		 1: community[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_community 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_3 seller_model[3.0,2.6,] 
+		 2: COPY TYPE_PASS def_%v_4 seller_model[3.0,2.6,] 
+		 3: BRANCH seller_model[3.0,2.6,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: (Person) def_%v_5 
+		 1: transaction->[] def_%v_6 transaction[2.5,] 	 SYMBOL:listing_author_id,	 ARGS:Symbol,
+		 2: %v_5->find def_%v_7 %v_5[9.0,] %v_6[9.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: COPY TYPE_PASS def_seller_model %v_7[9.2,] 
+		 4: COPY TYPE_PASS def_%v_4 %v_7[9.2,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_8 buyer_model[5.0,4.0,] 
+		 2: COPY TYPE_PASS def_%v_9 buyer_model[5.0,4.0,] 
+		 3: BRANCH buyer_model[5.0,4.0,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: (Person) def_%v_10 
+		 1: transaction->[] def_%v_11 transaction[2.5,] 	 SYMBOL:starter_id,	 ARGS:Symbol,
+		 2: %v_10->find def_%v_12 %v_10[11.0,] %v_11[11.1,] 	 SYMBOL:	 ARGS:%v_11,
+		 3: COPY TYPE_PASS def_buyer_model %v_12[11.2,] 
+		 4: COPY TYPE_PASS def_%v_9 %v_12[11.2,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_13 community[7.0,6.0,] 
+		 2: COPY TYPE_PASS def_%v_14 community[7.0,6.0,] 
+		 3: BRANCH community[7.0,6.0,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: (Community) def_%v_15 
+		 1: transaction->[] def_%v_16 transaction[2.5,] 	 SYMBOL:community_id,	 ARGS:Symbol,
+		 2: %v_15->find def_%v_17 %v_15[13.0,] %v_16[13.1,] 	 SYMBOL:	 ARGS:%v_16,
+		 3: COPY TYPE_PASS def_community %v_17[13.2,] 
+		 4: COPY TYPE_PASS def_%v_14 %v_17[13.2,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: transaction->[] def_%v_18 transaction[2.5,] 	 SYMBOL:payment_total,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_payment_total %v_18[14.1,] 
+		 3: 
+		 4: transaction->[] def_%v_19 transaction[14.1,2.5,] 	 SYMBOL:charged_commission,	 ARGS:Symbol,
+		 5: %self->Maybe def_%v_20 %self[2.0,] %v_19[14.4,] 	 SYMBOL:	 ARGS:%v_19,
+		 6: (Money) def_%v_21 
+		 7: payment_total->currency def_%v_22 payment_total[14.2,] 	 SYMBOL:	 ARGS:
+		 8: %v_21->new def_%v_23 %v_21[14.6,] %v_22[14.7,] 	 SYMBOL:	 ARGS:Fixnum,%v_22,
+		 9: %v_20->or_else def_%v_24 %v_20[14.5,] %v_23[14.8,] 	 SYMBOL:	 ARGS:%v_23,
+		 10: COPY TYPE_PASS def_service_fee %v_24[14.9,] 
+		 11: 
+		 12: transaction->[] def_%v_25 transaction[14.1,14.4,2.5,] 	 SYMBOL:payment_gateway_fee,	 ARGS:Symbol,
+		 13: COPY TYPE_PASS def_gateway_fee %v_25[14.12,] 
+		 14: 
+		 15: COPY TYPE_StringLiteral "email_about_new_payments" def_%v_26 
+		 16: %self->prepare_template def_%v_27 %self[14.5,2.0,] community[13.3,7.0,6.0,] seller_model[9.3,3.0,2.6,] %v_26[14.15,] 	 SYMBOL:	 ARGS:community,seller_model,%v_26,
+		 17: 
+		 18: seller_model->locale def_%v_28 seller_model[9.3,3.0,2.6,] 	 SYMBOL:	 ARGS:
+		 19: community->locales def_%v_29 community[13.3,7.0,6.0,] 	 SYMBOL:	 ARGS:
+		 20: %v_29->map def_%v_30 %v_29[14.19,] 	 SYMBOL:to_sym,	 ARGS:
+		 21: community->id def_%v_31 community[14.19,13.3,7.0,6.0,] 	 SYMBOL:	 ARGS:
+		 22: %self->with_locale def_%v_32 %self[14.5,14.16,2.0,] %v_28[14.18,] %v_30[14.20,] %v_31[14.21,] %self[14.5,14.16,2.0,] 	 SYMBOL:	 ARGS:%v_28,%v_30,%v_31,%self,
+CLOSURE BEGIN: payment_total[14.2,14.7,] service_fee[14.10,] gateway_fee[14.13,] %self[14.5,14.16,2.0,] transaction[14.1,14.4,14.12,2.5,] t[] seller_model[14.18,9.3,3.0,2.6,] community[14.19,14.21,13.3,7.0,6.0,] format[] unit_type[] you_get[] buyer_model[11.3,5.0,4.0,] quantity_selector_label[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: payment_total->- def_%cl_1_3 payment_total[] service_fee[] 	 SYMBOL:	 ARGS:service_fee,
+		 2: %cl_1_3->- def_%cl_1_4 %cl_1_3[3.1,] gateway_fee[] 	 SYMBOL:	 ARGS:gateway_fee,
+		 3: COPY TYPE_PASS def_you_get %cl_1_4[3.2,] 
+		 4: 
+		 5: %self->Maybe def_%cl_1_5 %self[2.0,] transaction[] 	 SYMBOL:	 ARGS:transaction,
+		 6: %cl_1_5->select def_%cl_1_6 %cl_1_5[3.5,] %self[3.5,2.0,] 	 SYMBOL:	 ARGS:%cl_1_5,
+CLOSURE BEGIN: t[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_t 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: t->[] def_%cl_2_3 t[2.2,] 	 SYMBOL:unit_type,	 ARGS:Symbol,
+		 2: %cl_2_3->present? def_%cl_2_4 %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %cl_2_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_5 
+		 1: def_%cl_2_6 %cl_2_5[4.0,] 
+		 2: RETURN %cl_2_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 7: %cl_1_6->map def_%cl_1_7 %cl_1_6[3.6,] %self[3.5,2.0,] 	 SYMBOL:	 ARGS:%cl_1_6,
+CLOSURE BEGIN: t[3.6,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_t 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ListingViewUtils) def_%cl_3_3 
+		 2: t->[] def_%cl_3_4 t[2.2,] 	 SYMBOL:unit_type,	 ARGS:Symbol,
+		 3: t->[] def_%cl_3_5 t[3.2,2.2,] 	 SYMBOL:unit_tr_key,	 ARGS:Symbol,
+		 4: %cl_3_3->translate_unit def_%cl_3_6 %cl_3_3[3.1,] %cl_3_4[3.2,] %cl_3_5[3.3,] 	 SYMBOL:	 ARGS:%cl_3_4,%cl_3_5,
+		 5: RETURN %cl_3_6[3.4,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_7 
+		 1: def_%cl_3_8 %cl_3_7[4.0,] 
+		 2: RETURN %cl_3_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: %cl_1_7->or_else def_%cl_1_8 %cl_1_7[3.7,] 	 SYMBOL:	 ARGS:Nil,
+		 9: COPY TYPE_PASS def_unit_type %cl_1_8[3.8,] 
+		 10: 
+		 11: %self->Maybe def_%cl_1_9 %self[3.5,2.0,] transaction[] 	 SYMBOL:	 ARGS:transaction,
+		 12: %cl_1_9->select def_%cl_1_10 %cl_1_9[3.11,] %self[3.5,3.11,2.0,] 	 SYMBOL:	 ARGS:%cl_1_9,
+CLOSURE BEGIN: t[3.6,3.7,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: RECEIVEARG def_t 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: t->[] def_%cl_4_3 t[2.2,] 	 SYMBOL:unit_type,	 ARGS:Symbol,
+		 2: %cl_4_3->present? def_%cl_4_4 %cl_4_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %cl_4_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_4_5 
+		 1: def_%cl_4_6 %cl_4_5[4.0,] 
+		 2: RETURN %cl_4_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 13: %cl_1_10->map def_%cl_1_11 %cl_1_10[3.12,] %self[3.5,3.11,2.0,] 	 SYMBOL:	 ARGS:%cl_1_10,
+CLOSURE BEGIN: t[3.6,3.7,3.12,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_5_0 
+		 2: RECEIVEARG def_t 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ListingViewUtils) def_%cl_5_3 
+		 2: t->[] def_%cl_5_4 t[2.2,] 	 SYMBOL:unit_type,	 ARGS:Symbol,
+		 3: t->[] def_%cl_5_5 t[3.2,2.2,] 	 SYMBOL:unit_selector_tr_key,	 ARGS:Symbol,
+		 4: %cl_5_3->translate_quantity def_%cl_5_6 %cl_5_3[3.1,] %cl_5_4[3.2,] %cl_5_5[3.3,] 	 SYMBOL:	 ARGS:%cl_5_4,%cl_5_5,
+		 5: RETURN %cl_5_6[3.4,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_5_7 
+		 1: def_%cl_5_8 %cl_5_7[4.0,] 
+		 2: RETURN %cl_5_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 14: %cl_1_11->or_else def_%cl_1_12 %cl_1_11[3.13,] 	 SYMBOL:	 ARGS:Nil,
+		 15: COPY TYPE_PASS def_quantity_selector_label %cl_1_12[3.14,] 
+		 16: 
+		 17: seller_model->confirmed_notification_emails_to def_%cl_1_13 seller_model[] 	 SYMBOL:	 ARGS:
+		 18: %self->community_specific_sender def_%cl_1_14 %self[3.5,3.11,2.0,] community[] 	 SYMBOL:	 ARGS:community,
+		 19: COPY TYPE_StringLiteral "emails.new_payment.new_payment" def_%cl_1_15 
+		 20: %self->t def_%cl_1_16 %self[3.5,3.11,3.18,2.0,] %cl_1_15[3.19,] 	 SYMBOL:	 ARGS:%cl_1_15,
+		 21: HASH-to-from-subject- def_%cl_1_17 %cl_1_13[3.17,] %cl_1_14[3.18,] %cl_1_16[3.20,] 
+		 22: %self->premailer_mail def_%cl_1_18 %self[3.5,3.11,3.18,3.20,2.0,] %cl_1_17[3.21,] %self[3.5,3.11,3.18,3.20,2.0,] 	 SYMBOL:	 ARGS:%cl_1_17,%self,
+CLOSURE BEGIN: format[] %self[3.5,3.11,3.18,3.20,2.0,] transaction[] seller_model[3.17,] unit_type[3.9,] payment_total[3.1,] service_fee[] gateway_fee[] you_get[3.3,] buyer_model[] community[] quantity_selector_label[3.15,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_6_0 
+		 2: RECEIVEARG def_format 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: format->html def_%cl_6_3 format[2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:format,
+CLOSURE BEGIN: %self[2.0,] transaction[] seller_model[] unit_type[] payment_total[] service_fee[] gateway_fee[] you_get[] buyer_model[] community[] quantity_selector_label[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_7_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "paypal_payment_receipt_to_seller" def_%cl_7_3 
+		 2: GETFIELD %self->url_params def_%cl_7_4 %self[2.0,] 
+		 3: transaction->[] def_%cl_7_5 transaction[] 	 SYMBOL:id,	 ARGS:Symbol,
+		 4: HASH-id- def_%cl_7_6 %cl_7_5[3.3,] 
+		 5: %cl_7_4->merge def_%cl_7_7 %cl_7_4[3.2,] %cl_7_6[3.4,] 	 SYMBOL:	 ARGS:%cl_7_6,
+		 6: %self->person_transaction_url def_%cl_7_8 %self[2.0,] seller_model[] %cl_7_7[3.5,] 	 SYMBOL:	 ARGS:seller_model,%cl_7_7,
+		 7: transaction->[] def_%cl_7_9 transaction[3.3,] 	 SYMBOL:listing_title,	 ARGS:Symbol,
+		 8: COPY TYPE_StringLiteral "emails.new_payment.price_per_unit_type" def_%cl_7_10 
+		 9: HASH-unit_type- def_%cl_7_11 unit_type[] 
+		 10: %self->t def_%cl_7_12 %self[3.6,2.0,] %cl_7_10[3.8,] %cl_7_11[3.9,] 	 SYMBOL:	 ARGS:%cl_7_10,%cl_7_11,
+		 11: transaction->[] def_%cl_7_13 transaction[3.3,3.7,] 	 SYMBOL:listing_price,	 ARGS:Symbol,
+		 12: %self->humanized_money_with_symbol def_%cl_7_14 %self[3.6,3.10,2.0,] %cl_7_13[3.11,] 	 SYMBOL:	 ARGS:%cl_7_13,
+		 13: transaction->[] def_%cl_7_15 transaction[3.3,3.7,3.11,] 	 SYMBOL:listing_quantity,	 ARGS:Symbol,
+		 14: 
+		 15: transaction->[] def_%cl_7_16 transaction[3.3,3.7,3.11,3.13,] 	 SYMBOL:booking,	 ARGS:Symbol,
+		 16: %cl_7_16->present? def_%cl_7_17 %cl_7_16[3.15,] 	 SYMBOL:	 ARGS:
+		 17: BRANCH %cl_7_17[3.16,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: transaction->[] def_%cl_7_18 transaction[] 	 SYMBOL:booking,	 ARGS:Symbol,
+		 1: %cl_7_18->[] def_%cl_7_19 %cl_7_18[4.0,] 	 SYMBOL:duration,	 ARGS:Symbol,
+		 2: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_7_19 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: transaction->[] def_%cl_7_20 transaction[] 	 SYMBOL:item_total,	 ARGS:Symbol,
+		 1: %self->humanized_money_with_symbol def_%cl_7_21 %self[2.0,] %cl_7_20[6.0,] 	 SYMBOL:	 ARGS:%cl_7_20,
+		 2: %self->humanized_money_with_symbol def_%cl_7_22 %self[6.1,2.0,] payment_total[] 	 SYMBOL:	 ARGS:payment_total,
+		 3: transaction->[] def_%cl_7_23 transaction[6.0,] 	 SYMBOL:shipping_price,	 ARGS:Symbol,
+		 4: %self->humanized_money_with_symbol def_%cl_7_24 %self[6.1,6.2,2.0,] %cl_7_23[6.3,] 	 SYMBOL:	 ARGS:%cl_7_23,
+		 5: service_fee->-@ def_%cl_7_25 service_fee[] 	 SYMBOL:	 ARGS:
+		 6: %self->humanized_money_with_symbol def_%cl_7_26 %self[6.1,6.2,6.4,2.0,] %cl_7_25[6.5,] 	 SYMBOL:	 ARGS:%cl_7_25,
+		 7: gateway_fee->-@ def_%cl_7_27 gateway_fee[] 	 SYMBOL:	 ARGS:
+		 8: %self->humanized_money_with_symbol def_%cl_7_28 %self[6.1,6.2,6.4,6.6,2.0,] %cl_7_27[6.7,] 	 SYMBOL:	 ARGS:%cl_7_27,
+		 9: %self->humanized_money_with_symbol def_%cl_7_29 %self[6.1,6.2,6.4,6.6,6.8,2.0,] you_get[] 	 SYMBOL:	 ARGS:you_get,
+		 10: buyer_model->name def_%cl_7_30 buyer_model[] community[] 	 SYMBOL:	 ARGS:community,
+		 11: buyer_model->given_name_or_username def_%cl_7_31 buyer_model[6.10,] 	 SYMBOL:	 ARGS:
+		 12: HASH-conversation_url-listing_title-price_per_unit_title-quantity_selector_label-listing_price-listing_quantity-duration-subtotal-payment_total-shipping_total-payment_service_fee-paypal_gateway_fee-payment_seller_gets-payer_full_name-payer_given_name- def_%cl_7_32 %cl_7_8[3.6,] %cl_7_9[3.7,] %cl_7_12[3.10,] quantity_selector_label[] %cl_7_14[3.12,] %cl_7_15[3.13,] %cl_7_19[5.0,4.1,] %cl_7_21[6.1,] %cl_7_22[6.2,] %cl_7_24[6.4,] %cl_7_26[6.6,] %cl_7_28[6.8,] %cl_7_29[6.9,] %cl_7_30[6.10,] %cl_7_31[6.11,] 
+		 13: HASH-locals- def_%cl_7_33 %cl_7_32[6.12,] 
+		 14: %self->render def_%cl_7_34 %self[6.1,6.2,6.4,6.6,6.8,6.9,2.0,] %cl_7_3[3.1,] %cl_7_33[6.13,] 	 SYMBOL:	 ARGS:%cl_7_3,%cl_7_33,
+		 15: RETURN %cl_7_34[6.14,] %self[6.1,6.2,6.4,6.6,6.8,6.9,6.14,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_7_35 
+		 1: def_%cl_7_36 %cl_7_35[7.0,] 
+		 2: RETURN %cl_7_36[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: RETURN %cl_6_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_6_4 
+		 1: def_%cl_6_5 %cl_6_4[4.0,] 
+		 2: RETURN %cl_6_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 23: RETURN %cl_1_18[3.22,] %self[3.5,3.11,3.18,3.20,3.22,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_19 
+		 1: def_%cl_1_20 %cl_1_19[4.0,] 
+		 2: RETURN %cl_1_20[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: quantity_selector_label[3.15,] unit_type[3.9,] 
+		 23: RETURN %v_32[14.22,] %self[14.5,14.16,14.22,2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = paypal_receipt_to_payer instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_transaction 
+		 6: RECEIVECONSTARG def_seller_model 
+		 7: seller_model[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_seller_model 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_buyer_model 
+		 1: buyer_model[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_buyer_model 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_community 
+		 1: community[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_community 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_3 seller_model[3.0,2.6,] 
+		 2: COPY TYPE_PASS def_%v_4 seller_model[3.0,2.6,] 
+		 3: BRANCH seller_model[3.0,2.6,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: (Person) def_%v_5 
+		 1: transaction->[] def_%v_6 transaction[2.5,] 	 SYMBOL:listing_author_id,	 ARGS:Symbol,
+		 2: %v_5->find def_%v_7 %v_5[9.0,] %v_6[9.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: COPY TYPE_PASS def_seller_model %v_7[9.2,] 
+		 4: COPY TYPE_PASS def_%v_4 %v_7[9.2,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_8 buyer_model[5.0,4.0,] 
+		 2: COPY TYPE_PASS def_%v_9 buyer_model[5.0,4.0,] 
+		 3: BRANCH buyer_model[5.0,4.0,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: (Person) def_%v_10 
+		 1: transaction->[] def_%v_11 transaction[2.5,] 	 SYMBOL:starter_id,	 ARGS:Symbol,
+		 2: %v_10->find def_%v_12 %v_10[11.0,] %v_11[11.1,] 	 SYMBOL:	 ARGS:%v_11,
+		 3: COPY TYPE_PASS def_buyer_model %v_12[11.2,] 
+		 4: COPY TYPE_PASS def_%v_9 %v_12[11.2,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_13 community[7.0,6.0,] 
+		 2: COPY TYPE_PASS def_%v_14 community[7.0,6.0,] 
+		 3: BRANCH community[7.0,6.0,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: (Community) def_%v_15 
+		 1: transaction->[] def_%v_16 transaction[2.5,] 	 SYMBOL:community_id,	 ARGS:Symbol,
+		 2: %v_15->find def_%v_17 %v_15[13.0,] %v_16[13.1,] 	 SYMBOL:	 ARGS:%v_16,
+		 3: COPY TYPE_PASS def_community %v_17[13.2,] 
+		 4: COPY TYPE_PASS def_%v_14 %v_17[13.2,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "email_about_new_payments" def_%v_18 
+		 2: %self->prepare_template def_%v_19 %self[2.0,] community[13.3,7.0,6.0,] buyer_model[11.3,5.0,4.0,] %v_18[14.1,] 	 SYMBOL:	 ARGS:community,buyer_model,%v_18,
+		 3: 
+		 4: buyer_model->locale def_%v_20 buyer_model[11.3,5.0,4.0,] 	 SYMBOL:	 ARGS:
+		 5: community->locales def_%v_21 community[13.3,7.0,6.0,] 	 SYMBOL:	 ARGS:
+		 6: %v_21->map def_%v_22 %v_21[14.5,] 	 SYMBOL:to_sym,	 ARGS:
+		 7: community->id def_%v_23 community[14.5,13.3,7.0,6.0,] 	 SYMBOL:	 ARGS:
+		 8: %self->with_locale def_%v_24 %self[14.2,2.0,] %v_20[14.4,] %v_22[14.6,] %v_23[14.7,] %self[14.2,2.0,] 	 SYMBOL:	 ARGS:%v_20,%v_22,%v_23,%self,
+CLOSURE BEGIN: %self[14.2,2.0,] transaction[2.5,] t[] buyer_model[14.4,11.3,5.0,4.0,] community[14.5,14.7,13.3,7.0,6.0,] format[] unit_type[] seller_model[9.3,3.0,2.6,] quantity_selector_label[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->Maybe def_%cl_1_3 %self[2.0,] transaction[] 	 SYMBOL:	 ARGS:transaction,
+		 2: %cl_1_3->select def_%cl_1_4 %cl_1_3[3.1,] %self[3.1,2.0,] 	 SYMBOL:	 ARGS:%cl_1_3,
+CLOSURE BEGIN: t[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_t 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: t->[] def_%cl_2_3 t[2.2,] 	 SYMBOL:unit_type,	 ARGS:Symbol,
+		 2: %cl_2_3->present? def_%cl_2_4 %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %cl_2_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_5 
+		 1: def_%cl_2_6 %cl_2_5[4.0,] 
+		 2: RETURN %cl_2_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: %cl_1_4->map def_%cl_1_5 %cl_1_4[3.2,] %self[3.1,2.0,] 	 SYMBOL:	 ARGS:%cl_1_4,
+CLOSURE BEGIN: t[3.2,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_t 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ListingViewUtils) def_%cl_3_3 
+		 2: t->[] def_%cl_3_4 t[2.2,] 	 SYMBOL:unit_type,	 ARGS:Symbol,
+		 3: t->[] def_%cl_3_5 t[3.2,2.2,] 	 SYMBOL:unit_tr_key,	 ARGS:Symbol,
+		 4: %cl_3_3->translate_unit def_%cl_3_6 %cl_3_3[3.1,] %cl_3_4[3.2,] %cl_3_5[3.3,] 	 SYMBOL:	 ARGS:%cl_3_4,%cl_3_5,
+		 5: RETURN %cl_3_6[3.4,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_7 
+		 1: def_%cl_3_8 %cl_3_7[4.0,] 
+		 2: RETURN %cl_3_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: %cl_1_5->or_else def_%cl_1_6 %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:Nil,
+		 5: COPY TYPE_PASS def_unit_type %cl_1_6[3.4,] 
+		 6: 
+		 7: %self->Maybe def_%cl_1_7 %self[3.1,2.0,] transaction[] 	 SYMBOL:	 ARGS:transaction,
+		 8: %cl_1_7->select def_%cl_1_8 %cl_1_7[3.7,] %self[3.1,3.7,2.0,] 	 SYMBOL:	 ARGS:%cl_1_7,
+CLOSURE BEGIN: t[3.2,3.3,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: RECEIVEARG def_t 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: t->[] def_%cl_4_3 t[2.2,] 	 SYMBOL:unit_type,	 ARGS:Symbol,
+		 2: %cl_4_3->present? def_%cl_4_4 %cl_4_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %cl_4_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_4_5 
+		 1: def_%cl_4_6 %cl_4_5[4.0,] 
+		 2: RETURN %cl_4_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: %cl_1_8->map def_%cl_1_9 %cl_1_8[3.8,] %self[3.1,3.7,2.0,] 	 SYMBOL:	 ARGS:%cl_1_8,
+CLOSURE BEGIN: t[3.2,3.3,3.8,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_5_0 
+		 2: RECEIVEARG def_t 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ListingViewUtils) def_%cl_5_3 
+		 2: t->[] def_%cl_5_4 t[2.2,] 	 SYMBOL:unit_type,	 ARGS:Symbol,
+		 3: t->[] def_%cl_5_5 t[3.2,2.2,] 	 SYMBOL:unit_selector_tr_key,	 ARGS:Symbol,
+		 4: %cl_5_3->translate_quantity def_%cl_5_6 %cl_5_3[3.1,] %cl_5_4[3.2,] %cl_5_5[3.3,] 	 SYMBOL:	 ARGS:%cl_5_4,%cl_5_5,
+		 5: RETURN %cl_5_6[3.4,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_5_7 
+		 1: def_%cl_5_8 %cl_5_7[4.0,] 
+		 2: RETURN %cl_5_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: %cl_1_9->or_else def_%cl_1_10 %cl_1_9[3.9,] 	 SYMBOL:	 ARGS:Nil,
+		 11: COPY TYPE_PASS def_quantity_selector_label %cl_1_10[3.10,] 
+		 12: 
+		 13: buyer_model->confirmed_notification_emails_to def_%cl_1_11 buyer_model[] 	 SYMBOL:	 ARGS:
+		 14: %self->community_specific_sender def_%cl_1_12 %self[3.1,3.7,2.0,] community[] 	 SYMBOL:	 ARGS:community,
+		 15: COPY TYPE_StringLiteral "emails.receipt_to_payer.receipt_of_payment" def_%cl_1_13 
+		 16: %self->t def_%cl_1_14 %self[3.1,3.7,3.14,2.0,] %cl_1_13[3.15,] 	 SYMBOL:	 ARGS:%cl_1_13,
+		 17: HASH-to-from-subject- def_%cl_1_15 %cl_1_11[3.13,] %cl_1_12[3.14,] %cl_1_14[3.16,] 
+		 18: %self->premailer_mail def_%cl_1_16 %self[3.1,3.7,3.14,3.16,2.0,] %cl_1_15[3.17,] %self[3.1,3.7,3.14,3.16,2.0,] 	 SYMBOL:	 ARGS:%cl_1_15,%self,
+CLOSURE BEGIN: format[] %self[3.1,3.7,3.14,3.16,2.0,] transaction[] buyer_model[3.13,] unit_type[3.5,] seller_model[] community[] quantity_selector_label[3.11,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_6_0 
+		 2: RECEIVEARG def_format 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: format->html def_%cl_6_3 format[2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:format,
+CLOSURE BEGIN: %self[2.0,] transaction[] buyer_model[] unit_type[] seller_model[] community[] quantity_selector_label[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_7_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "payment_receipt_to_buyer" def_%cl_7_3 
+		 2: GETFIELD %self->url_params def_%cl_7_4 %self[2.0,] 
+		 3: transaction->[] def_%cl_7_5 transaction[] 	 SYMBOL:id,	 ARGS:Symbol,
+		 4: HASH-id- def_%cl_7_6 %cl_7_5[3.3,] 
+		 5: %cl_7_4->merge def_%cl_7_7 %cl_7_4[3.2,] %cl_7_6[3.4,] 	 SYMBOL:	 ARGS:%cl_7_6,
+		 6: %self->person_transaction_url def_%cl_7_8 %self[2.0,] buyer_model[] %cl_7_7[3.5,] 	 SYMBOL:	 ARGS:buyer_model,%cl_7_7,
+		 7: transaction->[] def_%cl_7_9 transaction[3.3,] 	 SYMBOL:listing_title,	 ARGS:Symbol,
+		 8: COPY TYPE_StringLiteral "emails.receipt_to_payer.price_per_unit_type" def_%cl_7_10 
+		 9: HASH-unit_type- def_%cl_7_11 unit_type[] 
+		 10: %self->t def_%cl_7_12 %self[3.6,2.0,] %cl_7_10[3.8,] %cl_7_11[3.9,] 	 SYMBOL:	 ARGS:%cl_7_10,%cl_7_11,
+		 11: transaction->[] def_%cl_7_13 transaction[3.3,3.7,] 	 SYMBOL:listing_price,	 ARGS:Symbol,
+		 12: %self->humanized_money_with_symbol def_%cl_7_14 %self[3.6,3.10,2.0,] %cl_7_13[3.11,] 	 SYMBOL:	 ARGS:%cl_7_13,
+		 13: transaction->[] def_%cl_7_15 transaction[3.3,3.7,3.11,] 	 SYMBOL:listing_quantity,	 ARGS:Symbol,
+		 14: 
+		 15: transaction->[] def_%cl_7_16 transaction[3.3,3.7,3.11,3.13,] 	 SYMBOL:booking,	 ARGS:Symbol,
+		 16: %cl_7_16->present? def_%cl_7_17 %cl_7_16[3.15,] 	 SYMBOL:	 ARGS:
+		 17: BRANCH %cl_7_17[3.16,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: transaction->[] def_%cl_7_18 transaction[] 	 SYMBOL:booking,	 ARGS:Symbol,
+		 1: %cl_7_18->[] def_%cl_7_19 %cl_7_18[4.0,] 	 SYMBOL:duration,	 ARGS:Symbol,
+		 2: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_7_19 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: transaction->[] def_%cl_7_20 transaction[] 	 SYMBOL:item_total,	 ARGS:Symbol,
+		 1: %self->humanized_money_with_symbol def_%cl_7_21 %self[2.0,] %cl_7_20[6.0,] 	 SYMBOL:	 ARGS:%cl_7_20,
+		 2: transaction->[] def_%cl_7_22 transaction[6.0,] 	 SYMBOL:shipping_price,	 ARGS:Symbol,
+		 3: %self->humanized_money_with_symbol def_%cl_7_23 %self[6.1,2.0,] %cl_7_22[6.2,] 	 SYMBOL:	 ARGS:%cl_7_22,
+		 4: transaction->[] def_%cl_7_24 transaction[6.0,6.2,] 	 SYMBOL:payment_total,	 ARGS:Symbol,
+		 5: %self->humanized_money_with_symbol def_%cl_7_25 %self[6.1,6.3,2.0,] %cl_7_24[6.4,] 	 SYMBOL:	 ARGS:%cl_7_24,
+		 6: seller_model->name def_%cl_7_26 seller_model[] community[] 	 SYMBOL:	 ARGS:community,
+		 7: seller_model->given_name_or_username def_%cl_7_27 seller_model[6.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-conversation_url-listing_title-price_per_unit_title-quantity_selector_label-listing_price-listing_quantity-duration-subtotal-shipping_total-payment_total-recipient_full_name-recipient_given_name-automatic_confirmation_days-show_money_will_be_transferred_note- def_%cl_7_28 %cl_7_8[3.6,] %cl_7_9[3.7,] %cl_7_12[3.10,] quantity_selector_label[] %cl_7_14[3.12,] %cl_7_15[3.13,] %cl_7_19[5.0,4.1,] %cl_7_21[6.1,] %cl_7_23[6.3,] %cl_7_25[6.5,] %cl_7_26[6.6,] %cl_7_27[6.7,] 
+		 9: HASH-locals- def_%cl_7_29 %cl_7_28[6.8,] 
+		 10: %self->render def_%cl_7_30 %self[6.1,6.3,6.5,2.0,] %cl_7_3[3.1,] %cl_7_29[6.9,] 	 SYMBOL:	 ARGS:%cl_7_3,%cl_7_29,
+		 11: RETURN %cl_7_30[6.10,] %self[6.1,6.3,6.5,6.10,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_7_31 
+		 1: def_%cl_7_32 %cl_7_31[7.0,] 
+		 2: RETURN %cl_7_32[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: RETURN %cl_6_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_6_4 
+		 1: def_%cl_6_5 %cl_6_4[4.0,] 
+		 2: RETURN %cl_6_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 19: RETURN %cl_1_16[3.18,] %self[3.1,3.7,3.14,3.16,3.18,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_17 
+		 1: def_%cl_1_18 %cl_1_17[4.0,] 
+		 2: RETURN %cl_1_18[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: quantity_selector_label[3.11,] 
+		 9: RETURN %v_24[14.8,] %self[14.2,14.8,2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = premailer_mail instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_opts 
+		 6: def_%v_3 
+		 7: COPY TYPE_PASS def_block %v_3[2.6,] 
+		 8: 
+		 9: %self->mail def_%v_4 %self[2.0,] opts[2.5,] block[2.7,] 	 SYMBOL:	 ARGS:opts,
+		 10: %self->premailer def_%v_5 %self[2.0,2.9,] %v_4[2.9,] 	 SYMBOL:	 ARGS:%v_4,
+		 11: RETURN %v_5[2.10,] %self[2.0,2.9,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = prepare_template instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_community 
+		 6: RECEIVEARG def_recipient 
+		 7: RECEIVECONSTARG def_email_type 
+		 8: email_type[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_email_type 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->email_type email_type[3.0,2.7,] 
+		 2: 
+		 3: ATTRASSIGN %self->community community[2.5,] 
+		 4: 
+		 5: ATTRASSIGN %self->current_community community[2.5,] 
+		 6: 
+		 7: ATTRASSIGN %self->recipient recipient[2.6,] 
+		 8: 
+		 9: %self->build_url_params def_%v_3 %self[4.1,4.3,4.5,4.7,2.0,] community[2.5,] recipient[2.6,] 	 SYMBOL:	 ARGS:community,recipient,
+		 10: ATTRASSIGN %self->url_params %v_3[4.9,] 
+		 11: RETURN %v_3[4.9,] %self[4.1,4.3,4.5,4.7,4.9,4.10,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mail_params instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_recipient 
+		 6: RECEIVEARG def_community 
+		 7: RECEIVEARG def_subject 
+		 8: 
+		 9: recipient->confirmed_notification_emails_to def_%v_3 recipient[2.5,] 	 SYMBOL:	 ARGS:
+		 10: %self->community_specific_sender def_%v_4 %self[2.0,] community[2.6,] 	 SYMBOL:	 ARGS:community,
+		 11: HASH-to-from-subject- def_%v_5 %v_3[2.9,] %v_4[2.10,] subject[2.7,] 
+		 12: RETURN %v_5[2.11,] %self[2.0,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_url_params instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_community 
+		 6: RECEIVEARG def_recipient 
+		 7: RECEIVECONSTARG def_ref 
+		 8: ref[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "email" def_%v_3 
+		 1: COPY TYPE_PASS def_ref %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: community->full_domain def_%v_4 community[2.5,] 	 SYMBOL:	 ARGS:
+		 2: recipient->locale def_%v_5 recipient[2.6,] 	 SYMBOL:	 ARGS:
+		 3: HASH-host-ref-locale- def_%v_6 %v_4[4.1,] ref[3.1,2.7,] %v_5[4.2,] 
+		 4: RETURN %v_6[4.3,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

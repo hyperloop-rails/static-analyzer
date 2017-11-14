@@ -1,0 +1,129 @@
+SET IRMethod, name = perform instanceMethod = true
+BB 1
+	outgoing: 17 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (PaypalService) def_%v_3 
+		 7: (inherit Logger) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Logger,	 ARGS:Symbol,
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->new def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_logger %v_5[4.0,] 
+		 2: 
+		 3: (PaypalIpnMessage) def_%v_6 
+		 4: %self->msg_id def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_6->find def_%v_8 %v_6[4.3,] %v_7[4.4,] 	 SYMBOL:	 ARGS:%v_7,
+		 6: COPY TYPE_PASS def_raw_msg %v_8[4.5,] 
+		 7: 
+		 8: GLOBALVAR $! def_%v_9 
+BB 6
+	outgoing: 7 8 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (IPNDataTypes) def_%v_12 
+		 3: raw_msg->body def_%v_13 raw_msg[4.6,] 	 SYMBOL:	 ARGS:
+		 4: %v_12->from_params def_%v_14 %v_12[6.2,] %v_13[6.3,] 	 SYMBOL:	 ARGS:%v_13,
+		 5: COPY TYPE_PASS def_ipn_msg %v_14[6.4,] 
+		 6: 
+		 7: %v_14->[] def_%v_15 %v_14[6.4,] 	 SYMBOL:type,	 ARGS:Symbol,
+		 8: %v_15->== def_%v_16 %v_15[6.7,] 	 SYMBOL:unknown,	 ARGS:Symbol,
+		 9: BRANCH %v_16[6.8,] 
+BB 7
+	outgoing: 9 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Unknown IPN message type: " def_%v_17 
+		 2: raw_msg->body def_%v_18 raw_msg[4.6,] 	 SYMBOL:	 ARGS:
+		 3: BUILDSTRING def_%v_19 %v_17[7.1,] %v_18[7.2,] 
+		 4: logger->warn def_%v_20 logger[4.1,] %v_19[7.3,] 	 SYMBOL:	 ARGS:%v_19,
+		 5: 
+		 6: raw_msg->update_attribute def_%v_21 raw_msg[7.2,4.6,] 	 SYMBOL:status,unknown,	 ARGS:Symbol,Symbol,
+		 7: 
+BB 8
+	outgoing: 9 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->ipn_service def_%v_22 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_22->handle_msg def_%v_23 %v_22[8.1,] ipn_msg[6.5,] 	 SYMBOL:	 ARGS:ipn_msg,
+		 3: 
+		 4: raw_msg->update_attribute def_%v_24 raw_msg[4.6,] 	 SYMBOL:status,success,	 ARGS:Symbol,Symbol,
+		 5: COPY TYPE_PASS def_%v_21 %v_24[8.4,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_11 %v_21[8.5,7.6,] 
+		 1: %v_9[4.8,] 
+BB 10
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+BB 11
+	outgoing: 12 13 15 
+	datadep: 
+	instructions:
+		 0: def_%v_25 
+		 1: def_%v_26 %v_25[11.0,] 
+		 2: BRANCH %v_26[11.1,] 
+BB 12
+	outgoing: 15 17 
+	datadep: 
+	instructions:
+		 0: %v_25[11.0,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_27 
+		 1: COPY TYPE_PASS def_e %v_27[13.0,] 
+		 2: 
+		 3: raw_msg->update_attribute def_%v_28 raw_msg[4.6,] 	 SYMBOL:status,errored,	 ARGS:Symbol,Symbol,
+		 4: 
+		 5: %self->raise def_%v_29 %self[2.0,] e[13.1,] 	 SYMBOL:	 ARGS:e,
+		 6: COPY TYPE_PASS def_%v_11 %v_29[13.5,] 
+		 7: %v_9[4.8,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: def_%v_30 
+		 1: def_%v_31 %v_30[15.0,] %v_9[4.8,] 
+		 2: %v_30[15.0,] 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: RETURN %v_11[9.0,13.6,] %self[2.0,] 
+BB 17
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,339 @@
+SET IRMethod, name = create instanceMethod = true
+BB 1
+	outgoing: 29 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (NewMarketplaceForm) def_%v_3 
+		 7: %self->params def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->new def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: COPY TYPE_PASS def_form %v_5[2.8,] 
+		 10: 
+		 11: %v_5->valid? def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_6[2.11,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+		 2: (ApplicationHelper) def_%v_11 
+		 3: (APP_CONFIG) def_%v_12 
+		 4: %v_12->global_service_name def_%v_13 %v_12[3.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_11->store_community_service_name_to_thread def_%v_14 %v_11[3.2,] %v_13[3.4,] 	 SYMBOL:	 ARGS:%v_13,
+		 6: 
+		 7: (MarketplaceService) def_%v_15 
+		 8: (inherit API) def_%v_16 %v_15[3.7,] 
+		 9: %v_16[3.8,] 
+BB 4
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: form->errors def_%v_8 form[2.9,] 	 SYMBOL:	 ARGS:
+		 1: HASH-status-json- def_%v_9 %v_8[4.0,] 
+		 2: %self->render def_%v_10 %self[2.0,] %v_9[4.1,] 	 SYMBOL:	 ARGS:%v_9,
+		 3: RETURN %v_10[4.2,] %self[4.2,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_15->const_missing def_%v_16 %v_15[3.7,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: (inherit Marketplaces) def_%v_17 %v_16[6.0,3.8,] 
+		 1: %v_17[7.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_16->const_missing def_%v_17 %v_16[6.0,3.8,] 	 SYMBOL:Marketplaces,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_18 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_18->slice def_%v_19 %v_18[9.0,] 	 SYMBOL:marketplace_name,marketplace_type,marketplace_country,marketplace_language,	 ARGS:Symbol,Symbol,Symbol,Symbol,
+		 2: HASH-payment_process- def_%v_20 
+		 3: %v_19->merge def_%v_21 %v_19[9.1,] %v_20[9.2,] 	 SYMBOL:	 ARGS:%v_20,
+		 4: %v_17->create def_%v_22 %v_17[8.0,7.0,] %v_21[9.3,] 	 SYMBOL:	 ARGS:%v_21,
+		 5: COPY TYPE_PASS def_marketplace %v_22[9.4,] 
+		 6: 
+		 7: (Time) def_%v_23 
+		 8: %v_23->now def_%v_24 %v_23[9.7,] 	 SYMBOL:	 ARGS:
+		 9: HASH-hour-min-sec- def_%v_25 
+		 10: %v_24->change def_%v_26 %v_24[9.8,] %v_25[9.9,] 	 SYMBOL:	 ARGS:%v_25,
+		 11: CONSTANT def_%v_27 	 SYMBOL:	 ARGS:
+		 12: %v_26->+ def_%v_28 %v_26[9.10,] %v_27[9.11,] 	 SYMBOL:	 ARGS:%v_27,
+		 13: HASH-expires_at- def_%v_29 %v_28[9.12,] 
+		 14: COPY TYPE_PASS def_plan %v_29[9.13,] 
+		 15: 
+		 16: (PlanService) def_%v_30 
+		 17: (inherit API) def_%v_31 %v_30[9.16,] 
+		 18: %v_31[9.17,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %v_30->const_missing def_%v_31 %v_30[9.16,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: (inherit Api) def_%v_32 %v_31[10.0,9.17,] 
+		 1: %v_32[11.0,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: %v_31->const_missing def_%v_32 %v_31[10.0,9.17,] 	 SYMBOL:Api,	 ARGS:Symbol,
+BB 13
+	outgoing: 14 19 
+	datadep: 
+	instructions:
+		 0: %v_32->plans def_%v_33 %v_32[12.0,11.0,] 	 SYMBOL:	 ARGS:
+		 1: marketplace->[] def_%v_34 marketplace[9.5,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 2: HASH-community_id-plan- def_%v_35 %v_34[13.1,] plan[9.14,] 
+		 3: %v_33->create_initial_trial def_%v_36 %v_33[13.0,] %v_35[13.2,] 	 SYMBOL:	 ARGS:%v_35,
+		 4: 
+		 5: BRANCH marketplace[13.1,9.5,] 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TransactionService) def_%v_37 
+		 2: (inherit API) def_%v_38 %v_37[14.1,] 
+		 3: %v_38[14.2,] 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: %v_37->const_missing def_%v_38 %v_37[14.1,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: (inherit Api) def_%v_39 %v_38[15.0,14.2,] 
+		 1: %v_39[16.0,] 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: %v_38->const_missing def_%v_39 %v_38[15.0,14.2,] 	 SYMBOL:Api,	 ARGS:Symbol,
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: %v_39->settings def_%v_40 %v_39[17.0,16.0,] 	 SYMBOL:	 ARGS:
+		 1: marketplace->[] def_%v_41 marketplace[9.5,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 2: HASH-community_id-payment_gateway-payment_process-active- def_%v_42 %v_41[18.1,] 
+		 3: %v_40->provision def_%v_43 %v_40[18.0,] %v_42[18.2,] 	 SYMBOL:	 ARGS:%v_42,
+		 4: 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_43 
+BB 20
+	outgoing: 21 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (UserService) def_%v_44 
+		 2: (inherit API) def_%v_45 %v_44[20.1,] 
+		 3: %v_45[20.2,] 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: %v_44->const_missing def_%v_45 %v_44[20.1,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 22
+	outgoing: 23 24 
+	datadep: 
+	instructions:
+		 0: (inherit Users) def_%v_46 %v_45[21.0,20.2,] 
+		 1: %v_46[22.0,] 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: %v_45->const_missing def_%v_46 %v_45[21.0,20.2,] 	 SYMBOL:Users,	 ARGS:Symbol,
+BB 24
+	outgoing: 25 26 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_47 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_47->[] def_%v_48 %v_47[24.0,] 	 SYMBOL:admin_first_name,	 ARGS:Symbol,
+		 2: %self->params def_%v_49 %self[24.0,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_49->[] def_%v_50 %v_49[24.2,] 	 SYMBOL:admin_last_name,	 ARGS:Symbol,
+		 4: %self->params def_%v_51 %self[24.0,24.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_51->[] def_%v_52 %v_51[24.4,] 	 SYMBOL:admin_email,	 ARGS:Symbol,
+		 6: %self->params def_%v_53 %self[24.0,24.2,24.4,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_53->[] def_%v_54 %v_53[24.6,] 	 SYMBOL:admin_password,	 ARGS:Symbol,
+		 8: %self->params def_%v_55 %self[24.0,24.2,24.4,24.6,2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_55->[] def_%v_56 %v_55[24.8,] 	 SYMBOL:marketplace_language,	 ARGS:Symbol,
+		 10: HASH-given_name-family_name-email-password-locale- def_%v_57 %v_48[24.1,] %v_50[24.3,] %v_52[24.5,] %v_54[24.7,] %v_56[24.9,] 
+		 11: marketplace->[] def_%v_58 marketplace[9.5,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 12: %v_46->create_user_with_membership def_%v_59 %v_46[23.0,22.0,] %v_57[24.10,] %v_58[24.11,] 	 SYMBOL:	 ARGS:%v_57,%v_58,
+		 13: COPY TYPE_PASS def_user %v_59[24.12,] 
+		 14: 
+		 15: (UserService) def_%v_60 
+		 16: (inherit API) def_%v_61 %v_60[24.15,] 
+		 17: %v_61[24.16,] 
+BB 25
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: %v_60->const_missing def_%v_61 %v_60[24.15,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 26
+	outgoing: 27 28 
+	datadep: 
+	instructions:
+		 0: (inherit AuthTokens) def_%v_62 %v_61[25.0,24.16,] 
+		 1: %v_62[26.0,] 
+BB 27
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: %v_61->const_missing def_%v_62 %v_61[25.0,24.16,] 	 SYMBOL:AuthTokens,	 ARGS:Symbol,
+BB 28
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: user->[] def_%v_63 user[24.13,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 1: %v_62->create_login_token def_%v_64 %v_62[27.0,26.0,] %v_63[28.0,] 	 SYMBOL:	 ARGS:%v_63,
+		 2: COPY TYPE_PASS def_auth_token %v_64[28.1,] 
+		 3: 
+		 4: (URLUtils) def_%v_65 
+		 5: marketplace->[] def_%v_66 marketplace[9.5,] 	 SYMBOL:url,	 ARGS:Symbol,
+		 6: COPY TYPE_StringLiteral "auth" def_%v_67 
+		 7: auth_token->[] def_%v_68 auth_token[28.2,] 	 SYMBOL:token,	 ARGS:Symbol,
+		 8: %v_65->append_query_param def_%v_69 %v_65[28.4,] %v_66[28.5,] %v_67[28.6,] %v_68[28.7,] 	 SYMBOL:	 ARGS:%v_66,%v_67,%v_68,
+		 9: COPY TYPE_PASS def_url %v_69[28.8,] 
+		 10: 
+		 11: COPY TYPE_StringLiteral "marketplace_url" def_%v_70 
+		 12: HASH- def_%v_71 %v_70[28.11,] %v_69[28.8,] 
+		 13: HASH-status-json- def_%v_72 %v_71[28.12,] 
+		 14: %self->render def_%v_73 %self[2.0,] %v_72[28.13,] 	 SYMBOL:	 ARGS:%v_72,
+		 15: RETURN %v_73[28.14,] %self[28.14,2.0,] 
+BB 29
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_email_availability instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:email,	 ARGS:Symbol,
+		 8: COPY TYPE_PASS def_email %v_4[2.7,] 
+		 9: 
+		 10: %v_4->blank? def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_5[2.10,] 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "email parameter missing" def_%v_6 
+		 1: COPY TYPE_Array def_%v_7 %v_6[3.0,] 
+		 2: HASH-json-status- def_%v_8 %v_7[3.1,] 
+		 3: %self->render def_%v_9 %self[2.0,] %v_8[3.2,] 	 SYMBOL:	 ARGS:%v_8,
+		 4: BRANCH %v_9[3.3,] 
+BB 4
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+BB 8
+	outgoing: 9 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ProspectEmail) def_%v_10 
+		 2: %self->params def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_11->[] def_%v_12 %v_11[8.2,] 	 SYMBOL:email,	 ARGS:Symbol,
+		 4: HASH-email- def_%v_13 %v_12[8.3,] 
+		 5: %v_10->create def_%v_14 %v_10[8.1,] %v_13[8.4,] 	 SYMBOL:	 ARGS:%v_13,
+		 6: 
+		 7: %self->response def_%v_15 %self[8.2,2.0,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN %v_15->status 
+		 9: 
+		 10: (Email) def_%v_16 
+		 11: %v_16->email_available? def_%v_17 %v_16[8.10,] email[2.8,] 	 SYMBOL:	 ARGS:email,
+		 12: HASH-email-available- def_%v_18 email[2.8,] %v_17[8.11,] 
+		 13: HASH-json- def_%v_19 %v_18[8.12,] 
+		 14: %self->render def_%v_20 %self[8.2,8.7,2.0,] %v_19[8.13,] 	 SYMBOL:	 ARGS:%v_19,
+		 15: BRANCH %v_20[8.14,] 
+BB 9
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %v_20[8.14,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = set_access_control_headers instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->headers def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "Access-Control-Allow-Origin" def_%v_4 
+		 8: COPY TYPE_StringLiteral "*" def_%v_5 
+		 9: ATTRASSIGN %v_3->[] %v_4[2.7,] %v_5[2.8,] 
+		 10: RETURN %v_5[2.8,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

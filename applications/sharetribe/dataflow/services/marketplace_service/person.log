@@ -1,0 +1,269 @@
+SET IRMethod, name = person instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_person_model 
+		 6: RECEIVEARG def_community_id 
+		 7: 
+		 8: (Person) def_%v_3 
+		 9: person_model->id def_%v_4 person_model[2.5,] 	 SYMBOL:	 ARGS:
+		 10: person_model->username def_%v_5 person_model[2.5,2.9,] 	 SYMBOL:	 ARGS:
+		 11: person_model->given_name def_%v_6 person_model[2.5,2.9,2.10,] 	 SYMBOL:	 ARGS:
+		 12: person_model->family_name def_%v_7 person_model[2.5,2.9,2.10,2.11,] 	 SYMBOL:	 ARGS:
+		 13: person_model->image def_%v_8 person_model[2.5,2.9,2.10,2.11,2.12,] 	 SYMBOL:	 ARGS:
+		 14: %v_8->url def_%v_9 %v_8[2.13,] 	 SYMBOL:thumb,	 ARGS:Symbol,
+		 15: person_model->deleted? def_%v_10 person_model[2.5,2.9,2.10,2.11,2.12,2.13,] 	 SYMBOL:	 ARGS:
+		 16: HASH-id-username-first_name-last_name-avatar-is_deleted- def_%v_11 %v_4[2.9,] %v_5[2.10,] %v_6[2.11,] %v_7[2.12,] %v_9[2.14,] %v_10[2.15,] 
+		 17: %v_3->[] def_%v_12 %v_3[2.8,] %v_11[2.16,] 	 SYMBOL:	 ARGS:%v_11,
+		 18: RETURN %v_12[2.17,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = unsubscribe_email_from_community_updates instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_email_address 
+		 6: 
+		 7: (Email) def_%v_3 
+		 8: %v_3->find_by_address def_%v_4 %v_3[2.7,] email_address[2.5,] 	 SYMBOL:	 ARGS:email_address,
+		 9: %self->Maybe def_%v_5 %self[2.0,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: %v_5->person def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_6->or_else def_%v_7 %v_6[2.10,] 	 SYMBOL:	 ARGS:Nil,
+		 12: COPY TYPE_PASS def_person %v_7[2.11,] 
+		 13: 
+		 14: (Helper) def_%v_8 
+		 15: %v_8->unsubscribe_from_community_updates def_%v_9 %v_8[2.14,] %v_7[2.11,] 	 SYMBOL:	 ARGS:person,
+		 16: RETURN %v_9[2.15,] %self[2.0,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = unsubscribe_person_from_community_updates instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_person_id 
+		 6: 
+		 7: (PersonModel) def_%v_3 
+		 8: %v_3->find_by_id def_%v_4 %v_3[2.7,] person_id[2.5,] 	 SYMBOL:	 ARGS:person_id,
+		 9: COPY TYPE_PASS def_person %v_4[2.8,] 
+		 10: 
+		 11: (Helper) def_%v_5 
+		 12: %v_5->unsubscribe_from_community_updates def_%v_6 %v_5[2.11,] %v_4[2.8,] 	 SYMBOL:	 ARGS:person,
+		 13: RETURN %v_6[2.12,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = unsubscribe_from_community_updates instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_person 
+		 6: 
+		 7: person->nil? def_%v_3 person[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: RETURN %v_4[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN person->min_days_between_community_updates 
+		 2: 
+		 3: person->save! def_%v_5 person[4.1,2.5,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %v_5[4.3,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = person instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_id 
+		 6: RECEIVEARG def_community_id 
+		 7: 
+		 8: (MarketplaceService) def_%v_3 
+		 9: (inherit Person) def_%v_4 %v_3[2.8,] 
+		 10: %v_4[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.8,] 	 SYMBOL:Person,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit Entity) def_%v_5 %v_4[3.0,2.9,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.9,] 	 SYMBOL:Entity,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: (PersonModel) def_%v_6 
+		 1: HASH-id- def_%v_7 id[2.5,] 
+		 2: %v_6->where def_%v_8 %v_6[6.0,] %v_7[6.1,] 	 SYMBOL:	 ARGS:%v_7,
+		 3: %v_8->first def_%v_9 %v_8[6.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_5->person def_%v_10 %v_5[5.0,4.0,] %v_9[6.3,] community_id[2.6,] 	 SYMBOL:	 ARGS:%v_9,community_id,
+		 5: RETURN %v_10[6.4,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = people instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_ids 
+		 6: RECEIVEARG def_community_id 
+		 7: 
+		 8: (PersonModel) def_%v_3 
+		 9: HASH-id- def_%v_4 ids[2.5,] 
+		 10: %v_3->where def_%v_5 %v_3[2.8,] %v_4[2.9,] 	 SYMBOL:	 ARGS:%v_4,
+		 11: HASH- def_%v_6 
+		 12: %v_5->inject def_%v_7 %v_5[2.10,] %v_6[2.11,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_6,%v_5,
+CLOSURE BEGIN: person_model[] community_id[2.6,] memo[] 
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_memo 
+		 3: RECEIVEARG def_person_model 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: person_model->id def_%cl_1_3 person_model[2.3,] 	 SYMBOL:	 ARGS:
+		 2: (MarketplaceService) def_%cl_1_4 
+		 3: (inherit Person) def_%cl_1_5 %cl_1_4[3.2,] 
+		 4: %cl_1_5[3.3,] 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: %cl_1_4->const_missing def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:Person,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 7 8 
+	datadep: 
+	instructions:
+		 0: (inherit Entity) def_%cl_1_6 %cl_1_5[4.0,3.3,] 
+		 1: %cl_1_6[5.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: %cl_1_5->const_missing def_%cl_1_6 %cl_1_5[4.0,3.3,] 	 SYMBOL:Entity,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 10 
+	datadep: 
+	instructions:
+		 0: %cl_1_6->person def_%cl_1_7 %cl_1_6[6.0,5.0,] person_model[2.3,] community_id[] 	 SYMBOL:	 ARGS:person_model,community_id,
+		 1: ATTRASSIGN memo->[] %cl_1_3[3.1,] %cl_1_7[7.0,] 
+		 2: 
+		 3: RETURN memo[7.1,2.2,] %self[2.0,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[8.0,] 
+		 2: RETURN %cl_1_9[8.1,] %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: person_model[2.3,] 
+		 13: RETURN %v_7[2.12,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

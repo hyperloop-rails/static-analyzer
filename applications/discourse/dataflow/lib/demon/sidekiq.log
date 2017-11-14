@@ -1,0 +1,200 @@
+SET IRMethod, name = prefix instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "sidekiq" def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = suppress_stdout instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: RETURN %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = suppress_stderr instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: RETURN %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = after_fork instanceMethod = true
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (STDERR) def_%v_6 
+		 3: COPY TYPE_StringLiteral "Loading Sidekiq in process id " def_%v_7 
+		 4: (Process) def_%v_8 
+		 5: %v_8->pid def_%v_9 %v_8[4.4,] 	 SYMBOL:	 ARGS:
+		 6: BUILDSTRING def_%v_10 %v_7[4.3,] %v_9[4.5,] 
+		 7: %v_6->puts def_%v_11 %v_6[4.2,] %v_10[4.6,] 	 SYMBOL:	 ARGS:%v_10,
+		 8: 
+		 9: COPY TYPE_StringLiteral "sidekiq/cli" def_%v_12 
+		 10: %self->require def_%v_13 %self[2.0,] %v_12[4.9,] 	 SYMBOL:	 ARGS:%v_12,
+		 11: 
+		 12: (Sidekiq) def_%v_14 
+		 13: (inherit Logging) def_%v_15 %v_14[4.12,] 
+		 14: %v_15[4.13,] 
+BB 5
+	outgoing: 6 10 
+	datadep: 
+	instructions:
+		 0: %v_14->const_missing def_%v_15 %v_14[4.12,] 	 SYMBOL:Logging,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 10 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %v_15->logger 
+		 1: 
+		 2: (Sidekiq) def_%v_16 
+		 3: (inherit CLI) def_%v_17 %v_16[6.2,] 
+		 4: %v_17[6.3,] 
+BB 7
+	outgoing: 8 10 
+	datadep: 
+	instructions:
+		 0: %v_16->const_missing def_%v_17 %v_16[6.2,] 	 SYMBOL:CLI,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: %v_17->instance def_%v_18 %v_17[7.0,6.3,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_cli %v_18[8.0,] 
+		 2: 
+		 3: COPY TYPE_StringLiteral "-c" def_%v_19 
+		 4: (GlobalSetting) def_%v_20 
+		 5: %v_20->sidekiq_workers def_%v_21 %v_20[8.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_21->to_s def_%v_22 %v_21[8.5,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_Array def_%v_23 %v_19[8.3,] %v_22[8.6,] 
+		 8: cli->parse def_%v_24 cli[8.1,] %v_23[8.7,] 	 SYMBOL:	 ARGS:%v_23,
+		 9: 
+		 10: (Rails) def_%v_25 
+		 11: %v_25->root def_%v_26 %v_25[8.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral "config/initializers/100-sidekiq.rb" def_%v_27 
+		 13: %v_26->+ def_%v_28 %v_26[8.11,] %v_27[8.12,] 	 SYMBOL:	 ARGS:%v_27,
+		 14: %self->load def_%v_29 %self[2.0,] %v_28[8.13,] 	 SYMBOL:	 ARGS:%v_28,
+		 15: 
+		 16: cli->run def_%v_30 cli[8.1,8.8,] 	 SYMBOL:	 ARGS:
+		 17: COPY TYPE_PASS def_%v_5 %v_30[8.16,] 
+		 18: %v_3[2.5,] 
+BB 9
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 11 12 14 
+	datadep: 
+	instructions:
+		 0: def_%v_31 
+		 1: def_%v_32 %v_31[10.0,] 
+		 2: BRANCH %v_32[10.1,] 
+BB 11
+	outgoing: 14 16 
+	datadep: 
+	instructions:
+		 0: %v_31[10.0,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_33 
+		 1: COPY TYPE_PASS def_e %v_33[12.0,] 
+		 2: 
+		 3: (STDERR) def_%v_34 
+		 4: %v_33->message def_%v_35 %v_33[12.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_34->puts def_%v_36 %v_34[12.3,] %v_35[12.4,] 	 SYMBOL:	 ARGS:%v_35,
+		 6: 
+		 7: (STDERR) def_%v_37 
+		 8: e->backtrace def_%v_38 e[12.1,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_StringLiteral "
+" def_%v_39 
+		 10: %v_38->join def_%v_40 %v_38[12.8,] %v_39[12.9,] 	 SYMBOL:	 ARGS:%v_39,
+		 11: %v_37->puts def_%v_41 %v_37[12.7,] %v_40[12.10,] 	 SYMBOL:	 ARGS:%v_40,
+		 12: 
+		 13: %self->exit def_%v_42 %self[2.0,] 	 SYMBOL:	 ARGS:Fixnum,
+		 14: COPY TYPE_PASS def_%v_5 %v_42[12.13,] 
+		 15: %v_3[2.5,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: def_%v_43 
+		 1: def_%v_44 %v_43[14.0,] %v_3[2.5,] 
+		 2: %v_43[14.0,] 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[8.17,12.14,] %self[2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+

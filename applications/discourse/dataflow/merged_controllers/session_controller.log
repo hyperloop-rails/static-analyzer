@@ -1,0 +1,1777 @@
+SET IRMethod, name = csrf instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->form_authenticity_token def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: HASH-csrf- def_%v_4 %v_3[2.6,] 
+		 8: HASH-json- def_%v_5 %v_4[2.7,] 
+		 9: %self->render def_%v_6 %self[2.0,2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,2.6,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = sso instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:return_path,	 ARGS:Symbol,
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_5->[] def_%v_6 %v_5[3.1,] 	 SYMBOL:return_path,	 ARGS:Symbol,
+		 3: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->session def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->[] def_%v_8 %v_7[4.1,] 	 SYMBOL:destination_url,	 ARGS:Symbol,
+		 3: BRANCH %v_8[4.2,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (URI) def_%v_9 
+		 2: %self->session def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_10->[] def_%v_11 %v_10[5.2,] 	 SYMBOL:destination_url,	 ARGS:Symbol,
+		 4: %v_9->parse def_%v_12 %v_9[5.1,] %v_11[5.3,] 	 SYMBOL:	 ARGS:%v_11,
+		 5: %v_12->path def_%v_13 %v_12[5.4,] 	 SYMBOL:	 ARGS:
+		 6: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "/" def_%v_14 
+		 2: %self->path def_%v_15 %self[2.0,] %v_14[6.1,] 	 SYMBOL:	 ARGS:%v_14,
+		 3: COPY TYPE_PASS def_%v_13 %v_15[6.2,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_6 %v_13[6.3,5.5,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_return_path %v_6[7.0,3.2,] 
+		 1: 
+		 2: (SiteSetting) def_%v_16 
+		 3: %v_16->enable_sso? def_%v_17 %v_16[8.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_17[8.3,] 
+BB 9
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (DiscourseSingleSignOn) def_%v_18 
+		 2: %v_18->generate_url def_%v_19 %v_18[9.1,] return_path[8.0,] 	 SYMBOL:	 ARGS:return_path,
+		 3: %self->redirect_to def_%v_20 %self[2.0,] %v_19[9.2,] 	 SYMBOL:	 ARGS:%v_19,
+		 4: RETURN %v_20[9.3,] %self[9.3,2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-nothing-status- def_%v_21 
+		 2: %self->render def_%v_22 %self[2.0,] %v_21[10.1,] 	 SYMBOL:	 ARGS:%v_21,
+		 3: RETURN %v_22[10.2,] %self[10.2,2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = sso_provider instanceMethod = true
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_payload 
+		 6: payload[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_payload 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_3 payload[3.0,2.5,] 
+		 2: COPY TYPE_PASS def_%v_4 payload[3.0,2.5,] 
+		 3: BRANCH payload[3.0,2.5,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->request def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->query_string def_%v_6 %v_5[5.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_payload %v_6[5.1,] 
+		 3: COPY TYPE_PASS def_%v_4 %v_6[5.1,] 
+BB 6
+	outgoing: 7 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_7 
+		 2: %v_7->enable_sso_provider def_%v_8 %v_7[6.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_8[6.2,] 
+BB 7
+	outgoing: 8 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SingleSignOn) def_%v_9 
+		 2: (SiteSetting) def_%v_10 
+		 3: %v_10->sso_secret def_%v_11 %v_10[7.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_9->parse def_%v_12 %v_9[7.1,] payload[5.2,3.0,2.5,] %v_11[7.3,] 	 SYMBOL:	 ARGS:payload,%v_11,
+		 5: COPY TYPE_PASS def_sso %v_12[7.4,] 
+		 6: 
+		 7: %self->current_user def_%v_13 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_13[7.7,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->current_user def_%v_14 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_14->name def_%v_15 %v_14[8.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN sso->name %v_15[8.2,] 
+		 4: 
+		 5: %self->current_user def_%v_16 %self[8.1,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %v_16->username def_%v_17 %v_16[8.5,] 	 SYMBOL:	 ARGS:
+		 7: ATTRASSIGN sso->username %v_17[8.6,] 
+		 8: 
+		 9: %self->current_user def_%v_18 %self[8.1,8.5,2.0,] 	 SYMBOL:	 ARGS:
+		 10: %v_18->email def_%v_19 %v_18[8.9,] 	 SYMBOL:	 ARGS:
+		 11: ATTRASSIGN sso->email %v_19[8.10,] 
+		 12: 
+		 13: %self->current_user def_%v_20 %self[8.1,8.5,8.9,2.0,] 	 SYMBOL:	 ARGS:
+		 14: %v_20->id def_%v_21 %v_20[8.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_21->to_s def_%v_22 %v_21[8.14,] 	 SYMBOL:	 ARGS:
+		 16: ATTRASSIGN sso->external_id %v_22[8.15,] 
+		 17: 
+		 18: %self->current_user def_%v_23 %self[8.1,8.5,8.9,8.13,2.0,] 	 SYMBOL:	 ARGS:
+		 19: %v_23->admin? def_%v_24 %v_23[8.18,] 	 SYMBOL:	 ARGS:
+		 20: ATTRASSIGN sso->admin %v_24[8.19,] 
+		 21: 
+		 22: %self->current_user def_%v_25 %self[8.1,8.5,8.9,8.13,8.18,2.0,] 	 SYMBOL:	 ARGS:
+		 23: %v_25->moderator? def_%v_26 %v_25[8.22,] 	 SYMBOL:	 ARGS:
+		 24: ATTRASSIGN sso->moderator %v_26[8.23,] 
+		 25: 
+		 26: %self->request def_%v_27 %self[8.1,8.5,8.9,8.13,8.18,8.22,2.0,] 	 SYMBOL:	 ARGS:
+		 27: %v_27->xhr? def_%v_28 %v_27[8.26,] 	 SYMBOL:	 ARGS:
+		 28: BRANCH %v_28[8.27,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->cookies def_%v_29 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: sso->return_sso_url def_%v_30 sso[8.3,8.7,8.11,8.16,8.20,8.24,7.5,] 	 SYMBOL:	 ARGS:
+		 3: sso->to_url def_%v_31 sso[9.2,8.3,8.7,8.11,8.16,8.20,8.24,7.5,] %v_30[9.2,] 	 SYMBOL:	 ARGS:%v_30,
+		 4: ATTRASSIGN %v_29->[] %v_31[9.3,] 
+		 5: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: sso->return_sso_url def_%v_32 sso[8.3,8.7,8.11,8.16,8.20,8.24,7.5,] 	 SYMBOL:	 ARGS:
+		 2: sso->to_url def_%v_33 sso[10.1,8.3,8.7,8.11,8.16,8.20,8.24,7.5,] %v_32[10.1,] 	 SYMBOL:	 ARGS:%v_32,
+		 3: %self->redirect_to def_%v_34 %self[2.0,] %v_33[10.2,] 	 SYMBOL:	 ARGS:%v_33,
+		 4: COPY TYPE_PASS def_%v_31 %v_34[10.3,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->session def_%v_35 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->request def_%v_36 %self[12.1,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_36->query_string def_%v_37 %v_36[12.2,] 	 SYMBOL:	 ARGS:
+		 4: ATTRASSIGN %v_35->[] %v_37[12.3,] 
+		 5: 
+		 6: COPY TYPE_StringLiteral "/login" def_%v_38 
+		 7: %self->path def_%v_39 %self[12.1,12.2,2.0,] %v_38[12.6,] 	 SYMBOL:	 ARGS:%v_38,
+		 8: %self->redirect_to def_%v_40 %self[12.1,12.2,12.7,2.0,] %v_39[12.7,] 	 SYMBOL:	 ARGS:%v_39,
+		 9: COPY TYPE_PASS def_%v_31 %v_40[12.8,] 
+BB 13
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %v_31[12.9,10.4,9.3,] %self[2.0,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-nothing-status- def_%v_41 
+		 2: %self->render def_%v_42 %self[2.0,] %v_41[14.1,] 	 SYMBOL:	 ARGS:%v_41,
+		 3: RETURN %v_42[14.2,] %self[14.2,2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = become instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Rails) def_%v_3 
+		 7: %v_3->env def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->development? def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (Discourse) def_%v_7 
+		 1: (inherit InvalidAccess) def_%v_8 %v_7[4.0,] 
+		 2: %v_8[4.1,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_7->const_missing def_%v_8 %v_7[4.0,] 	 SYMBOL:InvalidAccess,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_8->new def_%v_9 %v_8[5.0,4.1,] 	 SYMBOL:	 ARGS:
+		 1: %self->raise def_%v_10 %self[2.0,] %v_9[6.0,] 	 SYMBOL:	 ARGS:%v_9,
+		 2: COPY TYPE_PASS def_%v_6 %v_10[6.1,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%v_11 
+		 2: %self->params def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_12->[] def_%v_13 %v_12[7.2,] 	 SYMBOL:session_id,	 ARGS:Symbol,
+		 4: %v_11->find_by_username def_%v_14 %v_11[7.1,] %v_13[7.3,] 	 SYMBOL:	 ARGS:%v_13,
+		 5: COPY TYPE_PASS def_user %v_14[7.4,] 
+		 6: 
+		 7: %v_14->blank? def_%v_15 %v_14[7.4,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_15[7.7,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "User " def_%v_16 
+		 1: %self->params def_%v_17 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_17->[] def_%v_18 %v_17[8.1,] 	 SYMBOL:session_id,	 ARGS:Symbol,
+		 3: COPY TYPE_StringLiteral " not found" def_%v_19 
+		 4: BUILDSTRING def_%v_20 %v_16[8.0,] %v_18[8.2,] %v_19[8.3,] 
+		 5: %self->raise def_%v_21 %self[8.1,2.0,] %v_20[8.4,] 	 SYMBOL:	 ARGS:%v_20,
+		 6: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->log_on_user def_%v_22 %self[2.0,] user[7.5,] 	 SYMBOL:	 ARGS:user,
+		 2: 
+		 3: COPY TYPE_StringLiteral "/" def_%v_23 
+		 4: %self->path def_%v_24 %self[10.1,2.0,] %v_23[10.3,] 	 SYMBOL:	 ARGS:%v_23,
+		 5: %self->redirect_to def_%v_25 %self[10.1,10.4,2.0,] %v_24[10.4,] 	 SYMBOL:	 ARGS:%v_24,
+		 6: RETURN %v_25[10.5,] %self[10.1,10.4,10.5,2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = sso_login instanceMethod = true
+BB 1
+	outgoing: 60 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 5 58 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SiteSetting) def_%v_3 
+		 7: %v_3->enable_sso def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+BB 5
+	outgoing: 58 60 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-nothing-status- def_%v_6 
+		 2: %self->render def_%v_7 %self[2.0,] %v_6[5.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: RETURN %v_7[5.2,] %self[5.2,2.0,] 
+BB 6
+	outgoing: 7 8 58 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (DiscourseSingleSignOn) def_%v_8 
+		 2: %self->request def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_9->query_string def_%v_10 %v_9[6.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_8->parse def_%v_11 %v_8[6.1,] %v_10[6.3,] 	 SYMBOL:	 ARGS:%v_10,
+		 5: COPY TYPE_PASS def_sso %v_11[6.4,] 
+		 6: 
+		 7: %v_11->nonce_valid? def_%v_12 %v_11[6.4,] 	 SYMBOL:	 ARGS:
+		 8: %v_12->! def_%v_13 %v_12[6.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_13[6.8,] 
+BB 7
+	outgoing: 58 60 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%v_14 
+		 2: COPY TYPE_StringLiteral "sso.timeout_expired" def_%v_15 
+		 3: %v_14->t def_%v_16 %v_14[7.1,] %v_15[7.2,] 	 SYMBOL:	 ARGS:%v_15,
+		 4: HASH-text-status- def_%v_17 %v_16[7.3,] 
+		 5: %self->render def_%v_18 %self[2.0,] %v_17[7.4,] 	 SYMBOL:	 ARGS:%v_17,
+		 6: RETURN %v_18[7.5,] %self[7.5,2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_19 
+BB 9
+	outgoing: 10 11 58 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ScreenedIpAddress) def_%v_20 
+		 2: %self->request def_%v_21 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_21->remote_ip def_%v_22 %v_21[9.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_20->should_block? def_%v_23 %v_20[9.1,] %v_22[9.3,] 	 SYMBOL:	 ARGS:%v_22,
+		 5: BRANCH %v_23[9.4,] 
+BB 10
+	outgoing: 58 60 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%v_24 
+		 2: COPY TYPE_StringLiteral "sso.unknown_error" def_%v_25 
+		 3: %v_24->t def_%v_26 %v_24[10.1,] %v_25[10.2,] 	 SYMBOL:	 ARGS:%v_25,
+		 4: HASH-text-status- def_%v_27 %v_26[10.3,] 
+		 5: %self->render def_%v_28 %self[2.0,] %v_27[10.4,] 	 SYMBOL:	 ARGS:%v_27,
+		 6: RETURN %v_28[10.5,] %self[10.5,2.0,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_29 
+BB 12
+	outgoing: 13 58 
+	datadep: 
+	instructions:
+		 0: 
+		 1: sso->return_path def_%v_30 sso[6.5,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_return_path %v_30[12.1,] 
+		 3: 
+		 4: sso->expire_nonce! def_%v_31 sso[12.1,6.5,] 	 SYMBOL:	 ARGS:
+		 5: 
+		 6: GLOBALVAR $! def_%v_32 
+BB 13
+	outgoing: 15 47 50 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->request def_%v_35 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_35->remote_ip def_%v_36 %v_35[13.2,] 	 SYMBOL:	 ARGS:
+		 4: sso->lookup_or_create_user def_%v_37 sso[6.5,] %v_36[13.3,] 	 SYMBOL:	 ARGS:%v_36,
+		 5: COPY TYPE_PASS def_user %v_37[13.4,] 
+		 6: BRANCH %v_37[13.4,] 
+BB 15
+	outgoing: 16 17 50 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_38 
+		 2: %v_38->must_approve_users? def_%v_39 %v_38[15.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_39[15.2,] 
+BB 16
+	outgoing: 17 50 
+	datadep: 
+	instructions:
+		 0: user->approved? def_%v_40 user[13.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_40->! def_%v_41 %v_40[16.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_39 %v_41[16.1,] 
+BB 17
+	outgoing: 18 23 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_39[16.2,15.2,] 
+BB 18
+	outgoing: 19 20 50 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_42 
+		 2: %v_42->sso_not_approved_url def_%v_43 %v_42[18.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_43->present? def_%v_44 %v_43[18.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_44[18.3,] 
+BB 19
+	outgoing: 21 50 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_45 
+		 2: %v_45->sso_not_approved_url def_%v_46 %v_45[19.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->redirect_to def_%v_47 %self[2.0,] %v_46[19.2,] 	 SYMBOL:	 ARGS:%v_46,
+		 4: 
+BB 20
+	outgoing: 21 50 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%v_48 
+		 2: COPY TYPE_StringLiteral "sso.account_not_approved" def_%v_49 
+		 3: %v_48->t def_%v_50 %v_48[20.1,] %v_49[20.2,] 	 SYMBOL:	 ARGS:%v_49,
+		 4: HASH-text-status- def_%v_51 %v_50[20.3,] 
+		 5: %self->render def_%v_52 %self[2.0,] %v_51[20.4,] 	 SYMBOL:	 ARGS:%v_51,
+		 6: COPY TYPE_PASS def_%v_47 %v_52[20.5,] 
+BB 21
+	outgoing: 22 50 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Nil def_%v_53 
+		 2: %v_32[12.6,] 
+BB 22
+	outgoing: 60 
+	datadep: 
+	instructions:
+		 0: RETURN %v_53[21.1,] %self[2.0,] 
+BB 23
+	outgoing: 24 29 50 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user->active? def_%v_55 user[13.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_55->! def_%v_56 %v_55[23.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_56[23.2,] 
+BB 24
+	outgoing: 25 28 50 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (UserActivator) def_%v_57 
+		 2: %self->request def_%v_58 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %self->session def_%v_59 %self[24.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %self->cookies def_%v_60 %self[24.2,24.3,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_57->new def_%v_61 %v_57[24.1,] user[13.5,] %v_58[24.2,] %v_59[24.3,] %v_60[24.4,] 	 SYMBOL:	 ARGS:user,%v_58,%v_59,%v_60,
+		 6: COPY TYPE_PASS def_activation %v_61[24.5,] 
+		 7: 
+		 8: %v_61->finish def_%v_62 %v_61[24.5,] 	 SYMBOL:	 ARGS:
+		 9: 
+		 10: %self->session def_%v_63 %self[24.2,24.3,24.4,2.0,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_StringLiteral "user_created_message" def_%v_64 
+		 12: activation->message def_%v_65 activation[24.6,] 	 SYMBOL:	 ARGS:
+		 13: ATTRASSIGN %v_63->[] %v_64[24.11,] %v_65[24.12,] 
+		 14: 
+		 15: %self->users_account_created_path def_%v_66 %self[24.2,24.3,24.4,24.10,2.0,] 	 SYMBOL:	 ARGS:
+		 16: %self->redirect_to def_%v_67 %self[24.2,24.3,24.4,24.10,24.15,2.0,] %v_66[24.15,] 	 SYMBOL:	 ARGS:%v_66,
+		 17: BRANCH %v_67[24.16,] 
+BB 25
+	outgoing: 26 50 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_68 
+		 1: %v_32[12.6,] 
+BB 26
+	outgoing: 60 
+	datadep: 
+	instructions:
+		 0: RETURN %v_68[25.0,] %self[2.0,] 
+BB 28
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: 
+BB 29
+	outgoing: 30 50 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->log_on_user def_%v_69 %self[2.0,] user[13.5,] 	 SYMBOL:	 ARGS:user,
+		 2: COPY TYPE_PASS def_%v_67 %v_69[29.1,] 
+BB 30
+	outgoing: 31 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_54 %v_67[29.2,24.16,] 
+BB 31
+	outgoing: 32 45 50 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Regexp def_%v_70 
+		 2: return_path->!~ def_%v_71 return_path[12.2,] 	 SYMBOL:	 ARGS:%v_70,
+		 3: BRANCH %v_71[31.2,] 
+BB 32
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%v_72 
+BB 34
+	outgoing: 35 36 39 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->URI def_%v_75 %self[2.0,] return_path[12.2,] 	 SYMBOL:	 ARGS:return_path,
+		 3: COPY TYPE_PASS def_uri %v_75[34.2,] 
+		 4: 
+		 5: %v_75->host def_%v_76 %v_75[34.2,] 	 SYMBOL:	 ARGS:
+		 6: (Discourse) def_%v_77 
+		 7: %v_77->current_hostname def_%v_78 %v_77[34.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_76->== def_%v_79 %v_76[34.5,] %v_78[34.7,] 	 SYMBOL:	 ARGS:%v_78,
+		 9: BRANCH %v_79[34.8,] 
+BB 35
+	outgoing: 37 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_80 
+		 1: 
+BB 36
+	outgoing: 37 39 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "/" def_%v_81 
+		 1: %self->path def_%v_82 %self[2.0,] %v_81[36.0,] 	 SYMBOL:	 ARGS:%v_81,
+		 2: COPY TYPE_PASS def_return_path %v_82[36.1,] 
+		 3: COPY TYPE_PASS def_%v_80 %v_82[36.1,] 
+BB 37
+	outgoing: 38 39 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_74 %v_80[36.3,35.0,] 
+		 1: %v_72[32.1,] 
+BB 38
+	outgoing: 44 
+	datadep: 
+	instructions:
+		 0: 
+BB 39
+	outgoing: 40 41 43 
+	datadep: 
+	instructions:
+		 0: def_%v_83 
+		 1: def_%v_84 %v_83[39.0,] 
+		 2: BRANCH %v_84[39.1,] 
+BB 40
+	outgoing: 43 60 
+	datadep: 
+	instructions:
+		 0: %v_83[39.0,] 
+BB 41
+	outgoing: 42 43 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "/" def_%v_85 
+		 2: %self->path def_%v_86 %self[2.0,] %v_85[41.1,] 	 SYMBOL:	 ARGS:%v_85,
+		 3: COPY TYPE_PASS def_return_path %v_86[41.2,] 
+		 4: COPY TYPE_PASS def_%v_74 %v_86[41.2,] 
+		 5: %v_72[32.1,] 
+BB 42
+	outgoing: 44 
+	datadep: 
+	instructions:
+		 0: 
+BB 43
+	outgoing: 50 60 
+	datadep: 
+	instructions:
+		 0: def_%v_87 
+		 1: def_%v_88 %v_87[43.0,] %v_72[32.1,] 
+		 2: %v_87[43.0,] 
+BB 44
+	outgoing: 46 
+	datadep: 
+	instructions:
+		 0: 
+BB 45
+	outgoing: 46 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_74 
+BB 46
+	outgoing: 48 50 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->redirect_to def_%v_89 %self[2.0,] return_path[41.3,36.2,12.2,] 	 SYMBOL:	 ARGS:return_path,
+		 2: 
+BB 47
+	outgoing: 48 50 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%v_90 
+		 2: COPY TYPE_StringLiteral "sso.not_found" def_%v_91 
+		 3: %v_90->t def_%v_92 %v_90[47.1,] %v_91[47.2,] 	 SYMBOL:	 ARGS:%v_91,
+		 4: HASH-text-status- def_%v_93 %v_92[47.3,] 
+		 5: %self->render def_%v_94 %self[2.0,] %v_93[47.4,] 	 SYMBOL:	 ARGS:%v_93,
+		 6: COPY TYPE_PASS def_%v_89 %v_94[47.5,] 
+BB 48
+	outgoing: 49 50 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_34 %v_89[47.6,46.1,] 
+		 1: %v_32[12.6,] 
+BB 49
+	outgoing: 57 
+	datadep: 
+	instructions:
+		 0: 
+BB 50
+	outgoing: 51 52 56 
+	datadep: 
+	instructions:
+		 0: def_%v_95 
+		 1: def_%v_96 %v_95[50.0,] 
+		 2: BRANCH %v_96[50.1,] 
+BB 51
+	outgoing: 56 60 
+	datadep: 
+	instructions:
+		 0: %v_95[50.0,] 
+BB 52
+	outgoing: 53 54 56 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_97 
+		 1: COPY TYPE_PASS def_e %v_97[52.0,] 
+		 2: 
+		 3: HASH- def_%v_98 
+		 4: COPY TYPE_PASS def_details %v_98[52.3,] 
+		 5: 
+		 6: (SingleSignOn) def_%v_99 
+		 7: (inherit ACCESSORS) def_%v_100 %v_99[52.6,] 
+		 8: %v_100[52.7,] 
+BB 53
+	outgoing: 54 56 
+	datadep: 
+	instructions:
+		 0: %v_99->const_missing def_%v_100 %v_99[52.6,] 	 SYMBOL:ACCESSORS,	 ARGS:Symbol,
+BB 54
+	outgoing: 55 56 
+	datadep: 
+	instructions:
+		 0: %v_100->each def_%v_101 %v_100[53.0,52.7,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_100,
+CLOSURE BEGIN: sso[6.5,] a[] details[52.4,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_a 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: sso->send def_%cl_1_3 sso[] a[2.2,] 	 SYMBOL:	 ARGS:a,
+		 2: ATTRASSIGN details->[] a[2.2,] %cl_1_3[3.1,] 
+		 3: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 1: 
+		 2: COPY TYPE_StringLiteral "Failed to create or lookup user: " def_%v_102 
+		 3: COPY TYPE_StringLiteral "." def_%v_103 
+		 4: BUILDSTRING def_%v_104 %v_102[54.2,] e[52.1,] %v_103[54.3,] 
+		 5: COPY TYPE_PASS def_message %v_104[54.4,] 
+		 6: 
+		 7: COPY TYPE_StringLiteral "
+
+" def_%v_105 
+		 8: %v_104-><< def_%v_106 %v_104[54.4,] %v_105[54.7,] 	 SYMBOL:	 ARGS:%v_105,
+		 9: COPY TYPE_StringLiteral "-" def_%v_107 
+		 10: %v_107->* def_%v_108 %v_107[54.9,] 	 SYMBOL:	 ARGS:Fixnum,
+		 11: %v_106-><< def_%v_109 %v_106[54.8,] %v_108[54.10,] 	 SYMBOL:	 ARGS:%v_108,
+		 12: COPY TYPE_StringLiteral "
+
+" def_%v_110 
+		 13: %v_109-><< def_%v_111 %v_109[54.11,] %v_110[54.12,] 	 SYMBOL:	 ARGS:%v_110,
+		 14: 
+		 15: details->map def_%v_112 details[52.4,] %self[2.0,] 	 SYMBOL:	 ARGS:details,
+CLOSURE BEGIN: k[] v[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_k 
+		 3: RECEIVEARG def_v 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral ": " def_%cl_2_3 
+		 2: BUILDSTRING def_%cl_2_4 k[2.2,] %cl_2_3[3.1,] v[2.3,] 
+		 3: RETURN %cl_2_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_5 
+		 1: def_%cl_2_6 %cl_2_5[4.0,] 
+		 2: RETURN %cl_2_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: v[2.3,] 
+		 16: COPY TYPE_StringLiteral "
+" def_%v_113 
+		 17: %v_112->join def_%v_114 %v_112[54.15,] %v_113[54.16,] 	 SYMBOL:	 ARGS:%v_113,
+		 18: message-><< def_%v_115 message[54.5,] %v_114[54.17,] 	 SYMBOL:	 ARGS:%v_114,
+		 19: 
+		 20: COPY TYPE_StringLiteral "
+
+" def_%v_116 
+		 21: message-><< def_%v_117 message[54.5,54.18,] %v_116[54.20,] 	 SYMBOL:	 ARGS:%v_116,
+		 22: COPY TYPE_StringLiteral "-" def_%v_118 
+		 23: %v_118->* def_%v_119 %v_118[54.22,] 	 SYMBOL:	 ARGS:Fixnum,
+		 24: %v_117-><< def_%v_120 %v_117[54.21,] %v_119[54.23,] 	 SYMBOL:	 ARGS:%v_119,
+		 25: COPY TYPE_StringLiteral "
+
+" def_%v_121 
+		 26: %v_120-><< def_%v_122 %v_120[54.24,] %v_121[54.25,] 	 SYMBOL:	 ARGS:%v_121,
+		 27: 
+		 28: e->backtrace def_%v_123 e[52.1,] 	 SYMBOL:	 ARGS:
+		 29: COPY TYPE_StringLiteral "
+" def_%v_124 
+		 30: %v_123->join def_%v_125 %v_123[54.28,] %v_124[54.29,] 	 SYMBOL:	 ARGS:%v_124,
+		 31: message-><< def_%v_126 message[54.5,54.18,54.21,] %v_125[54.30,] 	 SYMBOL:	 ARGS:%v_125,
+		 32: 
+		 33: (Rails) def_%v_127 
+		 34: %v_127->logger def_%v_128 %v_127[54.33,] 	 SYMBOL:	 ARGS:
+		 35: %v_128->error def_%v_129 %v_128[54.34,] message[54.5,54.18,54.21,54.31,] 	 SYMBOL:	 ARGS:message,
+		 36: 
+		 37: (I18n) def_%v_130 
+		 38: COPY TYPE_StringLiteral "sso.unknown_error" def_%v_131 
+		 39: %v_130->t def_%v_132 %v_130[54.37,] %v_131[54.38,] 	 SYMBOL:	 ARGS:%v_131,
+		 40: HASH-text-status- def_%v_133 %v_132[54.39,] 
+		 41: %self->render def_%v_134 %self[2.0,] %v_133[54.40,] 	 SYMBOL:	 ARGS:%v_133,
+		 42: COPY TYPE_PASS def_%v_34 %v_134[54.41,] 
+		 43: %v_32[12.6,] 
+BB 55
+	outgoing: 57 
+	datadep: 
+	instructions:
+		 0: 
+BB 56
+	outgoing: 58 60 
+	datadep: 
+	instructions:
+		 0: def_%v_135 
+		 1: def_%v_136 %v_135[56.0,] %v_32[12.6,] 
+		 2: %v_135[56.0,] 
+BB 57
+	outgoing: 60 
+	datadep: 
+	instructions:
+		 0: RETURN %v_34[48.0,54.42,] %self[2.0,] 
+BB 58
+	outgoing: 60 
+	datadep: 
+	instructions:
+		 0: def_%v_137 
+		 1: def_%v_138 %v_137[58.0,] 
+		 2: RETURN %v_138[58.1,] %self[2.0,] 
+BB 60
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create instanceMethod = true
+BB 1
+	outgoing: 35 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->allow_local_auth? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: (RateLimiter) def_%v_7 
+		 3: COPY TYPE_StringLiteral "login-hr-" def_%v_8 
+		 4: %self->request def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_9->remote_ip def_%v_10 %v_9[3.4,] 	 SYMBOL:	 ARGS:
+		 6: BUILDSTRING def_%v_11 %v_8[3.3,] %v_10[3.5,] 
+		 7: CONSTANT def_%v_12 	 SYMBOL:	 ARGS:
+		 8: %v_7->new def_%v_13 %v_7[3.2,] %v_11[3.6,] %v_12[3.7,] 	 SYMBOL:	 ARGS:Nil,%v_11,Fixnum,%v_12,
+		 9: %v_13->performed! def_%v_14 %v_13[3.8,] 	 SYMBOL:	 ARGS:
+		 10: 
+		 11: (RateLimiter) def_%v_15 
+		 12: COPY TYPE_StringLiteral "login-min-" def_%v_16 
+		 13: %self->request def_%v_17 %self[3.4,2.0,] 	 SYMBOL:	 ARGS:
+		 14: %v_17->remote_ip def_%v_18 %v_17[3.13,] 	 SYMBOL:	 ARGS:
+		 15: BUILDSTRING def_%v_19 %v_16[3.12,] %v_18[3.14,] 
+		 16: CONSTANT def_%v_20 	 SYMBOL:	 ARGS:
+		 17: %v_15->new def_%v_21 %v_15[3.11,] %v_19[3.15,] %v_20[3.16,] 	 SYMBOL:	 ARGS:Nil,%v_19,Fixnum,%v_20,
+		 18: %v_21->performed! def_%v_22 %v_21[3.17,] 	 SYMBOL:	 ARGS:
+		 19: 
+		 20: %self->params def_%v_23 %self[3.4,3.13,2.0,] 	 SYMBOL:	 ARGS:
+		 21: %v_23->require def_%v_24 %v_23[3.20,] 	 SYMBOL:login,	 ARGS:Symbol,
+		 22: 
+		 23: %self->params def_%v_25 %self[3.4,3.13,3.20,2.0,] 	 SYMBOL:	 ARGS:
+		 24: %v_25->require def_%v_26 %v_25[3.23,] 	 SYMBOL:password,	 ARGS:Symbol,
+		 25: 
+		 26: %self->params def_%v_27 %self[3.4,3.13,3.20,3.23,2.0,] 	 SYMBOL:	 ARGS:
+		 27: %v_27->[] def_%v_28 %v_27[3.26,] 	 SYMBOL:password,	 ARGS:Symbol,
+		 28: %v_28->length def_%v_29 %v_28[3.27,] 	 SYMBOL:	 ARGS:
+		 29: (User) def_%v_30 
+		 30: %v_30->max_password_length def_%v_31 %v_30[3.29,] 	 SYMBOL:	 ARGS:
+		 31: %v_29->> def_%v_32 %v_29[3.28,] %v_31[3.30,] 	 SYMBOL:	 ARGS:%v_31,
+		 32: BRANCH %v_32[3.31,] 
+BB 4
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-nothing-status- def_%v_5 
+		 2: %self->render def_%v_6 %self[2.0,] %v_5[4.1,] 	 SYMBOL:	 ARGS:%v_5,
+		 3: 
+		 4: RETURN %self[4.2,2.0,] 
+BB 6
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: %self->invalid_credentials def_%v_33 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_33[6.0,] %self[6.0,2.0,] 
+BB 7
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_34 
+		 1: 
+		 2: %self->params def_%v_35 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_35->[] def_%v_36 %v_35[7.2,] 	 SYMBOL:login,	 ARGS:Symbol,
+		 4: %v_36->strip def_%v_37 %v_36[7.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_login %v_37[7.4,] 
+		 6: 
+		 7: %v_37->[] def_%v_38 %v_37[7.4,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: COPY TYPE_StringLiteral "@" def_%v_39 
+		 9: %v_38->== def_%v_40 %v_38[7.7,] %v_39[7.8,] 	 SYMBOL:	 ARGS:%v_39,
+		 10: BRANCH %v_40[7.9,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: CONSTANT def_%v_41 
+		 1: login->[] def_%v_42 login[7.5,] %v_41[9.0,] 	 SYMBOL:	 ARGS:%v_41,
+		 2: COPY TYPE_PASS def_login %v_42[9.1,] 
+		 3: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_42 
+BB 11
+	outgoing: 12 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%v_43 
+		 2: %v_43->find_by_username_or_email def_%v_44 %v_43[11.1,] login[9.2,7.5,] 	 SYMBOL:	 ARGS:login,
+		 3: COPY TYPE_PASS def_user %v_44[11.2,] 
+		 4: BRANCH %v_44[11.2,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%v_45 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_45->[] def_%v_46 %v_45[12.1,] 	 SYMBOL:password,	 ARGS:Symbol,
+		 3: user->confirm_password? def_%v_47 user[11.3,] %v_46[12.2,] 	 SYMBOL:	 ARGS:%v_46,
+		 4: BRANCH %v_47[12.3,] 
+BB 13
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_48 
+		 1: 
+		 2: %self->login_not_approved_for? def_%v_50 %self[2.0,] user[11.3,] 	 SYMBOL:	 ARGS:user,
+		 3: BRANCH %v_50[13.2,] 
+BB 14
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->invalid_credentials def_%v_49 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: RETURN %self[14.1,2.0,] 
+BB 16
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->login_not_approved def_%v_51 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: RETURN %self[16.1,2.0,] 
+BB 17
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_52 
+		 1: 
+		 2: (Invite) def_%v_53 
+		 3: user->email def_%v_54 user[11.3,] 	 SYMBOL:	 ARGS:
+		 4: %v_53->invalidate_for_email def_%v_55 %v_53[17.2,] %v_54[17.3,] 	 SYMBOL:	 ARGS:%v_54,
+		 5: 
+BB 19
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->invalid_credentials def_%v_56 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: RETURN %self[19.1,2.0,] 
+BB 20
+	outgoing: 21 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user->suspended? def_%v_57 user[11.3,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_57[20.1,] 
+BB 21
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->failed_to_login def_%v_58 %self[2.0,] user[11.3,] 	 SYMBOL:	 ARGS:user,
+		 2: 
+		 3: RETURN %self[21.1,2.0,] 
+BB 22
+	outgoing: 24 25 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_59 
+		 1: 
+		 2: (ScreenedIpAddress) def_%v_60 
+		 3: %self->request def_%v_61 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_61->remote_ip def_%v_62 %v_61[22.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_60->should_block? def_%v_63 %v_60[22.2,] %v_62[22.4,] 	 SYMBOL:	 ARGS:%v_62,
+		 6: BRANCH %v_63[22.5,] 
+BB 24
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->not_allowed_from_ip_address def_%v_64 %self[2.0,] user[11.3,] 	 SYMBOL:	 ARGS:user,
+		 2: RETURN %v_64[24.1,] %self[24.1,2.0,] 
+BB 25
+	outgoing: 27 28 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_65 
+		 1: 
+		 2: (ScreenedIpAddress) def_%v_66 
+		 3: %self->request def_%v_67 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_67->remote_ip def_%v_68 %v_67[25.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_66->block_admin_login? def_%v_69 %v_66[25.2,] user[11.3,] %v_68[25.4,] 	 SYMBOL:	 ARGS:user,%v_68,
+		 6: BRANCH %v_69[25.5,] 
+BB 27
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->admin_not_allowed_from_ip_address def_%v_70 %self[2.0,] user[11.3,] 	 SYMBOL:	 ARGS:user,
+		 2: RETURN %v_70[27.1,] %self[27.1,2.0,] 
+BB 28
+	outgoing: 30 31 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_71 
+		 1: 
+		 2: user->active def_%v_72 user[11.3,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_72[28.2,] 
+BB 30
+	outgoing: 31 
+	datadep: 
+	instructions:
+		 0: user->email_confirmed? def_%v_73 user[11.3,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_72 %v_73[30.0,] 
+BB 31
+	outgoing: 32 33 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_72[30.1,28.2,] 
+BB 32
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: %self->login def_%v_74 %self[2.0,] user[11.3,] 	 SYMBOL:	 ARGS:user,
+		 1: RETURN %v_74[32.0,] %self[32.0,2.0,] 
+BB 33
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: %self->not_activated def_%v_75 %self[2.0,] user[11.3,] 	 SYMBOL:	 ARGS:user,
+		 1: RETURN %v_75[33.0,] %self[33.0,2.0,] 
+BB 35
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = forgot_password instanceMethod = true
+BB 1
+	outgoing: 30 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->params def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_6->require def_%v_7 %v_6[4.2,] 	 SYMBOL:login,	 ARGS:Symbol,
+		 4: 
+		 5: %self->allow_local_auth? def_%v_8 %self[4.2,2.0,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %v_8[4.5,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: 
+BB 6
+	outgoing: 7 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-nothing-status- def_%v_10 
+		 2: %self->render def_%v_11 %self[2.0,] %v_10[6.1,] 	 SYMBOL:	 ARGS:%v_10,
+		 3: 
+		 4: COPY TYPE_Nil def_%v_12 
+		 5: %v_3[2.5,] 
+BB 7
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: RETURN %v_12[6.4,] %self[2.0,] 
+BB 8
+	outgoing: 9 12 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (RateLimiter) def_%v_13 
+		 2: COPY TYPE_StringLiteral "forgot-password-hr-" def_%v_14 
+		 3: %self->request def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_15->remote_ip def_%v_16 %v_15[8.3,] 	 SYMBOL:	 ARGS:
+		 5: BUILDSTRING def_%v_17 %v_14[8.2,] %v_16[8.4,] 
+		 6: CONSTANT def_%v_18 	 SYMBOL:	 ARGS:
+		 7: %v_13->new def_%v_19 %v_13[8.1,] %v_17[8.5,] %v_18[8.6,] 	 SYMBOL:	 ARGS:Nil,%v_17,Fixnum,%v_18,
+		 8: %v_19->performed! def_%v_20 %v_19[8.7,] 	 SYMBOL:	 ARGS:
+		 9: 
+		 10: (RateLimiter) def_%v_21 
+		 11: COPY TYPE_StringLiteral "forgot-password-min-" def_%v_22 
+		 12: %self->request def_%v_23 %self[8.3,2.0,] 	 SYMBOL:	 ARGS:
+		 13: %v_23->remote_ip def_%v_24 %v_23[8.12,] 	 SYMBOL:	 ARGS:
+		 14: BUILDSTRING def_%v_25 %v_22[8.11,] %v_24[8.13,] 
+		 15: CONSTANT def_%v_26 	 SYMBOL:	 ARGS:
+		 16: %v_21->new def_%v_27 %v_21[8.10,] %v_25[8.14,] %v_26[8.15,] 	 SYMBOL:	 ARGS:Nil,%v_25,Fixnum,%v_26,
+		 17: %v_27->performed! def_%v_28 %v_27[8.16,] 	 SYMBOL:	 ARGS:
+		 18: 
+		 19: (User) def_%v_29 
+		 20: %self->params def_%v_30 %self[8.3,8.12,2.0,] 	 SYMBOL:	 ARGS:
+		 21: %v_30->[] def_%v_31 %v_30[8.20,] 	 SYMBOL:login,	 ARGS:Symbol,
+		 22: %v_29->find_by_username_or_email def_%v_32 %v_29[8.19,] %v_31[8.21,] 	 SYMBOL:	 ARGS:%v_31,
+		 23: COPY TYPE_PASS def_user %v_32[8.22,] 
+		 24: 
+		 25: %v_32->present? def_%v_33 %v_32[8.22,] 	 SYMBOL:	 ARGS:
+		 26: BRANCH %v_33[8.25,] 
+BB 9
+	outgoing: 10 11 22 
+	datadep: 
+	instructions:
+		 0: user->id def_%v_34 user[8.23,] 	 SYMBOL:	 ARGS:
+		 1: (Discourse) def_%v_35 
+		 2: (inherit SYSTEM_USER_ID) def_%v_36 %v_35[9.1,] 
+		 3: %v_36[9.2,] 
+BB 10
+	outgoing: 11 22 
+	datadep: 
+	instructions:
+		 0: %v_35->const_missing def_%v_36 %v_35[9.1,] 	 SYMBOL:SYSTEM_USER_ID,	 ARGS:Symbol,
+BB 11
+	outgoing: 12 22 
+	datadep: 
+	instructions:
+		 0: %v_34->!= def_%v_37 %v_34[9.0,] %v_36[10.0,9.2,] 	 SYMBOL:	 ARGS:%v_36,
+		 1: COPY TYPE_PASS def_%v_33 %v_37[11.0,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_33[11.1,8.25,] 
+BB 13
+	outgoing: 14 22 
+	datadep: 
+	instructions:
+		 0: user->staged def_%v_38 user[8.23,] 	 SYMBOL:	 ARGS:
+		 1: %v_38->! def_%v_39 %v_38[13.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_33 %v_39[13.1,] 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_user_presence %v_33[13.2,11.1,8.25,] 
+		 1: 
+		 2: BRANCH %v_33[13.2,11.1,8.25,] 
+BB 15
+	outgoing: 17 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user->email_tokens def_%v_40 user[8.23,] 	 SYMBOL:	 ARGS:
+		 2: user->email def_%v_41 user[15.1,8.23,] 	 SYMBOL:	 ARGS:
+		 3: HASH-email- def_%v_42 %v_41[15.2,] 
+		 4: %v_40->create def_%v_43 %v_40[15.1,] %v_42[15.3,] 	 SYMBOL:	 ARGS:%v_42,
+		 5: COPY TYPE_PASS def_email_token %v_43[15.4,] 
+		 6: 
+		 7: (Jobs) def_%v_44 
+		 8: user->id def_%v_45 user[15.1,15.2,8.23,] 	 SYMBOL:	 ARGS:
+		 9: email_token->token def_%v_46 email_token[15.5,] 	 SYMBOL:	 ARGS:
+		 10: HASH-type-user_id-email_token- def_%v_47 %v_45[15.8,] %v_46[15.9,] 
+		 11: %v_44->enqueue def_%v_48 %v_44[15.7,] %v_47[15.10,] 	 SYMBOL:user_email,	 ARGS:Symbol,%v_47,
+		 12: 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_48 
+BB 17
+	outgoing: 18 19 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "ok" def_%v_49 
+		 2: HASH-result- def_%v_50 %v_49[17.1,] 
+		 3: COPY TYPE_PASS def_json %v_50[17.2,] 
+		 4: 
+		 5: (SiteSetting) def_%v_51 
+		 6: %v_51->forgot_password_strict def_%v_52 %v_51[17.5,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_52[17.6,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_53 
+		 1: 
+BB 19
+	outgoing: 20 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN json->[] user_presence[14.0,] 
+		 2: COPY TYPE_PASS def_%v_53 user_presence[14.0,] 
+BB 20
+	outgoing: 21 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-json- def_%v_54 json[19.1,17.3,] 
+		 2: %self->render def_%v_55 %self[2.0,] %v_54[20.1,] 	 SYMBOL:	 ARGS:%v_54,
+		 3: COPY TYPE_PASS def_%v_5 %v_55[20.2,] 
+		 4: %v_3[2.5,] 
+BB 21
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: 
+BB 22
+	outgoing: 23 24 28 
+	datadep: 
+	instructions:
+		 0: def_%v_56 
+		 1: (RateLimiter) def_%v_57 
+		 2: (inherit LimitExceeded) def_%v_58 %v_57[22.1,] 
+		 3: %v_58[22.2,] 
+BB 23
+	outgoing: 24 28 
+	datadep: 
+	instructions:
+		 0: %v_57->const_missing def_%v_58 %v_57[22.1,] 	 SYMBOL:LimitExceeded,	 ARGS:Symbol,
+BB 24
+	outgoing: 25 26 28 
+	datadep: 
+	instructions:
+		 0: def_%v_59 %v_58[23.0,22.2,] %v_56[22.0,] 
+		 1: BRANCH %v_59[24.0,] 
+BB 25
+	outgoing: 28 30 
+	datadep: 
+	instructions:
+		 0: %v_56[22.0,] 
+BB 26
+	outgoing: 27 28 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%v_60 
+		 2: COPY TYPE_StringLiteral "rate_limiter.slow_down" def_%v_61 
+		 3: %v_60->t def_%v_62 %v_60[26.1,] %v_61[26.2,] 	 SYMBOL:	 ARGS:%v_61,
+		 4: %self->render_json_error def_%v_63 %self[2.0,] %v_62[26.3,] 	 SYMBOL:	 ARGS:%v_62,
+		 5: COPY TYPE_PASS def_%v_5 %v_63[26.4,] 
+		 6: %v_3[2.5,] 
+BB 27
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: 
+BB 28
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: def_%v_64 
+		 1: def_%v_65 %v_64[28.0,] %v_3[2.5,] 
+		 2: %v_64[28.0,] 
+BB 29
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[20.3,26.5,] %self[2.0,] 
+BB 30
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = current instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->current_user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->present? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->current_user def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: (CurrentUserSerializer) def_%v_6 
+		 3: %self->render_serialized def_%v_7 %self[3.1,2.0,] %v_5[3.1,] %v_6[3.2,] 	 SYMBOL:	 ARGS:%v_5,%v_6,
+		 4: RETURN %v_7[3.3,] %self[3.1,3.3,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-nothing-status- def_%v_8 
+		 2: %self->render def_%v_9 %self[2.0,] %v_8[4.1,] 	 SYMBOL:	 ARGS:%v_8,
+		 3: RETURN %v_9[4.2,] %self[4.2,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = destroy instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->reset_session def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: %self->log_off_user def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: 
+		 10: HASH-nothing- def_%v_5 
+		 11: %self->render def_%v_6 %self[2.0,2.6,2.8,] %v_5[2.10,] 	 SYMBOL:	 ARGS:%v_5,
+		 12: RETURN %v_6[2.11,] %self[2.0,2.6,2.8,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = allow_local_auth? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SiteSetting) def_%v_3 
+		 7: %v_3->enable_sso def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->! def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%v_6 
+		 1: %v_6->enable_local_logins def_%v_7 %v_6[3.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_7[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[2.8,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = login_not_approved_for? instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: (SiteSetting) def_%v_3 
+		 8: %v_3->must_approve_users? def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: user->approved? def_%v_5 user[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->! def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_4 %v_6[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[3.2,2.8,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: user->admin? def_%v_7 user[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_7->! def_%v_8 %v_7[5.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_8[5.1,] %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_4[3.2,2.8,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = invalid_credentials instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (I18n) def_%v_3 
+		 7: COPY TYPE_StringLiteral "login.incorrect_username_email_or_password" def_%v_4 
+		 8: %v_3->t def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: HASH-error- def_%v_6 %v_5[2.8,] 
+		 10: HASH-json- def_%v_7 %v_6[2.9,] 
+		 11: %self->render def_%v_8 %self[2.0,] %v_7[2.10,] 	 SYMBOL:	 ARGS:%v_7,
+		 12: RETURN %v_8[2.11,] %self[2.0,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = login_not_approved instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (I18n) def_%v_3 
+		 7: COPY TYPE_StringLiteral "login.not_approved" def_%v_4 
+		 8: %v_3->t def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: HASH-error- def_%v_6 %v_5[2.8,] 
+		 10: HASH-json- def_%v_7 %v_6[2.9,] 
+		 11: %self->render def_%v_8 %self[2.0,] %v_7[2.10,] 	 SYMBOL:	 ARGS:%v_7,
+		 12: RETURN %v_8[2.11,] %self[2.0,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = not_activated instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: (I18n) def_%v_3 
+		 8: COPY TYPE_StringLiteral "login.not_activated" def_%v_4 
+		 9: %v_3->t def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: COPY TYPE_StringLiteral "not_activated" def_%v_6 
+		 11: user->find_email def_%v_7 user[2.5,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_7[2.11,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: user->email def_%v_8 user[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_7 %v_8[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: user->email def_%v_9 user[2.5,] 	 SYMBOL:	 ARGS:
+		 1: HASH-error-reason-sent_to_email-current_email- def_%v_10 %v_5[2.9,] %v_6[2.10,] %v_7[3.1,2.11,] %v_9[4.0,] 
+		 2: HASH-json- def_%v_11 %v_10[4.1,] 
+		 3: %self->render def_%v_12 %self[2.0,] %v_11[4.2,] 	 SYMBOL:	 ARGS:%v_11,
+		 4: RETURN %v_12[4.3,] %self[4.3,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = not_allowed_from_ip_address instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: (I18n) def_%v_3 
+		 8: COPY TYPE_StringLiteral "login.not_allowed_from_ip_address" def_%v_4 
+		 9: user->username def_%v_5 user[2.5,] 	 SYMBOL:	 ARGS:
+		 10: HASH-username- def_%v_6 %v_5[2.9,] 
+		 11: %v_3->t def_%v_7 %v_3[2.7,] %v_4[2.8,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_4,%v_6,
+		 12: HASH-error- def_%v_8 %v_7[2.11,] 
+		 13: HASH-json- def_%v_9 %v_8[2.12,] 
+		 14: %self->render def_%v_10 %self[2.0,] %v_9[2.13,] 	 SYMBOL:	 ARGS:%v_9,
+		 15: RETURN %v_10[2.14,] %self[2.0,2.14,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = admin_not_allowed_from_ip_address instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: (I18n) def_%v_3 
+		 8: COPY TYPE_StringLiteral "login.admin_not_allowed_from_ip_address" def_%v_4 
+		 9: user->username def_%v_5 user[2.5,] 	 SYMBOL:	 ARGS:
+		 10: HASH-username- def_%v_6 %v_5[2.9,] 
+		 11: %v_3->t def_%v_7 %v_3[2.7,] %v_4[2.8,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_4,%v_6,
+		 12: HASH-error- def_%v_8 %v_7[2.11,] 
+		 13: HASH-json- def_%v_9 %v_8[2.12,] 
+		 14: %self->render def_%v_10 %self[2.0,] %v_9[2.13,] 	 SYMBOL:	 ARGS:%v_9,
+		 15: RETURN %v_10[2.14,] %self[2.0,2.14,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = failed_to_login instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: user->suspend_reason def_%v_3 user[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "login.suspended_with_reason" def_%v_4 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "login.suspended" def_%v_5 
+		 1: COPY TYPE_PASS def_%v_4 %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_message %v_4[4.1,3.0,] 
+		 1: 
+		 2: (I18n) def_%v_6 
+		 3: (I18n) def_%v_7 
+		 4: user->suspended_till def_%v_8 user[2.5,] 	 SYMBOL:	 ARGS:
+		 5: HASH-format- def_%v_9 
+		 6: %v_7->l def_%v_10 %v_7[5.3,] %v_8[5.4,] %v_9[5.5,] 	 SYMBOL:	 ARGS:%v_8,%v_9,
+		 7: user->suspend_reason def_%v_11 user[5.4,2.5,] 	 SYMBOL:	 ARGS:
+		 8: HASH-date-reason- def_%v_12 %v_10[5.6,] %v_11[5.7,] 
+		 9: %v_6->t def_%v_13 %v_6[5.2,] message[5.0,] %v_12[5.8,] 	 SYMBOL:	 ARGS:message,%v_12,
+		 10: COPY TYPE_StringLiteral "suspended" def_%v_14 
+		 11: HASH-error-reason- def_%v_15 %v_13[5.9,] %v_14[5.10,] 
+		 12: HASH-json- def_%v_16 %v_15[5.11,] 
+		 13: %self->render def_%v_17 %self[2.0,] %v_16[5.12,] 	 SYMBOL:	 ARGS:%v_16,
+		 14: RETURN %v_17[5.13,] %self[5.13,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = login instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->log_on_user def_%v_3 %self[2.0,] user[2.5,] 	 SYMBOL:	 ARGS:user,
+		 8: 
+		 9: %self->session def_%v_4 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 10: %v_4->delete def_%v_5 %v_4[2.9,] 	 SYMBOL:sso_payload,	 ARGS:Symbol,
+		 11: COPY TYPE_PASS def_payload %v_5[2.10,] 
+		 12: BRANCH %v_5[2.10,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->sso_provider def_%v_6 %self[2.0,] payload[2.11,] 	 SYMBOL:	 ARGS:payload,
+		 2: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (UserSerializer) def_%v_7 
+		 2: %self->render_serialized def_%v_8 %self[2.0,] user[2.5,] %v_7[5.1,] 	 SYMBOL:	 ARGS:user,%v_7,
+		 3: RETURN %v_8[5.2,] %self[5.2,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

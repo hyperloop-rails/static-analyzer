@@ -1,0 +1,636 @@
+SET IRMethod, name = success instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:token,	 ARGS:Symbol,
+		 8: %v_4->blank? def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %self->error_not_found_path def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %self->redirect_to def_%v_7 %self[3.0,2.0,] %v_6[3.0,] 	 SYMBOL:	 ARGS:%v_6,
+		 2: RETURN %v_7[3.1,] %self[3.0,3.1,2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: %self->paypal_payments_service def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->current_community def_%v_10 %self[4.2,2.0,] 
+		 4: %v_10->id def_%v_11 %v_10[4.3,] 	 SYMBOL:	 ARGS:
+		 5: %self->params def_%v_12 %self[4.2,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %v_12->[] def_%v_13 %v_12[4.5,] 	 SYMBOL:token,	 ARGS:Symbol,
+		 7: %v_9->get_request_token def_%v_14 %v_9[4.2,] %v_11[4.4,] %v_13[4.6,] 	 SYMBOL:	 ARGS:%v_11,%v_13,
+		 8: COPY TYPE_PASS def_token %v_14[4.7,] 
+		 9: 
+		 10: %v_14->[] def_%v_15 %v_14[4.7,] 	 SYMBOL:success,	 ARGS:Symbol,
+		 11: %v_15->! def_%v_16 %v_15[4.10,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_16[4.11,] 
+BB 6
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %self->error_not_found_path def_%v_17 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %self->redirect_to def_%v_18 %self[6.0,2.0,] %v_17[6.0,] 	 SYMBOL:	 ARGS:%v_17,
+		 2: RETURN %v_18[6.1,] %self[6.0,6.1,2.0,] 
+BB 7
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_19 
+		 1: 
+		 2: %self->transaction_service def_%v_20 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: token->[] def_%v_21 token[4.8,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 4: %v_21->[] def_%v_22 %v_21[7.3,] 	 SYMBOL:transaction_id,	 ARGS:Symbol,
+		 5: %v_20->query def_%v_23 %v_20[7.2,] %v_22[7.4,] 	 SYMBOL:	 ARGS:%v_22,
+		 6: COPY TYPE_PASS def_transaction %v_23[7.5,] 
+		 7: 
+		 8: %self->paypal_payments_service def_%v_24 %self[7.2,2.0,] 	 SYMBOL:	 ARGS:
+		 9: GETFIELD %self->current_community def_%v_25 %self[7.2,7.8,2.0,] 
+		 10: %v_25->id def_%v_26 %v_25[7.9,] 	 SYMBOL:	 ARGS:
+		 11: token->[] def_%v_27 token[7.3,4.8,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 12: %v_27->[] def_%v_28 %v_27[7.11,] 	 SYMBOL:token,	 ARGS:Symbol,
+		 13: HASH-async- def_%v_29 
+		 14: %v_24->create def_%v_30 %v_24[7.8,] %v_26[7.10,] %v_28[7.12,] %v_29[7.13,] 	 SYMBOL:	 ARGS:%v_26,%v_28,%v_29,
+		 15: COPY TYPE_PASS def_proc_status %v_30[7.14,] 
+		 16: 
+		 17: %v_30->[] def_%v_31 %v_30[7.14,] 	 SYMBOL:success,	 ARGS:Symbol,
+		 18: %v_31->! def_%v_32 %v_31[7.17,] 	 SYMBOL:	 ARGS:
+		 19: BRANCH %v_32[7.18,] 
+BB 9
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_33 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "error_messages.paypal.generic_error" def_%v_34 
+		 3: %self->t def_%v_35 %self[9.1,2.0,] %v_34[9.2,] 	 SYMBOL:	 ARGS:%v_34,
+		 4: ATTRASSIGN %v_33->[] %v_35[9.3,] 
+		 5: 
+		 6: %self->root def_%v_36 %self[9.1,9.3,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->redirect_to def_%v_37 %self[9.1,9.3,9.6,2.0,] %v_36[9.6,] 	 SYMBOL:	 ARGS:%v_36,
+		 8: RETURN %v_37[9.7,] %self[9.1,9.3,9.6,9.7,2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_38 
+		 1: 
+		 2: %self->ruby_code_from_view def_%v_39 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_39->ruby_code_from_view def_%v_40 %v_39[10.2,] %self[10.2,2.0,] 	 SYMBOL:	 ARGS:%v_39,
+CLOSURE BEGIN: %self[10.2,2.0,] 
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_rb_from_view 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 11 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (APP_CONFIG) def_%cl_1_3 
+		 2: %cl_1_3->use_kissmetrics def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_1_4[3.2,] 
+BB 4
+	outgoing: 5 6 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "_kms('//i.kissmetrics.com/i.js');_kms('" def_%cl_1_5 
+		 2: (APP_CONFIG) def_%cl_1_6 
+		 3: %cl_1_6->kissmetrics_url def_%cl_1_7 %cl_1_6[4.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "');" def_%cl_1_8 
+		 5: BUILDSTRING def_%cl_1_9 %cl_1_5[4.1,] %cl_1_7[4.3,] %cl_1_8[4.4,] 
+		 6: 
+		 7: 
+		 8: GETFIELD %self->current_user def_%cl_1_10 %self[2.0,] 
+		 9: BRANCH %cl_1_10[4.8,] 
+BB 5
+	outgoing: 7 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "_kmq.push(['identify', '" def_%cl_1_11 
+		 1: GETFIELD %self->current_user def_%cl_1_12 %self[2.0,] 
+		 2: %cl_1_12->id def_%cl_1_13 %cl_1_12[5.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "']);" def_%cl_1_14 
+		 4: BUILDSTRING def_%cl_1_15 %cl_1_11[5.0,] %cl_1_13[5.2,] %cl_1_14[5.3,] 
+		 5: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_15 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: GETFIELD %self->current_community def_%cl_1_16 %self[2.0,] 
+		 3: BRANCH %cl_1_16[7.2,] 
+BB 8
+	outgoing: 10 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "_kmq.push(['set', {'SiteName' : '" def_%cl_1_17 
+		 1: GETFIELD %self->current_community def_%cl_1_18 %self[2.0,] 
+		 2: %cl_1_18->ident def_%cl_1_19 %cl_1_18[8.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "'}]);" def_%cl_1_20 
+		 4: BUILDSTRING def_%cl_1_21 %cl_1_17[8.0,] %cl_1_19[8.2,] %cl_1_20[8.3,] 
+		 5: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "_kmq.push(['set', {'SiteName' : 'dashboard'}]);" def_%cl_1_22 
+		 2: COPY TYPE_PASS def_%cl_1_21 %cl_1_22[9.1,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_21 
+BB 12
+	outgoing: 13 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%cl_1_23 
+		 2: %cl_1_23->locale def_%cl_1_24 %cl_1_23[12.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: %self->content_for def_%cl_1_25 %self[2.0,] 	 SYMBOL:head,	 ARGS:Symbol,
+		 5: 
+		 6: COPY TYPE_StringLiteral "application" def_%cl_1_26 
+		 7: %self->javascript_include_tag def_%cl_1_27 %self[12.4,2.0,] %cl_1_26[12.6,] 	 SYMBOL:	 ARGS:%cl_1_26,
+		 8: 
+		 9: COPY TYPE_StringLiteral "paypal.wait_while_loading" def_%cl_1_28 
+		 10: %self->t def_%cl_1_29 %self[12.4,12.7,2.0,] %cl_1_28[12.9,] 	 SYMBOL:	 ARGS:%cl_1_28,
+		 11: %cl_1_29->html_safe def_%cl_1_30 %cl_1_29[12.10,] 	 SYMBOL:	 ARGS:
+		 12: 
+		 13: COPY TYPE_StringLiteral "paypal.chatting_with_paypal" def_%cl_1_31 
+		 14: %self->t def_%cl_1_32 %self[12.4,12.7,12.10,2.0,] %cl_1_31[12.13,] 	 SYMBOL:	 ARGS:%cl_1_31,
+		 15: %cl_1_32->html_safe def_%cl_1_33 %cl_1_32[12.14,] 	 SYMBOL:	 ARGS:
+		 16: RETURN %cl_1_33[12.15,] %self[12.4,12.7,12.10,12.14,2.0,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_34 
+		 1: def_%cl_1_35 %cl_1_34[13.0,] 
+		 2: RETURN %cl_1_35[13.1,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: RETURN %v_40[10.3,] %self[10.2,2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = success_processed instanceMethod = true
+BB 1
+	outgoing: 25 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:process_token,	 ARGS:Symbol,
+		 8: COPY TYPE_PASS def_process_token %v_4[2.7,] 
+		 9: 
+		 10: %self->params def_%v_5 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->[] def_%v_6 %v_5[2.10,] 	 SYMBOL:listing_id,	 ARGS:Symbol,
+		 12: COPY TYPE_PASS def_listing_id %v_6[2.11,] 
+		 13: 
+		 14: %self->paypal_process_api def_%v_7 %self[2.0,2.6,2.10,] 	 SYMBOL:	 ARGS:
+		 15: %v_7->get_status def_%v_8 %v_7[2.14,] process_token[2.8,] 	 SYMBOL:	 ARGS:process_token,
+		 16: COPY TYPE_PASS def_proc_status %v_8[2.15,] 
+		 17: 
+		 18: %v_8->[] def_%v_9 %v_8[2.15,] 	 SYMBOL:success,	 ARGS:Symbol,
+		 19: BRANCH %v_9[2.18,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: proc_status->[] def_%v_10 proc_status[2.16,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 1: %v_10->[] def_%v_11 %v_10[3.0,] 	 SYMBOL:completed,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%v_9 %v_11[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_9[3.2,2.18,] 
+BB 5
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+		 1: 
+		 2: proc_status->[] def_%v_15 proc_status[2.16,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 3: %v_15->[] def_%v_16 %v_15[5.2,] 	 SYMBOL:result,	 ARGS:Symbol,
+		 4: %v_16->[] def_%v_17 %v_16[5.3,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 5: BRANCH %v_17[5.4,] 
+BB 6
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->error_not_found_path def_%v_13 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->redirect_to def_%v_14 %self[6.1,2.0,] %v_13[6.1,] 	 SYMBOL:	 ARGS:%v_13,
+		 3: RETURN %v_14[6.2,] %self[6.1,6.2,2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_18 
+		 1: COPY TYPE_PASS def_%v_17 %v_18[8.0,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_response_data %v_17[8.1,5.4,] 
+		 1: 
+		 2: proc_status->[] def_%v_19 proc_status[2.16,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 3: %v_19->[] def_%v_20 %v_19[9.2,] 	 SYMBOL:result,	 ARGS:Symbol,
+		 4: %v_20->[] def_%v_21 %v_20[9.3,] 	 SYMBOL:success,	 ARGS:Symbol,
+		 5: BRANCH %v_21[9.4,] 
+BB 10
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->current_user def_%v_22 %self[2.0,] 
+		 2: %v_22->id def_%v_23 %v_22[10.1,] 	 SYMBOL:	 ARGS:
+		 3: response_data->[] def_%v_24 response_data[9.0,] 	 SYMBOL:transaction_id,	 ARGS:Symbol,
+		 4: HASH-person_id-id- def_%v_25 %v_23[10.2,] %v_24[10.3,] 
+		 5: %self->person_transaction_path def_%v_26 %self[2.0,] %v_25[10.4,] 	 SYMBOL:	 ARGS:%v_25,
+		 6: %self->redirect_to def_%v_27 %self[10.5,2.0,] %v_26[10.5,] 	 SYMBOL:	 ARGS:%v_26,
+		 7: RETURN %v_27[10.6,] %self[10.5,10.6,2.0,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: response_data->[] def_%v_28 response_data[9.0,] 	 SYMBOL:paypal_error_code,	 ARGS:Symbol,
+		 2: COPY TYPE_StringLiteral "10486" def_%v_29 
+		 3: %v_28->== def_%v_30 %v_28[11.1,] %v_29[11.2,] 	 SYMBOL:	 ARGS:%v_29,
+		 4: BRANCH %v_30[11.3,] 
+BB 12
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: response_data->[] def_%v_31 response_data[9.0,] 	 SYMBOL:redirect_url,	 ARGS:Symbol,
+		 2: %self->redirect_to def_%v_32 %self[2.0,] %v_31[12.1,] 	 SYMBOL:	 ARGS:%v_31,
+		 3: 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: response_data->[] def_%v_33 response_data[9.0,] 	 SYMBOL:paypal_error_code,	 ARGS:Symbol,
+		 2: COPY TYPE_StringLiteral "13113" def_%v_34 
+		 3: %v_33->== def_%v_35 %v_33[13.1,] %v_34[13.2,] 	 SYMBOL:	 ARGS:%v_34,
+		 4: BRANCH %v_35[13.3,] 
+BB 14
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_36 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "error_messages.paypal.buyer_cannot_pay_error" def_%v_37 
+		 3: %self->view_context def_%v_38 %self[14.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "https://www.paypal.com/contactus" def_%v_39 
+		 5: COPY TYPE_StringLiteral "https://www.paypal.com/contactus" def_%v_40 
+		 6: COPY TYPE_StringLiteral "flash-error-link" def_%v_41 
+		 7: HASH-class- def_%v_42 %v_41[14.6,] 
+		 8: %v_38->link_to def_%v_43 %v_38[14.3,] %v_39[14.4,] %v_40[14.5,] %v_42[14.7,] 	 SYMBOL:	 ARGS:%v_39,%v_40,%v_42,
+		 9: HASH-customer_service_link- def_%v_44 %v_43[14.8,] 
+		 10: %self->t def_%v_45 %self[14.1,14.3,2.0,] %v_37[14.2,] %v_44[14.9,] 	 SYMBOL:	 ARGS:%v_37,%v_44,
+		 11: %v_45->html_safe def_%v_46 %v_45[14.10,] 	 SYMBOL:	 ARGS:
+		 12: ATTRASSIGN %v_36->[] %v_46[14.11,] 
+		 13: 
+		 14: GETFIELD %self->current_user def_%v_47 %self[14.1,14.3,14.10,2.0,] 
+		 15: %v_47->id def_%v_48 %v_47[14.14,] 	 SYMBOL:	 ARGS:
+		 16: HASH-person_id-id- def_%v_49 %v_48[14.15,] listing_id[2.12,] 
+		 17: %self->person_listing_path def_%v_50 %self[14.1,14.3,14.10,2.0,] %v_49[14.16,] 	 SYMBOL:	 ARGS:%v_49,
+		 18: %self->redirect_to def_%v_51 %self[14.1,14.3,14.10,14.17,2.0,] %v_50[14.17,] 	 SYMBOL:	 ARGS:%v_50,
+		 19: 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: response_data->[] def_%v_52 response_data[9.0,] 	 SYMBOL:paypal_error_code,	 ARGS:Symbol,
+		 2: COPY TYPE_StringLiteral "10425" def_%v_53 
+		 3: %v_52->== def_%v_54 %v_52[15.1,] %v_53[15.2,] 	 SYMBOL:	 ARGS:%v_53,
+		 4: BRANCH %v_54[15.3,] 
+BB 16
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_55 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "error_messages.paypal.seller_express_checkout_disabled" def_%v_56 
+		 3: %self->t def_%v_57 %self[16.1,2.0,] %v_56[16.2,] 	 SYMBOL:	 ARGS:%v_56,
+		 4: ATTRASSIGN %v_55->[] %v_57[16.3,] 
+		 5: 
+		 6: GETFIELD %self->current_user def_%v_58 %self[16.1,16.3,2.0,] 
+		 7: %v_58->id def_%v_59 %v_58[16.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-person_id-id- def_%v_60 %v_59[16.7,] listing_id[2.12,] 
+		 9: %self->person_listing_path def_%v_61 %self[16.1,16.3,2.0,] %v_60[16.8,] 	 SYMBOL:	 ARGS:%v_60,
+		 10: %self->redirect_to def_%v_62 %self[16.1,16.3,16.9,2.0,] %v_61[16.9,] 	 SYMBOL:	 ARGS:%v_61,
+		 11: 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: response_data->[] def_%v_63 response_data[9.0,] 	 SYMBOL:error_code,	 ARGS:Symbol,
+		 2: %v_63->== def_%v_64 %v_63[17.1,] 	 SYMBOL:payment-review,	 ARGS:Symbol,
+		 3: BRANCH %v_64[17.2,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_65 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "error_messages.paypal.pending_review_error" def_%v_66 
+		 3: %self->t def_%v_67 %self[18.1,2.0,] %v_66[18.2,] 	 SYMBOL:	 ARGS:%v_66,
+		 4: ATTRASSIGN %v_65->[] %v_67[18.3,] 
+		 5: 
+		 6: GETFIELD %self->current_user def_%v_68 %self[18.1,18.3,2.0,] 
+		 7: %v_68->id def_%v_69 %v_68[18.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-person_id-id- def_%v_70 %v_69[18.7,] listing_id[2.12,] 
+		 9: %self->person_listing_path def_%v_71 %self[18.1,18.3,2.0,] %v_70[18.8,] 	 SYMBOL:	 ARGS:%v_70,
+		 10: %self->redirect_to def_%v_72 %self[18.1,18.3,18.9,2.0,] %v_71[18.9,] 	 SYMBOL:	 ARGS:%v_71,
+		 11: 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_73 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "error_messages.paypal.generic_error" def_%v_74 
+		 3: %self->t def_%v_75 %self[19.1,2.0,] %v_74[19.2,] 	 SYMBOL:	 ARGS:%v_74,
+		 4: ATTRASSIGN %v_73->[] %v_75[19.3,] 
+		 5: 
+		 6: COPY TYPE_StringLiteral "Unhandled PayPal error response. Showing generic error to user." def_%v_76 
+		 7: %self->warn def_%v_77 %self[19.1,19.3,2.0,] %v_76[19.6,] response_data[9.0,] 	 SYMBOL:paypal_unhandled_error,	 ARGS:%v_76,Symbol,response_data,
+		 8: 
+		 9: GETFIELD %self->current_user def_%v_78 %self[19.1,19.3,19.7,2.0,] 
+		 10: %v_78->id def_%v_79 %v_78[19.9,] 	 SYMBOL:	 ARGS:
+		 11: HASH-person_id-id- def_%v_80 %v_79[19.10,] listing_id[2.12,] 
+		 12: %self->person_listing_path def_%v_81 %self[19.1,19.3,19.7,2.0,] %v_80[19.11,] 	 SYMBOL:	 ARGS:%v_80,
+		 13: %self->redirect_to def_%v_82 %self[19.1,19.3,19.7,19.12,2.0,] %v_81[19.12,] 	 SYMBOL:	 ARGS:%v_81,
+		 14: COPY TYPE_PASS def_%v_72 %v_82[19.13,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_62 %v_72[19.14,18.10,] 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_51 %v_62[20.0,16.10,] 
+BB 22
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_32 %v_51[21.0,14.18,] 
+BB 23
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: RETURN %v_32[22.0,12.2,] %self[2.0,] 
+BB 25
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cancel instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->paypal_payments_service def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: GETFIELD %self->current_community def_%v_4 %self[2.0,2.6,] 
+		 8: %v_4->id def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %self->params def_%v_6 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 10: %v_6->[] def_%v_7 %v_6[2.9,] 	 SYMBOL:token,	 ARGS:Symbol,
+		 11: %v_3->request_cancel def_%v_8 %v_3[2.6,] %v_5[2.8,] %v_7[2.10,] 	 SYMBOL:	 ARGS:%v_5,%v_7,
+		 12: COPY TYPE_PASS def_pp_result %v_8[2.11,] 
+		 13: 
+		 14: %v_8->[] def_%v_9 %v_8[2.11,] 	 SYMBOL:success,	 ARGS:Symbol,
+		 15: %v_9->! def_%v_10 %v_9[2.14,] 	 SYMBOL:	 ARGS:
+		 16: BRANCH %v_10[2.15,] 
+BB 3
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "error_messages.paypal.cancel_error" def_%v_12 
+		 3: %self->t def_%v_13 %self[3.1,2.0,] %v_12[3.2,] 	 SYMBOL:	 ARGS:%v_12,
+		 4: ATTRASSIGN %v_11->[] %v_13[3.3,] 
+		 5: 
+		 6: %self->root def_%v_14 %self[3.1,3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->redirect_to def_%v_15 %self[3.1,3.3,3.6,2.0,] %v_14[3.6,] 	 SYMBOL:	 ARGS:%v_14,
+		 8: RETURN %v_15[3.7,] %self[3.1,3.3,3.6,3.7,2.0,] 
+BB 4
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+		 1: 
+		 2: %self->flash def_%v_17 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "paypal.cancel_succesful" def_%v_18 
+		 4: %self->t def_%v_19 %self[4.2,2.0,] %v_18[4.3,] 	 SYMBOL:	 ARGS:%v_18,
+		 5: ATTRASSIGN %v_17->[] %v_19[4.4,] 
+		 6: 
+		 7: GETFIELD %self->current_user def_%v_20 %self[4.2,4.4,2.0,] 
+		 8: %v_20->id def_%v_21 %v_20[4.7,] 	 SYMBOL:	 ARGS:
+		 9: %self->params def_%v_22 %self[4.2,4.4,2.0,] 	 SYMBOL:	 ARGS:
+		 10: %v_22->[] def_%v_23 %v_22[4.9,] 	 SYMBOL:listing_id,	 ARGS:Symbol,
+		 11: HASH-person_id-id- def_%v_24 %v_21[4.8,] %v_23[4.10,] 
+		 12: %self->person_listing_path def_%v_25 %self[4.2,4.4,4.9,2.0,] %v_24[4.11,] 	 SYMBOL:	 ARGS:%v_24,
+		 13: %self->redirect_to def_%v_26 %self[4.2,4.4,4.9,4.12,2.0,] %v_25[4.12,] 	 SYMBOL:	 ARGS:%v_25,
+		 14: RETURN %v_26[4.13,] %self[4.2,4.4,4.9,4.12,4.13,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = transaction_service instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (TransactionService) def_%v_3 
+		 7: (inherit Transaction) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Transaction,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_4[3.0,2.7,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = paypal_payments_service instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (PaypalService) def_%v_3 
+		 7: (inherit API) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit Api) def_%v_5 %v_4[3.0,2.7,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:Api,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_5->payments def_%v_6 %v_5[5.0,4.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_6[6.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = paypal_process_api instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (PaypalService) def_%v_3 
+		 7: (inherit API) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit Api) def_%v_5 %v_4[3.0,2.7,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:Api,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_5->process def_%v_6 %v_5[5.0,4.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_6[6.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+

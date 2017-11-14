@@ -1,0 +1,421 @@
+SET IRMethod, name = add instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_client_id 
+		 6: RECEIVEARG def_user 
+		 7: 
+		 8: user->id def_%v_3 user[2.6,] 	 SYMBOL:	 ARGS:
+		 9: %self->find_by_user_id def_%v_4 %self[2.0,] %v_3[2.8,] 	 SYMBOL:	 ARGS:%v_3,
+		 10: %v_4->! def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_5[2.10,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_6 
+		 2: user->id def_%v_7 user[2.6,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_Array def_%v_8 client_id[2.5,] 
+		 4: HASH-user-client_ids- def_%v_9 user[3.2,2.6,] %v_8[3.3,] 
+		 5: ATTRASSIGN %v_6->[] %v_7[3.2,] %v_9[3.4,] 
+		 6: 
+		 7: COPY TYPE_StringLiteral "connect" def_%v_10 
+		 8: %self->publish_message def_%v_11 %self[2.0,] %v_10[3.7,] user[3.2,2.6,] 	 SYMBOL:	 ARGS:%v_10,user,
+		 9: RETURN %v_11[3.8,] %self[3.8,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_12 
+		 2: user->id def_%v_13 user[2.6,] 	 SYMBOL:	 ARGS:
+		 3: %v_12->[] def_%v_14 %v_12[4.1,] %v_13[4.2,] 	 SYMBOL:	 ARGS:%v_13,
+		 4: %v_14->[] def_%v_15 %v_14[4.3,] 	 SYMBOL:client_ids,	 ARGS:Symbol,
+		 5: %v_15->push def_%v_16 %v_15[4.4,] client_id[2.5,] 	 SYMBOL:	 ARGS:client_id,
+		 6: RETURN %v_16[4.5,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = remove_by_client_id instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_client_id 
+		 6: 
+		 7: %self->find_by_client_id def_%v_3 %self[2.0,] client_id[2.5,] 	 SYMBOL:	 ARGS:client_id,
+		 8: COPY TYPE_PASS def_user_id %v_3[2.7,] 
+		 9: 
+		 10: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_4 
+		 2: %v_4->[] def_%v_5 %v_4[3.1,] user_id[2.8,] 	 SYMBOL:	 ARGS:user_id,
+		 3: %v_5->[] def_%v_6 %v_5[3.2,] 	 SYMBOL:client_ids,	 ARGS:Symbol,
+		 4: %v_6->delete def_%v_7 %v_6[3.3,] client_id[2.5,] 	 SYMBOL:	 ARGS:client_id,
+		 5: 
+		 6: def_%v_8 
+		 7: %v_8->[] def_%v_9 %v_8[3.6,] user_id[2.8,] 	 SYMBOL:	 ARGS:user_id,
+		 8: %v_9->[] def_%v_10 %v_9[3.7,] 	 SYMBOL:client_ids,	 ARGS:Symbol,
+		 9: %v_10->empty? def_%v_11 %v_10[3.8,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_11[3.9,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_12 
+		 2: %v_12->delete def_%v_13 %v_12[4.1,] user_id[2.8,] 	 SYMBOL:	 ARGS:user_id,
+		 3: COPY TYPE_PASS def_deleted_user_info %v_13[4.2,] 
+		 4: 
+		 5: COPY TYPE_StringLiteral "disconnect" def_%v_14 
+		 6: %v_13->[] def_%v_15 %v_13[4.2,] 	 SYMBOL:user,	 ARGS:Symbol,
+		 7: %self->publish_message def_%v_16 %self[2.0,] %v_14[4.5,] %v_15[4.6,] 	 SYMBOL:	 ARGS:%v_14,%v_15,
+		 8: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_16[5.0,4.7,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = remove_by_user_id instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user_id 
+		 6: 
+		 7: def_%v_3 
+		 8: %v_3->delete def_%v_4 %v_3[2.7,] user_id[2.5,] 	 SYMBOL:	 ARGS:user_id,
+		 9: RETURN %v_4[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_by_client_id instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_client_id 
+		 6: 
+		 7: def_%v_3 
+		 8: %v_3->each def_%v_4 %v_3[2.7,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: detail[] client_id[2.5,] user_id[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_user_id 
+		 3: RECEIVEARG def_detail 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: detail->[] def_%cl_1_3 detail[2.3,] 	 SYMBOL:client_ids,	 ARGS:Symbol,
+		 2: %cl_1_3->include? def_%cl_1_4 %cl_1_3[3.1,] client_id[] 	 SYMBOL:	 ARGS:client_id,
+		 3: BRANCH %cl_1_4[3.2,] 
+BB 4
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN user_id[2.2,] %self[2.0,] 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[7.0,] 
+		 2: RETURN %cl_1_7[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: detail[2.3,] 
+		 9: 
+		 10: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%v_5 
+		 1: def_%v_6 %v_5[4.0,] 
+		 2: RETURN %v_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_by_user_id instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user_id 
+		 6: 
+		 7: def_%v_3 
+		 8: %v_3->keys def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->include? def_%v_5 %v_4[2.8,] user_id[2.5,] 	 SYMBOL:	 ARGS:user_id,
+		 10: BRANCH %v_5[2.9,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%v_6 
+		 1: %v_6->[] def_%v_7 %v_6[3.0,] user_id[2.5,] 	 SYMBOL:	 ARGS:user_id,
+		 2: %v_7->[] def_%v_8 %v_7[3.1,] 	 SYMBOL:client_ids,	 ARGS:Symbol,
+		 3: RETURN %v_8[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: 
+		 2: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_user instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: user->id def_%v_3 user[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %self->find_by_user_id def_%v_4 %self[2.0,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_5 
+		 2: user->id def_%v_6 user[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->[] def_%v_7 %v_5[3.1,] %v_6[3.2,] 	 SYMBOL:	 ARGS:%v_6,
+		 4: ATTRASSIGN %v_7->[] user[3.2,2.5,] 
+		 5: 
+		 6: COPY TYPE_StringLiteral "update" def_%v_8 
+		 7: %self->publish_message def_%v_9 %self[2.0,] %v_8[3.6,] user[3.2,2.5,] 	 SYMBOL:	 ARGS:%v_8,user,
+		 8: RETURN %v_9[3.7,] %self[3.7,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = all instanceMethod = true
+BB 1
+	outgoing: 4 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_Array def_%v_3 
+		 7: COPY TYPE_PASS def_users %v_3[2.6,] 
+		 8: 
+		 9: def_%v_4 
+		 10: %v_4->values def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->each def_%v_6 %v_5[2.10,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_5,
+CLOSURE BEGIN: detail[] users[2.7,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_detail 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: detail->[] def_%cl_1_3 detail[2.2,] 	 SYMBOL:user,	 ARGS:Symbol,
+		 2: users->push def_%cl_1_4 users[] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 12: 
+		 13: RETURN users[2.7,] %self[2.0,] 
+BB 4
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = publish_message instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_event 
+		 6: RECEIVEARG def_user 
+		 7: 
+		 8: COPY TYPE_StringLiteral "update" def_%v_3 
+		 9: event->== def_%v_4 event[2.5,] %v_3[2.8,] 	 SYMBOL:	 ARGS:%v_3,
+		 10: %v_4->! def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_5[2.10,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (Channel) def_%v_6 
+		 1: COPY TYPE_StringLiteral "user_" def_%v_7 
+		 2: BUILDSTRING def_%v_8 %v_7[3.1,] event[2.5,] 
+		 3: %v_6->send def_%v_9 %v_6[3.0,] %v_8[3.2,] user[2.6,] 	 SYMBOL:	 ARGS:%v_8,user,
+		 4: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (FAYE_CLIENT) def_%v_10 
+		 2: COPY TYPE_StringLiteral "/app/activities" def_%v_11 
+		 3: COPY TYPE_StringLiteral "user#" def_%v_12 
+		 4: 
+		 5: BUILDSTRING def_%v_13 %v_12[5.3,] event[2.5,] 
+		 6: (ActiveUsers) def_%v_14 
+		 7: %v_14->all def_%v_15 %v_14[5.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-active_users- def_%v_16 %v_15[5.7,] 
+		 9: HASH-event-entity-extra- def_%v_17 %v_13[5.5,] user[2.6,] %v_16[5.8,] 
+		 10: %v_10->publish def_%v_18 %v_10[5.1,] %v_11[5.2,] %v_17[5.9,] 	 SYMBOL:	 ARGS:%v_11,%v_17,
+		 11: RETURN %v_18[5.10,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

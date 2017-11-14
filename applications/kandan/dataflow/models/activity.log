@@ -1,0 +1,190 @@
+SET IRMethod, name = user_or_deleted_user instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (User) def_%v_4 
+		 1: %v_4->deleted_user def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_5[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.6,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = after_save_observer instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->action def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "message" def_%v_4 
+		 8: %v_3->== def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->activity def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->action def_%v_7 %v_6[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "upload" def_%v_8 
+		 3: %v_7->== def_%v_9 %v_7[3.1,] %v_8[3.2,] 	 SYMBOL:	 ARGS:%v_8,
+		 4: COPY TYPE_PASS def_%v_5 %v_9[3.3,] 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[3.4,2.8,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->action def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "_broadcast_data" def_%v_11 
+		 3: BUILDSTRING def_%v_12 %v_10[5.1,] %v_11[5.2,] 
+		 4: %self->activity def_%v_13 %self[5.1,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %self->send def_%v_14 %self[5.1,5.4,2.0,] %v_12[5.3,] %v_13[5.4,] 	 SYMBOL:	 ARGS:%v_12,%v_13,
+		 6: def_%v_15 %v_14[5.5,] 
+		 7: def_%v_16 %v_15[5.6,] 
+		 8: def_%v_17 %v_15[5.6,] 
+		 9: COPY TYPE_PASS def_faye_channel %v_16[5.7,] 
+		 10: COPY TYPE_PASS def_broadcast_data %v_17[5.8,] 
+		 11: 
+		 12: (Kandan) def_%v_18 
+		 13: (inherit Config) def_%v_19 %v_18[5.12,] 
+		 14: %v_19[5.13,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_18->const_missing def_%v_19 %v_18[5.12,] 	 SYMBOL:Config,	 ARGS:Symbol,
+BB 7
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_19->broadcaster def_%v_20 %v_19[6.0,5.13,] 	 SYMBOL:	 ARGS:
+		 1: %v_20->broadcast def_%v_21 %v_20[7.0,] faye_channel[5.9,] broadcast_data[5.10,] 	 SYMBOL:	 ARGS:faye_channel,broadcast_data,
+		 2: RETURN %v_21[7.1,] %self[2.0,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = message_broadcast_data instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "/channels/" def_%v_3 
+		 7: %self->channel def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->to_param def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BUILDSTRING def_%v_6 %v_3[2.6,] %v_5[2.8,] 
+		 10: COPY TYPE_PASS def_faye_channel %v_6[2.9,] 
+		 11: 
+		 12: %self->attributes def_%v_7 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 13: %self->user def_%v_8 %self[2.0,2.7,2.12,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_Array def_%v_9 
+		 15: HASH-only- def_%v_10 %v_9[2.14,] 
+		 16: %v_8->as_json def_%v_11 %v_8[2.13,] %v_10[2.15,] 	 SYMBOL:	 ARGS:%v_10,
+		 17: %self->channel def_%v_12 %self[2.0,2.7,2.12,2.13,] 	 SYMBOL:	 ARGS:
+		 18: %v_12->attributes def_%v_13 %v_12[2.17,] 	 SYMBOL:	 ARGS:
+		 19: HASH-user-channel- def_%v_14 %v_11[2.16,] %v_13[2.18,] 
+		 20: %v_7->merge def_%v_15 %v_7[2.12,] %v_14[2.19,] 	 SYMBOL:	 ARGS:%v_14,
+		 21: COPY TYPE_PASS def_broadcast_data %v_15[2.20,] 
+		 22: 
+		 23: COPY TYPE_Array def_%v_16 faye_channel[2.10,] %v_15[2.20,] 
+		 24: RETURN %v_16[2.23,] %self[2.0,2.7,2.12,2.13,2.17,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = upload_broadcast_data instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "/app/activities" def_%v_3 
+		 7: COPY TYPE_PASS def_faye_channel %v_3[2.6,] 
+		 8: 
+		 9: COPY TYPE_StringLiteral "attachment#upload" def_%v_4 
+		 10: %self->attributes def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 11: %self->user def_%v_6 %self[2.0,2.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_Array def_%v_7 
+		 13: HASH-only- def_%v_8 %v_7[2.12,] 
+		 14: %v_6->as_json def_%v_9 %v_6[2.11,] %v_8[2.13,] 	 SYMBOL:	 ARGS:%v_8,
+		 15: %self->channel def_%v_10 %self[2.0,2.10,2.11,] 	 SYMBOL:	 ARGS:
+		 16: %v_10->attributes def_%v_11 %v_10[2.15,] 	 SYMBOL:	 ARGS:
+		 17: HASH-user-channel- def_%v_12 %v_9[2.14,] %v_11[2.16,] 
+		 18: %v_5->merge def_%v_13 %v_5[2.10,] %v_12[2.17,] 	 SYMBOL:	 ARGS:%v_12,
+		 19: %self->channel def_%v_14 %self[2.0,2.10,2.11,2.15,] 	 SYMBOL:	 ARGS:
+		 20: %v_14->attachments def_%v_15 %v_14[2.19,] 	 SYMBOL:	 ARGS:
+		 21: HASH-methods- def_%v_16 
+		 22: %v_15->as_json def_%v_17 %v_15[2.20,] %v_16[2.21,] 	 SYMBOL:	 ARGS:%v_16,
+		 23: HASH-attachments- def_%v_18 %v_17[2.22,] 
+		 24: HASH-event-entity-extra- def_%v_19 %v_4[2.9,] %v_13[2.18,] %v_18[2.23,] 
+		 25: COPY TYPE_PASS def_broadcast_data %v_19[2.24,] 
+		 26: 
+		 27: COPY TYPE_Array def_%v_20 faye_channel[2.7,] %v_19[2.24,] 
+		 28: RETURN %v_20[2.27,] %self[2.0,2.10,2.11,2.15,2.19,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,227 @@
+SET IRMethod, name = create instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->request def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->env def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "omniauth.auth" def_%v_5 
+		 9: %v_4->[] def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: COPY TYPE_PASS def_omniauth %v_6[2.9,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "provider" def_%v_7 
+		 13: %v_6->[] def_%v_8 %v_6[2.9,] %v_7[2.12,] 	 SYMBOL:	 ARGS:%v_7,
+		 14: %v_8->to_s def_%v_9 %v_8[2.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_9->capitalize def_%v_10 %v_9[2.14,] 	 SYMBOL:	 ARGS:
+		 16: COPY TYPE_PASS def_provider_name %v_10[2.15,] 
+		 17: 
+		 18: (Authorization) def_%v_11 
+		 19: %self->current_user def_%v_12 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 20: %v_11->find_or_create_from_hash def_%v_13 %v_11[2.18,] omniauth[2.10,] %v_12[2.19,] 	 SYMBOL:	 ARGS:omniauth,%v_12,
+		 21: ATTRASSIGN %self->auth %v_13[2.20,] 
+		 22: 
+		 23: %self->logged_in? def_%v_14 %self[2.0,2.6,2.19,2.21,] 	 SYMBOL:	 ARGS:
+		 24: BRANCH %v_14[2.23,] 
+BB 3
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_15 %self[2.0,2.21,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "authorizations.create.success_existing_user" def_%v_16 
+		 3: HASH-provider- def_%v_17 provider_name[2.16,] 
+		 4: %self->t def_%v_18 %self[3.1,2.0,2.21,] %v_16[3.2,] %v_17[3.3,] 	 SYMBOL:	 ARGS:%v_16,%v_17,
+		 5: ATTRASSIGN %v_15->[] %v_18[3.4,] 
+		 6: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->auth def_%v_19 %self[2.0,2.21,] 
+		 2: %v_19->valid? def_%v_20 %v_19[4.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_20[4.2,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_21 %self[2.0,2.21,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "authorizations.create.success_message" def_%v_22 
+		 3: HASH-provider- def_%v_23 provider_name[2.16,] 
+		 4: %self->t def_%v_24 %self[5.1,2.0,2.21,] %v_22[5.2,] %v_23[5.3,] 	 SYMBOL:	 ARGS:%v_22,%v_23,
+		 5: ATTRASSIGN %v_21->[] %v_24[5.4,] 
+		 6: 
+		 7: (UserSession) def_%v_25 
+		 8: GETFIELD %self->auth def_%v_26 %self[5.1,5.4,2.0,2.21,] 
+		 9: %v_26->user def_%v_27 %v_26[5.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_25->create def_%v_28 %v_25[5.7,] %v_27[5.9,] 	 SYMBOL:	 ARGS:%v_27,Boolean,
+		 11: COPY TYPE_PASS def_user_session %v_28[5.10,] 
+		 12: 
+		 13: %v_28->user def_%v_29 %v_28[5.10,] 	 SYMBOL:	 ARGS:
+		 14: ATTRASSIGN %self->current_user %v_29[5.13,] 
+		 15: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_29 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_18 %v_29[6.0,5.13,] 
+BB 8
+	outgoing: 9 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->logged_in? def_%v_30 %self[5.14,2.0,2.21,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_30[8.1,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->request def_%v_31 %self[5.14,2.0,2.21,] 	 SYMBOL:	 ARGS:
+		 2: %v_31->env def_%v_32 %v_31[9.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "omniauth.origin" def_%v_33 
+		 4: %v_32->[] def_%v_34 %v_32[9.2,] %v_33[9.3,] 	 SYMBOL:	 ARGS:%v_33,
+		 5: BRANCH %v_34[9.4,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %self->current_user def_%v_35 %self[5.14,2.0,2.21,] 	 SYMBOL:	 ARGS:
+		 1: %self->user_path def_%v_36 %self[10.0,5.14,2.0,2.21,] %v_35[10.0,] 	 SYMBOL:	 ARGS:%v_35,
+		 2: COPY TYPE_PASS def_%v_34 %v_36[10.1,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: %self->redirect_to def_%v_37 %self[5.14,2.0,2.21,] %v_34[10.2,9.4,] 	 SYMBOL:	 ARGS:%v_34,
+		 1: RETURN %v_37[11.0,] %self[11.0,5.14,2.0,2.21,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_38 %self[5.14,2.0,2.21,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->auth def_%v_39 %self[12.1,2.0,2.21,] 
+		 3: %v_39->user def_%v_40 %v_39[12.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_40->errors def_%v_41 %v_40[12.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_41->full_messages def_%v_42 %v_41[12.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_42->to_sentence def_%v_43 %v_42[12.5,] 	 SYMBOL:	 ARGS:
+		 7: ATTRASSIGN %v_38->[] %v_43[12.6,] 
+		 8: 
+		 9: %self->login_path def_%v_44 %self[12.1,5.14,2.0,2.21,] 	 SYMBOL:	 ARGS:
+		 10: %self->redirect_to def_%v_45 %self[12.1,12.9,5.14,2.0,2.21,] %v_44[12.9,] 	 SYMBOL:	 ARGS:%v_44,
+		 11: RETURN %v_45[12.10,] %self[12.1,12.9,12.10,5.14,2.0,2.21,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = failure instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->flash def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "authorizations.failure.notice" def_%v_4 
+		 8: %self->t def_%v_5 %self[2.0,2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: ATTRASSIGN %v_3->[] %v_5[2.8,] 
+		 10: 
+		 11: %self->home_url def_%v_6 %self[2.0,2.6,2.8,] 	 SYMBOL:	 ARGS:
+		 12: %self->redirect_to def_%v_7 %self[2.0,2.6,2.8,2.11,] %v_6[2.11,] 	 SYMBOL:	 ARGS:%v_6,
+		 13: RETURN %v_7[2.12,] %self[2.0,2.6,2.8,2.11,2.12,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = destroy instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->current_user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->authorizations def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->params def_%v_5 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->[] def_%v_6 %v_5[2.8,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 10: %v_4->find def_%v_7 %v_4[2.7,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: ATTRASSIGN %self->authorization %v_7[2.10,] 
+		 12: 
+		 13: GETFIELD %self->authorization def_%v_8 %self[2.0,2.6,2.8,2.11,] 
+		 14: %v_8->destroy def_%v_9 %v_8[2.13,] 	 SYMBOL:	 ARGS:
+		 15: BRANCH %v_9[2.14,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_10 %self[2.0,2.11,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "authorizations.destroy.notice" def_%v_11 
+		 3: GETFIELD %self->authorization def_%v_12 %self[3.1,2.0,2.11,] 
+		 4: %v_12->provider def_%v_13 %v_12[3.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_13->to_s def_%v_14 %v_13[3.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_14->capitalize def_%v_15 %v_14[3.5,] 	 SYMBOL:	 ARGS:
+		 7: HASH-provider- def_%v_16 %v_15[3.6,] 
+		 8: %self->t def_%v_17 %self[3.1,2.0,2.11,] %v_11[3.2,] %v_16[3.7,] 	 SYMBOL:	 ARGS:%v_11,%v_16,
+		 9: ATTRASSIGN %v_10->[] %v_17[3.8,] 
+		 10: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_18 %self[2.0,2.11,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->authorization def_%v_19 %self[4.1,2.0,2.11,] 
+		 3: %v_19->errors def_%v_20 %v_19[4.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_20->full_messages def_%v_21 %v_20[4.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_21->to_sentence def_%v_22 %v_21[4.4,] 	 SYMBOL:	 ARGS:
+		 6: ATTRASSIGN %v_18->[] %v_22[4.5,] 
+		 7: COPY TYPE_PASS def_%v_17 %v_22[4.5,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->edit_account_user_path def_%v_23 %self[2.0,2.11,] 	 SYMBOL:	 ARGS:
+		 2: %self->redirect_to def_%v_24 %self[5.1,2.0,2.11,] %v_23[5.1,] 	 SYMBOL:	 ARGS:%v_23,
+		 3: RETURN %v_24[5.2,] %self[5.1,5.2,2.0,2.11,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

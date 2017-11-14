@@ -1,0 +1,202 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: ATTRASSIGN %self->post post[2.5,] 
+		 8: RETURN post[2.5,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = comments instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->comments def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->post def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->approved_comments def_%v_7 %v_6[5.0,] 	 SYMBOL:	 ARGS:
+		 2: HASH-limit- def_%v_8 
+		 3: %v_7->find_recent def_%v_9 %v_7[5.1,] %v_8[5.2,] 	 SYMBOL:	 ARGS:%v_8,
+		 4: ATTRASSIGN %self->comments %v_9[5.3,] 
+		 5: RETURN %v_9[5.3,] %self[5.0,5.4,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = most_recent_comment instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->comments def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->first def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_recent instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Post) def_%v_3 
+		 7: COPY TYPE_StringLiteral "posts.*, max(comments.created_at), comments.post_id" def_%v_4 
+		 8: %v_3->select def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: COPY TYPE_StringLiteral "comments.post_id, posts." def_%v_6 
+		 10: (Post) def_%v_7 
+		 11: %v_7->column_names def_%v_8 %v_7[2.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral ", posts." def_%v_9 
+		 13: %v_8->join def_%v_10 %v_8[2.11,] %v_9[2.12,] 	 SYMBOL:	 ARGS:%v_9,
+		 14: %v_6->+ def_%v_11 %v_6[2.9,] %v_10[2.13,] 	 SYMBOL:	 ARGS:%v_10,
+		 15: %v_5->group def_%v_12 %v_5[2.8,] %v_11[2.14,] 	 SYMBOL:	 ARGS:%v_11,
+		 16: COPY TYPE_StringLiteral "INNER JOIN comments ON comments.post_id = posts.id" def_%v_13 
+		 17: %v_12->joins def_%v_14 %v_12[2.15,] %v_13[2.16,] 	 SYMBOL:	 ARGS:%v_13,
+		 18: COPY TYPE_StringLiteral "max(comments.created_at) desc" def_%v_15 
+		 19: %v_14->order def_%v_16 %v_14[2.17,] %v_15[2.18,] 	 SYMBOL:	 ARGS:%v_15,
+		 20: %v_16->limit def_%v_17 %v_16[2.19,] 	 SYMBOL:	 ARGS:Fixnum,
+		 21: %v_17->collect def_%v_18 %v_17[2.20,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_17,
+CLOSURE BEGIN: post[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_post 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (CommentActivity) def_%cl_1_3 
+		 2: %cl_1_3->new def_%cl_1_4 %cl_1_3[3.1,] post[2.2,] 	 SYMBOL:	 ARGS:post,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 22: %v_18->sort_by def_%v_19 %v_18[2.21,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_18,
+CLOSURE BEGIN: activity[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_activity 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: activity->most_recent_comment def_%cl_2_3 activity[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_2_3->created_at def_%cl_2_4 %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %cl_2_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_5 
+		 1: def_%cl_2_6 %cl_2_5[4.0,] 
+		 2: RETURN %cl_2_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 23: %v_19->reverse def_%v_20 %v_19[2.22,] 	 SYMBOL:	 ARGS:
+		 24: RETURN %v_20[2.23,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

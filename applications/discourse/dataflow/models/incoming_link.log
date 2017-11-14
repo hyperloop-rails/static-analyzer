@@ -1,0 +1,713 @@
+SET IRMethod, name = add instanceMethod = false
+BB 1
+	outgoing: 48 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_opts 
+		 6: 
+		 7: COPY TYPE_Nil def_%v_3 
+		 8: def_%v_4 
+		 9: def_%v_5 %v_4[2.8,] 
+		 10: def_%v_6 %v_4[2.8,] 
+		 11: def_%v_7 %v_4[2.8,] 
+		 12: COPY TYPE_PASS def_user_id %v_5[2.9,] 
+		 13: COPY TYPE_PASS def_host %v_6[2.10,] 
+		 14: COPY TYPE_PASS def_referer %v_7[2.11,] 
+		 15: 
+		 16: opts->[] def_%v_8 opts[2.5,] 	 SYMBOL:current_user,	 ARGS:Symbol,
+		 17: COPY TYPE_PASS def_current_user %v_8[2.16,] 
+		 18: 
+		 19: opts->[] def_%v_9 opts[2.5,2.16,] 	 SYMBOL:username,	 ARGS:Symbol,
+		 20: COPY TYPE_PASS def_username %v_9[2.19,] 
+		 21: 
+		 22: (String) def_%v_10 
+		 23: %v_10->=== def_%v_11 %v_10[2.22,] %v_9[2.19,] 	 SYMBOL:	 ARGS:username,
+		 24: BRANCH %v_11[2.23,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_username 
+		 1: COPY TYPE_Nil def_%v_12 
+BB 5
+	outgoing: 6 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH username[4.0,2.20,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%v_13 
+		 2: %v_13->select def_%v_14 %v_13[6.1,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 3: username->downcase def_%v_15 username[4.0,2.20,] 	 SYMBOL:	 ARGS:
+		 4: HASH-username_lower- def_%v_16 %v_15[6.3,] 
+		 5: %v_14->find_by def_%v_17 %v_14[6.2,] %v_16[6.4,] 	 SYMBOL:	 ARGS:%v_16,
+		 6: COPY TYPE_PASS def_u %v_17[6.5,] 
+		 7: 
+		 8: BRANCH %v_17[6.5,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: u->id def_%v_18 u[6.6,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_user_id %v_18[7.0,] 
+		 2: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_18 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_18 
+BB 11
+	outgoing: 12 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_19 opts[2.5,] 	 SYMBOL:referer,	 ARGS:Symbol,
+		 2: %v_19->present? def_%v_20 %v_19[11.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_20[11.2,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%v_21 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (URI) def_%v_24 
+		 3: opts->[] def_%v_25 opts[2.5,] 	 SYMBOL:referer,	 ARGS:Symbol,
+		 4: %v_24->parse def_%v_26 %v_24[14.2,] %v_25[14.3,] 	 SYMBOL:	 ARGS:%v_25,
+		 5: %v_26->host def_%v_27 %v_26[14.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_PASS def_host %v_27[14.5,] 
+		 7: 
+		 8: opts->[] def_%v_28 opts[14.3,2.5,] 	 SYMBOL:referer,	 ARGS:Symbol,
+		 9: CONSTANT def_%v_29 
+		 10: %v_28->[] def_%v_30 %v_28[14.8,] %v_29[14.9,] 	 SYMBOL:	 ARGS:%v_29,
+		 11: COPY TYPE_PASS def_referer %v_30[14.10,] 
+		 12: COPY TYPE_PASS def_%v_23 %v_30[14.10,] 
+		 13: 
+		 14: %v_21[12.1,] 
+BB 15
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: 
+BB 16
+	outgoing: 17 18 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_31 
+		 2: (URI) def_%v_32 
+		 3: (inherit InvalidURIError) def_%v_33 %v_32[16.2,] 
+		 4: %v_33[16.3,] 
+BB 17
+	outgoing: 18 22 
+	datadep: 
+	instructions:
+		 0: %v_32->const_missing def_%v_33 %v_32[16.2,] 	 SYMBOL:InvalidURIError,	 ARGS:Symbol,
+BB 18
+	outgoing: 19 20 22 
+	datadep: 
+	instructions:
+		 0: def_%v_34 %v_33[17.0,16.3,] %v_31[16.1,] 
+		 1: BRANCH %v_34[18.0,] 
+BB 19
+	outgoing: 22 48 
+	datadep: 
+	instructions:
+		 0: %v_31[16.1,] 
+BB 20
+	outgoing: 21 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_23 
+		 1: 
+		 2: %v_21[12.1,] 
+BB 21
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: 
+BB 22
+	outgoing: 48 
+	datadep: 
+	instructions:
+		 0: def_%v_35 
+		 1: def_%v_36 %v_35[22.0,] %v_21[12.1,] 
+		 2: %v_35[22.0,] 
+BB 23
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: 
+BB 24
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_23 
+BB 25
+	outgoing: 26 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_37 opts[2.5,] 	 SYMBOL:host,	 ARGS:Symbol,
+		 2: host->!= def_%v_38 host[14.6,2.13,] %v_37[25.1,] 	 SYMBOL:	 ARGS:%v_37,
+		 3: BRANCH %v_38[25.2,] 
+BB 26
+	outgoing: 27 28 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_39 user_id[7.1,2.12,] 
+		 1: BRANCH user_id[7.1,2.12,] 
+BB 27
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_39 referer[14.11,2.14,] 
+BB 28
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_38 %v_39[27.0,26.0,] 
+BB 29
+	outgoing: 30 46 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_38[28.0,25.2,] 
+BB 30
+	outgoing: 31 34 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_40 opts[2.5,] 	 SYMBOL:post_id,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_post_id %v_40[30.1,] 
+		 3: 
+		 4: COPY TYPE_PASS def_%v_41 %v_40[30.1,] 
+		 5: COPY TYPE_PASS def_%v_42 %v_40[30.1,] 
+		 6: BRANCH %v_40[30.1,] 
+BB 31
+	outgoing: 32 33 
+	datadep: 
+	instructions:
+		 0: (Post) def_%v_43 
+		 1: opts->[] def_%v_44 opts[2.5,] 	 SYMBOL:topic_id,	 ARGS:Symbol,
+		 2: opts->[] def_%v_45 opts[31.1,2.5,] 	 SYMBOL:post_number,	 ARGS:Symbol,
+		 3: BRANCH %v_45[31.2,] 
+BB 32
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_%v_45 
+BB 33
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: HASH-topic_id-post_number- def_%v_46 %v_44[31.1,] %v_45[32.0,31.2,] 
+		 1: %v_43->where def_%v_47 %v_43[31.0,] %v_46[33.0,] 	 SYMBOL:	 ARGS:%v_46,
+		 2: %v_47->pluck def_%v_48 %v_47[33.1,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 3: %v_48->first def_%v_49 %v_48[33.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_post_id %v_49[33.3,] 
+		 5: COPY TYPE_PASS def_%v_42 %v_49[33.3,] 
+BB 34
+	outgoing: 35 36 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH current_user[2.17,] 
+BB 35
+	outgoing: 37 
+	datadep: 
+	instructions:
+		 0: current_user->id def_%v_50 current_user[2.17,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 36
+	outgoing: 37 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_50 
+BB 37
+	outgoing: 38 39 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_cid %v_50[36.0,35.0,] 
+		 1: 
+		 2: COPY TYPE_PASS def_%v_51 %v_50[36.0,35.0,] 
+		 3: BRANCH %v_50[36.0,35.0,] 
+BB 38
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: cid->== def_%v_52 cid[37.0,] user_id[7.1,2.12,] 	 SYMBOL:	 ARGS:user_id,
+		 1: COPY TYPE_PASS def_%v_51 %v_52[38.0,] 
+BB 39
+	outgoing: 40 41 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_51[38.1,37.2,] 
+BB 40
+	outgoing: 45 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_53 
+		 1: 
+BB 41
+	outgoing: 42 43 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH post_id[33.4,30.2,] 
+BB 42
+	outgoing: 44 
+	datadep: 
+	instructions:
+		 0: opts->[] def_%v_54 opts[2.5,] 	 SYMBOL:ip_address,	 ARGS:Symbol,
+		 1: HASH-referer-user_id-post_id-current_user_id-ip_address- def_%v_55 referer[14.11,2.14,] user_id[7.1,2.12,] post_id[33.4,30.2,] cid[37.0,] %v_54[42.0,] 
+		 2: %self->create def_%v_56 %self[2.0,] %v_55[42.1,] 	 SYMBOL:	 ARGS:%v_55,
+		 3: 
+BB 43
+	outgoing: 44 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_56 
+BB 44
+	outgoing: 45 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_53 %v_56[43.0,42.2,] 
+BB 45
+	outgoing: 48 
+	datadep: 
+	instructions:
+		 0: RETURN %v_53[44.0,40.0,] %self[2.0,] 
+BB 46
+	outgoing: 48 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 48
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = referer= instanceMethod = true
+BB 1
+	outgoing: 29 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_referer 
+		 6: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: ATTRASSIGN %self->incoming_referer_id 
+		 3: 
+		 4: referer->present? def_%v_6 referer[2.5,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %v_6[4.4,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+BB 6
+	outgoing: 7 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Nil def_%v_8 
+		 2: 
+		 3: %v_3[2.6,] 
+BB 7
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: RETURN %v_8[6.1,] %self[4.2,2.0,] 
+BB 8
+	outgoing: 9 10 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (URI) def_%v_9 
+		 2: %v_9->parse def_%v_10 %v_9[8.1,] referer[2.5,] 	 SYMBOL:	 ARGS:referer,
+		 3: COPY TYPE_PASS def_parsed %v_10[8.2,] 
+		 4: 
+		 5: %v_10->scheme def_%v_11 %v_10[8.2,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral "http" def_%v_12 
+		 7: %v_11->== def_%v_13 %v_11[8.5,] %v_12[8.6,] 	 SYMBOL:	 ARGS:%v_12,
+		 8: BRANCH %v_13[8.7,] 
+BB 9
+	outgoing: 10 21 
+	datadep: 
+	instructions:
+		 0: parsed->scheme def_%v_14 parsed[8.3,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "https" def_%v_15 
+		 2: %v_14->== def_%v_16 %v_14[9.0,] %v_15[9.1,] 	 SYMBOL:	 ARGS:%v_15,
+		 3: COPY TYPE_PASS def_%v_13 %v_16[9.2,] 
+BB 10
+	outgoing: 11 18 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_13[9.3,8.7,] 
+BB 11
+	outgoing: 12 13 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (IncomingDomain) def_%v_17 
+		 2: %v_17->add! def_%v_18 %v_17[11.1,] parsed[8.3,] 	 SYMBOL:	 ARGS:parsed,
+		 3: COPY TYPE_PASS def_domain %v_18[11.2,] 
+		 4: 
+		 5: BRANCH %v_18[11.2,] 
+BB 12
+	outgoing: 14 21 
+	datadep: 
+	instructions:
+		 0: (IncomingReferer) def_%v_19 
+		 1: parsed->path def_%v_20 parsed[8.3,] 	 SYMBOL:	 ARGS:
+		 2: HASH-path-incoming_domain- def_%v_21 %v_20[12.1,] domain[11.3,] 
+		 3: %v_19->add! def_%v_22 %v_19[12.0,] %v_21[12.2,] 	 SYMBOL:	 ARGS:%v_21,
+		 4: COPY TYPE_PASS def_referer %v_22[12.3,] 
+		 5: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH referer[12.4,2.5,] 
+BB 15
+	outgoing: 17 21 
+	datadep: 
+	instructions:
+		 0: referer->id def_%v_23 referer[12.4,2.5,] 	 SYMBOL:	 ARGS:
+		 1: ATTRASSIGN %self->incoming_referer_id %v_23[15.0,] 
+		 2: 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_23 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_23 
+BB 19
+	outgoing: 20 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_5 %v_23[18.0,16.0,15.0,] 
+		 1: 
+		 2: %v_3[2.6,] 
+BB 20
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: 
+BB 21
+	outgoing: 22 23 27 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_24 
+		 2: (URI) def_%v_25 
+		 3: (inherit InvalidURIError) def_%v_26 %v_25[21.2,] 
+		 4: %v_26[21.3,] 
+BB 22
+	outgoing: 23 27 
+	datadep: 
+	instructions:
+		 0: %v_25->const_missing def_%v_26 %v_25[21.2,] 	 SYMBOL:InvalidURIError,	 ARGS:Symbol,
+BB 23
+	outgoing: 24 25 27 
+	datadep: 
+	instructions:
+		 0: def_%v_27 %v_26[22.0,21.3,] %v_24[21.1,] 
+		 1: BRANCH %v_27[23.0,] 
+BB 24
+	outgoing: 27 29 
+	datadep: 
+	instructions:
+		 0: %v_24[21.1,] 
+BB 25
+	outgoing: 26 27 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: %v_3[2.6,] 
+BB 26
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: 
+BB 27
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: def_%v_28 
+		 1: def_%v_29 %v_28[27.0,] %v_3[2.6,] 
+		 2: %v_28[27.0,] 
+BB 28
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[19.0,25.0,] %self[15.1,4.2,2.0,] 
+BB 29
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = referer instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->incoming_referer def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->incoming_referer def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_4->incoming_domain def_%v_5 %v_4[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->to_url def_%v_6 %v_5[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %self->incoming_referer def_%v_7 %self[3.1,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_7->path def_%v_8 %v_7[3.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_6-><< def_%v_9 %v_6[3.3,] %v_8[3.5,] 	 SYMBOL:	 ARGS:%v_8,
+		 7: RETURN %v_9[3.6,] %self[3.1,3.4,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = domain instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->incoming_referer def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->incoming_referer def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_4->incoming_domain def_%v_5 %v_4[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->name def_%v_6 %v_5[3.2,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %v_6[3.3,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_link_counts instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "UPDATE topics
+              SET incoming_link_count = incoming_link_count + 1
+              WHERE id = (SELECT topic_id FROM posts where id = ?)" def_%v_3 
+		 7: %self->post_id def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %self->exec_sql def_%v_5 %self[2.0,2.7,] %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_3,%v_4,
+		 9: 
+		 10: COPY TYPE_StringLiteral "UPDATE posts
+              SET incoming_link_count = incoming_link_count + 1
+              WHERE id = ?" def_%v_6 
+		 11: %self->post_id def_%v_7 %self[2.0,2.7,2.8,] 	 SYMBOL:	 ARGS:
+		 12: %self->exec_sql def_%v_8 %self[2.0,2.7,2.8,2.11,] %v_6[2.10,] %v_7[2.11,] 	 SYMBOL:	 ARGS:%v_6,%v_7,
+		 13: RETURN %v_8[2.12,] %self[2.0,2.7,2.8,2.11,2.12,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = referer_valid instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->referer def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: %self->referer def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->length def_%v_6 %v_5[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_6->< def_%v_7 %v_6[3.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: BRANCH %v_7[3.4,] 
+BB 4
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->referer def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_8->length def_%v_9 %v_8[6.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_9->> def_%v_10 %v_9[6.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: COPY TYPE_PASS def_%v_7 %v_10[6.2,] 
+BB 7
+	outgoing: 8 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_7[6.3,3.4,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: %self->domain def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_11->length def_%v_12 %v_11[8.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_12->< def_%v_13 %v_12[8.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: BRANCH %v_13[8.2,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %self->domain def_%v_14 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_14->length def_%v_15 %v_14[9.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_15->> def_%v_16 %v_15[9.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: COPY TYPE_PASS def_%v_13 %v_16[9.2,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_7 %v_13[9.3,8.2,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_7[10.0,6.3,3.4,] 
+BB 12
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->errors def_%v_17 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "referer is invalid" def_%v_18 
+		 3: %v_17->add def_%v_19 %v_17[12.1,] %v_18[12.2,] 	 SYMBOL:referer,	 ARGS:Symbol,%v_18,
+		 4: 
+		 5: COPY TYPE_Boolean def_%v_20 
+		 6: RETURN %self[12.1,2.0,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+

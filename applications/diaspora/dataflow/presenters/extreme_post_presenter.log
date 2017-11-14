@@ -1,0 +1,75 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: RECEIVEARG def_current_user 
+		 7: 
+		 8: ATTRASSIGN %self->post post[2.5,] 
+		 9: 
+		 10: ATTRASSIGN %self->current_user current_user[2.6,] 
+		 11: RETURN current_user[2.6,] %self[2.0,2.8,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = as_json instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_options 
+		 6: options[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PostPresenter) def_%v_4 
+		 2: GETFIELD %self->post def_%v_5 %self[2.0,] 
+		 3: GETFIELD %self->current_user def_%v_6 %self[2.0,] 
+		 4: %v_4->new def_%v_7 %v_4[4.1,] %v_5[4.2,] %v_6[4.3,] 	 SYMBOL:	 ARGS:%v_5,%v_6,
+		 5: COPY TYPE_PASS def_post %v_7[4.4,] 
+		 6: 
+		 7: (PostInteractionPresenter) def_%v_8 
+		 8: GETFIELD %self->post def_%v_9 %self[2.0,] 
+		 9: GETFIELD %self->current_user def_%v_10 %self[2.0,] 
+		 10: %v_8->new def_%v_11 %v_8[4.7,] %v_9[4.8,] %v_10[4.9,] 	 SYMBOL:	 ARGS:%v_9,%v_10,
+		 11: COPY TYPE_PASS def_interactions %v_11[4.10,] 
+		 12: 
+		 13: post->as_json def_%v_12 post[4.5,] 	 SYMBOL:	 ARGS:
+		 14: interactions->as_json def_%v_13 interactions[4.11,] 	 SYMBOL:	 ARGS:
+		 15: HASH-interactions- def_%v_14 %v_13[4.14,] 
+		 16: %v_12->merge! def_%v_15 %v_12[4.13,] %v_14[4.15,] 	 SYMBOL:	 ARGS:%v_14,
+		 17: RETURN %v_15[4.16,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

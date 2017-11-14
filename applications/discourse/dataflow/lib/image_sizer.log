@@ -1,0 +1,135 @@
+SET IRMethod, name = resize instanceMethod = false
+BB 1
+	outgoing: 19 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_width 
+		 6: RECEIVEARG def_height 
+		 7: RECEIVECONSTARG def_opts 
+		 8: opts[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: width->blank? def_%v_4 width[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_4[4.1,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: height->blank? def_%v_5 height[2.6,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_4 %v_5[5.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[5.1,4.1,] 
+BB 7
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: opts->[] def_%v_7 opts[3.1,2.7,] 	 SYMBOL:max_width,	 ARGS:Symbol,
+		 3: BRANCH %v_7[8.2,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%v_8 
+		 1: %v_8->max_image_width def_%v_9 %v_8[10.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_7 %v_9[10.1,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: %v_7->to_f def_%v_10 %v_7[10.2,8.2,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_max_width %v_10[11.0,] 
+		 2: 
+		 3: opts->[] def_%v_11 opts[3.1,2.7,] 	 SYMBOL:max_height,	 ARGS:Symbol,
+		 4: BRANCH %v_11[11.3,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%v_12 
+		 1: %v_12->max_image_height def_%v_13 %v_12[12.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_11 %v_13[12.1,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: %v_11->to_f def_%v_14 %v_11[12.2,11.3,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_max_height %v_14[13.0,] 
+		 2: 
+		 3: width->to_f def_%v_15 width[2.5,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_w %v_15[13.3,] 
+		 5: 
+		 6: height->to_f def_%v_16 height[2.6,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_PASS def_h %v_16[13.6,] 
+		 8: 
+		 9: w-><= def_%v_17 w[13.4,] max_width[11.1,] 	 SYMBOL:	 ARGS:max_width,
+		 10: BRANCH %v_17[13.9,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: h-><= def_%v_18 h[13.7,] max_height[13.1,] 	 SYMBOL:	 ARGS:max_height,
+		 1: COPY TYPE_PASS def_%v_17 %v_18[14.0,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_17[14.1,13.9,] 
+BB 16
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: w->floor def_%v_19 w[13.4,13.9,] 	 SYMBOL:	 ARGS:
+		 1: h->floor def_%v_20 h[14.0,13.7,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_Array def_%v_21 %v_19[16.0,] %v_20[16.1,] 
+		 3: RETURN %v_21[16.2,] %self[2.0,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+		 1: 
+		 2: max_width->/ def_%v_23 max_width[11.1,] w[13.4,13.9,] 	 SYMBOL:	 ARGS:w,
+		 3: max_height->/ def_%v_24 max_height[13.1,] h[14.0,13.7,] 	 SYMBOL:	 ARGS:h,
+		 4: COPY TYPE_Array def_%v_25 %v_23[17.2,] %v_24[17.3,] 
+		 5: %v_25->min def_%v_26 %v_25[17.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_PASS def_ratio %v_26[17.5,] 
+		 7: 
+		 8: w->* def_%v_27 w[13.4,13.9,] %v_26[17.5,] 	 SYMBOL:	 ARGS:ratio,
+		 9: %v_27->floor def_%v_28 %v_27[17.8,] 	 SYMBOL:	 ARGS:
+		 10: h->* def_%v_29 h[14.0,13.7,] ratio[17.6,] 	 SYMBOL:	 ARGS:ratio,
+		 11: %v_29->floor def_%v_30 %v_29[17.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_Array def_%v_31 %v_28[17.9,] %v_30[17.11,] 
+		 13: RETURN %v_31[17.12,] %self[2.0,] 
+BB 19
+	outgoing: 
+	datadep: 
+	instructions:
+

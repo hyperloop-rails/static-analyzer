@@ -1,0 +1,242 @@
+SET IRMethod, name = perform instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_project_id 
+		 6: 
+		 7: (Project) def_%v_3 
+		 8: %v_3->find def_%v_4 %v_3[2.7,] project_id[2.5,] 	 SYMBOL:	 ARGS:project_id,
+		 9: COPY TYPE_PASS def_project %v_4[2.8,] 
+		 10: 
+		 11: 
+		 12: %self->check def_%v_5 %self[2.0,] %v_4[2.8,] 	 SYMBOL:	 ARGS:project,
+		 13: %v_5->! def_%v_6 %v_5[2.12,] 	 SYMBOL:	 ARGS:
+		 14: (Time) def_%v_7 
+		 15: %v_7->now def_%v_8 %v_7[2.14,] 	 SYMBOL:	 ARGS:
+		 16: HASH-last_repository_check_failed-last_repository_check_at- def_%v_9 %v_6[2.13,] %v_8[2.15,] 
+		 17: project->update_columns def_%v_10 project[2.9,] %v_9[2.16,] 	 SYMBOL:	 ARGS:%v_9,
+		 18: RETURN %v_10[2.17,] %self[2.0,2.12,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check instanceMethod = true
+BB 1
+	outgoing: 20 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_project 
+		 6: 
+		 7: project->repository def_%v_3 project[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %self->git_fsck def_%v_4 %self[2.0,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: %v_4->! def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_5[2.9,] 
+BB 3
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Boolean def_%v_6 
+		 2: RETURN %self[2.0,] 
+BB 4
+	outgoing: 5 17 
+	datadep: 
+	instructions:
+		 0: project->wiki_enabled? def_%v_7 project[2.5,] 	 SYMBOL:	 ARGS:
+		 1: BRANCH %v_7[4.0,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%v_8 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: project->create_wiki def_%v_11 project[2.5,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_10 %v_11[7.2,] 
+		 4: 
+		 5: %v_8[5.1,] 
+BB 8
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+BB 9
+	outgoing: 10 11 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_12 
+		 2: (Rugged) def_%v_13 
+		 3: (inherit RepositoryError) def_%v_14 %v_13[9.2,] 
+		 4: %v_14[9.3,] 
+BB 10
+	outgoing: 11 15 
+	datadep: 
+	instructions:
+		 0: %v_13->const_missing def_%v_14 %v_13[9.2,] 	 SYMBOL:RepositoryError,	 ARGS:Symbol,
+BB 11
+	outgoing: 12 13 15 
+	datadep: 
+	instructions:
+		 0: def_%v_15 %v_14[10.0,9.3,] %v_12[9.1,] 
+		 1: BRANCH %v_15[11.0,] 
+BB 12
+	outgoing: 15 20 
+	datadep: 
+	instructions:
+		 0: %v_12[9.1,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+		 2: %v_8[5.1,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+BB 15
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: def_%v_16 
+		 1: def_%v_17 %v_16[15.0,] %v_8[5.1,] 
+		 2: %v_16[15.0,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: project->wiki def_%v_18 project[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_18->repository def_%v_19 %v_18[16.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->git_fsck def_%v_20 %self[2.0,] %v_19[16.2,] 	 SYMBOL:	 ARGS:%v_19,
+		 4: 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Boolean def_%v_20 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: RETURN %v_20[17.1,16.3,] %self[2.0,] 
+BB 20
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = git_fsck instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_repository 
+		 6: 
+		 7: repository->path_to_repo def_%v_3 repository[2.5,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_path %v_3[2.7,] 
+		 9: 
+		 10: COPY TYPE_StringLiteral "nice" def_%v_4 
+		 11: COPY TYPE_StringLiteral "git" def_%v_5 
+		 12: COPY TYPE_StringLiteral "--git-dir=" def_%v_6 
+		 13: BUILDSTRING def_%v_7 %v_6[2.12,] %v_3[2.7,] 
+		 14: COPY TYPE_StringLiteral "fsck" def_%v_8 
+		 15: COPY TYPE_Array def_%v_9 %v_4[2.10,] %v_5[2.11,] %v_7[2.13,] %v_8[2.14,] 
+		 16: COPY TYPE_PASS def_cmd %v_9[2.15,] 
+		 17: 
+		 18: (Gitlab) def_%v_10 
+		 19: (inherit Popen) def_%v_11 %v_10[2.18,] 
+		 20: %v_11[2.19,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_10->const_missing def_%v_11 %v_10[2.18,] 	 SYMBOL:Popen,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %v_11->popen def_%v_12 %v_11[3.0,2.19,] cmd[2.16,] 	 SYMBOL:	 ARGS:cmd,
+		 1: def_%v_13 %v_12[4.0,] 
+		 2: def_%v_14 %v_13[4.1,] 
+		 3: def_%v_15 %v_13[4.1,] 
+		 4: COPY TYPE_PASS def_output %v_14[4.2,] 
+		 5: COPY TYPE_PASS def_status %v_15[4.3,] 
+		 6: 
+		 7: %v_15->zero? def_%v_16 %v_15[4.3,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_16[4.7,] 
+BB 5
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Boolean def_%v_17 
+		 2: RETURN %self[2.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Gitlab) def_%v_18 
+		 2: (inherit RepositoryCheckLogger) def_%v_19 %v_18[6.1,] 
+		 3: %v_19[6.2,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_18->const_missing def_%v_19 %v_18[6.1,] 	 SYMBOL:RepositoryCheckLogger,	 ARGS:Symbol,
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "command failed: " def_%v_20 
+		 1: COPY TYPE_StringLiteral " " def_%v_21 
+		 2: cmd->join def_%v_22 cmd[2.16,] %v_21[8.1,] 	 SYMBOL:	 ARGS:%v_21,
+		 3: COPY TYPE_StringLiteral "
+" def_%v_23 
+		 4: BUILDSTRING def_%v_24 %v_20[8.0,] %v_22[8.2,] %v_23[8.3,] output[4.4,] 
+		 5: %v_19->error def_%v_25 %v_19[7.0,6.2,] %v_24[8.4,] 	 SYMBOL:	 ARGS:%v_24,
+		 6: 
+		 7: RETURN %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+

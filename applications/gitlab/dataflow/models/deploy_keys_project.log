@@ -1,0 +1,49 @@
+SET IRMethod, name = destroy_orphaned_deploy_key instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->deploy_key def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->destroyed_when_orphaned? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->deploy_key def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->orphaned? def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_4 %v_6[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[3.2,2.7,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+		 2: %self->deploy_key def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_8->destroy def_%v_9 %v_8[5.2,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %v_9[5.3,] %self[5.2,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,83 @@
+SET IRMethod, name = index instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->require def_%v_4 %v_3[2.6,] 	 SYMBOL:post_action_type_id,	 ARGS:Symbol,
+		 8: 
+		 9: %self->params def_%v_5 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 10: %v_5->require def_%v_6 %v_5[2.9,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 11: 
+		 12: %self->params def_%v_7 %self[2.0,2.6,2.9,] 	 SYMBOL:	 ARGS:
+		 13: %v_7->[] def_%v_8 %v_7[2.12,] 	 SYMBOL:post_action_type_id,	 ARGS:Symbol,
+		 14: %v_8->to_i def_%v_9 %v_8[2.13,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_PASS def_post_action_type_id %v_9[2.14,] 
+		 16: 
+		 17: (Post) def_%v_10 
+		 18: %self->params def_%v_11 %self[2.0,2.6,2.9,2.12,] 	 SYMBOL:	 ARGS:
+		 19: %v_11->[] def_%v_12 %v_11[2.18,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 20: %v_12->to_i def_%v_13 %v_12[2.19,] 	 SYMBOL:	 ARGS:
+		 21: HASH-id- def_%v_14 %v_13[2.20,] 
+		 22: %v_10->where def_%v_15 %v_10[2.17,] %v_14[2.21,] 	 SYMBOL:	 ARGS:%v_14,
+		 23: COPY TYPE_PASS def_finder %v_15[2.22,] 
+		 24: 
+		 25: %self->guardian def_%v_16 %self[2.0,2.6,2.9,2.12,2.18,] 	 SYMBOL:	 ARGS:
+		 26: %v_16->is_staff? def_%v_17 %v_16[2.25,] 	 SYMBOL:	 ARGS:
+		 27: BRANCH %v_17[2.26,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: finder->with_deleted def_%v_18 finder[2.23,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_finder %v_18[3.0,] 
+		 2: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_18 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: finder->first def_%v_19 finder[3.1,2.23,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_post %v_19[5.1,] 
+		 3: 
+		 4: %self->guardian def_%v_20 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_20->ensure_can_see! def_%v_21 %v_20[5.4,] post[5.2,] 	 SYMBOL:	 ARGS:post,
+		 6: 
+		 7: %self->guardian def_%v_22 %self[5.4,2.0,] 	 SYMBOL:	 ARGS:
+		 8: post->topic def_%v_23 post[5.2,] 	 SYMBOL:	 ARGS:
+		 9: %v_22->ensure_can_see_post_actors! def_%v_24 %v_22[5.7,] %v_23[5.8,] post_action_type_id[2.15,] 	 SYMBOL:	 ARGS:%v_23,post_action_type_id,
+		 10: 
+		 11: post->post_actions def_%v_25 post[5.2,5.8,] 	 SYMBOL:	 ARGS:
+		 12: HASH-post_action_type_id- def_%v_26 post_action_type_id[2.15,] 
+		 13: %v_25->where def_%v_27 %v_25[5.11,] %v_26[5.12,] 	 SYMBOL:	 ARGS:%v_26,
+		 14: %v_27->includes def_%v_28 %v_27[5.13,] 	 SYMBOL:user,	 ARGS:Symbol,
+		 15: COPY TYPE_StringLiteral "post_actions.created_at asc" def_%v_29 
+		 16: %v_28->order def_%v_30 %v_28[5.14,] %v_29[5.15,] 	 SYMBOL:	 ARGS:%v_29,
+		 17: COPY TYPE_PASS def_post_actions %v_30[5.16,] 
+		 18: 
+		 19: %v_30->to_a def_%v_31 %v_30[5.16,] 	 SYMBOL:	 ARGS:
+		 20: (PostActionUserSerializer) def_%v_32 
+		 21: COPY TYPE_StringLiteral "post_action_users" def_%v_33 
+		 22: HASH-root- def_%v_34 %v_33[5.21,] 
+		 23: %self->render_serialized def_%v_35 %self[5.4,5.7,2.0,] %v_31[5.19,] %v_32[5.20,] %v_34[5.22,] 	 SYMBOL:	 ARGS:%v_31,%v_32,%v_34,
+		 24: RETURN %v_35[5.23,] %self[5.4,5.7,5.23,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,805 @@
+SET IRMethod, name = max_participants instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->participants def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->count def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->> def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:Fixnum,
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->errors def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "too many participants" def_%v_7 
+		 2: %v_6->add def_%v_8 %v_6[3.0,] %v_7[3.1,] 	 SYMBOL:max_participants,	 ARGS:Symbol,%v_7,
+		 3: RETURN %v_8[3.2,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = local_recipients instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->recipients def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->each def_%v_4 %v_3[2.6,] %self[2.0,2.6,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: recipient[] %self[2.0,2.6,] 
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_recipient 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 12 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: recipient->local? def_%cl_1_3 recipient[2.2,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_3[3.1,] 
+BB 4
+	outgoing: 5 8 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: recipient->owner def_%cl_1_4 recipient[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_4->contacts def_%cl_1_5 %cl_1_4[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->author def_%cl_1_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_6->id def_%cl_1_7 %cl_1_6[4.3,] 	 SYMBOL:	 ARGS:
+		 5: HASH-person_id- def_%cl_1_8 %cl_1_7[4.4,] 
+		 6: %cl_1_5->where def_%cl_1_9 %cl_1_5[4.2,] %cl_1_8[4.5,] 	 SYMBOL:	 ARGS:%cl_1_8,
+		 7: %cl_1_9->any? def_%cl_1_10 %cl_1_9[4.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %cl_1_10[4.7,] 
+BB 5
+	outgoing: 6 7 14 
+	datadep: 
+	instructions:
+		 0: %self->author def_%cl_1_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %cl_1_11->owner def_%cl_1_12 %cl_1_11[5.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_12[5.1,] 
+BB 6
+	outgoing: 7 14 
+	datadep: 
+	instructions:
+		 0: %self->author def_%cl_1_13 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %cl_1_13->owner def_%cl_1_14 %cl_1_13[6.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_14->podmin_account? def_%cl_1_15 %cl_1_14[6.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%cl_1_12 %cl_1_15[6.2,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_1_10 %cl_1_12[6.3,5.1,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_10[7.0,4.7,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_16 
+		 1: 
+BB 10
+	outgoing: 11 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->errors def_%cl_1_17 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "recipient not allowed" def_%cl_1_18 
+		 3: %cl_1_17->add def_%cl_1_19 %cl_1_17[10.1,] %cl_1_18[10.2,] 	 SYMBOL:all_recipients,	 ARGS:Symbol,%cl_1_18,
+		 4: COPY TYPE_PASS def_%cl_1_16 %cl_1_19[10.3,] 
+BB 11
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_16[10.4,9.0,] %self[2.0,] 
+BB 12
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_20 
+		 1: def_%cl_1_21 %cl_1_20[14.0,] 
+		 2: RETURN %cl_1_21[14.1,] %self[2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: RETURN %v_4[2.7,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = recipients instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->participants def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->author def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_Array def_%v_5 %v_4[2.7,] 
+		 9: %v_3->- def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,2.6,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = diaspora_handle instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->author def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->diaspora_handle def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = diaspora_handle= instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_nh 
+		 6: 
+		 7: (Person) def_%v_3 
+		 8: %v_3->find_or_fetch_by_identifier def_%v_4 %v_3[2.7,] nh[2.5,] 	 SYMBOL:	 ARGS:nh,
+		 9: ATTRASSIGN %self->author %v_4[2.8,] 
+		 10: RETURN %v_4[2.8,] %self[2.0,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = first_unread_message instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->conversation_visibilities def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: user->person def_%v_4 user[2.5,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->id def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: HASH-person_id- def_%v_6 %v_5[2.9,] 
+		 11: %v_3->where def_%v_7 %v_3[2.7,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_6,
+		 12: COPY TYPE_StringLiteral "unread > 0" def_%v_8 
+		 13: %v_7->where def_%v_9 %v_7[2.11,] %v_8[2.12,] 	 SYMBOL:	 ARGS:%v_8,
+		 14: %v_9->first def_%v_10 %v_9[2.13,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_PASS def_visibility %v_10[2.14,] 
+		 16: BRANCH %v_10[2.14,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->messages def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_11->to_a def_%v_12 %v_11[3.1,] 	 SYMBOL:	 ARGS:
+		 3: visibility->unread def_%v_13 visibility[2.15,] 	 SYMBOL:	 ARGS:
+		 4: %v_13->-@ def_%v_14 %v_13[3.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_12->[] def_%v_15 %v_12[3.2,] %v_14[3.4,] 	 SYMBOL:	 ARGS:%v_14,
+		 6: RETURN %v_15[3.5,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = set_read instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->conversation_visibilities def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: user->person def_%v_4 user[2.5,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->id def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: HASH-person_id- def_%v_6 %v_5[2.9,] 
+		 11: %v_3->where def_%v_7 %v_3[2.7,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_6,
+		 12: %v_7->first def_%v_8 %v_7[2.11,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_PASS def_visibility %v_8[2.12,] 
+		 14: BRANCH %v_8[2.12,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN visibility->unread 
+		 2: 
+		 3: visibility->save def_%v_9 visibility[3.1,2.13,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %v_9[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = public? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: RETURN %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = participant_handles instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->participants def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->map def_%v_4 %v_3[2.6,] %self[2.0,2.6,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: p[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_p 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: p->diaspora_handle def_%cl_1_3 p[2.2,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: COPY TYPE_StringLiteral ";" def_%v_5 
+		 9: %v_4->join def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = participant_handles= instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_handles 
+		 6: 
+		 7: COPY TYPE_StringLiteral ";" def_%v_3 
+		 8: handles->split def_%v_4 handles[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: %v_4->each def_%v_5 %v_4[2.8,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: %self[2.0,] handle[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_handle 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->participants def_%cl_1_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: (Person) def_%cl_1_4 
+		 3: %cl_1_4->find_or_fetch_by_identifier def_%cl_1_5 %cl_1_4[3.2,] handle[2.2,] 	 SYMBOL:	 ARGS:handle,
+		 4: %cl_1_3-><< def_%cl_1_6 %cl_1_3[3.1,] %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:%cl_1_5,
+		 5: RETURN %cl_1_6[3.4,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_7 
+		 1: def_%cl_1_8 %cl_1_7[4.0,] 
+		 2: RETURN %cl_1_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: RETURN %v_5[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = last_author instanceMethod = true
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->last_author def_%v_3 %self[2.0,] 
+		 7: %v_3->present? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->messages def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->size def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->> def_%v_7 %v_6[3.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: COPY TYPE_PASS def_%v_4 %v_7[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[3.3,2.7,] 
+BB 5
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: def_%v_10 %self[2.0,] 
+		 3: COPY TYPE_PASS def_%v_9 %v_10[5.2,] 
+		 4: %v_10[5.2,] 
+BB 6
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->last_author_id def_%v_11 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_9 %v_11[8.0,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_9[8.1,5.3,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %self->messages def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_12->pluck def_%v_13 %v_12[10.0,] 	 SYMBOL:author_id,	 ARGS:Symbol,
+		 2: %v_13->last def_%v_14 %v_13[10.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN %self->last_author_id %v_14[10.2,] 
+		 4: COPY TYPE_PASS def_%v_11 %v_14[10.2,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_16 %self[10.3,2.0,] 
+		 2: COPY TYPE_PASS def_%v_15 %v_16[11.1,] 
+		 3: %v_16[11.1,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->last_author def_%v_17 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_15 %v_17[12.0,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_15[12.1,11.2,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: (Person) def_%v_18 
+		 1: %v_18->includes def_%v_19 %v_18[14.0,] 	 SYMBOL:profile,	 ARGS:Symbol,
+		 2: GETFIELD %self->last_author_id def_%v_20 %self[10.3,2.0,] 
+		 3: HASH-id- def_%v_21 %v_20[14.2,] 
+		 4: %v_19->where def_%v_22 %v_19[14.1,] %v_21[14.3,] 	 SYMBOL:	 ARGS:%v_21,
+		 5: %v_22->first def_%v_23 %v_22[14.4,] 	 SYMBOL:	 ARGS:
+		 6: ATTRASSIGN %self->last_author %v_23[14.5,] 
+		 7: RETURN %v_23[14.5,] %self[14.6,10.3,2.0,] 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %v_17[12.0,] %self[10.3,2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ordered_participants instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->ordered_participants def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->messages def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->map def_%v_7 %v_6[5.0,] 	 SYMBOL:author,	 ARGS:
+		 2: %v_7->reverse def_%v_8 %v_7[5.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->participants def_%v_9 %self[5.0,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_8->+ def_%v_10 %v_8[5.2,] %v_9[5.3,] 	 SYMBOL:	 ARGS:%v_9,
+		 5: %v_10->uniq def_%v_11 %v_10[5.4,] 	 SYMBOL:	 ARGS:
+		 6: ATTRASSIGN %self->ordered_participants %v_11[5.5,] 
+		 7: RETURN %v_11[5.5,] %self[5.0,5.3,5.6,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = subject instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->[] def_%v_3 %self[2.0,] 	 SYMBOL:subject,	 ARGS:Symbol,
+		 7: %v_3->blank? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: (I18n) def_%v_5 
+		 1: COPY TYPE_StringLiteral "conversations.new.subject_default" def_%v_6 
+		 2: %v_5->t def_%v_7 %v_5[3.0,] %v_6[3.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: RETURN %v_7[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->[] def_%v_8 %self[2.0,] 	 SYMBOL:subject,	 ARGS:Symbol,
+		 1: RETURN %v_8[4.0,] %self[4.0,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = subscribers instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->recipients def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_3[2.7,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = receive instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_person 
+		 7: 
+		 8: (Conversation) def_%v_3 
+		 9: %self->attributes def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 10: %v_3->create_with def_%v_5 %v_3[2.8,] %v_4[2.9,] 	 SYMBOL:	 ARGS:%v_4,
+		 11: %self->guid def_%v_6 %self[2.0,2.9,] 	 SYMBOL:	 ARGS:
+		 12: HASH-guid- def_%v_7 %v_6[2.11,] 
+		 13: %v_5->find_or_create_by! def_%v_8 %v_5[2.10,] %v_7[2.12,] 	 SYMBOL:	 ARGS:%v_7,
+		 14: COPY TYPE_PASS def_cnv %v_8[2.13,] 
+		 15: 
+		 16: %self->participants def_%v_9 %self[2.0,2.9,2.11,] 	 SYMBOL:	 ARGS:
+		 17: %v_9->each def_%v_10 %v_9[2.16,] %self[2.0,2.9,2.11,2.16,] 	 SYMBOL:	 ARGS:%v_9,
+CLOSURE BEGIN: cnv[2.14,] participant[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_participant 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ConversationVisibility) def_%cl_1_3 
+		 2: cnv->id def_%cl_1_4 cnv[] 	 SYMBOL:	 ARGS:
+		 3: participant->id def_%cl_1_5 participant[2.2,] 	 SYMBOL:	 ARGS:
+		 4: HASH-conversation_id-person_id- def_%cl_1_6 %cl_1_4[3.2,] %cl_1_5[3.3,] 
+		 5: %cl_1_3->find_or_create_by def_%cl_1_7 %cl_1_3[3.1,] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 6: RETURN %cl_1_7[3.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[4.0,] 
+		 2: RETURN %cl_1_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 18: 
+		 19: %self->messages def_%v_11 %self[2.0,2.9,2.11,2.16,] 	 SYMBOL:	 ARGS:
+		 20: %v_11->each def_%v_12 %v_11[2.19,] %self[2.0,2.9,2.11,2.16,2.19,] 	 SYMBOL:	 ARGS:%v_11,
+CLOSURE BEGIN: cnv[2.14,] msg[] user[2.5,] person[2.6,] received_msg[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_msg 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: cnv->id def_%cl_2_3 cnv[] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN msg->conversation_id %cl_2_3[3.1,] 
+		 3: 
+		 4: msg->receive def_%cl_2_4 msg[3.2,2.2,] user[] person[] 	 SYMBOL:	 ARGS:user,person,
+		 5: COPY TYPE_PASS def_received_msg %cl_2_4[3.4,] 
+		 6: 
+		 7: msg->respond_to? def_%cl_2_5 msg[3.2,3.4,2.2,] 	 SYMBOL:notification_type,	 ARGS:Symbol,
+		 8: BRANCH %cl_2_5[3.7,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (Notification) def_%cl_2_6 
+		 1: %cl_2_6->notify def_%cl_2_7 %cl_2_6[4.0,] user[] received_msg[3.5,] person[] 	 SYMBOL:	 ARGS:user,received_msg,person,
+		 2: 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_2_7[4.1,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_8 
+		 1: def_%cl_2_9 %cl_2_8[7.0,] 
+		 2: RETURN %cl_2_9[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: received_msg[3.5,] 
+		 21: RETURN %v_12[2.20,] %self[2.0,2.9,2.11,2.16,2.19,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

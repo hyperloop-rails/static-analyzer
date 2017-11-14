@@ -1,0 +1,214 @@
+SET IRMethod, name = emojify instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_content 
+		 6: 
+		 7: content->present? def_%v_3 content[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->h def_%v_4 %self[2.0,] content[2.5,] 	 SYMBOL:	 ARGS:content,
+		 1: %v_4->to_str def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_Regexp def_%v_6 
+		 3: %v_5->gsub def_%v_7 %v_5[3.1,] %self[3.0,2.0,] 	 SYMBOL:	 ARGS:%v_6,%v_5,
+CLOSURE BEGIN: emoji[] %self[3.0,2.0,] match[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_match 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Emoji) def_%cl_1_3 
+		 2: COPY TYPE_NthRef def_%cl_1_4 
+		 3: %cl_1_3->find_by_alias def_%cl_1_5 %cl_1_3[3.1,] %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:%cl_1_4,
+		 4: COPY TYPE_PASS def_emoji %cl_1_5[3.3,] 
+		 5: BRANCH %cl_1_5[3.3,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "<img alt="" def_%cl_1_6 
+		 2: COPY TYPE_NthRef def_%cl_1_7 
+		 3: COPY TYPE_StringLiteral "" class="emoji" src="" def_%cl_1_8 
+		 4: BUILDSTRING def_%cl_1_9 %cl_1_6[4.1,] %cl_1_7[4.2,] %cl_1_8[4.3,] 
+		 5: COPY TYPE_StringLiteral "emoji/" def_%cl_1_10 
+		 6: 
+		 7: emoji->image_filename def_%cl_1_11 emoji[3.4,] 	 SYMBOL:	 ARGS:
+		 8: BUILDSTRING def_%cl_1_12 %cl_1_10[4.5,] %cl_1_11[4.7,] 
+		 9: %self->image_path def_%cl_1_13 %self[2.0,] %cl_1_12[4.8,] 	 SYMBOL:	 ARGS:%cl_1_12,
+		 10: %cl_1_9->+ def_%cl_1_14 %cl_1_9[4.4,] %cl_1_13[4.9,] 	 SYMBOL:	 ARGS:%cl_1_13,
+		 11: COPY TYPE_StringLiteral "" style="vertical-align:middle" width="16" height="16" />" def_%cl_1_15 
+		 12: %cl_1_14->+ def_%cl_1_16 %cl_1_14[4.10,] %cl_1_15[4.11,] 	 SYMBOL:	 ARGS:%cl_1_15,
+		 13: 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN match[2.2,] %self[2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_16[4.12,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_17 
+		 1: def_%cl_1_18 %cl_1_17[7.0,] 
+		 2: RETURN %cl_1_18[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: emoji[3.4,] 
+		 4: %v_7->html_safe def_%v_8 %v_7[3.3,] 	 SYMBOL:	 ARGS:
+		 5: RETURN %v_8[3.4,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = format_post instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_content 
+		 6: RECEIVEARG def_user 
+		 7: 
+		 8: %self->meify def_%v_3 %self[2.0,] content[2.5,] user[2.6,] 	 SYMBOL:	 ARGS:content,user,
+		 9: %self->emojify def_%v_4 %self[2.0,2.8,] %v_3[2.8,] 	 SYMBOL:	 ARGS:%v_3,
+		 10: RETURN %v_4[2.9,] %self[2.0,2.8,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = meify instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_string 
+		 6: RECEIVEARG def_user 
+		 7: 
+		 8: COPY TYPE_Regexp def_%v_3 
+		 9: string->gsub def_%v_4 string[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,string,
+CLOSURE BEGIN: %self[2.0,] user[2.6,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_NthRef def_%cl_1_3 
+		 2: %cl_1_3->to_s def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: HASH-class- def_%cl_1_5 
+		 4: %self->profile_link def_%cl_1_6 %self[2.0,] user[] %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:user,Nil,%cl_1_5,
+		 5: %cl_1_4->+ def_%cl_1_7 %cl_1_4[3.2,] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 6: RETURN %cl_1_7[3.5,] %self[3.4,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[4.0,] 
+		 2: RETURN %cl_1_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: %v_4->html_safe def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 11: RETURN %v_5[2.10,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = render_post instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_string 
+		 6: 
+		 7: (Renderer) def_%v_3 
+		 8: %v_3->render def_%v_4 %v_3[2.7,] string[2.5,] 	 SYMBOL:	 ARGS:string,
+		 9: RETURN %v_4[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

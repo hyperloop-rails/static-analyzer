@@ -1,0 +1,78 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: ATTRASSIGN %self->user user[2.5,] 
+		 8: RETURN user[2.5,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = result instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->todos def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->sql def_%v_5 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: %self->user def_%v_6 %self[2.0,2.6,2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_6->id def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_Array def_%v_8 %v_5[2.8,] %v_7[2.10,] 
+		 12: %v_4->find_by_sql def_%v_9 %v_4[2.7,] %v_8[2.11,] 	 SYMBOL:	 ARGS:%v_8,
+		 13: RETURN %v_9[2.12,] %self[2.0,2.6,2.8,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = sql instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "        SELECT tags.id as id
+        FROM tags, taggings, todos
+        WHERE tags.id = taggings.tag_id
+        AND taggings.taggable_id = todos.id
+        AND todos.user_id = ?
+" def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,542 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_s3_bucket 
+		 6: RECEIVECONSTARG def_tombstone_prefix 
+		 7: tombstone_prefix[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_tombstone_prefix 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: s3_bucket->blank? def_%v_3 s3_bucket[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_3[4.1,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (Discourse) def_%v_4 
+		 1: (inherit InvalidParameters) def_%v_5 %v_4[5.0,] 
+		 2: %v_5[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[5.0,] 	 SYMBOL:InvalidParameters,	 ARGS:Symbol,
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "s3_bucket" def_%v_6 
+		 1: %v_5->new def_%v_7 %v_5[6.0,5.1,] %v_6[7.0,] 	 SYMBOL:	 ARGS:%v_6,
+		 2: %self->raise def_%v_8 %self[2.0,] %v_7[7.1,] 	 SYMBOL:	 ARGS:%v_7,
+		 3: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->s3_bucket s3_bucket[2.5,] 
+		 2: 
+		 3: ATTRASSIGN %self->tombstone_prefix tombstone_prefix[3.0,2.6,] 
+		 4: 
+		 5: %self->check_missing_site_settings def_%v_9 %self[9.1,9.3,2.0,] 	 SYMBOL:	 ARGS:
+		 6: RETURN %v_9[9.5,] %self[9.1,9.3,9.5,2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = upload instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_file 
+		 6: RECEIVEARG def_unique_filename 
+		 7: RECEIVECONSTARG def_options 
+		 8: options[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->s3_bucket def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_4->object def_%v_5 %v_4[4.1,] unique_filename[2.6,] 	 SYMBOL:	 ARGS:unique_filename,
+		 3: COPY TYPE_PASS def_obj %v_5[4.2,] 
+		 4: 
+		 5: %v_5->upload_file def_%v_6 %v_5[4.2,] file[2.5,] options[3.1,2.7,] 	 SYMBOL:	 ARGS:file,options,
+		 6: RETURN %v_6[4.5,] %self[4.1,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = remove instanceMethod = true
+BB 1
+	outgoing: 25 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_unique_filename 
+		 6: RECEIVECONSTARG def_copy_to_tombstone 
+		 7: copy_to_tombstone[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Boolean def_copy_to_tombstone 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_3 
+BB 6
+	outgoing: 7 8 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->s3_bucket def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_bucket %v_6[6.2,] 
+		 4: 
+		 5: COPY TYPE_PASS def_%v_7 copy_to_tombstone[3.0,2.6,] 
+		 6: BRANCH copy_to_tombstone[3.0,2.6,] 
+BB 7
+	outgoing: 8 13 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->tombstone_prefix def_%v_8 %self[2.0,] 
+		 1: %v_8->present? def_%v_9 %v_8[7.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_7 %v_9[7.1,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_7[7.2,6.5,] 
+BB 9
+	outgoing: 11 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->tombstone_prefix def_%v_10 %self[2.0,] 
+		 2: %v_10->+ def_%v_11 %v_10[9.1,] unique_filename[2.5,] 	 SYMBOL:	 ARGS:unique_filename,
+		 3: bucket->object def_%v_12 bucket[6.3,] %v_11[9.2,] 	 SYMBOL:	 ARGS:%v_11,
+		 4: GETFIELD %self->s3_bucket def_%v_13 %self[2.0,] 
+		 5: COPY TYPE_StringLiteral "/" def_%v_14 
+		 6: BUILDSTRING def_%v_15 %v_13[9.4,] %v_14[9.5,] unique_filename[2.5,] 
+		 7: HASH-copy_source- def_%v_16 %v_15[9.6,] 
+		 8: %v_12->copy_from def_%v_17 %v_12[9.3,] %v_16[9.7,] 	 SYMBOL:	 ARGS:%v_16,
+		 9: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: bucket->object def_%v_18 bucket[6.3,] unique_filename[2.5,] 	 SYMBOL:	 ARGS:unique_filename,
+		 2: %v_18->delete def_%v_19 %v_18[11.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_5 %v_19[11.2,] 
+		 4: 
+		 5: %v_3[4.0,] 
+BB 12
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+BB 13
+	outgoing: 14 15 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_20 
+		 2: (Aws) def_%v_21 
+		 3: (inherit S3) def_%v_22 %v_21[13.2,] 
+		 4: %v_22[13.3,] 
+BB 14
+	outgoing: 15 23 
+	datadep: 
+	instructions:
+		 0: %v_21->const_missing def_%v_22 %v_21[13.2,] 	 SYMBOL:S3,	 ARGS:Symbol,
+BB 15
+	outgoing: 16 17 23 
+	datadep: 
+	instructions:
+		 0: (inherit Errors) def_%v_23 %v_22[14.0,13.3,] 
+		 1: %v_23[15.0,] 
+BB 16
+	outgoing: 17 23 
+	datadep: 
+	instructions:
+		 0: %v_22->const_missing def_%v_23 %v_22[14.0,13.3,] 	 SYMBOL:Errors,	 ARGS:Symbol,
+BB 17
+	outgoing: 18 19 23 
+	datadep: 
+	instructions:
+		 0: (inherit NoSuchKey) def_%v_24 %v_23[16.0,15.0,] 
+		 1: %v_24[17.0,] 
+BB 18
+	outgoing: 19 23 
+	datadep: 
+	instructions:
+		 0: %v_23->const_missing def_%v_24 %v_23[16.0,15.0,] 	 SYMBOL:NoSuchKey,	 ARGS:Symbol,
+BB 19
+	outgoing: 20 21 23 
+	datadep: 
+	instructions:
+		 0: def_%v_25 %v_24[18.0,17.0,] %v_20[13.1,] 
+		 1: BRANCH %v_25[19.0,] 
+BB 20
+	outgoing: 23 25 
+	datadep: 
+	instructions:
+		 0: %v_20[13.1,] 
+BB 21
+	outgoing: 22 23 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: %v_3[4.0,] 
+BB 22
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+BB 23
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: def_%v_26 
+		 1: def_%v_27 %v_26[23.0,] %v_3[4.0,] 
+		 2: %v_26[23.0,] 
+BB 24
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[11.3,21.0,] %self[2.0,] 
+BB 25
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_tombstone_lifecycle instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_grace_period 
+		 6: 
+		 7: GETFIELD %self->tombstone_prefix def_%v_3 %self[2.0,] 
+		 8: %v_3->blank? def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: %self->s3_resource def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_6->client def_%v_7 %v_6[4.2,] 	 SYMBOL:	 ARGS:
+		 4: GETFIELD %self->s3_bucket def_%v_8 %self[4.2,2.0,] 
+		 5: COPY TYPE_StringLiteral "purge-tombstone" def_%v_9 
+		 6: COPY TYPE_StringLiteral "Enabled" def_%v_10 
+		 7: HASH-days- def_%v_11 grace_period[2.5,] 
+		 8: GETFIELD %self->tombstone_prefix def_%v_12 %self[4.2,2.0,] 
+		 9: HASH-id-status-expiration-prefix- def_%v_13 %v_9[4.5,] %v_10[4.6,] %v_11[4.7,] %v_12[4.8,] 
+		 10: COPY TYPE_Array def_%v_14 %v_13[4.9,] 
+		 11: HASH-rules- def_%v_15 %v_14[4.10,] 
+		 12: HASH-bucket-lifecycle_configuration- def_%v_16 %v_8[4.4,] %v_15[4.11,] 
+		 13: %v_7->put_bucket_lifecycle def_%v_17 %v_7[4.3,] %v_16[4.12,] 	 SYMBOL:	 ARGS:%v_16,
+		 14: RETURN %v_17[4.13,] %self[4.2,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = s3_resource instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SiteSetting) def_%v_3 
+		 7: %v_3->s3_region def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-region- def_%v_5 %v_4[2.7,] 
+		 9: COPY TYPE_PASS def_opts %v_5[2.8,] 
+		 10: 
+		 11: (SiteSetting) def_%v_6 
+		 12: %v_6->s3_use_iam_profile def_%v_7 %v_6[2.11,] 	 SYMBOL:	 ARGS:
+		 13: BRANCH %v_7[2.12,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_9 
+		 2: %v_9->s3_access_key_id def_%v_10 %v_9[4.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN opts->[] %v_10[4.2,] 
+		 4: 
+		 5: (SiteSetting) def_%v_11 
+		 6: %v_11->s3_secret_access_key def_%v_12 %v_11[4.5,] 	 SYMBOL:	 ARGS:
+		 7: ATTRASSIGN opts->[] %v_12[4.6,] 
+		 8: COPY TYPE_PASS def_%v_8 %v_12[4.6,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Aws) def_%v_13 
+		 2: (inherit S3) def_%v_14 %v_13[5.1,] 
+		 3: %v_14[5.2,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_13->const_missing def_%v_14 %v_13[5.1,] 	 SYMBOL:S3,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: (inherit Resource) def_%v_15 %v_14[6.0,5.2,] 
+		 1: %v_15[7.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_14->const_missing def_%v_15 %v_14[6.0,5.2,] 	 SYMBOL:Resource,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_15->new def_%v_16 %v_15[8.0,7.0,] opts[4.3,4.7,2.9,] 	 SYMBOL:	 ARGS:opts,
+		 1: RETURN %v_16[9.0,] %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = s3_bucket instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->s3_resource def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: GETFIELD %self->s3_bucket def_%v_4 %self[2.0,2.6,] 
+		 8: %v_3->bucket def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: COPY TYPE_PASS def_bucket %v_5[2.8,] 
+		 10: 
+		 11: %v_5->exists? def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_6[2.11,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: bucket->create def_%v_8 bucket[2.9,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_7 %v_8[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN bucket[2.9,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_missing_site_settings instanceMethod = true
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SiteSetting) def_%v_3 
+		 7: %v_3->s3_use_iam_profile def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: RETURN %v_5[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_6 
+		 2: %v_6->s3_access_key_id def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_7->blank? def_%v_8 %v_7[4.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_8[4.3,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (Discourse) def_%v_9 
+		 1: (inherit SiteSettingMissing) def_%v_10 %v_9[5.0,] 
+		 2: %v_10[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_9->const_missing def_%v_10 %v_9[5.0,] 	 SYMBOL:SiteSettingMissing,	 ARGS:Symbol,
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "s3_access_key_id" def_%v_11 
+		 1: %v_10->new def_%v_12 %v_10[6.0,5.1,] %v_11[7.0,] 	 SYMBOL:	 ARGS:%v_11,
+		 2: %self->raise def_%v_13 %self[2.0,] %v_12[7.1,] 	 SYMBOL:	 ARGS:%v_12,
+		 3: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+BB 9
+	outgoing: 10 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_14 
+		 2: %v_14->s3_secret_access_key def_%v_15 %v_14[9.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_15->blank? def_%v_16 %v_15[9.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_16[9.3,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: (Discourse) def_%v_17 
+		 1: (inherit SiteSettingMissing) def_%v_18 %v_17[10.0,] 
+		 2: %v_18[10.1,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %v_17->const_missing def_%v_18 %v_17[10.0,] 	 SYMBOL:SiteSettingMissing,	 ARGS:Symbol,
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "s3_secret_access_key" def_%v_19 
+		 1: %v_18->new def_%v_20 %v_18[11.0,10.1,] %v_19[12.0,] 	 SYMBOL:	 ARGS:%v_19,
+		 2: %self->raise def_%v_21 %self[2.0,] %v_20[12.1,] 	 SYMBOL:	 ARGS:%v_20,
+		 3: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %v_21[13.0,12.2,] %self[2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+

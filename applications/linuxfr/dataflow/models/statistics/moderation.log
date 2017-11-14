@@ -1,0 +1,527 @@
+SET IRMethod, name = by_day instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "       SELECT DAYNAME(CONVERT_TZ(created_at,'+00:00','Europe/Paris')) AS d,
+              WEEKDAY(CONVERT_TZ(created_at,'+00:00','Europe/Paris')) AS day,
+              COUNT(*) AS cnt
+         FROM nodes
+        WHERE content_type='News'
+     GROUP BY d
+     ORDER BY day ASC
+" def_%v_3 
+		 7: %self->select_all def_%v_4 %self[2.0,] %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_3,
+		 8: RETURN %v_4[2.7,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = average_time instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "       SELECT YEAR(CONVERT_TZ(nodes.created_at,'+00:00','Europe/Paris')) AS year,
+              COUNT(*) AS cnt,
+              SUM(TIMESTAMPDIFF(SECOND,news.created_at,nodes.created_at)) AS duration,
+              STD(TIMESTAMPDIFF(SECOND,news.created_at,nodes.created_at)) AS std,
+              MIN(TIMESTAMPDIFF(SECOND,news.created_at,nodes.created_at)) AS min,
+              MAX(TIMESTAMPDIFF(SECOND,news.created_at,nodes.created_at)) AS max
+         FROM nodes, news
+        WHERE nodes.content_id = news.id
+          AND nodes.content_type='News'
+          AND nodes.created_at >= DATE('2011-01-01 00:00:001')
+     GROUP BY year
+     ORDER BY year
+" def_%v_3 
+		 7: %self->select_all def_%v_4 %self[2.0,] %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_3,
+		 8: RETURN %v_4[2.7,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = median_time instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_year 
+		 6: RECEIVEARG def_count 
+		 7: RECEIVEARG def_percentile 
+		 8: 
+		 9: COPY TYPE_StringLiteral "SELECT TIMESTAMPDIFF(SECOND,news.created_at,nodes.created_at) AS duration FROM nodes, news WHERE nodes.content_id = news.id AND nodes.content_type='News' AND YEAR(CONVERT_TZ(nodes.created_at,'+00:00','Europe/Paris'))='" def_%v_3 
+		 10: COPY TYPE_StringLiteral "' ORDER BY duration LIMIT " def_%v_4 
+		 11: count->* def_%v_5 count[2.6,] percentile[2.7,] 	 SYMBOL:	 ARGS:percentile,
+		 12: %v_5->to_i def_%v_6 %v_5[2.11,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_StringLiteral ",1;" def_%v_7 
+		 14: BUILDSTRING def_%v_8 %v_3[2.9,] year[2.5,] %v_4[2.10,] %v_6[2.12,] %v_7[2.13,] 
+		 15: COPY TYPE_StringLiteral "duration" def_%v_9 
+		 16: %self->count def_%v_10 %self[2.0,] %v_8[2.14,] %v_9[2.15,] 	 SYMBOL:	 ARGS:%v_8,%v_9,
+		 17: RETURN %v_10[2.16,] %self[2.0,2.16,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = top_amr instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_sql_criterion 
+		 6: sql_criterion[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_3 
+		 1: COPY TYPE_PASS def_sql_criterion %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "       SELECT login, moderator_id, COUNT(*) AS cnt
+         FROM nodes,news,accounts
+        WHERE moderator_id IS NOT NULL
+          AND content_id=news.id
+          AND content_type='News'
+          AND moderator_id=accounts.user_id
+          " def_%v_4 
+		 2: 
+		 3: COPY TYPE_StringLiteral "
+    GROUP BY moderator_id
+    ORDER BY LOWER(login) ASC
+" def_%v_5 
+		 4: BUILDSTRING def_%v_6 %v_4[4.1,] sql_criterion[3.1,2.5,] %v_5[4.3,] 
+		 5: %self->select_all def_%v_7 %self[2.0,] %v_6[4.4,] 	 SYMBOL:	 ARGS:%v_6,
+		 6: RETURN %v_7[4.5,] %self[4.5,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = top_am instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "AND (role='moderator' OR role='admin')" def_%v_3 
+		 7: %self->top_amr def_%v_4 %self[2.0,] %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_3,
+		 8: RETURN %v_4[2.7,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = created_on_the_last_nbdays instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_nbdays 
+		 6: RECEIVECONSTARG def_prefix 
+		 7: prefix[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_3 
+		 1: COPY TYPE_PASS def_prefix %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH nbdays[2.5,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: COPY TYPE_StringLiteral "created_at >= '" def_%v_6 
+		 3: nbdays->days def_%v_7 nbdays[2.5,] 	 SYMBOL:	 ARGS:
+		 4: %v_7->ago def_%v_8 %v_7[5.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_8->to_s def_%v_9 %v_8[5.4,] 	 SYMBOL:db,	 ARGS:Symbol,
+		 6: COPY TYPE_StringLiteral "'" def_%v_10 
+		 7: BUILDSTRING def_%v_11 prefix[3.1,2.6,] %v_6[5.2,] %v_9[5.5,] %v_10[5.6,] 
+		 8: RETURN %v_11[5.7,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "1=1" def_%v_5 
+		 1: RETURN %v_5[6.0,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = nb_moderations_x_days instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user_id 
+		 6: RECEIVECONSTARG def_nbdays 
+		 7: nbdays[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_nbdays 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "SELECT COUNT(*) AS cnt FROM nodes JOIN news ON nodes.content_id = news.id AND nodes.content_type='News' WHERE " def_%v_3 
+		 2: COPY TYPE_StringLiteral "nodes." def_%v_4 
+		 3: %self->created_on_the_last_nbdays def_%v_5 %self[2.0,] nbdays[3.0,2.6,] %v_4[4.2,] 	 SYMBOL:	 ARGS:nbdays,%v_4,
+		 4: COPY TYPE_StringLiteral " AND moderator_id=" def_%v_6 
+		 5: BUILDSTRING def_%v_7 %v_3[4.1,] %v_5[4.3,] %v_6[4.4,] user_id[2.5,] 
+		 6: %self->count def_%v_8 %self[4.3,2.0,] %v_7[4.5,] 	 SYMBOL:	 ARGS:%v_7,
+		 7: RETURN %v_8[4.6,] %self[4.3,4.6,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = nb_editions_x_days instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user_id 
+		 6: RECEIVECONSTARG def_nbdays 
+		 7: nbdays[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_nbdays 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "SELECT COUNT(*) AS cnt FROM news_versions WHERE user_id=" def_%v_3 
+		 2: COPY TYPE_StringLiteral " AND " def_%v_4 
+		 3: %self->created_on_the_last_nbdays def_%v_5 %self[2.0,] nbdays[3.0,2.6,] 	 SYMBOL:	 ARGS:nbdays,
+		 4: BUILDSTRING def_%v_6 %v_3[4.1,] user_id[2.5,] %v_4[4.2,] %v_5[4.3,] 
+		 5: %self->count def_%v_7 %self[4.3,2.0,] %v_6[4.4,] 	 SYMBOL:	 ARGS:%v_6,
+		 6: RETURN %v_7[4.5,] %self[4.3,4.5,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = nb_votes instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_login 
+		 6: 
+		 7: GLOBALVAR $redis def_%v_3 
+		 8: COPY TYPE_StringLiteral "users/" def_%v_4 
+		 9: COPY TYPE_StringLiteral "/nb_votes" def_%v_5 
+		 10: BUILDSTRING def_%v_6 %v_4[2.8,] login[2.5,] %v_5[2.9,] 
+		 11: %v_3->get def_%v_7 %v_3[2.7,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_6,
+		 12: %v_7->to_i def_%v_8 %v_7[2.11,] 	 SYMBOL:	 ARGS:
+		 13: RETURN %v_8[2.12,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = nb_votes_last_month instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_login 
+		 6: 
+		 7: GLOBALVAR $redis def_%v_3 
+		 8: COPY TYPE_StringLiteral "users/" def_%v_4 
+		 9: COPY TYPE_StringLiteral "/nb_votes/*" def_%v_5 
+		 10: BUILDSTRING def_%v_6 %v_4[2.8,] login[2.5,] %v_5[2.9,] 
+		 11: %v_3->keys def_%v_7 %v_3[2.7,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_6,
+		 12: %v_7->map def_%v_8 %v_7[2.11,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: k[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_k 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $redis def_%cl_1_3 
+		 2: %cl_1_3->get def_%cl_1_4 %cl_1_3[3.1,] k[2.2,] 	 SYMBOL:	 ARGS:k,
+		 3: %cl_1_4->to_i def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %cl_1_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 13: %v_8->sum def_%v_9 %v_8[2.12,] 	 SYMBOL:	 ARGS:
+		 14: RETURN %v_9[2.13,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = moderated_news instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_nbdays 
+		 6: nbdays[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_nbdays 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "SELECT COUNT(*) AS cnt FROM news WHERE (state='published' OR state='refused') AND " def_%v_3 
+		 2: %self->created_on_the_last_nbdays def_%v_4 %self[2.0,] nbdays[3.0,2.5,] 	 SYMBOL:	 ARGS:nbdays,
+		 3: BUILDSTRING def_%v_5 %v_3[4.1,] %v_4[4.2,] 
+		 4: %self->count def_%v_6 %self[4.2,2.0,] %v_5[4.3,] 	 SYMBOL:	 ARGS:%v_5,
+		 5: RETURN %v_6[4.4,] %self[4.2,4.4,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = last_news_at instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user_id 
+		 6: 
+		 7: COPY TYPE_StringLiteral "      SELECT MAX(DATE(news.created_at)) AS last, TO_DAYS(now())-TO_DAYS(MAX(news.created_at)) AS days FROM news,nodes WHERE nodes.content_type='News' AND news.id=nodes.content_id AND state='published' AND user_id=" def_%v_3 
+		 8: 
+		 9: COPY TYPE_StringLiteral "
+" def_%v_4 
+		 10: BUILDSTRING def_%v_5 %v_3[2.7,] user_id[2.5,] %v_4[2.9,] 
+		 11: %self->select_all def_%v_6 %self[2.0,] %v_5[2.10,] 	 SYMBOL:	 ARGS:%v_5,
+		 12: RETURN %v_6[2.11,] %self[2.0,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = news_by_week instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user_id 
+		 6: 
+		 7: COPY TYPE_StringLiteral "      SELECT COUNT(news.created_at) AS cnt, WEEK(now(),3) AS weeks FROM news,nodes WHERE nodes.content_type='News' AND news.id=nodes.content_id AND state='published' AND YEAR(news.created_at)=YEAR(now()) AND user_id=" def_%v_3 
+		 8: 
+		 9: COPY TYPE_StringLiteral ";
+" def_%v_4 
+		 10: BUILDSTRING def_%v_5 %v_3[2.7,] user_id[2.5,] %v_4[2.9,] 
+		 11: %self->select_all def_%v_6 %self[2.0,] %v_5[2.10,] 	 SYMBOL:	 ARGS:%v_5,
+		 12: RETURN %v_6[2.11,] %self[2.0,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = news_by_day instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "SELECT COUNT(*) AS cnt FROM news,nodes WHERE nodes.content_type='News' AND news.id=nodes.content_id AND state='published' AND YEAR(news.created_at)=YEAR(now());" def_%v_3 
+		 7: %self->count def_%v_4 %self[2.0,] %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_3,
+		 8: RETURN %v_4[2.7,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = amr_news_by_day instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "SELECT COUNT(*) AS cnt FROM news,nodes,accounts WHERE nodes.content_type='News' AND news.id=nodes.content_id AND state='published' AND YEAR(news.created_at)=YEAR(now()) AND accounts.user_id=nodes.user_id AND (accounts.role='moderator' OR accounts.role='admin');" def_%v_3 
+		 7: %self->count def_%v_4 %self[2.0,] %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_3,
+		 8: RETURN %v_4[2.7,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

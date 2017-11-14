@@ -1,0 +1,602 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_config 
+		 6: RECEIVEARG def_logger 
+		 7: RECEIVECONSTARG def_action_handlers 
+		 8: action_handlers[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (MERCHANT_ACTIONS) def_%v_3 
+		 1: COPY TYPE_PASS def_action_handlers %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_api_builder 
+		 1: api_builder[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_api_builder 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->logger logger[2.6,] 
+		 2: 
+		 3: COPY TYPE_PASS def_%v_4 api_builder[5.0,4.0,] 
+		 4: BRANCH api_builder[5.0,4.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->method def_%v_5 %self[6.1,2.0,] 	 SYMBOL:build_api,	 ARGS:Symbol,
+		 1: COPY TYPE_PASS def_%v_4 %v_5[7.0,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->api_builder %v_4[7.1,6.3,] 
+		 1: 
+		 2: ATTRASSIGN %self->action_handlers action_handlers[3.1,2.7,] 
+		 3: 
+		 4: ATTRASSIGN %self->config config[2.5,] 
+		 5: 
+		 6: config->nil? def_%v_6 config[2.5,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_6[8.6,] 
+BB 9
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: RETURN %v_7[9.0,] %self[8.0,8.2,8.4,6.1,2.0,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PayPal) def_%v_8 
+		 2: (inherit SDK) def_%v_9 %v_8[10.1,] 
+		 3: %v_9[10.2,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %v_8->const_missing def_%v_9 %v_8[10.1,] 	 SYMBOL:SDK,	 ARGS:Symbol,
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: config->[] def_%v_10 config[2.5,] 	 SYMBOL:endpoint,	 ARGS:Symbol,
+		 1: %v_10->[] def_%v_11 %v_10[12.0,] 	 SYMBOL:endpoint_name,	 ARGS:Symbol,
+		 2: config->[] def_%v_12 config[12.0,2.5,] 	 SYMBOL:api_credentials,	 ARGS:Symbol,
+		 3: %v_12->[] def_%v_13 %v_12[12.2,] 	 SYMBOL:username,	 ARGS:Symbol,
+		 4: config->[] def_%v_14 config[12.0,12.2,2.5,] 	 SYMBOL:api_credentials,	 ARGS:Symbol,
+		 5: %v_14->[] def_%v_15 %v_14[12.4,] 	 SYMBOL:password,	 ARGS:Symbol,
+		 6: config->[] def_%v_16 config[12.0,12.2,12.4,2.5,] 	 SYMBOL:api_credentials,	 ARGS:Symbol,
+		 7: %v_16->[] def_%v_17 %v_16[12.6,] 	 SYMBOL:signature,	 ARGS:Symbol,
+		 8: config->[] def_%v_18 config[12.0,12.2,12.4,12.6,2.5,] 	 SYMBOL:api_credentials,	 ARGS:Symbol,
+		 9: %v_18->[] def_%v_19 %v_18[12.8,] 	 SYMBOL:app_id,	 ARGS:Symbol,
+		 10: HASH-mode-username-password-signature-app_id- def_%v_20 %v_11[12.1,] %v_13[12.3,] %v_15[12.5,] %v_17[12.7,] %v_19[12.9,] 
+		 11: %v_9->configure def_%v_21 %v_9[11.0,10.2,] %v_20[12.10,] 	 SYMBOL:	 ARGS:%v_20,
+		 12: RETURN %v_21[12.11,] %self[8.0,8.2,8.4,6.1,2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = do_request instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_request 
+		 6: 
+		 7: GETFIELD %self->action_handlers def_%v_3 %self[2.0,] 
+		 8: request->[] def_%v_4 request[2.5,] 	 SYMBOL:method,	 ARGS:Symbol,
+		 9: %v_3->[] def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: COPY TYPE_PASS def_action_def %v_5[2.9,] 
+		 11: 
+		 12: BRANCH %v_5[2.9,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->api_builder def_%v_6 %self[2.0,] 
+		 1: %v_6->call def_%v_7 %v_6[3.0,] request[2.5,] 	 SYMBOL:	 ARGS:request,
+		 2: GETFIELD %self->config def_%v_8 %self[2.0,] 
+		 3: %self->exec_action def_%v_9 %self[2.0,] action_def[2.10,] %v_7[3.1,] %v_8[3.2,] request[2.5,] 	 SYMBOL:	 ARGS:action_def,%v_7,%v_8,request,
+		 4: RETURN %v_9[3.3,] %self[3.3,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+		 2: (ArgumentError) def_%v_11 
+		 3: COPY TYPE_StringLiteral "Unknown request method " def_%v_12 
+		 4: request->[] def_%v_13 request[2.5,] 	 SYMBOL:method,	 ARGS:Symbol,
+		 5: BUILDSTRING def_%v_14 %v_12[4.3,] %v_13[4.4,] 
+		 6: %v_11->new def_%v_15 %v_11[4.2,] %v_14[4.5,] 	 SYMBOL:	 ARGS:%v_14,
+		 7: %self->raise def_%v_16 %self[2.0,] %v_15[4.6,] 	 SYMBOL:	 ARGS:%v_15,
+		 8: RETURN %v_16[4.7,] %self[4.7,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_api instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 8 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_request 
+		 6: 
+		 7: request->to_h def_%v_3 request[2.5,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_req %v_3[2.7,] 
+		 9: 
+		 10: %v_3->[] def_%v_4 %v_3[2.7,] 	 SYMBOL:receiver_username,	 ARGS:Symbol,
+		 11: BRANCH %v_4[2.10,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PayPal) def_%v_5 
+		 2: (inherit SDK) def_%v_6 %v_5[3.1,] 
+		 3: %v_6[3.2,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_5->const_missing def_%v_6 %v_5[3.1,] 	 SYMBOL:SDK,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (inherit Merchant) def_%v_7 %v_6[4.0,3.2,] 
+		 1: %v_7[5.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[4.0,3.2,] 	 SYMBOL:Merchant,	 ARGS:Symbol,
+BB 7
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: req->[] def_%v_8 req[2.8,] 	 SYMBOL:receiver_username,	 ARGS:Symbol,
+		 1: HASH-subject- def_%v_9 %v_8[7.0,] 
+		 2: %v_7->new def_%v_10 %v_7[6.0,5.0,] %v_9[7.1,] 	 SYMBOL:	 ARGS:Nil,%v_9,
+		 3: RETURN %v_10[7.2,] %self[2.0,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PayPal) def_%v_11 
+		 2: (inherit SDK) def_%v_12 %v_11[8.1,] 
+		 3: %v_12[8.2,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_11->const_missing def_%v_12 %v_11[8.1,] 	 SYMBOL:SDK,	 ARGS:Symbol,
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: (inherit Merchant) def_%v_13 %v_12[9.0,8.2,] 
+		 1: %v_13[10.0,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %v_12->const_missing def_%v_13 %v_12[9.0,8.2,] 	 SYMBOL:Merchant,	 ARGS:Symbol,
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: %v_13->new def_%v_14 %v_13[11.0,10.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_14[12.0,] %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = exec_action instanceMethod = true
+BB 1
+	outgoing: 45 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_action_def 
+		 6: RECEIVEARG def_api 
+		 7: RECEIVEARG def_config 
+		 8: RECEIVEARG def_request 
+		 9: 
+		 10: action_def->[] def_%v_3 action_def[2.5,] 	 SYMBOL:input_transformer,	 ARGS:Symbol,
+		 11: COPY TYPE_PASS def_input_transformer %v_3[2.10,] 
+		 12: 
+		 13: action_def->[] def_%v_4 action_def[2.5,2.10,] 	 SYMBOL:wrapper_method_name,	 ARGS:Symbol,
+		 14: api->method def_%v_5 api[2.6,] %v_4[2.13,] 	 SYMBOL:	 ARGS:%v_4,
+		 15: COPY TYPE_PASS def_wrapper_method %v_5[2.14,] 
+		 16: 
+		 17: action_def->[] def_%v_6 action_def[2.5,2.10,2.13,] 	 SYMBOL:action_method_name,	 ARGS:Symbol,
+		 18: api->method def_%v_7 api[2.6,2.14,] %v_6[2.17,] 	 SYMBOL:	 ARGS:%v_6,
+		 19: COPY TYPE_PASS def_action_method %v_7[2.18,] 
+		 20: 
+		 21: action_def->[] def_%v_8 action_def[2.5,2.10,2.13,2.17,] 	 SYMBOL:output_transformer,	 ARGS:Symbol,
+		 22: COPY TYPE_PASS def_output_transformer %v_8[2.21,] 
+		 23: 
+		 24: input_transformer->call def_%v_9 input_transformer[2.11,] request[2.8,] config[2.7,] 	 SYMBOL:	 ARGS:request,config,
+		 25: COPY TYPE_PASS def_input %v_9[2.24,] 
+		 26: 
+		 27: GETFIELD %self->logger def_%v_10 %self[2.0,] 
+		 28: %v_10->log_request_input def_%v_11 %v_10[2.27,] request[2.8,] %v_9[2.24,] 	 SYMBOL:	 ARGS:request,input,
+		 29: COPY TYPE_PASS def_request_id %v_11[2.28,] 
+		 30: 
+		 31: wrapper_method->call def_%v_12 wrapper_method[2.15,] input[2.25,] 	 SYMBOL:	 ARGS:input,
+		 32: COPY TYPE_PASS def_wrapped %v_12[2.31,] 
+		 33: 
+		 34: GLOBALVAR $! def_%v_13 
+BB 4
+	outgoing: 5 6 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: action_method->call def_%v_16 action_method[2.19,] wrapped[2.32,] 	 SYMBOL:	 ARGS:wrapped,
+		 3: COPY TYPE_PASS def_response %v_16[4.2,] 
+		 4: 
+		 5: GETFIELD %self->logger def_%v_17 %self[2.0,] 
+		 6: %v_17->log_response def_%v_18 %v_17[4.5,] %v_16[4.2,] request_id[2.29,] 	 SYMBOL:	 ARGS:response,request_id,
+		 7: 
+		 8: response->success? def_%v_19 response[4.3,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_19[4.8,] 
+BB 5
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: output_transformer->call def_%v_20 output_transformer[2.22,] response[4.3,] api[2.6,] 	 SYMBOL:	 ARGS:response,api,
+		 2: 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->create_failure_response def_%v_21 %self[2.0,] response[4.3,] 	 SYMBOL:	 ARGS:response,
+		 2: COPY TYPE_PASS def_%v_20 %v_21[6.1,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_15 %v_20[6.2,5.1,] 
+		 1: %v_13[2.34,] 
+BB 8
+	outgoing: 44 
+	datadep: 
+	instructions:
+		 0: 
+BB 9
+	outgoing: 10 11 43 
+	datadep: 
+	instructions:
+		 0: def_%v_22 
+		 1: (PayPal) def_%v_23 
+		 2: (inherit SDK) def_%v_24 %v_23[9.1,] 
+		 3: %v_24[9.2,] 
+BB 10
+	outgoing: 11 43 
+	datadep: 
+	instructions:
+		 0: %v_23->const_missing def_%v_24 %v_23[9.1,] 	 SYMBOL:SDK,	 ARGS:Symbol,
+BB 11
+	outgoing: 12 13 43 
+	datadep: 
+	instructions:
+		 0: (inherit Core) def_%v_25 %v_24[10.0,9.2,] 
+		 1: %v_25[11.0,] 
+BB 12
+	outgoing: 13 43 
+	datadep: 
+	instructions:
+		 0: %v_24->const_missing def_%v_25 %v_24[10.0,9.2,] 	 SYMBOL:Core,	 ARGS:Symbol,
+BB 13
+	outgoing: 14 15 43 
+	datadep: 
+	instructions:
+		 0: (inherit Exceptions) def_%v_26 %v_25[12.0,11.0,] 
+		 1: %v_26[13.0,] 
+BB 14
+	outgoing: 15 43 
+	datadep: 
+	instructions:
+		 0: %v_25->const_missing def_%v_26 %v_25[12.0,11.0,] 	 SYMBOL:Exceptions,	 ARGS:Symbol,
+BB 15
+	outgoing: 16 17 43 
+	datadep: 
+	instructions:
+		 0: (inherit ConnectionError) def_%v_27 %v_26[14.0,13.0,] 
+		 1: %v_27[15.0,] 
+BB 16
+	outgoing: 17 43 
+	datadep: 
+	instructions:
+		 0: %v_26->const_missing def_%v_27 %v_26[14.0,13.0,] 	 SYMBOL:ConnectionError,	 ARGS:Symbol,
+BB 17
+	outgoing: 18 19 43 
+	datadep: 
+	instructions:
+		 0: def_%v_28 %v_27[16.0,15.0,] %v_22[9.0,] 
+		 1: BRANCH %v_28[17.0,] 
+BB 18
+	outgoing: 43 45 
+	datadep: 
+	instructions:
+		 0: %v_22[9.0,] 
+BB 19
+	outgoing: 20 21 43 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_29 
+		 1: COPY TYPE_PASS def_e %v_29[19.0,] 
+		 2: 
+		 3: GETFIELD %self->logger def_%v_30 %self[2.0,] 
+		 4: COPY TYPE_StringLiteral "Paypal merchant service failed to respond." def_%v_31 
+		 5: %v_30->error def_%v_32 %v_30[19.3,] %v_31[19.4,] 	 SYMBOL:	 ARGS:%v_31,
+		 6: 
+		 7: 
+		 8: (PayPal) def_%v_33 
+		 9: (inherit SDK) def_%v_34 %v_33[19.8,] 
+		 10: %v_34[19.9,] 
+BB 20
+	outgoing: 21 43 
+	datadep: 
+	instructions:
+		 0: %v_33->const_missing def_%v_34 %v_33[19.8,] 	 SYMBOL:SDK,	 ARGS:Symbol,
+BB 21
+	outgoing: 22 23 43 
+	datadep: 
+	instructions:
+		 0: (inherit Core) def_%v_35 %v_34[20.0,19.9,] 
+		 1: %v_35[21.0,] 
+BB 22
+	outgoing: 23 43 
+	datadep: 
+	instructions:
+		 0: %v_34->const_missing def_%v_35 %v_34[20.0,19.9,] 	 SYMBOL:Core,	 ARGS:Symbol,
+BB 23
+	outgoing: 24 25 43 
+	datadep: 
+	instructions:
+		 0: (inherit Exceptions) def_%v_36 %v_35[22.0,21.0,] 
+		 1: %v_36[23.0,] 
+BB 24
+	outgoing: 25 43 
+	datadep: 
+	instructions:
+		 0: %v_35->const_missing def_%v_36 %v_35[22.0,21.0,] 	 SYMBOL:Exceptions,	 ARGS:Symbol,
+BB 25
+	outgoing: 26 27 43 
+	datadep: 
+	instructions:
+		 0: (inherit TimeoutError) def_%v_37 %v_36[24.0,23.0,] 
+		 1: %v_37[25.0,] 
+BB 26
+	outgoing: 27 43 
+	datadep: 
+	instructions:
+		 0: %v_36->const_missing def_%v_37 %v_36[24.0,23.0,] 	 SYMBOL:TimeoutError,	 ARGS:Symbol,
+BB 27
+	outgoing: 28 29 43 
+	datadep: 
+	instructions:
+		 0: e->is_a? def_%v_38 e[19.1,] %v_37[26.0,25.0,] 	 SYMBOL:	 ARGS:%v_37,
+		 1: BRANCH %v_38[27.0,] 
+BB 28
+	outgoing: 41 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "x-timeout" def_%v_39 
+		 2: 
+BB 29
+	outgoing: 30 31 43 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PayPal) def_%v_40 
+		 2: (inherit SDK) def_%v_41 %v_40[29.1,] 
+		 3: %v_41[29.2,] 
+BB 30
+	outgoing: 31 43 
+	datadep: 
+	instructions:
+		 0: %v_40->const_missing def_%v_41 %v_40[29.1,] 	 SYMBOL:SDK,	 ARGS:Symbol,
+BB 31
+	outgoing: 32 33 43 
+	datadep: 
+	instructions:
+		 0: (inherit Core) def_%v_42 %v_41[30.0,29.2,] 
+		 1: %v_42[31.0,] 
+BB 32
+	outgoing: 33 43 
+	datadep: 
+	instructions:
+		 0: %v_41->const_missing def_%v_42 %v_41[30.0,29.2,] 	 SYMBOL:Core,	 ARGS:Symbol,
+BB 33
+	outgoing: 34 35 43 
+	datadep: 
+	instructions:
+		 0: (inherit Exceptions) def_%v_43 %v_42[32.0,31.0,] 
+		 1: %v_43[33.0,] 
+BB 34
+	outgoing: 35 43 
+	datadep: 
+	instructions:
+		 0: %v_42->const_missing def_%v_43 %v_42[32.0,31.0,] 	 SYMBOL:Exceptions,	 ARGS:Symbol,
+BB 35
+	outgoing: 36 37 43 
+	datadep: 
+	instructions:
+		 0: (inherit ServerError) def_%v_44 %v_43[34.0,33.0,] 
+		 1: %v_44[35.0,] 
+BB 36
+	outgoing: 37 43 
+	datadep: 
+	instructions:
+		 0: %v_43->const_missing def_%v_44 %v_43[34.0,33.0,] 	 SYMBOL:ServerError,	 ARGS:Symbol,
+BB 37
+	outgoing: 38 39 43 
+	datadep: 
+	instructions:
+		 0: e->is_a? def_%v_45 e[19.1,] %v_44[36.0,35.0,] 	 SYMBOL:	 ARGS:%v_44,
+		 1: BRANCH %v_45[37.0,] 
+BB 38
+	outgoing: 40 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "x-servererror" def_%v_46 
+		 2: 
+BB 39
+	outgoing: 40 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "x-unknown-paypalerror" def_%v_47 
+		 2: COPY TYPE_PASS def_%v_46 %v_47[39.1,] 
+BB 40
+	outgoing: 41 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_39 %v_46[39.2,38.1,] 
+BB 41
+	outgoing: 42 43 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_error_code %v_39[40.0,28.1,] 
+		 1: 
+		 2: (DataTypes) def_%v_48 
+		 3: COPY TYPE_StringLiteral "Paypal merchant service failed to respond." def_%v_49 
+		 4: HASH-error_code-error_msg- def_%v_50 %v_39[40.0,28.1,] %v_49[41.3,] 
+		 5: %v_48->create_failure_response def_%v_51 %v_48[41.2,] %v_50[41.4,] 	 SYMBOL:	 ARGS:%v_50,
+		 6: COPY TYPE_PASS def_%v_15 %v_51[41.5,] 
+		 7: %v_13[2.34,] 
+BB 42
+	outgoing: 44 
+	datadep: 
+	instructions:
+		 0: 
+BB 43
+	outgoing: 45 
+	datadep: 
+	instructions:
+		 0: def_%v_52 
+		 1: def_%v_53 %v_52[43.0,] %v_13[2.34,] 
+		 2: %v_52[43.0,] 
+BB 44
+	outgoing: 45 
+	datadep: 
+	instructions:
+		 0: RETURN %v_15[7.0,41.6,] %self[2.0,] 
+BB 45
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create_failure_response instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_res 
+		 6: 
+		 7: res->errors def_%v_3 res[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->length def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->> def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:Fixnum,
+		 10: BRANCH %v_5[2.9,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (DataTypes) def_%v_6 
+		 2: res->errors def_%v_7 res[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_7->[] def_%v_8 %v_7[3.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: %v_8->error_code def_%v_9 %v_8[3.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_9->to_s def_%v_10 %v_9[3.4,] 	 SYMBOL:	 ARGS:
+		 6: res->errors def_%v_11 res[3.2,2.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_11->[] def_%v_12 %v_11[3.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: %v_12->long_message def_%v_13 %v_12[3.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_13->to_s def_%v_14 %v_13[3.8,] 	 SYMBOL:	 ARGS:
+		 10: HASH-error_code-error_msg- def_%v_15 %v_10[3.5,] %v_14[3.9,] 
+		 11: %v_6->create_failure_response def_%v_16 %v_6[3.1,] %v_15[3.10,] 	 SYMBOL:	 ARGS:%v_15,
+		 12: RETURN %v_16[3.11,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (DataTypes) def_%v_17 
+		 2: HASH- def_%v_18 
+		 3: %v_17->create_failure_response def_%v_19 %v_17[4.1,] %v_18[4.2,] 	 SYMBOL:	 ARGS:%v_18,
+		 4: RETURN %v_19[4.3,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,417 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_payment 
+		 6: RECEIVEARG def_payment_params 
+		 7: 
+		 8: (Money) def_%v_3 
+		 9: (inherit Currency) def_%v_4 %v_3[2.8,] 
+		 10: %v_4[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.8,] 	 SYMBOL:Currency,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: payment->currency def_%v_5 payment[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->new def_%v_6 %v_4[3.0,2.9,] %v_5[4.0,] 	 SYMBOL:	 ARGS:%v_5,
+		 2: %v_6->subunit_to_unit def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_subunit_to_unit %v_7[4.2,] 
+		 4: 
+		 5: ATTRASSIGN %self->payment payment[4.0,2.5,] 
+		 6: 
+		 7: payment->community def_%v_8 payment[4.0,2.5,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN %self->community %v_8[4.7,] 
+		 9: 
+		 10: payment->payer def_%v_9 payment[4.0,4.7,2.5,] 	 SYMBOL:	 ARGS:
+		 11: ATTRASSIGN %self->payer %v_9[4.10,] 
+		 12: 
+		 13: payment->recipient def_%v_10 payment[4.0,4.7,4.10,2.5,] 	 SYMBOL:	 ARGS:
+		 14: ATTRASSIGN %self->recipient %v_10[4.13,] 
+		 15: 
+		 16: payment->sum_cents def_%v_11 payment[4.0,4.7,4.10,4.13,2.5,] 	 SYMBOL:	 ARGS:
+		 17: %v_11->to_f def_%v_12 %v_11[4.16,] 	 SYMBOL:	 ARGS:
+		 18: %v_12->/ def_%v_13 %v_12[4.17,] subunit_to_unit[4.3,] 	 SYMBOL:	 ARGS:subunit_to_unit,
+		 19: ATTRASSIGN %self->amount %v_13[4.18,] 
+		 20: 
+		 21: payment->total_commission def_%v_14 payment[4.0,4.7,4.10,4.13,4.16,2.5,] 	 SYMBOL:	 ARGS:
+		 22: %v_14->cents def_%v_15 %v_14[4.21,] 	 SYMBOL:	 ARGS:
+		 23: %v_15->to_f def_%v_16 %v_15[4.22,] 	 SYMBOL:	 ARGS:
+		 24: %v_16->/ def_%v_17 %v_16[4.23,] subunit_to_unit[4.3,] 	 SYMBOL:	 ARGS:subunit_to_unit,
+		 25: ATTRASSIGN %self->service_fee %v_17[4.24,] 
+		 26: 
+		 27: COPY TYPE_PASS def_%v_18 payment_params[2.6,] 
+		 28: BRANCH payment_params[2.6,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_19 
+		 1: COPY TYPE_PASS def_%v_18 %v_19[5.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->params %v_18[5.1,4.27,] 
+		 1: RETURN %v_18[5.1,4.27,] %self[6.0,4.5,4.8,4.11,4.14,4.19,4.25,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = pay instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_submit_for_settlement 
+		 6: 
+		 7: %self->call_braintree_api def_%v_3 %self[2.0,] submit_for_settlement[2.5,] 	 SYMBOL:	 ARGS:submit_for_settlement,
+		 8: COPY TYPE_PASS def_result %v_3[2.7,] 
+		 9: 
+		 10: %v_3->success? def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_4[2.10,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->save_transaction_id! def_%v_5 %self[2.0,] result[2.8,] 	 SYMBOL:	 ARGS:result,
+		 2: 
+		 3: %self->change_payment_status_to_paid! def_%v_6 %self[3.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->log_result def_%v_7 %self[2.0,] result[2.8,] 	 SYMBOL:	 ARGS:result,
+		 2: 
+		 3: RETURN result[2.8,] %self[5.1,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = call_braintree_api instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_submit_for_settlement 
+		 6: 
+		 7: %self->with_expection_logging def_%v_3 %self[2.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: %self[2.0,] submit_for_settlement[2.5,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (BTLog) def_%cl_1_3 
+		 2: COPY TYPE_StringLiteral "Sending sale transaction from " def_%cl_1_4 
+		 3: GETFIELD %self->payer def_%cl_1_5 %self[2.0,] 
+		 4: %cl_1_5->id def_%cl_1_6 %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral " to " def_%cl_1_7 
+		 6: GETFIELD %self->recipient def_%cl_1_8 %self[2.0,] 
+		 7: %cl_1_8->id def_%cl_1_9 %cl_1_8[3.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral ". Amount: " def_%cl_1_10 
+		 9: GETFIELD %self->amount def_%cl_1_11 %self[2.0,] 
+		 10: COPY TYPE_StringLiteral ", fee: " def_%cl_1_12 
+		 11: GETFIELD %self->service_fee def_%cl_1_13 %self[2.0,] 
+		 12: BUILDSTRING def_%cl_1_14 %cl_1_4[3.2,] %cl_1_6[3.4,] %cl_1_7[3.5,] %cl_1_9[3.7,] %cl_1_10[3.8,] %cl_1_11[3.9,] %cl_1_12[3.10,] %cl_1_13[3.11,] 
+		 13: %cl_1_3->warn def_%cl_1_15 %cl_1_3[3.1,] %cl_1_14[3.12,] 	 SYMBOL:	 ARGS:%cl_1_14,
+		 14: 
+		 15: (BraintreeApi) def_%cl_1_16 
+		 16: GETFIELD %self->community def_%cl_1_17 %self[2.0,] 
+		 17: COPY TYPE_StringLiteral "sale" def_%cl_1_18 
+		 18: GETFIELD %self->amount def_%cl_1_19 %self[2.0,] 
+		 19: %cl_1_19->to_s def_%cl_1_20 %cl_1_19[3.18,] 	 SYMBOL:	 ARGS:
+		 20: GETFIELD %self->recipient def_%cl_1_21 %self[2.0,] 
+		 21: %cl_1_21->id def_%cl_1_22 %cl_1_21[3.20,] 	 SYMBOL:	 ARGS:
+		 22: GETFIELD %self->params def_%cl_1_23 %self[2.0,] 
+		 23: %cl_1_23->[] def_%cl_1_24 %cl_1_23[3.22,] 	 SYMBOL:credit_card_number,	 ARGS:Symbol,
+		 24: GETFIELD %self->params def_%cl_1_25 %self[2.0,] 
+		 25: %cl_1_25->[] def_%cl_1_26 %cl_1_25[3.24,] 	 SYMBOL:credit_card_expiration_month,	 ARGS:Symbol,
+		 26: GETFIELD %self->params def_%cl_1_27 %self[2.0,] 
+		 27: %cl_1_27->[] def_%cl_1_28 %cl_1_27[3.26,] 	 SYMBOL:credit_card_expiration_year,	 ARGS:Symbol,
+		 28: GETFIELD %self->params def_%cl_1_29 %self[2.0,] 
+		 29: %cl_1_29->[] def_%cl_1_30 %cl_1_29[3.28,] 	 SYMBOL:cvv,	 ARGS:Symbol,
+		 30: GETFIELD %self->params def_%cl_1_31 %self[2.0,] 
+		 31: %cl_1_31->[] def_%cl_1_32 %cl_1_31[3.30,] 	 SYMBOL:cardholder_name,	 ARGS:Symbol,
+		 32: HASH-number-expiration_month-expiration_year-cvv-cardholder_name- def_%cl_1_33 %cl_1_24[3.23,] %cl_1_26[3.25,] %cl_1_28[3.27,] %cl_1_30[3.29,] %cl_1_32[3.31,] 
+		 33: GETFIELD %self->community def_%cl_1_34 %self[2.0,] 
+		 34: %cl_1_34->payment_gateway def_%cl_1_35 %cl_1_34[3.33,] 	 SYMBOL:	 ARGS:
+		 35: %cl_1_35->hold_in_escrow def_%cl_1_36 %cl_1_35[3.34,] 	 SYMBOL:	 ARGS:
+		 36: HASH-submit_for_settlement-hold_in_escrow- def_%cl_1_37 submit_for_settlement[] %cl_1_36[3.35,] 
+		 37: GETFIELD %self->service_fee def_%cl_1_38 %self[2.0,] 
+		 38: %cl_1_38->to_s def_%cl_1_39 %cl_1_38[3.37,] 	 SYMBOL:	 ARGS:
+		 39: HASH-type-amount-merchant_account_id-credit_card-options-service_fee_amount- def_%cl_1_40 %cl_1_18[3.17,] %cl_1_20[3.19,] %cl_1_22[3.21,] %cl_1_33[3.32,] %cl_1_37[3.36,] %cl_1_39[3.38,] 
+		 40: %cl_1_16->transaction_sale def_%cl_1_41 %cl_1_16[3.15,] %cl_1_17[3.16,] %cl_1_40[3.39,] 	 SYMBOL:	 ARGS:%cl_1_17,%cl_1_40,
+		 41: RETURN %cl_1_41[3.40,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_42 
+		 1: def_%cl_1_43 %cl_1_42[4.0,] 
+		 2: RETURN %cl_1_43[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: RETURN %v_3[2.7,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = save_transaction_id! instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_result 
+		 6: 
+		 7: GETFIELD %self->payment def_%v_3 %self[2.0,] 
+		 8: result->transaction def_%v_4 result[2.5,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->id def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: HASH-braintree_transaction_id- def_%v_6 %v_5[2.9,] 
+		 11: %v_3->update_attributes def_%v_7 %v_3[2.7,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_6,
+		 12: RETURN %v_7[2.11,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = change_payment_status_to_paid! instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->payment def_%v_3 %self[2.0,] 
+		 7: %v_3->paid! def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = log_result instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_result 
+		 6: 
+		 7: result->success? def_%v_3 result[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: result->transaction def_%v_4 result[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_4->id def_%v_5 %v_4[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_transaction_id %v_5[3.2,] 
+		 4: 
+		 5: (BTLog) def_%v_6 
+		 6: COPY TYPE_StringLiteral "Successful sale transaction " def_%v_7 
+		 7: COPY TYPE_StringLiteral " from " def_%v_8 
+		 8: GETFIELD %self->payer def_%v_9 %self[2.0,] 
+		 9: %v_9->id def_%v_10 %v_9[3.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral " to " def_%v_11 
+		 11: GETFIELD %self->recipient def_%v_12 %self[2.0,] 
+		 12: %v_12->id def_%v_13 %v_12[3.11,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_StringLiteral ". Amount: " def_%v_14 
+		 14: GETFIELD %self->amount def_%v_15 %self[2.0,] 
+		 15: COPY TYPE_StringLiteral ", fee: " def_%v_16 
+		 16: GETFIELD %self->service_fee def_%v_17 %self[2.0,] 
+		 17: BUILDSTRING def_%v_18 %v_7[3.6,] transaction_id[3.3,] %v_8[3.7,] %v_10[3.9,] %v_11[3.10,] %v_13[3.12,] %v_14[3.13,] %v_15[3.14,] %v_16[3.15,] %v_17[3.16,] 
+		 18: %v_6->warn def_%v_19 %v_6[3.5,] %v_18[3.17,] 	 SYMBOL:	 ARGS:%v_18,
+		 19: RETURN %v_19[3.18,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (BTLog) def_%v_20 
+		 2: COPY TYPE_StringLiteral "Unsuccessful sale transaction from " def_%v_21 
+		 3: GETFIELD %self->payer def_%v_22 %self[2.0,] 
+		 4: %v_22->id def_%v_23 %v_22[4.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral " to " def_%v_24 
+		 6: GETFIELD %self->recipient def_%v_25 %self[2.0,] 
+		 7: %v_25->id def_%v_26 %v_25[4.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral ". Amount: " def_%v_27 
+		 9: GETFIELD %self->amount def_%v_28 %self[2.0,] 
+		 10: COPY TYPE_StringLiteral ", fee: " def_%v_29 
+		 11: GETFIELD %self->service_fee def_%v_30 %self[2.0,] 
+		 12: COPY TYPE_StringLiteral ": " def_%v_31 
+		 13: result->message def_%v_32 result[2.5,] 	 SYMBOL:	 ARGS:
+		 14: BUILDSTRING def_%v_33 %v_21[4.2,] %v_23[4.4,] %v_24[4.5,] %v_26[4.7,] %v_27[4.8,] %v_28[4.9,] %v_29[4.10,] %v_30[4.11,] %v_31[4.12,] %v_32[4.13,] 
+		 15: %v_20->error def_%v_34 %v_20[4.1,] %v_33[4.14,] 	 SYMBOL:	 ARGS:%v_33,
+		 16: RETURN %v_34[4.15,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = with_expection_logging instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_%v_3 
+		 6: def_block %v_3[2.5,] 
+		 7: 
+		 8: GLOBALVAR $! def_%v_4 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: block->call def_%v_7 block[2.6,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_6 %v_7[4.2,] 
+		 4: %v_4[2.8,] 
+BB 5
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 10 
+	datadep: 
+	instructions:
+		 0: def_%v_8 
+		 1: (Exception) def_%v_9 
+		 2: def_%v_10 %v_9[6.1,] %v_8[6.0,] 
+		 3: BRANCH %v_10[6.2,] 
+BB 7
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: %v_8[6.0,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_11 
+		 1: COPY TYPE_PASS def_e %v_11[8.0,] 
+		 2: 
+		 3: (BTLog) def_%v_12 
+		 4: COPY TYPE_StringLiteral "Expection " def_%v_13 
+		 5: BUILDSTRING def_%v_14 %v_13[8.4,] %v_11[8.0,] 
+		 6: %v_12->error def_%v_15 %v_12[8.3,] %v_14[8.5,] 	 SYMBOL:	 ARGS:%v_14,
+		 7: 
+		 8: %self->raise def_%v_16 %self[2.0,] e[8.1,] 	 SYMBOL:	 ARGS:e,
+		 9: COPY TYPE_PASS def_%v_6 %v_16[8.8,] 
+		 10: %v_4[2.8,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: def_%v_17 
+		 1: def_%v_18 %v_17[10.0,] %v_4[2.8,] 
+		 2: %v_17[10.0,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %v_6[4.3,8.9,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,1005 @@
+SET IRMethod, name = refresh_gravatar instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (User) def_%v_3 
+		 7: %self->params def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->[] def_%v_5 %v_4[2.7,] 	 SYMBOL:username,	 ARGS:Symbol,
+		 9: %v_5->downcase def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: HASH-username_lower- def_%v_7 %v_6[2.9,] 
+		 11: %v_3->find_by def_%v_8 %v_3[2.6,] %v_7[2.10,] 	 SYMBOL:	 ARGS:%v_7,
+		 12: COPY TYPE_PASS def_user %v_8[2.11,] 
+		 13: 
+		 14: %self->guardian def_%v_9 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 15: %v_9->ensure_can_edit! def_%v_10 %v_9[2.14,] user[2.12,] 	 SYMBOL:	 ARGS:user,
+		 16: 
+		 17: BRANCH user[2.12,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user->user_avatar def_%v_11 user[2.12,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_11[3.1,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+		 1: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: user->id def_%v_13 user[2.12,] 	 SYMBOL:	 ARGS:
+		 1: HASH-user_id- def_%v_14 %v_13[5.0,] 
+		 2: user->create_user_avatar def_%v_15 user[5.0,2.12,] %v_14[5.1,] 	 SYMBOL:	 ARGS:%v_14,
+		 3: COPY TYPE_PASS def_%v_12 %v_15[5.2,] 
+BB 6
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user->user_avatar def_%v_16 user[2.12,] 	 SYMBOL:	 ARGS:
+		 2: %v_16->update_gravatar! def_%v_17 %v_16[6.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: user->user_avatar def_%v_18 user[6.1,2.12,] 	 SYMBOL:	 ARGS:
+		 5: %v_18->gravatar_upload_id def_%v_19 %v_18[6.4,] 	 SYMBOL:	 ARGS:
+		 6: (User) def_%v_20 
+		 7: user->username def_%v_21 user[6.1,6.4,2.12,] 	 SYMBOL:	 ARGS:
+		 8: user->user_avatar def_%v_22 user[6.1,6.4,6.7,2.12,] 	 SYMBOL:	 ARGS:
+		 9: %v_22->gravatar_upload_id def_%v_23 %v_22[6.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_20->avatar_template def_%v_24 %v_20[6.6,] %v_21[6.7,] %v_23[6.9,] 	 SYMBOL:	 ARGS:%v_21,%v_23,
+		 11: HASH-gravatar_upload_id-gravatar_avatar_template- def_%v_25 %v_19[6.5,] %v_24[6.10,] 
+		 12: HASH-json- def_%v_26 %v_25[6.11,] 
+		 13: %self->render def_%v_27 %self[2.0,] %v_26[6.12,] 	 SYMBOL:	 ARGS:%v_26,
+		 14: RETURN %v_27[6.13,] %self[6.13,2.0,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Discourse) def_%v_28 
+		 2: (inherit NotFound) def_%v_29 %v_28[7.1,] 
+		 3: %v_29[7.2,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_28->const_missing def_%v_29 %v_28[7.1,] 	 SYMBOL:NotFound,	 ARGS:Symbol,
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %self->raise def_%v_30 %self[2.0,] %v_29[8.0,7.2,] 	 SYMBOL:	 ARGS:%v_29,
+		 1: RETURN %v_30[9.0,] %self[9.0,2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = show_proxy_letter instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->require def_%v_4 %v_3[2.6,] 	 SYMBOL:letter,	 ARGS:Symbol,
+		 8: 
+		 9: %self->params def_%v_5 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 10: %v_5->require def_%v_6 %v_5[2.9,] 	 SYMBOL:color,	 ARGS:Symbol,
+		 11: 
+		 12: %self->params def_%v_7 %self[2.0,2.6,2.9,] 	 SYMBOL:	 ARGS:
+		 13: %v_7->require def_%v_8 %v_7[2.12,] 	 SYMBOL:version,	 ARGS:Symbol,
+		 14: 
+		 15: %self->params def_%v_9 %self[2.0,2.6,2.9,2.12,] 	 SYMBOL:	 ARGS:
+		 16: %v_9->require def_%v_10 %v_9[2.15,] 	 SYMBOL:size,	 ARGS:Symbol,
+		 17: 
+		 18: %self->no_cookies def_%v_11 %self[2.0,2.6,2.9,2.12,2.15,] 	 SYMBOL:	 ARGS:
+		 19: 
+		 20: (LetterAvatar) def_%v_12 
+		 21: (inherit Identity) def_%v_13 %v_12[2.20,] 
+		 22: %v_13[2.21,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_12->const_missing def_%v_13 %v_12[2.20,] 	 SYMBOL:Identity,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_13->new def_%v_14 %v_13[3.0,2.21,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_identity %v_14[4.0,] 
+		 2: 
+		 3: %self->params def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_15->[] def_%v_16 %v_15[4.3,] 	 SYMBOL:letter,	 ARGS:Symbol,
+		 5: %v_16->to_s def_%v_17 %v_16[4.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_17->[] def_%v_18 %v_17[4.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 7: %v_18->upcase def_%v_19 %v_18[4.6,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN identity->letter %v_19[4.7,] 
+		 9: 
+		 10: %self->params def_%v_20 %self[4.3,2.0,] 	 SYMBOL:	 ARGS:
+		 11: %v_20->[] def_%v_21 %v_20[4.10,] 	 SYMBOL:color,	 ARGS:Symbol,
+		 12: COPY TYPE_Regexp def_%v_22 
+		 13: %v_21->scan def_%v_23 %v_21[4.11,] 	 SYMBOL:	 ARGS:%v_22,
+		 14: %v_23->map def_%v_24 %v_23[4.13,] 	 SYMBOL:hex,	 ARGS:
+		 15: ATTRASSIGN identity->color %v_24[4.14,] 
+		 16: 
+		 17: (LetterAvatar) def_%v_25 
+		 18: %self->params def_%v_26 %self[4.3,4.10,2.0,] 	 SYMBOL:	 ARGS:
+		 19: %v_26->[] def_%v_27 %v_26[4.18,] 	 SYMBOL:letter,	 ARGS:Symbol,
+		 20: %v_27->to_s def_%v_28 %v_27[4.19,] 	 SYMBOL:	 ARGS:
+		 21: %self->params def_%v_29 %self[4.3,4.10,4.18,2.0,] 	 SYMBOL:	 ARGS:
+		 22: %v_29->[] def_%v_30 %v_29[4.21,] 	 SYMBOL:size,	 ARGS:Symbol,
+		 23: %v_30->to_i def_%v_31 %v_30[4.22,] 	 SYMBOL:	 ARGS:
+		 24: HASH-identity- def_%v_32 identity[4.1,4.8,4.15,] 
+		 25: %v_25->generate def_%v_33 %v_25[4.17,] %v_28[4.20,] %v_31[4.23,] %v_32[4.24,] 	 SYMBOL:	 ARGS:%v_28,%v_31,%v_32,
+		 26: COPY TYPE_PASS def_image %v_33[4.25,] 
+		 27: 
+		 28: %self->response def_%v_34 %self[4.3,4.10,4.18,4.21,2.0,] 	 SYMBOL:	 ARGS:
+		 29: %v_34->headers def_%v_35 %v_34[4.28,] 	 SYMBOL:	 ARGS:
+		 30: COPY TYPE_StringLiteral "Last-Modified" def_%v_36 
+		 31: (File) def_%v_37 
+		 32: %v_37->ctime def_%v_38 %v_37[4.31,] image[4.26,] 	 SYMBOL:	 ARGS:image,
+		 33: %v_38->httpdate def_%v_39 %v_38[4.32,] 	 SYMBOL:	 ARGS:
+		 34: ATTRASSIGN %v_35->[] %v_36[4.30,] %v_39[4.33,] 
+		 35: 
+		 36: %self->response def_%v_40 %self[4.3,4.10,4.18,4.21,4.28,2.0,] 	 SYMBOL:	 ARGS:
+		 37: %v_40->headers def_%v_41 %v_40[4.36,] 	 SYMBOL:	 ARGS:
+		 38: COPY TYPE_StringLiteral "Content-Length" def_%v_42 
+		 39: (File) def_%v_43 
+		 40: %v_43->size def_%v_44 %v_43[4.39,] image[4.26,] 	 SYMBOL:	 ARGS:image,
+		 41: %v_44->to_s def_%v_45 %v_44[4.40,] 	 SYMBOL:	 ARGS:
+		 42: ATTRASSIGN %v_41->[] %v_42[4.38,] %v_45[4.41,] 
+		 43: 
+		 44: CONSTANT def_%v_46 	 SYMBOL:	 ARGS:
+		 45: HASH-public- def_%v_47 
+		 46: %self->expires_in def_%v_48 %self[4.3,4.10,4.18,4.21,4.28,4.36,2.0,] %v_46[4.44,] %v_47[4.45,] 	 SYMBOL:	 ARGS:%v_46,%v_47,
+		 47: 
+		 48: HASH-disposition- def_%v_49 
+		 49: %self->send_file def_%v_50 %self[4.3,4.10,4.18,4.21,4.28,4.36,4.46,2.0,] image[4.26,] %v_49[4.48,] 	 SYMBOL:	 ARGS:image,%v_49,
+		 50: RETURN %v_50[4.49,] %self[4.3,4.10,4.18,4.21,4.28,4.36,4.46,4.49,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = show_letter instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->require def_%v_4 %v_3[2.6,] 	 SYMBOL:username,	 ARGS:Symbol,
+		 8: 
+		 9: %self->params def_%v_5 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 10: %v_5->require def_%v_6 %v_5[2.9,] 	 SYMBOL:version,	 ARGS:Symbol,
+		 11: 
+		 12: %self->params def_%v_7 %self[2.0,2.6,2.9,] 	 SYMBOL:	 ARGS:
+		 13: %v_7->require def_%v_8 %v_7[2.12,] 	 SYMBOL:size,	 ARGS:Symbol,
+		 14: 
+		 15: %self->no_cookies def_%v_9 %self[2.0,2.6,2.9,2.12,] 	 SYMBOL:	 ARGS:
+		 16: 
+		 17: %self->params def_%v_10 %self[2.0,2.6,2.9,2.12,2.15,] 	 SYMBOL:	 ARGS:
+		 18: %v_10->[] def_%v_11 %v_10[2.17,] 	 SYMBOL:version,	 ARGS:Symbol,
+		 19: (LetterAvatar) def_%v_12 
+		 20: %v_12->version def_%v_13 %v_12[2.19,] 	 SYMBOL:	 ARGS:
+		 21: %v_11->!= def_%v_14 %v_11[2.18,] %v_13[2.20,] 	 SYMBOL:	 ARGS:%v_13,
+		 22: BRANCH %v_14[2.21,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->render_blank def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_15[3.0,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+		 1: 
+		 2: (LetterAvatar) def_%v_17 
+		 3: %self->params def_%v_18 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_18->[] def_%v_19 %v_18[4.3,] 	 SYMBOL:username,	 ARGS:Symbol,
+		 5: %v_19->to_s def_%v_20 %v_19[4.4,] 	 SYMBOL:	 ARGS:
+		 6: %self->params def_%v_21 %self[4.3,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_21->[] def_%v_22 %v_21[4.6,] 	 SYMBOL:size,	 ARGS:Symbol,
+		 8: %v_22->to_i def_%v_23 %v_22[4.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_17->generate def_%v_24 %v_17[4.2,] %v_20[4.5,] %v_23[4.8,] 	 SYMBOL:	 ARGS:%v_20,%v_23,
+		 10: COPY TYPE_PASS def_image %v_24[4.9,] 
+		 11: 
+		 12: %self->response def_%v_25 %self[4.3,4.6,2.0,] 	 SYMBOL:	 ARGS:
+		 13: %v_25->headers def_%v_26 %v_25[4.12,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_StringLiteral "Last-Modified" def_%v_27 
+		 15: (File) def_%v_28 
+		 16: %v_28->ctime def_%v_29 %v_28[4.15,] image[4.10,] 	 SYMBOL:	 ARGS:image,
+		 17: %v_29->httpdate def_%v_30 %v_29[4.16,] 	 SYMBOL:	 ARGS:
+		 18: ATTRASSIGN %v_26->[] %v_27[4.14,] %v_30[4.17,] 
+		 19: 
+		 20: %self->response def_%v_31 %self[4.3,4.6,4.12,2.0,] 	 SYMBOL:	 ARGS:
+		 21: %v_31->headers def_%v_32 %v_31[4.20,] 	 SYMBOL:	 ARGS:
+		 22: COPY TYPE_StringLiteral "Content-Length" def_%v_33 
+		 23: (File) def_%v_34 
+		 24: %v_34->size def_%v_35 %v_34[4.23,] image[4.10,] 	 SYMBOL:	 ARGS:image,
+		 25: %v_35->to_s def_%v_36 %v_35[4.24,] 	 SYMBOL:	 ARGS:
+		 26: ATTRASSIGN %v_32->[] %v_33[4.22,] %v_36[4.25,] 
+		 27: 
+		 28: CONSTANT def_%v_37 	 SYMBOL:	 ARGS:
+		 29: HASH-public- def_%v_38 
+		 30: %self->expires_in def_%v_39 %self[4.3,4.6,4.12,4.20,2.0,] %v_37[4.28,] %v_38[4.29,] 	 SYMBOL:	 ARGS:%v_37,%v_38,
+		 31: 
+		 32: HASH-disposition- def_%v_40 
+		 33: %self->send_file def_%v_41 %self[4.3,4.6,4.12,4.20,4.30,2.0,] image[4.10,] %v_40[4.32,] 	 SYMBOL:	 ARGS:image,%v_40,
+		 34: RETURN %v_41[4.33,] %self[4.3,4.6,4.12,4.20,4.30,4.33,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = show instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->no_cookies def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: (RailsMultisite) def_%v_4 
+		 9: (inherit ConnectionManagement) def_%v_5 %v_4[2.8,] 
+		 10: %v_5[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[2.8,] 	 SYMBOL:ConnectionManagement,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->[] def_%v_7 %v_6[4.0,] 	 SYMBOL:hostname,	 ARGS:Symbol,
+		 2: %v_5->with_hostname def_%v_8 %v_5[3.0,2.9,] %v_7[4.1,] %self[4.0,2.0,] 	 SYMBOL:	 ARGS:%v_7,%v_5,
+CLOSURE BEGIN: %self[4.0,2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%cl_1_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_3->[] def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:hostname,	 ARGS:Symbol,
+		 3: %self->show_in_site def_%cl_1_5 %self[3.1,2.0,] %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:%cl_1_4,
+		 4: RETURN %cl_1_5[3.3,] %self[3.1,3.3,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: RETURN %v_8[4.2,] %self[4.0,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = show_in_site instanceMethod = true
+BB 1
+	outgoing: 57 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_hostname 
+		 6: 
+		 7: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->[] def_%v_4 %v_3[2.7,] 	 SYMBOL:username,	 ARGS:Symbol,
+		 9: %v_4->to_s def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_PASS def_username %v_5[2.9,] 
+		 11: 
+		 12: (User) def_%v_6 
+		 13: %v_5->downcase def_%v_7 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 14: HASH-username_lower- def_%v_8 %v_7[2.13,] 
+		 15: %v_6->find_by def_%v_9 %v_6[2.12,] %v_8[2.14,] 	 SYMBOL:	 ARGS:%v_8,
+		 16: COPY TYPE_PASS def_user %v_9[2.15,] 
+		 17: BRANCH %v_9[2.15,] 
+BB 3
+	outgoing: 6 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+		 2: %self->params def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_12->[] def_%v_13 %v_12[3.2,] 	 SYMBOL:version,	 ARGS:Symbol,
+		 4: COPY TYPE_StringLiteral "_" def_%v_14 
+		 5: %v_13->split def_%v_15 %v_13[3.3,] %v_14[3.4,] 	 SYMBOL:	 ARGS:%v_14,
+		 6: def_%v_16 %v_15[3.5,] 
+		 7: def_%v_17 %v_16[3.6,] 
+		 8: def_%v_18 %v_16[3.6,] 
+		 9: COPY TYPE_PASS def_upload_id %v_17[3.7,] 
+		 10: COPY TYPE_PASS def_version %v_18[3.8,] 
+		 11: 
+		 12: COPY TYPE_PASS def_%v_19 %v_18[3.8,] 
+		 13: BRANCH %v_18[3.8,] 
+BB 4
+	outgoing: 57 
+	datadep: 
+	instructions:
+		 0: %self->render_blank def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_11[4.0,] %self[4.0,2.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: (OptimizedImage) def_%v_20 
+		 1: (inherit VERSION) def_%v_21 %v_20[6.0,] 
+		 2: %v_21[6.1,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_20->const_missing def_%v_21 %v_20[6.0,] 	 SYMBOL:VERSION,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_19 %v_21[7.0,6.1,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: %v_19->to_i def_%v_22 %v_19[8.0,3.12,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_version %v_22[9.0,] 
+		 2: 
+		 3: (OptimizedImage) def_%v_23 
+		 4: (inherit VERSION) def_%v_24 %v_23[9.3,] 
+		 5: %v_24[9.4,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %v_23->const_missing def_%v_24 %v_23[9.3,] 	 SYMBOL:VERSION,	 ARGS:Symbol,
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: version->!= def_%v_25 version[9.1,] %v_24[10.0,9.4,] 	 SYMBOL:	 ARGS:%v_24,
+		 1: BRANCH %v_25[11.0,] 
+BB 12
+	outgoing: 57 
+	datadep: 
+	instructions:
+		 0: %self->render_blank def_%v_26 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_26[12.0,] %self[12.0,2.0,] 
+BB 13
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_27 
+		 1: 
+		 2: upload_id->to_i def_%v_28 upload_id[3.9,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_upload_id %v_28[13.2,] 
+		 4: 
+		 5: %v_28->> def_%v_29 %v_28[13.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 6: BRANCH %v_29[13.5,] 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: user->user_avatar def_%v_30 user[2.16,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_user_avatar %v_30[15.0,] 
+		 2: COPY TYPE_PASS def_%v_29 %v_30[15.0,] 
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_29[15.2,13.5,] 
+BB 17
+	outgoing: 20 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_31 
+		 1: 
+		 2: %self->params def_%v_33 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_33->[] def_%v_34 %v_33[17.2,] 	 SYMBOL:size,	 ARGS:Symbol,
+		 4: %v_34->to_i def_%v_35 %v_34[17.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_size %v_35[17.4,] 
+		 6: 
+		 7: %v_35->< def_%v_36 %v_35[17.4,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: BRANCH %v_36[17.7,] 
+BB 18
+	outgoing: 57 
+	datadep: 
+	instructions:
+		 0: %self->render_blank def_%v_32 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_32[18.0,] %self[18.0,2.0,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: size->> def_%v_37 size[17.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 1: COPY TYPE_PASS def_%v_36 %v_37[20.0,] 
+BB 21
+	outgoing: 22 23 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_36[20.1,17.7,] 
+BB 22
+	outgoing: 57 
+	datadep: 
+	instructions:
+		 0: %self->render_blank def_%v_38 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_38[22.0,] %self[22.0,2.0,] 
+BB 23
+	outgoing: 25 26 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_39 
+		 1: 
+		 2: (Discourse) def_%v_40 
+		 3: %v_40->avatar_sizes def_%v_41 %v_40[23.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_41->include? def_%v_42 %v_41[23.3,] size[17.5,] 	 SYMBOL:	 ARGS:size,
+		 5: %v_42->! def_%v_43 %v_42[23.4,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %v_43[23.5,] 
+BB 25
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: (Discourse) def_%v_44 
+		 1: %v_44->store def_%v_45 %v_44[25.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_45->external? def_%v_46 %v_45[25.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_43 %v_46[25.2,] 
+BB 26
+	outgoing: 27 28 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_43[25.3,23.5,] 
+BB 27
+	outgoing: 57 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Discourse) def_%v_47 
+		 2: %v_47->avatar_sizes def_%v_48 %v_47[27.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_48->to_a def_%v_49 %v_48[27.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_49->min def_%v_50 %v_49[27.3,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_49,
+CLOSURE BEGIN: size[17.5,] a[] b[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_a 
+		 3: RECEIVEARG def_b 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: size->- def_%cl_1_3 size[] a[2.2,] 	 SYMBOL:	 ARGS:a,
+		 2: %cl_1_3->abs def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: size->- def_%cl_1_5 size[3.1,] b[2.3,] 	 SYMBOL:	 ARGS:b,
+		 4: %cl_1_5->abs def_%cl_1_6 %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_4-><=> def_%cl_1_7 %cl_1_4[3.2,] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 6: RETURN %cl_1_7[3.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[4.0,] 
+		 2: RETURN %cl_1_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: b[2.3,] 
+		 5: COPY TYPE_PASS def_closest %v_50[27.4,] 
+		 6: 
+		 7: (UserAvatar) def_%v_51 
+		 8: user->username_lower def_%v_52 user[2.16,] 	 SYMBOL:	 ARGS:
+		 9: %v_51->local_avatar_url def_%v_53 %v_51[27.7,] hostname[2.5,] %v_52[27.8,] upload_id[13.3,] closest[27.5,] 	 SYMBOL:	 ARGS:hostname,%v_52,upload_id,closest,
+		 10: COPY TYPE_PASS def_avatar_url %v_53[27.9,] 
+		 11: 
+		 12: %self->cdn_path def_%v_54 %self[2.0,] %v_53[27.9,] 	 SYMBOL:	 ARGS:avatar_url,
+		 13: %self->redirect_to def_%v_55 %self[27.12,2.0,] %v_54[27.12,] 	 SYMBOL:	 ARGS:%v_54,
+		 14: RETURN %v_55[27.13,] %self[27.12,27.13,2.0,] 
+BB 28
+	outgoing: 30 31 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_56 
+		 1: 
+		 2: user_avatar->contains_upload? def_%v_57 user_avatar[15.1,] upload_id[13.3,] 	 SYMBOL:	 ARGS:upload_id,
+		 3: BRANCH %v_57[28.2,] 
+BB 30
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: (Upload) def_%v_58 
+		 1: HASH-id- def_%v_59 upload_id[13.3,] 
+		 2: %v_58->find_by def_%v_60 %v_58[30.0,] %v_59[30.1,] 	 SYMBOL:	 ARGS:%v_59,
+		 3: COPY TYPE_PASS def_upload %v_60[30.2,] 
+		 4: 
+BB 31
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_60 
+BB 32
+	outgoing: 33 36 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user->uploaded_avatar_id def_%v_61 user[2.16,] 	 SYMBOL:	 ARGS:
+		 2: %v_61->== def_%v_62 %v_61[32.1,] upload_id[13.3,] 	 SYMBOL:	 ARGS:upload_id,
+		 3: BRANCH %v_62[32.2,] 
+BB 33
+	outgoing: 34 35 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_63 upload[30.3,] 
+		 1: COPY TYPE_PASS def_%v_64 upload[30.3,] 
+		 2: BRANCH upload[30.3,] 
+BB 34
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: user->uploaded_avatar def_%v_65 user[2.16,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_upload %v_65[34.0,] 
+		 2: COPY TYPE_PASS def_%v_64 %v_65[34.0,] 
+BB 35
+	outgoing: 37 
+	datadep: 
+	instructions:
+		 0: 
+BB 36
+	outgoing: 37 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_64 
+BB 37
+	outgoing: 38 39 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user->uploaded_avatar def_%v_66 user[2.16,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_66[37.1,] 
+BB 38
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: upload->! def_%v_67 upload[34.1,30.3,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_66 %v_67[38.0,] 
+BB 39
+	outgoing: 40 41 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_66[38.1,37.1,] 
+BB 40
+	outgoing: 57 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (UserAvatar) def_%v_68 
+		 2: user->username_lower def_%v_69 user[2.16,] 	 SYMBOL:	 ARGS:
+		 3: user->uploaded_avatar_id def_%v_70 user[40.2,2.16,] 	 SYMBOL:	 ARGS:
+		 4: %v_68->local_avatar_url def_%v_71 %v_68[40.1,] hostname[2.5,] %v_69[40.2,] %v_70[40.3,] size[17.5,] 	 SYMBOL:	 ARGS:hostname,%v_69,%v_70,size,
+		 5: COPY TYPE_PASS def_avatar_url %v_71[40.4,] 
+		 6: 
+		 7: %self->cdn_path def_%v_72 %self[2.0,] %v_71[40.4,] 	 SYMBOL:	 ARGS:avatar_url,
+		 8: %self->redirect_to def_%v_73 %self[40.7,2.0,] %v_72[40.7,] 	 SYMBOL:	 ARGS:%v_72,
+		 9: RETURN %v_73[40.8,] %self[40.7,40.8,2.0,] 
+BB 41
+	outgoing: 42 43 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_75 upload[34.1,30.3,] 
+		 2: BRANCH upload[34.1,30.3,] 
+BB 42
+	outgoing: 43 
+	datadep: 
+	instructions:
+		 0: %self->get_optimized_image def_%v_76 %self[2.0,] upload[34.1,30.3,] size[17.5,] 	 SYMBOL:	 ARGS:upload,size,
+		 1: COPY TYPE_PASS def_optimized %v_76[42.0,] 
+		 2: COPY TYPE_PASS def_%v_75 %v_76[42.0,] 
+BB 43
+	outgoing: 44 51 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_75[42.2,41.1,] 
+BB 44
+	outgoing: 45 49 
+	datadep: 
+	instructions:
+		 0: 
+		 1: optimized->local? def_%v_77 optimized[42.1,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_77[44.1,] 
+BB 45
+	outgoing: 46 47 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Discourse) def_%v_78 
+		 2: %v_78->store def_%v_79 %v_78[45.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_79->path_for def_%v_80 %v_79[45.2,] optimized[42.1,] 	 SYMBOL:	 ARGS:optimized,
+		 4: COPY TYPE_PASS def_optimized_path %v_80[45.3,] 
+		 5: 
+		 6: (File) def_%v_81 
+		 7: %v_81->exists? def_%v_82 %v_81[45.6,] %v_80[45.3,] 	 SYMBOL:	 ARGS:optimized_path,
+		 8: BRANCH %v_82[45.7,] 
+BB 46
+	outgoing: 48 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_image optimized_path[45.4,] 
+		 1: COPY TYPE_PASS def_%v_83 optimized_path[45.4,] 
+		 2: 
+BB 47
+	outgoing: 48 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_83 
+BB 48
+	outgoing: 52 
+	datadep: 
+	instructions:
+		 0: 
+BB 49
+	outgoing: 57 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Discourse) def_%v_84 
+		 2: %v_84->store def_%v_85 %v_84[49.1,] 	 SYMBOL:	 ARGS:
+		 3: optimized->url def_%v_86 optimized[42.1,] 	 SYMBOL:	 ARGS:
+		 4: %v_85->cdn_url def_%v_87 %v_85[49.2,] %v_86[49.3,] 	 SYMBOL:	 ARGS:%v_86,
+		 5: %self->proxy_avatar def_%v_88 %self[2.0,] %v_87[49.4,] 	 SYMBOL:	 ARGS:%v_87,
+		 6: RETURN %v_88[49.5,] %self[49.5,2.0,] 
+BB 51
+	outgoing: 52 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_83 
+BB 52
+	outgoing: 54 55 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_74 %v_83[51.0,47.0,46.1,] 
+		 1: 
+		 2: BRANCH image[46.0,] 
+BB 54
+	outgoing: 57 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->response def_%v_89 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_89->headers def_%v_90 %v_89[54.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "Last-Modified" def_%v_91 
+		 4: (File) def_%v_92 
+		 5: %v_92->ctime def_%v_93 %v_92[54.4,] image[46.0,] 	 SYMBOL:	 ARGS:image,
+		 6: %v_93->httpdate def_%v_94 %v_93[54.5,] 	 SYMBOL:	 ARGS:
+		 7: ATTRASSIGN %v_90->[] %v_91[54.3,] %v_94[54.6,] 
+		 8: 
+		 9: %self->response def_%v_95 %self[54.1,2.0,] 	 SYMBOL:	 ARGS:
+		 10: %v_95->headers def_%v_96 %v_95[54.9,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_StringLiteral "Content-Length" def_%v_97 
+		 12: (File) def_%v_98 
+		 13: %v_98->size def_%v_99 %v_98[54.12,] image[46.0,] 	 SYMBOL:	 ARGS:image,
+		 14: %v_99->to_s def_%v_100 %v_99[54.13,] 	 SYMBOL:	 ARGS:
+		 15: ATTRASSIGN %v_96->[] %v_97[54.11,] %v_100[54.14,] 
+		 16: 
+		 17: CONSTANT def_%v_101 	 SYMBOL:	 ARGS:
+		 18: HASH-public- def_%v_102 
+		 19: %self->expires_in def_%v_103 %self[54.1,54.9,2.0,] %v_101[54.17,] %v_102[54.18,] 	 SYMBOL:	 ARGS:%v_101,%v_102,
+		 20: 
+		 21: HASH-disposition- def_%v_104 
+		 22: %self->send_file def_%v_105 %self[54.1,54.9,54.19,2.0,] image[46.0,] %v_104[54.21,] 	 SYMBOL:	 ARGS:image,%v_104,
+		 23: RETURN %v_105[54.22,] %self[54.1,54.9,54.19,54.22,2.0,] 
+BB 55
+	outgoing: 57 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->render_blank def_%v_106 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_106[55.1,] %self[55.1,2.0,] 
+BB 57
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = proxy_avatar instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_url 
+		 6: 
+		 7: CONSTANT def_%v_3 
+		 8: url->[] def_%v_4 url[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: COPY TYPE_StringLiteral "//" def_%v_5 
+		 10: %v_4->== def_%v_6 %v_4[2.8,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: BRANCH %v_6[2.10,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_7 
+		 2: %v_7->use_https def_%v_8 %v_7[3.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_8[3.2,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "https:" def_%v_9 
+		 1: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "http:" def_%v_10 
+		 1: COPY TYPE_PASS def_%v_9 %v_10[5.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_9->+ def_%v_11 %v_9[5.1,4.0,] url[2.5,] 	 SYMBOL:	 ARGS:url,
+		 1: COPY TYPE_PASS def_url %v_11[6.0,] 
+		 2: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Digest) def_%v_12 
+		 2: (inherit SHA1) def_%v_13 %v_12[8.1,] 
+		 3: %v_13[8.2,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_12->const_missing def_%v_13 %v_12[8.1,] 	 SYMBOL:SHA1,	 ARGS:Symbol,
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: %v_13->hexdigest def_%v_14 %v_13[9.0,8.2,] url[6.1,2.5,] 	 SYMBOL:	 ARGS:url,
+		 1: COPY TYPE_PASS def_sha %v_14[10.0,] 
+		 2: 
+		 3: (File) def_%v_15 
+		 4: %v_15->extname def_%v_16 %v_15[10.3,] url[6.1,2.5,] 	 SYMBOL:	 ARGS:url,
+		 5: BUILDSTRING def_%v_17 sha[10.1,] %v_16[10.4,] 
+		 6: COPY TYPE_PASS def_filename %v_17[10.5,] 
+		 7: 
+		 8: (PROXY_PATH) def_%v_18 
+		 9: COPY TYPE_StringLiteral "/" def_%v_19 
+		 10: BUILDSTRING def_%v_20 %v_18[10.8,] %v_19[10.9,] %v_17[10.5,] 
+		 11: COPY TYPE_PASS def_path %v_20[10.10,] 
+		 12: 
+		 13: (File) def_%v_21 
+		 14: %v_21->exist? def_%v_22 %v_21[10.13,] %v_20[10.10,] 	 SYMBOL:	 ARGS:path,
+		 15: BRANCH %v_22[10.14,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_23 
+		 1: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (FileUtils) def_%v_24 
+		 2: (PROXY_PATH) def_%v_25 
+		 3: %v_24->mkdir_p def_%v_26 %v_24[12.1,] %v_25[12.2,] 	 SYMBOL:	 ARGS:%v_25,
+		 4: 
+		 5: (FileHelper) def_%v_27 
+		 6: CONSTANT def_%v_28 	 SYMBOL:	 ARGS:
+		 7: %v_27->download def_%v_29 %v_27[12.5,] url[6.1,2.5,] %v_28[12.6,] filename[10.6,] 	 SYMBOL:	 ARGS:url,%v_28,filename,Boolean,
+		 8: COPY TYPE_PASS def_tmp %v_29[12.7,] 
+		 9: 
+		 10: (FileUtils) def_%v_30 
+		 11: %v_29->path def_%v_31 %v_29[12.7,] 	 SYMBOL:	 ARGS:
+		 12: %v_30->mv def_%v_32 %v_30[12.10,] %v_31[12.11,] path[10.11,] 	 SYMBOL:	 ARGS:%v_31,path,
+		 13: COPY TYPE_PASS def_%v_23 %v_32[12.12,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->response def_%v_33 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_33->headers def_%v_34 %v_33[13.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "Last-Modified" def_%v_35 
+		 4: (DateTime) def_%v_36 
+		 5: COPY TYPE_StringLiteral "1-1-2000" def_%v_37 
+		 6: %v_36->parse def_%v_38 %v_36[13.4,] %v_37[13.5,] 	 SYMBOL:	 ARGS:%v_37,
+		 7: %v_38->httpdate def_%v_39 %v_38[13.6,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN %v_34->[] %v_35[13.3,] %v_39[13.7,] 
+		 9: 
+		 10: %self->response def_%v_40 %self[13.1,2.0,] 	 SYMBOL:	 ARGS:
+		 11: %v_40->headers def_%v_41 %v_40[13.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral "Content-Length" def_%v_42 
+		 13: (File) def_%v_43 
+		 14: %v_43->size def_%v_44 %v_43[13.13,] path[10.11,] 	 SYMBOL:	 ARGS:path,
+		 15: %v_44->to_s def_%v_45 %v_44[13.14,] 	 SYMBOL:	 ARGS:
+		 16: ATTRASSIGN %v_41->[] %v_42[13.12,] %v_45[13.15,] 
+		 17: 
+		 18: CONSTANT def_%v_46 	 SYMBOL:	 ARGS:
+		 19: HASH-public- def_%v_47 
+		 20: %self->expires_in def_%v_48 %self[13.1,13.10,2.0,] %v_46[13.18,] %v_47[13.19,] 	 SYMBOL:	 ARGS:%v_46,%v_47,
+		 21: 
+		 22: HASH-disposition- def_%v_49 
+		 23: %self->send_file def_%v_50 %self[13.1,13.10,13.20,2.0,] path[10.11,] %v_49[13.22,] 	 SYMBOL:	 ARGS:path,%v_49,
+		 24: RETURN %v_50[13.23,] %self[13.1,13.10,13.20,13.23,2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = render_blank instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Rails) def_%v_3 
+		 7: %v_3->root def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "public/images/avatar.png" def_%v_5 
+		 9: %v_4->+ def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: COPY TYPE_PASS def_path %v_6[2.9,] 
+		 11: 
+		 12: CONSTANT def_%v_7 	 SYMBOL:	 ARGS:
+		 13: HASH-public- def_%v_8 
+		 14: %self->expires_in def_%v_9 %self[2.0,] %v_7[2.12,] %v_8[2.13,] 	 SYMBOL:	 ARGS:%v_7,%v_8,
+		 15: 
+		 16: %self->response def_%v_10 %self[2.0,2.14,] 	 SYMBOL:	 ARGS:
+		 17: %v_10->headers def_%v_11 %v_10[2.16,] 	 SYMBOL:	 ARGS:
+		 18: COPY TYPE_StringLiteral "Last-Modified" def_%v_12 
+		 19: (DateTime) def_%v_13 
+		 20: COPY TYPE_StringLiteral "1-1-2000" def_%v_14 
+		 21: %v_13->parse def_%v_15 %v_13[2.19,] %v_14[2.20,] 	 SYMBOL:	 ARGS:%v_14,
+		 22: %v_15->httpdate def_%v_16 %v_15[2.21,] 	 SYMBOL:	 ARGS:
+		 23: ATTRASSIGN %v_11->[] %v_12[2.18,] %v_16[2.22,] 
+		 24: 
+		 25: %self->response def_%v_17 %self[2.0,2.14,2.16,] 	 SYMBOL:	 ARGS:
+		 26: %v_17->headers def_%v_18 %v_17[2.25,] 	 SYMBOL:	 ARGS:
+		 27: COPY TYPE_StringLiteral "Content-Length" def_%v_19 
+		 28: (File) def_%v_20 
+		 29: %v_20->size def_%v_21 %v_20[2.28,] path[2.10,] 	 SYMBOL:	 ARGS:path,
+		 30: %v_21->to_s def_%v_22 %v_21[2.29,] 	 SYMBOL:	 ARGS:
+		 31: ATTRASSIGN %v_18->[] %v_19[2.27,] %v_22[2.30,] 
+		 32: 
+		 33: HASH-disposition- def_%v_23 
+		 34: %self->send_file def_%v_24 %self[2.0,2.14,2.16,2.25,] path[2.10,] %v_23[2.33,] 	 SYMBOL:	 ARGS:path,%v_23,
+		 35: RETURN %v_24[2.34,] %self[2.0,2.14,2.16,2.25,2.34,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_optimized_image instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_upload 
+		 6: RECEIVEARG def_size 
+		 7: 
+		 8: (OptimizedImage) def_%v_3 
+		 9: upload->original_filename def_%v_4 upload[2.5,] 	 SYMBOL:	 ARGS:
+		 10: (SiteSetting) def_%v_5 
+		 11: %v_5->allow_animated_avatars def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: HASH-filename-allow_animation- def_%v_7 %v_4[2.9,] %v_6[2.11,] 
+		 13: %v_3->create_for def_%v_8 %v_3[2.8,] upload[2.5,2.9,] size[2.6,] size[2.6,] %v_7[2.12,] 	 SYMBOL:	 ARGS:upload,size,size,%v_7,
+		 14: RETURN %v_8[2.13,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

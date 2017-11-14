@@ -1,0 +1,117 @@
+SET IRMethod, name = view_for instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->views def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: user->id def_%v_4 user[2.5,] 	 SYMBOL:	 ARGS:
+		 9: HASH-user_id- def_%v_5 %v_4[2.8,] 
+		 10: %v_3->find_by def_%v_6 %v_3[2.7,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: RETURN %v_6[2.10,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = register_view_by instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: BRANCH user[2.5,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_3 
+		 1: 
+		 2: %self->views def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: user->id def_%v_5 user[2.5,] 	 SYMBOL:	 ARGS:
+		 4: HASH-user_id- def_%v_6 %v_5[3.3,] 
+		 5: %v_4->find_or_create_by def_%v_7 %v_4[3.2,] %v_6[3.4,] 	 SYMBOL:	 ARGS:%v_6,
+		 6: COPY TYPE_PASS def_view %v_7[3.5,] 
+		 7: 
+		 8: COPY TYPE_StringLiteral "count" def_%v_8 
+		 9: %v_7->increment! def_%v_9 %v_7[3.5,] %v_8[3.8,] 	 SYMBOL:	 ARGS:%v_8,
+		 10: 
+		 11: %self->increment! def_%v_10 %self[3.2,2.0,] 	 SYMBOL:views_count,	 ARGS:Symbol,
+		 12: 
+		 13: view->current_viewed_at def_%v_11 view[3.6,] 	 SYMBOL:	 ARGS:
+		 14: %v_11->nil? def_%v_12 %v_11[3.13,] 	 SYMBOL:	 ARGS:
+		 15: BRANCH %v_12[3.14,] 
+BB 4
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Time) def_%v_13 
+		 2: %v_13->now def_%v_14 %v_13[6.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN view->current_viewed_at %v_14[6.2,] 
+		 4: ATTRASSIGN view->past_viewed_at %v_14[6.2,] 
+		 5: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: view->current_viewed_at def_%v_15 view[6.3,6.4,3.6,] 	 SYMBOL:	 ARGS:
+		 2: CONSTANT def_%v_16 	 SYMBOL:	 ARGS:
+		 3: %v_16->ago def_%v_17 %v_16[8.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_15->< def_%v_18 %v_15[8.1,] %v_17[8.3,] 	 SYMBOL:	 ARGS:%v_17,
+		 5: BRANCH %v_18[8.4,] 
+BB 9
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: view->current_viewed_at def_%v_19 view[6.3,6.4,3.6,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN view->past_viewed_at %v_19[9.1,] 
+		 3: 
+		 4: (Time) def_%v_20 
+		 5: %v_20->now def_%v_21 %v_20[9.4,] 	 SYMBOL:	 ARGS:
+		 6: ATTRASSIGN view->current_viewed_at %v_21[9.5,] 
+		 7: 
+		 8: view->save def_%v_22 view[9.1,9.2,9.6,6.3,6.4,3.6,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %v_22[9.8,] %self[2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+

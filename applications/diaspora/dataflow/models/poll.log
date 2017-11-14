@@ -1,0 +1,131 @@
+SET IRMethod, name = enough_poll_answers instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->poll_answers def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->size def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->< def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:Fixnum,
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->errors def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: (I18n) def_%v_7 
+		 2: COPY TYPE_StringLiteral "activerecord.errors.models.poll.attributes.poll_answers.not_enough_poll_answers" def_%v_8 
+		 3: %v_7->t def_%v_9 %v_7[3.1,] %v_8[3.2,] 	 SYMBOL:	 ARGS:%v_8,
+		 4: %v_6->add def_%v_10 %v_6[3.0,] %v_9[3.3,] 	 SYMBOL:poll_answers,	 ARGS:Symbol,%v_9,
+		 5: RETURN %v_10[3.4,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = as_json instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_options 
+		 6: options[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->id def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->status_message def_%v_5 %self[4.1,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->id def_%v_6 %v_5[4.2,] 	 SYMBOL:	 ARGS:
+		 4: %self->question def_%v_7 %self[4.1,4.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %self->poll_answers def_%v_8 %self[4.1,4.2,4.4,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %self->participation_count def_%v_9 %self[4.1,4.2,4.4,4.5,2.0,] 	 SYMBOL:	 ARGS:
+		 7: HASH-poll_id-post_id-question-poll_answers-participation_count- def_%v_10 %v_4[4.1,] %v_6[4.3,] %v_7[4.4,] %v_8[4.5,] %v_9[4.6,] 
+		 8: RETURN %v_10[4.7,] %self[4.1,4.2,4.4,4.5,4.6,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = participation_count instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->poll_answers def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "vote_count" def_%v_4 
+		 8: %v_3->sum def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = already_participated? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->poll_participations def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: user->person def_%v_4 user[2.5,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->id def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: HASH-author_id- def_%v_6 %v_5[2.9,] 
+		 11: %v_3->where def_%v_7 %v_3[2.7,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_6,
+		 12: %v_7->present? def_%v_8 %v_7[2.11,] 	 SYMBOL:	 ARGS:
+		 13: RETURN %v_8[2.12,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

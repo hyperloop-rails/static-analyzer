@@ -1,0 +1,432 @@
+SET IRMethod, name = downcase_email instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->email def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->downcase def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN %self->email %v_4[2.7,] 
+		 9: RETURN %v_4[2.7,] %self[2.0,2.6,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = block instanceMethod = false
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_email 
+		 6: RECEIVECONSTARG def_opts 
+		 7: opts[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Email) def_%v_4 
+		 2: %v_4->downcase def_%v_5 %v_4[4.1,] email[2.5,] 	 SYMBOL:	 ARGS:email,
+		 3: %self->find_by_email def_%v_6 %self[2.0,] %v_5[4.2,] 	 SYMBOL:	 ARGS:%v_5,
+		 4: BRANCH %v_6[4.3,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: opts->slice def_%v_7 opts[3.1,2.6,] 	 SYMBOL:action_type,ip_address,	 ARGS:Symbol,Symbol,
+		 1: HASH-email- def_%v_8 email[2.5,] 
+		 2: %v_7->merge def_%v_9 %v_7[5.0,] %v_8[5.1,] 	 SYMBOL:	 ARGS:%v_8,
+		 3: %self->create def_%v_10 %self[2.0,] %v_9[5.2,] 	 SYMBOL:	 ARGS:%v_9,
+		 4: RETURN %v_10[5.3,] %self[5.3,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_6[4.3,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = should_block? instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_email 
+		 6: 
+		 7: (ScreenedEmail) def_%v_3 
+		 8: HASH-created_at- def_%v_4 
+		 9: %v_3->order def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: %v_5->limit def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:Fixnum,
+		 11: COPY TYPE_PASS def_screened_emails %v_6[2.10,] 
+		 12: 
+		 13: HASH- def_%v_7 
+		 14: COPY TYPE_PASS def_distances %v_7[2.13,] 
+		 15: 
+		 16: %v_6->each def_%v_8 %v_6[2.10,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_6,
+CLOSURE BEGIN: se[] email[2.5,] %self[2.0,] distances[2.14,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_se 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: se->email def_%cl_1_3 se[2.2,] 	 SYMBOL:	 ARGS:
+		 2: se->email def_%cl_1_4 se[3.1,2.2,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_4->downcase def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: email->downcase def_%cl_1_6 email[] 	 SYMBOL:	 ARGS:
+		 5: %self->levenshtein def_%cl_1_7 %self[2.0,] %cl_1_5[3.3,] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_5,%cl_1_6,
+		 6: ATTRASSIGN distances->[] %cl_1_3[3.1,] %cl_1_7[3.5,] 
+		 7: RETURN %cl_1_7[3.5,] %self[3.5,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[4.0,] 
+		 2: RETURN %cl_1_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 17: 
+		 18: (SiteSetting) def_%v_9 
+		 19: %v_9->levenshtein_distance_spammer_emails def_%v_10 %v_9[2.18,] 	 SYMBOL:	 ARGS:
+		 20: COPY TYPE_PASS def_max_distance %v_10[2.19,] 
+		 21: 
+		 22: screened_emails->select def_%v_11 screened_emails[2.11,] %self[2.0,] 	 SYMBOL:	 ARGS:screened_emails,
+CLOSURE BEGIN: se[2.16,] distances[2.14,] max_distance[2.20,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_se 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: se->email def_%cl_2_3 se[2.2,] 	 SYMBOL:	 ARGS:
+		 2: distances->[] def_%cl_2_4 distances[] %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:%cl_2_3,
+		 3: %cl_2_4-><= def_%cl_2_5 %cl_2_4[3.2,] max_distance[] 	 SYMBOL:	 ARGS:max_distance,
+		 4: RETURN %cl_2_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_6 
+		 1: def_%cl_2_7 %cl_2_6[4.0,] 
+		 2: RETURN %cl_2_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 23: %v_11->sort def_%v_12 %v_11[2.22,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_11,
+CLOSURE BEGIN: se[2.16,2.22,] distances[2.14,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_se 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: se->email def_%cl_3_3 se[2.2,] 	 SYMBOL:	 ARGS:
+		 2: distances->[] def_%cl_3_4 distances[] %cl_3_3[3.1,] 	 SYMBOL:	 ARGS:%cl_3_3,
+		 3: RETURN %cl_3_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_5 
+		 1: def_%cl_3_6 %cl_3_5[4.0,] 
+		 2: RETURN %cl_3_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 24: %v_12->first def_%v_13 %v_12[2.23,] 	 SYMBOL:	 ARGS:
+		 25: COPY TYPE_PASS def_screened_email %v_13[2.24,] 
+		 26: 
+		 27: BRANCH %v_13[2.24,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: screened_email->record_match! def_%v_14 screened_email[2.25,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: screened_email->try def_%v_15 screened_email[2.25,] 	 SYMBOL:action_type,	 ARGS:Symbol,
+		 2: %self->actions def_%v_16 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_16->[] def_%v_17 %v_16[5.2,] 	 SYMBOL:block,	 ARGS:Symbol,
+		 4: %v_15->== def_%v_18 %v_15[5.1,] %v_17[5.3,] 	 SYMBOL:	 ARGS:%v_17,
+		 5: RETURN %v_18[5.4,] %self[5.2,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = levenshtein instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_first 
+		 6: RECEIVEARG def_second 
+		 7: 
+		 8: first->length def_%v_4 first[2.5,] 	 SYMBOL:	 ARGS:
+		 9: CONSTANT def_%v_3 %v_4[2.8,] 
+		 10: %v_3->to_a def_%v_5 %v_3[2.9,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_Array def_%v_6 %v_5[2.10,] 
+		 12: COPY TYPE_PASS def_matrix %v_6[2.11,] 
+		 13: 
+		 14: second->length def_%v_8 second[2.6,] 	 SYMBOL:	 ARGS:
+		 15: CONSTANT def_%v_7 %v_8[2.14,] 
+		 16: %v_7->each def_%v_9 %v_7[2.15,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: j[] first[2.5,2.8,] matrix[2.12,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_j 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Array def_%cl_1_3 j[2.2,] 
+		 2: COPY TYPE_Array def_%cl_1_4 
+		 3: first->length def_%cl_1_5 first[] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_4->* def_%cl_1_6 %cl_1_4[3.2,] %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:%cl_1_5,
+		 5: %cl_1_3->+ def_%cl_1_7 %cl_1_3[3.1,] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 6: matrix-><< def_%cl_1_8 matrix[] %cl_1_7[3.5,] 	 SYMBOL:	 ARGS:%cl_1_7,
+		 7: RETURN %cl_1_8[3.6,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_9 
+		 1: def_%cl_1_10 %cl_1_9[4.0,] 
+		 2: RETURN %cl_1_10[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 17: 
+		 18: second->length def_%v_11 second[2.6,2.14,] 	 SYMBOL:	 ARGS:
+		 19: CONSTANT def_%v_10 %v_11[2.18,] 
+		 20: %v_10->each def_%v_12 %v_10[2.19,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_10,
+CLOSURE BEGIN: first[2.5,2.8,] %self[2.0,] j[2.16,] i[] second[2.6,2.14,2.18,] matrix[2.12,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_i 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: first->length def_%cl_2_4 first[] 	 SYMBOL:	 ARGS:
+		 2: CONSTANT def_%cl_2_3 %cl_2_4[3.1,] 
+		 3: %cl_2_3->each def_%cl_2_5 %cl_2_3[3.2,] %self[2.0,] 	 SYMBOL:	 ARGS:%cl_2_3,
+CLOSURE BEGIN: j[] first[3.1,] i[2.2,] second[] matrix[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_j 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: j->- def_%cl_3_3 j[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: first->[] def_%cl_3_4 first[] %cl_3_3[3.1,] 	 SYMBOL:	 ARGS:%cl_3_3,
+		 3: i->- def_%cl_3_5 i[] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: second->[] def_%cl_3_6 second[] %cl_3_5[3.3,] 	 SYMBOL:	 ARGS:%cl_3_5,
+		 5: %cl_3_4->== def_%cl_3_7 %cl_3_4[3.2,] %cl_3_6[3.4,] 	 SYMBOL:	 ARGS:%cl_3_6,
+		 6: BRANCH %cl_3_7[3.5,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: matrix->[] def_%cl_3_8 matrix[] i[] 	 SYMBOL:	 ARGS:i,
+		 2: i->- def_%cl_3_9 i[] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: matrix->[] def_%cl_3_10 matrix[4.1,] %cl_3_9[4.2,] 	 SYMBOL:	 ARGS:%cl_3_9,
+		 4: j->- def_%cl_3_11 j[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: %cl_3_10->[] def_%cl_3_12 %cl_3_10[4.3,] %cl_3_11[4.4,] 	 SYMBOL:	 ARGS:%cl_3_11,
+		 6: ATTRASSIGN %cl_3_8->[] j[4.4,2.2,] %cl_3_12[4.5,] 
+		 7: 
+BB 5
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: matrix->[] def_%cl_3_13 matrix[] i[] 	 SYMBOL:	 ARGS:i,
+		 2: i->- def_%cl_3_14 i[] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: matrix->[] def_%cl_3_15 matrix[5.1,] %cl_3_14[5.2,] 	 SYMBOL:	 ARGS:%cl_3_14,
+		 4: %cl_3_15->[] def_%cl_3_16 %cl_3_15[5.3,] j[2.2,] 	 SYMBOL:	 ARGS:j,
+		 5: matrix->[] def_%cl_3_17 matrix[5.1,5.3,] i[5.2,] 	 SYMBOL:	 ARGS:i,
+		 6: j->- def_%cl_3_18 j[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 7: %cl_3_17->[] def_%cl_3_19 %cl_3_17[5.5,] %cl_3_18[5.6,] 	 SYMBOL:	 ARGS:%cl_3_18,
+		 8: i->- def_%cl_3_20 i[5.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 9: matrix->[] def_%cl_3_21 matrix[5.1,5.3,5.5,] %cl_3_20[5.8,] 	 SYMBOL:	 ARGS:%cl_3_20,
+		 10: j->- def_%cl_3_22 j[5.6,2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 11: %cl_3_21->[] def_%cl_3_23 %cl_3_21[5.9,] %cl_3_22[5.10,] 	 SYMBOL:	 ARGS:%cl_3_22,
+		 12: COPY TYPE_Array def_%cl_3_24 %cl_3_16[5.4,] %cl_3_19[5.7,] %cl_3_23[5.11,] 
+		 13: %cl_3_24->min def_%cl_3_25 %cl_3_24[5.12,] 	 SYMBOL:	 ARGS:
+		 14: %cl_3_25->+ def_%cl_3_26 %cl_3_25[5.13,] 	 SYMBOL:	 ARGS:Fixnum,
+		 15: ATTRASSIGN %cl_3_13->[] j[5.6,5.10,2.2,] %cl_3_26[5.14,] 
+		 16: RETURN %cl_3_26[5.14,] %self[2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_3_12[4.5,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_27 
+		 1: def_%cl_3_28 %cl_3_27[7.0,] 
+		 2: RETURN %cl_3_28[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: RETURN %cl_2_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_6 
+		 1: def_%cl_2_7 %cl_2_6[4.0,] 
+		 2: RETURN %cl_2_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 21: 
+		 22: matrix->last def_%v_13 matrix[2.12,] 	 SYMBOL:	 ARGS:
+		 23: %v_13->last def_%v_14 %v_13[2.22,] 	 SYMBOL:	 ARGS:
+		 24: RETURN %v_14[2.23,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

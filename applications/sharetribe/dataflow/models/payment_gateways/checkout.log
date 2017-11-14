@@ -1,0 +1,816 @@
+SET IRMethod, name = form_template_dir instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "payments/complex_form" def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = gateway_templates_dir instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "payments/checkout" def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = invoice_form_type instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "complex" def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = payment_data instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_payment 
+		 6: RECEIVECONSTARG def_options 
+		 7: options[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_4 options[3.1,2.6,] 	 SYMBOL:mock,	 ARGS:Symbol,
+		 2: BRANCH %v_4[4.1,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "375917" def_%v_5 
+		 2: COPY TYPE_PASS def_merchant_id %v_5[5.1,] 
+		 3: 
+		 4: COPY TYPE_StringLiteral "SAIPPUAKAUPPIAS" def_%v_6 
+		 5: COPY TYPE_PASS def_merchant_key %v_6[5.4,] 
+		 6: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: payment->recipient def_%v_7 payment[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->checkout_account def_%v_8 %v_7[6.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_8->merchant_id def_%v_9 %v_8[6.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_merchant_id %v_9[6.3,] 
+		 5: 
+		 6: payment->recipient def_%v_10 payment[6.1,2.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_10->checkout_account def_%v_11 %v_10[6.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_11->merchant_key def_%v_12 %v_11[6.7,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_PASS def_merchant_key %v_12[6.8,] 
+		 10: COPY TYPE_PASS def_%v_6 %v_12[6.8,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "VERSION" def_%v_13 
+		 2: COPY TYPE_StringLiteral "0001" def_%v_14 
+		 3: COPY TYPE_StringLiteral "STAMP" def_%v_15 
+		 4: COPY TYPE_StringLiteral "sharetribe_" def_%v_16 
+		 5: 
+		 6: payment->id def_%v_17 payment[2.5,] 	 SYMBOL:	 ARGS:
+		 7: BUILDSTRING def_%v_18 %v_16[7.4,] %v_17[7.6,] 
+		 8: COPY TYPE_StringLiteral "AMOUNT" def_%v_19 
+		 9: payment->total_sum def_%v_20 payment[7.6,2.5,] 	 SYMBOL:	 ARGS:
+		 10: %v_20->cents def_%v_21 %v_20[7.9,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_StringLiteral "REFERENCE" def_%v_22 
+		 12: COPY TYPE_StringLiteral "1009" def_%v_23 
+		 13: COPY TYPE_StringLiteral "MESSAGE" def_%v_24 
+		 14: payment->summary_string def_%v_25 payment[7.6,7.9,2.5,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_StringLiteral "LANGUAGE" def_%v_26 
+		 16: COPY TYPE_StringLiteral "FI" def_%v_27 
+		 17: COPY TYPE_StringLiteral "MERCHANT" def_%v_28 
+		 18: COPY TYPE_StringLiteral "RETURN" def_%v_29 
+		 19: options->[] def_%v_30 options[3.1,2.6,] 	 SYMBOL:return_url,	 ARGS:Symbol,
+		 20: COPY TYPE_StringLiteral "CANCEL" def_%v_31 
+		 21: options->[] def_%v_32 options[7.19,3.1,2.6,] 	 SYMBOL:cancel_url,	 ARGS:Symbol,
+		 22: COPY TYPE_StringLiteral "COUNTRY" def_%v_33 
+		 23: COPY TYPE_StringLiteral "FIN" def_%v_34 
+		 24: COPY TYPE_StringLiteral "CURRENCY" def_%v_35 
+		 25: COPY TYPE_StringLiteral "EUR" def_%v_36 
+		 26: COPY TYPE_StringLiteral "DEVICE" def_%v_37 
+		 27: COPY TYPE_StringLiteral "CONTENT" def_%v_38 
+		 28: COPY TYPE_StringLiteral "TYPE" def_%v_39 
+		 29: COPY TYPE_StringLiteral "ALGORITHM" def_%v_40 
+		 30: COPY TYPE_StringLiteral "DELIVERY_DATE" def_%v_41 
+		 31: CONSTANT def_%v_42 	 SYMBOL:	 ARGS:
+		 32: %v_42->from_now def_%v_43 %v_42[7.31,] 	 SYMBOL:	 ARGS:
+		 33: COPY TYPE_StringLiteral "%Y%m%d" def_%v_44 
+		 34: %v_43->strftime def_%v_45 %v_43[7.32,] %v_44[7.33,] 	 SYMBOL:	 ARGS:%v_44,
+		 35: HASH- def_%v_46 %v_13[7.1,] %v_14[7.2,] %v_15[7.3,] %v_18[7.7,] %v_19[7.8,] %v_21[7.10,] %v_22[7.11,] %v_23[7.12,] %v_24[7.13,] %v_25[7.14,] %v_26[7.15,] %v_27[7.16,] %v_28[7.17,] merchant_id[6.4,5.2,] %v_29[7.18,] %v_30[7.19,] %v_31[7.20,] %v_32[7.21,] %v_33[7.22,] %v_34[7.23,] %v_35[7.24,] %v_36[7.25,] %v_37[7.26,] %v_38[7.27,] %v_39[7.28,] %v_40[7.29,] %v_41[7.30,] %v_45[7.34,] 
+		 36: COPY TYPE_PASS def_data %v_46[7.35,] 
+		 37: 
+		 38: (Rails) def_%v_47 
+		 39: %v_47->env def_%v_48 %v_47[7.38,] 	 SYMBOL:	 ARGS:
+		 40: %v_48->test? def_%v_49 %v_48[7.39,] 	 SYMBOL:	 ARGS:
+		 41: BRANCH %v_49[7.40,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "STAMP" def_%v_50 
+		 1: (Devise) def_%v_51 
+		 2: %v_51->friendly_token def_%v_52 %v_51[8.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN data->[] %v_50[8.0,] %v_52[8.2,] 
+		 4: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_52 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "MAC" def_%v_53 
+		 2: (Digest) def_%v_54 
+		 3: (inherit MD5) def_%v_55 %v_54[10.2,] 
+		 4: %v_55[10.3,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %v_54->const_missing def_%v_55 %v_54[10.2,] 	 SYMBOL:MD5,	 ARGS:Symbol,
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "VERSION" def_%v_56 
+		 1: data->[] def_%v_57 data[8.3,7.36,] %v_56[12.0,] 	 SYMBOL:	 ARGS:%v_56,
+		 2: COPY TYPE_StringLiteral "+" def_%v_58 
+		 3: COPY TYPE_StringLiteral "STAMP" def_%v_59 
+		 4: data->[] def_%v_60 data[12.1,8.3,7.36,] %v_59[12.3,] 	 SYMBOL:	 ARGS:%v_59,
+		 5: COPY TYPE_StringLiteral "+" def_%v_61 
+		 6: COPY TYPE_StringLiteral "AMOUNT" def_%v_62 
+		 7: data->[] def_%v_63 data[12.1,12.4,8.3,7.36,] %v_62[12.6,] 	 SYMBOL:	 ARGS:%v_62,
+		 8: COPY TYPE_StringLiteral "+" def_%v_64 
+		 9: COPY TYPE_StringLiteral "REFERENCE" def_%v_65 
+		 10: data->[] def_%v_66 data[12.1,12.4,12.7,8.3,7.36,] %v_65[12.9,] 	 SYMBOL:	 ARGS:%v_65,
+		 11: COPY TYPE_StringLiteral "+" def_%v_67 
+		 12: COPY TYPE_StringLiteral "MESSAGE" def_%v_68 
+		 13: data->[] def_%v_69 data[12.1,12.4,12.7,12.10,8.3,7.36,] %v_68[12.12,] 	 SYMBOL:	 ARGS:%v_68,
+		 14: COPY TYPE_StringLiteral "+" def_%v_70 
+		 15: COPY TYPE_StringLiteral "LANGUAGE" def_%v_71 
+		 16: data->[] def_%v_72 data[12.1,12.4,12.7,12.10,12.13,8.3,7.36,] %v_71[12.15,] 	 SYMBOL:	 ARGS:%v_71,
+		 17: COPY TYPE_StringLiteral "+" def_%v_73 
+		 18: COPY TYPE_StringLiteral "MERCHANT" def_%v_74 
+		 19: data->[] def_%v_75 data[12.1,12.4,12.7,12.10,12.13,12.16,8.3,7.36,] %v_74[12.18,] 	 SYMBOL:	 ARGS:%v_74,
+		 20: COPY TYPE_StringLiteral "+" def_%v_76 
+		 21: COPY TYPE_StringLiteral "RETURN" def_%v_77 
+		 22: data->[] def_%v_78 data[12.1,12.4,12.7,12.10,12.13,12.16,12.19,8.3,7.36,] %v_77[12.21,] 	 SYMBOL:	 ARGS:%v_77,
+		 23: COPY TYPE_StringLiteral "+" def_%v_79 
+		 24: COPY TYPE_StringLiteral "CANCEL" def_%v_80 
+		 25: data->[] def_%v_81 data[12.1,12.4,12.7,12.10,12.13,12.16,12.19,12.22,8.3,7.36,] %v_80[12.24,] 	 SYMBOL:	 ARGS:%v_80,
+		 26: COPY TYPE_StringLiteral "+" def_%v_82 
+		 27: COPY TYPE_StringLiteral "REJECT" def_%v_83 
+		 28: data->[] def_%v_84 data[12.1,12.4,12.7,12.10,12.13,12.16,12.19,12.22,12.25,8.3,7.36,] %v_83[12.27,] 	 SYMBOL:	 ARGS:%v_83,
+		 29: COPY TYPE_StringLiteral "+" def_%v_85 
+		 30: COPY TYPE_StringLiteral "DELAYED" def_%v_86 
+		 31: data->[] def_%v_87 data[12.1,12.4,12.7,12.10,12.13,12.16,12.19,12.22,12.25,12.28,8.3,7.36,] %v_86[12.30,] 	 SYMBOL:	 ARGS:%v_86,
+		 32: COPY TYPE_StringLiteral "+" def_%v_88 
+		 33: COPY TYPE_StringLiteral "COUNTRY" def_%v_89 
+		 34: data->[] def_%v_90 data[12.1,12.4,12.7,12.10,12.13,12.16,12.19,12.22,12.25,12.28,12.31,8.3,7.36,] %v_89[12.33,] 	 SYMBOL:	 ARGS:%v_89,
+		 35: COPY TYPE_StringLiteral "+" def_%v_91 
+		 36: COPY TYPE_StringLiteral "CURRENCY" def_%v_92 
+		 37: data->[] def_%v_93 data[12.1,12.4,12.7,12.10,12.13,12.16,12.19,12.22,12.25,12.28,12.31,12.34,8.3,7.36,] %v_92[12.36,] 	 SYMBOL:	 ARGS:%v_92,
+		 38: COPY TYPE_StringLiteral "+" def_%v_94 
+		 39: COPY TYPE_StringLiteral "DEVICE" def_%v_95 
+		 40: data->[] def_%v_96 data[12.1,12.4,12.7,12.10,12.13,12.16,12.19,12.22,12.25,12.28,12.31,12.34,12.37,8.3,7.36,] %v_95[12.39,] 	 SYMBOL:	 ARGS:%v_95,
+		 41: COPY TYPE_StringLiteral "+" def_%v_97 
+		 42: COPY TYPE_StringLiteral "CONTENT" def_%v_98 
+		 43: data->[] def_%v_99 data[12.1,12.4,12.7,12.10,12.13,12.16,12.19,12.22,12.25,12.28,12.31,12.34,12.37,12.40,8.3,7.36,] %v_98[12.42,] 	 SYMBOL:	 ARGS:%v_98,
+		 44: COPY TYPE_StringLiteral "+" def_%v_100 
+		 45: COPY TYPE_StringLiteral "TYPE" def_%v_101 
+		 46: data->[] def_%v_102 data[12.1,12.4,12.7,12.10,12.13,12.16,12.19,12.22,12.25,12.28,12.31,12.34,12.37,12.40,12.43,8.3,7.36,] %v_101[12.45,] 	 SYMBOL:	 ARGS:%v_101,
+		 47: COPY TYPE_StringLiteral "+" def_%v_103 
+		 48: COPY TYPE_StringLiteral "ALGORITHM" def_%v_104 
+		 49: data->[] def_%v_105 data[12.1,12.4,12.7,12.10,12.13,12.16,12.19,12.22,12.25,12.28,12.31,12.34,12.37,12.40,12.43,12.46,8.3,7.36,] %v_104[12.48,] 	 SYMBOL:	 ARGS:%v_104,
+		 50: COPY TYPE_StringLiteral "+" def_%v_106 
+		 51: COPY TYPE_StringLiteral "DELIVERY_DATE" def_%v_107 
+		 52: data->[] def_%v_108 data[12.1,12.4,12.7,12.10,12.13,12.16,12.19,12.22,12.25,12.28,12.31,12.34,12.37,12.40,12.43,12.46,12.49,8.3,7.36,] %v_107[12.51,] 	 SYMBOL:	 ARGS:%v_107,
+		 53: COPY TYPE_StringLiteral "+" def_%v_109 
+		 54: COPY TYPE_StringLiteral "FIRSTNAME" def_%v_110 
+		 55: data->[] def_%v_111 data[12.1,12.4,12.7,12.10,12.13,12.16,12.19,12.22,12.25,12.28,12.31,12.34,12.37,12.40,12.43,12.46,12.49,12.52,8.3,7.36,] %v_110[12.54,] 	 SYMBOL:	 ARGS:%v_110,
+		 56: COPY TYPE_StringLiteral "+" def_%v_112 
+		 57: COPY TYPE_StringLiteral "FAMILYNAME" def_%v_113 
+		 58: data->[] def_%v_114 data[12.1,12.4,12.7,12.10,12.13,12.16,12.19,12.22,12.25,12.28,12.31,12.34,12.37,12.40,12.43,12.46,12.49,12.52,12.55,8.3,7.36,] %v_113[12.57,] 	 SYMBOL:	 ARGS:%v_113,
+		 59: COPY TYPE_StringLiteral "+" def_%v_115 
+		 60: COPY TYPE_StringLiteral "ADDRESS" def_%v_116 
+		 61: data->[] def_%v_117 data[12.1,12.4,12.7,12.10,12.13,12.16,12.19,12.22,12.25,12.28,12.31,12.34,12.37,12.40,12.43,12.46,12.49,12.52,12.55,12.58,8.3,7.36,] %v_116[12.60,] 	 SYMBOL:	 ARGS:%v_116,
+		 62: COPY TYPE_StringLiteral "+" def_%v_118 
+		 63: COPY TYPE_StringLiteral "POSTCODE" def_%v_119 
+		 64: data->[] def_%v_120 data[12.1,12.4,12.7,12.10,12.13,12.16,12.19,12.22,12.25,12.28,12.31,12.34,12.37,12.40,12.43,12.46,12.49,12.52,12.55,12.58,12.61,8.3,7.36,] %v_119[12.63,] 	 SYMBOL:	 ARGS:%v_119,
+		 65: COPY TYPE_StringLiteral "+" def_%v_121 
+		 66: COPY TYPE_StringLiteral "POSTOFFICE" def_%v_122 
+		 67: data->[] def_%v_123 data[12.1,12.4,12.7,12.10,12.13,12.16,12.19,12.22,12.25,12.28,12.31,12.34,12.37,12.40,12.43,12.46,12.49,12.52,12.55,12.58,12.61,12.64,8.3,7.36,] %v_122[12.66,] 	 SYMBOL:	 ARGS:%v_122,
+		 68: COPY TYPE_StringLiteral "+" def_%v_124 
+		 69: BUILDSTRING def_%v_125 %v_57[12.1,] %v_58[12.2,] %v_60[12.4,] %v_61[12.5,] %v_63[12.7,] %v_64[12.8,] %v_66[12.10,] %v_67[12.11,] %v_69[12.13,] %v_70[12.14,] %v_72[12.16,] %v_73[12.17,] %v_75[12.19,] %v_76[12.20,] %v_78[12.22,] %v_79[12.23,] %v_81[12.25,] %v_82[12.26,] %v_84[12.28,] %v_85[12.29,] %v_87[12.31,] %v_88[12.32,] %v_90[12.34,] %v_91[12.35,] %v_93[12.37,] %v_94[12.38,] %v_96[12.40,] %v_97[12.41,] %v_99[12.43,] %v_100[12.44,] %v_102[12.46,] %v_103[12.47,] %v_105[12.49,] %v_106[12.50,] %v_108[12.52,] %v_109[12.53,] %v_111[12.55,] %v_112[12.56,] %v_114[12.58,] %v_115[12.59,] %v_117[12.61,] %v_118[12.62,] %v_120[12.64,] %v_121[12.65,] %v_123[12.67,] %v_124[12.68,] merchant_key[6.9,5.5,] 
+		 70: %v_55->hexdigest def_%v_126 %v_55[11.0,10.3,] %v_125[12.69,] 	 SYMBOL:	 ARGS:%v_125,
+		 71: %v_126->upcase def_%v_127 %v_126[12.70,] 	 SYMBOL:	 ARGS:
+		 72: ATTRASSIGN data->[] %v_53[10.1,] %v_127[12.71,] 
+		 73: 
+		 74: COPY TYPE_StringLiteral "https://payment.checkout.fi/" def_%v_128 
+		 75: HASH-payment_url-hidden_fields- def_%v_129 %v_128[12.74,] data[12.1,12.4,12.7,12.10,12.13,12.16,12.19,12.22,12.25,12.28,12.31,12.34,12.37,12.40,12.43,12.46,12.49,12.52,12.55,12.58,12.61,12.64,12.67,12.72,8.3,7.36,] 
+		 76: RETURN %v_129[12.75,] %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_payment instanceMethod = true
+BB 1
+	outgoing: 20 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_payment 
+		 6: RECEIVECONSTARG def_options 
+		 7: options[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH- def_%v_4 
+		 2: COPY TYPE_PASS def_results %v_4[4.1,] 
+		 3: 
+		 4: options->[] def_%v_5 options[3.1,2.6,] 	 SYMBOL:mock,	 ARGS:Symbol,
+		 5: BRANCH %v_5[4.4,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "SAIPPUAKAUPPIAS" def_%v_6 
+		 2: COPY TYPE_PASS def_merchant_key %v_6[5.1,] 
+		 3: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: payment->recipient def_%v_7 payment[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->checkout_account def_%v_8 %v_7[6.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_8->merchant_key def_%v_9 %v_8[6.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_merchant_key %v_9[6.3,] 
+		 5: COPY TYPE_PASS def_%v_6 %v_9[6.3,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_10 options[3.1,2.6,] 	 SYMBOL:params,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_params %v_10[7.1,] 
+		 3: 
+		 4: (Digest) def_%v_11 
+		 5: (inherit MD5) def_%v_12 %v_11[7.4,] 
+		 6: %v_12[7.5,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_11->const_missing def_%v_12 %v_11[7.4,] 	 SYMBOL:MD5,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "&" def_%v_13 
+		 1: COPY TYPE_StringLiteral "VERSION" def_%v_14 
+		 2: params->[] def_%v_15 params[7.2,] %v_14[9.1,] 	 SYMBOL:	 ARGS:%v_14,
+		 3: COPY TYPE_StringLiteral "&" def_%v_16 
+		 4: COPY TYPE_StringLiteral "STAMP" def_%v_17 
+		 5: params->[] def_%v_18 params[9.2,7.2,] %v_17[9.4,] 	 SYMBOL:	 ARGS:%v_17,
+		 6: COPY TYPE_StringLiteral "&" def_%v_19 
+		 7: COPY TYPE_StringLiteral "REFERENCE" def_%v_20 
+		 8: params->[] def_%v_21 params[9.2,9.5,7.2,] %v_20[9.7,] 	 SYMBOL:	 ARGS:%v_20,
+		 9: COPY TYPE_StringLiteral "&" def_%v_22 
+		 10: COPY TYPE_StringLiteral "PAYMENT" def_%v_23 
+		 11: params->[] def_%v_24 params[9.2,9.5,9.8,7.2,] %v_23[9.10,] 	 SYMBOL:	 ARGS:%v_23,
+		 12: COPY TYPE_StringLiteral "&" def_%v_25 
+		 13: COPY TYPE_StringLiteral "STATUS" def_%v_26 
+		 14: params->[] def_%v_27 params[9.2,9.5,9.8,9.11,7.2,] %v_26[9.13,] 	 SYMBOL:	 ARGS:%v_26,
+		 15: COPY TYPE_StringLiteral "&" def_%v_28 
+		 16: COPY TYPE_StringLiteral "ALGORITHM" def_%v_29 
+		 17: params->[] def_%v_30 params[9.2,9.5,9.8,9.11,9.14,7.2,] %v_29[9.16,] 	 SYMBOL:	 ARGS:%v_29,
+		 18: BUILDSTRING def_%v_31 merchant_key[6.4,5.2,] %v_13[9.0,] %v_15[9.2,] %v_16[9.3,] %v_18[9.5,] %v_19[9.6,] %v_21[9.8,] %v_22[9.9,] %v_24[9.11,] %v_25[9.12,] %v_27[9.14,] %v_28[9.15,] %v_30[9.17,] 
+		 19: %v_12->hexdigest def_%v_32 %v_12[8.0,7.5,] %v_31[9.18,] 	 SYMBOL:	 ARGS:%v_31,
+		 20: %v_32->upcase def_%v_33 %v_32[9.19,] 	 SYMBOL:	 ARGS:
+		 21: COPY TYPE_PASS def_calculated_mac %v_33[9.20,] 
+		 22: 
+		 23: COPY TYPE_StringLiteral "MAC" def_%v_34 
+		 24: params->[] def_%v_35 params[9.2,9.5,9.8,9.11,9.14,9.17,7.2,] %v_34[9.23,] 	 SYMBOL:	 ARGS:%v_34,
+		 25: calculated_mac->== def_%v_36 calculated_mac[9.21,] %v_35[9.24,] 	 SYMBOL:	 ARGS:%v_35,
+		 26: BRANCH %v_36[9.25,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "2" def_%v_37 
+		 2: COPY TYPE_StringLiteral "5" def_%v_38 
+		 3: COPY TYPE_StringLiteral "6" def_%v_39 
+		 4: COPY TYPE_StringLiteral "7" def_%v_40 
+		 5: COPY TYPE_StringLiteral "8" def_%v_41 
+		 6: COPY TYPE_StringLiteral "9" def_%v_42 
+		 7: COPY TYPE_StringLiteral "10" def_%v_43 
+		 8: COPY TYPE_Array def_%v_44 %v_37[10.1,] %v_38[10.2,] %v_39[10.3,] %v_40[10.4,] %v_41[10.5,] %v_42[10.6,] %v_43[10.7,] 
+		 9: COPY TYPE_StringLiteral "STATUS" def_%v_45 
+		 10: params->[] def_%v_46 params[7.2,] %v_45[10.9,] 	 SYMBOL:	 ARGS:%v_45,
+		 11: %v_44->include? def_%v_47 %v_44[10.8,] %v_46[10.10,] 	 SYMBOL:	 ARGS:%v_46,
+		 12: BRANCH %v_47[10.11,] 
+BB 11
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "paid" def_%v_48 
+		 2: ATTRASSIGN results->[] %v_48[11.1,] 
+		 3: 
+		 4: (I18n) def_%v_49 
+		 5: COPY TYPE_StringLiteral "layouts.notifications.payment_successful" def_%v_50 
+		 6: %v_49->t def_%v_51 %v_49[11.4,] %v_50[11.5,] 	 SYMBOL:	 ARGS:%v_50,
+		 7: ATTRASSIGN results->[] %v_51[11.6,] 
+		 8: 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "3" def_%v_52 
+		 2: COPY TYPE_StringLiteral "4" def_%v_53 
+		 3: COPY TYPE_Array def_%v_54 %v_52[12.1,] %v_53[12.2,] 
+		 4: COPY TYPE_StringLiteral "STATUS" def_%v_55 
+		 5: params->[] def_%v_56 params[7.2,] %v_55[12.4,] 	 SYMBOL:	 ARGS:%v_55,
+		 6: %v_54->include? def_%v_57 %v_54[12.3,] %v_56[12.5,] 	 SYMBOL:	 ARGS:%v_56,
+		 7: BRANCH %v_57[12.6,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "delayed" def_%v_58 
+		 2: ATTRASSIGN results->[] %v_58[13.1,] 
+		 3: 
+		 4: (I18n) def_%v_59 
+		 5: COPY TYPE_StringLiteral "layouts.notifications.payment_waiting_for_later_accomplishment" def_%v_60 
+		 6: %v_59->t def_%v_61 %v_59[13.4,] %v_60[13.5,] 	 SYMBOL:	 ARGS:%v_60,
+		 7: ATTRASSIGN results->[] %v_61[13.6,] 
+		 8: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "canceled" def_%v_62 
+		 2: ATTRASSIGN results->[] %v_62[14.1,] 
+		 3: 
+		 4: (I18n) def_%v_63 
+		 5: COPY TYPE_StringLiteral "layouts.notifications.payment_canceled" def_%v_64 
+		 6: %v_63->t def_%v_65 %v_63[14.4,] %v_64[14.5,] 	 SYMBOL:	 ARGS:%v_64,
+		 7: ATTRASSIGN results->[] %v_65[14.6,] 
+		 8: COPY TYPE_PASS def_%v_61 %v_65[14.6,] 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_51 %v_61[14.8,13.6,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "error" def_%v_66 
+		 2: ATTRASSIGN results->[] %v_66[17.1,] 
+		 3: 
+		 4: (I18n) def_%v_67 
+		 5: COPY TYPE_StringLiteral "layouts.notifications.error_in_payment" def_%v_68 
+		 6: %v_67->t def_%v_69 %v_67[17.4,] %v_68[17.5,] 	 SYMBOL:	 ARGS:%v_68,
+		 7: ATTRASSIGN results->[] %v_69[17.6,] 
+		 8: 
+		 9: (ApplicationHelper) def_%v_70 
+		 10: COPY TYPE_StringLiteral "Payment security check failed (CheckoutFI)" def_%v_71 
+		 11: COPY TYPE_StringLiteral "Payment Error" def_%v_72 
+		 12: %v_70->send_error_notification def_%v_73 %v_70[17.9,] %v_71[17.10,] %v_72[17.11,] params[7.2,] 	 SYMBOL:	 ARGS:%v_71,%v_72,params,
+		 13: COPY TYPE_PASS def_%v_51 %v_73[17.12,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN results[17.2,17.7,11.2,11.7,14.2,14.7,13.2,13.7,4.2,] %self[2.0,] 
+BB 20
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_receive_payments? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_person 
+		 6: 
+		 7: %self->has_registered? def_%v_3 %self[2.0,] person[2.5,] 	 SYMBOL:	 ARGS:person,
+		 8: RETURN %v_3[2.7,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = register_payout_details instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_person 
+		 6: RECEIVEARG def_checkout_account_params 
+		 7: 
+		 8: COPY TYPE_StringLiteral "https://rpcapi.checkout.fi/reseller/createMerchant" def_%v_3 
+		 9: COPY TYPE_PASS def_url %v_3[2.8,] 
+		 10: 
+		 11: %self->checkout_user_id def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_PASS def_user %v_4[2.11,] 
+		 13: 
+		 14: %self->checkout_password def_%v_5 %self[2.0,2.11,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_PASS def_password %v_5[2.14,] 
+		 16: 
+		 17: %self->checkout_environment def_%v_6 %self[2.0,2.11,2.14,] 	 SYMBOL:	 ARGS:
+		 18: COPY TYPE_StringLiteral "production" def_%v_7 
+		 19: %v_6->== def_%v_8 %v_6[2.17,] %v_7[2.18,] 	 SYMBOL:	 ARGS:%v_7,
+		 20: BRANCH %v_8[2.19,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Fixnum def_type 
+		 2: COPY TYPE_Fixnum def_%v_9 
+		 3: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Fixnum def_type 
+		 2: COPY TYPE_Fixnum def_%v_9 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "company" def_%v_10 
+		 2: COPY TYPE_StringLiteral "first_name_with_initial" def_%v_11 
+		 3: person->name def_%v_12 person[2.5,] %v_11[5.2,] 	 SYMBOL:	 ARGS:%v_11,
+		 4: COPY TYPE_StringLiteral "vat_id" def_%v_13 
+		 5: checkout_account_params->company_id_or_personal_id def_%v_14 checkout_account_params[2.6,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral "name" def_%v_15 
+		 7: COPY TYPE_StringLiteral "first_name_with_initial" def_%v_16 
+		 8: person->name def_%v_17 person[5.3,2.5,] %v_16[5.7,] 	 SYMBOL:	 ARGS:%v_16,
+		 9: COPY TYPE_StringLiteral "email" def_%v_18 
+		 10: person->confirmed_notification_email_to def_%v_19 person[5.3,5.8,2.5,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_StringLiteral "gsm" def_%v_20 
+		 12: checkout_account_params->phone_number def_%v_21 checkout_account_params[5.5,2.6,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_StringLiteral "type" def_%v_22 
+		 14: COPY TYPE_StringLiteral "info" def_%v_23 
+		 15: COPY TYPE_StringLiteral "" def_%v_24 
+		 16: COPY TYPE_StringLiteral "address" def_%v_25 
+		 17: checkout_account_params->organization_address def_%v_26 checkout_account_params[5.5,5.12,2.6,] 	 SYMBOL:	 ARGS:
+		 18: COPY TYPE_StringLiteral "url" def_%v_27 
+		 19: checkout_account_params->organization_website def_%v_28 checkout_account_params[5.5,5.12,5.17,2.6,] 	 SYMBOL:	 ARGS:
+		 20: BRANCH %v_28[5.19,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->person_url def_%v_29 %self[2.0,] person[2.5,] 	 SYMBOL:	 ARGS:person,
+		 1: COPY TYPE_PASS def_%v_28 %v_29[6.0,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "kkhinta" def_%v_30 
+		 1: COPY TYPE_StringLiteral "0" def_%v_31 
+		 2: HASH- def_%v_32 %v_10[5.1,] %v_12[5.3,] %v_13[5.4,] %v_14[5.5,] %v_15[5.6,] %v_17[5.8,] %v_18[5.9,] %v_19[5.10,] %v_20[5.11,] %v_21[5.12,] %v_22[5.13,] type[4.1,3.1,] %v_23[5.14,] %v_24[5.15,] %v_25[5.16,] %v_26[5.17,] %v_27[5.18,] %v_28[6.1,5.19,] %v_30[7.0,] %v_31[7.1,] 
+		 3: COPY TYPE_PASS def_api_params %v_32[7.2,] 
+		 4: 
+		 5: %self->checkout_environment def_%v_33 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral "production" def_%v_34 
+		 7: %v_33->== def_%v_35 %v_33[7.5,] %v_34[7.6,] 	 SYMBOL:	 ARGS:%v_34,
+		 8: BRANCH %v_35[7.7,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %self->checkout_environment def_%v_36 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "test" def_%v_37 
+		 2: %v_36->== def_%v_38 %v_36[8.0,] %v_37[8.1,] 	 SYMBOL:	 ARGS:%v_37,
+		 3: COPY TYPE_PASS def_%v_35 %v_38[8.2,] 
+BB 9
+	outgoing: 10 13 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_35[8.3,7.7,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (RestClient) def_%v_39 
+		 2: (inherit Request) def_%v_40 %v_39[10.1,] 
+		 3: %v_40[10.2,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %v_39->const_missing def_%v_40 %v_39[10.1,] 	 SYMBOL:Request,	 ARGS:Symbol,
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: HASH-method-url-user-password-payload- def_%v_41 url[2.9,] user[2.12,] password[2.15,] api_params[7.3,] 
+		 1: %v_40->execute def_%v_42 %v_40[11.0,10.2,] %v_41[12.0,] 	 SYMBOL:	 ARGS:%v_41,
+		 2: COPY TYPE_PASS def_response %v_42[12.1,] 
+		 3: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "<merchant><id>375917</id><secret>SAIPPUAKAUPPIAS</secret><banner>http://rpcapi.checkout.fi/banners/5a1e9f504277f6cf17a7026de4375e97.png</banner></merchant>" def_%v_43 
+		 2: COPY TYPE_PASS def_response %v_43[13.1,] 
+		 3: COPY TYPE_PASS def_%v_42 %v_43[13.1,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (CheckoutAccount) def_%v_44 
+		 2: COPY TYPE_Regexp def_%v_45 
+		 3: response->[] def_%v_46 response[13.2,12.2,] 	 SYMBOL:	 ARGS:%v_45,Fixnum,
+		 4: COPY TYPE_Regexp def_%v_47 
+		 5: response->[] def_%v_48 response[14.3,13.2,12.2,] 	 SYMBOL:	 ARGS:%v_47,Fixnum,
+		 6: checkout_account_params->company_id_or_personal_id def_%v_49 checkout_account_params[2.6,] 	 SYMBOL:	 ARGS:
+		 7: HASH-person_id-merchant_id-merchant_key-company_id_or_personal_id- def_%v_50 person[2.5,] %v_46[14.3,] %v_48[14.5,] %v_49[14.6,] 
+		 8: %v_44->new def_%v_51 %v_44[14.1,] %v_50[14.7,] 	 SYMBOL:	 ARGS:%v_50,
+		 9: COPY TYPE_PASS def_checkout_account %v_51[14.8,] 
+		 10: 
+		 11: %v_51->save! def_%v_52 %v_51[14.8,] 	 SYMBOL:	 ARGS:
+		 12: RETURN %v_52[14.11,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = has_registered? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_person 
+		 6: 
+		 7: person->checkout_account def_%v_3 person[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->present? def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %v_4[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = new_payment instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (CheckoutPayment) def_%v_3 
+		 7: %v_3->new def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_payment %v_4[2.7,] 
+		 9: 
+		 10: ATTRASSIGN %v_4->payment_gateway %self[2.0,] 
+		 11: 
+		 12: %self->community def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 13: ATTRASSIGN payment->community %v_5[2.12,] 
+		 14: 
+		 15: COPY TYPE_StringLiteral "EUR" def_%v_6 
+		 16: ATTRASSIGN payment->currency %v_6[2.15,] 
+		 17: 
+		 18: RETURN payment[2.8,2.13,2.16,] %self[2.0,2.12,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = configured? instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->checkout_environment def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "stub" def_%v_4 
+		 8: %v_3->== def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Boolean def_%v_6 
+		 2: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->checkout_environment def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->checkout_user_id def_%v_8 %self[4.1,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %self->checkout_password def_%v_9 %self[4.1,4.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_Array def_%v_10 %v_7[4.1,] %v_8[4.2,] %v_9[4.3,] 
+		 5: %v_10->all? def_%v_11 %v_10[4.4,] %self[4.1,4.2,4.3,2.0,] 	 SYMBOL:	 ARGS:%v_10,
+CLOSURE BEGIN: x[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_x 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: x->present? def_%cl_1_3 x[2.2,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 6: RETURN %v_11[4.5,] %self[4.1,4.2,4.3,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = gateway_type instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: RETURN %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

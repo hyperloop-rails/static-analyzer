@@ -1,0 +1,174 @@
+SET IRMethod, name = index instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->require def_%v_4 %v_3[2.6,] 	 SYMBOL:username,	 ARGS:Symbol,
+		 8: 
+		 9: %self->params def_%v_5 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 10: %v_5->permit def_%v_6 %v_5[2.9,] 	 SYMBOL:filter,offset,	 ARGS:Symbol,Symbol,
+		 11: 
+		 12: COPY TYPE_Fixnum def_per_chunk 
+		 13: 
+		 14: %self->current_user def_%v_7 %self[2.0,2.6,2.9,] 	 SYMBOL:	 ARGS:
+		 15: %v_7->try def_%v_8 %v_7[2.14,] 	 SYMBOL:staff?,	 ARGS:Symbol,
+		 16: HASH-include_inactive- def_%v_9 %v_8[2.15,] 
+		 17: %self->fetch_user_from_params def_%v_10 %self[2.0,2.6,2.9,2.14,] %v_9[2.16,] 	 SYMBOL:	 ARGS:%v_9,
+		 18: COPY TYPE_PASS def_user %v_10[2.17,] 
+		 19: 
+		 20: %v_10->id def_%v_11 %v_10[2.17,] 	 SYMBOL:	 ARGS:
+		 21: %self->params def_%v_12 %self[2.0,2.6,2.9,2.14,2.17,] 	 SYMBOL:	 ARGS:
+		 22: %v_12->[] def_%v_13 %v_12[2.21,] 	 SYMBOL:offset,	 ARGS:Symbol,
+		 23: %v_13->to_i def_%v_14 %v_13[2.22,] 	 SYMBOL:	 ARGS:
+		 24: 
+		 25: %self->params def_%v_15 %self[2.0,2.6,2.9,2.14,2.17,2.21,] 	 SYMBOL:	 ARGS:
+		 26: %v_15->[] def_%v_16 %v_15[2.25,] 	 SYMBOL:filter,	 ARGS:Symbol,
+		 27: BRANCH %v_16[2.26,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_17 
+		 1: COPY TYPE_PASS def_%v_16 %v_17[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "," def_%v_18 
+		 1: %v_16->split def_%v_19 %v_16[3.1,2.26,] %v_18[4.0,] 	 SYMBOL:	 ARGS:%v_18,
+		 2: %v_19->map def_%v_20 %v_19[4.1,] 	 SYMBOL:to_i,	 ARGS:
+		 3: %self->guardian def_%v_21 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: 
+		 5: %self->params def_%v_22 %self[4.3,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %v_22->[] def_%v_23 %v_22[4.5,] 	 SYMBOL:filter,	 ARGS:Symbol,
+		 7: BRANCH %v_23[4.6,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Boolean def_%v_24 
+		 1: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Boolean def_%v_24 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: HASH-user_id-user-offset-limit-action_types-guardian-ignore_private_messages- def_%v_25 %v_11[2.20,] user[2.18,] %v_14[2.23,] per_chunk[2.12,] %v_20[4.2,] %v_21[4.3,] %v_24[6.0,5.0,] 
+		 1: COPY TYPE_PASS def_opts %v_25[7.0,] 
+		 2: 
+		 3: %v_25->[] def_%v_26 %v_25[7.0,] 	 SYMBOL:action_types,	 ARGS:Symbol,
+		 4: (UserAction) def_%v_27 
+		 5: (inherit PENDING) def_%v_28 %v_27[7.4,] 
+		 6: %v_28[7.5,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_27->const_missing def_%v_28 %v_27[7.4,] 	 SYMBOL:PENDING,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: %v_26->include? def_%v_29 %v_26[7.3,] %v_28[8.0,7.5,] 	 SYMBOL:	 ARGS:%v_28,
+		 1: BRANCH %v_29[9.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->guardian def_%v_30 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_30->ensure_can_see_notifications! def_%v_31 %v_30[10.1,] user[2.18,] 	 SYMBOL:	 ARGS:user,
+		 3: 
+		 4: (UserAction) def_%v_32 
+		 5: %v_32->stream_queued def_%v_33 %v_32[10.4,] opts[7.1,] 	 SYMBOL:	 ARGS:opts,
+		 6: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (UserAction) def_%v_34 
+		 2: %v_34->stream def_%v_35 %v_34[11.1,] opts[7.1,] 	 SYMBOL:	 ARGS:opts,
+		 3: COPY TYPE_PASS def_%v_33 %v_35[11.2,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_stream %v_33[11.3,10.5,] 
+		 1: 
+		 2: (UserActionSerializer) def_%v_36 
+		 3: COPY TYPE_StringLiteral "user_actions" def_%v_37 
+		 4: HASH-root- def_%v_38 %v_37[12.3,] 
+		 5: %self->render_serialized def_%v_39 %self[2.0,] %v_33[11.3,10.5,] %v_36[12.2,] %v_38[12.4,] 	 SYMBOL:	 ARGS:stream,%v_36,%v_38,
+		 6: RETURN %v_39[12.5,] %self[12.5,2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = show instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->require def_%v_4 %v_3[2.6,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 8: 
+		 9: (UserAction) def_%v_5 
+		 10: %self->params def_%v_6 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 11: %v_6->[] def_%v_7 %v_6[2.10,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 12: %self->guardian def_%v_8 %self[2.0,2.6,2.10,] 	 SYMBOL:	 ARGS:
+		 13: %v_5->stream_item def_%v_9 %v_5[2.9,] %v_7[2.11,] %v_8[2.12,] 	 SYMBOL:	 ARGS:%v_7,%v_8,
+		 14: (UserActionSerializer) def_%v_10 
+		 15: %self->render_serialized def_%v_11 %self[2.0,2.6,2.10,2.12,] %v_9[2.13,] %v_10[2.14,] 	 SYMBOL:	 ARGS:%v_9,%v_10,
+		 16: RETURN %v_11[2.15,] %self[2.0,2.6,2.10,2.12,2.15,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = private_messages instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RETURN %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

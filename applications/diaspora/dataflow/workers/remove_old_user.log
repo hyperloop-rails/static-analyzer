@@ -1,0 +1,117 @@
+SET IRMethod, name = safe_remove_after instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Time) def_%v_3 
+		 7: %v_3->now def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: 
+		 9: (AppConfig) def_%v_5 
+		 10: %v_5->settings def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_6->maintenance def_%v_7 %v_6[2.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_7->remove_old_users def_%v_8 %v_7[2.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_8->after_days def_%v_9 %v_8[2.12,] 	 SYMBOL:	 ARGS:
+		 14: %v_9->to_i def_%v_10 %v_9[2.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_10->days def_%v_11 %v_10[2.14,] 	 SYMBOL:	 ARGS:
+		 16: %v_4->- def_%v_12 %v_4[2.7,] %v_11[2.15,] 	 SYMBOL:	 ARGS:%v_11,
+		 17: 
+		 18: (AppConfig) def_%v_13 
+		 19: %v_13->settings def_%v_14 %v_13[2.18,] 	 SYMBOL:	 ARGS:
+		 20: %v_14->maintenance def_%v_15 %v_14[2.19,] 	 SYMBOL:	 ARGS:
+		 21: %v_15->remove_old_users def_%v_16 %v_15[2.20,] 	 SYMBOL:	 ARGS:
+		 22: %v_16->warn_days def_%v_17 %v_16[2.21,] 	 SYMBOL:	 ARGS:
+		 23: %v_17->to_i def_%v_18 %v_17[2.22,] 	 SYMBOL:	 ARGS:
+		 24: %v_18->days def_%v_19 %v_18[2.23,] 	 SYMBOL:	 ARGS:
+		 25: %v_12->- def_%v_20 %v_12[2.16,] %v_19[2.24,] 	 SYMBOL:	 ARGS:%v_19,
+		 26: RETURN %v_20[2.25,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = perform instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 9 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user_id 
+		 6: 
+		 7: (AppConfig) def_%v_3 
+		 8: %v_3->settings def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->maintenance def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_5->remove_old_users def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_6->enable? def_%v_7 %v_6[2.10,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_7[2.11,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%v_8 
+		 2: %v_8->find def_%v_9 %v_8[3.1,] user_id[2.5,] 	 SYMBOL:	 ARGS:user_id,
+		 3: COPY TYPE_PASS def_user %v_9[3.2,] 
+		 4: 
+		 5: %v_9->remove_after def_%v_10 %v_9[3.2,] 	 SYMBOL:	 ARGS:
+		 6: (Time) def_%v_11 
+		 7: %v_11->now def_%v_12 %v_11[3.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_10->< def_%v_13 %v_10[3.5,] %v_12[3.7,] 	 SYMBOL:	 ARGS:%v_12,
+		 9: BRANCH %v_13[3.8,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: user->last_seen def_%v_14 user[3.3,] 	 SYMBOL:	 ARGS:
+		 1: %self->safe_remove_after def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_14->< def_%v_16 %v_14[4.0,] %v_15[4.1,] 	 SYMBOL:	 ARGS:%v_15,
+		 3: COPY TYPE_PASS def_%v_13 %v_16[4.2,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_13[4.3,3.8,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user->close_account! def_%v_17 user[3.3,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+BB 8
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %v_17[7.0,6.1,] %self[2.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+

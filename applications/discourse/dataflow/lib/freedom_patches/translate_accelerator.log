@@ -1,0 +1,1229 @@
+SET IRMethod, name = init_accelerator! instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: ATTRASSIGN %self->overrides_enabled 
+		 7: 
+		 8: %self->reload! def_%v_3 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %v_3[2.8,] %self[2.0,2.6,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = reload! instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_Array def_%v_3 
+		 7: ATTRASSIGN %self->loaded_locales %v_3[2.6,] 
+		 8: 
+		 9: ATTRASSIGN %self->cache 
+		 10: 
+		 11: HASH- def_%v_4 
+		 12: ATTRASSIGN %self->overrides_by_site %v_4[2.11,] 
+		 13: 
+		 14: %self->reload_no_cache! def_%v_5 %self[2.0,2.7,2.9,2.12,] 	 SYMBOL:	 ARGS:
+		 15: 
+		 16: %self->ensure_all_loaded! def_%v_6 %self[2.0,2.7,2.9,2.12,2.14,] 	 SYMBOL:	 ARGS:
+		 17: RETURN %v_6[2.16,] %self[2.0,2.7,2.9,2.12,2.14,2.16,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = load_locale instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_locale 
+		 6: 
+		 7: (LOAD_MUTEX) def_%v_3 
+		 8: %v_3->synchronize def_%v_4 %v_3[2.7,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: %self[2.0,] locale[2.5,] 
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->loaded_locales def_%cl_1_3 %self[2.0,] 
+		 2: %cl_1_3->include? def_%cl_1_4 %cl_1_3[3.1,] locale[] 	 SYMBOL:	 ARGS:locale,
+		 3: BRANCH %cl_1_4[3.2,] 
+BB 4
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_5 
+BB 6
+	outgoing: 7 8 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->loaded_locales def_%cl_1_6 %self[2.0,] 
+		 2: %cl_1_6->empty? def_%cl_1_7 %cl_1_6[6.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_1_7[6.2,] 
+BB 7
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%cl_1_8 
+		 2: %cl_1_8->backend def_%cl_1_9 %cl_1_8[7.1,] 	 SYMBOL:	 ARGS:
+		 3: (I18n) def_%cl_1_10 
+		 4: %cl_1_10->load_path def_%cl_1_11 %cl_1_10[7.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_Regexp def_%cl_1_12 
+		 6: %cl_1_11->grep def_%cl_1_13 %cl_1_11[7.4,] 	 SYMBOL:	 ARGS:%cl_1_12,
+		 7: %cl_1_9->load_translations def_%cl_1_14 %cl_1_9[7.2,] %cl_1_13[7.6,] 	 SYMBOL:	 ARGS:%cl_1_13,
+		 8: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_14 
+BB 9
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%cl_1_15 
+		 2: %cl_1_15->backend def_%cl_1_16 %cl_1_15[9.1,] 	 SYMBOL:	 ARGS:
+		 3: (I18n) def_%cl_1_17 
+		 4: %cl_1_17->load_path def_%cl_1_18 %cl_1_17[9.3,] 	 SYMBOL:	 ARGS:
+		 5: (Regexp) def_%cl_1_19 
+		 6: COPY TYPE_StringLiteral "\." def_%cl_1_20 
+		 7: COPY TYPE_StringLiteral "\.yml$" def_%cl_1_21 
+		 8: BUILDSTRING def_%cl_1_22 %cl_1_20[9.6,] locale[] %cl_1_21[9.7,] 
+		 9: %cl_1_19->new def_%cl_1_23 %cl_1_19[9.5,] %cl_1_22[9.8,] 	 SYMBOL:	 ARGS:%cl_1_22,
+		 10: %cl_1_18->grep def_%cl_1_24 %cl_1_18[9.4,] %cl_1_23[9.9,] 	 SYMBOL:	 ARGS:%cl_1_23,
+		 11: %cl_1_16->load_translations def_%cl_1_25 %cl_1_16[9.2,] %cl_1_24[9.10,] 	 SYMBOL:	 ARGS:%cl_1_24,
+		 12: 
+		 13: GETFIELD %self->loaded_locales def_%cl_1_26 %self[2.0,] 
+		 14: %cl_1_26-><< def_%cl_1_27 %cl_1_26[9.13,] locale[] 	 SYMBOL:	 ARGS:locale,
+		 15: RETURN %cl_1_27[9.14,] %self[2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_28 
+		 1: def_%cl_1_29 %cl_1_28[10.0,] 
+		 2: RETURN %cl_1_29[10.1,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: RETURN %v_4[2.8,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%v_5 
+		 1: def_%v_6 %v_5[4.0,] 
+		 2: RETURN %v_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ensure_all_loaded! instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->backend def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->locale def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->fallbacks def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: %v_5->each def_%v_6 %v_5[2.8,] %self[2.0,2.6,2.7,] 	 SYMBOL:	 ARGS:%v_5,
+CLOSURE BEGIN: %self[2.0,2.6,2.7,] l[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_l 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->ensure_loaded! def_%cl_1_3 %self[2.0,] l[2.2,] 	 SYMBOL:	 ARGS:l,
+		 2: RETURN %cl_1_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: RETURN %v_6[2.9,] %self[2.0,2.6,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = search instanceMethod = true
+BB 1
+	outgoing: 19 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_query 
+		 6: RECEIVECONSTARG def_opts 
+		 7: opts[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_opts 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_3 opts[3.0,2.6,] 	 SYMBOL:locale,	 ARGS:Symbol,
+		 2: BRANCH %v_3[4.1,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->config def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->locale def_%v_5 %v_4[5.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_3 %v_5[5.1,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_locale %v_3[5.2,4.1,] 
+		 1: 
+		 2: GETFIELD %self->loaded_locales def_%v_6 %self[2.0,] 
+		 3: %v_6->include? def_%v_7 %v_6[6.2,] %v_3[5.2,4.1,] 	 SYMBOL:	 ARGS:locale,
+		 4: BRANCH %v_7[6.3,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %self->load_locale def_%v_9 %self[2.0,] locale[6.0,] 	 SYMBOL:	 ARGS:locale,
+		 1: COPY TYPE_PASS def_%v_8 %v_9[8.0,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_10 opts[3.0,2.6,] 
+		 2: COPY TYPE_PASS def_%v_11 opts[3.0,2.6,] 
+		 3: BRANCH opts[3.0,2.6,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_12 
+		 1: COPY TYPE_PASS def_opts %v_12[10.0,] 
+		 2: COPY TYPE_PASS def_%v_11 %v_12[10.0,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_13 opts[10.1,3.0,2.6,] 	 SYMBOL:backend,	 ARGS:Symbol,
+		 2: BRANCH %v_13[11.1,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: %self->backend def_%v_14 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_13 %v_14[12.0,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_target %v_13[12.1,11.1,] 
+		 1: 
+		 2: opts->[] def_%v_15 opts[10.1,3.0,2.6,] 	 SYMBOL:overridden,	 ARGS:Symbol,
+		 3: BRANCH %v_15[13.2,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_16 
+		 1: 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: %self->config def_%v_17 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_17->locale def_%v_18 %v_17[15.0,] 	 SYMBOL:	 ARGS:
+		 2: target->search def_%v_19 target[13.0,] %v_18[15.1,] query[2.5,] 	 SYMBOL:	 ARGS:%v_18,query,
+		 3: COPY TYPE_PASS def_%v_16 %v_19[15.2,] 
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_results %v_16[15.3,14.0,] 
+		 1: 
+		 2: COPY TYPE_StringLiteral "" def_%v_20 
+		 3: def_%v_21 %v_20[16.2,] query[2.5,] 
+		 4: COPY TYPE_PASS def_regexp %v_21[16.3,] 
+		 5: 
+		 6: %self->overrides_by_locale def_%v_22 %self[2.0,] locale[6.0,] 	 SYMBOL:	 ARGS:locale,
+		 7: BRANCH %v_22[16.6,] 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_23 
+		 1: COPY TYPE_PASS def_%v_22 %v_23[17.0,] 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: %v_22->each def_%v_24 %v_22[17.1,16.6,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_22,
+CLOSURE BEGIN: results[16.0,] k[] regexp[16.4,] v[] 
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_k 
+		 3: RECEIVEARG def_v 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: results->delete def_%cl_1_3 results[] k[2.2,] 	 SYMBOL:	 ARGS:k,
+		 2: 
+		 3: k->=~ def_%cl_1_4 k[2.2,] regexp[] 	 SYMBOL:	 ARGS:regexp,
+		 4: BRANCH %cl_1_4[3.3,] 
+BB 4
+	outgoing: 5 9 
+	datadep: 
+	instructions:
+		 0: v->=~ def_%cl_1_5 v[2.3,] regexp[] 	 SYMBOL:	 ARGS:regexp,
+		 1: COPY TYPE_PASS def_%cl_1_4 %cl_1_5[4.0,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_4[4.1,3.3,] 
+BB 6
+	outgoing: 9 11 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN results->[] k[2.2,] v[2.3,] 
+		 1: COPY TYPE_PASS def_%cl_1_6 v[2.3,] 
+		 2: RETURN v[2.3,] %self[2.0,] 
+BB 7
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_7 
+		 1: def_%cl_1_8 %cl_1_7[9.0,] 
+		 2: RETURN %cl_1_8[9.1,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: v[2.3,] 
+		 1: 
+		 2: RETURN results[16.0,] %self[2.0,] 
+BB 19
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ensure_loaded! instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_locale 
+		 6: 
+		 7: def_%v_4 %self[2.0,] 
+		 8: COPY TYPE_PASS def_%v_3 %v_4[2.7,] 
+		 9: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->loaded_locales def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.8,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_6 
+		 1: ATTRASSIGN %self->loaded_locales %v_6[5.0,] 
+		 2: COPY TYPE_PASS def_%v_5 %v_6[5.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->loaded_locales def_%v_7 %self[5.1,2.0,] 
+		 2: %v_7->include? def_%v_8 %v_7[6.1,] locale[2.5,] 	 SYMBOL:	 ARGS:locale,
+		 3: BRANCH %v_8[6.2,] 
+BB 7
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: RETURN %v_9[7.0,] %self[5.1,2.0,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %self->load_locale def_%v_10 %self[5.1,2.0,] locale[2.5,] 	 SYMBOL:	 ARGS:locale,
+		 1: RETURN %v_10[8.0,] %self[8.0,5.1,2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = overrides_disabled instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: GLOBALVAR $! def_%v_3 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->overrides_enabled 
+		 2: 
+		 3: def_%v_5 %v_0[2.1,] 
+		 4: COPY TYPE_PASS def_%v_4 %v_5[3.3,] 
+BB 4
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->overrides_enabled 
+		 2: RETURN %v_4[3.4,] %self[4.1,3.1,2.0,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%v_6 
+		 1: def_%v_7 %v_6[5.0,] %v_3[2.5,] 
+		 2: 
+		 3: ATTRASSIGN %self->overrides_enabled 
+		 4: %v_6[5.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = translate_no_override instanceMethod = true
+BB 1
+	outgoing: 19 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_args 
+		 6: 
+		 7: args->length def_%v_3 args[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->> def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:Fixnum,
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: args->[] def_%v_5 args[2.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 1: %v_5->present? def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_4 %v_6[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[3.2,2.8,] 
+BB 5
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: def_%v_7 args[2.5,] 
+		 1: %self->translate_no_cache def_%v_8 %self[2.0,] %v_7[5.0,] 	 SYMBOL:	 ARGS:Splat,
+		 2: RETURN %v_8[5.1,] %self[5.1,2.0,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: 
+		 2: args->last def_%v_10 args[2.5,] 	 SYMBOL:	 ARGS:
+		 3: (Hash) def_%v_11 
+		 4: %v_10->is_a? def_%v_12 %v_10[6.2,] %v_11[6.3,] 	 SYMBOL:	 ARGS:%v_11,
+		 5: BRANCH %v_12[6.4,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: args->pop def_%v_13 args[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_13->dup def_%v_14 %v_13[8.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_15 
+		 1: COPY TYPE_PASS def_%v_14 %v_15[9.0,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_options %v_14[9.1,8.1,] 
+		 1: 
+		 2: args->shift def_%v_16 args[2.5,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_key %v_16[10.2,] 
+		 4: 
+		 5: options->[] def_%v_17 options[10.0,] 	 SYMBOL:locale,	 ARGS:Symbol,
+		 6: BRANCH %v_17[10.5,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %self->config def_%v_18 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_18->locale def_%v_19 %v_18[11.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_17 %v_19[11.1,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_locale %v_17[11.2,10.5,] 
+		 1: 
+		 2: def_%v_21 %self[2.0,] 
+		 3: COPY TYPE_PASS def_%v_20 %v_21[12.2,] 
+		 4: %v_21[12.2,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->cache def_%v_22 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_20 %v_22[13.0,] 
+BB 14
+	outgoing: 15 18 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_20[13.1,12.3,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: (LruRedux) def_%v_23 
+		 1: (inherit ThreadSafeCache) def_%v_24 %v_23[15.0,] 
+		 2: %v_24[15.1,] 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: %v_23->const_missing def_%v_24 %v_23[15.0,] 	 SYMBOL:ThreadSafeCache,	 ARGS:Symbol,
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: (LRU_CACHE_SIZE) def_%v_25 
+		 1: %v_24->new def_%v_26 %v_24[16.0,15.1,] %v_25[17.0,] 	 SYMBOL:	 ARGS:%v_25,
+		 2: ATTRASSIGN %self->cache %v_26[17.1,] 
+		 3: COPY TYPE_PASS def_%v_22 %v_26[17.1,] 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->config def_%v_27 %self[17.2,2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_27->backend def_%v_28 %v_27[18.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_28->object_id def_%v_29 %v_28[18.2,] 	 SYMBOL:	 ARGS:
+		 4: BUILDSTRING def_%v_30 key[10.3,] locale[12.0,] %v_29[18.3,] 
+		 5: COPY TYPE_PASS def_k %v_30[18.4,] 
+		 6: 
+		 7: GETFIELD %self->cache def_%v_31 %self[18.1,17.2,2.0,] 
+		 8: %v_31->getset def_%v_32 %v_31[18.7,] %v_30[18.4,] %self[18.1,17.2,2.0,] 	 SYMBOL:	 ARGS:k,%v_31,
+CLOSURE BEGIN: %self[18.1,17.2,2.0,] key[10.3,] options[10.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->translate_no_cache def_%cl_1_3 %self[2.0,] key[] options[] 	 SYMBOL:	 ARGS:key,options,
+		 2: %cl_1_3->freeze def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %cl_1_4[3.2,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: RETURN %v_32[18.8,] %self[18.1,17.2,2.0,] 
+BB 19
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = overrides_by_locale instanceMethod = true
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_locale 
+		 6: 
+		 7: GETFIELD %self->overrides_enabled def_%v_3 %self[2.0,] 
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: (RailsMultisite) def_%v_5 
+		 3: (inherit ConnectionManagement) def_%v_6 %v_5[3.2,] 
+		 4: %v_6[3.3,] 
+BB 4
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_5->const_missing def_%v_6 %v_5[3.2,] 	 SYMBOL:ConnectionManagement,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: %v_6->current_db def_%v_7 %v_6[6.0,3.3,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_site %v_7[7.0,] 
+		 2: 
+		 3: GETFIELD %self->overrides_by_site def_%v_8 %self[2.0,] 
+		 4: %v_8->[] def_%v_9 %v_8[7.3,] %v_7[7.0,] 	 SYMBOL:	 ARGS:site,
+		 5: COPY TYPE_PASS def_by_site %v_9[7.4,] 
+		 6: 
+		 7: %v_9->nil? def_%v_10 %v_9[7.4,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_10[7.7,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: by_site->has_key? def_%v_11 by_site[7.5,] locale[2.5,] 	 SYMBOL:	 ARGS:locale,
+		 1: %v_11->! def_%v_12 %v_11[8.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_10 %v_12[8.1,] 
+BB 9
+	outgoing: 10 14 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_10[8.2,7.7,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->overrides_by_site def_%v_13 %self[2.0,] 
+		 2: HASH- def_%v_14 
+		 3: ATTRASSIGN %v_13->[] site[7.1,] %v_14[10.2,] 
+		 4: COPY TYPE_PASS def_by_site %v_14[10.2,] 
+		 5: 
+		 6: (TranslationOverride) def_%v_15 
+		 7: HASH-locale- def_%v_16 locale[2.5,] 
+		 8: %v_15->where def_%v_17 %v_15[10.6,] %v_16[10.7,] 	 SYMBOL:	 ARGS:%v_16,
+		 9: %v_17->pluck def_%v_18 %v_17[10.8,] 	 SYMBOL:translation_key,value,	 ARGS:Symbol,Symbol,
+		 10: COPY TYPE_PASS def_translations_overrides %v_18[10.9,] 
+		 11: 
+		 12: %v_18->empty? def_%v_19 %v_18[10.9,] 	 SYMBOL:	 ARGS:
+		 13: BRANCH %v_19[10.12,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH- def_%v_20 
+		 2: ATTRASSIGN by_site->[] locale[2.5,] %v_20[11.1,] 
+		 3: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: translations_overrides->each def_%v_21 translations_overrides[10.10,] %self[2.0,] 	 SYMBOL:	 ARGS:translations_overrides,
+CLOSURE BEGIN: by_site[10.4,] locale[2.5,] tuple[] by_locale[] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_tuple 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: by_site->[] def_%cl_1_3 by_site[] locale[] 	 SYMBOL:	 ARGS:locale,
+		 2: BRANCH %cl_1_3[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: HASH- def_%cl_1_4 
+		 1: by_site->[]= def_%cl_1_3 by_site[] locale[] %cl_1_4[4.0,] 	 SYMBOL:	 ARGS:locale,%cl_1_4,
+		 2: COPY TYPE_PASS def_%cl_1_3 %cl_1_4[4.0,] 
+BB 5
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_by_locale %cl_1_3[4.1,4.2,3.1,] 
+		 1: 
+		 2: tuple->[] def_%cl_1_5 tuple[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: tuple->[] def_%cl_1_6 tuple[5.2,2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: ATTRASSIGN by_locale->[] %cl_1_5[5.2,] %cl_1_6[5.3,] 
+		 5: RETURN %cl_1_6[5.3,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_7 
+		 1: def_%cl_1_8 %cl_1_7[6.0,] 
+		 2: RETURN %cl_1_8[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: by_locale[5.0,5.4,] 
+		 2: COPY TYPE_PASS def_%v_20 %v_21[12.1,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_20 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: by_site->[] def_%v_22 by_site[11.2,7.5,10.4,] locale[2.5,] 	 SYMBOL:	 ARGS:locale,
+		 2: RETURN %v_22[15.1,] %self[2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = client_overrides_json instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_locale 
+		 6: 
+		 7: %self->overrides_by_locale def_%v_3 %self[2.0,] locale[2.5,] 	 SYMBOL:	 ARGS:locale,
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_4 
+		 1: COPY TYPE_PASS def_%v_3 %v_4[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_3->select def_%v_5 %v_3[3.1,2.7,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: k[] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_k 
+		 3: RECEIVEARG def__ 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "js." def_%cl_1_3 
+		 2: k->starts_with? def_%cl_1_4 k[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: BRANCH %cl_1_4[3.2,] 
+BB 4
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "admin_js." def_%cl_1_5 
+		 1: k->starts_with? def_%cl_1_6 k[2.2,] %cl_1_5[4.0,] 	 SYMBOL:	 ARGS:%cl_1_5,
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_7 
+		 1: def_%cl_1_8 %cl_1_7[6.0,] 
+		 2: RETURN %cl_1_8[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: _[2.3,] 
+		 1: COPY TYPE_PASS def_client_json %v_5[4.0,] 
+		 2: 
+		 3: (MultiJson) def_%v_6 
+		 4: %v_6->dump def_%v_7 %v_6[4.3,] %v_5[4.0,] 	 SYMBOL:	 ARGS:client_json,
+		 5: RETURN %v_7[4.4,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = translate instanceMethod = true
+BB 1
+	outgoing: 26 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 5 24 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_args 
+		 6: 
+		 7: args->last def_%v_3 args[2.5,] 	 SYMBOL:	 ARGS:
+		 8: (Hash) def_%v_4 
+		 9: %v_3->is_a? def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: BRANCH %v_5[2.9,] 
+BB 4
+	outgoing: 6 24 
+	datadep: 
+	instructions:
+		 0: args->pop def_%v_6 args[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->dup def_%v_7 %v_6[4.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_8 
+		 1: COPY TYPE_PASS def_%v_7 %v_8[5.0,] 
+BB 6
+	outgoing: 7 8 24 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_options %v_7[5.1,4.1,] 
+		 1: 
+		 2: args->shift def_%v_9 args[2.5,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_key %v_9[6.2,] 
+		 4: 
+		 5: options->[] def_%v_10 options[6.0,] 	 SYMBOL:locale,	 ARGS:Symbol,
+		 6: BRANCH %v_10[6.5,] 
+BB 7
+	outgoing: 8 24 
+	datadep: 
+	instructions:
+		 0: %self->config def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_11->locale def_%v_12 %v_11[7.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_10 %v_12[7.1,] 
+BB 8
+	outgoing: 9 10 24 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_locale %v_10[7.2,6.5,] 
+		 1: 
+		 2: GETFIELD %self->loaded_locales def_%v_13 %self[2.0,] 
+		 3: %v_13->include? def_%v_14 %v_13[8.2,] %v_10[7.2,6.5,] 	 SYMBOL:	 ARGS:locale,
+		 4: BRANCH %v_14[8.3,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+		 1: 
+BB 10
+	outgoing: 11 24 
+	datadep: 
+	instructions:
+		 0: %self->load_locale def_%v_16 %self[2.0,] locale[8.0,] 	 SYMBOL:	 ARGS:locale,
+		 1: COPY TYPE_PASS def_%v_15 %v_16[10.0,] 
+BB 11
+	outgoing: 12 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: GETFIELD %self->overrides_enabled def_%v_17 %self[2.0,] 
+		 3: BRANCH %v_17[11.2,] 
+BB 12
+	outgoing: 13 20 24 
+	datadep: 
+	instructions:
+		 0: %self->overrides_by_locale def_%v_18 %self[2.0,] locale[8.0,] 	 SYMBOL:	 ARGS:locale,
+		 1: COPY TYPE_PASS def_by_locale %v_18[12.0,] 
+		 2: 
+		 3: BRANCH %v_18[12.0,] 
+BB 13
+	outgoing: 14 15 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->present? def_%v_19 options[6.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_19[13.1,] 
+BB 14
+	outgoing: 19 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN options->[] by_locale[12.1,] 
+		 2: 
+		 3: %self->catch def_%v_20 %self[2.0,] %self[2.0,] 	 SYMBOL:exception,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: %self[2.0,] locale[8.0,] key[6.3,] options[14.1,6.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->backend def_%cl_1_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_3->translate def_%cl_1_4 %cl_1_3[3.1,] locale[] key[] options[] 	 SYMBOL:	 ARGS:locale,key,options,
+		 3: 
+		 4: RETURN %cl_1_4[3.2,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: 
+BB 15
+	outgoing: 16 17 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: by_locale->[] def_%v_21 by_locale[12.1,] key[6.3,] 	 SYMBOL:	 ARGS:key,
+		 2: COPY TYPE_PASS def_result %v_21[15.1,] 
+		 3: BRANCH %v_21[15.1,] 
+BB 16
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN result[15.2,] %self[2.0,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+		 1: COPY TYPE_PASS def_%v_20 %v_22[17.0,] 
+BB 19
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_20 
+BB 21
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: 
+BB 22
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_20 
+BB 23
+	outgoing: 24 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->translate_no_override def_%v_23 %self[2.0,] key[6.3,] options[14.1,6.0,] 	 SYMBOL:	 ARGS:key,options,
+		 2: RETURN %v_23[23.1,] %self[23.1,2.0,] 
+BB 24
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: def_%v_24 
+		 1: def_%v_25 %v_24[24.0,] 
+		 2: RETURN %v_25[24.1,] %self[2.0,] 
+BB 26
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = exists? instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_key 
+		 6: RECEIVECONSTARG def_locale 
+		 7: locale[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_locale 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_3 locale[3.0,2.6,] 
+		 2: COPY TYPE_PASS def_%v_4 locale[3.0,2.6,] 
+		 3: BRANCH locale[3.0,2.6,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->config def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->locale def_%v_6 %v_5[5.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_locale %v_6[5.1,] 
+		 3: COPY TYPE_PASS def_%v_4 %v_6[5.1,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->loaded_locales def_%v_7 %self[2.0,] 
+		 2: %v_7->include? def_%v_8 %v_7[6.1,] locale[5.2,3.0,2.6,] 	 SYMBOL:	 ARGS:locale,
+		 3: BRANCH %v_8[6.2,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %self->load_locale def_%v_10 %self[2.0,] locale[5.2,3.0,2.6,] 	 SYMBOL:	 ARGS:locale,
+		 1: COPY TYPE_PASS def_%v_9 %v_10[8.0,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->exists_no_cache? def_%v_11 %self[2.0,] key[2.5,] locale[5.2,3.0,2.6,] 	 SYMBOL:	 ARGS:key,locale,
+		 2: RETURN %v_11[9.1,] %self[9.1,2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+

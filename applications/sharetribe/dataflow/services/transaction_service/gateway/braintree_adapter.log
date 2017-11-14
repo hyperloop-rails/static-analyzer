@@ -1,0 +1,436 @@
+SET IRMethod, name = implements_process instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_process 
+		 6: 
+		 7: COPY TYPE_Array def_%v_3 
+		 8: %v_3->include? def_%v_4 %v_3[2.7,] process[2.5,] 	 SYMBOL:	 ARGS:process,
+		 9: RETURN %v_4[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create_payment instanceMethod = true
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_tx 
+		 6: tx[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_gateway_fields 
+		 1: gateway_fields[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: def_prefer_async 
+		 1: prefer_async[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_prefer_async 
+BB 8
+	outgoing: 9 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (BraintreePaymentGateway) def_%v_3 
+		 2: tx->[] def_%v_4 tx[2.5,] 	 SYMBOL:community_id,	 ARGS:Symbol,
+		 3: HASH-community_id- def_%v_5 %v_4[8.2,] 
+		 4: %v_3->where def_%v_6 %v_3[8.1,] %v_5[8.3,] 	 SYMBOL:	 ARGS:%v_5,
+		 5: %v_6->pluck def_%v_7 %v_6[8.4,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 6: %v_7->first def_%v_8 %v_7[8.5,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_PASS def_payment_gateway_id %v_8[8.6,] 
+		 8: 
+		 9: (BraintreePayment) def_%v_9 
+		 10: tx->[] def_%v_10 tx[8.2,2.5,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 11: tx->[] def_%v_11 tx[8.2,8.10,2.5,] 	 SYMBOL:community_id,	 ARGS:Symbol,
+		 12: tx->[] def_%v_12 tx[8.2,8.10,8.11,2.5,] 	 SYMBOL:starter_id,	 ARGS:Symbol,
+		 13: tx->[] def_%v_13 tx[8.2,8.10,8.11,8.12,2.5,] 	 SYMBOL:listing_author_id,	 ARGS:Symbol,
+		 14: COPY TYPE_StringLiteral "USD" def_%v_14 
+		 15: tx->[] def_%v_15 tx[8.2,8.10,8.11,8.12,8.13,2.5,] 	 SYMBOL:unit_price,	 ARGS:Symbol,
+		 16: tx->[] def_%v_16 tx[8.2,8.10,8.11,8.12,8.13,8.15,2.5,] 	 SYMBOL:listing_quantity,	 ARGS:Symbol,
+		 17: %v_15->* def_%v_17 %v_15[8.15,] %v_16[8.16,] 	 SYMBOL:	 ARGS:%v_16,
+		 18: HASH-transaction_id-community_id-payment_gateway_id-status-payer_id-recipient_id-currency-sum- def_%v_18 %v_10[8.10,] %v_11[8.11,] payment_gateway_id[8.7,] %v_12[8.12,] %v_13[8.13,] %v_14[8.14,] %v_17[8.17,] 
+		 19: %v_9->create def_%v_19 %v_9[8.9,] %v_18[8.18,] 	 SYMBOL:	 ARGS:%v_18,
+		 20: COPY TYPE_PASS def_payment %v_19[8.19,] 
+		 21: 
+		 22: (BraintreeSaleService) def_%v_20 
+		 23: %v_20->new def_%v_21 %v_20[8.22,] %v_19[8.19,] gateway_fields[4.0,] 	 SYMBOL:	 ARGS:payment,gateway_fields,
+		 24: %v_21->pay def_%v_22 %v_21[8.23,] 	 SYMBOL:	 ARGS:Boolean,
+		 25: COPY TYPE_PASS def_result %v_22[8.24,] 
+		 26: 
+		 27: %v_22->success? def_%v_23 %v_22[8.24,] 	 SYMBOL:	 ARGS:
+		 28: %v_23->! def_%v_24 %v_23[8.27,] 	 SYMBOL:	 ARGS:
+		 29: BRANCH %v_24[8.28,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SyncCompletion) def_%v_25 
+		 2: (Result) def_%v_26 
+		 3: (inherit Error) def_%v_27 %v_26[9.2,] 
+		 4: %v_27[9.3,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %v_26->const_missing def_%v_27 %v_26[9.2,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: result->message def_%v_28 result[8.25,] 	 SYMBOL:	 ARGS:
+		 1: %v_27->new def_%v_29 %v_27[10.0,9.3,] %v_28[11.0,] 	 SYMBOL:	 ARGS:%v_28,
+		 2: %v_25->new def_%v_30 %v_25[9.1,] %v_29[11.1,] 	 SYMBOL:	 ARGS:%v_29,
+		 3: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_30 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SyncCompletion) def_%v_31 
+		 2: (Result) def_%v_32 
+		 3: (inherit Success) def_%v_33 %v_32[13.2,] 
+		 4: %v_33[13.3,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: %v_32->const_missing def_%v_33 %v_32[13.2,] 	 SYMBOL:Success,	 ARGS:Symbol,
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: HASH-result- def_%v_34 
+		 1: %v_33->new def_%v_35 %v_33[14.0,13.3,] %v_34[15.0,] 	 SYMBOL:	 ARGS:%v_34,
+		 2: %v_31->new def_%v_36 %v_31[13.1,] %v_35[15.1,] 	 SYMBOL:	 ARGS:%v_35,
+		 3: RETURN %v_36[15.2,] %self[2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = reject_payment instanceMethod = true
+BB 1
+	outgoing: 18 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_tx 
+		 6: tx[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_reason 
+		 1: reason[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_reason 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (BraintreeService) def_%v_3 
+		 2: (inherit Payments) def_%v_4 %v_3[6.1,] 
+		 3: %v_4[6.2,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[6.1,] 	 SYMBOL:Payments,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: (inherit Command) def_%v_5 %v_4[7.0,6.2,] 
+		 1: %v_5[8.0,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[7.0,6.2,] 	 SYMBOL:Command,	 ARGS:Symbol,
+BB 10
+	outgoing: 11 14 
+	datadep: 
+	instructions:
+		 0: tx->[] def_%v_6 tx[2.5,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 1: tx->[] def_%v_7 tx[10.0,2.5,] 	 SYMBOL:community_id,	 ARGS:Symbol,
+		 2: %v_5->void_transaction def_%v_8 %v_5[9.0,8.0,] %v_6[10.0,] %v_7[10.1,] 	 SYMBOL:	 ARGS:%v_6,%v_7,
+		 3: COPY TYPE_PASS def_result %v_8[10.2,] 
+		 4: 
+		 5: %v_8->success? def_%v_9 %v_8[10.2,] 	 SYMBOL:	 ARGS:
+		 6: %v_9->! def_%v_10 %v_9[10.5,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_10[10.6,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SyncCompletion) def_%v_11 
+		 2: (Result) def_%v_12 
+		 3: (inherit Error) def_%v_13 %v_12[11.2,] 
+		 4: %v_13[11.3,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: %v_12->const_missing def_%v_13 %v_12[11.2,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: result->message def_%v_14 result[10.3,] 	 SYMBOL:	 ARGS:
+		 1: %v_13->new def_%v_15 %v_13[12.0,11.3,] %v_14[13.0,] 	 SYMBOL:	 ARGS:%v_14,
+		 2: %v_11->new def_%v_16 %v_11[11.1,] %v_15[13.1,] 	 SYMBOL:	 ARGS:%v_15,
+		 3: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SyncCompletion) def_%v_17 
+		 2: (Result) def_%v_18 
+		 3: (inherit Success) def_%v_19 %v_18[15.2,] 
+		 4: %v_19[15.3,] 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: %v_18->const_missing def_%v_19 %v_18[15.2,] 	 SYMBOL:Success,	 ARGS:Symbol,
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: HASH-result- def_%v_20 
+		 1: %v_19->new def_%v_21 %v_19[16.0,15.3,] %v_20[17.0,] 	 SYMBOL:	 ARGS:%v_20,
+		 2: %v_17->new def_%v_22 %v_17[15.1,] %v_21[17.1,] 	 SYMBOL:	 ARGS:%v_21,
+		 3: RETURN %v_22[17.2,] %self[2.0,] 
+BB 18
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = complete_preauthorization instanceMethod = true
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_tx 
+		 6: tx[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (BraintreeService) def_%v_3 
+		 2: (inherit Payments) def_%v_4 %v_3[4.1,] 
+		 3: %v_4[4.2,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[4.1,] 	 SYMBOL:Payments,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: (inherit Command) def_%v_5 %v_4[5.0,4.2,] 
+		 1: %v_5[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[5.0,4.2,] 	 SYMBOL:Command,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 12 
+	datadep: 
+	instructions:
+		 0: tx->[] def_%v_6 tx[2.5,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 1: tx->[] def_%v_7 tx[8.0,2.5,] 	 SYMBOL:community_id,	 ARGS:Symbol,
+		 2: %v_5->submit_to_settlement def_%v_8 %v_5[7.0,6.0,] %v_6[8.0,] %v_7[8.1,] 	 SYMBOL:	 ARGS:%v_6,%v_7,
+		 3: COPY TYPE_PASS def_result %v_8[8.2,] 
+		 4: 
+		 5: %v_8->success? def_%v_9 %v_8[8.2,] 	 SYMBOL:	 ARGS:
+		 6: %v_9->! def_%v_10 %v_9[8.5,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_10[8.6,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SyncCompletion) def_%v_11 
+		 2: (Result) def_%v_12 
+		 3: (inherit Error) def_%v_13 %v_12[9.2,] 
+		 4: %v_13[9.3,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %v_12->const_missing def_%v_13 %v_12[9.2,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: result->message def_%v_14 result[8.3,] 	 SYMBOL:	 ARGS:
+		 1: %v_13->new def_%v_15 %v_13[10.0,9.3,] %v_14[11.0,] 	 SYMBOL:	 ARGS:%v_14,
+		 2: %v_11->new def_%v_16 %v_11[9.1,] %v_15[11.1,] 	 SYMBOL:	 ARGS:%v_15,
+		 3: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SyncCompletion) def_%v_17 
+		 2: (Result) def_%v_18 
+		 3: (inherit Success) def_%v_19 %v_18[13.2,] 
+		 4: %v_19[13.3,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: %v_18->const_missing def_%v_19 %v_18[13.2,] 	 SYMBOL:Success,	 ARGS:Symbol,
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: HASH-result- def_%v_20 
+		 1: %v_19->new def_%v_21 %v_19[14.0,13.3,] %v_20[15.0,] 	 SYMBOL:	 ARGS:%v_20,
+		 2: %v_17->new def_%v_22 %v_17[13.1,] %v_21[15.1,] 	 SYMBOL:	 ARGS:%v_21,
+		 3: RETURN %v_22[15.2,] %self[2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_payment_details instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_tx 
+		 6: tx[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PaymentModel) def_%v_3 
+		 2: tx->[] def_%v_4 tx[2.5,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 3: HASH-transaction_id- def_%v_5 %v_4[4.2,] 
+		 4: %v_3->where def_%v_6 %v_3[4.1,] %v_5[4.3,] 	 SYMBOL:	 ARGS:%v_5,
+		 5: %v_6->first def_%v_7 %v_6[4.4,] 	 SYMBOL:	 ARGS:
+		 6: %self->Maybe def_%v_8 %self[2.0,] %v_7[4.5,] 	 SYMBOL:	 ARGS:%v_7,
+		 7: %v_8->total_sum def_%v_9 %v_8[4.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_9->or_else def_%v_10 %v_9[4.7,] 	 SYMBOL:	 ARGS:Nil,
+		 9: COPY TYPE_PASS def_payment_total %v_10[4.8,] 
+		 10: 
+		 11: tx->[] def_%v_11 tx[4.2,2.5,] 	 SYMBOL:unit_price,	 ARGS:Symbol,
+		 12: tx->[] def_%v_12 tx[4.2,4.11,2.5,] 	 SYMBOL:listing_quantity,	 ARGS:Symbol,
+		 13: %v_11->* def_%v_13 %v_11[4.11,] %v_12[4.12,] 	 SYMBOL:	 ARGS:%v_12,
+		 14: COPY TYPE_PASS def_total_price %v_13[4.13,] 
+		 15: 
+		 16: HASH-payment_total-total_price-charged_commission-payment_gateway_fee- def_%v_14 payment_total[4.9,] %v_13[4.13,] 
+		 17: RETURN %v_14[4.16,] %self[4.6,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

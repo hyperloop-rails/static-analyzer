@@ -1,0 +1,640 @@
+SET IRMethod, name = index instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_Array def_%v_4 
+		 8: %v_3->permit def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: 
+		 10: %self->fetch_badge_from_params def_%v_6 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_PASS def_badge %v_6[2.10,] 
+		 12: 
+		 13: %v_6->user_badges def_%v_7 %v_6[2.10,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_StringLiteral "granted_at DESC, id DESC" def_%v_8 
+		 15: %v_7->order def_%v_9 %v_7[2.13,] %v_8[2.14,] 	 SYMBOL:	 ARGS:%v_8,
+		 16: %v_9->limit def_%v_10 %v_9[2.15,] 	 SYMBOL:	 ARGS:Fixnum,
+		 17: COPY TYPE_PASS def_user_badges %v_10[2.16,] 
+		 18: 
+		 19: HASH-badge-post- def_%v_11 
+		 20: %v_10->includes def_%v_12 %v_10[2.16,] %v_11[2.19,] 	 SYMBOL:user,granted_by,	 ARGS:Symbol,Symbol,%v_11,
+		 21: COPY TYPE_PASS def_user_badges %v_12[2.20,] 
+		 22: 
+		 23: COPY TYPE_Nil def_grant_count 
+		 24: 
+		 25: %self->params def_%v_13 %self[2.0,2.6,2.10,] 	 SYMBOL:	 ARGS:
+		 26: %v_13->[] def_%v_14 %v_13[2.25,] 	 SYMBOL:username,	 ARGS:Symbol,
+		 27: BRANCH %v_14[2.26,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%v_15 
+		 2: %self->params def_%v_16 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_16->[] def_%v_17 %v_16[3.2,] 	 SYMBOL:username,	 ARGS:Symbol,
+		 4: %v_17->downcase def_%v_18 %v_17[3.3,] 	 SYMBOL:	 ARGS:
+		 5: HASH-username_lower- def_%v_19 %v_18[3.4,] 
+		 6: %v_15->where def_%v_20 %v_15[3.1,] %v_19[3.5,] 	 SYMBOL:	 ARGS:%v_19,
+		 7: %v_20->pluck def_%v_21 %v_20[3.6,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 8: %v_21->first def_%v_22 %v_21[3.7,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_PASS def_user_id %v_22[3.8,] 
+		 10: 
+		 11: BRANCH %v_22[3.8,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: HASH-user_id- def_%v_23 user_id[3.9,] 
+		 1: user_badges->where def_%v_24 user_badges[2.17,2.21,] %v_23[4.0,] 	 SYMBOL:	 ARGS:%v_23,
+		 2: COPY TYPE_PASS def_user_badges %v_24[4.1,] 
+		 3: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_24 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: badge->user_badges def_%v_25 badge[2.11,] 	 SYMBOL:	 ARGS:
+		 2: HASH-user_id- def_%v_26 user_id[3.9,] 
+		 3: %v_25->where def_%v_27 %v_25[6.1,] %v_26[6.2,] 	 SYMBOL:	 ARGS:%v_26,
+		 4: %v_27->count def_%v_28 %v_27[6.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_grant_count %v_28[6.4,] 
+		 6: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_28 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%v_29 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_29->[] def_%v_30 %v_29[8.1,] 	 SYMBOL:offset,	 ARGS:Symbol,
+		 3: COPY TYPE_PASS def_offset %v_30[8.2,] 
+		 4: BRANCH %v_30[8.2,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: offset->to_i def_%v_31 offset[8.3,] 	 SYMBOL:	 ARGS:
+		 2: user_badges->offset def_%v_32 user_badges[2.17,2.21,4.2,] %v_31[9.1,] 	 SYMBOL:	 ARGS:%v_31,
+		 3: COPY TYPE_PASS def_user_badges %v_32[9.2,] 
+		 4: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_32 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (UserBadges) def_%v_33 
+		 2: %self->params def_%v_34 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_34->[] def_%v_35 %v_34[11.2,] 	 SYMBOL:username,	 ARGS:Symbol,
+		 4: HASH-user_badges-username-grant_count- def_%v_36 user_badges[9.3,2.17,2.21,4.2,] %v_35[11.3,] grant_count[6.5,2.23,] 
+		 5: %v_33->new def_%v_37 %v_33[11.1,] %v_36[11.4,] 	 SYMBOL:	 ARGS:%v_36,
+		 6: COPY TYPE_PASS def_user_badges %v_37[11.5,] 
+		 7: 
+		 8: (UserBadgesSerializer) def_%v_38 
+		 9: HASH-root-include_long_description- def_%v_39 
+		 10: %self->render_serialized def_%v_40 %self[11.2,2.0,] %v_37[11.5,] %v_38[11.8,] %v_39[11.9,] 	 SYMBOL:	 ARGS:user_badges,%v_38,%v_39,
+		 11: RETURN %v_40[11.10,] %self[11.2,11.10,2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = username instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_Array def_%v_4 
+		 8: %v_3->permit def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: 
+		 10: %self->fetch_user_from_params def_%v_6 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_PASS def_user %v_6[2.10,] 
+		 12: 
+		 13: %v_6->user_badges def_%v_7 %v_6[2.10,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_PASS def_user_badges %v_7[2.13,] 
+		 15: 
+		 16: %self->params def_%v_8 %self[2.0,2.6,2.10,] 	 SYMBOL:	 ARGS:
+		 17: %v_8->[] def_%v_9 %v_8[2.16,] 	 SYMBOL:grouped,	 ARGS:Symbol,
+		 18: BRANCH %v_9[2.17,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user_badges->group def_%v_10 user_badges[2.14,] 	 SYMBOL:badge_id,	 ARGS:Symbol,
+		 2: (UserBadge) def_%v_11 
+		 3: %v_11->attribute_names def_%v_12 %v_11[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_12->map def_%v_13 %v_12[3.3,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_12,
+CLOSURE BEGIN: x[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_x 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "MAX(" def_%cl_1_3 
+		 2: COPY TYPE_StringLiteral ") as " def_%cl_1_4 
+		 3: BUILDSTRING def_%cl_1_5 %cl_1_3[3.1,] x[2.2,] %cl_1_4[3.2,] x[2.2,] 
+		 4: RETURN %cl_1_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 5: COPY TYPE_StringLiteral "COUNT(*) as count" def_%v_14 
+		 6: %v_10->select def_%v_15 %v_10[3.1,] %v_13[3.4,] %v_14[3.5,] 	 SYMBOL:	 ARGS:%v_13,%v_14,
+		 7: COPY TYPE_PASS def_user_badges %v_15[3.6,] 
+		 8: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Array def_%v_16 
+		 2: HASH-badge- def_%v_17 %v_16[5.1,] 
+		 3: user_badges->includes def_%v_18 user_badges[3.7,2.14,] %v_17[5.2,] 	 SYMBOL:	 ARGS:%v_17,
+		 4: HASH-post- def_%v_19 
+		 5: %v_18->includes def_%v_20 %v_18[5.3,] %v_19[5.4,] 	 SYMBOL:	 ARGS:%v_19,
+		 6: %v_20->includes def_%v_21 %v_20[5.5,] 	 SYMBOL:granted_by,	 ARGS:Symbol,
+		 7: COPY TYPE_PASS def_user_badges %v_21[5.6,] 
+		 8: 
+		 9: (DetailedUserBadgeSerializer) def_%v_22 
+		 10: HASH-root- def_%v_23 
+		 11: %self->render_serialized def_%v_24 %self[2.0,] %v_21[5.6,] %v_22[5.9,] %v_23[5.10,] 	 SYMBOL:	 ARGS:user_badges,%v_22,%v_23,
+		 12: RETURN %v_24[5.11,] %self[5.11,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create instanceMethod = true
+BB 1
+	outgoing: 29 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->require def_%v_4 %v_3[2.6,] 	 SYMBOL:username,	 ARGS:Symbol,
+		 8: 
+		 9: %self->fetch_user_from_params def_%v_5 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_PASS def_user %v_5[2.9,] 
+		 11: 
+		 12: %self->can_assign_badge_to_user? def_%v_6 %self[2.0,2.6,2.9,] %v_5[2.9,] 	 SYMBOL:	 ARGS:user,
+		 13: BRANCH %v_6[2.12,] 
+BB 3
+	outgoing: 6 27 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+		 2: %self->fetch_badge_from_params def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_badge %v_11[3.2,] 
+		 4: 
+		 5: COPY TYPE_Nil def_post_id 
+		 6: 
+		 7: %self->params def_%v_12 %self[3.2,2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_12->[] def_%v_13 %v_12[3.7,] 	 SYMBOL:reason,	 ARGS:Symbol,
+		 9: %v_13->present? def_%v_14 %v_13[3.8,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_14[3.9,] 
+BB 4
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->failed_json def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: HASH-json-status- def_%v_9 %v_8[4.1,] 
+		 3: %self->render def_%v_10 %self[4.1,2.0,] %v_9[4.2,] 	 SYMBOL:	 ARGS:%v_9,
+		 4: 
+		 5: RETURN %self[4.1,4.3,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%v_15 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (URI) def_%v_18 
+		 2: %self->params def_%v_19 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_19->[] def_%v_20 %v_19[8.2,] 	 SYMBOL:reason,	 ARGS:Symbol,
+		 4: %v_18->parse def_%v_21 %v_18[8.1,] %v_20[8.3,] 	 SYMBOL:	 ARGS:%v_20,
+		 5: %v_21->path def_%v_22 %v_21[8.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_PASS def_%v_17 %v_22[8.5,] 
+		 7: 
+		 8: %v_15[6.1,] 
+BB 9
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 11 12 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_23 
+		 2: def_%v_24 %v_23[10.1,] 
+		 3: BRANCH %v_24[10.2,] 
+BB 11
+	outgoing: 14 29 
+	datadep: 
+	instructions:
+		 0: %v_23[10.1,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+		 1: 
+		 2: %v_15[6.1,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+BB 14
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: def_%v_25 
+		 1: def_%v_26 %v_25[14.0,] %v_15[6.1,] 
+		 2: %v_25[14.0,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_path %v_17[8.6,12.0,] 
+		 1: 
+		 2: BRANCH %v_17[8.6,12.0,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: (Rails) def_%v_27 
+		 1: %v_27->application def_%v_28 %v_27[16.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_28->routes def_%v_29 %v_28[16.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_29->recognize_path def_%v_30 %v_29[16.2,] path[15.0,] 	 SYMBOL:	 ARGS:path,
+		 4: COPY TYPE_PASS def_route %v_30[16.3,] 
+		 5: 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_30 
+BB 18
+	outgoing: 19 25 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH route[16.4,] 
+BB 19
+	outgoing: 20 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: route->[] def_%v_31 route[16.4,] 	 SYMBOL:topic_id,	 ARGS:Symbol,
+		 2: %v_31->to_i def_%v_32 %v_31[19.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_topic_id %v_32[19.2,] 
+		 4: 
+		 5: route->[] def_%v_33 route[19.1,16.4,] 	 SYMBOL:post_number,	 ARGS:Symbol,
+		 6: BRANCH %v_33[19.5,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_%v_33 
+BB 21
+	outgoing: 22 23 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_post_number %v_33[20.0,19.5,] 
+		 1: 
+		 2: topic_id->> def_%v_34 topic_id[19.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: BRANCH %v_34[21.2,] 
+BB 22
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: (Post) def_%v_35 
+		 1: HASH-topic_id-post_number- def_%v_36 topic_id[19.3,] post_number[21.0,] 
+		 2: %v_35->find_by def_%v_37 %v_35[22.0,] %v_36[22.1,] 	 SYMBOL:	 ARGS:%v_36,
+		 3: %v_37->try def_%v_38 %v_37[22.2,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 4: COPY TYPE_PASS def_post_id %v_38[22.3,] 
+		 5: 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_38 
+BB 24
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: 
+BB 25
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_38 
+BB 26
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: 
+BB 27
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_38 
+BB 28
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (BadgeGranter) def_%v_39 
+		 2: %self->current_user def_%v_40 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: HASH-granted_by-post_id- def_%v_41 %v_40[28.2,] post_id[3.5,22.4,] 
+		 4: %v_39->grant def_%v_42 %v_39[28.1,] badge[3.3,] user[2.10,] %v_41[28.3,] 	 SYMBOL:	 ARGS:badge,user,%v_41,
+		 5: COPY TYPE_PASS def_user_badge %v_42[28.4,] 
+		 6: 
+		 7: (DetailedUserBadgeSerializer) def_%v_43 
+		 8: COPY TYPE_StringLiteral "user_badge" def_%v_44 
+		 9: HASH-root- def_%v_45 %v_44[28.8,] 
+		 10: %self->render_serialized def_%v_46 %self[28.2,2.0,] %v_42[28.4,] %v_43[28.7,] %v_45[28.9,] 	 SYMBOL:	 ARGS:user_badge,%v_43,%v_45,
+		 11: RETURN %v_46[28.10,] %self[28.2,28.10,2.0,] 
+BB 29
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = destroy instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->require def_%v_4 %v_3[2.6,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 8: 
+		 9: (UserBadge) def_%v_5 
+		 10: %self->params def_%v_6 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 11: %v_6->[] def_%v_7 %v_6[2.10,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 12: %v_5->find def_%v_8 %v_5[2.9,] %v_7[2.11,] 	 SYMBOL:	 ARGS:%v_7,
+		 13: COPY TYPE_PASS def_user_badge %v_8[2.12,] 
+		 14: 
+		 15: %v_8->user def_%v_9 %v_8[2.12,] 	 SYMBOL:	 ARGS:
+		 16: %self->can_assign_badge_to_user? def_%v_10 %self[2.0,2.6,2.10,] %v_9[2.15,] 	 SYMBOL:	 ARGS:%v_9,
+		 17: BRANCH %v_10[2.16,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+		 1: 
+		 2: (BadgeGranter) def_%v_15 
+		 3: %self->current_user def_%v_16 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: HASH-revoked_by- def_%v_17 %v_16[3.3,] 
+		 5: %v_15->revoke def_%v_18 %v_15[3.2,] user_badge[2.13,] %v_17[3.4,] 	 SYMBOL:	 ARGS:user_badge,%v_17,
+		 6: 
+		 7: %self->success_json def_%v_19 %self[3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 8: HASH-json- def_%v_20 %v_19[3.7,] 
+		 9: %self->render def_%v_21 %self[3.3,3.7,2.0,] %v_20[3.8,] 	 SYMBOL:	 ARGS:%v_20,
+		 10: RETURN %v_21[3.9,] %self[3.3,3.7,3.9,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->failed_json def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: HASH-json-status- def_%v_13 %v_12[4.1,] 
+		 3: %self->render def_%v_14 %self[4.1,2.0,] %v_13[4.2,] 	 SYMBOL:	 ARGS:%v_13,
+		 4: 
+		 5: RETURN %self[4.1,4.3,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = fetch_badge_from_params instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_Nil def_badge 
+		 7: 
+		 8: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->permit def_%v_4 %v_3[2.8,] 	 SYMBOL:badge_name,	 ARGS:Symbol,
+		 10: 
+		 11: %self->params def_%v_5 %self[2.0,2.8,] 	 SYMBOL:	 ARGS:
+		 12: %v_5->[] def_%v_6 %v_5[2.11,] 	 SYMBOL:badge_name,	 ARGS:Symbol,
+		 13: %v_6->nil? def_%v_7 %v_6[2.12,] 	 SYMBOL:	 ARGS:
+		 14: BRANCH %v_7[2.13,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_8->require def_%v_9 %v_8[3.1,] 	 SYMBOL:badge_id,	 ARGS:Symbol,
+		 3: 
+		 4: (Badge) def_%v_10 
+		 5: %self->params def_%v_11 %self[3.1,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %v_11->[] def_%v_12 %v_11[3.5,] 	 SYMBOL:badge_id,	 ARGS:Symbol,
+		 7: HASH-id-enabled- def_%v_13 %v_12[3.6,] 
+		 8: %v_10->find_by def_%v_14 %v_10[3.4,] %v_13[3.7,] 	 SYMBOL:	 ARGS:%v_13,
+		 9: COPY TYPE_PASS def_badge %v_14[3.8,] 
+		 10: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Badge) def_%v_15 
+		 2: %self->params def_%v_16 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_16->[] def_%v_17 %v_16[4.2,] 	 SYMBOL:badge_name,	 ARGS:Symbol,
+		 4: HASH-name-enabled- def_%v_18 %v_17[4.3,] 
+		 5: %v_15->find_by def_%v_19 %v_15[4.1,] %v_18[4.4,] 	 SYMBOL:	 ARGS:%v_18,
+		 6: COPY TYPE_PASS def_badge %v_19[4.5,] 
+		 7: COPY TYPE_PASS def_%v_14 %v_19[4.5,] 
+BB 5
+	outgoing: 6 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: badge->blank? def_%v_20 badge[4.6,3.9,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_20[5.1,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: (Discourse) def_%v_21 
+		 1: (inherit NotFound) def_%v_22 %v_21[6.0,] 
+		 2: %v_22[6.1,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_21->const_missing def_%v_22 %v_21[6.0,] 	 SYMBOL:NotFound,	 ARGS:Symbol,
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %self->raise def_%v_23 %self[2.0,] %v_22[7.0,6.1,] 	 SYMBOL:	 ARGS:%v_22,
+		 1: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_23 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN badge[4.6,3.9,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_assign_badge_to_user? instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->current_user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->nil? def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->is_api? def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_4 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_master_api_call %v_4[3.1,2.8,] 
+		 1: 
+		 2: COPY TYPE_PASS def_%v_6 %v_4[3.1,2.8,] 
+		 3: BRANCH %v_4[3.1,2.8,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->guardian def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_7->can_grant_badges? def_%v_8 %v_7[5.0,] user[2.5,] 	 SYMBOL:	 ARGS:user,
+		 2: RETURN %v_8[5.1,] %self[5.0,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_6[4.2,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+

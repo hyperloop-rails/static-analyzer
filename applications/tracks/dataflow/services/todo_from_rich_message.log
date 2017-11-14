@@ -1,0 +1,382 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_default_context_id 
+		 7: RECEIVEARG def_description 
+		 8: RECEIVEARG def_notes 
+		 9: 
+		 10: ATTRASSIGN %self->user user[2.5,] 
+		 11: 
+		 12: ATTRASSIGN %self->default_context_id default_context_id[2.6,] 
+		 13: 
+		 14: ATTRASSIGN %self->description description[2.7,] 
+		 15: 
+		 16: ATTRASSIGN %self->notes notes[2.8,] 
+		 17: RETURN notes[2.8,] %self[2.0,2.10,2.12,2.14,2.16,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = construct instanceMethod = true
+BB 1
+	outgoing: 41 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 10 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (RichMessageExtractor) def_%v_3 
+		 7: %self->description def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->new def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: COPY TYPE_PASS def_extractor %v_5[2.8,] 
+		 10: 
+		 11: %v_5->description def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_PASS def_description %v_6[2.11,] 
+		 13: 
+		 14: extractor->context def_%v_7 extractor[2.9,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_PASS def_context %v_7[2.14,] 
+		 16: 
+		 17: extractor->project def_%v_8 extractor[2.9,2.14,] 	 SYMBOL:	 ARGS:
+		 18: COPY TYPE_PASS def_project %v_8[2.17,] 
+		 19: 
+		 20: extractor->show_from def_%v_9 extractor[2.9,2.14,2.17,] 	 SYMBOL:	 ARGS:
+		 21: COPY TYPE_PASS def_show_from %v_9[2.20,] 
+		 22: 
+		 23: extractor->due def_%v_10 extractor[2.9,2.14,2.17,2.20,] 	 SYMBOL:	 ARGS:
+		 24: COPY TYPE_PASS def_due %v_10[2.23,] 
+		 25: 
+		 26: extractor->tags def_%v_11 extractor[2.9,2.14,2.17,2.20,2.23,] 	 SYMBOL:	 ARGS:
+		 27: COPY TYPE_PASS def_tags %v_11[2.26,] 
+		 28: 
+		 29: extractor->starred? def_%v_12 extractor[2.9,2.14,2.17,2.20,2.23,2.26,] 	 SYMBOL:	 ARGS:
+		 30: COPY TYPE_PASS def_star %v_12[2.29,] 
+		 31: 
+		 32: %self->default_context_id def_%v_13 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 33: COPY TYPE_PASS def_context_id %v_13[2.32,] 
+		 34: 
+		 35: context->present? def_%v_14 context[2.15,] 	 SYMBOL:	 ARGS:
+		 36: BRANCH %v_14[2.35,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->user def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_15->contexts def_%v_16 %v_15[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_16->active def_%v_17 %v_16[3.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "name like ?" def_%v_18 
+		 5: COPY TYPE_StringLiteral "%" def_%v_19 
+		 6: COPY TYPE_StringLiteral "%" def_%v_20 
+		 7: BUILDSTRING def_%v_21 %v_19[3.5,] context[2.15,] %v_20[3.6,] 
+		 8: %v_17->where def_%v_22 %v_17[3.3,] %v_18[3.4,] %v_21[3.7,] 	 SYMBOL:	 ARGS:%v_18,%v_21,
+		 9: %v_22->first def_%v_23 %v_22[3.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_PASS def_found_context %v_23[3.9,] 
+		 11: 
+		 12: %v_23->! def_%v_24 %v_23[3.9,] 	 SYMBOL:	 ARGS:
+		 13: BRANCH %v_24[3.12,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->user def_%v_25 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_25->contexts def_%v_26 %v_25[4.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "name like ?" def_%v_27 
+		 3: COPY TYPE_StringLiteral "%" def_%v_28 
+		 4: COPY TYPE_StringLiteral "%" def_%v_29 
+		 5: BUILDSTRING def_%v_30 %v_28[4.3,] context[2.15,] %v_29[4.4,] 
+		 6: %v_26->where def_%v_31 %v_26[4.1,] %v_27[4.2,] %v_30[4.5,] 	 SYMBOL:	 ARGS:%v_27,%v_30,
+		 7: %v_31->first def_%v_32 %v_31[4.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_found_context %v_32[4.7,] 
+		 9: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_32 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH found_context[4.8,3.10,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: found_context->id def_%v_33 found_context[4.8,3.10,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_context_id %v_33[7.0,] 
+		 2: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_33 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_33 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->user def_%v_34 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_34->context_ids def_%v_35 %v_34[11.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_35->include? def_%v_36 %v_35[11.2,] context_id[2.33,7.1,] 	 SYMBOL:	 ARGS:context_id,
+		 4: BRANCH %v_36[11.3,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_37 
+		 1: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (CannotAccessContext) def_%v_38 
+		 2: COPY TYPE_StringLiteral "Cannot access a context that does not belong to this user." def_%v_39 
+		 3: %self->raise def_%v_40 %self[2.0,] %v_38[13.1,] %v_39[13.2,] 	 SYMBOL:	 ARGS:%v_38,%v_39,
+		 4: COPY TYPE_PASS def_%v_37 %v_40[13.3,] 
+BB 14
+	outgoing: 15 25 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Nil def_project_id 
+		 2: 
+		 3: project->present? def_%v_41 project[2.18,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_41[14.3,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: CONSTANT def_%v_42 
+		 2: project->[] def_%v_43 project[2.18,] %v_42[15.1,] 	 SYMBOL:	 ARGS:%v_42,
+		 3: %v_43->downcase def_%v_44 %v_43[15.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "new:" def_%v_45 
+		 5: %v_44->== def_%v_46 %v_44[15.3,] %v_45[15.4,] 	 SYMBOL:	 ARGS:%v_45,
+		 6: BRANCH %v_46[15.5,] 
+BB 16
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->user def_%v_47 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_47->projects def_%v_48 %v_47[16.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_48->build def_%v_49 %v_48[16.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_found_project %v_49[16.3,] 
+		 5: 
+		 6: CONSTANT def_%v_50 
+		 7: project->[] def_%v_51 project[2.18,] %v_50[16.6,] 	 SYMBOL:	 ARGS:%v_50,
+		 8: %v_51->strip def_%v_52 %v_51[16.7,] 	 SYMBOL:	 ARGS:
+		 9: ATTRASSIGN found_project->name %v_52[16.8,] 
+		 10: 
+		 11: found_project->save! def_%v_53 found_project[16.4,16.9,] 	 SYMBOL:	 ARGS:
+		 12: 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->user def_%v_54 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_54->projects def_%v_55 %v_54[17.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_55->active def_%v_56 %v_55[17.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_56->with_namepart def_%v_57 %v_56[17.3,] project[2.18,] 	 SYMBOL:	 ARGS:project,
+		 5: %v_57->first def_%v_58 %v_57[17.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_PASS def_found_project %v_58[17.5,] 
+		 7: 
+		 8: %v_58->nil? def_%v_59 %v_58[17.5,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_59[17.8,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: %self->user def_%v_60 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_60->projects def_%v_61 %v_60[18.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_61->with_namepart def_%v_62 %v_61[18.1,] project[2.18,] 	 SYMBOL:	 ARGS:project,
+		 3: %v_62->first def_%v_63 %v_62[18.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_found_project %v_63[18.3,] 
+		 5: 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_63 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_53 %v_63[19.0,18.3,] 
+BB 21
+	outgoing: 22 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: found_project->nil? def_%v_64 found_project[16.4,16.9,18.4,17.6,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_64[21.1,] 
+BB 22
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_65 
+		 1: 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: found_project->id def_%v_66 found_project[16.4,16.9,18.4,17.6,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_project_id %v_66[23.0,] 
+		 2: COPY TYPE_PASS def_%v_65 %v_66[23.0,] 
+BB 24
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: 
+BB 25
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_65 
+BB 26
+	outgoing: 27 28 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->user def_%v_67 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_67->todos def_%v_68 %v_67[26.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_68->build def_%v_69 %v_68[26.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_todo %v_69[26.3,] 
+		 5: 
+		 6: ATTRASSIGN %v_69->description description[2.12,] 
+		 7: 
+		 8: %self->notes def_%v_70 %self[26.1,2.0,] 	 SYMBOL:	 ARGS:
+		 9: ATTRASSIGN todo->raw_notes %v_70[26.8,] 
+		 10: 
+		 11: ATTRASSIGN todo->context_id context_id[2.33,7.1,] 
+		 12: 
+		 13: project_id->nil? def_%v_71 project_id[14.1,23.1,] 	 SYMBOL:	 ARGS:
+		 14: BRANCH %v_71[26.13,] 
+BB 27
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_72 
+		 1: 
+BB 28
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN todo->project_id project_id[14.1,23.1,] 
+		 1: COPY TYPE_PASS def_%v_72 project_id[14.1,23.1,] 
+BB 29
+	outgoing: 30 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Time) def_%v_73 
+		 2: show_from->is_a? def_%v_74 show_from[2.21,] %v_73[29.1,] 	 SYMBOL:	 ARGS:%v_73,
+		 3: BRANCH %v_74[29.2,] 
+BB 30
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN todo->show_from show_from[2.21,] 
+		 1: COPY TYPE_PASS def_%v_75 show_from[2.21,] 
+		 2: 
+BB 31
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_75 
+BB 32
+	outgoing: 33 34 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Time) def_%v_76 
+		 2: due->is_a? def_%v_77 due[2.24,] %v_76[32.1,] 	 SYMBOL:	 ARGS:%v_76,
+		 3: BRANCH %v_77[32.2,] 
+BB 33
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN todo->due due[2.24,] 
+		 1: COPY TYPE_PASS def_%v_78 due[2.24,] 
+		 2: 
+BB 34
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_78 
+BB 35
+	outgoing: 36 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: tags->nil? def_%v_79 tags[2.27,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_79[35.1,] 
+BB 36
+	outgoing: 37 
+	datadep: 
+	instructions:
+		 0: tags->empty? def_%v_80 tags[2.27,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_79 %v_80[36.0,] 
+BB 37
+	outgoing: 38 39 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_79[36.1,35.1,] 
+BB 38
+	outgoing: 40 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_81 
+		 1: 
+BB 39
+	outgoing: 40 
+	datadep: 
+	instructions:
+		 0: todo->tag_with def_%v_82 todo[33.0,30.0,28.0,26.4,26.9,26.11,] tags[2.27,] 	 SYMBOL:	 ARGS:tags,
+		 1: COPY TYPE_PASS def_%v_81 %v_82[39.0,] 
+BB 40
+	outgoing: 41 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN todo->starred star[2.30,] 
+		 2: 
+		 3: RETURN todo[40.1,33.0,30.0,28.0,26.4,26.9,26.11,] %self[2.0,] 
+BB 41
+	outgoing: 
+	datadep: 
+	instructions:
+

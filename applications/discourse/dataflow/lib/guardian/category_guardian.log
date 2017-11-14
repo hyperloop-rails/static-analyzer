@@ -1,0 +1,517 @@
+SET IRMethod, name = can_create_category? instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_parent 
+		 6: parent[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_parent 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->is_admin? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_3[4.1,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_4 
+		 2: %v_4->allow_moderators_to_create_categories def_%v_5 %v_4[5.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_5[5.2,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->is_moderator? def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_5 %v_6[6.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[6.1,5.2,] %self[2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[4.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_edit_category? instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 8 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_category 
+		 6: 
+		 7: %self->is_admin? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_4 
+		 2: %v_4->allow_moderators_to_create_categories def_%v_5 %v_4[3.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_5[3.2,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->is_moderator? def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_5 %v_6[4.0,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[4.1,3.2,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->can_see_category? def_%v_7 %self[2.0,] category[2.5,] 	 SYMBOL:	 ARGS:category,
+		 1: COPY TYPE_PASS def_%v_5 %v_7[6.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[6.1,4.1,3.2,] %self[2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.7,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_delete_category? instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_category 
+		 6: 
+		 7: %self->can_edit_category? def_%v_3 %self[2.0,] category[2.5,] 	 SYMBOL:	 ARGS:category,
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: category->topic_count def_%v_4 category[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_4-><= def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.2,2.7,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: category->uncategorized? def_%v_6 category[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->! def_%v_7 %v_6[5.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_3 %v_7[5.2,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[5.3,3.2,2.7,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: category->has_children? def_%v_8 category[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_8->! def_%v_9 %v_8[7.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %v_9[7.2,] %self[2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[5.3,3.2,2.7,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cannot_delete_category_reason instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_category 
+		 6: 
+		 7: category->uncategorized? def_%v_3 category[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: (I18n) def_%v_4 
+		 1: COPY TYPE_StringLiteral "category.cannot_delete.uncategorized" def_%v_5 
+		 2: %v_4->t def_%v_6 %v_4[3.0,] %v_5[3.1,] 	 SYMBOL:	 ARGS:%v_5,
+		 3: RETURN %v_6[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+		 2: category->has_children? def_%v_8 category[2.5,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_8[4.2,] 
+BB 6
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: (I18n) def_%v_9 
+		 1: COPY TYPE_StringLiteral "category.cannot_delete.has_subcategories" def_%v_10 
+		 2: %v_9->t def_%v_11 %v_9[6.0,] %v_10[6.1,] 	 SYMBOL:	 ARGS:%v_10,
+		 3: RETURN %v_11[6.2,] %self[2.0,] 
+BB 7
+	outgoing: 9 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+		 1: 
+		 2: category->topic_count def_%v_13 category[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_13->!= def_%v_14 %v_13[7.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: BRANCH %v_14[7.3,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: category->topics def_%v_15 category[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_15->where def_%v_16 %v_15[9.1,] 	 SYMBOL:	 ARGS:
+		 3: category->topic_id def_%v_17 category[9.1,2.5,] 	 SYMBOL:	 ARGS:
+		 4: HASH-id- def_%v_18 %v_17[9.3,] 
+		 5: %v_16->not def_%v_19 %v_16[9.2,] %v_18[9.4,] 	 SYMBOL:	 ARGS:%v_18,
+		 6: COPY TYPE_StringLiteral "created_at ASC" def_%v_20 
+		 7: %v_19->order def_%v_21 %v_19[9.5,] %v_20[9.6,] 	 SYMBOL:	 ARGS:%v_20,
+		 8: %v_21->limit def_%v_22 %v_21[9.7,] 	 SYMBOL:	 ARGS:Fixnum,
+		 9: %v_22->first def_%v_23 %v_22[9.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_PASS def_oldest_topic %v_23[9.9,] 
+		 11: 
+		 12: BRANCH %v_23[9.9,] 
+BB 10
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%v_24 
+		 2: COPY TYPE_StringLiteral "category.cannot_delete.topic_exists" def_%v_25 
+		 3: category->topic_count def_%v_26 category[2.5,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "<a href="" def_%v_27 
+		 5: oldest_topic->url def_%v_28 oldest_topic[9.10,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral "">" def_%v_29 
+		 7: oldest_topic->title def_%v_30 oldest_topic[10.5,9.10,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "</a>" def_%v_31 
+		 9: BUILDSTRING def_%v_32 %v_27[10.4,] %v_28[10.5,] %v_29[10.6,] %v_30[10.7,] %v_31[10.8,] 
+		 10: HASH-count-topic_link- def_%v_33 %v_26[10.3,] %v_32[10.9,] 
+		 11: %v_24->t def_%v_34 %v_24[10.1,] %v_25[10.2,] %v_33[10.10,] 	 SYMBOL:	 ARGS:%v_25,%v_33,
+		 12: RETURN %v_34[10.11,] %self[2.0,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%v_36 
+		 2: COPY TYPE_StringLiteral "category.cannot_delete.topic_exists_no_oldest" def_%v_37 
+		 3: category->topic_count def_%v_38 category[2.5,] 	 SYMBOL:	 ARGS:
+		 4: HASH-count- def_%v_39 %v_38[11.3,] 
+		 5: %v_36->t def_%v_40 %v_36[11.1,] %v_37[11.2,] %v_39[11.4,] 	 SYMBOL:	 ARGS:%v_37,%v_39,
+		 6: RETURN %v_40[11.5,] %self[2.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_41 
+		 1: 
+		 2: RETURN %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_see_category? instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_category 
+		 6: 
+		 7: %self->is_admin? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+		 1: category->read_restricted def_%v_4 category[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_4->! def_%v_5 %v_4[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_3 %v_5[3.2,] 
+BB 4
+	outgoing: 5 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.3,2.7,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%v_6 %self[2.0,] 
+		 2: %v_6->staged? def_%v_7 %v_6[5.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_7[5.2,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: category->email_in def_%v_8 category[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_8->present? def_%v_9 %v_8[6.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_7 %v_9[6.1,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_7[6.2,5.2,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: category->email_in_allow_strangers def_%v_10 category[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_7 %v_10[8.0,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_3 %v_7[8.1,6.2,5.2,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[9.0,3.3,2.7,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: %self->secure_category_ids def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: category->id def_%v_12 category[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_11->include? def_%v_13 %v_11[11.0,] %v_12[11.1,] 	 SYMBOL:	 ARGS:%v_12,
+		 3: RETURN %v_13[11.2,] %self[11.0,2.0,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[9.0,3.3,2.7,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = secure_category_ids instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->secure_category_ids def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_6 %self[2.0,] 
+		 1: %v_6->secure_category_ids def_%v_7 %v_6[5.0,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %self->secure_category_ids %v_7[5.1,] 
+		 3: RETURN %v_7[5.1,] %self[5.2,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = allowed_category_ids instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->allowed_category_ids def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Category) def_%v_6 
+		 2: HASH-read_restricted- def_%v_7 
+		 3: %v_6->where def_%v_8 %v_6[5.1,] %v_7[5.2,] 	 SYMBOL:	 ARGS:%v_7,
+		 4: %v_8->pluck def_%v_9 %v_8[5.3,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 5: COPY TYPE_PASS def_unrestricted %v_9[5.4,] 
+		 6: 
+		 7: %self->secure_category_ids def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: unrestricted->concat def_%v_11 unrestricted[5.5,] %v_10[5.7,] 	 SYMBOL:	 ARGS:%v_10,
+		 9: ATTRASSIGN %self->allowed_category_ids %v_11[5.8,] 
+		 10: RETURN %v_11[5.8,] %self[5.7,5.9,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = topic_create_allowed_category_ids instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->topic_create_allowed_category_ids def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_6 %self[2.0,] 
+		 1: %v_6->topic_create_allowed_category_ids def_%v_7 %v_6[5.0,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %self->topic_create_allowed_category_ids %v_7[5.1,] 
+		 3: RETURN %v_7[5.1,] %self[5.2,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+

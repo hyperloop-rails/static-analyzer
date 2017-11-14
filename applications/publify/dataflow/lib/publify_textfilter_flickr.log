@@ -1,0 +1,410 @@
+SET IRMethod, name = help_text instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "
+You can use `<publify:flickr>` to display images from [Flickr](http://flickr.com).  Example:
+
+    <publify:flickr img="31367273" size="small"/>
+
+will produce an `<img>` tag showing image number 31367273 from Flickr.  This image will be linked to
+the Flickr page for this image, so you can zoom in and see larger versions.  It will also have a
+comment block attached if a description has been attached to the picture in Flickr.
+
+This macro takes a number of parameters:
+
+* **img** The Flickr image ID of the picture that you wish to use.  This shows up in the URL whenever
+  you're viewing a picture in Flickr; for example, the image ID for <http://flickr.com/photos/scottlaird/31367273>
+  is 31367273.
+* **size** The image size that you'd like to display.  Options are:
+  * square (75x75)
+  * thumbnail (maximum size 100 pixels)
+  * small (maximum size 240 pixels)
+  * medium (maximum size 500 pixels)
+  * large (maximum size 1024 pixels)
+  * original
+* **style** This is passed through to the enclosing `<div>` that this macro generates.  To float the flickr
+  image on the right, use `style="float:right"`.
+* **caption** The caption displayed below the image.  By default, this is Flickr's description of the image.
+  to disable, use `caption=""`.
+* **title** The tooltip title associated with the image.  Defaults to Flickr's image title.
+* **alt** The alt text associated with the image.  By default, this is the same as the title.
+" def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = macrofilter instanceMethod = false
+BB 1
+	outgoing: 30 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def__blog 
+		 6: RECEIVEARG def__content 
+		 7: RECEIVEARG def_attrib 
+		 8: RECEIVEARG def__params 
+		 9: RECEIVECONSTARG def__text 
+		 10: _text[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_3 
+		 1: COPY TYPE_PASS def__text %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "img" def_%v_4 
+		 2: attrib->[] def_%v_5 attrib[2.7,] %v_4[4.1,] 	 SYMBOL:	 ARGS:%v_4,
+		 3: COPY TYPE_PASS def_img %v_5[4.2,] 
+		 4: 
+		 5: COPY TYPE_StringLiteral "size" def_%v_6 
+		 6: attrib->[] def_%v_7 attrib[4.2,2.7,] %v_6[4.5,] 	 SYMBOL:	 ARGS:%v_6,
+		 7: BRANCH %v_7[4.6,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "square" def_%v_8 
+		 1: COPY TYPE_PASS def_%v_7 %v_8[5.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_size %v_7[5.1,4.6,] 
+		 1: 
+		 2: COPY TYPE_StringLiteral "style" def_%v_9 
+		 3: attrib->[] def_%v_10 attrib[2.7,] %v_9[6.2,] 	 SYMBOL:	 ARGS:%v_9,
+		 4: COPY TYPE_PASS def_style %v_10[6.3,] 
+		 5: 
+		 6: COPY TYPE_StringLiteral "caption" def_%v_11 
+		 7: attrib->[] def_%v_12 attrib[6.3,2.7,] %v_11[6.6,] 	 SYMBOL:	 ARGS:%v_11,
+		 8: COPY TYPE_PASS def_caption %v_12[6.7,] 
+		 9: 
+		 10: COPY TYPE_StringLiteral "title" def_%v_13 
+		 11: attrib->[] def_%v_14 attrib[6.3,6.7,2.7,] %v_13[6.10,] 	 SYMBOL:	 ARGS:%v_13,
+		 12: COPY TYPE_PASS def_title %v_14[6.11,] 
+		 13: 
+		 14: COPY TYPE_StringLiteral "alt" def_%v_15 
+		 15: attrib->[] def_%v_16 attrib[6.3,6.7,6.11,2.7,] %v_15[6.14,] 	 SYMBOL:	 ARGS:%v_15,
+		 16: COPY TYPE_PASS def_alt %v_16[6.15,] 
+		 17: 
+		 18: GLOBALVAR $! def_%v_17 
+BB 8
+	outgoing: 9 10 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (FlickRaw) def_%v_20 
+		 3: (FLICKR_KEY) def_%v_21 
+		 4: ATTRASSIGN %v_20->api_key %v_21[8.3,] 
+		 5: 
+		 6: (FlickRaw) def_%v_22 
+		 7: (FLICKR_SECRET) def_%v_23 
+		 8: ATTRASSIGN %v_22->shared_secret %v_23[8.7,] 
+		 9: 
+		 10: %self->flickr def_%v_24 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 11: %v_24->photos def_%v_25 %v_24[8.10,] 	 SYMBOL:	 ARGS:
+		 12: HASH-photo_id- def_%v_26 img[4.3,] 
+		 13: %v_25->getInfo def_%v_27 %v_25[8.11,] %v_26[8.12,] 	 SYMBOL:	 ARGS:%v_26,
+		 14: COPY TYPE_PASS def_flickrimage %v_27[8.13,] 
+		 15: 
+		 16: %self->flickr def_%v_28 %self[8.10,2.0,] 	 SYMBOL:	 ARGS:
+		 17: %v_28->photos def_%v_29 %v_28[8.16,] 	 SYMBOL:	 ARGS:
+		 18: HASH-photo_id- def_%v_30 img[4.3,] 
+		 19: %v_29->getSizes def_%v_31 %v_29[8.17,] %v_30[8.18,] 	 SYMBOL:	 ARGS:%v_30,
+		 20: COPY TYPE_PASS def_sizes %v_31[8.19,] 
+		 21: 
+		 22: %v_31->find def_%v_32 %v_31[8.19,] %self[8.10,8.16,2.0,] 	 SYMBOL:	 ARGS:%v_31,
+CLOSURE BEGIN: s[] size[6.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_s 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "label" def_%cl_1_3 
+		 2: s->[] def_%cl_1_4 s[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: %cl_1_4->downcase def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: size->downcase def_%cl_1_6 size[] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_5->== def_%cl_1_7 %cl_1_5[3.3,] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 6: RETURN %cl_1_7[3.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[4.0,] 
+		 2: RETURN %cl_1_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 23: BRANCH %v_32[8.22,] 
+BB 9
+	outgoing: 10 24 
+	datadep: 
+	instructions:
+		 0: sizes->first def_%v_33 sizes[8.20,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_32 %v_33[9.0,] 
+BB 10
+	outgoing: 11 12 24 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_details %v_32[9.1,8.22,] 
+		 1: 
+		 2: COPY TYPE_StringLiteral "width" def_%v_34 
+		 3: %v_32->[] def_%v_35 %v_32[9.1,8.22,] %v_34[10.2,] 	 SYMBOL:	 ARGS:%v_34,
+		 4: COPY TYPE_PASS def_width %v_35[10.3,] 
+		 5: 
+		 6: COPY TYPE_StringLiteral "height" def_%v_36 
+		 7: details->[] def_%v_37 details[10.0,] %v_36[10.6,] 	 SYMBOL:	 ARGS:%v_36,
+		 8: COPY TYPE_PASS def_height %v_37[10.7,] 
+		 9: 
+		 10: COPY TYPE_StringLiteral "source" def_%v_38 
+		 11: details->[] def_%v_39 details[10.0,10.7,] %v_38[10.10,] 	 SYMBOL:	 ARGS:%v_38,
+		 12: COPY TYPE_Regexp def_%v_40 
+		 13: COPY TYPE_StringLiteral "" def_%v_41 
+		 14: %v_39->sub def_%v_42 %v_39[10.11,] %v_41[10.13,] 	 SYMBOL:	 ARGS:%v_40,%v_41,
+		 15: COPY TYPE_PASS def_imageurl %v_42[10.14,] 
+		 16: 
+		 17: flickrimage->urls def_%v_43 flickrimage[8.14,] 	 SYMBOL:	 ARGS:
+		 18: %v_43->find def_%v_44 %v_43[10.17,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_43,
+CLOSURE BEGIN: u[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_u 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: u->type def_%cl_2_3 u[2.2,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "photopage" def_%cl_2_4 
+		 3: %cl_2_3->== def_%cl_2_5 %cl_2_3[3.1,] %cl_2_4[3.2,] 	 SYMBOL:	 ARGS:%cl_2_4,
+		 4: RETURN %cl_2_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_6 
+		 1: def_%cl_2_7 %cl_2_6[4.0,] 
+		 2: RETURN %cl_2_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 19: %v_44->to_s def_%v_45 %v_44[10.18,] 	 SYMBOL:	 ARGS:
+		 20: COPY TYPE_PASS def_imagelink %v_45[10.19,] 
+		 21: 
+		 22: flickrimage->description def_%v_46 flickrimage[10.17,8.14,] 	 SYMBOL:	 ARGS:
+		 23: %v_46->blank? def_%v_47 %v_46[10.22,] 	 SYMBOL:	 ARGS:
+		 24: BRANCH %v_47[10.23,] 
+BB 11
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_48 
+		 1: 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_49 caption[6.8,] 
+		 1: COPY TYPE_PASS def_%v_50 caption[6.8,] 
+		 2: BRANCH caption[6.8,] 
+BB 13
+	outgoing: 14 24 
+	datadep: 
+	instructions:
+		 0: (CGI) def_%v_51 
+		 1: flickrimage->description def_%v_52 flickrimage[8.14,] 	 SYMBOL:	 ARGS:
+		 2: %v_51->unescapeHTML def_%v_53 %v_51[13.0,] %v_52[13.1,] 	 SYMBOL:	 ARGS:%v_52,
+		 3: %self->sanitize def_%v_54 %self[2.0,] %v_53[13.2,] 	 SYMBOL:	 ARGS:%v_53,
+		 4: COPY TYPE_PASS def_caption %v_54[13.3,] 
+		 5: COPY TYPE_PASS def_%v_50 %v_54[13.3,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_48 %v_50[13.5,12.1,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_55 title[6.12,] 
+		 2: COPY TYPE_PASS def_%v_56 title[6.12,] 
+		 3: BRANCH title[6.12,] 
+BB 16
+	outgoing: 17 24 
+	datadep: 
+	instructions:
+		 0: flickrimage->title def_%v_57 flickrimage[8.14,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_title %v_57[16.0,] 
+		 2: COPY TYPE_PASS def_%v_56 %v_57[16.0,] 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_58 alt[6.16,] 
+		 2: COPY TYPE_PASS def_%v_59 alt[6.16,] 
+		 3: BRANCH alt[6.16,] 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_alt title[16.1,6.12,] 
+		 1: COPY TYPE_PASS def_%v_59 title[16.1,6.12,] 
+BB 19
+	outgoing: 20 21 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: caption->blank? def_%v_60 caption[13.4,6.8,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_60[19.1,] 
+BB 20
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "" def_%v_61 
+		 2: COPY TYPE_PASS def_captioncode %v_61[20.1,] 
+		 3: 
+BB 21
+	outgoing: 22 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "<p class="caption" style="width:" def_%v_62 
+		 2: COPY TYPE_StringLiteral "px">" def_%v_63 
+		 3: COPY TYPE_StringLiteral "</p>" def_%v_64 
+		 4: BUILDSTRING def_%v_65 %v_62[21.1,] width[10.4,] %v_63[21.2,] caption[13.4,6.8,] %v_64[21.3,] 
+		 5: COPY TYPE_PASS def_captioncode %v_65[21.4,] 
+		 6: COPY TYPE_PASS def_%v_61 %v_65[21.4,] 
+BB 22
+	outgoing: 23 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "<div style="" def_%v_66 
+		 2: COPY TYPE_StringLiteral "" class="flickrplugin"><a href="" def_%v_67 
+		 3: COPY TYPE_StringLiteral ""><img src="" def_%v_68 
+		 4: COPY TYPE_StringLiteral "" width="" def_%v_69 
+		 5: COPY TYPE_StringLiteral "" height="" def_%v_70 
+		 6: COPY TYPE_StringLiteral "" alt="" def_%v_71 
+		 7: COPY TYPE_StringLiteral "" title="" def_%v_72 
+		 8: COPY TYPE_StringLiteral ""/></a>" def_%v_73 
+		 9: COPY TYPE_StringLiteral "</div>" def_%v_74 
+		 10: BUILDSTRING def_%v_75 %v_66[22.1,] style[6.4,] %v_67[22.2,] imagelink[10.20,] %v_68[22.3,] imageurl[10.15,] %v_69[22.4,] width[10.4,] %v_70[22.5,] height[10.8,] %v_71[22.6,] alt[18.0,6.16,] %v_72[22.7,] title[16.1,6.12,] %v_73[22.8,] captioncode[21.5,20.2,] %v_74[22.9,] 
+		 11: COPY TYPE_PASS def_%v_19 %v_75[22.10,] 
+		 12: %v_17[6.18,] 
+BB 23
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: 
+BB 24
+	outgoing: 25 26 28 
+	datadep: 
+	instructions:
+		 0: def_%v_76 
+		 1: def_%v_77 %v_76[24.0,] 
+		 2: BRANCH %v_77[24.1,] 
+BB 25
+	outgoing: 28 30 
+	datadep: 
+	instructions:
+		 0: %v_76[24.0,] 
+BB 26
+	outgoing: 27 28 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_78 
+		 1: COPY TYPE_PASS def_e %v_78[26.0,] 
+		 2: 
+		 3: %self->logger def_%v_79 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: e->message def_%v_80 e[26.1,] 	 SYMBOL:	 ARGS:
+		 5: %v_79->info def_%v_81 %v_79[26.3,] %v_80[26.4,] 	 SYMBOL:	 ARGS:%v_80,
+		 6: 
+		 7: COPY TYPE_StringLiteral "<div class='broken_flickr_link'>`" def_%v_82 
+		 8: COPY TYPE_StringLiteral "' could not be displayed because: <br />" def_%v_83 
+		 9: (CGI) def_%v_84 
+		 10: e->message def_%v_85 e[26.1,26.4,] 	 SYMBOL:	 ARGS:
+		 11: %v_84->escapeHTML def_%v_86 %v_84[26.9,] %v_85[26.10,] 	 SYMBOL:	 ARGS:%v_85,
+		 12: COPY TYPE_StringLiteral "</div>" def_%v_87 
+		 13: BUILDSTRING def_%v_88 %v_82[26.7,] img[4.3,] %v_83[26.8,] %v_86[26.11,] %v_87[26.12,] 
+		 14: COPY TYPE_PASS def_%v_19 %v_88[26.13,] 
+		 15: %v_17[6.18,] 
+BB 27
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: 
+BB 28
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: def_%v_89 
+		 1: def_%v_90 %v_89[28.0,] %v_17[6.18,] 
+		 2: %v_89[28.0,] 
+BB 29
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: RETURN %v_19[22.11,26.14,] %self[2.0,] 
+BB 30
+	outgoing: 
+	datadep: 
+	instructions:
+

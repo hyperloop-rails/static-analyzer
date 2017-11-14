@@ -1,0 +1,115 @@
+SET IRMethod, name = execute instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_source_project 
+		 6: RECEIVEARG def_source_branch 
+		 7: RECEIVEARG def_target_project 
+		 8: RECEIVEARG def_target_branch 
+		 9: RECEIVECONSTARG def_diff_options 
+		 10: diff_options[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_diff_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: source_project->commit def_%v_4 source_project[2.5,] source_branch[2.6,] 	 SYMBOL:	 ARGS:source_branch,
+		 2: COPY TYPE_PASS def_source_commit %v_4[4.1,] 
+		 3: 
+		 4: BRANCH %v_4[4.1,] 
+BB 5
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: source_commit->sha def_%v_6 source_commit[4.2,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_source_sha %v_6[5.2,] 
+		 4: 
+		 5: target_project->== def_%v_7 target_project[2.7,] source_project[2.5,] 	 SYMBOL:	 ARGS:source_project,
+		 6: BRANCH %v_7[5.5,] 
+BB 6
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SecureRandom) def_%v_9 
+		 2: %v_9->hex def_%v_10 %v_9[9.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_random_string %v_10[9.2,] 
+		 4: 
+		 5: target_project->repository def_%v_11 target_project[2.7,] 	 SYMBOL:	 ARGS:
+		 6: source_project->repository def_%v_12 source_project[2.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_12->path_to_repo def_%v_13 %v_12[9.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "refs/heads/" def_%v_14 
+		 9: 
+		 10: BUILDSTRING def_%v_15 %v_14[9.8,] source_branch[2.6,] 
+		 11: COPY TYPE_StringLiteral "refs/tmp/" def_%v_16 
+		 12: 
+		 13: COPY TYPE_StringLiteral "/head" def_%v_17 
+		 14: BUILDSTRING def_%v_18 %v_16[9.11,] random_string[9.3,] %v_17[9.13,] 
+		 15: %v_11->fetch_ref def_%v_19 %v_11[9.5,] %v_13[9.7,] %v_15[9.10,] %v_18[9.14,] 	 SYMBOL:	 ARGS:%v_13,%v_15,%v_18,
+		 16: COPY TYPE_PASS def_%v_8 %v_19[9.15,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Gitlab) def_%v_20 
+		 2: (inherit Git) def_%v_21 %v_20[10.1,] 
+		 3: %v_21[10.2,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %v_20->const_missing def_%v_21 %v_20[10.1,] 	 SYMBOL:Git,	 ARGS:Symbol,
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: (inherit Compare) def_%v_22 %v_21[11.0,10.2,] 
+		 1: %v_22[12.0,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: %v_21->const_missing def_%v_22 %v_21[11.0,10.2,] 	 SYMBOL:Compare,	 ARGS:Symbol,
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: target_project->repository def_%v_23 target_project[2.7,] 	 SYMBOL:	 ARGS:
+		 1: %v_23->raw_repository def_%v_24 %v_23[14.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_22->new def_%v_25 %v_22[13.0,12.0,] %v_24[14.1,] target_branch[2.8,] source_sha[5.3,] 	 SYMBOL:	 ARGS:%v_24,target_branch,source_sha,
+		 3: RETURN %v_25[14.2,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+

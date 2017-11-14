@@ -1,0 +1,575 @@
+SET IRMethod, name = flagged_posts_report instanceMethod = false
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_current_user 
+		 6: RECEIVEARG def_filter 
+		 7: RECEIVECONSTARG def_offset 
+		 8: offset[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_offset 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_per_page 
+		 1: per_page[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_per_page 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flagged_post_actions def_%v_3 %self[2.0,] filter[2.6,] 	 SYMBOL:	 ARGS:filter,
+		 2: COPY TYPE_PASS def_actions %v_3[6.1,] 
+		 3: 
+		 4: (Guardian) def_%v_4 
+		 5: %v_4->new def_%v_5 %v_4[6.4,] current_user[2.5,] 	 SYMBOL:	 ARGS:current_user,
+		 6: COPY TYPE_PASS def_guardian %v_5[6.5,] 
+		 7: 
+		 8: %v_5->is_admin? def_%v_6 %v_5[6.5,] 	 SYMBOL:	 ARGS:
+		 9: %v_6->! def_%v_7 %v_6[6.8,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_7[6.9,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "category_id IN (:allowed_category_ids) OR archetype = :private_message" def_%v_8 
+		 2: guardian->allowed_category_ids def_%v_9 guardian[6.6,] 	 SYMBOL:	 ARGS:
+		 3: (Archetype) def_%v_10 
+		 4: %v_10->private_message def_%v_11 %v_10[7.3,] 	 SYMBOL:	 ARGS:
+		 5: HASH-allowed_category_ids-private_message- def_%v_12 %v_9[7.2,] %v_11[7.4,] 
+		 6: actions->where def_%v_13 actions[6.2,] %v_8[7.1,] %v_12[7.5,] 	 SYMBOL:	 ARGS:%v_8,%v_12,
+		 7: COPY TYPE_PASS def_actions %v_13[7.6,] 
+		 8: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: actions->limit def_%v_14 actions[7.7,6.2,] per_page[5.0,4.0,] 	 SYMBOL:	 ARGS:per_page,
+		 2: %v_14->offset def_%v_15 %v_14[9.1,] offset[3.0,2.7,] 	 SYMBOL:	 ARGS:offset,
+		 3: %v_15->group def_%v_16 %v_15[9.2,] 	 SYMBOL:post_id,	 ARGS:Symbol,
+		 4: COPY TYPE_StringLiteral "MIN(post_actions.created_at) DESC" def_%v_17 
+		 5: %v_16->order def_%v_18 %v_16[9.3,] %v_17[9.4,] 	 SYMBOL:	 ARGS:%v_17,
+		 6: %v_18->pluck def_%v_19 %v_18[9.5,] 	 SYMBOL:post_id,	 ARGS:Symbol,
+		 7: %v_19->uniq def_%v_20 %v_19[9.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_post_ids %v_20[9.7,] 
+		 9: 
+		 10: %v_20->blank? def_%v_21 %v_20[9.7,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_21[9.10,] 
+BB 10
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+		 1: 
+		 2: (SqlBuilder) def_%v_23 
+		 3: COPY TYPE_StringLiteral "
+      SELECT p.id,
+             p.cooked,
+             p.user_id,
+             p.topic_id,
+             p.post_number,
+             p.hidden,
+             p.deleted_at,
+             p.user_deleted,
+             (SELECT created_at FROM post_revisions WHERE post_id = p.id AND user_id = p.user_id ORDER BY created_at DESC LIMIT 1) AS last_revised_at,
+             (SELECT COUNT(*) FROM post_actions WHERE (disagreed_at IS NOT NULL OR agreed_at IS NOT NULL OR deferred_at IS NOT NULL) AND post_id = p.id)::int AS previous_flags_count
+        FROM posts p
+       WHERE p.id in (:post_ids)" def_%v_24 
+		 4: %v_23->new def_%v_25 %v_23[11.2,] %v_24[11.3,] 	 SYMBOL:	 ARGS:%v_24,
+		 5: (OpenStruct) def_%v_26 
+		 6: HASH-post_ids- def_%v_27 post_ids[9.8,] 
+		 7: %v_25->map_exec def_%v_28 %v_25[11.4,] %v_26[11.5,] %v_27[11.6,] 	 SYMBOL:	 ARGS:%v_26,%v_27,
+		 8: COPY TYPE_PASS def_posts %v_28[11.7,] 
+		 9: 
+		 10: HASH- def_%v_29 
+		 11: COPY TYPE_PASS def_post_lookup %v_29[11.10,] 
+		 12: 
+		 13: (Set) def_%v_30 
+		 14: %v_30->new def_%v_31 %v_30[11.13,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_PASS def_user_ids %v_31[11.14,] 
+		 16: 
+		 17: (Set) def_%v_32 
+		 18: %v_32->new def_%v_33 %v_32[11.17,] 	 SYMBOL:	 ARGS:
+		 19: COPY TYPE_PASS def_topic_ids %v_33[11.18,] 
+		 20: 
+		 21: posts->each def_%v_34 posts[11.8,] %self[2.0,] 	 SYMBOL:	 ARGS:posts,
+CLOSURE BEGIN: p[] user_ids[11.15,] topic_ids[11.19,] post_lookup[11.11,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_p 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: p->user_id def_%cl_1_3 p[2.2,] 	 SYMBOL:	 ARGS:
+		 2: user_ids-><< def_%cl_1_4 user_ids[] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: 
+		 4: p->topic_id def_%cl_1_5 p[3.1,2.2,] 	 SYMBOL:	 ARGS:
+		 5: topic_ids-><< def_%cl_1_6 topic_ids[] %cl_1_5[3.4,] 	 SYMBOL:	 ARGS:%cl_1_5,
+		 6: 
+		 7: (Post) def_%cl_1_7 
+		 8: p->cooked def_%cl_1_8 p[3.1,3.4,2.2,] 	 SYMBOL:	 ARGS:
+		 9: %cl_1_7->excerpt def_%cl_1_9 %cl_1_7[3.7,] %cl_1_8[3.8,] 	 SYMBOL:	 ARGS:%cl_1_8,
+		 10: ATTRASSIGN p->excerpt %cl_1_9[3.9,] 
+		 11: 
+		 12: p->delete_field def_%cl_1_10 p[3.1,3.4,3.8,3.10,2.2,] 	 SYMBOL:cooked,	 ARGS:Symbol,
+		 13: 
+		 14: p->id def_%cl_1_11 p[3.1,3.4,3.8,3.10,3.12,2.2,] 	 SYMBOL:	 ARGS:
+		 15: ATTRASSIGN post_lookup->[] %cl_1_11[3.14,] p[3.1,3.4,3.8,3.10,3.12,3.14,2.2,] 
+		 16: RETURN p[3.1,3.4,3.8,3.10,3.12,3.14,2.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_12 
+		 1: def_%cl_1_13 %cl_1_12[4.0,] 
+		 2: RETURN %cl_1_13[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 22: 
+		 23: COPY TYPE_StringLiteral "post_actions.created_at DESC" def_%v_35 
+		 24: actions->order def_%v_36 actions[7.7,6.2,] %v_35[11.23,] 	 SYMBOL:	 ARGS:%v_35,
+		 25: HASH-ordered_posts- def_%v_37 
+		 26: HASH-topic- def_%v_38 %v_37[11.25,] 
+		 27: HASH-related_post- def_%v_39 %v_38[11.26,] 
+		 28: %v_36->includes def_%v_40 %v_36[11.24,] %v_39[11.27,] 	 SYMBOL:	 ARGS:%v_39,
+		 29: HASH-post_id- def_%v_41 post_ids[9.8,] 
+		 30: %v_40->where def_%v_42 %v_40[11.28,] %v_41[11.29,] 	 SYMBOL:	 ARGS:%v_41,
+		 31: COPY TYPE_PASS def_post_actions %v_42[11.30,] 
+		 32: 
+		 33: %v_42->each def_%v_43 %v_42[11.30,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_42,
+CLOSURE BEGIN: pa[] post_lookup[11.11,] post[] action[] response[] %self[2.0,] conversation[] user_ids[11.15,] related_topic[] reply[] 
+BB 1
+	outgoing: 22 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_pa 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: pa->post_id def_%cl_2_3 pa[2.2,] 	 SYMBOL:	 ARGS:
+		 2: post_lookup->[] def_%cl_2_4 post_lookup[] %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:%cl_2_3,
+		 3: COPY TYPE_PASS def_post %cl_2_4[3.2,] 
+		 4: 
+		 5: %cl_2_4->post_actions def_%cl_2_5 %cl_2_4[3.2,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %cl_2_5[3.5,] 
+BB 4
+	outgoing: 5 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%cl_2_7 
+		 1: post->post_actions= def_%cl_2_6 %cl_2_7[4.0,] 	 SYMBOL:	 ARGS:%cl_2_7,
+		 2: COPY TYPE_PASS def_%cl_2_5 %cl_2_7[4.0,] 
+BB 5
+	outgoing: 6 7 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: pa->id def_%cl_2_8 pa[2.2,] 	 SYMBOL:	 ARGS:
+		 2: pa->post_id def_%cl_2_9 pa[5.1,2.2,] 	 SYMBOL:	 ARGS:
+		 3: pa->user_id def_%cl_2_10 pa[5.1,5.2,2.2,] 	 SYMBOL:	 ARGS:
+		 4: pa->post_action_type_id def_%cl_2_11 pa[5.1,5.2,5.3,2.2,] 	 SYMBOL:	 ARGS:
+		 5: pa->created_at def_%cl_2_12 pa[5.1,5.2,5.3,5.4,2.2,] 	 SYMBOL:	 ARGS:
+		 6: pa->disposed_by_id def_%cl_2_13 pa[5.1,5.2,5.3,5.4,5.5,2.2,] 	 SYMBOL:	 ARGS:
+		 7: pa->disposed_at def_%cl_2_14 pa[5.1,5.2,5.3,5.4,5.5,5.6,2.2,] 	 SYMBOL:	 ARGS:
+		 8: pa->disposition def_%cl_2_15 pa[5.1,5.2,5.3,5.4,5.5,5.6,5.7,2.2,] 	 SYMBOL:	 ARGS:
+		 9: pa->related_post_id def_%cl_2_16 pa[5.1,5.2,5.3,5.4,5.5,5.6,5.7,5.8,2.2,] 	 SYMBOL:	 ARGS:
+		 10: pa->targets_topic def_%cl_2_17 pa[5.1,5.2,5.3,5.4,5.5,5.6,5.7,5.8,5.9,2.2,] 	 SYMBOL:	 ARGS:
+		 11: pa->staff_took_action def_%cl_2_18 pa[5.1,5.2,5.3,5.4,5.5,5.6,5.7,5.8,5.9,5.10,2.2,] 	 SYMBOL:	 ARGS:
+		 12: HASH-id-post_id-user_id-post_action_type_id-created_at-disposed_by_id-disposed_at-disposition-related_post_id-targets_topic-staff_took_action- def_%cl_2_19 %cl_2_8[5.1,] %cl_2_9[5.2,] %cl_2_10[5.3,] %cl_2_11[5.4,] %cl_2_12[5.5,] %cl_2_13[5.6,] %cl_2_14[5.7,] %cl_2_15[5.8,] %cl_2_16[5.9,] %cl_2_17[5.10,] %cl_2_18[5.11,] 
+		 13: COPY TYPE_PASS def_action %cl_2_19[5.12,] 
+		 14: 
+		 15: (PostActionType) def_%cl_2_20 
+		 16: %cl_2_20->types def_%cl_2_21 %cl_2_20[5.15,] 	 SYMBOL:	 ARGS:
+		 17: pa->post_action_type_id def_%cl_2_22 pa[5.1,5.2,5.3,5.4,5.5,5.6,5.7,5.8,5.9,5.10,5.11,2.2,] 	 SYMBOL:	 ARGS:
+		 18: %cl_2_21->key def_%cl_2_23 %cl_2_21[5.16,] %cl_2_22[5.17,] 	 SYMBOL:	 ARGS:%cl_2_22,
+		 19: ATTRASSIGN action->[] %cl_2_23[5.18,] 
+		 20: 
+		 21: pa->related_post def_%cl_2_24 pa[5.1,5.2,5.3,5.4,5.5,5.6,5.7,5.8,5.9,5.10,5.11,5.17,2.2,] 	 SYMBOL:	 ARGS:
+		 22: BRANCH %cl_2_24[5.21,] 
+BB 6
+	outgoing: 7 20 
+	datadep: 
+	instructions:
+		 0: pa->related_post def_%cl_2_25 pa[2.2,] 	 SYMBOL:	 ARGS:
+		 1: %cl_2_25->topic def_%cl_2_26 %cl_2_25[6.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%cl_2_24 %cl_2_26[6.1,] 
+BB 7
+	outgoing: 8 15 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_2_24[6.2,5.21,] 
+BB 8
+	outgoing: 9 13 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH- def_%cl_2_27 
+		 2: COPY TYPE_PASS def_conversation %cl_2_27[8.1,] 
+		 3: 
+		 4: pa->related_post def_%cl_2_28 pa[2.2,] 	 SYMBOL:	 ARGS:
+		 5: %cl_2_28->topic def_%cl_2_29 %cl_2_28[8.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_PASS def_related_topic %cl_2_29[8.5,] 
+		 7: 
+		 8: %cl_2_29->ordered_posts def_%cl_2_30 %cl_2_29[8.5,] 	 SYMBOL:	 ARGS:
+		 9: %cl_2_30->[] def_%cl_2_31 %cl_2_30[8.8,] 	 SYMBOL:	 ARGS:Fixnum,
+		 10: COPY TYPE_PASS def_response %cl_2_31[8.9,] 
+		 11: BRANCH %cl_2_31[8.9,] 
+BB 9
+	outgoing: 10 11 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: response->cooked def_%cl_2_32 response[8.10,] 	 SYMBOL:	 ARGS:
+		 2: %self->excerpt def_%cl_2_33 %self[2.0,] %cl_2_32[9.1,] 	 SYMBOL:	 ARGS:%cl_2_32,
+		 3: response->user_id def_%cl_2_34 response[9.1,8.10,] 	 SYMBOL:	 ARGS:
+		 4: HASH-excerpt-user_id- def_%cl_2_35 %cl_2_33[9.2,] %cl_2_34[9.3,] 
+		 5: ATTRASSIGN conversation->[] %cl_2_35[9.4,] 
+		 6: 
+		 7: response->user_id def_%cl_2_36 response[9.1,9.3,8.10,] 	 SYMBOL:	 ARGS:
+		 8: user_ids-><< def_%cl_2_37 user_ids[] %cl_2_36[9.7,] 	 SYMBOL:	 ARGS:%cl_2_36,
+		 9: 
+		 10: related_topic->ordered_posts def_%cl_2_38 related_topic[8.6,] 	 SYMBOL:	 ARGS:
+		 11: %cl_2_38->[] def_%cl_2_39 %cl_2_38[9.10,] 	 SYMBOL:	 ARGS:Fixnum,
+		 12: COPY TYPE_PASS def_reply %cl_2_39[9.11,] 
+		 13: BRANCH %cl_2_39[9.11,] 
+BB 10
+	outgoing: 12 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: reply->cooked def_%cl_2_40 reply[9.12,] 	 SYMBOL:	 ARGS:
+		 2: %self->excerpt def_%cl_2_41 %self[2.0,] %cl_2_40[10.1,] 	 SYMBOL:	 ARGS:%cl_2_40,
+		 3: reply->user_id def_%cl_2_42 reply[10.1,9.12,] 	 SYMBOL:	 ARGS:
+		 4: HASH-excerpt-user_id- def_%cl_2_43 %cl_2_41[10.2,] %cl_2_42[10.3,] 
+		 5: ATTRASSIGN conversation->[] %cl_2_43[10.4,] 
+		 6: 
+		 7: reply->user_id def_%cl_2_44 reply[10.1,10.3,9.12,] 	 SYMBOL:	 ARGS:
+		 8: user_ids-><< def_%cl_2_45 user_ids[] %cl_2_44[10.7,] 	 SYMBOL:	 ARGS:%cl_2_44,
+		 9: 
+		 10: related_topic->posts_count def_%cl_2_46 related_topic[8.6,] 	 SYMBOL:	 ARGS:
+		 11: %cl_2_46->> def_%cl_2_47 %cl_2_46[10.10,] 	 SYMBOL:	 ARGS:Fixnum,
+		 12: ATTRASSIGN conversation->[] %cl_2_47[10.11,] 
+		 13: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_2_47 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_2_47 
+BB 14
+	outgoing: 16 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: related_topic->relative_url def_%cl_2_48 related_topic[8.6,] 	 SYMBOL:	 ARGS:
+		 2: HASH-permalink-conversation- def_%cl_2_49 %cl_2_48[14.1,] conversation[8.2,10.5,10.12,9.5,] 
+		 3: action->merge! def_%cl_2_50 action[5.13,5.19,] %cl_2_49[14.2,] 	 SYMBOL:	 ARGS:%cl_2_49,
+		 4: 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_2_50 
+BB 16
+	outgoing: 17 18 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: post->post_actions def_%cl_2_51 post[4.1,3.3,] 	 SYMBOL:	 ARGS:
+		 2: %cl_2_51-><< def_%cl_2_52 %cl_2_51[16.1,] action[5.13,5.19,] 	 SYMBOL:	 ARGS:action,
+		 3: 
+		 4: pa->user_id def_%cl_2_53 pa[2.2,] 	 SYMBOL:	 ARGS:
+		 5: user_ids-><< def_%cl_2_54 user_ids[] %cl_2_53[16.4,] 	 SYMBOL:	 ARGS:%cl_2_53,
+		 6: 
+		 7: pa->disposed_by_id def_%cl_2_55 pa[16.4,2.2,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %cl_2_55[16.7,] 
+BB 17
+	outgoing: 19 20 
+	datadep: 
+	instructions:
+		 0: pa->disposed_by_id def_%cl_2_56 pa[2.2,] 	 SYMBOL:	 ARGS:
+		 1: user_ids-><< def_%cl_2_57 user_ids[] %cl_2_56[17.0,] 	 SYMBOL:	 ARGS:%cl_2_56,
+		 2: 
+BB 18
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 19
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_2_57[17.1,] %self[2.0,] 
+BB 20
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_58 
+		 1: def_%cl_2_59 %cl_2_58[20.0,] 
+		 2: RETURN %cl_2_59[20.1,] %self[2.0,] 
+BB 22
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: related_topic[8.6,] post[3.3,4.1,] response[8.10,] action[5.13,5.19,] reply[9.12,] conversation[8.2,9.5,10.5,10.12,] 
+		 34: 
+		 35: post_ids->map def_%v_44 post_ids[9.8,] %self[2.0,] 	 SYMBOL:	 ARGS:post_ids,
+CLOSURE BEGIN: post_lookup[11.11,] id[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_id 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: post_lookup->[] def_%cl_3_3 post_lookup[] id[2.2,] 	 SYMBOL:	 ARGS:id,
+		 2: RETURN %cl_3_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_4 
+		 1: def_%cl_3_5 %cl_3_4[4.0,] 
+		 2: RETURN %cl_3_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 36: COPY TYPE_PASS def_posts %v_44[11.35,] 
+		 37: 
+		 38: %v_44->map! def_%v_45 %v_44[11.35,] 	 SYMBOL:marshal_dump,	 ARGS:
+		 39: 
+		 40: (Topic) def_%v_46 
+		 41: %v_46->with_deleted def_%v_47 %v_46[11.40,] 	 SYMBOL:	 ARGS:
+		 42: topic_ids->to_a def_%v_48 topic_ids[11.19,] 	 SYMBOL:	 ARGS:
+		 43: HASH-id- def_%v_49 %v_48[11.42,] 
+		 44: %v_47->where def_%v_50 %v_47[11.41,] %v_49[11.43,] 	 SYMBOL:	 ARGS:%v_49,
+		 45: %v_50->to_a def_%v_51 %v_50[11.44,] 	 SYMBOL:	 ARGS:
+		 46: (User) def_%v_52 
+		 47: %v_52->includes def_%v_53 %v_52[11.46,] 	 SYMBOL:user_stat,	 ARGS:Symbol,
+		 48: user_ids->to_a def_%v_54 user_ids[11.15,] 	 SYMBOL:	 ARGS:
+		 49: HASH-id- def_%v_55 %v_54[11.48,] 
+		 50: %v_53->where def_%v_56 %v_53[11.47,] %v_55[11.49,] 	 SYMBOL:	 ARGS:%v_55,
+		 51: %v_56->to_a def_%v_57 %v_56[11.50,] 	 SYMBOL:	 ARGS:
+		 52: COPY TYPE_Array def_%v_58 posts[11.8,11.21,11.36,] %v_51[11.45,] %v_57[11.51,] 
+		 53: RETURN %v_58[11.52,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = flagged_post_actions instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_filter 
+		 6: 
+		 7: (PostAction) def_%v_3 
+		 8: %v_3->flags def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_StringLiteral "INNER JOIN posts ON posts.id = post_actions.post_id" def_%v_5 
+		 10: %v_4->joins def_%v_6 %v_4[2.8,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: COPY TYPE_StringLiteral "INNER JOIN topics ON topics.id = posts.topic_id" def_%v_7 
+		 12: %v_6->joins def_%v_8 %v_6[2.10,] %v_7[2.11,] 	 SYMBOL:	 ARGS:%v_7,
+		 13: COPY TYPE_StringLiteral "LEFT JOIN users ON users.id = posts.user_id" def_%v_9 
+		 14: %v_8->joins def_%v_10 %v_8[2.12,] %v_9[2.13,] 	 SYMBOL:	 ARGS:%v_9,
+		 15: COPY TYPE_PASS def_post_actions %v_10[2.14,] 
+		 16: 
+		 17: COPY TYPE_StringLiteral "old" def_%v_11 
+		 18: filter->== def_%v_12 filter[2.5,] %v_11[2.17,] 	 SYMBOL:	 ARGS:%v_11,
+		 19: BRANCH %v_12[2.18,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "post_actions.disagreed_at IS NOT NULL OR
+                          post_actions.deferred_at IS NOT NULL OR
+                          post_actions.agreed_at IS NOT NULL" def_%v_13 
+		 2: post_actions->where def_%v_14 post_actions[2.15,] %v_13[3.1,] 	 SYMBOL:	 ARGS:%v_13,
+		 3: RETURN %v_14[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: post_actions->active def_%v_15 post_actions[2.15,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "posts.deleted_at" def_%v_16 
+		 3: HASH- def_%v_17 %v_16[4.2,] 
+		 4: %v_15->where def_%v_18 %v_15[4.1,] %v_17[4.3,] 	 SYMBOL:	 ARGS:%v_17,
+		 5: COPY TYPE_StringLiteral "topics.deleted_at" def_%v_19 
+		 6: HASH- def_%v_20 %v_19[4.5,] 
+		 7: %v_18->where def_%v_21 %v_18[4.4,] %v_20[4.6,] 	 SYMBOL:	 ARGS:%v_20,
+		 8: RETURN %v_21[4.7,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = excerpt instanceMethod = false
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_cooked 
+		 6: 
+		 7: (Post) def_%v_3 
+		 8: %v_3->excerpt def_%v_4 %v_3[2.7,] cooked[2.5,] 	 SYMBOL:	 ARGS:cooked,Fixnum,
+		 9: COPY TYPE_PASS def_excerpt %v_4[2.8,] 
+		 10: 
+		 11: (Nokogiri) def_%v_5 
+		 12: (inherit HTML) def_%v_6 %v_5[2.11,] 
+		 13: %v_6[2.12,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_5->const_missing def_%v_6 %v_5[2.11,] 	 SYMBOL:HTML,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %v_6->fragment def_%v_7 %v_6[3.0,2.12,] excerpt[2.9,] 	 SYMBOL:	 ARGS:excerpt,
+		 1: COPY TYPE_PASS def_fragment %v_7[4.0,] 
+		 2: 
+		 3: %v_7->children def_%v_8 %v_7[4.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_8->first def_%v_9 %v_8[4.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "a:first" def_%v_10 
+		 6: fragment->css def_%v_11 fragment[4.1,] %v_10[4.5,] 	 SYMBOL:	 ARGS:%v_10,
+		 7: %v_11->first def_%v_12 %v_11[4.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_9->== def_%v_13 %v_9[4.4,] %v_12[4.7,] 	 SYMBOL:	 ARGS:%v_12,
+		 9: BRANCH %v_13[4.8,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: fragment->children def_%v_14 fragment[4.1,] 	 SYMBOL:	 ARGS:
+		 1: %v_14->first def_%v_15 %v_14[5.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_13 %v_15[5.1,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_13[5.2,4.8,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: fragment->children def_%v_16 fragment[4.1,] 	 SYMBOL:	 ARGS:
+		 2: %v_16->first def_%v_17 %v_16[7.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_17->remove def_%v_18 %v_17[7.2,] 	 SYMBOL:	 ARGS:
+		 4: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_18 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: fragment->to_html def_%v_19 fragment[4.1,] 	 SYMBOL:	 ARGS:
+		 2: %v_19->strip def_%v_20 %v_19[9.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %v_20[9.2,] %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+

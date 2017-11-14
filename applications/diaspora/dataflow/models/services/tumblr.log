@@ -1,0 +1,558 @@
+SET IRMethod, name = provider instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "tumblr" def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = consumer_key instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (AppConfig) def_%v_3 
+		 7: %v_3->services def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->tumblr def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->key def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: RETURN %v_6[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = consumer_secret instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (AppConfig) def_%v_3 
+		 7: %v_3->services def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->tumblr def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->secret def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: RETURN %v_6[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = post instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: RECEIVECONSTARG def_url 
+		 7: url[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_3 
+		 1: COPY TYPE_PASS def_url %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->build_tumblr_post def_%v_4 %self[2.0,] post[2.5,] url[3.1,2.6,] 	 SYMBOL:	 ARGS:post,url,
+		 2: COPY TYPE_PASS def_body %v_4[4.1,] 
+		 3: 
+		 4: (JSON) def_%v_5 
+		 5: %self->client def_%v_6 %self[4.1,2.0,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral "/v2/user/info" def_%v_7 
+		 7: %v_6->get def_%v_8 %v_6[4.5,] %v_7[4.6,] 	 SYMBOL:	 ARGS:%v_7,
+		 8: %v_8->body def_%v_9 %v_8[4.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->parse def_%v_10 %v_5[4.4,] %v_9[4.8,] 	 SYMBOL:	 ARGS:%v_9,
+		 10: COPY TYPE_PASS def_user_info %v_10[4.9,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "response" def_%v_11 
+		 13: %v_10->[] def_%v_12 %v_10[4.9,] %v_11[4.12,] 	 SYMBOL:	 ARGS:%v_11,
+		 14: COPY TYPE_StringLiteral "user" def_%v_13 
+		 15: %v_12->[] def_%v_14 %v_12[4.13,] %v_13[4.14,] 	 SYMBOL:	 ARGS:%v_13,
+		 16: COPY TYPE_StringLiteral "blogs" def_%v_15 
+		 17: %v_14->[] def_%v_16 %v_14[4.15,] %v_15[4.16,] 	 SYMBOL:	 ARGS:%v_15,
+		 18: COPY TYPE_PASS def_blogs %v_16[4.17,] 
+		 19: 
+		 20: %v_16->find def_%v_17 %v_16[4.17,] %self[4.1,4.5,2.0,] 	 SYMBOL:	 ARGS:%v_16,
+CLOSURE BEGIN: blog[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_blog 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "primary" def_%cl_1_3 
+		 2: blog->[] def_%cl_1_4 blog[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 21: BRANCH %v_17[4.20,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: blogs->[] def_%v_18 blogs[4.18,] 	 SYMBOL:	 ARGS:Fixnum,
+		 1: COPY TYPE_PASS def_%v_17 %v_18[5.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_primaryblog %v_17[5.1,4.20,] 
+		 1: 
+		 2: HASH- def_%v_19 
+		 3: COPY TYPE_PASS def_tumblr_ids %v_19[6.2,] 
+		 4: 
+		 5: (URI) def_%v_20 
+		 6: COPY TYPE_StringLiteral "url" def_%v_21 
+		 7: %v_17->[] def_%v_22 %v_17[5.1,4.20,] %v_21[6.6,] 	 SYMBOL:	 ARGS:%v_21,
+		 8: %v_20->parse def_%v_23 %v_20[6.5,] %v_22[6.7,] 	 SYMBOL:	 ARGS:%v_22,
+		 9: COPY TYPE_PASS def_blogurl %v_23[6.8,] 
+		 10: 
+		 11: %self->client def_%v_24 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral "/v2/blog/" def_%v_25 
+		 13: blogurl->host def_%v_26 blogurl[6.9,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_StringLiteral "/post" def_%v_27 
+		 15: BUILDSTRING def_%v_28 %v_25[6.12,] %v_26[6.13,] %v_27[6.14,] 
+		 16: %v_24->post def_%v_29 %v_24[6.11,] %v_28[6.15,] body[4.2,] 	 SYMBOL:	 ARGS:%v_28,body,
+		 17: COPY TYPE_PASS def_resp %v_29[6.16,] 
+		 18: 
+		 19: %v_29->code def_%v_30 %v_29[6.16,] 	 SYMBOL:	 ARGS:
+		 20: COPY TYPE_StringLiteral "201" def_%v_31 
+		 21: %v_30->== def_%v_32 %v_30[6.19,] %v_31[6.20,] 	 SYMBOL:	 ARGS:%v_31,
+		 22: BRANCH %v_32[6.21,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: blogurl->host def_%v_33 blogurl[6.9,] 	 SYMBOL:	 ARGS:
+		 2: %v_33->to_s def_%v_34 %v_33[7.1,] 	 SYMBOL:	 ARGS:
+		 3: (JSON) def_%v_35 
+		 4: resp->body def_%v_36 resp[6.17,] 	 SYMBOL:	 ARGS:
+		 5: %v_35->parse def_%v_37 %v_35[7.3,] %v_36[7.4,] 	 SYMBOL:	 ARGS:%v_36,
+		 6: COPY TYPE_StringLiteral "response" def_%v_38 
+		 7: %v_37->[] def_%v_39 %v_37[7.5,] %v_38[7.6,] 	 SYMBOL:	 ARGS:%v_38,
+		 8: COPY TYPE_StringLiteral "id" def_%v_40 
+		 9: %v_39->[] def_%v_41 %v_39[7.7,] %v_40[7.8,] 	 SYMBOL:	 ARGS:%v_40,
+		 10: ATTRASSIGN tumblr_ids->[] %v_34[7.2,] %v_41[7.9,] 
+		 11: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_41 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: tumblr_ids->to_json def_%v_42 tumblr_ids[7.10,6.3,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN post->tumblr_ids %v_42[9.1,] 
+		 3: 
+		 4: post->save def_%v_43 post[9.2,2.5,] 	 SYMBOL:	 ARGS:
+		 5: RETURN %v_43[9.4,] %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_tumblr_post instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: RECEIVEARG def_url 
+		 7: 
+		 8: COPY TYPE_StringLiteral "text" def_%v_3 
+		 9: COPY TYPE_StringLiteral "markdown" def_%v_4 
+		 10: %self->tumblr_template def_%v_5 %self[2.0,] post[2.5,] url[2.6,] 	 SYMBOL:	 ARGS:post,url,
+		 11: HASH-type-format-body- def_%v_6 %v_3[2.8,] %v_4[2.9,] %v_5[2.10,] 
+		 12: RETURN %v_6[2.11,] %self[2.0,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = tumblr_template instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: RECEIVEARG def_url 
+		 7: 
+		 8: COPY TYPE_StringLiteral "" def_%v_3 
+		 9: COPY TYPE_PASS def_html %v_3[2.8,] 
+		 10: 
+		 11: post->photos def_%v_4 post[2.5,] 	 SYMBOL:	 ARGS:
+		 12: %v_4->each def_%v_5 %v_4[2.11,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: photo[] html[2.9,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_photo 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "![photo](" def_%cl_1_3 
+		 2: photo->url def_%cl_1_4 photo[2.2,] 	 SYMBOL:scaled_full,	 ARGS:Symbol,
+		 3: COPY TYPE_StringLiteral ")
+
+" def_%cl_1_5 
+		 4: BUILDSTRING def_%cl_1_6 %cl_1_3[3.1,] %cl_1_4[3.2,] %cl_1_5[3.3,] 
+		 5: html-><< def_%cl_1_7 html[] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 6: RETURN %cl_1_7[3.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[4.0,] 
+		 2: RETURN %cl_1_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 13: 
+		 14: post->message def_%v_6 post[2.5,2.11,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_Array def_%v_7 
+		 16: HASH-mentioned_people- def_%v_8 %v_7[2.15,] 
+		 17: %v_6->html def_%v_9 %v_6[2.14,] %v_8[2.16,] 	 SYMBOL:	 ARGS:%v_8,
+		 18: html-><< def_%v_10 html[2.9,] %v_9[2.17,] 	 SYMBOL:	 ARGS:%v_9,
+		 19: 
+		 20: COPY TYPE_StringLiteral "
+
+[original post](" def_%v_11 
+		 21: COPY TYPE_StringLiteral ")" def_%v_12 
+		 22: BUILDSTRING def_%v_13 %v_11[2.20,] url[2.6,] %v_12[2.21,] 
+		 23: html-><< def_%v_14 html[2.9,2.18,] %v_13[2.22,] 	 SYMBOL:	 ARGS:%v_13,
+		 24: RETURN %v_14[2.23,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = delete_post instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: post->present? def_%v_3 post[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: post->tumblr_ids def_%v_4 post[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->present? def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.2,2.7,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->logger def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "event=delete_from_service type=tumblr sender_id=" def_%v_7 
+		 3: %self->user_id def_%v_8 %self[5.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral " post=" def_%v_9 
+		 5: post->guid def_%v_10 post[2.5,] 	 SYMBOL:	 ARGS:
+		 6: BUILDSTRING def_%v_11 %v_7[5.2,] %v_8[5.3,] %v_9[5.4,] %v_10[5.5,] 
+		 7: %v_6->debug def_%v_12 %v_6[5.1,] %v_11[5.6,] 	 SYMBOL:	 ARGS:%v_11,
+		 8: 
+		 9: (JSON) def_%v_13 
+		 10: post->tumblr_ids def_%v_14 post[5.5,2.5,] 	 SYMBOL:	 ARGS:
+		 11: %v_13->parse def_%v_15 %v_13[5.9,] %v_14[5.10,] 	 SYMBOL:	 ARGS:%v_14,
+		 12: COPY TYPE_PASS def_tumblr_posts %v_15[5.11,] 
+		 13: 
+		 14: %v_15->each def_%v_16 %v_15[5.11,] %self[5.1,5.3,2.0,] 	 SYMBOL:	 ARGS:%v_15,
+CLOSURE BEGIN: %self[5.1,5.3,2.0,] blog_name[] post_id[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_blog_name 
+		 3: RECEIVEARG def_post_id 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->delete_from_tumblr def_%cl_1_3 %self[2.0,] blog_name[2.2,] post_id[2.3,] 	 SYMBOL:	 ARGS:blog_name,post_id,
+		 2: RETURN %cl_1_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: post_id[2.3,] 
+		 15: RETURN %v_16[5.14,] %self[5.1,5.3,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = delete_from_tumblr instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_blog_name 
+		 6: RECEIVEARG def_service_post_id 
+		 7: 
+		 8: %self->client def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_StringLiteral "/v2/blog/" def_%v_4 
+		 10: COPY TYPE_StringLiteral "/post/delete" def_%v_5 
+		 11: BUILDSTRING def_%v_6 %v_4[2.9,] blog_name[2.5,] %v_5[2.10,] 
+		 12: COPY TYPE_StringLiteral "id" def_%v_7 
+		 13: HASH- def_%v_8 %v_7[2.12,] service_post_id[2.6,] 
+		 14: %v_3->post def_%v_9 %v_3[2.8,] %v_6[2.11,] %v_8[2.13,] 	 SYMBOL:	 ARGS:%v_6,%v_8,
+		 15: RETURN %v_9[2.14,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = client instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->consumer def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (OAuth) def_%v_6 
+		 1: (inherit Consumer) def_%v_7 %v_6[5.0,] 
+		 2: %v_7[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[5.0,] 	 SYMBOL:Consumer,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->consumer_key def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %self->consumer_secret def_%v_9 %self[7.0,2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "http://api.tumblr.com" def_%v_10 
+		 3: HASH-site- def_%v_11 %v_10[7.2,] 
+		 4: %v_7->new def_%v_12 %v_7[6.0,5.1,] %v_8[7.0,] %v_9[7.1,] %v_11[7.3,] 	 SYMBOL:	 ARGS:%v_8,%v_9,%v_11,
+		 5: ATTRASSIGN %self->consumer %v_12[7.4,] 
+		 6: COPY TYPE_PASS def_%v_5 %v_12[7.4,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_14 %self[7.5,2.0,] 
+		 2: COPY TYPE_PASS def_%v_13 %v_14[8.1,] 
+		 3: %v_14[8.1,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->client def_%v_15 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_13 %v_15[9.0,] 
+BB 10
+	outgoing: 11 14 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_13[9.1,8.2,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: (OAuth) def_%v_16 
+		 1: (inherit AccessToken) def_%v_17 %v_16[11.0,] 
+		 2: %v_17[11.1,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: %v_16->const_missing def_%v_17 %v_16[11.0,] 	 SYMBOL:AccessToken,	 ARGS:Symbol,
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->consumer def_%v_18 %self[7.5,2.0,] 
+		 1: %self->access_token def_%v_19 %self[7.5,2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->access_secret def_%v_20 %self[13.1,7.5,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_17->new def_%v_21 %v_17[12.0,11.1,] %v_18[13.0,] %v_19[13.1,] %v_20[13.2,] 	 SYMBOL:	 ARGS:%v_18,%v_19,%v_20,
+		 4: ATTRASSIGN %self->client %v_21[13.3,] 
+		 5: RETURN %v_21[13.3,] %self[13.1,13.2,13.4,7.5,2.0,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %v_15[9.0,] %self[7.5,2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+

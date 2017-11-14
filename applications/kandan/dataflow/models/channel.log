@@ -1,0 +1,171 @@
+SET IRMethod, name = ensure_app_max_rooms instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Setting) def_%v_3 
+		 7: %v_3->my_settings def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->max_rooms def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: (Channel) def_%v_6 
+		 10: %v_6->count def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->> def_%v_8 %v_5[2.8,] %v_7[2.10,] 	 SYMBOL:	 ARGS:%v_7,
+		 12: COPY TYPE_PASS def_valid %v_8[2.11,] 
+		 13: 
+		 14: BRANCH %v_8[2.11,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->errors def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "This app has reached the maximum number of rooms" def_%v_11 
+		 2: %v_10->add def_%v_12 %v_10[4.0,] %v_11[4.1,] 	 SYMBOL:max_rooms,	 ARGS:Symbol,%v_11,
+		 3: COPY TYPE_PASS def_%v_9 %v_12[4.2,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN valid[2.12,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = primary instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->find def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:Fixnum,
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = user_connect instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: (Channel) def_%v_3 
+		 8: %v_3->primary def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->activities def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_5->new def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_PASS def_activity %v_6[2.10,] 
+		 12: 
+		 13: user->id def_%v_7 user[2.5,] 	 SYMBOL:	 ARGS:
+		 14: ATTRASSIGN activity->user_id %v_7[2.13,] 
+		 15: 
+		 16: COPY TYPE_StringLiteral "connect" def_%v_8 
+		 17: ATTRASSIGN activity->action %v_8[2.16,] 
+		 18: 
+		 19: (Setting) def_%v_9 
+		 20: %v_9->my_settings def_%v_10 %v_9[2.19,] 	 SYMBOL:	 ARGS:
+		 21: %v_10->disable_conn_disconn_activity def_%v_11 %v_10[2.20,] 	 SYMBOL:	 ARGS:
+		 22: BRANCH %v_11[2.21,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+		 1: RETURN %v_12[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: activity->save! def_%v_13 activity[2.11,2.14,2.17,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_13[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = user_disconnect instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: (Channel) def_%v_3 
+		 8: %v_3->primary def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->activities def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_5->new def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_PASS def_activity %v_6[2.10,] 
+		 12: 
+		 13: user->id def_%v_7 user[2.5,] 	 SYMBOL:	 ARGS:
+		 14: ATTRASSIGN activity->user_id %v_7[2.13,] 
+		 15: 
+		 16: COPY TYPE_StringLiteral "disconnect" def_%v_8 
+		 17: ATTRASSIGN activity->action %v_8[2.16,] 
+		 18: 
+		 19: (Setting) def_%v_9 
+		 20: %v_9->my_settings def_%v_10 %v_9[2.19,] 	 SYMBOL:	 ARGS:
+		 21: %v_10->disable_conn_disconn_activity def_%v_11 %v_10[2.20,] 	 SYMBOL:	 ARGS:
+		 22: BRANCH %v_11[2.21,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+		 1: RETURN %v_12[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: activity->save! def_%v_13 activity[2.11,2.14,2.17,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_13[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

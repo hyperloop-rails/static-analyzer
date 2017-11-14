@@ -1,0 +1,268 @@
+SET IRMethod, name = append_query_param instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_url_str 
+		 6: RECEIVEARG def_param_key 
+		 7: RECEIVEARG def_param_val 
+		 8: 
+		 9: %self->URI def_%v_3 %self[2.0,] url_str[2.5,] 	 SYMBOL:	 ARGS:url_str,
+		 10: COPY TYPE_PASS def_uri %v_3[2.9,] 
+		 11: 
+		 12: (URI) def_%v_4 
+		 13: %v_3->query def_%v_5 %v_3[2.9,] 	 SYMBOL:	 ARGS:
+		 14: BRANCH %v_5[2.13,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_6 
+		 1: COPY TYPE_PASS def_%v_5 %v_6[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_4->decode_www_form def_%v_7 %v_4[2.12,] %v_5[3.1,2.13,] 	 SYMBOL:	 ARGS:%v_5,
+		 1: COPY TYPE_Array def_%v_8 param_key[2.6,] param_val[2.7,] 
+		 2: %v_7-><< def_%v_9 %v_7[4.0,] %v_8[4.1,] 	 SYMBOL:	 ARGS:%v_8,
+		 3: COPY TYPE_PASS def_args %v_9[4.2,] 
+		 4: 
+		 5: (URI) def_%v_10 
+		 6: %v_10->encode_www_form def_%v_11 %v_10[4.5,] %v_9[4.2,] 	 SYMBOL:	 ARGS:args,
+		 7: ATTRASSIGN uri->query %v_11[4.6,] 
+		 8: 
+		 9: uri->to_s def_%v_12 uri[4.7,2.10,] 	 SYMBOL:	 ARGS:
+		 10: RETURN %v_12[4.9,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = remove_query_param instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_url_str 
+		 6: RECEIVEARG def_param_key 
+		 7: 
+		 8: %self->URI def_%v_3 %self[2.0,] url_str[2.5,] 	 SYMBOL:	 ARGS:url_str,
+		 9: COPY TYPE_PASS def_uri %v_3[2.8,] 
+		 10: 
+		 11: (URI) def_%v_4 
+		 12: %v_3->query def_%v_5 %v_3[2.8,] 	 SYMBOL:	 ARGS:
+		 13: BRANCH %v_5[2.12,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_6 
+		 1: COPY TYPE_PASS def_%v_5 %v_6[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %v_4->decode_www_form def_%v_7 %v_4[2.11,] %v_5[3.1,2.12,] 	 SYMBOL:	 ARGS:%v_5,
+		 1: %v_7->reject def_%v_8 %v_7[4.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: param_key[2.6,] key[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_%cl_1_1 
+		 3: def_%cl_1_2 %cl_1_1[2.2,] 
+		 4: def_key %cl_1_2[2.3,] 
+		 5: def__ %cl_1_2[2.3,] 
+		 6: COPY TYPE_CurrentScope def_%current_scope 
+		 7: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: param_key->== def_%cl_1_5 param_key[] key[2.4,] 	 SYMBOL:	 ARGS:key,
+		 2: RETURN %cl_1_5[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: _[2.5,] 
+		 2: COPY TYPE_PASS def_args %v_8[4.1,] 
+		 3: 
+		 4: %v_8->empty? def_%v_9 %v_8[4.1,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %v_9[4.4,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: (URI) def_%v_11 
+		 1: %v_11->encode_www_form def_%v_12 %v_11[6.0,] args[4.2,] 	 SYMBOL:	 ARGS:args,
+		 2: COPY TYPE_PASS def_%v_10 %v_12[6.1,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN uri->query %v_10[6.2,5.0,] 
+		 1: 
+		 2: uri->to_s def_%v_13 uri[7.0,2.9,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %v_13[7.2,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = prepend_path_component instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_url_str 
+		 6: RECEIVEARG def_component 
+		 7: 
+		 8: %self->URI def_%v_3 %self[2.0,] url_str[2.5,] 	 SYMBOL:	 ARGS:url_str,
+		 9: COPY TYPE_PASS def_uri %v_3[2.8,] 
+		 10: 
+		 11: COPY TYPE_StringLiteral "/" def_%v_4 
+		 12: %v_3->path def_%v_5 %v_3[2.8,] 	 SYMBOL:	 ARGS:
+		 13: BUILDSTRING def_%v_6 %v_4[2.11,] component[2.6,] %v_5[2.12,] 
+		 14: ATTRASSIGN uri->path %v_6[2.13,] 
+		 15: 
+		 16: uri->to_s def_%v_7 uri[2.9,2.14,] 	 SYMBOL:	 ARGS:
+		 17: RETURN %v_7[2.16,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_url instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_base_url 
+		 6: RECEIVEARG def_params 
+		 7: 
+		 8: %self->URI def_%v_3 %self[2.0,] base_url[2.5,] 	 SYMBOL:	 ARGS:base_url,
+		 9: COPY TYPE_PASS def_uri %v_3[2.8,] 
+		 10: 
+		 11: (URI) def_%v_4 
+		 12: (HashUtils) def_%v_5 
+		 13: %v_5->compact def_%v_6 %v_5[2.12,] params[2.6,] 	 SYMBOL:	 ARGS:params,
+		 14: %v_4->encode_www_form def_%v_7 %v_4[2.11,] %v_6[2.13,] 	 SYMBOL:	 ARGS:%v_6,
+		 15: ATTRASSIGN uri->query %v_7[2.14,] 
+		 16: 
+		 17: uri->to_s def_%v_8 uri[2.9,2.15,] 	 SYMBOL:	 ARGS:
+		 18: RETURN %v_8[2.17,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = extract_locale_from_url instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_url 
+		 6: 
+		 7: %self->URI def_%v_3 %self[2.0,] url[2.5,] 	 SYMBOL:	 ARGS:url,
+		 8: %v_3->path def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_StringLiteral "/" def_%v_5 
+		 10: %v_4->split def_%v_6 %v_4[2.8,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: %v_6->[] def_%v_7 %v_6[2.10,] 	 SYMBOL:	 ARGS:Fixnum,
+		 12: RETURN %v_7[2.11,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = strip_port_from_host instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_host 
+		 6: 
+		 7: COPY TYPE_StringLiteral ":" def_%v_3 
+		 8: host->split def_%v_4 host[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: %v_4->first def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: RETURN %v_5[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,697 @@
+SET IRMethod, name = signup_invitation instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_email 
+		 6: RECEIVEARG def_user 
+		 7: RECEIVEARG def_message 
+		 8: 
+		 9: BUILDSTRING def_%v_3 email[2.5,] 
+		 10: ATTRASSIGN %self->recipients %v_3[2.9,] 
+		 11: 
+		 12: user->login def_%v_4 user[2.6,] 	 SYMBOL:	 ARGS:
+		 13: %self->configatron def_%v_5 %self[2.0,2.10,] 	 SYMBOL:	 ARGS:
+		 14: %v_5->community_name def_%v_6 %v_5[2.13,] 	 SYMBOL:	 ARGS:
+		 15: HASH-user-site- def_%v_7 %v_4[2.12,] %v_6[2.14,] 
+		 16: %v_7->l def_%v_8 %v_7[2.15,] 	 SYMBOL:would_like_you_to_join,	 ARGS:%v_7,
+		 17: BUILDSTRING def_%v_9 %v_8[2.16,] 
+		 18: ATTRASSIGN %self->subject %v_9[2.17,] 
+		 19: 
+		 20: (Time) def_%v_10 
+		 21: %v_10->now def_%v_11 %v_10[2.20,] 	 SYMBOL:	 ARGS:
+		 22: ATTRASSIGN %self->sent_on %v_11[2.21,] 
+		 23: 
+		 24: ATTRASSIGN %self->user user[2.6,2.12,] 
+		 25: 
+		 26: user->invite_code def_%v_12 user[2.6,2.12,] 	 SYMBOL:	 ARGS:
+		 27: %self->signup_by_id_url def_%v_13 %self[2.0,2.10,2.13,2.18,2.22,2.24,] user[2.6,2.12,2.26,] %v_12[2.26,] 	 SYMBOL:	 ARGS:user,%v_12,
+		 28: ATTRASSIGN %self->url %v_13[2.27,] 
+		 29: 
+		 30: ATTRASSIGN %self->message message[2.7,] 
+		 31: 
+		 32: GETFIELD %self->recipients def_%v_14 %self[2.0,2.10,2.13,2.27,] 
+		 33: GETFIELD %self->subject def_%v_15 %self[2.0,2.13,2.18,2.27,] 
+		 34: HASH-to-subject- def_%v_16 %v_14[2.32,] %v_15[2.33,] 
+		 35: %self->mail def_%v_17 %self[2.0,2.10,2.13,2.18,2.22,2.24,2.27,2.28,2.30,] %v_16[2.34,] 	 SYMBOL:	 ARGS:%v_16,
+		 36: RETURN %v_17[2.35,] %self[2.0,2.10,2.13,2.18,2.22,2.24,2.27,2.28,2.30,2.35,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = friendship_request instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_friendship 
+		 6: 
+		 7: friendship->friend def_%v_3 friendship[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %self->setup_email def_%v_4 %self[2.0,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: 
+		 10: GETFIELD %self->subject def_%v_5 %self[2.0,2.8,] 
+		 11: friendship->user def_%v_6 friendship[2.5,2.7,] 	 SYMBOL:	 ARGS:
+		 12: %v_6->login def_%v_7 %v_6[2.11,] 	 SYMBOL:	 ARGS:
+		 13: %self->configatron def_%v_8 %self[2.0,2.8,] 	 SYMBOL:	 ARGS:
+		 14: %v_8->community_name def_%v_9 %v_8[2.13,] 	 SYMBOL:	 ARGS:
+		 15: HASH-user-site- def_%v_10 %v_7[2.12,] %v_9[2.14,] 
+		 16: %v_10->l def_%v_11 %v_10[2.15,] 	 SYMBOL:would_like_to_be_friends_with_you_on,	 ARGS:%v_10,
+		 17: BUILDSTRING def_%v_12 %v_11[2.16,] 
+		 18: %v_5->+ def_%v_13 %v_5[2.10,] %v_12[2.17,] 	 SYMBOL:	 ARGS:%v_12,
+		 19: ATTRASSIGN %self->subject %v_13[2.18,] 
+		 20: 
+		 21: friendship->friend def_%v_14 friendship[2.5,2.7,2.11,] 	 SYMBOL:	 ARGS:
+		 22: %self->pending_user_friendships_url def_%v_15 %self[2.0,2.8,2.13,2.19,] %v_14[2.21,] 	 SYMBOL:	 ARGS:%v_14,
+		 23: ATTRASSIGN %self->url %v_15[2.22,] 
+		 24: 
+		 25: friendship->user def_%v_16 friendship[2.5,2.7,2.11,2.21,] 	 SYMBOL:	 ARGS:
+		 26: ATTRASSIGN %self->requester %v_16[2.25,] 
+		 27: 
+		 28: GETFIELD %self->recipients def_%v_17 %self[2.0,2.8,2.13,2.22,] 
+		 29: GETFIELD %self->subject def_%v_18 %self[2.0,2.8,2.13,2.19,2.22,] 
+		 30: HASH-to-subject- def_%v_19 %v_17[2.28,] %v_18[2.29,] 
+		 31: %self->mail def_%v_20 %self[2.0,2.8,2.13,2.19,2.22,2.23,2.26,] %v_19[2.30,] 	 SYMBOL:	 ARGS:%v_19,
+		 32: RETURN %v_20[2.31,] %self[2.0,2.8,2.13,2.19,2.22,2.23,2.26,2.31,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = friendship_accepted instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_friendship 
+		 6: 
+		 7: friendship->user def_%v_3 friendship[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %self->setup_email def_%v_4 %self[2.0,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: 
+		 10: GETFIELD %self->subject def_%v_5 %self[2.0,2.8,] 
+		 11: CONSTANT def_%v_6 	 SYMBOL:friendship_request_accepted,	 ARGS:
+		 12: BUILDSTRING def_%v_7 %v_6[2.11,] 
+		 13: %v_5->+ def_%v_8 %v_5[2.10,] %v_7[2.12,] 	 SYMBOL:	 ARGS:%v_7,
+		 14: ATTRASSIGN %self->subject %v_8[2.13,] 
+		 15: 
+		 16: friendship->user def_%v_9 friendship[2.5,2.7,] 	 SYMBOL:	 ARGS:
+		 17: ATTRASSIGN %self->requester %v_9[2.16,] 
+		 18: 
+		 19: friendship->friend def_%v_10 friendship[2.5,2.7,2.16,] 	 SYMBOL:	 ARGS:
+		 20: ATTRASSIGN %self->friend %v_10[2.19,] 
+		 21: 
+		 22: friendship->friend def_%v_11 friendship[2.5,2.7,2.16,2.19,] 	 SYMBOL:	 ARGS:
+		 23: %self->user_url def_%v_12 %self[2.0,2.8,2.14,2.17,2.20,] %v_11[2.22,] 	 SYMBOL:	 ARGS:%v_11,
+		 24: ATTRASSIGN %self->url %v_12[2.23,] 
+		 25: 
+		 26: GETFIELD %self->recipients def_%v_13 %self[2.0,2.8,2.23,] 
+		 27: GETFIELD %self->subject def_%v_14 %self[2.0,2.8,2.14,2.23,] 
+		 28: HASH-to-subject- def_%v_15 %v_13[2.26,] %v_14[2.27,] 
+		 29: %self->mail def_%v_16 %self[2.0,2.8,2.14,2.17,2.20,2.23,2.24,] %v_15[2.28,] 	 SYMBOL:	 ARGS:%v_15,
+		 30: RETURN %v_16[2.29,] %self[2.0,2.8,2.14,2.17,2.20,2.23,2.24,2.29,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = comment_notice instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_comment 
+		 6: 
+		 7: comment->recipient def_%v_3 comment[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %self->setup_email def_%v_4 %self[2.0,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: 
+		 10: GETFIELD %self->subject def_%v_5 %self[2.0,2.8,] 
+		 11: comment->username def_%v_6 comment[2.5,2.7,] 	 SYMBOL:	 ARGS:
+		 12: %self->configatron def_%v_7 %self[2.0,2.8,] 	 SYMBOL:	 ARGS:
+		 13: %v_7->community_name def_%v_8 %v_7[2.12,] 	 SYMBOL:	 ARGS:
+		 14: HASH-user-site- def_%v_9 %v_6[2.11,] %v_8[2.13,] 
+		 15: %v_9->l def_%v_10 %v_9[2.14,] 	 SYMBOL:has_something_to_say_to_you_on,	 ARGS:%v_9,
+		 16: BUILDSTRING def_%v_11 %v_10[2.15,] 
+		 17: %v_5->+ def_%v_12 %v_5[2.10,] %v_11[2.16,] 	 SYMBOL:	 ARGS:%v_11,
+		 18: ATTRASSIGN %self->subject %v_12[2.17,] 
+		 19: 
+		 20: %self->commentable_url def_%v_13 %self[2.0,2.8,2.12,2.18,] comment[2.5,2.7,2.11,] 	 SYMBOL:	 ARGS:comment,
+		 21: ATTRASSIGN %self->url %v_13[2.20,] 
+		 22: 
+		 23: ATTRASSIGN %self->comment comment[2.5,2.7,2.11,] 
+		 24: 
+		 25: comment->user def_%v_14 comment[2.5,2.7,2.11,] 	 SYMBOL:	 ARGS:
+		 26: ATTRASSIGN %self->commenter %v_14[2.25,] 
+		 27: 
+		 28: GETFIELD %self->recipients def_%v_15 %self[2.0,2.8,2.12,2.20,] 
+		 29: GETFIELD %self->subject def_%v_16 %self[2.0,2.8,2.12,2.18,2.20,] 
+		 30: HASH-to-subject- def_%v_17 %v_15[2.28,] %v_16[2.29,] 
+		 31: %self->mail def_%v_18 %self[2.0,2.8,2.12,2.18,2.20,2.21,2.23,2.26,] %v_17[2.30,] 	 SYMBOL:	 ARGS:%v_17,
+		 32: RETURN %v_18[2.31,] %self[2.0,2.8,2.12,2.18,2.20,2.21,2.23,2.26,2.31,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = follow_up_comment_notice instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_comment 
+		 7: 
+		 8: %self->setup_email def_%v_3 %self[2.0,] user[2.5,] 	 SYMBOL:	 ARGS:user,
+		 9: 
+		 10: GETFIELD %self->subject def_%v_4 %self[2.0,2.8,] 
+		 11: comment->username def_%v_5 comment[2.6,] 	 SYMBOL:	 ARGS:
+		 12: comment->commentable_type def_%v_6 comment[2.6,2.11,] 	 SYMBOL:	 ARGS:
+		 13: HASH-user-item- def_%v_7 %v_5[2.11,] %v_6[2.12,] 
+		 14: %v_7->l def_%v_8 %v_7[2.13,] 	 SYMBOL:has_commented_on_something_that_you_also_commented_on,	 ARGS:%v_7,
+		 15: BUILDSTRING def_%v_9 %v_8[2.14,] 
+		 16: %v_4->+ def_%v_10 %v_4[2.10,] %v_9[2.15,] 	 SYMBOL:	 ARGS:%v_9,
+		 17: ATTRASSIGN %self->subject %v_10[2.16,] 
+		 18: 
+		 19: %self->commentable_url def_%v_11 %self[2.0,2.8,2.17,] comment[2.6,2.11,2.12,] 	 SYMBOL:	 ARGS:comment,
+		 20: ATTRASSIGN %self->url %v_11[2.19,] 
+		 21: 
+		 22: ATTRASSIGN %self->comment comment[2.6,2.11,2.12,] 
+		 23: 
+		 24: comment->user def_%v_12 comment[2.6,2.11,2.12,] 	 SYMBOL:	 ARGS:
+		 25: ATTRASSIGN %self->commenter %v_12[2.24,] 
+		 26: 
+		 27: GETFIELD %self->recipients def_%v_13 %self[2.0,2.8,2.19,] 
+		 28: GETFIELD %self->subject def_%v_14 %self[2.0,2.8,2.17,2.19,] 
+		 29: HASH-to-subject- def_%v_15 %v_13[2.27,] %v_14[2.28,] 
+		 30: %self->mail def_%v_16 %self[2.0,2.8,2.17,2.19,2.20,2.22,2.25,] %v_15[2.29,] 	 SYMBOL:	 ARGS:%v_15,
+		 31: RETURN %v_16[2.30,] %self[2.0,2.8,2.17,2.19,2.20,2.22,2.25,2.30,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = follow_up_comment_notice_anonymous instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_email 
+		 6: RECEIVEARG def_comment 
+		 7: 
+		 8: BUILDSTRING def_%v_3 email[2.5,] 
+		 9: ATTRASSIGN %self->recipients %v_3[2.8,] 
+		 10: 
+		 11: COPY TYPE_StringLiteral "[" def_%v_4 
+		 12: %self->configatron def_%v_5 %self[2.0,2.9,] 	 SYMBOL:	 ARGS:
+		 13: %v_5->community_name def_%v_6 %v_5[2.12,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_StringLiteral "] " def_%v_7 
+		 15: BUILDSTRING def_%v_8 %v_4[2.11,] %v_6[2.13,] %v_7[2.14,] 
+		 16: ATTRASSIGN %self->subject %v_8[2.15,] 
+		 17: 
+		 18: (Time) def_%v_9 
+		 19: %v_9->now def_%v_10 %v_9[2.18,] 	 SYMBOL:	 ARGS:
+		 20: ATTRASSIGN %self->sent_on %v_10[2.19,] 
+		 21: 
+		 22: GETFIELD %self->subject def_%v_11 %self[2.0,2.12,2.16,] 
+		 23: comment->username def_%v_12 comment[2.6,] 	 SYMBOL:	 ARGS:
+		 24: comment->commentable_type def_%v_13 comment[2.6,2.23,] 	 SYMBOL:	 ARGS:
+		 25: HASH-user-item- def_%v_14 %v_12[2.23,] %v_13[2.24,] 
+		 26: %v_14->l def_%v_15 %v_14[2.25,] 	 SYMBOL:has_commented_on_something_that_you_also_commented_on,	 ARGS:%v_14,
+		 27: BUILDSTRING def_%v_16 %v_15[2.26,] 
+		 28: %v_11->+ def_%v_17 %v_11[2.22,] %v_16[2.27,] 	 SYMBOL:	 ARGS:%v_16,
+		 29: ATTRASSIGN %self->subject %v_17[2.28,] 
+		 30: 
+		 31: %self->commentable_url def_%v_18 %self[2.0,2.9,2.12,2.16,2.20,2.29,] comment[2.6,2.23,2.24,] 	 SYMBOL:	 ARGS:comment,
+		 32: ATTRASSIGN %self->url %v_18[2.31,] 
+		 33: 
+		 34: ATTRASSIGN %self->comment comment[2.6,2.23,2.24,] 
+		 35: 
+		 36: COPY TYPE_StringLiteral "comments" def_%v_19 
+		 37: COPY TYPE_StringLiteral "unsubscribe" def_%v_20 
+		 38: comment->commentable_type def_%v_21 comment[2.6,2.23,2.24,] 	 SYMBOL:	 ARGS:
+		 39: comment->commentable_id def_%v_22 comment[2.6,2.23,2.24,2.38,] 	 SYMBOL:	 ARGS:
+		 40: comment->id def_%v_23 comment[2.6,2.23,2.24,2.38,2.39,] 	 SYMBOL:	 ARGS:
+		 41: comment->token_for def_%v_24 comment[2.6,2.23,2.24,2.38,2.39,2.40,] email[2.5,] 	 SYMBOL:	 ARGS:email,
+		 42: HASH-controller-action-commentable_type-commentable_id-id-token-email- def_%v_25 %v_19[2.36,] %v_20[2.37,] %v_21[2.38,] %v_22[2.39,] %v_23[2.40,] %v_24[2.41,] email[2.5,] 
+		 43: %self->url_for def_%v_26 %self[2.0,2.9,2.12,2.16,2.20,2.29,2.31,2.32,2.34,] %v_25[2.42,] 	 SYMBOL:	 ARGS:%v_25,
+		 44: ATTRASSIGN %self->unsubscribe_link %v_26[2.43,] 
+		 45: 
+		 46: GETFIELD %self->recipients def_%v_27 %self[2.0,2.9,2.12,2.31,2.43,] 
+		 47: GETFIELD %self->subject def_%v_28 %self[2.0,2.12,2.16,2.29,2.31,2.43,] 
+		 48: HASH-to-subject- def_%v_29 %v_27[2.46,] %v_28[2.47,] 
+		 49: %self->mail def_%v_30 %self[2.0,2.9,2.12,2.16,2.20,2.29,2.31,2.32,2.34,2.43,2.44,] %v_29[2.48,] 	 SYMBOL:	 ARGS:%v_29,
+		 50: RETURN %v_30[2.49,] %self[2.0,2.9,2.12,2.16,2.20,2.29,2.31,2.32,2.34,2.43,2.44,2.49,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = new_forum_post_notice instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_post 
+		 7: 
+		 8: %self->setup_email def_%v_3 %self[2.0,] user[2.5,] 	 SYMBOL:	 ARGS:user,
+		 9: 
+		 10: GETFIELD %self->subject def_%v_4 %self[2.0,2.8,] 
+		 11: post->username def_%v_5 post[2.6,] 	 SYMBOL:	 ARGS:
+		 12: HASH-user- def_%v_6 %v_5[2.11,] 
+		 13: %v_6->l def_%v_7 %v_6[2.12,] 	 SYMBOL:has_posted_in_a_thread_you_are_monitoring,	 ARGS:%v_6,
+		 14: BUILDSTRING def_%v_8 %v_7[2.13,] 
+		 15: %v_4->+ def_%v_9 %v_4[2.10,] %v_8[2.14,] 	 SYMBOL:	 ARGS:%v_8,
+		 16: ATTRASSIGN %self->subject %v_9[2.15,] 
+		 17: 
+		 18: post->topic def_%v_10 post[2.6,2.11,] 	 SYMBOL:	 ARGS:
+		 19: %v_10->forum def_%v_11 %v_10[2.18,] 	 SYMBOL:	 ARGS:
+		 20: post->topic def_%v_12 post[2.6,2.11,2.18,] 	 SYMBOL:	 ARGS:
+		 21: post->topic def_%v_13 post[2.6,2.11,2.18,2.20,] 	 SYMBOL:	 ARGS:
+		 22: %v_13->last_page def_%v_14 %v_13[2.21,] 	 SYMBOL:	 ARGS:
+		 23: HASH-forum_id-id-page- def_%v_15 %v_11[2.19,] %v_12[2.20,] %v_14[2.22,] 
+		 24: %self->forum_topic_url def_%v_16 %self[2.0,2.8,2.16,] %v_15[2.23,] 	 SYMBOL:	 ARGS:%v_15,
+		 25: COPY TYPE_StringLiteral "#" def_%v_17 
+		 26: post->dom_id def_%v_18 post[2.6,2.11,2.18,2.20,2.21,] 	 SYMBOL:	 ARGS:
+		 27: BUILDSTRING def_%v_19 %v_16[2.24,] %v_17[2.25,] %v_18[2.26,] 
+		 28: ATTRASSIGN %self->url %v_19[2.27,] 
+		 29: 
+		 30: ATTRASSIGN %self->post post[2.6,2.11,2.18,2.20,2.21,2.26,] 
+		 31: 
+		 32: post->username def_%v_20 post[2.6,2.11,2.18,2.20,2.21,2.26,] 	 SYMBOL:	 ARGS:
+		 33: ATTRASSIGN %self->author %v_20[2.32,] 
+		 34: 
+		 35: GETFIELD %self->recipients def_%v_21 %self[2.0,2.8,2.24,] 
+		 36: GETFIELD %self->subject def_%v_22 %self[2.0,2.8,2.16,2.24,] 
+		 37: HASH-to-subject- def_%v_23 %v_21[2.35,] %v_22[2.36,] 
+		 38: %self->mail def_%v_24 %self[2.0,2.8,2.16,2.24,2.28,2.30,2.33,] %v_23[2.37,] 	 SYMBOL:	 ARGS:%v_23,
+		 39: RETURN %v_24[2.38,] %self[2.0,2.8,2.16,2.24,2.28,2.30,2.33,2.38,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = signup_notification instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->setup_email def_%v_3 %self[2.0,] user[2.5,] 	 SYMBOL:	 ARGS:user,
+		 8: 
+		 9: GETFIELD %self->subject def_%v_4 %self[2.0,2.7,] 
+		 10: %self->configatron def_%v_5 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->community_name def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: HASH-site- def_%v_7 %v_6[2.11,] 
+		 13: %v_7->l def_%v_8 %v_7[2.12,] 	 SYMBOL:please_activate_your_new_account,	 ARGS:%v_7,
+		 14: BUILDSTRING def_%v_9 %v_8[2.13,] 
+		 15: %v_4->+ def_%v_10 %v_4[2.9,] %v_9[2.14,] 	 SYMBOL:	 ARGS:%v_9,
+		 16: ATTRASSIGN %self->subject %v_10[2.15,] 
+		 17: 
+		 18: %self->home_url def_%v_11 %self[2.0,2.7,2.10,2.16,] 	 SYMBOL:	 ARGS:
+		 19: COPY TYPE_StringLiteral "users/" def_%v_12 
+		 20: user->activation_code def_%v_13 user[2.5,] 	 SYMBOL:	 ARGS:
+		 21: COPY TYPE_StringLiteral "/activate" def_%v_14 
+		 22: BUILDSTRING def_%v_15 %v_11[2.18,] %v_12[2.19,] %v_13[2.20,] %v_14[2.21,] 
+		 23: ATTRASSIGN %self->url %v_15[2.22,] 
+		 24: 
+		 25: GETFIELD %self->recipients def_%v_16 %self[2.0,2.7,2.10,2.18,] 
+		 26: GETFIELD %self->subject def_%v_17 %self[2.0,2.7,2.10,2.16,2.18,] 
+		 27: HASH-to-subject- def_%v_18 %v_16[2.25,] %v_17[2.26,] 
+		 28: %self->mail def_%v_19 %self[2.0,2.7,2.10,2.16,2.18,2.23,] %v_18[2.27,] 	 SYMBOL:	 ARGS:%v_18,
+		 29: RETURN %v_19[2.28,] %self[2.0,2.7,2.10,2.16,2.18,2.23,2.28,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = message_notification instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_message 
+		 6: 
+		 7: message->recipient def_%v_3 message[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %self->setup_email def_%v_4 %self[2.0,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: 
+		 10: GETFIELD %self->subject def_%v_5 %self[2.0,2.8,] 
+		 11: message->sender def_%v_6 message[2.5,2.7,] 	 SYMBOL:	 ARGS:
+		 12: %v_6->login def_%v_7 %v_6[2.11,] 	 SYMBOL:	 ARGS:
+		 13: HASH-user- def_%v_8 %v_7[2.12,] 
+		 14: %v_8->l def_%v_9 %v_8[2.13,] 	 SYMBOL:sent_you_a_private_message,	 ARGS:%v_8,
+		 15: BUILDSTRING def_%v_10 %v_9[2.14,] 
+		 16: %v_5->+ def_%v_11 %v_5[2.10,] %v_10[2.15,] 	 SYMBOL:	 ARGS:%v_10,
+		 17: ATTRASSIGN %self->subject %v_11[2.16,] 
+		 18: 
+		 19: ATTRASSIGN %self->message message[2.5,2.7,2.11,] 
+		 20: 
+		 21: GETFIELD %self->recipients def_%v_12 %self[2.0,2.8,] 
+		 22: GETFIELD %self->subject def_%v_13 %self[2.0,2.8,2.17,] 
+		 23: HASH-to-subject- def_%v_14 %v_12[2.21,] %v_13[2.22,] 
+		 24: %self->mail def_%v_15 %self[2.0,2.8,2.17,2.19,] %v_14[2.23,] 	 SYMBOL:	 ARGS:%v_14,
+		 25: RETURN %v_15[2.24,] %self[2.0,2.8,2.17,2.19,2.24,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = post_recommendation instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_name 
+		 6: RECEIVEARG def_email 
+		 7: RECEIVEARG def_post 
+		 8: RECEIVECONSTARG def_message 
+		 9: message[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_message 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_current_user 
+		 1: current_user[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_current_user 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BUILDSTRING def_%v_3 email[2.6,] 
+		 2: ATTRASSIGN %self->recipients %v_3[6.1,] 
+		 3: 
+		 4: (Time) def_%v_4 
+		 5: %v_4->now def_%v_5 %v_4[6.4,] 	 SYMBOL:	 ARGS:
+		 6: ATTRASSIGN %self->sent_on %v_5[6.5,] 
+		 7: 
+		 8: %self->configatron def_%v_6 %self[6.2,6.6,2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_6->community_name def_%v_7 %v_6[6.8,] 	 SYMBOL:	 ARGS:
+		 10: HASH-site- def_%v_8 %v_7[6.9,] 
+		 11: %v_8->l def_%v_9 %v_8[6.10,] 	 SYMBOL:check_out_this_story_on,	 ARGS:%v_8,
+		 12: BUILDSTRING def_%v_10 %v_9[6.11,] 
+		 13: ATTRASSIGN %self->subject %v_10[6.12,] 
+		 14: 
+		 15: ATTRASSIGN %self->name name[2.5,] 
+		 16: 
+		 17: post->title def_%v_11 post[2.7,] 	 SYMBOL:	 ARGS:
+		 18: ATTRASSIGN %self->title %v_11[6.17,] 
+		 19: 
+		 20: ATTRASSIGN %self->post post[6.17,2.7,] 
+		 21: 
+		 22: BRANCH current_user[5.0,4.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: current_user->invite_code def_%v_12 current_user[5.0,4.0,] 	 SYMBOL:	 ARGS:
+		 1: %self->signup_by_id_url def_%v_13 %self[6.2,6.6,6.13,6.15,6.18,6.20,2.0,] current_user[7.0,5.0,4.0,] %v_12[7.0,] 	 SYMBOL:	 ARGS:current_user,%v_12,
+		 2: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %self->signup_url def_%v_14 %self[6.2,6.6,6.13,6.15,6.18,6.20,2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_13 %v_14[8.0,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->signup_link %v_13[8.1,7.1,] 
+		 1: 
+		 2: ATTRASSIGN %self->message message[3.0,2.8,] 
+		 3: 
+		 4: post->user def_%v_15 post[2.7,] 	 SYMBOL:	 ARGS:
+		 5: %self->user_post_url def_%v_16 %self[9.0,9.2,6.2,6.6,6.13,6.15,6.18,6.20,2.0,] %v_15[9.4,] post[9.4,2.7,] 	 SYMBOL:	 ARGS:%v_15,post,
+		 6: ATTRASSIGN %self->url %v_16[9.5,] 
+		 7: 
+		 8: post->post def_%v_17 post[9.4,2.7,] 	 SYMBOL:	 ARGS:
+		 9: GETFIELD %self->url def_%v_18 %self[9.5,9.6,2.0,] 
+		 10: %self->truncate_words def_%v_19 %self[9.0,9.2,9.5,9.6,6.2,6.6,6.13,6.15,6.18,6.20,2.0,] %v_17[9.8,] %v_18[9.9,] 	 SYMBOL:	 ARGS:%v_17,Fixnum,%v_18,
+		 11: ATTRASSIGN %self->description %v_19[9.10,] 
+		 12: 
+		 13: GETFIELD %self->recipients def_%v_20 %self[9.5,9.10,6.2,2.0,] 
+		 14: GETFIELD %self->subject def_%v_21 %self[9.5,9.10,6.13,2.0,] 
+		 15: HASH-to-subject- def_%v_22 %v_20[9.13,] %v_21[9.14,] 
+		 16: %self->mail def_%v_23 %self[9.0,9.2,9.5,9.6,9.10,9.11,6.2,6.6,6.13,6.15,6.18,6.20,2.0,] %v_22[9.15,] 	 SYMBOL:	 ARGS:%v_22,
+		 17: RETURN %v_23[9.16,] %self[9.0,9.2,9.5,9.6,9.10,9.11,9.16,6.2,6.6,6.13,6.15,6.18,6.20,2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = activation instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->setup_email def_%v_3 %self[2.0,] user[2.5,] 	 SYMBOL:	 ARGS:user,
+		 8: 
+		 9: GETFIELD %self->subject def_%v_4 %self[2.0,2.7,] 
+		 10: %self->configatron def_%v_5 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->community_name def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: HASH-site- def_%v_7 %v_6[2.11,] 
+		 13: %v_7->l def_%v_8 %v_7[2.12,] 	 SYMBOL:your_account_has_been_activated,	 ARGS:%v_7,
+		 14: BUILDSTRING def_%v_9 %v_8[2.13,] 
+		 15: %v_4->+ def_%v_10 %v_4[2.9,] %v_9[2.14,] 	 SYMBOL:	 ARGS:%v_9,
+		 16: ATTRASSIGN %self->subject %v_10[2.15,] 
+		 17: 
+		 18: %self->home_url def_%v_11 %self[2.0,2.7,2.10,2.16,] 	 SYMBOL:	 ARGS:
+		 19: ATTRASSIGN %self->url %v_11[2.18,] 
+		 20: 
+		 21: GETFIELD %self->recipients def_%v_12 %self[2.0,2.7,2.10,2.18,] 
+		 22: GETFIELD %self->subject def_%v_13 %self[2.0,2.7,2.10,2.16,2.18,] 
+		 23: HASH-to-subject- def_%v_14 %v_12[2.21,] %v_13[2.22,] 
+		 24: %self->mail def_%v_15 %self[2.0,2.7,2.10,2.16,2.18,2.19,] %v_14[2.23,] 	 SYMBOL:	 ARGS:%v_14,
+		 25: RETURN %v_15[2.24,] %self[2.0,2.7,2.10,2.16,2.18,2.19,2.24,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = password_reset_instructions instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->setup_email def_%v_3 %self[2.0,] user[2.5,] 	 SYMBOL:	 ARGS:user,
+		 8: 
+		 9: GETFIELD %self->subject def_%v_4 %self[2.0,2.7,] 
+		 10: %self->configatron def_%v_5 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->community_name def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: HASH-site- def_%v_7 %v_6[2.11,] 
+		 13: %v_7->l def_%v_8 %v_7[2.12,] 	 SYMBOL:user_information,	 ARGS:%v_7,
+		 14: BUILDSTRING def_%v_9 %v_8[2.13,] 
+		 15: %v_4->+ def_%v_10 %v_4[2.9,] %v_9[2.14,] 	 SYMBOL:	 ARGS:%v_9,
+		 16: ATTRASSIGN %self->subject %v_10[2.15,] 
+		 17: 
+		 18: user->perishable_token def_%v_11 user[2.5,] 	 SYMBOL:	 ARGS:
+		 19: %self->edit_password_reset_url def_%v_12 %self[2.0,2.7,2.10,2.16,] %v_11[2.18,] 	 SYMBOL:	 ARGS:%v_11,
+		 20: ATTRASSIGN %self->edit_password_reset_url %v_12[2.19,] 
+		 21: 
+		 22: GETFIELD %self->recipients def_%v_13 %self[2.0,2.7,2.10,2.19,] 
+		 23: GETFIELD %self->subject def_%v_14 %self[2.0,2.7,2.10,2.16,2.19,] 
+		 24: HASH-to-subject- def_%v_15 %v_13[2.22,] %v_14[2.23,] 
+		 25: %self->mail def_%v_16 %self[2.0,2.7,2.10,2.16,2.19,2.20,] %v_15[2.24,] 	 SYMBOL:	 ARGS:%v_15,
+		 26: RETURN %v_16[2.25,] %self[2.0,2.7,2.10,2.16,2.19,2.20,2.25,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = forgot_username instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->setup_email def_%v_3 %self[2.0,] user[2.5,] 	 SYMBOL:	 ARGS:user,
+		 8: 
+		 9: GETFIELD %self->subject def_%v_4 %self[2.0,2.7,] 
+		 10: %self->configatron def_%v_5 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->community_name def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: HASH-site- def_%v_7 %v_6[2.11,] 
+		 13: %v_7->l def_%v_8 %v_7[2.12,] 	 SYMBOL:user_information,	 ARGS:%v_7,
+		 14: BUILDSTRING def_%v_9 %v_8[2.13,] 
+		 15: %v_4->+ def_%v_10 %v_4[2.9,] %v_9[2.14,] 	 SYMBOL:	 ARGS:%v_9,
+		 16: ATTRASSIGN %self->subject %v_10[2.15,] 
+		 17: 
+		 18: GETFIELD %self->recipients def_%v_11 %self[2.0,2.7,2.10,] 
+		 19: GETFIELD %self->subject def_%v_12 %self[2.0,2.7,2.10,2.16,] 
+		 20: HASH-to-subject- def_%v_13 %v_11[2.18,] %v_12[2.19,] 
+		 21: %self->mail def_%v_14 %self[2.0,2.7,2.10,2.16,] %v_13[2.20,] 	 SYMBOL:	 ARGS:%v_13,
+		 22: RETURN %v_14[2.21,] %self[2.0,2.7,2.10,2.16,2.21,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = setup_email instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: user->email def_%v_3 user[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BUILDSTRING def_%v_4 %v_3[2.7,] 
+		 9: ATTRASSIGN %self->recipients %v_4[2.8,] 
+		 10: 
+		 11: COPY TYPE_StringLiteral "[" def_%v_5 
+		 12: %self->configatron def_%v_6 %self[2.0,2.9,] 	 SYMBOL:	 ARGS:
+		 13: %v_6->community_name def_%v_7 %v_6[2.12,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_StringLiteral "] " def_%v_8 
+		 15: BUILDSTRING def_%v_9 %v_5[2.11,] %v_7[2.13,] %v_8[2.14,] 
+		 16: ATTRASSIGN %self->subject %v_9[2.15,] 
+		 17: 
+		 18: (Time) def_%v_10 
+		 19: %v_10->now def_%v_11 %v_10[2.18,] 	 SYMBOL:	 ARGS:
+		 20: ATTRASSIGN %self->sent_on %v_11[2.19,] 
+		 21: 
+		 22: ATTRASSIGN %self->user user[2.5,2.7,] 
+		 23: RETURN user[2.5,2.7,] %self[2.0,2.9,2.12,2.16,2.20,2.22,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

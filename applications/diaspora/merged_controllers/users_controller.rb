@@ -1,0 +1,406 @@
+#   Copyright (c) 2010-2011, Diaspora Inc.  This file is
+#   licensed under the Affero General Public License version 3 or later.  See
+#   the COPYRIGHT file.
+
+class UsersController < ApplicationController
+  before_action :authenticate_user!, :except => [:new, :create, :public, :user_photo]
+  respond_to :html
+
+  def edit
+    @aspect = :user_edit
+    @user = current_user
+    set_email_preferences
+ruby_code_from_view.ruby_code_from_view do |rb_from_view|
+ og_prefix 
+ page_title yield(:page_title) 
+  if @post.present? 
+ og_page_post_tags(@post) 
+ else 
+ og_general_tags 
+ end 
+ 
+ chartbeat_head_block 
+ include_mixpanel 
+ include_color_theme 
+ if rtl? 
+ stylesheet_link_tag :rtl, media:  'all' 
+ end 
+ old_browser_js_support 
+ javascript_include_tag :ie 
+ jquery_include_tag 
+ unless @landing_page 
+ javascript_include_tag :main, :templates 
+ load_javascript_locales 
+ end 
+ translation_missing_warnings 
+ current_user_atom_tag 
+ yield(:head) 
+ csrf_meta_tag 
+ include_gon(camel_case:  true) 
+ yield :before_content 
+ 
+  render "edit" 
+ 
+ 
+ yield :after_content 
+ include_chartbeat 
+ include_mixpanel_guid 
+ flash_messages 
+
+end
+
+  end
+
+  def privacy_settings
+    @blocks = current_user.blocks.includes(:person)
+ruby_code_from_view.ruby_code_from_view do |rb_from_view|
+ og_prefix 
+ page_title yield(:page_title) 
+  if @post.present? 
+ og_page_post_tags(@post) 
+ else 
+ og_general_tags 
+ end 
+ 
+ chartbeat_head_block 
+ include_mixpanel 
+ include_color_theme 
+ if rtl? 
+ stylesheet_link_tag :rtl, media:  'all' 
+ end 
+ old_browser_js_support 
+ javascript_include_tag :ie 
+ jquery_include_tag 
+ unless @landing_page 
+ javascript_include_tag :main, :templates 
+ load_javascript_locales 
+ end 
+ translation_missing_warnings 
+ current_user_atom_tag 
+ yield(:head) 
+ csrf_meta_tag 
+ include_gon(camel_case:  true) 
+ yield :before_content 
+ 
+ content_for :page_title do 
+ t(".title") 
+ end 
+  content_for :page_title do 
+ t(".title") 
+ end 
+ render "privacy_settings" 
+ 
+ 
+ yield :after_content 
+ include_chartbeat 
+ include_mixpanel_guid 
+ flash_messages 
+
+end
+
+  end
+
+  def update
+    password_changed = false
+    @user = current_user
+
+    if u = user_params
+
+      # change email notifications
+      if u[:email_preferences]
+        @user.update_user_preferences(u[:email_preferences])
+        flash[:notice] = I18n.t 'users.update.email_notifications_changed'
+      # change password
+      elsif params[:change_password]
+        if @user.update_with_password(u)
+          password_changed = true
+          flash[:notice] = I18n.t 'users.update.password_changed'
+        else
+          flash[:error] = I18n.t 'users.update.password_not_changed'
+        end
+      elsif u[:show_community_spotlight_in_stream] || u[:getting_started]
+        if @user.update_attributes(u)
+          flash[:notice] = I18n.t 'users.update.settings_updated'
+        else
+          flash[:notice] = I18n.t 'users.update.settings_not_updated'
+        end
+      elsif u[:strip_exif]
+        if @user.update_attributes(u)
+          flash[:notice] = I18n.t 'users.update.settings_updated'
+        else
+          flash[:notice] = I18n.t 'users.update.settings_not_updated'
+        end
+      elsif u[:language]
+        if @user.update_attributes(u)
+          I18n.locale = @user.language
+          flash[:notice] = I18n.t 'users.update.language_changed'
+        else
+          flash[:error] = I18n.t 'users.update.language_not_changed'
+        end
+      elsif u[:email]
+        @user.unconfirmed_email = u[:email]
+        if @user.save
+          @user.send_confirm_email
+          if @user.unconfirmed_email
+            flash[:notice] = I18n.t 'users.update.unconfirmed_email_changed'
+          end
+        else
+          flash[:error] = I18n.t 'users.update.unconfirmed_email_not_changed'
+        end
+      elsif u[:auto_follow_back]
+        if  @user.update_attributes(u)
+          flash[:notice] = I18n.t 'users.update.follow_settings_changed'
+        else
+          flash[:error] = I18n.t 'users.update.follow_settings_not_changed'
+        end
+      elsif u[:color_theme]
+        if @user.update_attributes(u)
+          flash[:notice] = I18n.t "users.update.color_theme_changed"
+        else
+          flash[:error] = I18n.t "users.update.color_theme_not_changed"
+        end
+      end
+    end
+    set_email_preferences
+
+    respond_to do |format|
+      format.js   { render :nothing => true, :status => 204 }
+      format.all  do
+        if password_changed
+          redirect_to new_user_session_path
+        else
+          ruby_code_from_view.ruby_code_from_view do |rb_from_view|
+ og_prefix 
+ page_title yield(:page_title) 
+  if @post.present? 
+ og_page_post_tags(@post) 
+ else 
+ og_general_tags 
+ end 
+ 
+ chartbeat_head_block 
+ include_mixpanel 
+ include_color_theme 
+ if rtl? 
+ stylesheet_link_tag :rtl, media:  'all' 
+ end 
+ old_browser_js_support 
+ javascript_include_tag :ie 
+ jquery_include_tag 
+ unless @landing_page 
+ javascript_include_tag :main, :templates 
+ load_javascript_locales 
+ end 
+ translation_missing_warnings 
+ current_user_atom_tag 
+ yield(:head) 
+ csrf_meta_tag 
+ include_gon(camel_case:  true) 
+ yield :before_content 
+ 
+  render "edit" 
+ 
+ 
+ yield :after_content 
+ include_chartbeat 
+ include_mixpanel_guid 
+ flash_messages 
+
+end
+
+        end
+      end
+    end
+  end
+
+  def destroy
+    if params[:user] && params[:user][:current_password] && current_user.valid_password?(params[:user][:current_password])
+      current_user.close_account!
+      sign_out current_user
+      redirect_to(stream_path, :notice => I18n.t('users.destroy.success'))
+    else
+      if params[:user].present? && params[:user][:current_password].present?
+        flash[:error] = t 'users.destroy.wrong_password'
+      else
+        flash[:error] = t 'users.destroy.no_password'
+      end
+      redirect_to :back
+    end
+  end
+
+  def public
+    if @user = User.find_by_username(params[:username])
+      respond_to do |format|
+        format.atom do
+          @posts = Post.where(author_id: @user.person_id, public: true)
+                    .order('created_at DESC')
+                    .limit(25)
+                    .map {|post| post.is_a?(Reshare) ? post.absolute_root : post }
+                    .compact
+        end
+
+        format.any { redirect_to person_path(@user.person) }
+      end
+    else
+      redirect_to stream_path, :error => I18n.t('users.public.does_not_exist', :username => params[:username])
+    end
+  end
+
+  def getting_started
+    @user     = current_user
+    @person   = @user.person
+    @profile  = @user.profile
+
+    ruby_code_from_view.ruby_code_from_view do |rb_from_view|
+ og_prefix 
+ page_title yield(:page_title) 
+  if @post.present? 
+ og_page_post_tags(@post) 
+ else 
+ og_general_tags 
+ end 
+ 
+ chartbeat_head_block 
+ include_mixpanel 
+ include_color_theme 
+ if rtl? 
+ stylesheet_link_tag :rtl, media:  'all' 
+ end 
+ old_browser_js_support 
+ javascript_include_tag :ie 
+ jquery_include_tag 
+ unless @landing_page 
+ javascript_include_tag :main, :templates 
+ load_javascript_locales 
+ end 
+ translation_missing_warnings 
+ current_user_atom_tag 
+ yield(:head) 
+ csrf_meta_tag 
+ include_gon(camel_case:  true) 
+ yield :before_content 
+ 
+ content_for :head do 
+ javascript_include_tag :jquery 
+ end 
+ t('.well_hello_there') 
+ t(".community_welcome") 
+ invited_by_message 
+ t(".who_are_you") 
+ if AppConfig.configured_services.include? :facebook 
+ raw(t('.connect_to_facebook', link: link_to(t('.connect_to_facebook_link'), "auth/facebook?callback_url="))) 
+ end 
+ form_tag profile_path, method: :put, remote: true, id: "edit_profile" do 
+ label_tag "profile[first_name]", t("profiles.edit.your_name") 
+ text_field_tag "profile[first_name]", current_user.first_name, class: "form-control" 
+ label_tag :your_photo, t("profiles.edit.your_photo") 
+  content_for :head do 
+ end 
+ owner_image_tag(:thumb_large) 
+ t('.upload') 
+ image_tag('mobile-spinner.gif', :class => 'hidden', :style => "z-index:-1", :id => 'file-upload-spinner') 
+ 
+ end 
+ t('.what_are_you_in_to') 
+ t('.hashtag_explanation') 
+ form_tag(tag_followings_path, method: "get", class: "tag_input search_form") do 
+ label_tag "follow_tags", t(".hashtag_suggestions") 
+ text_field_tag "follow_tags", nil, class: "nostrap form-control" 
+ end 
+ link_to " ", stream_path, id: "awesome_button", class: "btn btn-primary" 
+ 
+ yield :after_content 
+ include_chartbeat 
+ include_mixpanel_guid 
+ flash_messages 
+
+end
+
+  end
+
+  def getting_started_completed
+    user = current_user
+    user.getting_started = false
+    user.save
+    redirect_to stream_path
+  end
+
+  def export_profile
+    current_user.queue_export
+    flash[:notice] = I18n.t('users.edit.export_in_progress')
+    redirect_to edit_user_path
+  end
+
+  def download_profile
+    redirect_to current_user.export.url
+  end
+
+  def export_photos
+    current_user.queue_export_photos
+    flash[:notice] = I18n.t('users.edit.export_photos_in_progress')
+    redirect_to edit_user_path
+  end
+
+  def download_photos
+    redirect_to current_user.exported_photos_file.url
+  end
+
+  def user_photo
+    username = params[:username].split('@')[0]
+    user = User.find_by_username(username)
+    if user.present?
+      redirect_to user.image_url
+    else
+      render :nothing => true, :status => 404
+    end
+  end
+
+  def confirm_email
+    if current_user.confirm_email(params[:token])
+      flash[:notice] = I18n.t('users.confirm_email.email_confirmed', :email => current_user.email)
+    elsif current_user.unconfirmed_email.present?
+      flash[:error] = I18n.t('users.confirm_email.email_not_confirmed')
+    end
+    redirect_to edit_user_path
+  end
+
+  private
+
+  def user_params
+    params.fetch(:user).permit(
+      :email,
+      :current_password,
+      :password,
+      :password_confirmation,
+      :language,
+      :color_theme,
+      :disable_mail,
+      :invitation_service,
+      :invitation_identifier,
+      :show_community_spotlight_in_stream,
+      :strip_exif,
+      :auto_follow_back,
+      :auto_follow_back_aspect_id,
+      :remember_me,
+      :getting_started,
+      email_preferences: [
+        :someone_reported,
+        :also_commented,
+        :mentioned,
+        :comment_on_post,
+        :private_message,
+        :started_sharing,
+        :liked,
+        :reshared
+      ]
+    )
+  end
+
+  def set_email_preferences
+    @email_prefs = Hash.new(true)
+
+    @user.user_preferences.each do |pref|
+      @email_prefs[pref.email_type] = false
+    end
+  end
+end

@@ -1,0 +1,704 @@
+SET IRMethod, name = by_company instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->companies def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: HASH-company_id- def_%v_4 %v_3[2.6,] 
+		 8: %self->where def_%v_5 %self[2.0,2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.6,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = by_project instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "event_logs.project_id IN (?) OR event_logs.project_id IS NULL" def_%v_3 
+		 7: %self->projects def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %self->ToIDs def_%v_5 %self[2.0,2.7,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: %self->where def_%v_6 %self[2.0,2.7,2.8,] %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_3,%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,2.7,2.8,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = accessed_by instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->company def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->by_company def_%v_5 %self[2.0,2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: %self->user def_%v_6 %self[2.0,2.6,2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_6->project_ids def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->by_project def_%v_8 %v_5[2.8,] %v_7[2.10,] 	 SYMBOL:	 ARGS:%v_7,
+		 12: COPY TYPE_StringLiteral "
+      ( event_logs.target_type != 'WorkLog' OR event_logs.target_type IS NULL ) OR
+      ( event_logs.target_id IN
+        ( SELECT work_logs.id
+          FROM work_logs JOIN project_permissions ON work_logs.project_id = project_permissions.project_id AND
+                                                     project_permissions.user_id = :user_id
+          WHERE work_logs.id = event_logs.target_id AND
+                work_logs.access_level_id <= :access_level_id AND
+                ( project_permissions.can_see_unwatched = :unwatched OR
+                  :user_id IN ( SELECT task_users.user_id
+                                FROM task_users
+                                WHERE task_users.task_id = work_logs.task_id )
+                )
+        )
+      )
+    " def_%v_9 
+		 13: %self->user def_%v_10 %self[2.0,2.6,2.8,2.9,] 	 SYMBOL:	 ARGS:
+		 14: %v_10->id def_%v_11 %v_10[2.13,] 	 SYMBOL:	 ARGS:
+		 15: %self->user def_%v_12 %self[2.0,2.6,2.8,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 16: %v_12->access_level_id def_%v_13 %v_12[2.15,] 	 SYMBOL:	 ARGS:
+		 17: HASH-user_id-access_level_id-unwatched- def_%v_14 %v_11[2.14,] %v_13[2.16,] 
+		 18: %v_8->where def_%v_15 %v_8[2.11,] %v_9[2.12,] %v_14[2.17,] 	 SYMBOL:	 ARGS:%v_9,%v_14,
+		 19: RETURN %v_15[2.18,] %self[2.0,2.6,2.8,2.9,2.13,2.15,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = by_company instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->companies def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: HASH-company_id- def_%v_4 %v_3[2.6,] 
+		 8: %self->where def_%v_5 %self[2.0,2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.6,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = by_project instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "event_logs.project_id IN (?) OR event_logs.project_id IS NULL" def_%v_3 
+		 7: %self->projects def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %self->ToIDs def_%v_5 %self[2.0,2.7,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: %self->where def_%v_6 %self[2.0,2.7,2.8,] %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_3,%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,2.7,2.8,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = accessed_by instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->company def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->by_company def_%v_5 %self[2.0,2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: %self->user def_%v_6 %self[2.0,2.6,2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_6->project_ids def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->by_project def_%v_8 %v_5[2.8,] %v_7[2.10,] 	 SYMBOL:	 ARGS:%v_7,
+		 12: COPY TYPE_StringLiteral "
+      ( event_logs.target_type != 'WorkLog' OR event_logs.target_type IS NULL ) OR
+      ( event_logs.target_id IN
+        ( SELECT work_logs.id
+          FROM work_logs JOIN project_permissions ON work_logs.project_id = project_permissions.project_id AND
+                                                     project_permissions.user_id = :user_id
+          WHERE work_logs.id = event_logs.target_id AND
+                work_logs.access_level_id <= :access_level_id AND
+                ( project_permissions.can_see_unwatched = :unwatched OR
+                  :user_id IN ( SELECT task_users.user_id
+                                FROM task_users
+                                WHERE task_users.task_id = work_logs.task_id )
+                )
+        )
+      )
+    " def_%v_9 
+		 13: %self->user def_%v_10 %self[2.0,2.6,2.8,2.9,] 	 SYMBOL:	 ARGS:
+		 14: %v_10->id def_%v_11 %v_10[2.13,] 	 SYMBOL:	 ARGS:
+		 15: %self->user def_%v_12 %self[2.0,2.6,2.8,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 16: %v_12->access_level_id def_%v_13 %v_12[2.15,] 	 SYMBOL:	 ARGS:
+		 17: HASH-user_id-access_level_id-unwatched- def_%v_14 %v_11[2.14,] %v_13[2.16,] 
+		 18: %v_8->where def_%v_15 %v_8[2.11,] %v_9[2.12,] %v_14[2.17,] 	 SYMBOL:	 ARGS:%v_9,%v_14,
+		 19: RETURN %v_15[2.18,] %self[2.0,2.6,2.8,2.9,2.13,2.15,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = by_company instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->companies def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: HASH-company_id- def_%v_4 %v_3[2.6,] 
+		 8: %self->where def_%v_5 %self[2.0,2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.6,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = by_project instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "event_logs.project_id IN (?) OR event_logs.project_id IS NULL" def_%v_3 
+		 7: %self->projects def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %self->ToIDs def_%v_5 %self[2.0,2.7,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: %self->where def_%v_6 %self[2.0,2.7,2.8,] %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_3,%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,2.7,2.8,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = accessed_by instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->company def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->by_company def_%v_5 %self[2.0,2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: %self->user def_%v_6 %self[2.0,2.6,2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_6->project_ids def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->by_project def_%v_8 %v_5[2.8,] %v_7[2.10,] 	 SYMBOL:	 ARGS:%v_7,
+		 12: COPY TYPE_StringLiteral "
+      ( event_logs.target_type != 'WorkLog' OR event_logs.target_type IS NULL ) OR
+      ( event_logs.target_id IN
+        ( SELECT work_logs.id
+          FROM work_logs JOIN project_permissions ON work_logs.project_id = project_permissions.project_id AND
+                                                     project_permissions.user_id = :user_id
+          WHERE work_logs.id = event_logs.target_id AND
+                work_logs.access_level_id <= :access_level_id AND
+                ( project_permissions.can_see_unwatched = :unwatched OR
+                  :user_id IN ( SELECT task_users.user_id
+                                FROM task_users
+                                WHERE task_users.task_id = work_logs.task_id )
+                )
+        )
+      )
+    " def_%v_9 
+		 13: %self->user def_%v_10 %self[2.0,2.6,2.8,2.9,] 	 SYMBOL:	 ARGS:
+		 14: %v_10->id def_%v_11 %v_10[2.13,] 	 SYMBOL:	 ARGS:
+		 15: %self->user def_%v_12 %self[2.0,2.6,2.8,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 16: %v_12->access_level_id def_%v_13 %v_12[2.15,] 	 SYMBOL:	 ARGS:
+		 17: HASH-user_id-access_level_id-unwatched- def_%v_14 %v_11[2.14,] %v_13[2.16,] 
+		 18: %v_8->where def_%v_15 %v_8[2.11,] %v_9[2.12,] %v_14[2.17,] 	 SYMBOL:	 ARGS:%v_9,%v_14,
+		 19: RETURN %v_15[2.18,] %self[2.0,2.6,2.8,2.9,2.13,2.15,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = started_at instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->created_at def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = event_logs_for_timeline instanceMethod = false
+BB 1
+	outgoing: 47 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_current_user 
+		 6: RECEIVEARG def_params 
+		 7: 
+		 8: (TZInfo) def_%v_3 
+		 9: (inherit Timezone) def_%v_4 %v_3[2.8,] 
+		 10: %v_4[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.8,] 	 SYMBOL:Timezone,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 14 
+	datadep: 
+	instructions:
+		 0: current_user->time_zone def_%v_5 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->new def_%v_6 %v_4[3.0,2.9,] %v_5[4.0,] 	 SYMBOL:	 ARGS:%v_5,
+		 2: COPY TYPE_PASS def_tz %v_6[4.1,] 
+		 3: 
+		 4: %v_6->now def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_now %v_7[4.4,] 
+		 6: 
+		 7: params->[] def_%v_8 params[2.6,] 	 SYMBOL:filter_project,	 ARGS:Symbol,
+		 8: %v_8->to_i def_%v_9 %v_8[4.7,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_PASS def_filter_project %v_9[4.8,] 
+		 10: 
+		 11: params->[] def_%v_10 params[4.7,2.6,] 	 SYMBOL:filter_user,	 ARGS:Symbol,
+		 12: %v_10->to_i def_%v_11 %v_10[4.11,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_PASS def_filter_user %v_11[4.12,] 
+		 14: 
+		 15: params->[] def_%v_12 params[4.7,4.11,2.6,] 	 SYMBOL:filter_status,	 ARGS:Symbol,
+		 16: %v_12->to_i def_%v_13 %v_12[4.15,] 	 SYMBOL:	 ARGS:
+		 17: COPY TYPE_PASS def_filter_status %v_13[4.16,] 
+		 18: 
+		 19: params->[] def_%v_14 params[4.7,4.11,4.15,2.6,] 	 SYMBOL:filter_date,	 ARGS:Symbol,
+		 20: %v_14->to_i def_%v_15 %v_14[4.19,] 	 SYMBOL:	 ARGS:
+		 21: COPY TYPE_PASS def_filter_date %v_15[4.20,] 
+		 22: 
+		 23: (WIKI_CREATED) def_%v_18 
+		 24: def_%v_17 %v_18[4.23,] filter_status[4.17,] 
+		 25: BRANCH %v_17[4.24,] 
+BB 5
+	outgoing: 6 15 
+	datadep: 
+	instructions:
+		 0: (WIKI_MODIFIED) def_%v_20 
+		 1: def_%v_19 %v_20[5.0,] filter_status[4.17,] 
+		 2: BRANCH %v_19[5.1,] 
+BB 6
+	outgoing: 7 16 
+	datadep: 
+	instructions:
+		 0: (RESOURCE_PASSWORD_REQUESTED) def_%v_22 
+		 1: def_%v_21 %v_22[6.0,] filter_status[4.17,] 
+		 2: BRANCH %v_21[6.1,] 
+BB 7
+	outgoing: 8 17 
+	datadep: 
+	instructions:
+		 0: (TASK_CREATED) def_%v_24 
+		 1: def_%v_23 %v_24[7.0,] filter_status[4.17,] 
+		 2: BRANCH %v_23[7.1,] 
+BB 8
+	outgoing: 9 18 
+	datadep: 
+	instructions:
+		 0: (TASK_REVERTED) def_%v_26 
+		 1: def_%v_25 %v_26[8.0,] filter_status[4.17,] 
+		 2: BRANCH %v_25[8.1,] 
+BB 9
+	outgoing: 10 19 
+	datadep: 
+	instructions:
+		 0: (TASK_COMPLETED) def_%v_28 
+		 1: def_%v_27 %v_28[9.0,] filter_status[4.17,] 
+		 2: BRANCH %v_27[9.1,] 
+BB 10
+	outgoing: 11 20 
+	datadep: 
+	instructions:
+		 0: (TASK_COMMENT) def_%v_30 
+		 1: def_%v_29 %v_30[10.0,] filter_status[4.17,] 
+		 2: BRANCH %v_29[10.1,] 
+BB 11
+	outgoing: 12 21 
+	datadep: 
+	instructions:
+		 0: (TASK_MODIFIED) def_%v_32 
+		 1: def_%v_31 %v_32[11.0,] filter_status[4.17,] 
+		 2: BRANCH %v_31[11.1,] 
+BB 12
+	outgoing: 13 22 
+	datadep: 
+	instructions:
+		 0: (TASK_WORK_ADDED) def_%v_34 
+		 1: def_%v_33 %v_34[12.0,] filter_status[4.17,] 
+		 2: BRANCH %v_33[12.1,] 
+BB 13
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "" def_%v_72 
+		 2: COPY TYPE_PASS def_%v_16 %v_72[13.1,] 
+		 3: 
+BB 14
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral " AND event_logs.event_type = " def_%v_35 
+		 2: (WIKI_CREATED) def_%v_36 
+		 3: BUILDSTRING def_%v_37 %v_35[14.1,] %v_36[14.2,] 
+		 4: COPY TYPE_PASS def_%v_16 %v_37[14.3,] 
+		 5: 
+BB 15
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral " AND event_logs.event_type IN (" def_%v_38 
+		 2: (WIKI_CREATED) def_%v_39 
+		 3: (WIKI_MODIFIED) def_%v_40 
+		 4: COPY TYPE_Array def_%v_41 %v_39[15.2,] %v_40[15.3,] 
+		 5: COPY TYPE_StringLiteral "," def_%v_42 
+		 6: %v_41->join def_%v_43 %v_41[15.4,] %v_42[15.5,] 	 SYMBOL:	 ARGS:%v_42,
+		 7: COPY TYPE_StringLiteral ")" def_%v_44 
+		 8: BUILDSTRING def_%v_45 %v_38[15.1,] %v_43[15.6,] %v_44[15.7,] 
+		 9: COPY TYPE_PASS def_%v_16 %v_45[15.8,] 
+		 10: 
+BB 16
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral " AND event_logs.event_type = " def_%v_46 
+		 2: (RESOURCE_PASSWORD_REQUESTED) def_%v_47 
+		 3: BUILDSTRING def_%v_48 %v_46[16.1,] %v_47[16.2,] 
+		 4: COPY TYPE_PASS def_%v_16 %v_48[16.3,] 
+		 5: 
+BB 17
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral " AND event_logs.event_type = " def_%v_49 
+		 2: (TASK_CREATED) def_%v_50 
+		 3: BUILDSTRING def_%v_51 %v_49[17.1,] %v_50[17.2,] 
+		 4: COPY TYPE_PASS def_%v_16 %v_51[17.3,] 
+		 5: 
+BB 18
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral " AND event_logs.event_type IN (" def_%v_52 
+		 2: (TASK_REVERTED) def_%v_53 
+		 3: (TASK_COMPLETED) def_%v_54 
+		 4: COPY TYPE_Array def_%v_55 %v_53[18.2,] %v_54[18.3,] 
+		 5: COPY TYPE_StringLiteral "," def_%v_56 
+		 6: %v_55->join def_%v_57 %v_55[18.4,] %v_56[18.5,] 	 SYMBOL:	 ARGS:%v_56,
+		 7: COPY TYPE_StringLiteral ")" def_%v_58 
+		 8: BUILDSTRING def_%v_59 %v_52[18.1,] %v_57[18.6,] %v_58[18.7,] 
+		 9: COPY TYPE_PASS def_%v_16 %v_59[18.8,] 
+		 10: 
+BB 19
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral " AND event_logs.event_type = " def_%v_60 
+		 2: (TASK_COMPLETED) def_%v_61 
+		 3: BUILDSTRING def_%v_62 %v_60[19.1,] %v_61[19.2,] 
+		 4: COPY TYPE_PASS def_%v_16 %v_62[19.3,] 
+		 5: 
+BB 20
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral " AND event_logs.event_type = " def_%v_63 
+		 2: (TASK_COMMENT) def_%v_64 
+		 3: BUILDSTRING def_%v_65 %v_63[20.1,] %v_64[20.2,] 
+		 4: COPY TYPE_PASS def_%v_16 %v_65[20.3,] 
+		 5: 
+BB 21
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral " AND event_logs.event_type = " def_%v_66 
+		 2: (TASK_MODIFIED) def_%v_67 
+		 3: BUILDSTRING def_%v_68 %v_66[21.1,] %v_67[21.2,] 
+		 4: COPY TYPE_PASS def_%v_16 %v_68[21.3,] 
+		 5: 
+BB 22
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral " AND event_logs.event_type = " def_%v_69 
+		 2: (TASK_WORK_ADDED) def_%v_70 
+		 3: BUILDSTRING def_%v_71 %v_69[22.1,] %v_70[22.2,] 
+		 4: COPY TYPE_PASS def_%v_16 %v_71[22.3,] 
+		 5: 
+BB 24
+	outgoing: 25 27 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_filter %v_16[14.4,15.9,16.4,17.4,18.9,19.4,20.4,21.4,22.4,13.2,] 
+		 1: 
+		 2: def_%v_74 filter_date[4.21,] 
+		 3: BRANCH %v_74[24.2,] 
+BB 25
+	outgoing: 26 28 
+	datadep: 
+	instructions:
+		 0: def_%v_75 filter_date[4.21,] 
+		 1: BRANCH %v_75[25.0,] 
+BB 26
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_73 
+		 1: 
+BB 27
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral " AND event_logs.created_at < '" def_%v_76 
+		 2: now->to_s def_%v_77 now[4.5,] 	 SYMBOL:db,	 ARGS:Symbol,
+		 3: COPY TYPE_StringLiteral "' " def_%v_78 
+		 4: BUILDSTRING def_%v_79 %v_76[27.1,] %v_77[27.2,] %v_78[27.3,] 
+		 5: filter-><< def_%v_80 filter[24.0,] %v_79[27.4,] 	 SYMBOL:	 ARGS:%v_79,
+		 6: COPY TYPE_PASS def_%v_73 %v_80[27.5,] 
+		 7: 
+BB 28
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%v_81 
+BB 30
+	outgoing: 31 32 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (DateTime) def_%v_84 
+		 2: params->[] def_%v_85 params[2.6,] 	 SYMBOL:start_date,	 ARGS:Symbol,
+		 3: current_user->date_format def_%v_86 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 4: %v_84->strptime def_%v_87 %v_84[30.1,] %v_85[30.2,] %v_86[30.3,] 	 SYMBOL:	 ARGS:%v_85,%v_86,
+		 5: %v_87->to_time def_%v_88 %v_87[30.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_PASS def_%v_83 %v_88[30.5,] 
+		 7: 
+		 8: %v_81[28.1,] 
+BB 31
+	outgoing: 37 
+	datadep: 
+	instructions:
+		 0: 
+BB 32
+	outgoing: 33 34 36 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_89 
+		 2: def_%v_90 %v_89[32.1,] 
+		 3: BRANCH %v_90[32.2,] 
+BB 33
+	outgoing: 36 47 
+	datadep: 
+	instructions:
+		 0: %v_89[32.1,] 
+BB 34
+	outgoing: 35 36 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_83 now[4.5,] 
+		 1: 
+		 2: %v_81[28.1,] 
+BB 35
+	outgoing: 37 
+	datadep: 
+	instructions:
+		 0: 
+BB 36
+	outgoing: 47 
+	datadep: 
+	instructions:
+		 0: def_%v_91 
+		 1: def_%v_92 %v_91[36.0,] %v_81[28.1,] 
+		 2: %v_91[36.0,] 
+BB 37
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_start_date %v_83[30.6,34.0,] 
+		 1: 
+		 2: %v_83->midnight def_%v_93 %v_83[30.6,34.0,] 	 SYMBOL:	 ARGS:
+		 3: tz->local_to_utc def_%v_94 tz[4.2,] %v_93[37.2,] 	 SYMBOL:	 ARGS:%v_93,
+		 4: COPY TYPE_PASS def_start_date %v_94[37.3,] 
+		 5: 
+		 6: COPY TYPE_StringLiteral " AND event_logs.created_at < '" def_%v_95 
+		 7: %v_94->to_s def_%v_96 %v_94[37.3,] 	 SYMBOL:db,	 ARGS:Symbol,
+		 8: COPY TYPE_StringLiteral "' " def_%v_97 
+		 9: BUILDSTRING def_%v_98 %v_95[37.6,] %v_96[37.7,] %v_97[37.8,] 
+		 10: filter-><< def_%v_99 filter[24.0,] %v_98[37.9,] 	 SYMBOL:	 ARGS:%v_98,
+		 11: COPY TYPE_PASS def_%v_73 %v_99[37.10,] 
+		 12: 
+BB 39
+	outgoing: 40 41 
+	datadep: 
+	instructions:
+		 0: 
+		 1: filter_project->to_i def_%v_100 filter_project[4.9,] 	 SYMBOL:	 ARGS:
+		 2: %v_100->> def_%v_101 %v_100[39.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: BRANCH %v_101[39.2,] 
+BB 40
+	outgoing: 42 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral " AND event_logs.project_id = " def_%v_102 
+		 1: BUILDSTRING def_%v_103 %v_102[40.0,] filter_project[4.9,] 
+		 2: filter-><< def_%v_104 filter[24.0,] %v_103[40.1,] 	 SYMBOL:	 ARGS:%v_103,
+		 3: 
+BB 41
+	outgoing: 42 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_104 
+BB 42
+	outgoing: 43 44 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->accessed_by def_%v_105 %self[2.0,] current_user[2.5,] 	 SYMBOL:	 ARGS:current_user,
+		 2: %v_105->includes def_%v_106 %v_105[42.1,] 	 SYMBOL:user,	 ARGS:Symbol,
+		 3: COPY TYPE_StringLiteral "event_logs.created_at desc" def_%v_107 
+		 4: %v_106->order def_%v_108 %v_106[42.2,] %v_107[42.3,] 	 SYMBOL:	 ARGS:%v_107,
+		 5: COPY TYPE_StringLiteral "TRUE " def_%v_109 
+		 6: 
+		 7: BUILDSTRING def_%v_110 %v_109[42.5,] filter[24.0,] 
+		 8: %v_108->where def_%v_111 %v_108[42.4,] %v_110[42.7,] 	 SYMBOL:	 ARGS:%v_110,
+		 9: params->[] def_%v_112 params[2.6,] 	 SYMBOL:limit,	 ARGS:Symbol,
+		 10: BRANCH %v_112[42.9,] 
+BB 43
+	outgoing: 44 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_%v_112 
+BB 44
+	outgoing: 45 46 
+	datadep: 
+	instructions:
+		 0: %v_111->limit def_%v_113 %v_111[42.8,] %v_112[43.0,42.9,] 	 SYMBOL:	 ARGS:%v_112,
+		 1: params->[] def_%v_114 params[2.6,] 	 SYMBOL:offset,	 ARGS:Symbol,
+		 2: BRANCH %v_114[44.1,] 
+BB 45
+	outgoing: 46 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_%v_114 
+BB 46
+	outgoing: 47 
+	datadep: 
+	instructions:
+		 0: %v_113->offset def_%v_115 %v_113[44.0,] %v_114[45.0,44.1,] 	 SYMBOL:	 ARGS:%v_114,
+		 1: RETURN %v_115[46.0,] %self[2.0,] 
+BB 47
+	outgoing: 
+	datadep: 
+	instructions:
+

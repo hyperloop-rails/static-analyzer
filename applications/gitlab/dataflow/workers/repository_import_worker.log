@@ -1,0 +1,77 @@
+SET IRMethod, name = perform instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_project_id 
+		 6: 
+		 7: (Project) def_%v_3 
+		 8: %v_3->find def_%v_4 %v_3[2.7,] project_id[2.5,] 	 SYMBOL:	 ARGS:project_id,
+		 9: ATTRASSIGN %self->project %v_4[2.8,] 
+		 10: 
+		 11: GETFIELD %self->project def_%v_5 %self[2.0,2.9,] 
+		 12: %v_5->creator def_%v_6 %v_5[2.11,] 	 SYMBOL:	 ARGS:
+		 13: ATTRASSIGN %self->current_user %v_6[2.12,] 
+		 14: 
+		 15: (Projects) def_%v_7 
+		 16: (inherit ImportService) def_%v_8 %v_7[2.15,] 
+		 17: %v_8[2.16,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_7->const_missing def_%v_8 %v_7[2.15,] 	 SYMBOL:ImportService,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %self->project def_%v_9 %self[2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 1: %self->current_user def_%v_10 %self[4.0,2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 2: %v_8->new def_%v_11 %v_8[3.0,2.16,] %v_9[4.0,] %v_10[4.1,] 	 SYMBOL:	 ARGS:%v_9,%v_10,
+		 3: %v_11->execute def_%v_12 %v_11[4.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_result %v_12[4.3,] 
+		 5: 
+		 6: %v_12->[] def_%v_13 %v_12[4.3,] 	 SYMBOL:status,	 ARGS:Symbol,
+		 7: %v_13->== def_%v_14 %v_13[4.6,] 	 SYMBOL:error,	 ARGS:Symbol,
+		 8: BRANCH %v_14[4.7,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->project def_%v_15 %self[2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 2: result->[] def_%v_16 result[4.4,] 	 SYMBOL:message,	 ARGS:Symbol,
+		 3: HASH-import_error- def_%v_17 %v_16[5.2,] 
+		 4: %v_15->update def_%v_18 %v_15[5.1,] %v_17[5.3,] 	 SYMBOL:	 ARGS:%v_17,
+		 5: 
+		 6: %self->project def_%v_19 %self[5.1,2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 7: %v_19->import_fail def_%v_20 %v_19[5.6,] 	 SYMBOL:	 ARGS:
+		 8: 
+		 9: RETURN %self[5.1,5.6,2.0,2.9,2.13,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+		 1: 
+		 2: %self->project def_%v_22 %self[2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 3: %v_22->repository def_%v_23 %v_22[6.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_23->after_import def_%v_24 %v_23[6.3,] 	 SYMBOL:	 ARGS:
+		 5: 
+		 6: %self->project def_%v_25 %self[6.2,2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 7: %v_25->import_finish def_%v_26 %v_25[6.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_26[6.7,] %self[6.2,6.6,2.0,2.9,2.13,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+

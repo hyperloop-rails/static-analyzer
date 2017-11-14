@@ -1,0 +1,767 @@
+SET IRMethod, name = disable_xss_protection instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->response def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->headers def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "X-XSS-Protection" def_%v_5 
+		 9: COPY TYPE_StringLiteral "0" def_%v_6 
+		 10: ATTRASSIGN %v_4->[] %v_5[2.8,] %v_6[2.9,] 
+		 11: RETURN %v_6[2.9,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = error_messages instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "Not found" def_%v_3 
+		 7: HASH- def_%v_4 %v_3[2.6,] 
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = render_error instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_error 
+		 6: RECEIVECONSTARG def_options 
+		 7: options[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Numeric) def_%v_4 
+		 2: error->is_a? def_%v_5 error[2.5,] %v_4[4.1,] 	 SYMBOL:	 ARGS:%v_4,
+		 3: BRANCH %v_5[4.2,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: options->[] def_%v_6 options[3.1,2.6,] 	 SYMBOL:status,	 ARGS:Symbol,
+		 1: BRANCH %v_6[5.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: options->[]= def_%v_6 options[3.1,2.6,] error[2.5,] 	 SYMBOL:status,	 ARGS:Symbol,error,
+		 1: COPY TYPE_PASS def_%v_6 error[2.5,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->respond_to def_%v_7 %self[2.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: format[] %self[2.0,] options[6.0,3.1,2.6,] error[2.5,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_format 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: format->any def_%cl_1_3 format[2.2,] %self[2.0,] 	 SYMBOL:html,mobile,	 ARGS:Symbol,Symbol,format,
+CLOSURE BEGIN: options[] error[] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%cl_2_3 options[] 	 SYMBOL:template,	 ARGS:Symbol,
+		 2: BRANCH %cl_2_3[3.1,] 
+BB 4
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "errors/" def_%cl_2_4 
+		 1: BUILDSTRING def_%cl_2_5 %cl_2_4[4.0,] error[] 
+		 2: options->[]= def_%cl_2_3 options[] %cl_2_5[4.1,] 	 SYMBOL:template,	 ARGS:Symbol,%cl_2_5,
+		 3: RETURN %cl_2_5[4.1,] %self[2.0,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_2_3[3.1,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_6 
+		 1: def_%cl_2_7 %cl_2_6[6.0,] 
+		 2: RETURN %cl_2_7[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: format->any def_%cl_1_4 format[3.1,2.2,] %self[2.0,] 	 SYMBOL:xml,json,	 ARGS:Symbol,Symbol,format,
+CLOSURE BEGIN: options[] %self[2.0,] error[] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%cl_3_3 options[] 	 SYMBOL:text,	 ARGS:Symbol,
+		 2: BRANCH %cl_3_3[3.1,] 
+BB 4
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: %self->error_messages def_%cl_3_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %cl_3_4->[] def_%cl_3_5 %cl_3_4[4.0,] error[] 	 SYMBOL:	 ARGS:error,
+		 2: options->[]= def_%cl_3_3 options[] %cl_3_5[4.1,] 	 SYMBOL:text,	 ARGS:Symbol,%cl_3_5,
+		 3: RETURN %cl_3_5[4.1,] %self[4.0,2.0,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_3_3[3.1,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_6 
+		 1: def_%cl_3_7 %cl_3_6[6.0,] 
+		 2: RETURN %cl_3_7[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: RETURN %cl_1_4[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: %self->render def_%v_8 %self[9.1,2.0,] options[6.0,3.1,2.6,] 	 SYMBOL:	 ARGS:options,
+		 4: RETURN %v_8[9.3,] %self[9.1,9.3,2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = respond_with_exchanges instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_exchanges 
+		 6: 
+		 7: %self->viewed_tracker def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN %v_3->exchanges exchanges[2.5,] 
+		 9: 
+		 10: %self->respond_with def_%v_4 %self[2.0,2.7,] exchanges[2.5,] 	 SYMBOL:	 ARGS:exchanges,
+		 11: RETURN %v_4[2.10,] %self[2.0,2.7,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = load_configuration instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Sugar) def_%v_3 
+		 7: %v_3->config def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->load def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %v_5[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = set_time_zone instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->current_user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->try def_%v_4 %v_3[2.6,] 	 SYMBOL:time_zone,	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: (Time) def_%v_5 
+		 1: %self->current_user def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->time_zone def_%v_7 %v_6[3.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN %v_5->zone %v_7[3.2,] 
+		 4: RETURN %v_7[3.2,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mobile_user_agent? instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->request def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->host def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_Regexp def_%v_5 
+		 9: %v_4->=~ def_%v_6 %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: BRANCH %v_6[2.9,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->request def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->env def_%v_8 %v_7[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "HTTP_USER_AGENT" def_%v_9 
+		 4: %v_8->[] def_%v_10 %v_8[3.2,] %v_9[3.3,] 	 SYMBOL:	 ARGS:%v_9,
+		 5: BRANCH %v_10[3.4,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->request def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_11->env def_%v_12 %v_11[4.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "HTTP_USER_AGENT" def_%v_13 
+		 3: %v_12->[] def_%v_14 %v_12[4.1,] %v_13[4.2,] 	 SYMBOL:	 ARGS:%v_13,
+		 4: COPY TYPE_Regexp def_%v_15 
+		 5: %v_14->[] def_%v_16 %v_14[4.3,] 	 SYMBOL:	 ARGS:%v_15,
+		 6: COPY TYPE_PASS def_%v_10 %v_16[4.5,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_10[4.6,3.4,] %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_6[2.9,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = detect_mobile instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->mobile_user_agent? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: %self->session def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %self->params def_%v_6 %self[3.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_6->[] def_%v_7 %v_6[3.3,] 	 SYMBOL:mobile_format,	 ARGS:Symbol,
+		 5: BRANCH %v_7[3.4,] 
+BB 4
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->session def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_8->[] def_%v_9 %v_8[6.0,] 	 SYMBOL:mobile_format,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%v_7 %v_9[6.1,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_7[6.2,3.4,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "mobile" def_%v_10 
+		 1: COPY TYPE_PASS def_%v_7 %v_10[8.0,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %v_5->[] %v_7[8.1,6.2,3.4,] 
+		 1: 
+		 2: %self->session def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_11->[] def_%v_12 %v_11[9.2,] 	 SYMBOL:mobile_format,	 ARGS:Symbol,
+		 4: COPY TYPE_StringLiteral "mobile" def_%v_13 
+		 5: %v_12->== def_%v_14 %v_12[9.3,] %v_13[9.4,] 	 SYMBOL:	 ARGS:%v_13,
+		 6: BRANCH %v_14[9.5,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %self->request def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_15->format def_%v_16 %v_15[10.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "text/html" def_%v_17 
+		 3: %v_16->== def_%v_18 %v_16[10.1,] %v_17[10.2,] 	 SYMBOL:	 ARGS:%v_17,
+		 4: COPY TYPE_PASS def_%v_14 %v_18[10.3,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_14[10.4,9.5,] 
+BB 12
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->request def_%v_19 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %v_19->format 
+		 3: COPY TYPE_Symbol def_%v_20 
+		 4: RETURN %self[12.1,2.0,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = require_s3 instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Sugar) def_%v_3 
+		 7: %v_3->aws_s3? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: %self->flash def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "Amazon Web Services not configured!" def_%v_7 
+		 4: ATTRASSIGN %v_6->[] %v_7[4.3,] 
+		 5: 
+		 6: %self->root_url def_%v_8 %self[4.2,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->redirect_to def_%v_9 %self[4.2,4.6,2.0,] %v_8[4.6,] 	 SYMBOL:	 ARGS:%v_8,
+		 8: RETURN %v_9[4.7,] %self[4.2,4.6,4.7,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = set_section instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (UsersController) def_%v_3 
+		 7: (InvitesController) def_%v_4 
+		 8: (ConversationsController) def_%v_5 
+		 9: HASH- def_%v_6 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] 
+		 10: COPY TYPE_PASS def_mapping %v_6[2.9,] 
+		 11: 
+		 12: %self->class def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 13: mapping->[] def_%v_8 mapping[2.10,] %v_7[2.12,] 	 SYMBOL:	 ARGS:%v_7,
+		 14: BRANCH %v_8[2.13,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_8[2.13,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mobile_theme instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->current_user? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Theme) def_%v_4 
+		 2: %self->current_user def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->mobile_theme def_%v_6 %v_5[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_4->find def_%v_7 %v_4[3.1,] %v_6[3.3,] 	 SYMBOL:	 ARGS:%v_6,
+		 5: RETURN %v_7[3.4,] %self[3.2,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Theme) def_%v_8 
+		 2: (Sugar) def_%v_9 
+		 3: %v_9->config def_%v_10 %v_9[4.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_10->default_mobile_theme def_%v_11 %v_10[4.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_8->find def_%v_12 %v_8[4.1,] %v_11[4.4,] 	 SYMBOL:	 ARGS:%v_11,
+		 6: RETURN %v_12[4.5,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = theme instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->current_user? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Theme) def_%v_4 
+		 2: %self->current_user def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->theme def_%v_6 %v_5[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_4->find def_%v_7 %v_4[3.1,] %v_6[3.3,] 	 SYMBOL:	 ARGS:%v_6,
+		 5: RETURN %v_7[3.4,] %self[3.2,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Theme) def_%v_8 
+		 2: (Sugar) def_%v_9 
+		 3: %v_9->config def_%v_10 %v_9[4.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_10->default_theme def_%v_11 %v_10[4.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_8->find def_%v_12 %v_8[4.1,] %v_11[4.4,] 	 SYMBOL:	 ARGS:%v_11,
+		 6: RETURN %v_12[4.5,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = set_theme instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->respond_to def_%v_3 %self[2.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: format[] %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_format 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: format->mobile def_%cl_1_3 format[2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:format,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->mobile_theme def_%cl_2_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %self->theme %cl_2_3[3.1,] 
+		 3: RETURN %cl_2_3[3.1,] %self[3.1,3.2,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_4 
+		 1: def_%cl_2_5 %cl_2_4[4.0,] 
+		 2: RETURN %cl_2_5[4.1,] %self[3.2,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: format->any def_%cl_1_4 format[3.1,2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:format,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->theme def_%cl_3_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %self->theme %cl_3_3[3.1,] 
+		 3: RETURN %cl_3_3[3.1,] %self[3.1,3.2,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_4 
+		 1: def_%cl_3_5 %cl_3_4[4.0,] 
+		 2: RETURN %cl_3_5[4.1,] %self[3.2,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: RETURN %cl_1_4[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

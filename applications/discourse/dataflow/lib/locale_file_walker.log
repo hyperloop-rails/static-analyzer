@@ -1,0 +1,390 @@
+SET IRMethod, name = handle_document instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_document 
+		 6: 
+		 7: document->root def_%v_3 document[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->children def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_Array def_%v_5 
+		 10: %self->handle_nodes def_%v_6 %self[2.0,] %v_4[2.8,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_4,Fixnum,%v_5,
+		 11: RETURN %v_6[2.10,] %self[2.0,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = handle_nodes instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_nodes 
+		 6: RECEIVEARG def_depth 
+		 7: RECEIVEARG def_parents 
+		 8: 
+		 9: BRANCH nodes[2.5,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Fixnum def_consecutive_scalars 
+		 2: 
+		 3: nodes->each def_%v_3 nodes[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:nodes,
+CLOSURE BEGIN: %self[2.0,] node[] depth[2.6,] parents[2.7,] consecutive_scalars[3.1,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_node 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->handle_node def_%cl_1_3 %self[2.0,] node[2.2,] depth[] parents[] consecutive_scalars[] 	 SYMBOL:	 ARGS:node,depth,parents,consecutive_scalars,
+		 2: COPY TYPE_PASS def_consecutive_scalars %cl_1_3[3.1,] 
+		 3: RETURN %cl_1_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: consecutive_scalars[3.2,] 
+		 4: RETURN %v_3[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = handle_node instanceMethod = true
+BB 1
+	outgoing: 30 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_node 
+		 6: RECEIVEARG def_depth 
+		 7: RECEIVEARG def_parents 
+		 8: RECEIVEARG def_consecutive_scalars 
+		 9: 
+		 10: (Psych) def_%v_3 
+		 11: (inherit Nodes) def_%v_4 %v_3[2.10,] 
+		 12: %v_4[2.11,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.10,] 	 SYMBOL:Nodes,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit Scalar) def_%v_5 %v_4[3.0,2.11,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.11,] 	 SYMBOL:Scalar,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 11 
+	datadep: 
+	instructions:
+		 0: node->is_a? def_%v_6 node[2.5,] %v_5[5.0,4.0,] 	 SYMBOL:	 ARGS:%v_5,
+		 1: COPY TYPE_PASS def_node_is_scalar %v_6[6.0,] 
+		 2: 
+		 3: BRANCH %v_6[6.0,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->valid_scalar? def_%v_7 %self[2.0,] depth[2.6,] consecutive_scalars[2.8,] 	 SYMBOL:	 ARGS:depth,consecutive_scalars,
+		 2: BRANCH %v_7[7.1,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %self->handle_scalar def_%v_8 %self[2.0,] node[2.5,] depth[2.6,] parents[2.7,] 	 SYMBOL:	 ARGS:node,depth,parents,
+		 1: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+BB 10
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Psych) def_%v_9 
+		 2: (inherit Nodes) def_%v_10 %v_9[11.1,] 
+		 3: %v_10[11.2,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: %v_9->const_missing def_%v_10 %v_9[11.1,] 	 SYMBOL:Nodes,	 ARGS:Symbol,
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: (inherit Alias) def_%v_11 %v_10[12.0,11.2,] 
+		 1: %v_11[13.0,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: %v_10->const_missing def_%v_11 %v_10[12.0,11.2,] 	 SYMBOL:Alias,	 ARGS:Symbol,
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: node->is_a? def_%v_12 node[2.5,] %v_11[14.0,13.0,] 	 SYMBOL:	 ARGS:%v_11,
+		 1: BRANCH %v_12[15.0,] 
+BB 16
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->handle_alias def_%v_13 %self[2.0,] node[2.5,] depth[2.6,] parents[2.7,] 	 SYMBOL:	 ARGS:node,depth,parents,
+		 2: 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Psych) def_%v_14 
+		 2: (inherit Nodes) def_%v_15 %v_14[17.1,] 
+		 3: %v_15[17.2,] 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: %v_14->const_missing def_%v_15 %v_14[17.1,] 	 SYMBOL:Nodes,	 ARGS:Symbol,
+BB 19
+	outgoing: 20 21 
+	datadep: 
+	instructions:
+		 0: (inherit Mapping) def_%v_16 %v_15[18.0,17.2,] 
+		 1: %v_16[19.0,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: %v_15->const_missing def_%v_16 %v_15[18.0,17.2,] 	 SYMBOL:Mapping,	 ARGS:Symbol,
+BB 21
+	outgoing: 22 23 
+	datadep: 
+	instructions:
+		 0: node->is_a? def_%v_17 node[2.5,] %v_16[20.0,19.0,] 	 SYMBOL:	 ARGS:%v_16,
+		 1: BRANCH %v_17[21.0,] 
+BB 22
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->handle_mapping def_%v_18 %self[2.0,] node[2.5,] depth[2.6,] parents[2.7,] 	 SYMBOL:	 ARGS:node,depth,parents,
+		 2: 
+		 3: node->children def_%v_19 node[2.5,] 	 SYMBOL:	 ARGS:
+		 4: depth->+ def_%v_20 depth[2.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: parents->dup def_%v_21 parents[2.7,] 	 SYMBOL:	 ARGS:
+		 6: %self->handle_nodes def_%v_22 %self[22.1,2.0,] %v_19[22.3,] %v_20[22.4,] %v_21[22.5,] 	 SYMBOL:	 ARGS:%v_19,%v_20,%v_21,
+		 7: 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+BB 24
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_13 %v_22[23.0,22.6,] 
+BB 25
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_8 %v_13[24.0,16.1,] 
+BB 26
+	outgoing: 27 28 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH node_is_scalar[6.1,] 
+BB 27
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: consecutive_scalars->+ def_%v_23 consecutive_scalars[2.8,] 	 SYMBOL:	 ARGS:Fixnum,
+		 1: RETURN %v_23[27.0,] %self[2.0,] 
+BB 28
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 30
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = valid_scalar? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_depth 
+		 6: RECEIVEARG def_consecutive_scalars 
+		 7: 
+		 8: depth->>= def_%v_3 depth[2.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 9: BRANCH %v_3[2.8,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: consecutive_scalars->even? def_%v_4 consecutive_scalars[2.6,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_4[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.8,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = handle_scalar instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_node 
+		 6: RECEIVEARG def_depth 
+		 7: RECEIVEARG def_parents 
+		 8: 
+		 9: node->value def_%v_3 node[2.5,] 	 SYMBOL:	 ARGS:
+		 10: ATTRASSIGN parents->[] depth[2.6,] %v_3[2.9,] 
+		 11: RETURN %v_3[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = handle_alias instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_node 
+		 6: RECEIVEARG def_depth 
+		 7: RECEIVEARG def_parents 
+		 8: RETURN %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = handle_mapping instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_node 
+		 6: RECEIVEARG def_depth 
+		 7: RECEIVEARG def_parents 
+		 8: RETURN %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

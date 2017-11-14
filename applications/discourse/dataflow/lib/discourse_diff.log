@@ -1,0 +1,1745 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_before 
+		 6: RECEIVEARG def_after 
+		 7: 
+		 8: ATTRASSIGN %self->before before[2.5,] 
+		 9: 
+		 10: ATTRASSIGN %self->after after[2.6,] 
+		 11: 
+		 12: GETFIELD %self->before def_%v_3 %self[2.0,2.8,] 
+		 13: %self->tokenize_html_blocks def_%v_4 %self[2.0,2.8,2.10,] %v_3[2.12,] 	 SYMBOL:	 ARGS:%v_3,
+		 14: COPY TYPE_PASS def_before_html %v_4[2.13,] 
+		 15: 
+		 16: GETFIELD %self->after def_%v_5 %self[2.0,2.10,2.13,] 
+		 17: %self->tokenize_html_blocks def_%v_6 %self[2.0,2.8,2.10,2.13,] %v_5[2.16,] 	 SYMBOL:	 ARGS:%v_5,
+		 18: COPY TYPE_PASS def_after_html %v_6[2.17,] 
+		 19: 
+		 20: (CGI) def_%v_7 
+		 21: GETFIELD %self->before def_%v_8 %self[2.0,2.8,2.13,2.17,] 
+		 22: %v_7->escapeHTML def_%v_9 %v_7[2.20,] %v_8[2.21,] 	 SYMBOL:	 ARGS:%v_8,
+		 23: %self->tokenize_line def_%v_10 %self[2.0,2.8,2.10,2.13,2.17,] %v_9[2.22,] 	 SYMBOL:	 ARGS:%v_9,
+		 24: COPY TYPE_PASS def_before_markdown %v_10[2.23,] 
+		 25: 
+		 26: (CGI) def_%v_11 
+		 27: GETFIELD %self->after def_%v_12 %self[2.0,2.10,2.13,2.17,2.23,] 
+		 28: %v_11->escapeHTML def_%v_13 %v_11[2.26,] %v_12[2.27,] 	 SYMBOL:	 ARGS:%v_12,
+		 29: %self->tokenize_line def_%v_14 %self[2.0,2.8,2.10,2.13,2.17,2.23,] %v_13[2.28,] 	 SYMBOL:	 ARGS:%v_13,
+		 30: COPY TYPE_PASS def_after_markdown %v_14[2.29,] 
+		 31: 
+		 32: (ONPDiff) def_%v_15 
+		 33: %v_15->new def_%v_16 %v_15[2.32,] before_html[2.14,] after_html[2.18,] 	 SYMBOL:	 ARGS:before_html,after_html,
+		 34: %v_16->diff def_%v_17 %v_16[2.33,] 	 SYMBOL:	 ARGS:
+		 35: ATTRASSIGN %self->block_by_block_diff %v_17[2.34,] 
+		 36: 
+		 37: (ONPDiff) def_%v_18 
+		 38: %v_18->new def_%v_19 %v_18[2.37,] before_markdown[2.24,] after_markdown[2.30,] 	 SYMBOL:	 ARGS:before_markdown,after_markdown,
+		 39: %v_19->short_diff def_%v_20 %v_19[2.38,] 	 SYMBOL:	 ARGS:
+		 40: ATTRASSIGN %self->line_by_line_diff %v_20[2.39,] 
+		 41: RETURN %v_20[2.39,] %self[2.0,2.8,2.10,2.13,2.17,2.23,2.29,2.35,2.40,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = inline_html instanceMethod = true
+BB 1
+	outgoing: 19 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_Fixnum def_i 
+		 7: 
+		 8: COPY TYPE_Array def_%v_3 
+		 9: COPY TYPE_PASS def_inline %v_3[2.8,] 
+		 10: 
+BB 3
+	outgoing: 4 17 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->block_by_block_diff def_%v_5 %self[2.0,] 
+		 1: %v_5->length def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: i->< def_%v_7 i[2.6,15.2,] %v_6[3.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: BRANCH %v_7[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: GETFIELD %self->block_by_block_diff def_%v_8 %self[2.0,] 
+		 3: %v_8->[] def_%v_9 %v_8[4.2,] i[2.6,15.2,] 	 SYMBOL:	 ARGS:i,
+		 4: %v_9->[] def_%v_10 %v_9[4.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: COPY TYPE_PASS def_op_code %v_10[4.4,] 
+		 6: 
+		 7: %v_10->== def_%v_11 %v_10[4.4,] 	 SYMBOL:common,	 ARGS:Symbol,
+		 8: BRANCH %v_11[4.7,] 
+BB 5
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->block_by_block_diff def_%v_12 %self[2.0,] 
+		 1: %v_12->[] def_%v_13 %v_12[5.0,] i[2.6,15.2,] 	 SYMBOL:	 ARGS:i,
+		 2: %v_13->[] def_%v_14 %v_13[5.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: inline-><< def_%v_15 inline[2.9,] %v_14[5.2,] 	 SYMBOL:	 ARGS:%v_14,
+		 4: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: op_code->== def_%v_16 op_code[4.5,] 	 SYMBOL:delete,	 ARGS:Symbol,
+		 2: BRANCH %v_16[6.1,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_opposite_op_code 
+		 2: 
+		 3: COPY TYPE_StringLiteral "del" def_%v_17 
+		 4: COPY TYPE_PASS def_klass %v_17[7.3,] 
+		 5: 
+		 6: COPY TYPE_PASS def_first i[2.6,15.2,] 
+		 7: 
+		 8: i->+ def_%v_18 i[2.6,15.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 9: COPY TYPE_PASS def_second %v_18[7.8,] 
+		 10: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_opposite_op_code 
+		 2: 
+		 3: COPY TYPE_StringLiteral "ins" def_%v_19 
+		 4: COPY TYPE_PASS def_klass %v_19[8.3,] 
+		 5: 
+		 6: i->+ def_%v_20 i[2.6,15.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 7: COPY TYPE_PASS def_first %v_20[8.6,] 
+		 8: 
+		 9: COPY TYPE_PASS def_second i[8.6,2.6,15.2,] 
+		 10: COPY TYPE_PASS def_%v_18 i[8.6,2.6,15.2,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: i->+ def_%v_21 i[2.6,15.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: GETFIELD %self->block_by_block_diff def_%v_22 %self[2.0,] 
+		 3: %v_22->length def_%v_23 %v_22[9.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_21->< def_%v_24 %v_21[9.1,] %v_23[9.3,] 	 SYMBOL:	 ARGS:%v_23,
+		 5: BRANCH %v_24[9.4,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->block_by_block_diff def_%v_25 %self[2.0,] 
+		 1: i->+ def_%v_26 i[2.6,15.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: %v_25->[] def_%v_27 %v_25[10.0,] %v_26[10.1,] 	 SYMBOL:	 ARGS:%v_26,
+		 3: %v_27->[] def_%v_28 %v_27[10.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: %v_28->== def_%v_29 %v_28[10.3,] opposite_op_code[8.1,7.1,] 	 SYMBOL:	 ARGS:opposite_op_code,
+		 5: COPY TYPE_PASS def_%v_24 %v_29[10.4,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_24[10.5,9.4,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ONPDiff) def_%v_30 
+		 2: GETFIELD %self->block_by_block_diff def_%v_31 %self[2.0,] 
+		 3: %v_31->[] def_%v_32 %v_31[12.2,] first[8.7,7.6,] 	 SYMBOL:	 ARGS:first,
+		 4: %v_32->[] def_%v_33 %v_32[12.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: %self->tokenize_html def_%v_34 %self[2.0,] %v_33[12.4,] 	 SYMBOL:	 ARGS:%v_33,
+		 6: GETFIELD %self->block_by_block_diff def_%v_35 %self[12.5,2.0,] 
+		 7: %v_35->[] def_%v_36 %v_35[12.6,] second[8.9,7.9,] 	 SYMBOL:	 ARGS:second,
+		 8: %v_36->[] def_%v_37 %v_36[12.7,] 	 SYMBOL:	 ARGS:Fixnum,
+		 9: %self->tokenize_html def_%v_38 %self[12.5,2.0,] %v_37[12.8,] 	 SYMBOL:	 ARGS:%v_37,
+		 10: %v_30->new def_%v_39 %v_30[12.1,] %v_34[12.5,] %v_38[12.9,] 	 SYMBOL:	 ARGS:%v_34,%v_38,
+		 11: %v_39->diff def_%v_40 %v_39[12.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_PASS def_diff %v_40[12.11,] 
+		 13: 
+		 14: %self->generate_inline_html def_%v_41 %self[12.5,12.9,2.0,] %v_40[12.11,] 	 SYMBOL:	 ARGS:diff,
+		 15: inline-><< def_%v_42 inline[2.9,] %v_41[12.14,] 	 SYMBOL:	 ARGS:%v_41,
+		 16: 
+		 17: i->+ def_%v_43 i[2.6,15.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 18: COPY TYPE_PASS def_i %v_43[12.17,] 
+		 19: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->block_by_block_diff def_%v_44 %self[2.0,] 
+		 2: %v_44->[] def_%v_45 %v_44[13.1,] i[2.6,15.2,] 	 SYMBOL:	 ARGS:i,
+		 3: %v_45->[] def_%v_46 %v_45[13.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: %self->add_class_or_wrap_in_tags def_%v_47 %self[2.0,] %v_46[13.3,] klass[8.4,7.4,] 	 SYMBOL:	 ARGS:%v_46,klass,
+		 5: inline-><< def_%v_48 inline[2.9,] %v_47[13.4,] 	 SYMBOL:	 ARGS:%v_47,
+		 6: COPY TYPE_PASS def_%v_43 %v_48[13.5,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_15 %v_43[13.6,12.17,] 
+BB 15
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: 
+		 1: i->+ def_%v_49 i[12.18,2.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: COPY TYPE_PASS def_i %v_49[15.1,] 
+		 3: 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: COPY TYPE_StringLiteral "<div class="inline-diff">" def_%v_50 
+		 3: inline->join def_%v_51 inline[2.9,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "</div>" def_%v_52 
+		 5: BUILDSTRING def_%v_53 %v_50[17.2,] %v_51[17.3,] %v_52[17.4,] 
+		 6: RETURN %v_53[17.5,] %self[2.0,] 
+BB 19
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = side_by_side_html instanceMethod = true
+BB 1
+	outgoing: 19 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_Fixnum def_i 
+		 7: 
+		 8: COPY TYPE_Array def_%v_3 
+		 9: COPY TYPE_Array def_%v_4 
+		 10: COPY TYPE_Array def_%v_5 %v_3[2.8,] %v_4[2.9,] 
+		 11: COPY TYPE_PASS def_%v_6 %v_3[2.8,] 
+		 12: COPY TYPE_PASS def_%v_7 %v_4[2.9,] 
+		 13: COPY TYPE_PASS def_left %v_3[2.8,] 
+		 14: COPY TYPE_PASS def_right %v_4[2.9,] 
+		 15: 
+BB 3
+	outgoing: 4 17 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->block_by_block_diff def_%v_9 %self[2.0,] 
+		 1: %v_9->length def_%v_10 %v_9[3.0,] 	 SYMBOL:	 ARGS:
+		 2: i->< def_%v_11 i[2.6,15.2,] %v_10[3.1,] 	 SYMBOL:	 ARGS:%v_10,
+		 3: BRANCH %v_11[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: GETFIELD %self->block_by_block_diff def_%v_12 %self[2.0,] 
+		 3: %v_12->[] def_%v_13 %v_12[4.2,] i[2.6,15.2,] 	 SYMBOL:	 ARGS:i,
+		 4: %v_13->[] def_%v_14 %v_13[4.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: COPY TYPE_PASS def_op_code %v_14[4.4,] 
+		 6: 
+		 7: %v_14->== def_%v_15 %v_14[4.4,] 	 SYMBOL:common,	 ARGS:Symbol,
+		 8: BRANCH %v_15[4.7,] 
+BB 5
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->block_by_block_diff def_%v_16 %self[2.0,] 
+		 2: %v_16->[] def_%v_17 %v_16[5.1,] i[2.6,15.2,] 	 SYMBOL:	 ARGS:i,
+		 3: %v_17->[] def_%v_18 %v_17[5.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: left-><< def_%v_19 left[2.13,] %v_18[5.3,] 	 SYMBOL:	 ARGS:%v_18,
+		 5: 
+		 6: GETFIELD %self->block_by_block_diff def_%v_20 %self[2.0,] 
+		 7: %v_20->[] def_%v_21 %v_20[5.6,] i[2.6,15.2,] 	 SYMBOL:	 ARGS:i,
+		 8: %v_21->[] def_%v_22 %v_21[5.7,] 	 SYMBOL:	 ARGS:Fixnum,
+		 9: right-><< def_%v_23 right[2.14,] %v_22[5.8,] 	 SYMBOL:	 ARGS:%v_22,
+		 10: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: op_code->== def_%v_24 op_code[4.5,] 	 SYMBOL:delete,	 ARGS:Symbol,
+		 2: BRANCH %v_24[6.1,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_opposite_op_code 
+		 2: 
+		 3: COPY TYPE_PASS def_side left[2.13,] 
+		 4: 
+		 5: COPY TYPE_StringLiteral "del" def_%v_25 
+		 6: COPY TYPE_PASS def_klass %v_25[7.5,] 
+		 7: 
+		 8: COPY TYPE_PASS def_first i[2.6,15.2,] 
+		 9: 
+		 10: i->+ def_%v_26 i[2.6,15.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 11: COPY TYPE_PASS def_second %v_26[7.10,] 
+		 12: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_opposite_op_code 
+		 2: 
+		 3: COPY TYPE_PASS def_side right[2.14,] 
+		 4: 
+		 5: COPY TYPE_StringLiteral "ins" def_%v_27 
+		 6: COPY TYPE_PASS def_klass %v_27[8.5,] 
+		 7: 
+		 8: i->+ def_%v_28 i[2.6,15.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 9: COPY TYPE_PASS def_first %v_28[8.8,] 
+		 10: 
+		 11: COPY TYPE_PASS def_second i[8.8,2.6,15.2,] 
+		 12: COPY TYPE_PASS def_%v_26 i[8.8,2.6,15.2,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: i->+ def_%v_29 i[2.6,15.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: GETFIELD %self->block_by_block_diff def_%v_30 %self[2.0,] 
+		 3: %v_30->length def_%v_31 %v_30[9.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_29->< def_%v_32 %v_29[9.1,] %v_31[9.3,] 	 SYMBOL:	 ARGS:%v_31,
+		 5: BRANCH %v_32[9.4,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->block_by_block_diff def_%v_33 %self[2.0,] 
+		 1: i->+ def_%v_34 i[2.6,15.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: %v_33->[] def_%v_35 %v_33[10.0,] %v_34[10.1,] 	 SYMBOL:	 ARGS:%v_34,
+		 3: %v_35->[] def_%v_36 %v_35[10.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: %v_36->== def_%v_37 %v_36[10.3,] opposite_op_code[8.1,7.1,] 	 SYMBOL:	 ARGS:opposite_op_code,
+		 5: COPY TYPE_PASS def_%v_32 %v_37[10.4,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_32[10.5,9.4,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ONPDiff) def_%v_38 
+		 2: GETFIELD %self->block_by_block_diff def_%v_39 %self[2.0,] 
+		 3: %v_39->[] def_%v_40 %v_39[12.2,] first[8.9,7.8,] 	 SYMBOL:	 ARGS:first,
+		 4: %v_40->[] def_%v_41 %v_40[12.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: %self->tokenize_html def_%v_42 %self[2.0,] %v_41[12.4,] 	 SYMBOL:	 ARGS:%v_41,
+		 6: GETFIELD %self->block_by_block_diff def_%v_43 %self[12.5,2.0,] 
+		 7: %v_43->[] def_%v_44 %v_43[12.6,] second[8.11,7.11,] 	 SYMBOL:	 ARGS:second,
+		 8: %v_44->[] def_%v_45 %v_44[12.7,] 	 SYMBOL:	 ARGS:Fixnum,
+		 9: %self->tokenize_html def_%v_46 %self[12.5,2.0,] %v_45[12.8,] 	 SYMBOL:	 ARGS:%v_45,
+		 10: %v_38->new def_%v_47 %v_38[12.1,] %v_42[12.5,] %v_46[12.9,] 	 SYMBOL:	 ARGS:%v_42,%v_46,
+		 11: %v_47->diff def_%v_48 %v_47[12.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_PASS def_diff %v_48[12.11,] 
+		 13: 
+		 14: %self->generate_side_by_side_html def_%v_49 %self[12.5,12.9,2.0,] %v_48[12.11,] 	 SYMBOL:	 ARGS:diff,
+		 15: def_%v_50 %v_49[12.14,] 
+		 16: def_%v_51 %v_50[12.15,] 
+		 17: def_%v_52 %v_50[12.15,] 
+		 18: COPY TYPE_PASS def_deleted %v_51[12.16,] 
+		 19: COPY TYPE_PASS def_inserted %v_52[12.17,] 
+		 20: 
+		 21: left-><< def_%v_53 left[2.13,] %v_51[12.16,] 	 SYMBOL:	 ARGS:deleted,
+		 22: 
+		 23: right-><< def_%v_54 right[2.14,] inserted[12.19,] 	 SYMBOL:	 ARGS:inserted,
+		 24: 
+		 25: i->+ def_%v_55 i[2.6,15.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 26: COPY TYPE_PASS def_i %v_55[12.25,] 
+		 27: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->block_by_block_diff def_%v_56 %self[2.0,] 
+		 2: %v_56->[] def_%v_57 %v_56[13.1,] i[2.6,15.2,] 	 SYMBOL:	 ARGS:i,
+		 3: %v_57->[] def_%v_58 %v_57[13.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: %self->add_class_or_wrap_in_tags def_%v_59 %self[2.0,] %v_58[13.3,] klass[8.6,7.6,] 	 SYMBOL:	 ARGS:%v_58,klass,
+		 5: side-><< def_%v_60 side[8.3,7.3,] %v_59[13.4,] 	 SYMBOL:	 ARGS:%v_59,
+		 6: COPY TYPE_PASS def_%v_55 %v_60[13.5,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_23 %v_55[13.6,12.25,] 
+BB 15
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: 
+		 1: i->+ def_%v_61 i[12.26,2.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: COPY TYPE_PASS def_i %v_61[15.1,] 
+		 3: 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: COPY TYPE_StringLiteral "<div class="span8">" def_%v_62 
+		 3: left->join def_%v_63 left[2.13,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "</div><div class="span8 offset1">" def_%v_64 
+		 5: right->join def_%v_65 right[2.14,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral "</div>" def_%v_66 
+		 7: BUILDSTRING def_%v_67 %v_62[17.2,] %v_63[17.3,] %v_64[17.4,] %v_65[17.5,] %v_66[17.6,] 
+		 8: RETURN %v_67[17.7,] %self[2.0,] 
+BB 19
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = side_by_side_markdown instanceMethod = true
+BB 1
+	outgoing: 25 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_Fixnum def_i 
+		 7: 
+		 8: COPY TYPE_StringLiteral "<table class="markdown">" def_%v_3 
+		 9: COPY TYPE_Array def_%v_4 %v_3[2.8,] 
+		 10: COPY TYPE_PASS def_table %v_4[2.9,] 
+		 11: 
+BB 3
+	outgoing: 4 23 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->line_by_line_diff def_%v_6 %self[2.0,] 
+		 1: %v_6->length def_%v_7 %v_6[3.0,] 	 SYMBOL:	 ARGS:
+		 2: i->< def_%v_8 i[2.6,21.5,] %v_7[3.1,] 	 SYMBOL:	 ARGS:%v_7,
+		 3: BRANCH %v_8[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: COPY TYPE_StringLiteral "<tr>" def_%v_9 
+		 3: table-><< def_%v_10 table[2.10,] %v_9[4.2,] 	 SYMBOL:	 ARGS:%v_9,
+		 4: 
+		 5: GETFIELD %self->line_by_line_diff def_%v_11 %self[2.0,] 
+		 6: %v_11->[] def_%v_12 %v_11[4.5,] i[2.6,21.5,] 	 SYMBOL:	 ARGS:i,
+		 7: %v_12->[] def_%v_13 %v_12[4.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: COPY TYPE_PASS def_op_code %v_13[4.7,] 
+		 9: 
+		 10: %v_13->== def_%v_14 %v_13[4.7,] 	 SYMBOL:common,	 ARGS:Symbol,
+		 11: BRANCH %v_14[4.10,] 
+BB 5
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "<td>" def_%v_15 
+		 2: GETFIELD %self->line_by_line_diff def_%v_16 %self[2.0,] 
+		 3: %v_16->[] def_%v_17 %v_16[5.2,] i[2.6,21.5,] 	 SYMBOL:	 ARGS:i,
+		 4: %v_17->[] def_%v_18 %v_17[5.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: COPY TYPE_StringLiteral "</td>" def_%v_19 
+		 6: BUILDSTRING def_%v_20 %v_15[5.1,] %v_18[5.4,] %v_19[5.5,] 
+		 7: table-><< def_%v_21 table[2.10,] %v_20[5.6,] 	 SYMBOL:	 ARGS:%v_20,
+		 8: 
+		 9: COPY TYPE_StringLiteral "<td>" def_%v_22 
+		 10: GETFIELD %self->line_by_line_diff def_%v_23 %self[2.0,] 
+		 11: %v_23->[] def_%v_24 %v_23[5.10,] i[2.6,21.5,] 	 SYMBOL:	 ARGS:i,
+		 12: %v_24->[] def_%v_25 %v_24[5.11,] 	 SYMBOL:	 ARGS:Fixnum,
+		 13: COPY TYPE_StringLiteral "</td>" def_%v_26 
+		 14: BUILDSTRING def_%v_27 %v_22[5.9,] %v_25[5.12,] %v_26[5.13,] 
+		 15: table-><< def_%v_28 table[5.7,2.10,] %v_27[5.14,] 	 SYMBOL:	 ARGS:%v_27,
+		 16: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: op_code->== def_%v_29 op_code[4.8,] 	 SYMBOL:delete,	 ARGS:Symbol,
+		 2: BRANCH %v_29[6.1,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_opposite_op_code 
+		 2: 
+		 3: COPY TYPE_PASS def_first i[2.6,21.5,] 
+		 4: 
+		 5: i->+ def_%v_30 i[2.6,21.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 6: COPY TYPE_PASS def_second %v_30[7.5,] 
+		 7: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_opposite_op_code 
+		 2: 
+		 3: i->+ def_%v_31 i[2.6,21.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: COPY TYPE_PASS def_first %v_31[8.3,] 
+		 5: 
+		 6: COPY TYPE_PASS def_second i[8.3,2.6,21.5,] 
+		 7: COPY TYPE_PASS def_%v_30 i[8.3,2.6,21.5,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: i->+ def_%v_32 i[2.6,21.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: GETFIELD %self->line_by_line_diff def_%v_33 %self[2.0,] 
+		 3: %v_33->length def_%v_34 %v_33[9.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_32->< def_%v_35 %v_32[9.1,] %v_34[9.3,] 	 SYMBOL:	 ARGS:%v_34,
+		 5: BRANCH %v_35[9.4,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->line_by_line_diff def_%v_36 %self[2.0,] 
+		 1: i->+ def_%v_37 i[2.6,21.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: %v_36->[] def_%v_38 %v_36[10.0,] %v_37[10.1,] 	 SYMBOL:	 ARGS:%v_37,
+		 3: %v_38->[] def_%v_39 %v_38[10.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: %v_39->== def_%v_40 %v_39[10.3,] opposite_op_code[8.1,7.1,] 	 SYMBOL:	 ARGS:opposite_op_code,
+		 5: COPY TYPE_PASS def_%v_35 %v_40[10.4,] 
+BB 11
+	outgoing: 12 16 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_35[10.5,9.4,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->line_by_line_diff def_%v_41 %self[2.0,] 
+		 2: %v_41->[] def_%v_42 %v_41[12.1,] first[8.4,7.3,] 	 SYMBOL:	 ARGS:first,
+		 3: %v_42->[] def_%v_43 %v_42[12.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: %self->tokenize_markdown def_%v_44 %self[2.0,] %v_43[12.3,] 	 SYMBOL:	 ARGS:%v_43,
+		 5: GETFIELD %self->line_by_line_diff def_%v_45 %self[12.4,2.0,] 
+		 6: %v_45->[] def_%v_46 %v_45[12.5,] second[8.6,7.6,] 	 SYMBOL:	 ARGS:second,
+		 7: %v_46->[] def_%v_47 %v_46[12.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: %self->tokenize_markdown def_%v_48 %self[12.4,2.0,] %v_47[12.7,] 	 SYMBOL:	 ARGS:%v_47,
+		 9: COPY TYPE_Array def_%v_49 %v_44[12.4,] %v_48[12.8,] 
+		 10: COPY TYPE_PASS def_%v_50 %v_44[12.4,] 
+		 11: COPY TYPE_PASS def_%v_51 %v_48[12.8,] 
+		 12: COPY TYPE_PASS def_before_tokens %v_44[12.4,] 
+		 13: COPY TYPE_PASS def_after_tokens %v_48[12.8,] 
+		 14: 
+		 15: %v_44->length def_%v_52 %v_44[12.4,] 	 SYMBOL:	 ARGS:
+		 16: after_tokens->length def_%v_53 after_tokens[12.13,] 	 SYMBOL:	 ARGS:
+		 17: %v_52->- def_%v_54 %v_52[12.15,] %v_53[12.16,] 	 SYMBOL:	 ARGS:%v_53,
+		 18: %v_54->abs def_%v_55 %v_54[12.17,] 	 SYMBOL:	 ARGS:
+		 19: (MAX_DIFFERENCE) def_%v_56 
+		 20: %v_55->> def_%v_57 %v_55[12.18,] %v_56[12.19,] 	 SYMBOL:	 ARGS:%v_56,
+		 21: BRANCH %v_57[12.20,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->line_by_line_diff def_%v_58 %self[2.0,] 
+		 2: %v_58->[] def_%v_59 %v_58[13.1,] first[8.4,7.3,] 	 SYMBOL:	 ARGS:first,
+		 3: %v_59->[] def_%v_60 %v_59[13.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: %self->tokenize_line def_%v_61 %self[2.0,] %v_60[13.3,] 	 SYMBOL:	 ARGS:%v_60,
+		 5: GETFIELD %self->line_by_line_diff def_%v_62 %self[13.4,2.0,] 
+		 6: %v_62->[] def_%v_63 %v_62[13.5,] second[8.6,7.6,] 	 SYMBOL:	 ARGS:second,
+		 7: %v_63->[] def_%v_64 %v_63[13.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: %self->tokenize_line def_%v_65 %self[13.4,2.0,] %v_64[13.7,] 	 SYMBOL:	 ARGS:%v_64,
+		 9: COPY TYPE_Array def_%v_66 %v_61[13.4,] %v_65[13.8,] 
+		 10: COPY TYPE_PASS def_%v_67 %v_61[13.4,] 
+		 11: COPY TYPE_PASS def_%v_68 %v_65[13.8,] 
+		 12: COPY TYPE_PASS def_before_tokens %v_61[13.4,] 
+		 13: COPY TYPE_PASS def_after_tokens %v_65[13.8,] 
+		 14: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_66 
+BB 15
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ONPDiff) def_%v_69 
+		 2: %v_69->new def_%v_70 %v_69[15.1,] before_tokens[13.12,12.12,] after_tokens[13.13,12.13,] 	 SYMBOL:	 ARGS:before_tokens,after_tokens,
+		 3: %v_70->short_diff def_%v_71 %v_70[15.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_diff %v_71[15.3,] 
+		 5: 
+		 6: %self->generate_side_by_side_markdown def_%v_72 %self[2.0,] %v_71[15.3,] 	 SYMBOL:	 ARGS:diff,
+		 7: def_%v_73 %v_72[15.6,] 
+		 8: def_%v_74 %v_73[15.7,] 
+		 9: def_%v_75 %v_73[15.7,] 
+		 10: COPY TYPE_PASS def_deleted %v_74[15.8,] 
+		 11: COPY TYPE_PASS def_inserted %v_75[15.9,] 
+		 12: 
+		 13: COPY TYPE_StringLiteral "<td class="diff-del">" def_%v_76 
+		 14: %v_74->join def_%v_77 %v_74[15.8,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_StringLiteral "</td>" def_%v_78 
+		 16: BUILDSTRING def_%v_79 %v_76[15.13,] %v_77[15.14,] %v_78[15.15,] 
+		 17: table-><< def_%v_80 table[2.10,] %v_79[15.16,] 	 SYMBOL:	 ARGS:%v_79,
+		 18: 
+		 19: COPY TYPE_StringLiteral "<td class="diff-ins">" def_%v_81 
+		 20: inserted->join def_%v_82 inserted[15.11,] 	 SYMBOL:	 ARGS:
+		 21: COPY TYPE_StringLiteral "</td>" def_%v_83 
+		 22: BUILDSTRING def_%v_84 %v_81[15.19,] %v_82[15.20,] %v_83[15.21,] 
+		 23: table-><< def_%v_85 table[15.17,2.10,] %v_84[15.22,] 	 SYMBOL:	 ARGS:%v_84,
+		 24: 
+		 25: i->+ def_%v_86 i[2.6,21.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 26: COPY TYPE_PASS def_i %v_86[15.25,] 
+		 27: 
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: op_code->== def_%v_87 op_code[4.8,] 	 SYMBOL:delete,	 ARGS:Symbol,
+		 2: BRANCH %v_87[16.1,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "<td class="diff-del">" def_%v_88 
+		 2: GETFIELD %self->line_by_line_diff def_%v_89 %self[2.0,] 
+		 3: %v_89->[] def_%v_90 %v_89[17.2,] i[2.6,21.5,] 	 SYMBOL:	 ARGS:i,
+		 4: %v_90->[] def_%v_91 %v_90[17.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: COPY TYPE_StringLiteral "</td>" def_%v_92 
+		 6: BUILDSTRING def_%v_93 %v_88[17.1,] %v_91[17.4,] %v_92[17.5,] 
+		 7: table-><< def_%v_94 table[2.10,] %v_93[17.6,] 	 SYMBOL:	 ARGS:%v_93,
+		 8: 
+		 9: COPY TYPE_StringLiteral "<td></td>" def_%v_95 
+		 10: table-><< def_%v_96 table[17.7,2.10,] %v_95[17.9,] 	 SYMBOL:	 ARGS:%v_95,
+		 11: 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "<td></td>" def_%v_97 
+		 2: table-><< def_%v_98 table[2.10,] %v_97[18.1,] 	 SYMBOL:	 ARGS:%v_97,
+		 3: 
+		 4: COPY TYPE_StringLiteral "<td class="diff-ins">" def_%v_99 
+		 5: GETFIELD %self->line_by_line_diff def_%v_100 %self[2.0,] 
+		 6: %v_100->[] def_%v_101 %v_100[18.5,] i[2.6,21.5,] 	 SYMBOL:	 ARGS:i,
+		 7: %v_101->[] def_%v_102 %v_101[18.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: COPY TYPE_StringLiteral "</td>" def_%v_103 
+		 9: BUILDSTRING def_%v_104 %v_99[18.4,] %v_102[18.7,] %v_103[18.8,] 
+		 10: table-><< def_%v_105 table[18.2,2.10,] %v_104[18.9,] 	 SYMBOL:	 ARGS:%v_104,
+		 11: COPY TYPE_PASS def_%v_96 %v_105[18.10,] 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_86 %v_96[18.11,17.10,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_28 %v_86[19.0,15.25,] 
+BB 21
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "</tr>" def_%v_106 
+		 2: table-><< def_%v_107 table[2.10,] %v_106[21.1,] 	 SYMBOL:	 ARGS:%v_106,
+		 3: 
+		 4: i->+ def_%v_108 i[15.26,2.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: COPY TYPE_PASS def_i %v_108[21.4,] 
+		 6: 
+BB 23
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: COPY TYPE_StringLiteral "</table>" def_%v_109 
+		 3: table-><< def_%v_110 table[2.10,] %v_109[23.2,] 	 SYMBOL:	 ARGS:%v_109,
+		 4: 
+		 5: table->join def_%v_111 table[23.3,2.10,] 	 SYMBOL:	 ARGS:
+		 6: RETURN %v_111[23.5,] %self[2.0,] 
+BB 25
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = tokenize_line instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_text 
+		 6: 
+		 7: COPY TYPE_Regexp def_%v_3 
+		 8: text->scan def_%v_4 text[2.5,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: RETURN %v_4[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = tokenize_markdown instanceMethod = true
+BB 1
+	outgoing: 29 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_text 
+		 6: 
+		 7: COPY TYPE_Array def_%v_3 
+		 8: COPY TYPE_Array def_%v_4 
+		 9: COPY TYPE_Array def_%v_5 %v_3[2.7,] %v_4[2.8,] 
+		 10: COPY TYPE_PASS def_%v_6 %v_3[2.7,] 
+		 11: COPY TYPE_PASS def_%v_7 %v_4[2.8,] 
+		 12: COPY TYPE_PASS def_t %v_3[2.7,] 
+		 13: COPY TYPE_PASS def_tokens %v_4[2.8,] 
+		 14: 
+		 15: COPY TYPE_Fixnum def_i 
+		 16: 
+BB 3
+	outgoing: 4 24 
+	datadep: 
+	instructions:
+		 0: text->length def_%v_9 text[2.5,] 	 SYMBOL:	 ARGS:
+		 1: i->< def_%v_10 i[2.15,22.2,] %v_9[3.0,] 	 SYMBOL:	 ARGS:%v_9,
+		 2: BRANCH %v_10[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: text->[] def_%v_11 text[2.5,] i[2.15,22.2,] 	 SYMBOL:	 ARGS:i,
+		 3: COPY TYPE_Regexp def_%v_12 
+		 4: %v_11->=~ def_%v_13 %v_11[4.2,] 	 SYMBOL:	 ARGS:%v_12,
+		 5: BRANCH %v_13[4.4,] 
+BB 5
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: text->[] def_%v_14 text[2.5,] i[2.15,22.2,] 	 SYMBOL:	 ARGS:i,
+		 2: t-><< def_%v_15 t[2.12,20.5,15.9,] %v_14[5.1,] 	 SYMBOL:	 ARGS:%v_14,
+		 3: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: text->[] def_%v_16 text[2.5,] i[2.15,22.2,] 	 SYMBOL:	 ARGS:i,
+		 2: COPY TYPE_Regexp def_%v_17 
+		 3: %v_16->=~ def_%v_18 %v_16[6.1,] 	 SYMBOL:	 ARGS:%v_17,
+		 4: BRANCH %v_18[6.3,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: t->join def_%v_19 t[2.12,20.5,15.9,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_Regexp def_%v_20 
+		 2: %v_19->=~ def_%v_21 %v_19[7.0,] 	 SYMBOL:	 ARGS:%v_20,
+		 3: COPY TYPE_PASS def_%v_18 %v_21[7.2,] 
+BB 8
+	outgoing: 9 17 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_18[7.3,6.3,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+BB 11
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: text->[] def_%v_23 text[2.5,] i[2.15,22.2,] 	 SYMBOL:	 ARGS:i,
+		 3: t-><< def_%v_24 t[2.12,20.5,15.9,] %v_23[11.2,] 	 SYMBOL:	 ARGS:%v_23,
+		 4: 
+		 5: i->+ def_%v_25 i[2.15,22.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 6: COPY TYPE_PASS def_i %v_25[11.5,] 
+		 7: 
+		 8: text->length def_%v_26 text[11.2,2.5,] 	 SYMBOL:	 ARGS:
+		 9: i->< def_%v_27 i[11.5,11.6,] %v_26[11.8,] 	 SYMBOL:	 ARGS:%v_26,
+		 10: BRANCH %v_27[11.9,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: text->[] def_%v_28 text[2.5,] i[11.6,] 	 SYMBOL:	 ARGS:i,
+		 1: COPY TYPE_Regexp def_%v_29 
+		 2: %v_28->=~ def_%v_30 %v_28[13.0,] 	 SYMBOL:	 ARGS:%v_29,
+		 3: COPY TYPE_PASS def_%v_27 %v_30[13.2,] 
+BB 14
+	outgoing: 11 15 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_27[13.3,11.9,] 
+BB 15
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+		 1: 
+		 2: i->- def_%v_31 i[11.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: COPY TYPE_PASS def_i %v_31[15.2,] 
+		 4: 
+		 5: t->join def_%v_32 t[2.12,20.5,] 	 SYMBOL:	 ARGS:
+		 6: tokens-><< def_%v_33 tokens[2.13,] %v_32[15.5,] 	 SYMBOL:	 ARGS:%v_32,
+		 7: 
+		 8: COPY TYPE_Array def_%v_34 
+		 9: COPY TYPE_PASS def_t %v_34[15.8,] 
+		 10: 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: t->length def_%v_35 t[2.12,20.5,15.9,] 	 SYMBOL:	 ARGS:
+		 2: %v_35->> def_%v_36 %v_35[17.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: BRANCH %v_36[17.2,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: t->join def_%v_37 t[2.12,20.5,15.9,] 	 SYMBOL:	 ARGS:
+		 1: tokens-><< def_%v_38 tokens[2.13,] %v_37[18.0,] 	 SYMBOL:	 ARGS:%v_37,
+		 2: 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_38 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: text->[] def_%v_39 text[2.5,] i[2.15,22.2,] 	 SYMBOL:	 ARGS:i,
+		 2: tokens-><< def_%v_40 tokens[2.13,] %v_39[20.1,] 	 SYMBOL:	 ARGS:%v_39,
+		 3: 
+		 4: COPY TYPE_Array def_%v_41 
+		 5: COPY TYPE_PASS def_t %v_41[20.4,] 
+		 6: COPY TYPE_PASS def_%v_34 %v_41[20.4,] 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_15 %v_34[20.6,15.8,] 
+BB 22
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: 
+		 1: i->+ def_%v_42 i[15.3,2.15,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: COPY TYPE_PASS def_i %v_42[22.1,] 
+		 3: 
+BB 24
+	outgoing: 26 27 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: t->length def_%v_43 t[2.12,20.5,15.9,] 	 SYMBOL:	 ARGS:
+		 3: %v_43->> def_%v_44 %v_43[24.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: BRANCH %v_44[24.3,] 
+BB 26
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: t->join def_%v_45 t[2.12,20.5,15.9,] 	 SYMBOL:	 ARGS:
+		 1: tokens-><< def_%v_46 tokens[2.13,] %v_45[26.0,] 	 SYMBOL:	 ARGS:%v_45,
+		 2: 
+BB 27
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_46 
+BB 28
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN tokens[2.13,] %self[2.0,] 
+BB 29
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = tokenize_html_blocks instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_html 
+		 6: 
+		 7: (Nokogiri) def_%v_3 
+		 8: (inherit HTML) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:HTML,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_4->fragment def_%v_5 %v_4[3.0,2.8,] html[2.5,] 	 SYMBOL:	 ARGS:html,
+		 1: COPY TYPE_StringLiteral "./*" def_%v_6 
+		 2: %v_5->search def_%v_7 %v_5[4.0,] %v_6[4.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: %v_7->map def_%v_8 %v_7[4.2,] 	 SYMBOL:to_html,	 ARGS:
+		 4: RETURN %v_8[4.3,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = tokenize_html instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_html 
+		 6: 
+		 7: (HtmlTokenizer) def_%v_3 
+		 8: %v_3->tokenize def_%v_4 %v_3[2.7,] html[2.5,] 	 SYMBOL:	 ARGS:html,
+		 9: RETURN %v_4[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = add_class_or_wrap_in_tags instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_html_or_text 
+		 6: RECEIVEARG def_klass 
+		 7: 
+		 8: COPY TYPE_StringLiteral ">" def_%v_3 
+		 9: html_or_text->index def_%v_4 html_or_text[2.5,] %v_3[2.8,] 	 SYMBOL:	 ARGS:%v_3,
+		 10: COPY TYPE_PASS def_index_of_next_chevron %v_4[2.9,] 
+		 11: 
+		 12: html_or_text->length def_%v_5 html_or_text[2.5,2.9,] 	 SYMBOL:	 ARGS:
+		 13: %v_5->> def_%v_6 %v_5[2.12,] 	 SYMBOL:	 ARGS:Fixnum,
+		 14: BRANCH %v_6[2.13,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: html_or_text->[] def_%v_7 html_or_text[2.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 1: COPY TYPE_StringLiteral "<" def_%v_8 
+		 2: %v_7->== def_%v_9 %v_7[3.0,] %v_8[3.1,] 	 SYMBOL:	 ARGS:%v_8,
+		 3: COPY TYPE_PASS def_%v_6 %v_9[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[3.3,2.13,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_6 index_of_next_chevron[2.10,] 
+BB 6
+	outgoing: 7 13 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[5.0,3.3,2.13,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "class=" def_%v_10 
+		 2: html_or_text->index def_%v_11 html_or_text[2.5,] %v_10[7.1,] 	 SYMBOL:	 ARGS:%v_10,
+		 3: COPY TYPE_PASS def_index_of_class %v_11[7.2,] 
+		 4: 
+		 5: %v_11->nil? def_%v_12 %v_11[7.2,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %v_12[7.5,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: index_of_class->> def_%v_13 index_of_class[7.3,] index_of_next_chevron[2.10,] 	 SYMBOL:	 ARGS:index_of_next_chevron,
+		 1: COPY TYPE_PASS def_%v_12 %v_13[8.0,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_12[8.1,7.5,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral " class="diff-" def_%v_14 
+		 2: COPY TYPE_StringLiteral """ def_%v_15 
+		 3: BUILDSTRING def_%v_16 %v_14[10.1,] klass[2.6,] %v_15[10.2,] 
+		 4: html_or_text->insert def_%v_17 html_or_text[2.5,] index_of_next_chevron[2.10,] %v_16[10.3,] 	 SYMBOL:	 ARGS:index_of_next_chevron,%v_16,
+		 5: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "class=" def_%v_18 
+		 2: %v_18->length def_%v_19 %v_18[11.1,] 	 SYMBOL:	 ARGS:
+		 3: index_of_class->+ def_%v_20 index_of_class[7.3,] %v_19[11.2,] 	 SYMBOL:	 ARGS:%v_19,
+		 4: %v_20->+ def_%v_21 %v_20[11.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: COPY TYPE_StringLiteral "diff-" def_%v_22 
+		 6: COPY TYPE_StringLiteral " " def_%v_23 
+		 7: BUILDSTRING def_%v_24 %v_22[11.5,] klass[2.6,] %v_23[11.6,] 
+		 8: html_or_text->insert def_%v_25 html_or_text[2.5,] %v_21[11.4,] %v_24[11.7,] 	 SYMBOL:	 ARGS:%v_21,%v_24,
+		 9: COPY TYPE_PASS def_%v_17 %v_25[11.8,] 
+BB 12
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %v_17[11.9,10.4,] %self[2.0,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "<" def_%v_26 
+		 2: COPY TYPE_StringLiteral ">" def_%v_27 
+		 3: COPY TYPE_StringLiteral "</" def_%v_28 
+		 4: COPY TYPE_StringLiteral ">" def_%v_29 
+		 5: BUILDSTRING def_%v_30 %v_26[13.1,] klass[2.6,] %v_27[13.2,] html_or_text[2.5,] %v_28[13.3,] klass[2.6,] %v_29[13.4,] 
+		 6: RETURN %v_30[13.5,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = generate_inline_html instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_diff 
+		 6: 
+		 7: COPY TYPE_Array def_%v_3 
+		 8: COPY TYPE_PASS def_inline %v_3[2.7,] 
+		 9: 
+		 10: diff->each def_%v_4 diff[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:diff,
+CLOSURE BEGIN: d[] inline[2.8,] %self[2.0,] 
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_d 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 7 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: d->[] def_%cl_1_3 d[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: def_%cl_1_5 %cl_1_3[3.1,] 
+		 3: BRANCH %cl_1_5[3.2,] 
+BB 4
+	outgoing: 5 8 12 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 %cl_1_3[3.1,] 
+		 1: BRANCH %cl_1_6[4.0,] 
+BB 5
+	outgoing: 6 9 12 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_7 %cl_1_3[3.1,] 
+		 1: BRANCH %cl_1_7[5.0,] 
+BB 6
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_4 
+		 1: 
+BB 7
+	outgoing: 12 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: d->[] def_%cl_1_8 d[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: inline-><< def_%cl_1_9 inline[] %cl_1_8[7.1,] 	 SYMBOL:	 ARGS:%cl_1_8,
+		 3: COPY TYPE_PASS def_%cl_1_4 %cl_1_9[7.2,] 
+		 4: RETURN %cl_1_9[7.2,] %self[2.0,] 
+BB 8
+	outgoing: 12 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: d->[] def_%cl_1_10 d[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: COPY TYPE_StringLiteral "del" def_%cl_1_11 
+		 3: %self->add_class_or_wrap_in_tags def_%cl_1_12 %self[2.0,] %cl_1_10[8.1,] %cl_1_11[8.2,] 	 SYMBOL:	 ARGS:%cl_1_10,%cl_1_11,
+		 4: inline-><< def_%cl_1_13 inline[] %cl_1_12[8.3,] 	 SYMBOL:	 ARGS:%cl_1_12,
+		 5: COPY TYPE_PASS def_%cl_1_4 %cl_1_13[8.4,] 
+		 6: RETURN %cl_1_13[8.4,] %self[8.3,2.0,] 
+BB 9
+	outgoing: 12 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: d->[] def_%cl_1_14 d[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: COPY TYPE_StringLiteral "ins" def_%cl_1_15 
+		 3: %self->add_class_or_wrap_in_tags def_%cl_1_16 %self[2.0,] %cl_1_14[9.1,] %cl_1_15[9.2,] 	 SYMBOL:	 ARGS:%cl_1_14,%cl_1_15,
+		 4: inline-><< def_%cl_1_17 inline[] %cl_1_16[9.3,] 	 SYMBOL:	 ARGS:%cl_1_16,
+		 5: COPY TYPE_PASS def_%cl_1_4 %cl_1_17[9.4,] 
+		 6: RETURN %cl_1_17[9.4,] %self[9.3,2.0,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_4[6.0,] %self[2.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_18 
+		 1: def_%cl_1_19 %cl_1_18[12.0,] 
+		 2: RETURN %cl_1_19[12.1,] %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 11: 
+		 12: RETURN inline[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = generate_side_by_side_html instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_diff 
+		 6: 
+		 7: COPY TYPE_Array def_%v_3 
+		 8: COPY TYPE_Array def_%v_4 
+		 9: COPY TYPE_Array def_%v_5 %v_3[2.7,] %v_4[2.8,] 
+		 10: COPY TYPE_PASS def_%v_6 %v_3[2.7,] 
+		 11: COPY TYPE_PASS def_%v_7 %v_4[2.8,] 
+		 12: COPY TYPE_PASS def_deleted %v_3[2.7,] 
+		 13: COPY TYPE_PASS def_inserted %v_4[2.8,] 
+		 14: 
+		 15: diff->each def_%v_8 diff[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:diff,
+CLOSURE BEGIN: d[] deleted[2.12,] inserted[2.13,] %self[2.0,] 
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_d 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 7 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: d->[] def_%cl_1_3 d[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: def_%cl_1_5 %cl_1_3[3.1,] 
+		 3: BRANCH %cl_1_5[3.2,] 
+BB 4
+	outgoing: 5 8 12 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 %cl_1_3[3.1,] 
+		 1: BRANCH %cl_1_6[4.0,] 
+BB 5
+	outgoing: 6 9 12 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_7 %cl_1_3[3.1,] 
+		 1: BRANCH %cl_1_7[5.0,] 
+BB 6
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_4 
+		 1: 
+BB 7
+	outgoing: 12 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: d->[] def_%cl_1_8 d[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: deleted-><< def_%cl_1_9 deleted[] %cl_1_8[7.1,] 	 SYMBOL:	 ARGS:%cl_1_8,
+		 3: 
+		 4: d->[] def_%cl_1_10 d[7.1,2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: inserted-><< def_%cl_1_11 inserted[] %cl_1_10[7.4,] 	 SYMBOL:	 ARGS:%cl_1_10,
+		 6: COPY TYPE_PASS def_%cl_1_4 %cl_1_11[7.5,] 
+		 7: RETURN %cl_1_11[7.5,] %self[2.0,] 
+BB 8
+	outgoing: 12 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: d->[] def_%cl_1_12 d[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: COPY TYPE_StringLiteral "del" def_%cl_1_13 
+		 3: %self->add_class_or_wrap_in_tags def_%cl_1_14 %self[2.0,] %cl_1_12[8.1,] %cl_1_13[8.2,] 	 SYMBOL:	 ARGS:%cl_1_12,%cl_1_13,
+		 4: deleted-><< def_%cl_1_15 deleted[] %cl_1_14[8.3,] 	 SYMBOL:	 ARGS:%cl_1_14,
+		 5: COPY TYPE_PASS def_%cl_1_4 %cl_1_15[8.4,] 
+		 6: RETURN %cl_1_15[8.4,] %self[8.3,2.0,] 
+BB 9
+	outgoing: 12 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: d->[] def_%cl_1_16 d[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: COPY TYPE_StringLiteral "ins" def_%cl_1_17 
+		 3: %self->add_class_or_wrap_in_tags def_%cl_1_18 %self[2.0,] %cl_1_16[9.1,] %cl_1_17[9.2,] 	 SYMBOL:	 ARGS:%cl_1_16,%cl_1_17,
+		 4: inserted-><< def_%cl_1_19 inserted[] %cl_1_18[9.3,] 	 SYMBOL:	 ARGS:%cl_1_18,
+		 5: COPY TYPE_PASS def_%cl_1_4 %cl_1_19[9.4,] 
+		 6: RETURN %cl_1_19[9.4,] %self[9.3,2.0,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_4[6.0,] %self[2.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_20 
+		 1: def_%cl_1_21 %cl_1_20[12.0,] 
+		 2: RETURN %cl_1_21[12.1,] %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 16: 
+		 17: COPY TYPE_Array def_%v_9 deleted[2.12,] inserted[2.13,] 
+		 18: RETURN %v_9[2.17,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = generate_side_by_side_markdown instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_diff 
+		 6: 
+		 7: COPY TYPE_Array def_%v_3 
+		 8: COPY TYPE_Array def_%v_4 
+		 9: COPY TYPE_Array def_%v_5 %v_3[2.7,] %v_4[2.8,] 
+		 10: COPY TYPE_PASS def_%v_6 %v_3[2.7,] 
+		 11: COPY TYPE_PASS def_%v_7 %v_4[2.8,] 
+		 12: COPY TYPE_PASS def_deleted %v_3[2.7,] 
+		 13: COPY TYPE_PASS def_inserted %v_4[2.8,] 
+		 14: 
+		 15: diff->each def_%v_8 diff[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:diff,
+CLOSURE BEGIN: d[] deleted[2.12,] inserted[2.13,] 
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_d 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 7 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: d->[] def_%cl_1_3 d[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: def_%cl_1_5 %cl_1_3[3.1,] 
+		 3: BRANCH %cl_1_5[3.2,] 
+BB 4
+	outgoing: 5 8 12 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 %cl_1_3[3.1,] 
+		 1: BRANCH %cl_1_6[4.0,] 
+BB 5
+	outgoing: 6 9 12 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_7 %cl_1_3[3.1,] 
+		 1: BRANCH %cl_1_7[5.0,] 
+BB 6
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_4 
+		 1: 
+BB 7
+	outgoing: 12 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: d->[] def_%cl_1_8 d[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: deleted-><< def_%cl_1_9 deleted[] %cl_1_8[7.1,] 	 SYMBOL:	 ARGS:%cl_1_8,
+		 3: 
+		 4: d->[] def_%cl_1_10 d[7.1,2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: inserted-><< def_%cl_1_11 inserted[] %cl_1_10[7.4,] 	 SYMBOL:	 ARGS:%cl_1_10,
+		 6: COPY TYPE_PASS def_%cl_1_4 %cl_1_11[7.5,] 
+		 7: RETURN %cl_1_11[7.5,] %self[2.0,] 
+BB 8
+	outgoing: 12 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "<del>" def_%cl_1_12 
+		 2: d->[] def_%cl_1_13 d[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: COPY TYPE_StringLiteral "</del>" def_%cl_1_14 
+		 4: BUILDSTRING def_%cl_1_15 %cl_1_12[8.1,] %cl_1_13[8.2,] %cl_1_14[8.3,] 
+		 5: deleted-><< def_%cl_1_16 deleted[] %cl_1_15[8.4,] 	 SYMBOL:	 ARGS:%cl_1_15,
+		 6: COPY TYPE_PASS def_%cl_1_4 %cl_1_16[8.5,] 
+		 7: RETURN %cl_1_16[8.5,] %self[2.0,] 
+BB 9
+	outgoing: 12 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "<ins>" def_%cl_1_17 
+		 2: d->[] def_%cl_1_18 d[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: COPY TYPE_StringLiteral "</ins>" def_%cl_1_19 
+		 4: BUILDSTRING def_%cl_1_20 %cl_1_17[9.1,] %cl_1_18[9.2,] %cl_1_19[9.3,] 
+		 5: inserted-><< def_%cl_1_21 inserted[] %cl_1_20[9.4,] 	 SYMBOL:	 ARGS:%cl_1_20,
+		 6: COPY TYPE_PASS def_%cl_1_4 %cl_1_21[9.5,] 
+		 7: RETURN %cl_1_21[9.5,] %self[2.0,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_4[6.0,] %self[2.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_22 
+		 1: def_%cl_1_23 %cl_1_22[12.0,] 
+		 2: RETURN %cl_1_23[12.1,] %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 16: 
+		 17: COPY TYPE_Array def_%v_9 deleted[2.12,] inserted[2.13,] 
+		 18: RETURN %v_9[2.17,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_Array def_%v_3 
+		 7: ATTRASSIGN %self->tokens %v_3[2.6,] 
+		 8: RETURN %v_3[2.6,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = tokenize instanceMethod = false
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_html 
+		 6: 
+		 7: %self->new def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_me %v_3[2.7,] 
+		 9: 
+		 10: (Nokogiri) def_%v_4 
+		 11: (inherit HTML) def_%v_5 %v_4[2.10,] 
+		 12: %v_5[2.11,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[2.10,] 	 SYMBOL:HTML,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit SAX) def_%v_6 %v_5[3.0,2.11,] 
+		 1: %v_6[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_5->const_missing def_%v_6 %v_5[3.0,2.11,] 	 SYMBOL:SAX,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: (inherit Parser) def_%v_7 %v_6[5.0,4.0,] 
+		 1: %v_7[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[5.0,4.0,] 	 SYMBOL:Parser,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_7->new def_%v_8 %v_7[7.0,6.0,] me[2.8,] 	 SYMBOL:	 ARGS:me,
+		 1: COPY TYPE_PASS def_parser %v_8[8.0,] 
+		 2: 
+		 3: COPY TYPE_StringLiteral "<html><body>" def_%v_9 
+		 4: COPY TYPE_StringLiteral "</body></html>" def_%v_10 
+		 5: BUILDSTRING def_%v_11 %v_9[8.3,] html[2.5,] %v_10[8.4,] 
+		 6: %v_8->parse def_%v_12 %v_8[8.0,] %v_11[8.5,] 	 SYMBOL:	 ARGS:%v_11,
+		 7: 
+		 8: me->tokens def_%v_13 me[2.8,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %v_13[8.8,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = start_element instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_name 
+		 6: RECEIVECONSTARG def_attributes 
+		 7: attributes[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_3 
+		 1: COPY TYPE_PASS def_attributes %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (USELESS_TAGS) def_%v_4 
+		 2: %v_4->include? def_%v_5 %v_4[4.1,] name[2.5,] 	 SYMBOL:	 ARGS:name,
+		 3: BRANCH %v_5[4.2,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: attributes->map def_%v_7 attributes[3.1,2.6,] %self[2.0,] 	 SYMBOL:	 ARGS:attributes,
+CLOSURE BEGIN: a[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_a 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral " " def_%cl_1_3 
+		 2: a->[] def_%cl_1_4 a[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: COPY TYPE_StringLiteral "="" def_%cl_1_5 
+		 4: a->[] def_%cl_1_6 a[3.2,2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: COPY TYPE_StringLiteral """ def_%cl_1_7 
+		 6: BUILDSTRING def_%cl_1_8 %cl_1_3[3.1,] %cl_1_4[3.2,] %cl_1_5[3.3,] %cl_1_6[3.4,] %cl_1_7[3.5,] 
+		 7: RETURN %cl_1_8[3.6,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_9 
+		 1: def_%cl_1_10 %cl_1_9[4.0,] 
+		 2: RETURN %cl_1_10[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: %v_7->join def_%v_8 %v_7[6.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_attrs %v_8[6.3,] 
+		 5: 
+		 6: GETFIELD %self->tokens def_%v_9 %self[2.0,] 
+		 7: COPY TYPE_StringLiteral "<" def_%v_10 
+		 8: COPY TYPE_StringLiteral ">" def_%v_11 
+		 9: BUILDSTRING def_%v_12 %v_10[6.7,] name[2.5,] %v_8[6.3,] %v_11[6.8,] 
+		 10: %v_9-><< def_%v_13 %v_9[6.6,] %v_12[6.9,] 	 SYMBOL:	 ARGS:%v_12,
+		 11: RETURN %v_13[6.10,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = end_element instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_name 
+		 6: 
+		 7: (USELESS_TAGS) def_%v_3 
+		 8: %v_3->include? def_%v_4 %v_3[2.7,] name[2.5,] 	 SYMBOL:	 ARGS:name,
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (AUTOCLOSING_TAGS) def_%v_5 
+		 1: %v_5->include? def_%v_6 %v_5[3.0,] name[2.5,] 	 SYMBOL:	 ARGS:name,
+		 2: COPY TYPE_PASS def_%v_4 %v_6[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[3.2,2.8,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+		 2: GETFIELD %self->tokens def_%v_8 %self[2.0,] 
+		 3: COPY TYPE_StringLiteral "</" def_%v_9 
+		 4: COPY TYPE_StringLiteral ">" def_%v_10 
+		 5: BUILDSTRING def_%v_11 %v_9[6.3,] name[2.5,] %v_10[6.4,] 
+		 6: %v_8-><< def_%v_12 %v_8[6.2,] %v_11[6.5,] 	 SYMBOL:	 ARGS:%v_11,
+		 7: RETURN %v_12[6.6,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = characters instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_string 
+		 6: 
+		 7: (CGI) def_%v_3 
+		 8: %v_3->escapeHTML def_%v_4 %v_3[2.7,] string[2.5,] 	 SYMBOL:	 ARGS:string,
+		 9: COPY TYPE_PASS def_string %v_4[2.8,] 
+		 10: 
+		 11: GETFIELD %self->tokens def_%v_5 %self[2.0,] 
+		 12: COPY TYPE_Regexp def_%v_6 
+		 13: %v_4->scan def_%v_7 %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_6,
+		 14: %v_7->flatten def_%v_8 %v_7[2.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_5->concat def_%v_9 %v_5[2.11,] %v_8[2.14,] 	 SYMBOL:	 ARGS:%v_8,
+		 16: RETURN %v_9[2.15,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

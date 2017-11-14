@@ -1,0 +1,157 @@
+SET IRMethod, name = duration_in_words instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_finished_at 
+		 6: RECEIVEARG def_started_at 
+		 7: 
+		 8: COPY TYPE_PASS def_%v_3 finished_at[2.5,] 
+		 9: BRANCH finished_at[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_3 started_at[2.6,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.0,2.8,] 
+BB 5
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: finished_at->to_i def_%v_4 finished_at[2.5,] 	 SYMBOL:	 ARGS:
+		 2: started_at->to_i def_%v_5 started_at[2.6,] 	 SYMBOL:	 ARGS:
+		 3: %v_4->- def_%v_6 %v_4[5.1,] %v_5[5.2,] 	 SYMBOL:	 ARGS:%v_5,
+		 4: COPY TYPE_PASS def_interval_in_seconds %v_6[5.3,] 
+		 5: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH started_at[2.6,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Time) def_%v_7 
+		 2: %v_7->now def_%v_8 %v_7[7.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_8->to_i def_%v_9 %v_8[7.2,] 	 SYMBOL:	 ARGS:
+		 4: started_at->to_i def_%v_10 started_at[2.6,] 	 SYMBOL:	 ARGS:
+		 5: %v_9->- def_%v_11 %v_9[7.3,] %v_10[7.4,] 	 SYMBOL:	 ARGS:%v_10,
+		 6: COPY TYPE_PASS def_interval_in_seconds %v_11[7.5,] 
+		 7: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_6 %v_11[8.0,7.5,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->time_interval_in_words def_%v_12 %self[2.0,] interval_in_seconds[5.4,7.6,] 	 SYMBOL:	 ARGS:interval_in_seconds,
+		 2: RETURN %v_12[10.1,] %self[10.1,2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = time_interval_in_words instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_interval_in_seconds 
+		 6: 
+		 7: interval_in_seconds->/ def_%v_3 interval_in_seconds[2.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: COPY TYPE_PASS def_minutes %v_3[2.7,] 
+		 9: 
+		 10: %v_3->* def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:Fixnum,
+		 11: interval_in_seconds->- def_%v_5 interval_in_seconds[2.5,2.7,] %v_4[2.10,] 	 SYMBOL:	 ARGS:%v_4,
+		 12: COPY TYPE_PASS def_seconds %v_5[2.11,] 
+		 13: 
+		 14: minutes->>= def_%v_6 minutes[2.8,] 	 SYMBOL:	 ARGS:Fixnum,
+		 15: BRANCH %v_6[2.14,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "minute" def_%v_7 
+		 2: %self->pluralize def_%v_8 %self[2.0,] minutes[2.8,2.14,] %v_7[3.1,] 	 SYMBOL:	 ARGS:minutes,%v_7,
+		 3: COPY TYPE_StringLiteral " " def_%v_9 
+		 4: COPY TYPE_StringLiteral "second" def_%v_10 
+		 5: %self->pluralize def_%v_11 %self[3.2,2.0,] seconds[2.12,] %v_10[3.4,] 	 SYMBOL:	 ARGS:seconds,%v_10,
+		 6: BUILDSTRING def_%v_12 %v_8[3.2,] %v_9[3.3,] %v_11[3.5,] 
+		 7: RETURN %v_12[3.6,] %self[3.2,3.5,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "second" def_%v_13 
+		 2: %self->pluralize def_%v_14 %self[2.0,] seconds[2.12,] %v_13[4.1,] 	 SYMBOL:	 ARGS:seconds,%v_13,
+		 3: BUILDSTRING def_%v_15 %v_14[4.2,] 
+		 4: RETURN %v_15[4.3,] %self[4.2,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = date_from_to instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_from 
+		 6: RECEIVEARG def_to 
+		 7: 
+		 8: from->to_s def_%v_3 from[2.5,] 	 SYMBOL:short,	 ARGS:Symbol,
+		 9: COPY TYPE_StringLiteral " - " def_%v_4 
+		 10: to->to_s def_%v_5 to[2.6,] 	 SYMBOL:short,	 ARGS:Symbol,
+		 11: BUILDSTRING def_%v_6 %v_3[2.8,] %v_4[2.9,] %v_5[2.10,] 
+		 12: RETURN %v_6[2.11,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

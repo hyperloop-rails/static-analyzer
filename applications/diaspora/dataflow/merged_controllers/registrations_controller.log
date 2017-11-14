@@ -1,0 +1,762 @@
+SET IRMethod, name = create instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (User) def_%v_3 
+		 7: %self->user_params def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->build def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: ATTRASSIGN %self->user %v_5[2.8,] 
+		 10: 
+		 11: %self->invite def_%v_6 %self[2.0,2.7,2.9,] 	 SYMBOL:	 ARGS:
+		 12: %v_6->present? def_%v_7 %v_6[2.11,] 	 SYMBOL:	 ARGS:
+		 13: BRANCH %v_7[2.12,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_8 %self[2.0,2.9,] 
+		 1: %self->invite def_%v_9 %self[2.0,2.9,] 	 SYMBOL:	 ARGS:
+		 2: %v_8->process_invite_acceptence def_%v_10 %v_8[3.0,] %v_9[3.1,] 	 SYMBOL:	 ARGS:%v_9,
+		 3: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%v_11 %self[2.0,2.9,] 
+		 2: %v_11->sign_up def_%v_12 %v_11[5.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_12[5.2,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_13 %self[2.0,2.9,] 	 SYMBOL:	 ARGS:
+		 2: (I18n) def_%v_14 
+		 3: COPY TYPE_StringLiteral "registrations.create.success" def_%v_15 
+		 4: %v_14->t def_%v_16 %v_14[6.2,] %v_15[6.3,] 	 SYMBOL:	 ARGS:%v_15,
+		 5: ATTRASSIGN %v_13->[] %v_16[6.4,] 
+		 6: 
+		 7: GETFIELD %self->user def_%v_17 %self[6.1,2.0,2.9,] 
+		 8: %v_17->seed_aspects def_%v_18 %v_17[6.7,] 	 SYMBOL:	 ARGS:
+		 9: 
+		 10: GETFIELD %self->user def_%v_19 %self[6.1,2.0,2.9,] 
+		 11: %v_19->send_welcome_message def_%v_20 %v_19[6.10,] 	 SYMBOL:	 ARGS:
+		 12: 
+		 13: GETFIELD %self->user def_%v_21 %self[6.1,2.0,2.9,] 
+		 14: %self->sign_in_and_redirect def_%v_22 %self[6.1,2.0,2.9,] %v_21[6.13,] 	 SYMBOL:user,	 ARGS:Symbol,%v_21,
+		 15: 
+		 16: %self->logger def_%v_23 %self[6.1,6.14,2.0,2.9,] 	 SYMBOL:	 ARGS:
+		 17: COPY TYPE_StringLiteral "event=registration status=successful user=" def_%v_24 
+		 18: GETFIELD %self->user def_%v_25 %self[6.1,6.14,6.16,2.0,2.9,] 
+		 19: %v_25->diaspora_handle def_%v_26 %v_25[6.18,] 	 SYMBOL:	 ARGS:
+		 20: BUILDSTRING def_%v_27 %v_24[6.17,] %v_26[6.19,] 
+		 21: %v_23->info def_%v_28 %v_23[6.16,] %v_27[6.20,] 	 SYMBOL:	 ARGS:%v_27,
+		 22: RETURN %v_28[6.21,] %self[6.1,6.14,6.16,2.0,2.9,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%v_29 %self[2.0,2.9,] 
+		 2: %v_29->errors def_%v_30 %v_29[7.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_30->delete def_%v_31 %v_30[7.2,] 	 SYMBOL:person,	 ARGS:Symbol,
+		 4: 
+		 5: %self->flash def_%v_32 %self[2.0,2.9,] 	 SYMBOL:	 ARGS:
+		 6: %v_32->now def_%v_33 %v_32[7.5,] 	 SYMBOL:	 ARGS:
+		 7: GETFIELD %self->user def_%v_34 %self[7.5,2.0,2.9,] 
+		 8: %v_34->errors def_%v_35 %v_34[7.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_35->full_messages def_%v_36 %v_35[7.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral " - " def_%v_37 
+		 11: %v_36->join def_%v_38 %v_36[7.9,] %v_37[7.10,] 	 SYMBOL:	 ARGS:%v_37,
+		 12: ATTRASSIGN %v_33->[] %v_38[7.11,] 
+		 13: 
+		 14: %self->logger def_%v_39 %self[7.5,2.0,2.9,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_StringLiteral "event=registration status=failure errors='" def_%v_40 
+		 16: GETFIELD %self->user def_%v_41 %self[7.5,7.14,2.0,2.9,] 
+		 17: %v_41->errors def_%v_42 %v_41[7.16,] 	 SYMBOL:	 ARGS:
+		 18: %v_42->full_messages def_%v_43 %v_42[7.17,] 	 SYMBOL:	 ARGS:
+		 19: COPY TYPE_StringLiteral ", " def_%v_44 
+		 20: %v_43->join def_%v_45 %v_43[7.18,] %v_44[7.19,] 	 SYMBOL:	 ARGS:%v_44,
+		 21: COPY TYPE_StringLiteral "'" def_%v_46 
+		 22: BUILDSTRING def_%v_47 %v_40[7.15,] %v_45[7.20,] %v_46[7.21,] 
+		 23: %v_39->info def_%v_48 %v_39[7.14,] %v_47[7.22,] 	 SYMBOL:	 ARGS:%v_47,
+		 24: 
+		 25: %self->ruby_code_from_view def_%v_49 %self[7.5,7.14,2.0,2.9,] 	 SYMBOL:	 ARGS:
+		 26: %v_49->ruby_code_from_view def_%v_50 %v_49[7.25,] %self[7.5,7.14,7.25,2.0,2.9,] 	 SYMBOL:	 ARGS:%v_49,
+CLOSURE BEGIN: %self[7.5,7.14,7.25,2.0,2.9,] f[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_rb_from_view 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (AppConfig) def_%cl_1_3 
+		 2: %cl_1_3->settings def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_4->pod_name def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: 
+		 5: %self->resource def_%cl_1_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 6: %self->resource_name def_%cl_1_7 %self[3.5,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->registration_path def_%cl_1_8 %self[3.5,3.6,2.0,] %cl_1_7[3.6,] 	 SYMBOL:	 ARGS:%cl_1_7,
+		 8: COPY TYPE_StringLiteral "form-horizontal block-form" def_%cl_1_9 
+		 9: COPY TYPE_StringLiteral "off" def_%cl_1_10 
+		 10: HASH-class-autocomplete- def_%cl_1_11 %cl_1_9[3.8,] %cl_1_10[3.9,] 
+		 11: HASH-url-html- def_%cl_1_12 %cl_1_8[3.7,] %cl_1_11[3.10,] 
+		 12: %self->form_for def_%cl_1_13 %self[3.5,3.6,3.7,2.0,] %cl_1_6[3.5,] %cl_1_12[3.11,] %self[3.5,3.6,3.7,2.0,] 	 SYMBOL:	 ARGS:%cl_1_6,%cl_1_12,%self,
+CLOSURE BEGIN: %self[3.5,3.6,3.7,2.0,] f[] 
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_f 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "registrations.new.email" def_%cl_2_3 
+		 2: %self->t def_%cl_2_4 %self[2.0,] %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:%cl_2_3,
+		 3: COPY TYPE_StringLiteral "sr-only control-label" def_%cl_2_5 
+		 4: COPY TYPE_StringLiteral "emailLabel" def_%cl_2_6 
+		 5: HASH-class-id- def_%cl_2_7 %cl_2_5[3.3,] %cl_2_6[3.4,] 
+		 6: f->label def_%cl_2_8 f[2.2,] %cl_2_4[3.2,] %cl_2_7[3.5,] 	 SYMBOL:email,	 ARGS:Symbol,%cl_2_4,%cl_2_7,
+		 7: 
+		 8: COPY TYPE_StringLiteral "input-block-level form-control" def_%cl_2_9 
+		 9: COPY TYPE_StringLiteral "users.edit.your_email_private" def_%cl_2_10 
+		 10: %self->t def_%cl_2_11 %self[3.2,2.0,] %cl_2_10[3.9,] 	 SYMBOL:	 ARGS:%cl_2_10,
+		 11: HASH-content- def_%cl_2_12 %cl_2_11[3.10,] 
+		 12: COPY TYPE_StringLiteral "registrations.new.email" def_%cl_2_13 
+		 13: %self->t def_%cl_2_14 %self[3.2,3.10,2.0,] %cl_2_13[3.12,] 	 SYMBOL:	 ARGS:%cl_2_13,
+		 14: COPY TYPE_StringLiteral "registrations.new.enter_email" def_%cl_2_15 
+		 15: %self->t def_%cl_2_16 %self[3.2,3.10,3.13,2.0,] %cl_2_15[3.14,] 	 SYMBOL:	 ARGS:%cl_2_15,
+		 16: COPY TYPE_StringLiteral "emailLabel" def_%cl_2_17 
+		 17: HASH-labelledby- def_%cl_2_18 %cl_2_17[3.16,] 
+		 18: HASH-autofocus-class-data-placeholder-required-title-aria- def_%cl_2_19 %cl_2_9[3.8,] %cl_2_12[3.11,] %cl_2_14[3.13,] %cl_2_16[3.15,] %cl_2_18[3.17,] 
+		 19: f->email_field def_%cl_2_20 f[3.6,2.2,] %cl_2_19[3.18,] 	 SYMBOL:email,	 ARGS:Symbol,%cl_2_19,
+		 20: 
+		 21: COPY TYPE_StringLiteral "registrations.new.username" def_%cl_2_21 
+		 22: %self->t def_%cl_2_22 %self[3.2,3.10,3.13,3.15,2.0,] %cl_2_21[3.21,] 	 SYMBOL:	 ARGS:%cl_2_21,
+		 23: 
+		 24: COPY TYPE_StringLiteral "input-block-level form-control" def_%cl_2_23 
+		 25: COPY TYPE_StringLiteral "registrations.new.username" def_%cl_2_24 
+		 26: %self->t def_%cl_2_25 %self[3.2,3.10,3.13,3.15,3.22,2.0,] %cl_2_24[3.25,] 	 SYMBOL:	 ARGS:%cl_2_24,
+		 27: COPY TYPE_StringLiteral "registrations.new.enter_username" def_%cl_2_26 
+		 28: %self->t def_%cl_2_27 %self[3.2,3.10,3.13,3.15,3.22,3.26,2.0,] %cl_2_26[3.27,] 	 SYMBOL:	 ARGS:%cl_2_26,
+		 29: COPY TYPE_StringLiteral "[A-Za-z0-9_]+" def_%cl_2_28 
+		 30: COPY TYPE_StringLiteral "usernameLabel" def_%cl_2_29 
+		 31: HASH-labelledby- def_%cl_2_30 %cl_2_29[3.30,] 
+		 32: HASH-class-placeholder-title-required-pattern-aria- def_%cl_2_31 %cl_2_23[3.24,] %cl_2_25[3.26,] %cl_2_27[3.28,] %cl_2_28[3.29,] %cl_2_30[3.31,] 
+		 33: f->text_field def_%cl_2_32 f[3.6,3.19,2.2,] %cl_2_31[3.32,] 	 SYMBOL:username,	 ARGS:Symbol,%cl_2_31,
+		 34: 
+		 35: COPY TYPE_StringLiteral "registrations.new.password" def_%cl_2_33 
+		 36: %self->t def_%cl_2_34 %self[3.2,3.10,3.13,3.15,3.22,3.26,3.28,2.0,] %cl_2_33[3.35,] 	 SYMBOL:	 ARGS:%cl_2_33,
+		 37: 
+		 38: COPY TYPE_StringLiteral "input-block-level form-control" def_%cl_2_35 
+		 39: COPY TYPE_StringLiteral "registrations.new.password" def_%cl_2_36 
+		 40: %self->t def_%cl_2_37 %self[3.2,3.10,3.13,3.15,3.22,3.26,3.28,3.36,2.0,] %cl_2_36[3.39,] 	 SYMBOL:	 ARGS:%cl_2_36,
+		 41: COPY TYPE_StringLiteral "registrations.new.enter_password" def_%cl_2_38 
+		 42: %self->t def_%cl_2_39 %self[3.2,3.10,3.13,3.15,3.22,3.26,3.28,3.36,3.40,2.0,] %cl_2_38[3.41,] 	 SYMBOL:	 ARGS:%cl_2_38,
+		 43: COPY TYPE_StringLiteral "......+" def_%cl_2_40 
+		 44: COPY TYPE_StringLiteral "passwordLabel" def_%cl_2_41 
+		 45: HASH-labelledby- def_%cl_2_42 %cl_2_41[3.44,] 
+		 46: HASH-class-placeholder-title-required-pattern-aria- def_%cl_2_43 %cl_2_35[3.38,] %cl_2_37[3.40,] %cl_2_39[3.42,] %cl_2_40[3.43,] %cl_2_42[3.45,] 
+		 47: f->password_field def_%cl_2_44 f[3.6,3.19,3.33,2.2,] %cl_2_43[3.46,] 	 SYMBOL:password,	 ARGS:Symbol,%cl_2_43,
+		 48: 
+		 49: COPY TYPE_StringLiteral "registrations.new.password_confirmation" def_%cl_2_45 
+		 50: %self->t def_%cl_2_46 %self[3.2,3.10,3.13,3.15,3.22,3.26,3.28,3.36,3.40,3.42,2.0,] %cl_2_45[3.49,] 	 SYMBOL:	 ARGS:%cl_2_45,
+		 51: 
+		 52: COPY TYPE_StringLiteral "input-block-level form-control" def_%cl_2_47 
+		 53: COPY TYPE_StringLiteral "registrations.new.password_confirmation" def_%cl_2_48 
+		 54: %self->t def_%cl_2_49 %self[3.2,3.10,3.13,3.15,3.22,3.26,3.28,3.36,3.40,3.42,3.50,2.0,] %cl_2_48[3.53,] 	 SYMBOL:	 ARGS:%cl_2_48,
+		 55: COPY TYPE_StringLiteral "registrations.new.enter_password_again" def_%cl_2_50 
+		 56: %self->t def_%cl_2_51 %self[3.2,3.10,3.13,3.15,3.22,3.26,3.28,3.36,3.40,3.42,3.50,3.54,2.0,] %cl_2_50[3.55,] 	 SYMBOL:	 ARGS:%cl_2_50,
+		 57: COPY TYPE_StringLiteral "......+" def_%cl_2_52 
+		 58: COPY TYPE_StringLiteral "passwordConfirmationLabel" def_%cl_2_53 
+		 59: HASH-labelledby- def_%cl_2_54 %cl_2_53[3.58,] 
+		 60: HASH-class-placeholder-title-required-pattern-aria- def_%cl_2_55 %cl_2_47[3.52,] %cl_2_49[3.54,] %cl_2_51[3.56,] %cl_2_52[3.57,] %cl_2_54[3.59,] 
+		 61: f->password_field def_%cl_2_56 f[3.6,3.19,3.33,3.47,2.2,] %cl_2_55[3.60,] 	 SYMBOL:password_confirmation,	 ARGS:Symbol,%cl_2_55,
+		 62: 
+		 63: (AppConfig) def_%cl_2_57 
+		 64: %cl_2_57->settings def_%cl_2_58 %cl_2_57[3.63,] 	 SYMBOL:	 ARGS:
+		 65: %cl_2_58->captcha def_%cl_2_59 %cl_2_58[3.64,] 	 SYMBOL:	 ARGS:
+		 66: %cl_2_59->enable? def_%cl_2_60 %cl_2_59[3.65,] 	 SYMBOL:	 ARGS:
+		 67: BRANCH %cl_2_60[3.66,] 
+BB 4
+	outgoing: 6 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "user" def_%cl_2_61 
+		 2: COPY TYPE_StringLiteral "numeric" def_%cl_2_62 
+		 3: COPY TYPE_StringLiteral "simple-captcha-image" def_%cl_2_63 
+		 4: COPY TYPE_StringLiteral "form-control captcha-input" def_%cl_2_64 
+		 5: HASH-class- def_%cl_2_65 %cl_2_64[4.4,] 
+		 6: HASH-object-code_type-class-input_html- def_%cl_2_66 %cl_2_61[4.1,] %cl_2_62[4.2,] %cl_2_63[4.3,] %cl_2_65[4.5,] 
+		 7: %self->show_simple_captcha def_%cl_2_67 %self[2.0,] %cl_2_66[4.6,] 	 SYMBOL:	 ARGS:%cl_2_66,
+		 8: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_2_67 
+BB 6
+	outgoing: 7 8 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->invite def_%cl_2_68 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->invite_hidden_tag def_%cl_2_69 %self[6.1,2.0,] %cl_2_68[6.1,] 	 SYMBOL:	 ARGS:%cl_2_68,
+		 3: 
+		 4: (AppConfig) def_%cl_2_70 
+		 5: %cl_2_70->settings def_%cl_2_71 %cl_2_70[6.4,] 	 SYMBOL:	 ARGS:
+		 6: %cl_2_71->terms def_%cl_2_72 %cl_2_71[6.5,] 	 SYMBOL:	 ARGS:
+		 7: %cl_2_72->enable? def_%cl_2_73 %cl_2_72[6.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %cl_2_73[6.7,] 
+BB 7
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "registrations.new.terms" def_%cl_2_74 
+		 2: COPY TYPE_StringLiteral "registrations.new.terms_link" def_%cl_2_75 
+		 3: %self->t def_%cl_2_76 %self[2.0,] %cl_2_75[7.2,] 	 SYMBOL:	 ARGS:%cl_2_75,
+		 4: %self->terms_path def_%cl_2_77 %self[7.3,2.0,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "_blank" def_%cl_2_78 
+		 6: HASH-target- def_%cl_2_79 %cl_2_78[7.5,] 
+		 7: %self->link_to def_%cl_2_80 %self[7.3,7.4,2.0,] %cl_2_76[7.3,] %cl_2_77[7.4,] %cl_2_79[7.6,] 	 SYMBOL:	 ARGS:%cl_2_76,%cl_2_77,%cl_2_79,
+		 8: HASH-terms_link- def_%cl_2_81 %cl_2_80[7.7,] 
+		 9: %self->t def_%cl_2_82 %self[7.3,7.4,7.7,2.0,] %cl_2_74[7.1,] %cl_2_81[7.8,] 	 SYMBOL:	 ARGS:%cl_2_74,%cl_2_81,
+		 10: %cl_2_82->html_safe def_%cl_2_83 %cl_2_82[7.9,] 	 SYMBOL:	 ARGS:
+		 11: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_2_83 
+BB 9
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "registrations.new.sign_up" def_%cl_2_84 
+		 2: %self->t def_%cl_2_85 %self[2.0,] %cl_2_84[9.1,] 	 SYMBOL:	 ARGS:%cl_2_84,
+		 3: COPY TYPE_StringLiteral "btn btn-block btn-large btn-primary" def_%cl_2_86 
+		 4: COPY TYPE_StringLiteral "registrations.new.submitting" def_%cl_2_87 
+		 5: %self->t def_%cl_2_88 %self[9.2,2.0,] %cl_2_87[9.4,] 	 SYMBOL:	 ARGS:%cl_2_87,
+		 6: HASH-disable_with- def_%cl_2_89 %cl_2_88[9.5,] 
+		 7: HASH-class-data- def_%cl_2_90 %cl_2_86[9.3,] %cl_2_89[9.6,] 
+		 8: f->submit def_%cl_2_91 f[2.2,] %cl_2_85[9.2,] %cl_2_90[9.7,] 	 SYMBOL:	 ARGS:%cl_2_85,%cl_2_90,
+		 9: RETURN %cl_2_91[9.8,] %self[9.2,9.5,2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_92 
+		 1: def_%cl_2_93 %cl_2_92[10.0,] 
+		 2: RETURN %cl_2_93[10.1,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 13: RETURN %cl_1_13[3.12,] %self[3.5,3.6,3.7,3.12,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_14 
+		 1: def_%cl_1_15 %cl_1_14[4.0,] 
+		 2: RETURN %cl_1_15[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 27: RETURN %v_50[7.26,] %self[7.5,7.14,7.25,2.0,2.9,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = new instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->super def_%v_3 %v_0[2.1,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: %self->ruby_code_from_view def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->ruby_code_from_view def_%v_5 %v_4[2.8,] %self[2.0,2.8,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: %self[2.0,2.8,] f[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_rb_from_view 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (AppConfig) def_%cl_1_3 
+		 2: %cl_1_3->settings def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_4->pod_name def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: 
+		 5: %self->resource def_%cl_1_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 6: %self->resource_name def_%cl_1_7 %self[3.5,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->registration_path def_%cl_1_8 %self[3.5,3.6,2.0,] %cl_1_7[3.6,] 	 SYMBOL:	 ARGS:%cl_1_7,
+		 8: COPY TYPE_StringLiteral "form-horizontal block-form" def_%cl_1_9 
+		 9: COPY TYPE_StringLiteral "off" def_%cl_1_10 
+		 10: HASH-class-autocomplete- def_%cl_1_11 %cl_1_9[3.8,] %cl_1_10[3.9,] 
+		 11: HASH-url-html- def_%cl_1_12 %cl_1_8[3.7,] %cl_1_11[3.10,] 
+		 12: %self->form_for def_%cl_1_13 %self[3.5,3.6,3.7,2.0,] %cl_1_6[3.5,] %cl_1_12[3.11,] %self[3.5,3.6,3.7,2.0,] 	 SYMBOL:	 ARGS:%cl_1_6,%cl_1_12,%self,
+CLOSURE BEGIN: %self[3.5,3.6,3.7,2.0,] f[] 
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_f 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "registrations.new.email" def_%cl_2_3 
+		 2: %self->t def_%cl_2_4 %self[2.0,] %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:%cl_2_3,
+		 3: COPY TYPE_StringLiteral "sr-only control-label" def_%cl_2_5 
+		 4: COPY TYPE_StringLiteral "emailLabel" def_%cl_2_6 
+		 5: HASH-class-id- def_%cl_2_7 %cl_2_5[3.3,] %cl_2_6[3.4,] 
+		 6: f->label def_%cl_2_8 f[2.2,] %cl_2_4[3.2,] %cl_2_7[3.5,] 	 SYMBOL:email,	 ARGS:Symbol,%cl_2_4,%cl_2_7,
+		 7: 
+		 8: COPY TYPE_StringLiteral "input-block-level form-control" def_%cl_2_9 
+		 9: COPY TYPE_StringLiteral "users.edit.your_email_private" def_%cl_2_10 
+		 10: %self->t def_%cl_2_11 %self[3.2,2.0,] %cl_2_10[3.9,] 	 SYMBOL:	 ARGS:%cl_2_10,
+		 11: HASH-content- def_%cl_2_12 %cl_2_11[3.10,] 
+		 12: COPY TYPE_StringLiteral "registrations.new.email" def_%cl_2_13 
+		 13: %self->t def_%cl_2_14 %self[3.2,3.10,2.0,] %cl_2_13[3.12,] 	 SYMBOL:	 ARGS:%cl_2_13,
+		 14: COPY TYPE_StringLiteral "registrations.new.enter_email" def_%cl_2_15 
+		 15: %self->t def_%cl_2_16 %self[3.2,3.10,3.13,2.0,] %cl_2_15[3.14,] 	 SYMBOL:	 ARGS:%cl_2_15,
+		 16: COPY TYPE_StringLiteral "emailLabel" def_%cl_2_17 
+		 17: HASH-labelledby- def_%cl_2_18 %cl_2_17[3.16,] 
+		 18: HASH-autofocus-class-data-placeholder-required-title-aria- def_%cl_2_19 %cl_2_9[3.8,] %cl_2_12[3.11,] %cl_2_14[3.13,] %cl_2_16[3.15,] %cl_2_18[3.17,] 
+		 19: f->email_field def_%cl_2_20 f[3.6,2.2,] %cl_2_19[3.18,] 	 SYMBOL:email,	 ARGS:Symbol,%cl_2_19,
+		 20: 
+		 21: COPY TYPE_StringLiteral "registrations.new.username" def_%cl_2_21 
+		 22: %self->t def_%cl_2_22 %self[3.2,3.10,3.13,3.15,2.0,] %cl_2_21[3.21,] 	 SYMBOL:	 ARGS:%cl_2_21,
+		 23: 
+		 24: COPY TYPE_StringLiteral "input-block-level form-control" def_%cl_2_23 
+		 25: COPY TYPE_StringLiteral "registrations.new.username" def_%cl_2_24 
+		 26: %self->t def_%cl_2_25 %self[3.2,3.10,3.13,3.15,3.22,2.0,] %cl_2_24[3.25,] 	 SYMBOL:	 ARGS:%cl_2_24,
+		 27: COPY TYPE_StringLiteral "registrations.new.enter_username" def_%cl_2_26 
+		 28: %self->t def_%cl_2_27 %self[3.2,3.10,3.13,3.15,3.22,3.26,2.0,] %cl_2_26[3.27,] 	 SYMBOL:	 ARGS:%cl_2_26,
+		 29: COPY TYPE_StringLiteral "[A-Za-z0-9_]+" def_%cl_2_28 
+		 30: COPY TYPE_StringLiteral "usernameLabel" def_%cl_2_29 
+		 31: HASH-labelledby- def_%cl_2_30 %cl_2_29[3.30,] 
+		 32: HASH-class-placeholder-title-required-pattern-aria- def_%cl_2_31 %cl_2_23[3.24,] %cl_2_25[3.26,] %cl_2_27[3.28,] %cl_2_28[3.29,] %cl_2_30[3.31,] 
+		 33: f->text_field def_%cl_2_32 f[3.6,3.19,2.2,] %cl_2_31[3.32,] 	 SYMBOL:username,	 ARGS:Symbol,%cl_2_31,
+		 34: 
+		 35: COPY TYPE_StringLiteral "registrations.new.password" def_%cl_2_33 
+		 36: %self->t def_%cl_2_34 %self[3.2,3.10,3.13,3.15,3.22,3.26,3.28,2.0,] %cl_2_33[3.35,] 	 SYMBOL:	 ARGS:%cl_2_33,
+		 37: 
+		 38: COPY TYPE_StringLiteral "input-block-level form-control" def_%cl_2_35 
+		 39: COPY TYPE_StringLiteral "registrations.new.password" def_%cl_2_36 
+		 40: %self->t def_%cl_2_37 %self[3.2,3.10,3.13,3.15,3.22,3.26,3.28,3.36,2.0,] %cl_2_36[3.39,] 	 SYMBOL:	 ARGS:%cl_2_36,
+		 41: COPY TYPE_StringLiteral "registrations.new.enter_password" def_%cl_2_38 
+		 42: %self->t def_%cl_2_39 %self[3.2,3.10,3.13,3.15,3.22,3.26,3.28,3.36,3.40,2.0,] %cl_2_38[3.41,] 	 SYMBOL:	 ARGS:%cl_2_38,
+		 43: COPY TYPE_StringLiteral "......+" def_%cl_2_40 
+		 44: COPY TYPE_StringLiteral "passwordLabel" def_%cl_2_41 
+		 45: HASH-labelledby- def_%cl_2_42 %cl_2_41[3.44,] 
+		 46: HASH-class-placeholder-title-required-pattern-aria- def_%cl_2_43 %cl_2_35[3.38,] %cl_2_37[3.40,] %cl_2_39[3.42,] %cl_2_40[3.43,] %cl_2_42[3.45,] 
+		 47: f->password_field def_%cl_2_44 f[3.6,3.19,3.33,2.2,] %cl_2_43[3.46,] 	 SYMBOL:password,	 ARGS:Symbol,%cl_2_43,
+		 48: 
+		 49: COPY TYPE_StringLiteral "registrations.new.password_confirmation" def_%cl_2_45 
+		 50: %self->t def_%cl_2_46 %self[3.2,3.10,3.13,3.15,3.22,3.26,3.28,3.36,3.40,3.42,2.0,] %cl_2_45[3.49,] 	 SYMBOL:	 ARGS:%cl_2_45,
+		 51: 
+		 52: COPY TYPE_StringLiteral "input-block-level form-control" def_%cl_2_47 
+		 53: COPY TYPE_StringLiteral "registrations.new.password_confirmation" def_%cl_2_48 
+		 54: %self->t def_%cl_2_49 %self[3.2,3.10,3.13,3.15,3.22,3.26,3.28,3.36,3.40,3.42,3.50,2.0,] %cl_2_48[3.53,] 	 SYMBOL:	 ARGS:%cl_2_48,
+		 55: COPY TYPE_StringLiteral "registrations.new.enter_password_again" def_%cl_2_50 
+		 56: %self->t def_%cl_2_51 %self[3.2,3.10,3.13,3.15,3.22,3.26,3.28,3.36,3.40,3.42,3.50,3.54,2.0,] %cl_2_50[3.55,] 	 SYMBOL:	 ARGS:%cl_2_50,
+		 57: COPY TYPE_StringLiteral "......+" def_%cl_2_52 
+		 58: COPY TYPE_StringLiteral "passwordConfirmationLabel" def_%cl_2_53 
+		 59: HASH-labelledby- def_%cl_2_54 %cl_2_53[3.58,] 
+		 60: HASH-class-placeholder-title-required-pattern-aria- def_%cl_2_55 %cl_2_47[3.52,] %cl_2_49[3.54,] %cl_2_51[3.56,] %cl_2_52[3.57,] %cl_2_54[3.59,] 
+		 61: f->password_field def_%cl_2_56 f[3.6,3.19,3.33,3.47,2.2,] %cl_2_55[3.60,] 	 SYMBOL:password_confirmation,	 ARGS:Symbol,%cl_2_55,
+		 62: 
+		 63: (AppConfig) def_%cl_2_57 
+		 64: %cl_2_57->settings def_%cl_2_58 %cl_2_57[3.63,] 	 SYMBOL:	 ARGS:
+		 65: %cl_2_58->captcha def_%cl_2_59 %cl_2_58[3.64,] 	 SYMBOL:	 ARGS:
+		 66: %cl_2_59->enable? def_%cl_2_60 %cl_2_59[3.65,] 	 SYMBOL:	 ARGS:
+		 67: BRANCH %cl_2_60[3.66,] 
+BB 4
+	outgoing: 6 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "user" def_%cl_2_61 
+		 2: COPY TYPE_StringLiteral "numeric" def_%cl_2_62 
+		 3: COPY TYPE_StringLiteral "simple-captcha-image" def_%cl_2_63 
+		 4: COPY TYPE_StringLiteral "form-control captcha-input" def_%cl_2_64 
+		 5: HASH-class- def_%cl_2_65 %cl_2_64[4.4,] 
+		 6: HASH-object-code_type-class-input_html- def_%cl_2_66 %cl_2_61[4.1,] %cl_2_62[4.2,] %cl_2_63[4.3,] %cl_2_65[4.5,] 
+		 7: %self->show_simple_captcha def_%cl_2_67 %self[2.0,] %cl_2_66[4.6,] 	 SYMBOL:	 ARGS:%cl_2_66,
+		 8: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_2_67 
+BB 6
+	outgoing: 7 8 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->invite def_%cl_2_68 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->invite_hidden_tag def_%cl_2_69 %self[6.1,2.0,] %cl_2_68[6.1,] 	 SYMBOL:	 ARGS:%cl_2_68,
+		 3: 
+		 4: (AppConfig) def_%cl_2_70 
+		 5: %cl_2_70->settings def_%cl_2_71 %cl_2_70[6.4,] 	 SYMBOL:	 ARGS:
+		 6: %cl_2_71->terms def_%cl_2_72 %cl_2_71[6.5,] 	 SYMBOL:	 ARGS:
+		 7: %cl_2_72->enable? def_%cl_2_73 %cl_2_72[6.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %cl_2_73[6.7,] 
+BB 7
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "registrations.new.terms" def_%cl_2_74 
+		 2: COPY TYPE_StringLiteral "registrations.new.terms_link" def_%cl_2_75 
+		 3: %self->t def_%cl_2_76 %self[2.0,] %cl_2_75[7.2,] 	 SYMBOL:	 ARGS:%cl_2_75,
+		 4: %self->terms_path def_%cl_2_77 %self[7.3,2.0,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "_blank" def_%cl_2_78 
+		 6: HASH-target- def_%cl_2_79 %cl_2_78[7.5,] 
+		 7: %self->link_to def_%cl_2_80 %self[7.3,7.4,2.0,] %cl_2_76[7.3,] %cl_2_77[7.4,] %cl_2_79[7.6,] 	 SYMBOL:	 ARGS:%cl_2_76,%cl_2_77,%cl_2_79,
+		 8: HASH-terms_link- def_%cl_2_81 %cl_2_80[7.7,] 
+		 9: %self->t def_%cl_2_82 %self[7.3,7.4,7.7,2.0,] %cl_2_74[7.1,] %cl_2_81[7.8,] 	 SYMBOL:	 ARGS:%cl_2_74,%cl_2_81,
+		 10: %cl_2_82->html_safe def_%cl_2_83 %cl_2_82[7.9,] 	 SYMBOL:	 ARGS:
+		 11: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_2_83 
+BB 9
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "registrations.new.sign_up" def_%cl_2_84 
+		 2: %self->t def_%cl_2_85 %self[2.0,] %cl_2_84[9.1,] 	 SYMBOL:	 ARGS:%cl_2_84,
+		 3: COPY TYPE_StringLiteral "btn btn-block btn-large btn-primary" def_%cl_2_86 
+		 4: COPY TYPE_StringLiteral "registrations.new.submitting" def_%cl_2_87 
+		 5: %self->t def_%cl_2_88 %self[9.2,2.0,] %cl_2_87[9.4,] 	 SYMBOL:	 ARGS:%cl_2_87,
+		 6: HASH-disable_with- def_%cl_2_89 %cl_2_88[9.5,] 
+		 7: HASH-class-data- def_%cl_2_90 %cl_2_86[9.3,] %cl_2_89[9.6,] 
+		 8: f->submit def_%cl_2_91 f[2.2,] %cl_2_85[9.2,] %cl_2_90[9.7,] 	 SYMBOL:	 ARGS:%cl_2_85,%cl_2_90,
+		 9: RETURN %cl_2_91[9.8,] %self[9.2,9.5,2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_92 
+		 1: def_%cl_2_93 %cl_2_92[10.0,] 
+		 2: RETURN %cl_2_93[10.1,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 13: RETURN %cl_1_13[3.12,] %self[3.5,3.6,3.7,3.12,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_14 
+		 1: def_%cl_1_15 %cl_1_14[4.0,] 
+		 2: RETURN %cl_1_15[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: RETURN %v_5[2.9,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_valid_invite! instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (AppConfig) def_%v_3 
+		 7: %v_3->settings def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->enable_registrations? def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: %self->invite def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_7[4.2,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->invite def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_8->can_be_used? def_%v_9 %v_8[6.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_7 %v_9[6.1,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_7[6.2,4.2,] 
+BB 8
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+		 2: %self->flash def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "registrations.invalid_invite" def_%v_12 
+		 4: %self->t def_%v_13 %self[9.2,2.0,] %v_12[9.3,] 	 SYMBOL:	 ARGS:%v_12,
+		 5: ATTRASSIGN %v_11->[] %v_13[9.4,] 
+		 6: 
+		 7: %self->new_user_session_path def_%v_14 %self[9.2,9.4,2.0,] 	 SYMBOL:	 ARGS:
+		 8: %self->redirect_to def_%v_15 %self[9.2,9.4,9.7,2.0,] %v_14[9.7,] 	 SYMBOL:	 ARGS:%v_14,
+		 9: RETURN %v_15[9.8,] %self[9.2,9.4,9.7,9.8,2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_registrations_open_or_valid_invite! instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->invite def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->present? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: (AppConfig) def_%v_6 
+		 3: %v_6->settings def_%v_7 %v_6[4.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_7->enable_registrations? def_%v_8 %v_7[4.3,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %v_8[4.4,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: RETURN %v_9[6.0,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "registrations.closed" def_%v_11 
+		 3: %self->t def_%v_12 %self[7.1,2.0,] %v_11[7.2,] 	 SYMBOL:	 ARGS:%v_11,
+		 4: ATTRASSIGN %v_10->[] %v_12[7.3,] 
+		 5: 
+		 6: %self->new_user_session_path def_%v_13 %self[7.1,7.3,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->redirect_to def_%v_14 %self[7.1,7.3,7.6,2.0,] %v_13[7.6,] 	 SYMBOL:	 ARGS:%v_13,
+		 8: RETURN %v_14[7.7,] %self[7.1,7.3,7.6,7.7,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = invite instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 8 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:invite,	 ARGS:Symbol,
+		 8: %v_4->present? def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_7 %self[2.0,] 
+		 2: COPY TYPE_PASS def_%v_6 %v_7[3.1,] 
+		 3: %v_7[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->invite def_%v_8 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_6 %v_8[4.0,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[4.1,3.2,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: (InvitationCode) def_%v_9 
+		 1: %self->params def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_10->[] def_%v_11 %v_10[6.1,] 	 SYMBOL:invite,	 ARGS:Symbol,
+		 3: %v_11->[] def_%v_12 %v_11[6.2,] 	 SYMBOL:token,	 ARGS:Symbol,
+		 4: %v_9->find_by_token def_%v_13 %v_9[6.0,] %v_12[6.3,] 	 SYMBOL:	 ARGS:%v_12,
+		 5: ATTRASSIGN %self->invite %v_13[6.4,] 
+		 6: COPY TYPE_PASS def_%v_8 %v_13[6.4,] 
+BB 7
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: RETURN %v_8[6.6,4.0,] %self[6.5,2.0,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = user_params instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->require def_%v_4 %v_3[2.6,] 	 SYMBOL:user,	 ARGS:Symbol,
+		 8: %v_4->permit def_%v_5 %v_4[2.7,] 	 SYMBOL:username,email,getting_started,password,password_confirmation,language,disable_mail,invitation_service,invitation_identifier,show_community_spotlight_in_stream,auto_follow_back,auto_follow_back_aspect_id,remember_me,captcha,captcha_key,	 ARGS:Symbol,Symbol,Symbol,Symbol,Symbol,Symbol,Symbol,Symbol,Symbol,Symbol,Symbol,Symbol,Symbol,Symbol,Symbol,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

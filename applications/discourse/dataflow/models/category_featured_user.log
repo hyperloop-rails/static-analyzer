@@ -1,0 +1,215 @@
+SET IRMethod, name = max_featured_users instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: RETURN %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = feature_users_in instanceMethod = false
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_category_or_category_id 
+		 6: 
+		 7: 
+		 8: (Fixnum) def_%v_3 
+		 9: category_or_category_id->is_a? def_%v_4 category_or_category_id[2.5,] %v_3[2.8,] 	 SYMBOL:	 ARGS:%v_3,
+		 10: BRANCH %v_4[2.9,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_5 category_or_category_id[2.5,] 
+		 2: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: category_or_category_id->id def_%v_6 category_or_category_id[2.5,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_5 %v_6[4.1,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_category_id %v_5[4.2,3.1,] 
+		 1: 
+		 2: COPY TYPE_StringLiteral "
+      SELECT x.user_id
+      FROM (
+        SELECT DISTINCT ON (p.user_id) p.user_id AS user_id,
+               p.created_at AS created_at
+        FROM posts AS p
+        INNER JOIN topics AS ft ON ft.id = p.topic_id
+        WHERE ft.category_id = :category_id
+        AND p.user_id IS NOT NULL
+        ORDER BY p.user_id, p.created_at DESC
+      ) AS x
+      ORDER BY x.created_at DESC
+      LIMIT :max_featured_users;
+    " def_%v_7 
+		 3: %self->max_featured_users def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: HASH-category_id-max_featured_users- def_%v_9 category_id[5.0,] %v_8[5.3,] 
+		 5: %self->exec_sql def_%v_10 %self[5.3,2.0,] %v_7[5.2,] %v_9[5.4,] 	 SYMBOL:	 ARGS:%v_7,%v_9,
+		 6: COPY TYPE_PASS def_most_recent_user_ids %v_10[5.5,] 
+		 7: 
+		 8: %v_10->map def_%v_11 %v_10[5.5,] %self[5.3,5.5,2.0,] 	 SYMBOL:	 ARGS:%v_10,
+CLOSURE BEGIN: uc[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_uc 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "user_id" def_%cl_1_3 
+		 2: uc->[] def_%cl_1_4 uc[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: %cl_1_4->to_i def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %cl_1_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: COPY TYPE_PASS def_user_ids %v_11[5.8,] 
+		 10: 
+		 11: (CategoryFeaturedUser) def_%v_12 
+		 12: HASH-category_id- def_%v_13 category_id[5.0,] 
+		 13: %v_12->where def_%v_14 %v_12[5.11,] %v_13[5.12,] 	 SYMBOL:	 ARGS:%v_13,
+		 14: %v_14->order def_%v_15 %v_14[5.13,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 15: %v_15->pluck def_%v_16 %v_15[5.14,] 	 SYMBOL:user_id,	 ARGS:Symbol,
+		 16: COPY TYPE_PASS def_current %v_16[5.15,] 
+		 17: 
+		 18: %v_16->== def_%v_17 %v_16[5.15,] user_ids[5.9,] 	 SYMBOL:	 ARGS:user_ids,
+		 19: BRANCH %v_17[5.18,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_18 
+		 1: 
+		 2: %self->transaction def_%v_19 %self[2.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: category_id[5.0,] user_ids[5.9,] %self[2.0,] user_id[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (CategoryFeaturedUser) def_%cl_2_3 
+		 2: HASH-category_id- def_%cl_2_4 category_id[] 
+		 3: %cl_2_3->delete_all def_%cl_2_5 %cl_2_3[3.1,] %cl_2_4[3.2,] 	 SYMBOL:	 ARGS:%cl_2_4,
+		 4: 
+		 5: user_ids->each def_%cl_2_6 user_ids[] %self[2.0,] 	 SYMBOL:	 ARGS:user_ids,
+CLOSURE BEGIN: category_id[] user_id[] %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_user_id 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-category_id-user_id- def_%cl_3_3 category_id[] user_id[2.2,] 
+		 2: %self->create def_%cl_3_4 %self[2.0,] %cl_3_3[3.1,] 	 SYMBOL:	 ARGS:%cl_3_3,
+		 3: RETURN %cl_3_4[3.2,] %self[3.2,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_5 
+		 1: def_%cl_3_6 %cl_3_5[4.0,] 
+		 2: RETURN %cl_3_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 6: RETURN %cl_2_6[3.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_7 
+		 1: def_%cl_2_8 %cl_2_7[4.0,] 
+		 2: RETURN %cl_2_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: RETURN %v_19[7.2,] %self[7.2,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+

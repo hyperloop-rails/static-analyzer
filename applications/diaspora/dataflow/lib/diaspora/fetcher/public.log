@@ -1,0 +1,1075 @@
+SET IRMethod, name = queue_for instanceMethod = false
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_person 
+		 6: 
+		 7: person->fetch_status def_%v_3 person[2.5,] 	 SYMBOL:	 ARGS:
+		 8: (Status_Initial) def_%v_4 
+		 9: %v_3->> def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: BRANCH %v_5[2.9,] 
+BB 3
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: RETURN %v_6[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (Workers) def_%v_7 
+		 1: (inherit FetchPublicPosts) def_%v_8 %v_7[4.0,] 
+		 2: %v_8[4.1,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_7->const_missing def_%v_8 %v_7[4.0,] 	 SYMBOL:FetchPublicPosts,	 ARGS:Symbol,
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: person->diaspora_handle def_%v_9 person[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_8->perform_async def_%v_10 %v_8[5.0,4.1,] %v_9[6.0,] 	 SYMBOL:	 ARGS:%v_9,
+		 2: RETURN %v_10[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = fetch! instanceMethod = true
+BB 1
+	outgoing: 19 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_diaspora_id 
+		 6: 
+		 7: (Person) def_%v_3 
+		 8: %v_3->by_account_identifier def_%v_4 %v_3[2.7,] diaspora_id[2.5,] 	 SYMBOL:	 ARGS:diaspora_id,
+		 9: ATTRASSIGN %self->person %v_4[2.8,] 
+		 10: 
+		 11: %self->qualifies_for_fetching? def_%v_5 %self[2.0,2.9,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_5[2.11,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: GLOBALVAR $! def_%v_7 
+BB 4
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,2.9,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->retrieve_and_process_posts def_%v_10 %self[2.0,2.9,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_9 %v_10[6.2,] 
+		 4: %v_7[3.2,] 
+BB 8
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+BB 9
+	outgoing: 10 11 15 
+	datadep: 
+	instructions:
+		 0: def_%v_11 
+		 1: def_%v_12 %v_11[9.0,] 
+		 2: BRANCH %v_12[9.1,] 
+BB 10
+	outgoing: 15 19 
+	datadep: 
+	instructions:
+		 0: %v_11[9.0,] 
+BB 11
+	outgoing: 12 13 15 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_13 
+		 1: COPY TYPE_PASS def_e %v_13[11.0,] 
+		 2: 
+		 3: (Public) def_%v_14 
+		 4: (inherit Status_Failed) def_%v_15 %v_14[11.3,] 
+		 5: %v_15[11.4,] 
+BB 12
+	outgoing: 13 15 
+	datadep: 
+	instructions:
+		 0: %v_14->const_missing def_%v_15 %v_14[11.3,] 	 SYMBOL:Status_Failed,	 ARGS:Symbol,
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: %self->set_fetch_status def_%v_16 %self[2.0,2.9,] %v_15[12.0,11.4,] 	 SYMBOL:	 ARGS:%v_15,
+		 1: 
+		 2: %self->raise def_%v_17 %self[13.0,2.0,2.9,] e[11.1,] 	 SYMBOL:	 ARGS:e,
+		 3: COPY TYPE_PASS def_%v_9 %v_17[13.2,] 
+		 4: %v_7[3.2,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+BB 15
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: def_%v_18 
+		 1: def_%v_19 %v_18[15.0,] %v_7[3.2,] 
+		 2: %v_18[15.0,] 
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Public) def_%v_20 
+		 2: (inherit Status_Done) def_%v_21 %v_20[16.1,] 
+		 3: %v_21[16.2,] 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: %v_20->const_missing def_%v_21 %v_20[16.1,] 	 SYMBOL:Status_Done,	 ARGS:Symbol,
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: %self->set_fetch_status def_%v_22 %self[2.0,2.9,] %v_21[17.0,16.2,] 	 SYMBOL:	 ARGS:%v_21,
+		 1: RETURN %v_22[18.0,] %self[18.0,2.0,2.9,] 
+BB 19
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = qualifies_for_fetching? instanceMethod = true
+BB 1
+	outgoing: 27 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->person def_%v_3 %self[2.0,] 
+		 7: %v_3->present? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (ActiveRecord) def_%v_6 
+		 1: (inherit RecordNotFound) def_%v_7 %v_6[4.0,] 
+		 2: %v_7[4.1,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[4.0,] 	 SYMBOL:RecordNotFound,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->raise def_%v_8 %self[2.0,] %v_7[5.0,4.1,] 	 SYMBOL:	 ARGS:%v_7,
+		 1: COPY TYPE_PASS def_%v_5 %v_8[6.0,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->person def_%v_9 %self[2.0,] 
+		 2: %v_9->fetch_status def_%v_10 %v_9[7.1,] 	 SYMBOL:	 ARGS:
+		 3: (Public) def_%v_11 
+		 4: (inherit Status_Unfetchable) def_%v_12 %v_11[7.3,] 
+		 5: %v_12[7.4,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_11->const_missing def_%v_12 %v_11[7.3,] 	 SYMBOL:Status_Unfetchable,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: %v_10->== def_%v_13 %v_10[7.2,] %v_12[8.0,7.4,] 	 SYMBOL:	 ARGS:%v_12,
+		 1: BRANCH %v_13[9.0,] 
+BB 10
+	outgoing: 27 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 11
+	outgoing: 13 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+		 1: 
+		 2: GETFIELD %self->person def_%v_15 %self[2.0,] 
+		 3: %v_15->local? def_%v_16 %v_15[11.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_16[11.3,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Public) def_%v_17 
+		 2: (inherit Status_Unfetchable) def_%v_18 %v_17[13.1,] 
+		 3: %v_18[13.2,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: %v_17->const_missing def_%v_18 %v_17[13.1,] 	 SYMBOL:Status_Unfetchable,	 ARGS:Symbol,
+BB 15
+	outgoing: 27 
+	datadep: 
+	instructions:
+		 0: %self->set_fetch_status def_%v_19 %self[2.0,] %v_18[14.0,13.2,] 	 SYMBOL:	 ARGS:%v_18,
+		 1: 
+		 2: RETURN %self[15.0,2.0,] 
+BB 16
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_20 
+		 1: 
+		 2: GETFIELD %self->person def_%v_21 %self[2.0,] 
+		 3: %v_21->fetch_status def_%v_22 %v_21[16.2,] 	 SYMBOL:	 ARGS:
+		 4: (Public) def_%v_23 
+		 5: (inherit Status_Initial) def_%v_24 %v_23[16.4,] 
+		 6: %v_24[16.5,] 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: %v_23->const_missing def_%v_24 %v_23[16.4,] 	 SYMBOL:Status_Initial,	 ARGS:Symbol,
+BB 19
+	outgoing: 20 21 
+	datadep: 
+	instructions:
+		 0: %v_22->> def_%v_25 %v_22[16.3,] %v_24[18.0,16.5,] 	 SYMBOL:	 ARGS:%v_24,
+		 1: BRANCH %v_25[19.0,] 
+BB 20
+	outgoing: 27 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 21
+	outgoing: 23 26 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_26 
+		 1: 
+		 2: GETFIELD %self->person def_%v_27 %self[2.0,] 
+		 3: %v_27->remote? def_%v_28 %v_27[21.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_28[21.3,] 
+BB 23
+	outgoing: 24 25 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->person def_%v_29 %self[2.0,] 
+		 1: %v_29->fetch_status def_%v_30 %v_29[23.0,] 	 SYMBOL:	 ARGS:
+		 2: (Public) def_%v_31 
+		 3: (inherit Status_Initial) def_%v_32 %v_31[23.2,] 
+		 4: %v_32[23.3,] 
+BB 24
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: %v_31->const_missing def_%v_32 %v_31[23.2,] 	 SYMBOL:Status_Initial,	 ARGS:Symbol,
+BB 25
+	outgoing: 27 
+	datadep: 
+	instructions:
+		 0: %v_30->== def_%v_33 %v_30[23.1,] %v_32[24.0,23.3,] 	 SYMBOL:	 ARGS:%v_32,
+		 1: RETURN %v_33[25.0,] %self[2.0,] 
+BB 26
+	outgoing: 27 
+	datadep: 
+	instructions:
+		 0: RETURN %v_28[21.3,] %self[2.0,] 
+BB 27
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = retrieve_and_process_posts instanceMethod = true
+BB 1
+	outgoing: 21 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->retrieve_posts def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_5 %v_6[4.2,] 
+		 4: %v_3[2.6,] 
+BB 5
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 10 
+	datadep: 
+	instructions:
+		 0: def_%v_7 
+		 1: def_%v_8 %v_7[6.0,] 
+		 2: BRANCH %v_8[6.1,] 
+BB 7
+	outgoing: 10 21 
+	datadep: 
+	instructions:
+		 0: %v_7[6.0,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_9 
+		 1: COPY TYPE_PASS def_e %v_9[8.0,] 
+		 2: 
+		 3: %self->logger def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "unable to retrieve public posts for " def_%v_11 
+		 5: GETFIELD %self->person def_%v_12 %self[8.3,2.0,] 
+		 6: %v_12->diaspora_handle def_%v_13 %v_12[8.5,] 	 SYMBOL:	 ARGS:
+		 7: BUILDSTRING def_%v_14 %v_11[8.4,] %v_13[8.6,] 
+		 8: %v_10->error def_%v_15 %v_10[8.3,] %v_14[8.7,] 	 SYMBOL:	 ARGS:%v_14,
+		 9: 
+		 10: %self->raise def_%v_16 %self[8.3,2.0,] e[8.1,] 	 SYMBOL:	 ARGS:e,
+		 11: COPY TYPE_PASS def_%v_5 %v_16[8.10,] 
+		 12: %v_3[2.6,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: def_%v_17 
+		 1: def_%v_18 %v_17[10.0,] %v_3[2.6,] 
+		 2: %v_17[10.0,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%v_19 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->process_posts def_%v_22 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_21 %v_22[13.2,] 
+		 4: %v_19[11.1,] 
+BB 14
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+BB 15
+	outgoing: 16 17 19 
+	datadep: 
+	instructions:
+		 0: def_%v_23 
+		 1: def_%v_24 %v_23[15.0,] 
+		 2: BRANCH %v_24[15.1,] 
+BB 16
+	outgoing: 19 21 
+	datadep: 
+	instructions:
+		 0: %v_23[15.0,] 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_25 
+		 1: COPY TYPE_PASS def_e %v_25[17.0,] 
+		 2: 
+		 3: %self->logger def_%v_26 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "unable to process public posts for " def_%v_27 
+		 5: GETFIELD %self->person def_%v_28 %self[17.3,2.0,] 
+		 6: %v_28->diaspora_handle def_%v_29 %v_28[17.5,] 	 SYMBOL:	 ARGS:
+		 7: BUILDSTRING def_%v_30 %v_27[17.4,] %v_29[17.6,] 
+		 8: %v_26->error def_%v_31 %v_26[17.3,] %v_30[17.7,] 	 SYMBOL:	 ARGS:%v_30,
+		 9: 
+		 10: %self->raise def_%v_32 %self[17.3,2.0,] e[17.1,] 	 SYMBOL:	 ARGS:e,
+		 11: COPY TYPE_PASS def_%v_21 %v_32[17.10,] 
+		 12: %v_19[11.1,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+BB 19
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: def_%v_33 
+		 1: def_%v_34 %v_33[19.0,] %v_19[11.1,] 
+		 2: %v_33[19.0,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: RETURN %v_21[13.3,17.11,] %self[2.0,] 
+BB 21
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = retrieve_posts instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Public) def_%v_3 
+		 7: (inherit Status_Running) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Status_Running,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %self->set_fetch_status def_%v_5 %self[2.0,] %v_4[3.0,2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 1: 
+		 2: %self->logger def_%v_6 %self[4.0,2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "fetching public posts for " def_%v_7 
+		 4: GETFIELD %self->person def_%v_8 %self[4.0,4.2,2.0,] 
+		 5: %v_8->diaspora_handle def_%v_9 %v_8[4.4,] 	 SYMBOL:	 ARGS:
+		 6: BUILDSTRING def_%v_10 %v_7[4.3,] %v_9[4.5,] 
+		 7: %v_6->info def_%v_11 %v_6[4.2,] %v_10[4.6,] 	 SYMBOL:	 ARGS:%v_10,
+		 8: 
+		 9: (Faraday) def_%v_12 
+		 10: GETFIELD %self->person def_%v_13 %self[4.0,4.2,2.0,] 
+		 11: %v_13->url def_%v_14 %v_13[4.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral "people/" def_%v_15 
+		 13: GETFIELD %self->person def_%v_16 %self[4.0,4.2,2.0,] 
+		 14: %v_16->guid def_%v_17 %v_16[4.13,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_StringLiteral "/stream" def_%v_18 
+		 16: BUILDSTRING def_%v_19 %v_14[4.11,] %v_15[4.12,] %v_17[4.14,] %v_18[4.15,] 
+		 17: %v_12->get def_%v_20 %v_12[4.9,] %v_19[4.16,] %self[4.0,4.2,2.0,] 	 SYMBOL:	 ARGS:%v_19,%v_12,
+CLOSURE BEGIN: req[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_req 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: req->headers def_%cl_1_3 req[2.2,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "Accept" def_%cl_1_4 
+		 3: COPY TYPE_StringLiteral "application/json" def_%cl_1_5 
+		 4: ATTRASSIGN %cl_1_3->[] %cl_1_4[3.2,] %cl_1_5[3.3,] 
+		 5: 
+		 6: req->headers def_%cl_1_6 req[3.1,2.2,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "User-Agent" def_%cl_1_7 
+		 8: COPY TYPE_StringLiteral "diaspora-fetcher" def_%cl_1_8 
+		 9: ATTRASSIGN %cl_1_6->[] %cl_1_7[3.7,] %cl_1_8[3.8,] 
+		 10: RETURN %cl_1_8[3.8,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_9 
+		 1: def_%cl_1_10 %cl_1_9[4.0,] 
+		 2: RETURN %cl_1_10[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 18: COPY TYPE_PASS def_resp %v_20[4.17,] 
+		 19: 
+		 20: %self->logger def_%v_21 %self[4.0,4.2,2.0,] 	 SYMBOL:	 ARGS:
+		 21: COPY TYPE_StringLiteral "fetched response: " def_%v_22 
+		 22: resp->body def_%v_23 resp[4.18,] 	 SYMBOL:	 ARGS:
+		 23: %v_23->to_s def_%v_24 %v_23[4.22,] 	 SYMBOL:	 ARGS:
+		 24: CONSTANT def_%v_25 
+		 25: %v_24->[] def_%v_26 %v_24[4.23,] %v_25[4.24,] 	 SYMBOL:	 ARGS:%v_25,
+		 26: BUILDSTRING def_%v_27 %v_22[4.21,] %v_26[4.25,] 
+		 27: %v_21->debug def_%v_28 %v_21[4.20,] %v_27[4.26,] 	 SYMBOL:	 ARGS:%v_27,
+		 28: 
+		 29: (JSON) def_%v_29 
+		 30: resp->body def_%v_30 resp[4.18,4.22,] 	 SYMBOL:	 ARGS:
+		 31: %v_29->parse def_%v_31 %v_29[4.29,] %v_30[4.30,] 	 SYMBOL:	 ARGS:%v_30,
+		 32: ATTRASSIGN %self->data %v_31[4.31,] 
+		 33: 
+		 34: (Public) def_%v_32 
+		 35: (inherit Status_Fetched) def_%v_33 %v_32[4.34,] 
+		 36: %v_33[4.35,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_32->const_missing def_%v_33 %v_32[4.34,] 	 SYMBOL:Status_Fetched,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->set_fetch_status def_%v_34 %self[4.32,2.0,] %v_33[5.0,4.35,] 	 SYMBOL:	 ARGS:%v_33,
+		 1: RETURN %v_34[6.0,] %self[6.0,4.32,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = process_posts instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->data def_%v_3 %self[2.0,] 
+		 7: %v_3->each def_%v_4 %v_3[2.6,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: %self[2.0,] post[] entry[] 
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_post 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->validate def_%cl_1_3 %self[2.0,] post[2.2,] 	 SYMBOL:	 ARGS:post,
+		 2: BRANCH %cl_1_3[3.1,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_4 
+		 1: 
+BB 5
+	outgoing: 11 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 6
+	outgoing: 7 8 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->logger def_%cl_1_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "saving fetched post (" def_%cl_1_6 
+		 3: COPY TYPE_StringLiteral "guid" def_%cl_1_7 
+		 4: post->[] def_%cl_1_8 post[2.2,] %cl_1_7[6.3,] 	 SYMBOL:	 ARGS:%cl_1_7,
+		 5: COPY TYPE_StringLiteral ") to database" def_%cl_1_9 
+		 6: BUILDSTRING def_%cl_1_10 %cl_1_6[6.2,] %cl_1_8[6.4,] %cl_1_9[6.5,] 
+		 7: %cl_1_5->info def_%cl_1_11 %cl_1_5[6.1,] %cl_1_10[6.6,] 	 SYMBOL:	 ARGS:%cl_1_10,
+		 8: 
+		 9: %self->logger def_%cl_1_12 %self[6.1,2.0,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral "post: " def_%cl_1_13 
+		 11: post->to_s def_%cl_1_14 post[6.4,2.2,] 	 SYMBOL:	 ARGS:
+		 12: CONSTANT def_%cl_1_15 
+		 13: %cl_1_14->[] def_%cl_1_16 %cl_1_14[6.11,] %cl_1_15[6.12,] 	 SYMBOL:	 ARGS:%cl_1_15,
+		 14: BUILDSTRING def_%cl_1_17 %cl_1_13[6.10,] %cl_1_16[6.13,] 
+		 15: %cl_1_12->debug def_%cl_1_18 %cl_1_12[6.9,] %cl_1_17[6.14,] 	 SYMBOL:	 ARGS:%cl_1_17,
+		 16: 
+		 17: (StatusMessage) def_%cl_1_19 
+		 18: %cl_1_19->skip_callback def_%cl_1_20 %cl_1_19[6.17,] 	 SYMBOL:create,set_guid,	 ARGS:Symbol,Symbol,
+		 19: 
+		 20: (StatusMessage) def_%cl_1_21 
+		 21: GETFIELD %self->person def_%cl_1_22 %self[6.1,6.9,2.0,] 
+		 22: HASH-author-public- def_%cl_1_23 %cl_1_22[6.21,] 
+		 23: %cl_1_21->diaspora_initialize def_%cl_1_24 %cl_1_21[6.20,] %cl_1_23[6.22,] 	 SYMBOL:	 ARGS:%cl_1_23,
+		 24: COPY TYPE_PASS def_entry %cl_1_24[6.23,] 
+		 25: 
+		 26: COPY TYPE_StringLiteral "guid" def_%cl_1_25 
+		 27: post->[] def_%cl_1_26 post[6.4,6.11,2.2,] %cl_1_25[6.26,] 	 SYMBOL:	 ARGS:%cl_1_25,
+		 28: COPY TYPE_StringLiteral "text" def_%cl_1_27 
+		 29: post->[] def_%cl_1_28 post[6.4,6.11,6.27,2.2,] %cl_1_27[6.28,] 	 SYMBOL:	 ARGS:%cl_1_27,
+		 30: COPY TYPE_StringLiteral "provider_display_name" def_%cl_1_29 
+		 31: post->[] def_%cl_1_30 post[6.4,6.11,6.27,6.29,2.2,] %cl_1_29[6.30,] 	 SYMBOL:	 ARGS:%cl_1_29,
+		 32: (ActiveSupport) def_%cl_1_31 
+		 33: (inherit TimeZone) def_%cl_1_32 %cl_1_31[6.32,] 
+		 34: %cl_1_32[6.33,] 
+BB 7
+	outgoing: 8 11 
+	datadep: 
+	instructions:
+		 0: %cl_1_31->const_missing def_%cl_1_32 %cl_1_31[6.32,] 	 SYMBOL:TimeZone,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 10 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "UTC" def_%cl_1_33 
+		 1: %cl_1_32->new def_%cl_1_34 %cl_1_32[7.0,6.33,] %cl_1_33[8.0,] 	 SYMBOL:	 ARGS:%cl_1_33,
+		 2: COPY TYPE_StringLiteral "created_at" def_%cl_1_35 
+		 3: post->[] def_%cl_1_36 post[2.2,] %cl_1_35[8.2,] 	 SYMBOL:	 ARGS:%cl_1_35,
+		 4: %cl_1_34->parse def_%cl_1_37 %cl_1_34[8.1,] %cl_1_36[8.3,] 	 SYMBOL:	 ARGS:%cl_1_36,
+		 5: %cl_1_37->to_datetime def_%cl_1_38 %cl_1_37[8.4,] 	 SYMBOL:	 ARGS:
+		 6: (ActiveSupport) def_%cl_1_39 
+		 7: (inherit TimeZone) def_%cl_1_40 %cl_1_39[8.6,] 
+		 8: %cl_1_40[8.7,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: %cl_1_39->const_missing def_%cl_1_40 %cl_1_39[8.6,] 	 SYMBOL:TimeZone,	 ARGS:Symbol,
+BB 10
+	outgoing: 11 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "UTC" def_%cl_1_41 
+		 1: %cl_1_40->new def_%cl_1_42 %cl_1_40[9.0,8.7,] %cl_1_41[10.0,] 	 SYMBOL:	 ARGS:%cl_1_41,
+		 2: COPY TYPE_StringLiteral "interacted_at" def_%cl_1_43 
+		 3: post->[] def_%cl_1_44 post[2.2,] %cl_1_43[10.2,] 	 SYMBOL:	 ARGS:%cl_1_43,
+		 4: %cl_1_42->parse def_%cl_1_45 %cl_1_42[10.1,] %cl_1_44[10.3,] 	 SYMBOL:	 ARGS:%cl_1_44,
+		 5: %cl_1_45->to_datetime def_%cl_1_46 %cl_1_45[10.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral "frame_name" def_%cl_1_47 
+		 7: post->[] def_%cl_1_48 post[10.3,2.2,] %cl_1_47[10.6,] 	 SYMBOL:	 ARGS:%cl_1_47,
+		 8: HASH-guid-text-provider_display_name-created_at-interacted_at-frame_name- def_%cl_1_49 %cl_1_26[6.27,] %cl_1_28[6.29,] %cl_1_30[6.31,] %cl_1_38[8.5,] %cl_1_46[10.5,] %cl_1_48[10.7,] 
+		 9: entry->assign_attributes def_%cl_1_50 entry[6.24,] %cl_1_49[10.8,] 	 SYMBOL:	 ARGS:%cl_1_49,
+		 10: 
+		 11: entry->save def_%cl_1_51 entry[10.9,6.24,] 	 SYMBOL:	 ARGS:
+		 12: 
+		 13: (StatusMessage) def_%cl_1_52 
+		 14: %cl_1_52->set_callback def_%cl_1_53 %cl_1_52[10.13,] 	 SYMBOL:create,set_guid,	 ARGS:Symbol,Symbol,
+		 15: RETURN %cl_1_53[10.14,] %self[2.0,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_54 
+		 1: def_%cl_1_55 %cl_1_54[11.0,] 
+		 2: RETURN %cl_1_55[11.1,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: entry[6.24,] 
+		 8: 
+		 9: (Public) def_%v_5 
+		 10: (inherit Status_Processed) def_%v_6 %v_5[2.9,] 
+		 11: %v_6[2.10,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_5->const_missing def_%v_6 %v_5[2.9,] 	 SYMBOL:Status_Processed,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->set_fetch_status def_%v_7 %self[2.0,] %v_6[3.0,2.10,] 	 SYMBOL:	 ARGS:%v_6,
+		 1: RETURN %v_7[4.0,] %self[4.0,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = set_fetch_status instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_status 
+		 6: 
+		 7: GETFIELD %self->person def_%v_3 %self[2.0,] 
+		 8: %v_3->nil? def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: GETFIELD %self->person def_%v_6 %self[2.0,] 
+		 3: ATTRASSIGN %v_6->fetch_status status[2.5,] 
+		 4: 
+		 5: GETFIELD %self->person def_%v_7 %self[2.0,] 
+		 6: %v_7->save def_%v_8 %v_7[4.5,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %v_8[4.6,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = validate instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: %self->check_existing def_%v_3 %self[2.0,] post[2.5,] 	 SYMBOL:	 ARGS:post,
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->check_author def_%v_4 %self[2.0,] post[2.5,] 	 SYMBOL:	 ARGS:post,
+		 1: COPY TYPE_PASS def_%v_3 %v_4[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->check_public def_%v_5 %self[2.0,] post[2.5,] 	 SYMBOL:	 ARGS:post,
+		 1: COPY TYPE_PASS def_%v_3 %v_5[5.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[5.1,3.1,2.7,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %self->check_type def_%v_6 %self[2.0,] post[2.5,] 	 SYMBOL:	 ARGS:post,
+		 1: RETURN %v_6[7.0,] %self[7.0,2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[5.1,3.1,2.7,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_existing instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: (Post) def_%v_3 
+		 8: COPY TYPE_StringLiteral "guid" def_%v_4 
+		 9: post->[] def_%v_5 post[2.5,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: %v_3->find_by_guid def_%v_6 %v_3[2.7,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: %v_6->blank? def_%v_7 %v_6[2.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_PASS def_new_post %v_7[2.11,] 
+		 13: 
+		 14: BRANCH %v_7[2.11,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->logger def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "a post with that guid (" def_%v_10 
+		 2: COPY TYPE_StringLiteral "guid" def_%v_11 
+		 3: post->[] def_%v_12 post[2.5,] %v_11[4.2,] 	 SYMBOL:	 ARGS:%v_11,
+		 4: COPY TYPE_StringLiteral ") already exists" def_%v_13 
+		 5: BUILDSTRING def_%v_14 %v_10[4.1,] %v_12[4.3,] %v_13[4.4,] 
+		 6: %v_9->warn def_%v_15 %v_9[4.0,] %v_14[4.5,] 	 SYMBOL:	 ARGS:%v_14,
+		 7: COPY TYPE_PASS def_%v_8 %v_15[4.6,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN new_post[2.12,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_author instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: COPY TYPE_StringLiteral "author" def_%v_3 
+		 8: post->[] def_%v_4 post[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: COPY TYPE_StringLiteral "guid" def_%v_5 
+		 10: %v_4->[] def_%v_6 %v_4[2.8,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: COPY TYPE_PASS def_guid %v_6[2.10,] 
+		 12: 
+		 13: GETFIELD %self->person def_%v_7 %self[2.0,] 
+		 14: %v_7->guid def_%v_8 %v_7[2.13,] 	 SYMBOL:	 ARGS:
+		 15: guid->== def_%v_9 guid[2.11,] %v_8[2.14,] 	 SYMBOL:	 ARGS:%v_8,
+		 16: COPY TYPE_PASS def_equal %v_9[2.15,] 
+		 17: 
+		 18: BRANCH %v_9[2.15,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->logger def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "the author (" def_%v_12 
+		 3: COPY TYPE_StringLiteral ") does not match the person currently being processed (" def_%v_13 
+		 4: GETFIELD %self->person def_%v_14 %self[4.1,2.0,] 
+		 5: %v_14->guid def_%v_15 %v_14[4.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral ")" def_%v_16 
+		 7: BUILDSTRING def_%v_17 %v_12[4.2,] guid[2.11,] %v_13[4.3,] %v_15[4.5,] %v_16[4.6,] 
+		 8: %v_11->warn def_%v_18 %v_11[4.1,] %v_17[4.7,] 	 SYMBOL:	 ARGS:%v_17,
+		 9: COPY TYPE_PASS def_%v_10 %v_18[4.8,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN equal[2.16,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_public instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: COPY TYPE_StringLiteral "public" def_%v_3 
+		 8: post->[] def_%v_4 post[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: %v_4->== def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:Boolean,
+		 10: COPY TYPE_PASS def_ispublic %v_5[2.9,] 
+		 11: 
+		 12: BRANCH %v_5[2.9,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->logger def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "the post (" def_%v_8 
+		 2: COPY TYPE_StringLiteral "guid" def_%v_9 
+		 3: post->[] def_%v_10 post[2.5,] %v_9[4.2,] 	 SYMBOL:	 ARGS:%v_9,
+		 4: COPY TYPE_StringLiteral ") is not public, this is not intended..." def_%v_11 
+		 5: BUILDSTRING def_%v_12 %v_8[4.1,] %v_10[4.3,] %v_11[4.4,] 
+		 6: %v_7->warn def_%v_13 %v_7[4.0,] %v_12[4.5,] 	 SYMBOL:	 ARGS:%v_12,
+		 7: COPY TYPE_PASS def_%v_6 %v_13[4.6,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN ispublic[2.10,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_type instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: COPY TYPE_StringLiteral "post_type" def_%v_3 
+		 8: post->[] def_%v_4 post[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: COPY TYPE_StringLiteral "StatusMessage" def_%v_5 
+		 10: %v_4->== def_%v_6 %v_4[2.8,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: COPY TYPE_PASS def_type_ok %v_6[2.10,] 
+		 12: 
+		 13: BRANCH %v_6[2.10,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->logger def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "the post (" def_%v_9 
+		 2: COPY TYPE_StringLiteral "guid" def_%v_10 
+		 3: post->[] def_%v_11 post[2.5,] %v_10[4.2,] 	 SYMBOL:	 ARGS:%v_10,
+		 4: COPY TYPE_StringLiteral ") has a type, which cannot be handled (" def_%v_12 
+		 5: COPY TYPE_StringLiteral "post_type" def_%v_13 
+		 6: post->[] def_%v_14 post[4.3,2.5,] %v_13[4.5,] 	 SYMBOL:	 ARGS:%v_13,
+		 7: COPY TYPE_StringLiteral ")" def_%v_15 
+		 8: BUILDSTRING def_%v_16 %v_9[4.1,] %v_11[4.3,] %v_12[4.4,] %v_14[4.6,] %v_15[4.7,] 
+		 9: %v_8->warn def_%v_17 %v_8[4.0,] %v_16[4.8,] 	 SYMBOL:	 ARGS:%v_16,
+		 10: COPY TYPE_PASS def_%v_7 %v_17[4.9,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN type_ok[2.11,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

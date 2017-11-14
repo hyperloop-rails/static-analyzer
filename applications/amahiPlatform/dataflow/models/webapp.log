@@ -1,0 +1,747 @@
+SET IRMethod, name = full_url instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "http://" def_%v_3 
+		 7: %self->name def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "." def_%v_5 
+		 9: (Setting) def_%v_6 
+		 10: COPY TYPE_StringLiteral "domain" def_%v_7 
+		 11: %v_6->value_by_name def_%v_8 %v_6[2.9,] %v_7[2.10,] 	 SYMBOL:	 ARGS:%v_7,
+		 12: BUILDSTRING def_%v_9 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] %v_8[2.11,] 
+		 13: RETURN %v_9[2.12,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = write_conf_file instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (TempCache) def_%v_3 
+		 7: COPY TYPE_StringLiteral "webapp" def_%v_4 
+		 8: %v_3->unique_filename def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: COPY TYPE_PASS def_fname %v_5[2.8,] 
+		 10: 
+		 11: (File) def_%v_6 
+		 12: COPY TYPE_StringLiteral "w" def_%v_7 
+		 13: %v_6->open def_%v_8 %v_6[2.11,] %v_5[2.8,] %v_7[2.12,] %self[2.0,] 	 SYMBOL:	 ARGS:fname,%v_7,%v_6,
+CLOSURE BEGIN: %self[2.0,] f[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_f 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->conf_file def_%cl_1_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: f->write def_%cl_1_4 f[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: RETURN %cl_1_4[3.2,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 14: 
+		 15: (Command) def_%v_9 
+		 16: COPY TYPE_StringLiteral "mv -f " def_%v_10 
+		 17: COPY TYPE_StringLiteral " /etc/httpd/conf.d/" def_%v_11 
+		 18: %self->fname def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 19: BUILDSTRING def_%v_13 %v_10[2.16,] fname[2.9,] %v_11[2.17,] %v_12[2.18,] 
+		 20: %v_9->new def_%v_14 %v_9[2.15,] %v_13[2.19,] 	 SYMBOL:	 ARGS:%v_13,
+		 21: COPY TYPE_PASS def_c %v_14[2.20,] 
+		 22: 
+		 23: %v_14->execute def_%v_15 %v_14[2.20,] 	 SYMBOL:	 ARGS:
+		 24: 
+		 25: (Platform) def_%v_16 
+		 26: %v_16->reload def_%v_17 %v_16[2.25,] 	 SYMBOL:apache,	 ARGS:Symbol,
+		 27: RETURN %v_17[2.26,] %self[2.0,2.18,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = before_create_hook instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->name def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: HASH-name- def_%v_4 %v_3[2.6,] 
+		 8: %self->create_dns_alias def_%v_5 %self[2.0,2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: 
+		 10: (FileUtils) def_%v_6 
+		 11: (File) def_%v_7 
+		 12: %self->path def_%v_8 %self[2.0,2.6,2.8,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_StringLiteral "html" def_%v_9 
+		 14: %v_7->join def_%v_10 %v_7[2.11,] %v_8[2.12,] %v_9[2.13,] 	 SYMBOL:	 ARGS:%v_8,%v_9,
+		 15: %v_6->mkpath def_%v_11 %v_6[2.10,] %v_10[2.14,] 	 SYMBOL:	 ARGS:%v_10,
+		 16: 
+		 17: (FileUtils) def_%v_12 
+		 18: (File) def_%v_13 
+		 19: %self->path def_%v_14 %self[2.0,2.6,2.8,2.12,] 	 SYMBOL:	 ARGS:
+		 20: COPY TYPE_StringLiteral "logs" def_%v_15 
+		 21: %v_13->join def_%v_16 %v_13[2.18,] %v_14[2.19,] %v_15[2.20,] 	 SYMBOL:	 ARGS:%v_14,%v_15,
+		 22: %v_12->mkpath def_%v_17 %v_12[2.17,] %v_16[2.21,] 	 SYMBOL:	 ARGS:%v_16,
+		 23: 
+		 24: %self->write_conf_file def_%v_18 %self[2.0,2.6,2.8,2.12,2.19,] 	 SYMBOL:	 ARGS:
+		 25: RETURN %v_18[2.24,] %self[2.0,2.6,2.8,2.12,2.19,2.24,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create_unique_fname instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "%4d-" def_%v_3 
+		 7: %self->name def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral ".conf" def_%v_5 
+		 9: BUILDSTRING def_%v_6 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] 
+		 10: (Webapp) def_%v_7 
+		 11: %v_7->count def_%v_8 %v_7[2.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_8->+ def_%v_9 %v_8[2.11,] 	 SYMBOL:	 ARGS:%v_8,
+		 13: %v_6->% def_%v_10 %v_6[2.9,] %v_9[2.12,] 	 SYMBOL:	 ARGS:%v_9,
+		 14: ATTRASSIGN %self->fname %v_10[2.13,] 
+		 15: RETURN %v_10[2.13,] %self[2.0,2.7,2.14,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = after_save_hook instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->write_conf_file def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = after_destroy_hook instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Command) def_%v_3 
+		 7: %v_3->new def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_c %v_4[2.7,] 
+		 9: 
+		 10: %self->fname def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->blank? def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_6[2.11,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "rm -f /etc/httpd/conf.d/" def_%v_8 
+		 1: %self->fname def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BUILDSTRING def_%v_10 %v_8[4.0,] %v_9[4.1,] 
+		 3: c->submit def_%v_11 c[2.8,] %v_10[4.2,] 	 SYMBOL:	 ARGS:%v_10,
+		 4: COPY TYPE_PASS def_%v_7 %v_11[4.3,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "rm -rf " def_%v_12 
+		 2: %self->path def_%v_13 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BUILDSTRING def_%v_14 %v_12[5.1,] %v_13[5.2,] 
+		 4: c->submit def_%v_15 c[2.8,] %v_14[5.3,] 	 SYMBOL:	 ARGS:%v_14,
+		 5: 
+		 6: c->execute def_%v_16 c[5.4,2.8,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: (Platform) def_%v_17 
+		 9: %v_17->reload def_%v_18 %v_17[5.8,] 	 SYMBOL:apache,	 ARGS:Symbol,
+		 10: RETURN %v_18[5.9,] %self[5.2,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = conf_file instanceMethod = true
+BB 1
+	outgoing: 47 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->path def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_Regexp def_%v_4 
+		 8: COPY TYPE_StringLiteral "" def_%v_5 
+		 9: %v_3->sub! def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_4,%v_5,
+		 10: 
+		 11: %self->path def_%v_7 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_Regexp def_%v_8 
+		 13: COPY TYPE_StringLiteral "/" def_%v_9 
+		 14: %v_7->gsub! def_%v_10 %v_7[2.11,] %v_9[2.13,] 	 SYMBOL:	 ARGS:%v_8,%v_9,
+		 15: 
+		 16: COPY TYPE_StringLiteral "" def_%v_11 
+		 17: COPY TYPE_PASS def_domain %v_11[2.16,] 
+		 18: 
+		 19: GLOBALVAR $! def_%v_12 
+BB 4
+	outgoing: 5 6 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Setting) def_%v_15 
+		 2: COPY TYPE_StringLiteral "domain" def_%v_16 
+		 3: %v_15->get def_%v_17 %v_15[4.1,] %v_16[4.2,] 	 SYMBOL:	 ARGS:%v_16,
+		 4: BRANCH %v_17[4.3,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_18 
+		 1: COPY TYPE_PASS def_%v_17 %v_18[5.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_14 %v_17[5.1,4.3,] 
+		 1: 
+		 2: %v_12[2.19,] 
+BB 7
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 10 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_19 
+		 2: def_%v_20 %v_19[8.1,] 
+		 3: BRANCH %v_20[8.2,] 
+BB 9
+	outgoing: 12 47 
+	datadep: 
+	instructions:
+		 0: %v_19[8.1,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_21 
+		 1: COPY TYPE_PASS def_%v_14 %v_21[10.0,] 
+		 2: 
+		 3: %v_12[2.19,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+BB 12
+	outgoing: 47 
+	datadep: 
+	instructions:
+		 0: def_%v_22 
+		 1: def_%v_23 %v_22[12.0,] %v_12[2.19,] 
+		 2: %v_22[12.0,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_domain %v_14[6.0,10.1,] 
+		 1: 
+		 2: %self->kind def_%v_24 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_24->nil? def_%v_25 %v_24[13.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_25[13.3,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "generic" def_%v_26 
+		 1: ATTRASSIGN %self->kind %v_26[14.0,] 
+		 2: 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_26 
+BB 16
+	outgoing: 17 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->kind def_%v_27 %self[14.1,2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_27->downcase def_%v_28 %v_27[16.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "python" def_%v_31 
+		 4: def_%v_30 %v_31[16.3,] %v_28[16.2,] 
+		 5: BRANCH %v_30[16.4,] 
+BB 17
+	outgoing: 18 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "ror" def_%v_33 
+		 1: def_%v_32 %v_33[17.0,] %v_28[16.2,] 
+		 2: BRANCH %v_32[17.1,] 
+BB 18
+	outgoing: 19 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "custom" def_%v_35 
+		 1: def_%v_34 %v_35[18.0,] %v_28[16.2,] 
+		 2: BRANCH %v_34[18.1,] 
+BB 19
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (File) def_%v_51 
+		 2: (BASE) def_%v_52 
+		 3: COPY TYPE_StringLiteral "generic" def_%v_53 
+		 4: %v_52->% def_%v_54 %v_52[19.2,] %v_53[19.3,] 	 SYMBOL:	 ARGS:%v_53,
+		 5: %v_51->open def_%v_55 %v_51[19.1,] %v_54[19.4,] 	 SYMBOL:	 ARGS:%v_54,
+		 6: COPY TYPE_PASS def_f %v_55[19.5,] 
+		 7: COPY TYPE_PASS def_%v_29 %v_55[19.5,] 
+		 8: 
+BB 20
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (File) def_%v_36 
+		 2: (BASE) def_%v_37 
+		 3: COPY TYPE_StringLiteral "python" def_%v_38 
+		 4: %v_37->% def_%v_39 %v_37[20.2,] %v_38[20.3,] 	 SYMBOL:	 ARGS:%v_38,
+		 5: %v_36->open def_%v_40 %v_36[20.1,] %v_39[20.4,] 	 SYMBOL:	 ARGS:%v_39,
+		 6: COPY TYPE_PASS def_f %v_40[20.5,] 
+		 7: COPY TYPE_PASS def_%v_29 %v_40[20.5,] 
+		 8: 
+BB 21
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (File) def_%v_41 
+		 2: (BASE) def_%v_42 
+		 3: COPY TYPE_StringLiteral "ror" def_%v_43 
+		 4: %v_42->% def_%v_44 %v_42[21.2,] %v_43[21.3,] 	 SYMBOL:	 ARGS:%v_43,
+		 5: %v_41->open def_%v_45 %v_41[21.1,] %v_44[21.4,] 	 SYMBOL:	 ARGS:%v_44,
+		 6: COPY TYPE_PASS def_f %v_45[21.5,] 
+		 7: COPY TYPE_PASS def_%v_29 %v_45[21.5,] 
+		 8: 
+BB 22
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (File) def_%v_46 
+		 2: (BASE) def_%v_47 
+		 3: COPY TYPE_StringLiteral "custom" def_%v_48 
+		 4: %v_47->% def_%v_49 %v_47[22.2,] %v_48[22.3,] 	 SYMBOL:	 ARGS:%v_48,
+		 5: %v_46->open def_%v_50 %v_46[22.1,] %v_49[22.4,] 	 SYMBOL:	 ARGS:%v_49,
+		 6: COPY TYPE_PASS def_f %v_50[22.5,] 
+		 7: COPY TYPE_PASS def_%v_29 %v_50[22.5,] 
+		 8: 
+BB 24
+	outgoing: 25 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->aliases def_%v_56 %self[14.1,2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_Regexp def_%v_57 
+		 3: %v_56->split def_%v_58 %v_56[24.1,] 	 SYMBOL:	 ARGS:%v_57,
+		 4: %v_58->select def_%v_59 %v_58[24.3,] %self[24.1,14.1,2.0,] 	 SYMBOL:	 ARGS:%v_58,
+CLOSURE BEGIN: s[] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_s 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: s->empty? def_%cl_1_3 s[2.2,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_3[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (DnsAlias) def_%cl_1_4 
+		 1: HASH-alias- def_%cl_1_5 s[2.2,] 
+		 2: %cl_1_4->where def_%cl_1_6 %cl_1_4[4.0,] %cl_1_5[4.1,] 	 SYMBOL:	 ARGS:%cl_1_5,
+		 3: %cl_1_6->first def_%cl_1_7 %cl_1_6[4.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_%cl_1_3 %cl_1_7[4.3,] 
+BB 5
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: %cl_1_3->! def_%cl_1_8 %cl_1_3[4.4,3.1,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %cl_1_8[5.0,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_9 
+		 1: def_%cl_1_10 %cl_1_9[6.0,] 
+		 2: RETURN %cl_1_10[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 5: COPY TYPE_PASS def_server_aliases %v_59[24.4,] 
+		 6: 
+		 7: %self->webapp_aliases def_%v_60 %self[24.1,14.1,2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_60->map def_%v_61 %v_60[24.7,] %self[24.1,24.7,14.1,2.0,] 	 SYMBOL:	 ARGS:%v_60,
+CLOSURE BEGIN: wa[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_wa 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: wa->name def_%cl_2_3 wa[2.2,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_2_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_4 
+		 1: def_%cl_2_5 %cl_2_4[4.0,] 
+		 2: RETURN %cl_2_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: server_aliases->+ def_%v_62 server_aliases[24.5,] %v_61[24.8,] 	 SYMBOL:	 ARGS:%v_61,
+		 10: COPY TYPE_PASS def_server_aliases %v_62[24.9,] 
+		 11: 
+		 12: %v_62->count def_%v_63 %v_62[24.9,] 	 SYMBOL:	 ARGS:
+		 13: %v_63->> def_%v_64 %v_63[24.12,] 	 SYMBOL:	 ARGS:Fixnum,
+		 14: BRANCH %v_64[24.13,] 
+BB 25
+	outgoing: 27 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "ServerAlias " def_%v_65 
+		 1: COPY TYPE_StringLiteral " " def_%v_66 
+		 2: server_aliases->join def_%v_67 server_aliases[24.5,24.10,] %v_66[25.1,] 	 SYMBOL:	 ARGS:%v_66,
+		 3: %v_65->+ def_%v_68 %v_65[25.0,] %v_67[25.2,] 	 SYMBOL:	 ARGS:%v_67,
+		 4: 
+BB 26
+	outgoing: 27 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_69 
+		 1: COPY TYPE_PASS def_%v_68 %v_69[26.0,] 
+BB 27
+	outgoing: 28 29 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_aliases %v_68[26.1,25.3,] 
+		 1: 
+		 2: f->readlines def_%v_70 f[20.6,21.6,22.6,19.6,] 	 SYMBOL:	 ARGS:
+		 3: %v_70->join def_%v_71 %v_70[27.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_conf %v_71[27.3,] 
+		 5: 
+		 6: COPY TYPE_Regexp def_%v_72 
+		 7: %self->name def_%v_73 %self[14.1,2.0,] 	 SYMBOL:	 ARGS:
+		 8: conf->gsub def_%v_74 conf[27.4,] %v_72[27.6,] %v_73[27.7,] 	 SYMBOL:	 ARGS:%v_72,%v_73,
+		 9: COPY TYPE_PASS def_conf %v_74[27.8,] 
+		 10: 
+		 11: COPY TYPE_Regexp def_%v_75 
+		 12: %self->path def_%v_76 %self[27.7,14.1,2.0,] 	 SYMBOL:	 ARGS:
+		 13: conf->gsub def_%v_77 conf[27.4,27.8,27.9,] %v_75[27.11,] %v_76[27.12,] 	 SYMBOL:	 ARGS:%v_75,%v_76,
+		 14: COPY TYPE_PASS def_conf %v_77[27.13,] 
+		 15: 
+		 16: domain->empty? def_%v_78 domain[13.0,] 	 SYMBOL:	 ARGS:
+		 17: BRANCH %v_78[27.16,] 
+BB 28
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_79 
+		 1: 
+BB 29
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Regexp def_%v_80 
+		 1: conf->gsub def_%v_81 conf[27.4,27.9,27.14,] domain[13.0,] 	 SYMBOL:	 ARGS:%v_80,domain,
+		 2: COPY TYPE_PASS def_conf %v_81[29.1,] 
+		 3: COPY TYPE_PASS def_%v_79 %v_81[29.1,] 
+BB 30
+	outgoing: 31 32 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Regexp def_%v_82 
+		 2: %self->path def_%v_83 %self[14.1,2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "/htpasswd" def_%v_84 
+		 4: BUILDSTRING def_%v_85 %v_83[30.2,] %v_84[30.3,] 
+		 5: conf->gsub def_%v_86 conf[29.2,27.4,27.9,27.14,] %v_82[30.1,] %v_85[30.4,] 	 SYMBOL:	 ARGS:%v_82,%v_85,
+		 6: COPY TYPE_PASS def_conf %v_86[30.5,] 
+		 7: 
+		 8: COPY TYPE_Regexp def_%v_87 
+		 9: %self->login_required def_%v_88 %self[30.2,14.1,2.0,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_88[30.9,] 
+BB 31
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: %self->access_conf def_%v_89 %self[14.1,2.0,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 32
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_90 
+		 1: COPY TYPE_PASS def_%v_89 %v_90[32.0,] 
+BB 33
+	outgoing: 34 35 
+	datadep: 
+	instructions:
+		 0: conf->gsub def_%v_91 conf[30.6,] %v_87[30.8,] %v_89[32.1,31.0,] 	 SYMBOL:	 ARGS:%v_87,%v_89,
+		 1: COPY TYPE_PASS def_conf %v_91[33.0,] 
+		 2: 
+		 3: COPY TYPE_Regexp def_%v_92 
+		 4: COPY TYPE_PASS def_%v_93 aliases[27.0,] 
+		 5: BRANCH aliases[27.0,] 
+BB 34
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_94 
+		 1: COPY TYPE_PASS def_%v_93 %v_94[34.0,] 
+BB 35
+	outgoing: 37 
+	datadep: 
+	instructions:
+		 0: conf->gsub def_%v_95 conf[33.1,] %v_92[33.3,] %v_93[34.1,33.4,] 	 SYMBOL:	 ARGS:%v_92,%v_93,
+		 1: COPY TYPE_PASS def_conf %v_95[35.0,] 
+		 2: 
+		 3: GLOBALVAR $! def_%v_96 
+BB 37
+	outgoing: 38 39 41 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: COPY TYPE_Regexp def_%v_99 
+		 3: %self->custom_options def_%v_100 %self[14.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_100[37.3,] 
+BB 38
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_101 
+		 1: COPY TYPE_PASS def_%v_100 %v_101[38.0,] 
+BB 39
+	outgoing: 40 41 
+	datadep: 
+	instructions:
+		 0: conf->gsub def_%v_102 conf[35.1,] %v_99[37.2,] %v_100[38.1,37.3,] 	 SYMBOL:	 ARGS:%v_99,%v_100,
+		 1: COPY TYPE_PASS def_conf %v_102[39.0,] 
+		 2: COPY TYPE_PASS def_%v_98 %v_102[39.0,] 
+		 3: %v_96[35.3,] 
+BB 40
+	outgoing: 46 
+	datadep: 
+	instructions:
+		 0: 
+BB 41
+	outgoing: 42 43 45 
+	datadep: 
+	instructions:
+		 0: def_%v_103 
+		 1: def_%v_104 %v_103[41.0,] 
+		 2: BRANCH %v_104[41.1,] 
+BB 42
+	outgoing: 45 47 
+	datadep: 
+	instructions:
+		 0: %v_103[41.0,] 
+BB 43
+	outgoing: 44 45 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Regexp def_%v_105 
+		 2: COPY TYPE_StringLiteral "" def_%v_106 
+		 3: conf->gsub def_%v_107 conf[39.1,35.1,] %v_106[43.2,] 	 SYMBOL:	 ARGS:%v_105,%v_106,
+		 4: COPY TYPE_PASS def_conf %v_107[43.3,] 
+		 5: COPY TYPE_PASS def_%v_98 %v_107[43.3,] 
+		 6: %v_96[35.3,] 
+BB 44
+	outgoing: 46 
+	datadep: 
+	instructions:
+		 0: 
+BB 45
+	outgoing: 47 
+	datadep: 
+	instructions:
+		 0: def_%v_108 
+		 1: def_%v_109 %v_108[45.0,] %v_96[35.3,] 
+		 2: %v_108[45.0,] 
+BB 46
+	outgoing: 47 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN conf[39.1,43.4,] %self[14.1,2.0,] 
+BB 47
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = access_conf instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "AuthUserFile /var/hda/web-apps/htpasswd" def_%v_3 
+		 7: COPY TYPE_StringLiteral "AuthGroupFile /dev/null" def_%v_4 
+		 8: COPY TYPE_StringLiteral "AuthName "User Login Required for This Area"" def_%v_5 
+		 9: COPY TYPE_StringLiteral "AuthType Basic" def_%v_6 
+		 10: COPY TYPE_StringLiteral "<Limit GET POST>" def_%v_7 
+		 11: COPY TYPE_StringLiteral "	require valid-user" def_%v_8 
+		 12: COPY TYPE_StringLiteral "</Limit>" def_%v_9 
+		 13: COPY TYPE_Array def_%v_10 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] %v_6[2.9,] %v_7[2.10,] %v_8[2.11,] %v_9[2.12,] 
+		 14: COPY TYPE_StringLiteral "
+		" def_%v_11 
+		 15: %v_10->join def_%v_12 %v_10[2.13,] %v_11[2.14,] 	 SYMBOL:	 ARGS:%v_11,
+		 16: RETURN %v_12[2.15,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

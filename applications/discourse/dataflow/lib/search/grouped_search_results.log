@@ -1,0 +1,260 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_type_filter 
+		 6: RECEIVEARG def_term 
+		 7: RECEIVEARG def_search_context 
+		 8: RECEIVEARG def_include_blurbs 
+		 9: RECEIVEARG def_blurb_length 
+		 10: 
+		 11: ATTRASSIGN %self->type_filter type_filter[2.5,] 
+		 12: 
+		 13: ATTRASSIGN %self->term term[2.6,] 
+		 14: 
+		 15: ATTRASSIGN %self->search_context search_context[2.7,] 
+		 16: 
+		 17: ATTRASSIGN %self->include_blurbs include_blurbs[2.8,] 
+		 18: 
+		 19: COPY TYPE_PASS def_%v_3 blurb_length[2.9,] 
+		 20: BRANCH blurb_length[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_%v_3 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->blurb_length %v_3[3.0,2.19,] 
+		 1: 
+		 2: COPY TYPE_Array def_%v_4 
+		 3: ATTRASSIGN %self->posts %v_4[4.2,] 
+		 4: 
+		 5: COPY TYPE_Array def_%v_5 
+		 6: ATTRASSIGN %self->categories %v_5[4.5,] 
+		 7: 
+		 8: COPY TYPE_Array def_%v_6 
+		 9: ATTRASSIGN %self->users %v_6[4.8,] 
+		 10: RETURN %v_6[4.8,] %self[4.0,4.3,4.6,4.9,2.0,2.11,2.13,2.15,2.17,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = blurb instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: (GroupedSearchResults) def_%v_3 
+		 8: post->cooked def_%v_4 post[2.5,] 	 SYMBOL:	 ARGS:
+		 9: GETFIELD %self->term def_%v_5 %self[2.0,] 
+		 10: GETFIELD %self->blurb_length def_%v_6 %self[2.0,] 
+		 11: %v_3->blurb_for def_%v_7 %v_3[2.7,] %v_4[2.8,] %v_5[2.9,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_4,%v_5,%v_6,
+		 12: RETURN %v_7[2.11,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = add instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_object 
+		 6: 
+		 7: object->class def_%v_3 object[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->to_s def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->downcase def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_5->pluralize def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_PASS def_type %v_6[2.10,] 
+		 12: 
+		 13: GETFIELD %self->type_filter def_%v_7 %self[2.0,] 
+		 14: %v_7->present? def_%v_8 %v_7[2.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_8->! def_%v_9 %v_8[2.14,] 	 SYMBOL:	 ARGS:
+		 16: BRANCH %v_9[2.15,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->send def_%v_10 %self[2.0,] type[2.11,] 	 SYMBOL:	 ARGS:type,
+		 1: %v_10->length def_%v_11 %v_10[3.0,] 	 SYMBOL:	 ARGS:
+		 2: (Search) def_%v_12 
+		 3: %v_12->per_facet def_%v_13 %v_12[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_11->== def_%v_14 %v_11[3.1,] %v_13[3.3,] 	 SYMBOL:	 ARGS:%v_13,
+		 5: COPY TYPE_PASS def_%v_9 %v_14[3.4,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_9[3.5,2.15,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "@more_" def_%v_15 
+		 2: BUILDSTRING def_%v_16 %v_15[5.1,] type[2.11,] 
+		 3: %v_16->to_sym def_%v_17 %v_16[5.2,] 	 SYMBOL:	 ARGS:
+		 4: %self->instance_variable_set def_%v_18 %self[2.0,] %v_17[5.3,] 	 SYMBOL:	 ARGS:%v_17,Boolean,
+		 5: RETURN %v_18[5.4,] %self[5.4,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->send def_%v_19 %self[2.0,] type[2.11,] 	 SYMBOL:	 ARGS:type,
+		 2: %v_19-><< def_%v_20 %v_19[6.1,] object[2.5,] 	 SYMBOL:	 ARGS:object,
+		 3: RETURN %v_20[6.2,] %self[6.1,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = blurb_for instanceMethod = false
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_cooked 
+		 6: RECEIVECONSTARG def_term 
+		 7: term[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_term 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_blurb_length 
+		 1: blurb_length[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_blurb_length 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SearchObserver) def_%v_3 
+		 2: (inherit HtmlScrubber) def_%v_4 %v_3[6.1,] 
+		 3: %v_4[6.2,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[6.1,] 	 SYMBOL:HtmlScrubber,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: %v_4->scrub def_%v_5 %v_4[7.0,6.2,] cooked[2.5,] 	 SYMBOL:	 ARGS:cooked,
+		 1: %v_5->squish def_%v_6 %v_5[8.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_cooked %v_6[8.1,] 
+		 3: 
+		 4: COPY TYPE_Nil def_blurb 
+		 5: 
+		 6: BRANCH term[3.0,2.6,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Regexp def_%v_7 
+		 2: term->split def_%v_8 term[3.0,2.6,] 	 SYMBOL:	 ARGS:%v_7,
+		 3: COPY TYPE_PASS def_terms %v_8[9.2,] 
+		 4: 
+		 5: (TextHelper) def_%v_9 
+		 6: %v_8->first def_%v_10 %v_8[9.2,] 	 SYMBOL:	 ARGS:
+		 7: blurb_length->/ def_%v_11 blurb_length[5.0,4.0,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: COPY TYPE_StringLiteral " " def_%v_12 
+		 9: HASH-radius-seperator- def_%v_13 %v_11[9.7,] %v_12[9.8,] 
+		 10: %v_9->excerpt def_%v_14 %v_9[9.5,] cooked[8.2,] %v_10[9.6,] %v_13[9.9,] 	 SYMBOL:	 ARGS:cooked,%v_10,%v_13,
+		 11: COPY TYPE_PASS def_blurb %v_14[9.10,] 
+		 12: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: blurb->blank? def_%v_15 blurb[9.11,8.4,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_15[11.1,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: (TextHelper) def_%v_16 
+		 1: COPY TYPE_StringLiteral " " def_%v_17 
+		 2: HASH-length-seperator- def_%v_18 blurb_length[5.0,4.0,] %v_17[12.1,] 
+		 3: %v_16->truncate def_%v_19 %v_16[12.0,] cooked[8.2,] %v_18[12.2,] 	 SYMBOL:	 ARGS:cooked,%v_18,
+		 4: COPY TYPE_PASS def_blurb %v_19[12.3,] 
+		 5: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_19 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Sanitize) def_%v_20 
+		 2: %v_20->clean def_%v_21 %v_20[14.1,] blurb[12.4,9.11,8.4,] 	 SYMBOL:	 ARGS:blurb,
+		 3: RETURN %v_21[14.2,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,797 @@
+SET IRMethod, name = login instanceMethod = true
+BB 1
+	outgoing: 18 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "TRACKS::Login" def_%v_3 
+		 7: ATTRASSIGN %self->page_title %v_3[2.6,] 
+		 8: 
+		 9: %self->cookies def_%v_4 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 10: %v_4->[] def_%v_5 %v_4[2.9,] 	 SYMBOL:preferred_auth,	 ARGS:Symbol,
+		 11: BRANCH %v_5[2.10,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->cookies def_%v_7 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 1: %self->prefered_auth? def_%v_8 %self[4.0,2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %v_7->[] %v_8[4.1,] 
+		 3: COPY TYPE_PASS def_%v_6 %v_8[4.1,] 
+BB 5
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->request def_%v_9 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 2: %v_9->method def_%v_10 %v_9[5.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "POST" def_%v_13 
+		 4: def_%v_12 %v_13[5.3,] %v_10[5.2,] 
+		 5: BRANCH %v_12[5.4,] 
+BB 6
+	outgoing: 7 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "GET" def_%v_15 
+		 1: def_%v_14 %v_15[6.0,] %v_10[5.2,] 
+		 2: BRANCH %v_14[6.1,] 
+BB 7
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+		 1: 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%v_16 
+		 2: %self->params def_%v_17 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "user_login" def_%v_18 
+		 4: %v_17->[] def_%v_19 %v_17[8.2,] %v_18[8.3,] 	 SYMBOL:	 ARGS:%v_18,
+		 5: %self->params def_%v_20 %self[8.2,2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral "user_password" def_%v_21 
+		 7: %v_20->[] def_%v_22 %v_20[8.5,] %v_21[8.6,] 	 SYMBOL:	 ARGS:%v_21,
+		 8: %v_16->authenticate def_%v_23 %v_16[8.1,] %v_19[8.4,] %v_22[8.7,] 	 SYMBOL:	 ARGS:%v_19,%v_22,
+		 9: ATTRASSIGN %self->user %v_23[8.8,] 
+		 10: BRANCH %v_23[8.8,] 
+BB 9
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->handle_post_success def_%v_24 %self[8.9,2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_24[9.1,] %self[9.1,8.9,2.0,2.7,] 
+BB 10
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->handle_post_failure def_%v_26 %self[8.9,2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_25 %v_26[10.1,] 
+		 3: COPY TYPE_PASS def_%v_11 %v_25[10.2,] 
+		 4: 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%v_27 
+		 2: %v_27->no_users_yet? def_%v_28 %v_27[12.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_28[12.2,] 
+BB 13
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->signup_path def_%v_29 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 2: %self->redirect_to def_%v_30 %self[13.1,2.0,2.7,] %v_29[13.1,] 	 SYMBOL:	 ARGS:%v_29,
+		 3: RETURN %v_30[13.2,] %self[13.1,13.2,2.0,2.7,] 
+BB 14
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_31 
+		 1: COPY TYPE_PASS def_%v_11 %v_31[14.0,] 
+		 2: 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->respond_to def_%v_32 %self[8.9,2.0,2.7,] %self[8.9,2.0,2.7,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: format[] %self[8.9,2.0,2.7,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_format 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: format->html def_%cl_1_3 format[2.2,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: format->m def_%cl_1_4 format[3.1,2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:format,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->ruby_code_from_view def_%cl_2_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_2_3->ruby_code_from_view def_%cl_2_4 %cl_2_3[3.1,] %self[3.1,2.0,] 	 SYMBOL:	 ARGS:%cl_2_3,
+CLOSURE BEGIN: %self[3.1,2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_rb_from_view 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "login.account_login" def_%cl_3_3 
+		 2: %self->t def_%cl_3_4 %self[2.0,] %cl_3_3[3.1,] 	 SYMBOL:	 ARGS:%cl_3_3,
+		 3: 
+		 4: %self->render_flash def_%cl_3_5 %self[3.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: 
+		 6: COPY TYPE_StringLiteral "login.please_login" def_%cl_3_6 
+		 7: %self->t def_%cl_3_7 %self[3.2,3.4,2.0,] %cl_3_6[3.6,] 	 SYMBOL:	 ARGS:%cl_3_6,
+		 8: 
+		 9: COPY TYPE_StringLiteral "login" def_%cl_3_8 
+		 10: HASH-action- def_%cl_3_9 %cl_3_8[3.9,] 
+		 11: %self->form_tag def_%cl_3_10 %self[3.2,3.4,3.7,2.0,] %cl_3_9[3.10,] %self[3.2,3.4,3.7,2.0,] 	 SYMBOL:	 ARGS:%cl_3_9,%self,
+CLOSURE BEGIN: %self[3.2,3.4,3.7,2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%cl_4_3 
+		 2: COPY TYPE_StringLiteral "login" def_%cl_4_4 
+		 3: %cl_4_3->human_attribute_name def_%cl_4_5 %cl_4_3[3.1,] %cl_4_4[3.2,] 	 SYMBOL:	 ARGS:%cl_4_4,
+		 4: 
+		 5: (User) def_%cl_4_6 
+		 6: COPY TYPE_StringLiteral "password" def_%cl_4_7 
+		 7: %cl_4_6->human_attribute_name def_%cl_4_8 %cl_4_6[3.5,] %cl_4_7[3.6,] 	 SYMBOL:	 ARGS:%cl_4_7,
+		 8: 
+		 9: COPY TYPE_StringLiteral "login.user_no_expiry" def_%cl_4_9 
+		 10: %self->t def_%cl_4_10 %self[2.0,] %cl_4_9[3.9,] 	 SYMBOL:	 ARGS:%cl_4_9,
+		 11: 
+		 12: COPY TYPE_StringLiteral "login.sign_in" def_%cl_4_11 
+		 13: %self->t def_%cl_4_12 %self[3.10,2.0,] %cl_4_11[3.12,] 	 SYMBOL:	 ARGS:%cl_4_11,
+		 14: RETURN %cl_4_12[3.13,] %self[3.10,3.13,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_4_13 
+		 1: def_%cl_4_14 %cl_4_13[4.0,] 
+		 2: RETURN %cl_4_14[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 12: RETURN %cl_3_10[3.11,] %self[3.2,3.4,3.7,3.11,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_11 
+		 1: def_%cl_3_12 %cl_3_11[4.0,] 
+		 2: RETURN %cl_3_12[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: RETURN %cl_2_4[3.2,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_5 
+		 1: def_%cl_2_6 %cl_2_5[4.0,] 
+		 2: RETURN %cl_2_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: RETURN %cl_1_4[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: %self->ruby_code_from_view def_%v_33 %self[17.1,8.9,2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 4: %v_33->ruby_code_from_view def_%v_34 %v_33[17.3,] %self[17.1,17.3,8.9,2.0,2.7,] 	 SYMBOL:	 ARGS:%v_33,
+CLOSURE BEGIN: %self[17.1,17.3,8.9,2.0,2.7,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_5_0 
+		 2: RECEIVEARG def_rb_from_view 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "login" def_%cl_5_3 
+		 2: %self->stylesheet_link_tag def_%cl_5_4 %self[2.0,] %cl_5_3[3.1,] 	 SYMBOL:	 ARGS:%cl_5_3,
+		 3: 
+		 4: COPY TYPE_StringLiteral "favicon.ico" def_%cl_5_5 
+		 5: %self->favicon_link_tag def_%cl_5_6 %self[3.2,2.0,] %cl_5_5[3.4,] 	 SYMBOL:	 ARGS:%cl_5_5,
+		 6: 
+		 7: COPY TYPE_StringLiteral "apple-touch-icon.png" def_%cl_5_7 
+		 8: COPY TYPE_StringLiteral "apple-touch-icon" def_%cl_5_8 
+		 9: COPY TYPE_StringLiteral "image/png" def_%cl_5_9 
+		 10: HASH-rel-type- def_%cl_5_10 %cl_5_8[3.8,] %cl_5_9[3.9,] 
+		 11: %self->favicon_link_tag def_%cl_5_11 %self[3.2,3.5,2.0,] %cl_5_7[3.7,] %cl_5_10[3.10,] 	 SYMBOL:	 ARGS:%cl_5_7,%cl_5_10,
+		 12: 
+		 13: GETFIELD %self->page_title def_%cl_5_12 %self[3.2,3.5,3.11,2.0,] 
+		 14: COPY TYPE_StringLiteral "login.account_login" def_%cl_5_13 
+		 15: %self->t def_%cl_5_14 %self[3.2,3.5,3.11,2.0,] %cl_5_13[3.14,] 	 SYMBOL:	 ARGS:%cl_5_13,
+		 16: 
+		 17: %self->render_flash def_%cl_5_15 %self[3.2,3.5,3.11,3.15,2.0,] 	 SYMBOL:	 ARGS:
+		 18: 
+		 19: COPY TYPE_StringLiteral "login.please_login" def_%cl_5_16 
+		 20: %self->t def_%cl_5_17 %self[3.2,3.5,3.11,3.15,3.17,2.0,] %cl_5_16[3.19,] 	 SYMBOL:	 ARGS:%cl_5_16,
+		 21: 
+		 22: COPY TYPE_StringLiteral "login" def_%cl_5_18 
+		 23: HASH-action- def_%cl_5_19 %cl_5_18[3.22,] 
+		 24: %self->form_tag def_%cl_5_20 %self[3.2,3.5,3.11,3.15,3.17,3.20,2.0,] %cl_5_19[3.23,] %self[3.2,3.5,3.11,3.15,3.17,3.20,2.0,] 	 SYMBOL:	 ARGS:%cl_5_19,%self,
+CLOSURE BEGIN: %self[3.2,3.5,3.11,3.15,3.17,3.20,2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_6_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%cl_6_3 
+		 2: COPY TYPE_StringLiteral "login" def_%cl_6_4 
+		 3: %cl_6_3->human_attribute_name def_%cl_6_5 %cl_6_3[3.1,] %cl_6_4[3.2,] 	 SYMBOL:	 ARGS:%cl_6_4,
+		 4: 
+		 5: (User) def_%cl_6_6 
+		 6: COPY TYPE_StringLiteral "password" def_%cl_6_7 
+		 7: %cl_6_6->human_attribute_name def_%cl_6_8 %cl_6_6[3.5,] %cl_6_7[3.6,] 	 SYMBOL:	 ARGS:%cl_6_7,
+		 8: 
+		 9: COPY TYPE_StringLiteral "login.user_no_expiry" def_%cl_6_9 
+		 10: %self->t def_%cl_6_10 %self[2.0,] %cl_6_9[3.9,] 	 SYMBOL:	 ARGS:%cl_6_9,
+		 11: 
+		 12: COPY TYPE_StringLiteral "login.sign_in" def_%cl_6_11 
+		 13: %self->t def_%cl_6_12 %self[3.10,2.0,] %cl_6_11[3.12,] 	 SYMBOL:	 ARGS:%cl_6_11,
+		 14: RETURN %cl_6_12[3.13,] %self[3.10,3.13,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_6_13 
+		 1: def_%cl_6_14 %cl_6_13[4.0,] 
+		 2: RETURN %cl_6_14[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 25: 
+		 26: (TRACKS_VERSION) def_%cl_5_21 
+		 27: COPY TYPE_StringLiteral "layouts.mobile_navigation.full" def_%cl_5_22 
+		 28: %self->t def_%cl_5_23 %self[3.2,3.5,3.11,3.15,3.17,3.20,3.24,2.0,] %cl_5_22[3.27,] 	 SYMBOL:	 ARGS:%cl_5_22,
+		 29: COPY TYPE_StringLiteral "html" def_%cl_5_24 
+		 30: HASH-format- def_%cl_5_25 %cl_5_24[3.29,] 
+		 31: %self->todos_path def_%cl_5_26 %self[3.2,3.5,3.11,3.15,3.17,3.20,3.24,3.28,2.0,] %cl_5_25[3.30,] 	 SYMBOL:	 ARGS:%cl_5_25,
+		 32: %self->link_to def_%cl_5_27 %self[3.2,3.5,3.11,3.15,3.17,3.20,3.24,3.28,3.31,2.0,] %cl_5_23[3.28,] %cl_5_26[3.31,] 	 SYMBOL:	 ARGS:%cl_5_23,%cl_5_26,
+		 33: RETURN %cl_5_27[3.32,] %self[3.2,3.5,3.11,3.15,3.17,3.20,3.24,3.28,3.31,3.32,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_5_28 
+		 1: def_%cl_5_29 %cl_5_28[4.0,] 
+		 2: RETURN %cl_5_29[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 5: RETURN %v_34[17.4,] %self[17.1,17.3,8.9,2.0,2.7,] 
+BB 18
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = logout instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->logout_user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_expiry instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->session def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->== def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:Nil,
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+BB 4
+	outgoing: 5 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->session def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_6[4.1,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->should_expire_sessions? def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_7[5.1,] 
+BB 6
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: %self->session def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "expiry_time" def_%v_10 
+		 4: %v_9->[] def_%v_11 %v_9[6.2,] %v_10[6.3,] 	 SYMBOL:	 ARGS:%v_10,
+		 5: BRANCH %v_11[6.4,] 
+BB 7
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: (Time) def_%v_12 
+		 1: %v_12->now def_%v_13 %v_12[9.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_13->+ def_%v_14 %v_13[9.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: COPY TYPE_PASS def_%v_11 %v_14[9.2,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_expiry_time %v_11[9.3,6.4,] 
+		 1: 
+		 2: (Time) def_%v_15 
+		 3: %v_15->now def_%v_16 %v_15[10.2,] 	 SYMBOL:	 ARGS:
+		 4: expiry_time->- def_%v_17 expiry_time[10.0,] %v_16[10.3,] 	 SYMBOL:	 ARGS:%v_16,
+		 5: COPY TYPE_PASS def_time_left %v_17[10.4,] 
+		 6: 
+		 7: CONSTANT def_%v_18 	 SYMBOL:	 ARGS:Fixnum,
+		 8: time_left->< def_%v_19 time_left[10.5,] %v_18[10.7,] 	 SYMBOL:	 ARGS:%v_18,
+		 9: ATTRASSIGN %self->session_expired %v_19[10.8,] 
+		 10: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_19 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_5 %v_19[11.0,10.8,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->respond_to def_%v_20 %self[10.9,2.0,] %self[10.9,2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: format[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_format 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: format->js def_%cl_1_3 format[2.2,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: %self->ruby_code_from_view def_%v_21 %self[13.1,10.9,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_21->ruby_code_from_view def_%v_22 %v_21[13.3,] %self[13.1,13.3,10.9,2.0,] 	 SYMBOL:	 ARGS:%v_21,
+CLOSURE BEGIN: %self[13.1,13.3,10.9,2.0,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_rb_from_view 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "login" def_%cl_2_3 
+		 2: %self->stylesheet_link_tag def_%cl_2_4 %self[2.0,] %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:%cl_2_3,
+		 3: 
+		 4: COPY TYPE_StringLiteral "favicon.ico" def_%cl_2_5 
+		 5: %self->favicon_link_tag def_%cl_2_6 %self[3.2,2.0,] %cl_2_5[3.4,] 	 SYMBOL:	 ARGS:%cl_2_5,
+		 6: 
+		 7: COPY TYPE_StringLiteral "apple-touch-icon.png" def_%cl_2_7 
+		 8: COPY TYPE_StringLiteral "apple-touch-icon" def_%cl_2_8 
+		 9: COPY TYPE_StringLiteral "image/png" def_%cl_2_9 
+		 10: HASH-rel-type- def_%cl_2_10 %cl_2_8[3.8,] %cl_2_9[3.9,] 
+		 11: %self->favicon_link_tag def_%cl_2_11 %self[3.2,3.5,2.0,] %cl_2_7[3.7,] %cl_2_10[3.10,] 	 SYMBOL:	 ARGS:%cl_2_7,%cl_2_10,
+		 12: 
+		 13: GETFIELD %self->page_title def_%cl_2_12 %self[3.2,3.5,3.11,2.0,] 
+		 14: 
+		 15: GETFIELD %self->session_expired def_%cl_2_13 %self[3.2,3.5,3.11,2.0,] 
+		 16: BRANCH %cl_2_13[3.15,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "login.log_in_again" def_%cl_2_14 
+		 1: %self->t def_%cl_2_15 %self[2.0,] %cl_2_14[4.0,] 	 SYMBOL:	 ARGS:%cl_2_14,
+		 2: COPY TYPE_StringLiteral "login" def_%cl_2_16 
+		 3: COPY TYPE_StringLiteral "login" def_%cl_2_17 
+		 4: HASH-controller-action- def_%cl_2_18 %cl_2_16[4.2,] %cl_2_17[4.3,] 
+		 5: %self->link_to def_%cl_2_19 %self[4.1,2.0,] %cl_2_15[4.1,] %cl_2_18[4.4,] 	 SYMBOL:	 ARGS:%cl_2_15,%cl_2_18,
+		 6: COPY TYPE_PASS def_theLink %cl_2_19[4.5,] 
+		 7: 
+		 8: (I18n) def_%cl_2_20 
+		 9: COPY TYPE_StringLiteral "login.session_time_out" def_%cl_2_21 
+		 10: HASH-link- def_%cl_2_22 %cl_2_19[4.5,] 
+		 11: %cl_2_20->t def_%cl_2_23 %cl_2_20[4.8,] %cl_2_21[4.9,] %cl_2_22[4.10,] 	 SYMBOL:	 ARGS:%cl_2_21,%cl_2_22,
+		 12: COPY TYPE_PASS def_message %cl_2_23[4.11,] 
+		 13: 
+		 14: %cl_2_23->html_safe def_%cl_2_24 %cl_2_23[4.11,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_StringLiteral "warning" def_%cl_2_25 
+		 16: HASH-class- def_%cl_2_26 %cl_2_25[4.15,] 
+		 17: %self->content_tag def_%cl_2_27 %self[4.1,4.5,2.0,] %cl_2_24[4.14,] %cl_2_26[4.16,] 	 SYMBOL:div,	 ARGS:Symbol,%cl_2_24,%cl_2_26,
+		 18: %self->escape_javascript def_%cl_2_28 %self[4.1,4.5,4.17,2.0,] %cl_2_27[4.17,] 	 SYMBOL:	 ARGS:%cl_2_27,
+		 19: COPY TYPE_PASS def_theHtml %cl_2_28[4.18,] 
+		 20: 
+		 21: COPY TYPE_PASS def_%cl_2_29 %cl_2_28[4.18,] 
+		 22: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_2_29 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TRACKS_VERSION) def_%cl_2_30 
+		 2: COPY TYPE_StringLiteral "layouts.mobile_navigation.full" def_%cl_2_31 
+		 3: %self->t def_%cl_2_32 %self[2.0,] %cl_2_31[6.2,] 	 SYMBOL:	 ARGS:%cl_2_31,
+		 4: COPY TYPE_StringLiteral "html" def_%cl_2_33 
+		 5: HASH-format- def_%cl_2_34 %cl_2_33[6.4,] 
+		 6: %self->todos_path def_%cl_2_35 %self[6.3,2.0,] %cl_2_34[6.5,] 	 SYMBOL:	 ARGS:%cl_2_34,
+		 7: %self->link_to def_%cl_2_36 %self[6.3,6.6,2.0,] %cl_2_32[6.3,] %cl_2_35[6.6,] 	 SYMBOL:	 ARGS:%cl_2_32,%cl_2_35,
+		 8: RETURN %cl_2_36[6.7,] %self[6.3,6.6,6.7,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_37 
+		 1: def_%cl_2_38 %cl_2_37[7.0,] 
+		 2: RETURN %cl_2_38[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: theHtml[4.19,] theLink[4.6,] message[4.12,] 
+		 5: RETURN %v_22[13.4,] %self[13.1,13.3,10.9,2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = handle_post_success instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->session def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "user_id" def_%v_4 
+		 8: GETFIELD %self->user def_%v_5 %self[2.0,2.6,] 
+		 9: %v_5->id def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: ATTRASSIGN %v_3->[] %v_4[2.7,] %v_6[2.9,] 
+		 11: 
+		 12: %self->session def_%v_7 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_StringLiteral "noexpiry" def_%v_8 
+		 14: %self->params def_%v_9 %self[2.0,2.6,2.12,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_StringLiteral "user_noexpiry" def_%v_10 
+		 16: %v_9->[] def_%v_11 %v_9[2.14,] %v_10[2.15,] 	 SYMBOL:	 ARGS:%v_10,
+		 17: ATTRASSIGN %v_7->[] %v_8[2.13,] %v_11[2.16,] 
+		 18: 
+		 19: %self->should_expire_sessions? def_%v_12 %self[2.0,2.6,2.12,2.14,] 	 SYMBOL:	 ARGS:
+		 20: BRANCH %v_12[2.19,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "will expire after 1 hour of inactivity." def_%v_13 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "will not expire." def_%v_14 
+		 1: COPY TYPE_PASS def_%v_13 %v_14[4.0,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_msg %v_13[4.1,3.0,] 
+		 1: 
+		 2: COPY TYPE_StringLiteral "Login successful: session " def_%v_15 
+		 3: BUILDSTRING def_%v_16 %v_15[5.2,] %v_13[4.1,3.0,] 
+		 4: %self->notify def_%v_17 %self[2.0,] %v_16[5.3,] 	 SYMBOL:notice,	 ARGS:Symbol,%v_16,
+		 5: 
+		 6: %self->cookies def_%v_18 %self[5.4,2.0,] 	 SYMBOL:	 ARGS:
+		 7: GETFIELD %self->user def_%v_19 %self[5.4,5.6,2.0,] 
+		 8: %v_19->login def_%v_20 %v_19[5.7,] 	 SYMBOL:	 ARGS:
+		 9: (Time) def_%v_21 
+		 10: %v_21->now def_%v_22 %v_21[5.9,] 	 SYMBOL:	 ARGS:
+		 11: CONSTANT def_%v_23 	 SYMBOL:	 ARGS:
+		 12: %v_22->+ def_%v_24 %v_22[5.10,] %v_23[5.11,] 	 SYMBOL:	 ARGS:%v_23,
+		 13: (SITE_CONFIG) def_%v_25 
+		 14: COPY TYPE_StringLiteral "secure_cookies" def_%v_26 
+		 15: %v_25->[] def_%v_27 %v_25[5.13,] %v_26[5.14,] 	 SYMBOL:	 ARGS:%v_26,
+		 16: HASH-value-expires-secure- def_%v_28 %v_20[5.8,] %v_24[5.12,] %v_27[5.15,] 
+		 17: ATTRASSIGN %v_18->[] %v_28[5.16,] 
+		 18: 
+		 19: %self->should_expire_sessions? def_%v_29 %self[5.4,5.6,2.0,] 	 SYMBOL:	 ARGS:
+		 20: BRANCH %v_29[5.19,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_30 
+		 1: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%v_31 %self[2.0,] 
+		 2: %v_31->remember_me def_%v_32 %v_31[7.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: %self->cookies def_%v_33 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: GETFIELD %self->user def_%v_34 %self[7.4,2.0,] 
+		 6: %v_34->remember_token def_%v_35 %v_34[7.5,] 	 SYMBOL:	 ARGS:
+		 7: GETFIELD %self->user def_%v_36 %self[7.4,2.0,] 
+		 8: %v_36->remember_token_expires_at def_%v_37 %v_36[7.7,] 	 SYMBOL:	 ARGS:
+		 9: (SITE_CONFIG) def_%v_38 
+		 10: COPY TYPE_StringLiteral "secure_cookies" def_%v_39 
+		 11: %v_38->[] def_%v_40 %v_38[7.9,] %v_39[7.10,] 	 SYMBOL:	 ARGS:%v_39,
+		 12: HASH-value-expires-secure- def_%v_41 %v_35[7.6,] %v_37[7.8,] %v_40[7.11,] 
+		 13: ATTRASSIGN %v_33->[] %v_41[7.12,] 
+		 14: COPY TYPE_PASS def_%v_30 %v_41[7.12,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->redirect_back_or_home def_%v_42 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_42[8.1,] %self[8.1,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = handle_post_failure instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "user_login" def_%v_4 
+		 8: %v_3->[] def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: ATTRASSIGN %self->login %v_5[2.8,] 
+		 10: 
+		 11: COPY TYPE_StringLiteral "login.unsuccessful" def_%v_6 
+		 12: %self->t def_%v_7 %self[2.0,2.6,2.9,] %v_6[2.11,] 	 SYMBOL:	 ARGS:%v_6,
+		 13: %self->notify def_%v_8 %self[2.0,2.6,2.9,2.12,] %v_7[2.12,] 	 SYMBOL:warning,	 ARGS:Symbol,%v_7,
+		 14: RETURN %v_8[2.13,] %self[2.0,2.6,2.9,2.12,2.13,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = should_expire_sessions? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->session def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "noexpiry" def_%v_4 
+		 8: %v_3->[] def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: COPY TYPE_StringLiteral "on" def_%v_6 
+		 10: %v_5->!= def_%v_7 %v_5[2.8,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: RETURN %v_7[2.10,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

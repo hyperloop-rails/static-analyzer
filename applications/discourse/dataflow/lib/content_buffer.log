@@ -1,0 +1,345 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_initial_content 
+		 6: 
+		 7: ATTRASSIGN %self->initial_content initial_content[2.5,] 
+		 8: 
+		 9: GETFIELD %self->initial_content def_%v_3 %self[2.0,2.7,] 
+		 10: COPY TYPE_StringLiteral "
+" def_%v_4 
+		 11: %v_3->split def_%v_5 %v_3[2.9,] %v_4[2.10,] 	 SYMBOL:	 ARGS:%v_4,
+		 12: ATTRASSIGN %self->lines %v_5[2.11,] 
+		 13: RETURN %v_5[2.11,] %self[2.0,2.7,2.12,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = apply_transform! instanceMethod = true
+BB 1
+	outgoing: 24 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_transform 
+		 6: 
+		 7: transform->[] def_%v_3 transform[2.5,] 	 SYMBOL:start,	 ARGS:Symbol,
+		 8: %v_3->[] def_%v_4 %v_3[2.7,] 	 SYMBOL:row,	 ARGS:Symbol,
+		 9: COPY TYPE_PASS def_start_row %v_4[2.8,] 
+		 10: 
+		 11: transform->[] def_%v_5 transform[2.5,2.7,] 	 SYMBOL:start,	 ARGS:Symbol,
+		 12: %v_5->[] def_%v_6 %v_5[2.11,] 	 SYMBOL:col,	 ARGS:Symbol,
+		 13: COPY TYPE_PASS def_start_col %v_6[2.12,] 
+		 14: 
+		 15: transform->[] def_%v_7 transform[2.5,2.7,2.11,] 	 SYMBOL:finish,	 ARGS:Symbol,
+		 16: BRANCH %v_7[2.15,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: transform->[] def_%v_8 transform[2.5,] 	 SYMBOL:finish,	 ARGS:Symbol,
+		 1: %v_8->[] def_%v_9 %v_8[3.0,] 	 SYMBOL:row,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_finish_row %v_9[3.1,] 
+		 3: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: transform->[] def_%v_10 transform[2.5,] 	 SYMBOL:finish,	 ARGS:Symbol,
+		 2: BRANCH %v_10[5.1,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: transform->[] def_%v_11 transform[2.5,] 	 SYMBOL:finish,	 ARGS:Symbol,
+		 1: %v_11->[] def_%v_12 %v_11[6.0,] 	 SYMBOL:col,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_finish_col %v_12[6.1,] 
+		 3: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 8
+	outgoing: 9 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: transform->[] def_%v_13 transform[2.5,] 	 SYMBOL:text,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_text %v_13[8.1,] 
+		 3: 
+		 4: transform->[] def_%v_14 transform[8.1,2.5,] 	 SYMBOL:operation,	 ARGS:Symbol,
+		 5: %v_14->== def_%v_15 %v_14[8.4,] 	 SYMBOL:delete,	 ARGS:Symbol,
+		 6: BRANCH %v_15[8.5,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->lines def_%v_16 %self[2.0,] 
+		 2: %v_16->[] def_%v_17 %v_16[9.1,] start_row[2.9,] 	 SYMBOL:	 ARGS:start_row,
+		 3: COPY TYPE_PASS def_l %v_17[9.2,] 
+		 4: 
+		 5: CONSTANT def_%v_18 start_col[2.13,] 
+		 6: %v_17->[] def_%v_19 %v_17[9.2,] %v_18[9.5,] 	 SYMBOL:	 ARGS:%v_18,
+		 7: COPY TYPE_PASS def_l %v_19[9.6,] 
+		 8: 
+		 9: finish_row->== def_%v_20 finish_row[3.2,] start_row[2.9,] 	 SYMBOL:	 ARGS:start_row,
+		 10: BRANCH %v_20[9.9,] 
+BB 10
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->lines def_%v_21 %self[2.0,] 
+		 2: %v_21->[] def_%v_22 %v_21[10.1,] start_row[2.9,] 	 SYMBOL:	 ARGS:start_row,
+		 3: CONSTANT def_%v_23 finish_col[6.2,] 
+		 4: %v_22->[] def_%v_24 %v_22[10.2,] %v_23[10.3,] 	 SYMBOL:	 ARGS:%v_23,
+		 5: l-><< def_%v_25 l[9.3,9.7,] %v_24[10.4,] 	 SYMBOL:	 ARGS:%v_24,
+		 6: 
+		 7: GETFIELD %self->lines def_%v_26 %self[2.0,] 
+		 8: ATTRASSIGN %v_26->[] start_row[2.9,] l[10.5,9.3,9.7,] 
+		 9: 
+		 10: RETURN %self[2.0,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_27 
+		 1: 
+		 2: GETFIELD %self->lines def_%v_28 %self[2.0,] 
+		 3: ATTRASSIGN %v_28->[] start_row[2.9,] l[9.3,9.7,] 
+		 4: 
+		 5: finish_row->- def_%v_29 finish_row[3.2,] start_row[2.9,] 	 SYMBOL:	 ARGS:start_row,
+		 6: %v_29->times def_%v_30 %v_29[11.5,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_29,
+CLOSURE BEGIN: %self[2.0,] start_row[2.9,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->lines def_%cl_1_3 %self[2.0,] 
+		 2: start_row->+ def_%cl_1_4 start_row[] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: %cl_1_3->delete_at def_%cl_1_5 %cl_1_3[3.1,] %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:%cl_1_4,
+		 4: COPY TYPE_PASS def_l %cl_1_5[3.3,] 
+		 5: RETURN %cl_1_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: l[3.4,] 
+		 7: 
+		 8: GETFIELD %self->lines def_%v_31 %self[2.0,] 
+		 9: %v_31->[] def_%v_32 %v_31[11.8,] start_row[2.9,] 	 SYMBOL:	 ARGS:start_row,
+		 10: GETFIELD %self->lines def_%v_33 %self[2.0,] 
+		 11: %v_33->[] def_%v_34 %v_33[11.10,] finish_row[11.5,3.2,] 	 SYMBOL:	 ARGS:finish_row,
+		 12: finish_col->- def_%v_36 finish_col[6.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 13: CONSTANT def_%v_35 %v_36[11.12,] 
+		 14: %v_34->[] def_%v_37 %v_34[11.11,] %v_35[11.13,] 	 SYMBOL:	 ARGS:%v_35,
+		 15: %v_32-><< def_%v_38 %v_32[11.9,] %v_37[11.14,] 	 SYMBOL:	 ARGS:%v_37,
+		 16: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_38 
+BB 14
+	outgoing: 15 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: transform->[] def_%v_39 transform[2.5,] 	 SYMBOL:operation,	 ARGS:Symbol,
+		 2: %v_39->== def_%v_40 %v_39[14.1,] 	 SYMBOL:insert,	 ARGS:Symbol,
+		 3: BRANCH %v_40[14.2,] 
+BB 15
+	outgoing: 16 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->lines def_%v_41 %self[2.0,] 
+		 2: %v_41->[] def_%v_42 %v_41[15.1,] start_row[2.9,] 	 SYMBOL:	 ARGS:start_row,
+		 3: %v_42->insert def_%v_43 %v_42[15.2,] start_col[2.13,] text[8.2,] 	 SYMBOL:	 ARGS:start_col,text,
+		 4: 
+		 5: GETFIELD %self->lines def_%v_44 %self[2.0,] 
+		 6: %v_44->[] def_%v_45 %v_44[15.5,] start_row[2.9,] 	 SYMBOL:	 ARGS:start_row,
+		 7: COPY TYPE_StringLiteral "
+" def_%v_46 
+		 8: %v_45->split def_%v_47 %v_45[15.6,] %v_46[15.7,] 	 SYMBOL:	 ARGS:%v_46,
+		 9: COPY TYPE_PASS def_split %v_47[15.8,] 
+		 10: 
+		 11: %v_47->length def_%v_48 %v_47[15.8,] 	 SYMBOL:	 ARGS:
+		 12: %v_48->> def_%v_49 %v_48[15.11,] 	 SYMBOL:	 ARGS:Fixnum,
+		 13: BRANCH %v_49[15.12,] 
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->lines def_%v_50 %self[2.0,] 
+		 2: split->[] def_%v_51 split[15.9,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: ATTRASSIGN %v_50->[] start_row[2.9,] %v_51[16.2,] 
+		 4: 
+		 5: COPY TYPE_Fixnum def_i 
+		 6: 
+		 7: CONSTANT def_%v_52 
+		 8: split->[] def_%v_53 split[16.2,15.9,] %v_52[16.7,] 	 SYMBOL:	 ARGS:%v_52,
+		 9: %v_53->each def_%v_54 %v_53[16.8,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_53,
+CLOSURE BEGIN: %self[2.0,] start_row[2.9,] i[16.5,] line[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_line 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->lines def_%cl_2_3 %self[2.0,] 
+		 2: start_row->+ def_%cl_2_4 start_row[] i[] 	 SYMBOL:	 ARGS:i,
+		 3: %cl_2_3->insert def_%cl_2_5 %cl_2_3[3.1,] %cl_2_4[3.2,] line[2.2,] 	 SYMBOL:	 ARGS:%cl_2_4,line,
+		 4: 
+		 5: i->+ def_%cl_2_6 i[] 	 SYMBOL:	 ARGS:Fixnum,
+		 6: COPY TYPE_PASS def_i %cl_2_6[3.5,] 
+		 7: RETURN %cl_2_6[3.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_7 
+		 1: def_%cl_2_8 %cl_2_7[4.0,] 
+		 2: RETURN %cl_2_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: i[3.6,] 
+		 10: 
+		 11: GETFIELD %self->lines def_%v_55 %self[2.0,] 
+		 12: %v_55->length def_%v_56 %v_55[16.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_56->> def_%v_57 %v_56[16.12,] i[16.5,16.9,] 	 SYMBOL:	 ARGS:i,
+		 14: BRANCH %v_57[16.13,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_58 
+		 1: 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->lines def_%v_59 %self[2.0,] 
+		 1: COPY TYPE_StringLiteral "" def_%v_60 
+		 2: %v_59->insert def_%v_61 %v_59[18.0,] i[16.5,16.9,] %v_60[18.1,] 	 SYMBOL:	 ARGS:i,%v_60,
+		 3: COPY TYPE_PASS def_%v_58 %v_61[18.2,] 
+BB 19
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->lines def_%v_62 %self[2.0,] 
+		 2: split->[] def_%v_63 split[15.9,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: GETFIELD %self->lines def_%v_64 %self[2.0,] 
+		 4: %v_64->[] def_%v_65 %v_64[19.3,] i[16.5,16.9,] 	 SYMBOL:	 ARGS:i,
+		 5: %v_63->+ def_%v_66 %v_63[19.2,] %v_65[19.4,] 	 SYMBOL:	 ARGS:%v_65,
+		 6: ATTRASSIGN %v_62->[] i[16.5,16.9,] %v_66[19.5,] 
+		 7: 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_66 
+BB 21
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: RETURN %v_66[20.0,19.5,] %self[2.0,] 
+BB 22
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 24
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = to_s instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->lines def_%v_3 %self[2.0,] 
+		 7: COPY TYPE_StringLiteral "
+" def_%v_4 
+		 8: %v_3->join def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

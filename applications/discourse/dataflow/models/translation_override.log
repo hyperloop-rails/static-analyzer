@@ -1,0 +1,110 @@
+SET IRMethod, name = upsert! instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_locale 
+		 6: RECEIVEARG def_key 
+		 7: RECEIVEARG def_value 
+		 8: 
+		 9: HASH-locale-translation_key- def_%v_3 locale[2.5,] key[2.6,] 
+		 10: COPY TYPE_PASS def_params %v_3[2.9,] 
+		 11: 
+		 12: %self->where def_%v_4 %self[2.0,] %v_3[2.9,] 	 SYMBOL:	 ARGS:params,
+		 13: HASH-value- def_%v_5 value[2.7,] 
+		 14: %v_4->update_all def_%v_6 %v_4[2.12,] %v_5[2.13,] 	 SYMBOL:	 ARGS:%v_5,
+		 15: COPY TYPE_PASS def_row_count %v_6[2.14,] 
+		 16: 
+		 17: %v_6->== def_%v_7 %v_6[2.14,] 	 SYMBOL:	 ARGS:Fixnum,
+		 18: BRANCH %v_7[2.17,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: HASH-value- def_%v_8 value[2.7,] 
+		 1: params->merge def_%v_9 params[2.10,] %v_8[3.0,] 	 SYMBOL:	 ARGS:%v_8,
+		 2: %self->create! def_%v_10 %self[2.0,] %v_9[3.1,] 	 SYMBOL:	 ARGS:%v_9,
+		 3: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->i18n_changed def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_11[5.1,] %self[5.1,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = revert! instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_locale 
+		 6: RECEIVEARG def_keys 
+		 7: 
+		 8: (TranslationOverride) def_%v_3 
+		 9: HASH-locale-translation_key- def_%v_4 locale[2.5,] keys[2.6,] 
+		 10: %v_3->where def_%v_5 %v_3[2.8,] %v_4[2.9,] 	 SYMBOL:	 ARGS:%v_4,
+		 11: %v_5->delete_all def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: 
+		 13: %self->i18n_changed def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 14: RETURN %v_7[2.13,] %self[2.0,2.13,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = i18n_changed instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (I18n) def_%v_3 
+		 7: %v_3->reload! def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: 
+		 9: (MessageBus) def_%v_5 
+		 10: COPY TYPE_StringLiteral "/i18n-flush" def_%v_6 
+		 11: HASH-refresh- def_%v_7 
+		 12: %v_5->publish def_%v_8 %v_5[2.9,] %v_6[2.10,] %v_7[2.11,] 	 SYMBOL:	 ARGS:%v_6,%v_7,
+		 13: RETURN %v_8[2.12,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

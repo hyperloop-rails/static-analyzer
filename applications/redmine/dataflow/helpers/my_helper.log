@@ -1,0 +1,276 @@
+SET IRMethod, name = calendar_items instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_startdt 
+		 6: RECEIVEARG def_enddt 
+		 7: 
+		 8: (Issue) def_%v_3 
+		 9: %v_3->visible def_%v_4 %v_3[2.8,] 	 SYMBOL:	 ARGS:
+		 10: (User) def_%v_5 
+		 11: %v_5->current def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_6->projects def_%v_7 %v_6[2.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_7->map def_%v_8 %v_7[2.12,] 	 SYMBOL:id,	 ARGS:
+		 14: HASH-project_id- def_%v_9 %v_8[2.13,] 
+		 15: %v_4->where def_%v_10 %v_4[2.9,] %v_9[2.14,] 	 SYMBOL:	 ARGS:%v_9,
+		 16: COPY TYPE_StringLiteral "(start_date>=? and start_date<=?) or (due_date>=? and due_date<=?)" def_%v_11 
+		 17: %v_10->where def_%v_12 %v_10[2.15,] %v_11[2.16,] startdt[2.5,] enddt[2.6,] startdt[2.5,] enddt[2.6,] 	 SYMBOL:	 ARGS:%v_11,startdt,enddt,startdt,enddt,
+		 18: %v_12->includes def_%v_13 %v_12[2.17,] 	 SYMBOL:project,tracker,priority,assigned_to,	 ARGS:Symbol,Symbol,Symbol,Symbol,
+		 19: %v_13->references def_%v_14 %v_13[2.18,] 	 SYMBOL:project,tracker,priority,assigned_to,	 ARGS:Symbol,Symbol,Symbol,Symbol,
+		 20: %v_14->to_a def_%v_15 %v_14[2.19,] 	 SYMBOL:	 ARGS:
+		 21: RETURN %v_15[2.20,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = documents_items instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Document) def_%v_3 
+		 7: %v_3->visible def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: (Document) def_%v_5 
+		 9: %v_5->table_name def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral ".created_on DESC" def_%v_7 
+		 11: BUILDSTRING def_%v_8 %v_6[2.9,] %v_7[2.10,] 
+		 12: %v_4->order def_%v_9 %v_4[2.7,] %v_8[2.11,] 	 SYMBOL:	 ARGS:%v_8,
+		 13: %v_9->limit def_%v_10 %v_9[2.12,] 	 SYMBOL:	 ARGS:Fixnum,
+		 14: %v_10->to_a def_%v_11 %v_10[2.13,] 	 SYMBOL:	 ARGS:
+		 15: RETURN %v_11[2.14,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = issuesassignedtome_items instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Issue) def_%v_3 
+		 7: %v_3->visible def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->open def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: (User) def_%v_6 
+		 10: %v_6->current def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->assigned_to def_%v_8 %v_5[2.8,] %v_7[2.10,] 	 SYMBOL:	 ARGS:%v_7,
+		 12: %v_8->limit def_%v_9 %v_8[2.11,] 	 SYMBOL:	 ARGS:Fixnum,
+		 13: %v_9->includes def_%v_10 %v_9[2.12,] 	 SYMBOL:status,project,tracker,priority,	 ARGS:Symbol,Symbol,Symbol,Symbol,
+		 14: %v_10->references def_%v_11 %v_10[2.13,] 	 SYMBOL:status,project,tracker,priority,	 ARGS:Symbol,Symbol,Symbol,Symbol,
+		 15: 
+		 16: (IssuePriority) def_%v_12 
+		 17: %v_12->table_name def_%v_13 %v_12[2.16,] 	 SYMBOL:	 ARGS:
+		 18: COPY TYPE_StringLiteral ".position DESC, " def_%v_14 
+		 19: (Issue) def_%v_15 
+		 20: %v_15->table_name def_%v_16 %v_15[2.19,] 	 SYMBOL:	 ARGS:
+		 21: COPY TYPE_StringLiteral ".updated_on DESC" def_%v_17 
+		 22: BUILDSTRING def_%v_18 %v_13[2.17,] %v_14[2.18,] %v_16[2.20,] %v_17[2.21,] 
+		 23: %v_11->order def_%v_19 %v_11[2.14,] %v_18[2.22,] 	 SYMBOL:	 ARGS:%v_18,
+		 24: RETURN %v_19[2.23,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = issuesreportedbyme_items instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Issue) def_%v_3 
+		 7: %v_3->visible def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: (User) def_%v_5 
+		 9: %v_5->current def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_6->id def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: HASH-author_id- def_%v_8 %v_7[2.10,] 
+		 12: %v_4->where def_%v_9 %v_4[2.7,] %v_8[2.11,] 	 SYMBOL:	 ARGS:%v_8,
+		 13: %v_9->limit def_%v_10 %v_9[2.12,] 	 SYMBOL:	 ARGS:Fixnum,
+		 14: %v_10->includes def_%v_11 %v_10[2.13,] 	 SYMBOL:status,project,tracker,	 ARGS:Symbol,Symbol,Symbol,
+		 15: %v_11->references def_%v_12 %v_11[2.14,] 	 SYMBOL:status,project,tracker,	 ARGS:Symbol,Symbol,Symbol,
+		 16: 
+		 17: (Issue) def_%v_13 
+		 18: %v_13->table_name def_%v_14 %v_13[2.17,] 	 SYMBOL:	 ARGS:
+		 19: COPY TYPE_StringLiteral ".updated_on DESC" def_%v_15 
+		 20: BUILDSTRING def_%v_16 %v_14[2.18,] %v_15[2.19,] 
+		 21: %v_12->order def_%v_17 %v_12[2.15,] %v_16[2.20,] 	 SYMBOL:	 ARGS:%v_16,
+		 22: RETURN %v_17[2.21,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = issueswatched_items instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Issue) def_%v_3 
+		 7: %v_3->visible def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->open def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->on_active_project def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: (User) def_%v_7 
+		 11: %v_7->current def_%v_8 %v_7[2.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_8->id def_%v_9 %v_8[2.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_6->watched_by def_%v_10 %v_6[2.9,] %v_9[2.12,] 	 SYMBOL:	 ARGS:%v_9,
+		 14: %v_10->recently_updated def_%v_11 %v_10[2.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_11->limit def_%v_12 %v_11[2.14,] 	 SYMBOL:	 ARGS:Fixnum,
+		 16: RETURN %v_12[2.15,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = news_items instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (News) def_%v_3 
+		 7: %v_3->visible def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: (User) def_%v_5 
+		 9: %v_5->current def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_6->projects def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_7->map def_%v_8 %v_7[2.10,] 	 SYMBOL:id,	 ARGS:
+		 12: HASH-project_id- def_%v_9 %v_8[2.11,] 
+		 13: %v_4->where def_%v_10 %v_4[2.7,] %v_9[2.12,] 	 SYMBOL:	 ARGS:%v_9,
+		 14: %v_10->limit def_%v_11 %v_10[2.13,] 	 SYMBOL:	 ARGS:Fixnum,
+		 15: %v_11->includes def_%v_12 %v_11[2.14,] 	 SYMBOL:project,author,	 ARGS:Symbol,Symbol,
+		 16: %v_12->references def_%v_13 %v_12[2.15,] 	 SYMBOL:project,author,	 ARGS:Symbol,Symbol,
+		 17: 
+		 18: (News) def_%v_14 
+		 19: %v_14->table_name def_%v_15 %v_14[2.18,] 	 SYMBOL:	 ARGS:
+		 20: COPY TYPE_StringLiteral ".created_on DESC" def_%v_16 
+		 21: BUILDSTRING def_%v_17 %v_15[2.19,] %v_16[2.20,] 
+		 22: %v_13->order def_%v_18 %v_13[2.16,] %v_17[2.21,] 	 SYMBOL:	 ARGS:%v_17,
+		 23: %v_18->to_a def_%v_19 %v_18[2.22,] 	 SYMBOL:	 ARGS:
+		 24: RETURN %v_19[2.23,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = timelog_items instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (TimeEntry) def_%v_3 
+		 7: 
+		 8: (TimeEntry) def_%v_4 
+		 9: %v_4->table_name def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral ".user_id = ? AND " def_%v_6 
+		 11: (TimeEntry) def_%v_7 
+		 12: %v_7->table_name def_%v_8 %v_7[2.11,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_StringLiteral ".spent_on BETWEEN ? AND ?" def_%v_9 
+		 14: BUILDSTRING def_%v_10 %v_5[2.9,] %v_6[2.10,] %v_8[2.12,] %v_9[2.13,] 
+		 15: (User) def_%v_11 
+		 16: %v_11->current def_%v_12 %v_11[2.15,] 	 SYMBOL:	 ARGS:
+		 17: %v_12->id def_%v_13 %v_12[2.16,] 	 SYMBOL:	 ARGS:
+		 18: (User) def_%v_14 
+		 19: %v_14->current def_%v_15 %v_14[2.18,] 	 SYMBOL:	 ARGS:
+		 20: %v_15->today def_%v_16 %v_15[2.19,] 	 SYMBOL:	 ARGS:
+		 21: %v_16->- def_%v_17 %v_16[2.20,] 	 SYMBOL:	 ARGS:Fixnum,
+		 22: (User) def_%v_18 
+		 23: %v_18->current def_%v_19 %v_18[2.22,] 	 SYMBOL:	 ARGS:
+		 24: %v_19->today def_%v_20 %v_19[2.23,] 	 SYMBOL:	 ARGS:
+		 25: %v_3->where def_%v_21 %v_3[2.6,] %v_10[2.14,] %v_13[2.17,] %v_17[2.21,] %v_20[2.24,] 	 SYMBOL:	 ARGS:%v_10,%v_13,%v_17,%v_20,
+		 26: %v_21->joins def_%v_22 %v_21[2.25,] 	 SYMBOL:activity,project,	 ARGS:Symbol,Symbol,
+		 27: COPY TYPE_Array def_%v_23 
+		 28: HASH-issue- def_%v_24 %v_23[2.27,] 
+		 29: %v_22->references def_%v_25 %v_22[2.26,] %v_24[2.28,] 	 SYMBOL:	 ARGS:%v_24,
+		 30: COPY TYPE_Array def_%v_26 
+		 31: HASH-issue- def_%v_27 %v_26[2.30,] 
+		 32: %v_25->includes def_%v_28 %v_25[2.29,] %v_27[2.31,] 	 SYMBOL:	 ARGS:%v_27,
+		 33: 
+		 34: (TimeEntry) def_%v_29 
+		 35: %v_29->table_name def_%v_30 %v_29[2.34,] 	 SYMBOL:	 ARGS:
+		 36: COPY TYPE_StringLiteral ".spent_on DESC, " def_%v_31 
+		 37: (Project) def_%v_32 
+		 38: %v_32->table_name def_%v_33 %v_32[2.37,] 	 SYMBOL:	 ARGS:
+		 39: COPY TYPE_StringLiteral ".name ASC, " def_%v_34 
+		 40: (Tracker) def_%v_35 
+		 41: %v_35->table_name def_%v_36 %v_35[2.40,] 	 SYMBOL:	 ARGS:
+		 42: COPY TYPE_StringLiteral ".position ASC, " def_%v_37 
+		 43: (Issue) def_%v_38 
+		 44: %v_38->table_name def_%v_39 %v_38[2.43,] 	 SYMBOL:	 ARGS:
+		 45: COPY TYPE_StringLiteral ".id ASC" def_%v_40 
+		 46: BUILDSTRING def_%v_41 %v_30[2.35,] %v_31[2.36,] %v_33[2.38,] %v_34[2.39,] %v_36[2.41,] %v_37[2.42,] %v_39[2.44,] %v_40[2.45,] 
+		 47: %v_28->order def_%v_42 %v_28[2.32,] %v_41[2.46,] 	 SYMBOL:	 ARGS:%v_41,
+		 48: %v_42->to_a def_%v_43 %v_42[2.47,] 	 SYMBOL:	 ARGS:
+		 49: RETURN %v_43[2.48,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

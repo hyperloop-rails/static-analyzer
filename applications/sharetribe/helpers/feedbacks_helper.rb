@@ -1,0 +1,3 @@
+module FeedbacksHelper
+
+end

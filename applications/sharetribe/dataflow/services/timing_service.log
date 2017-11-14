@@ -1,0 +1,101 @@
+SET IRMethod, name = log instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_threshold 
+		 6: threshold[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Float def_threshold 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_message 
+		 1: message[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_message 
+BB 6
+	outgoing: 7 10 
+	datadep: 
+	instructions:
+		 0: def_%v_3 
+		 1: def_block %v_3[6.0,] 
+		 2: 
+		 3: (Time) def_%v_4 
+		 4: %v_4->now def_%v_5 %v_4[6.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_beginning_time %v_5[6.4,] 
+		 6: 
+		 7: block->call def_%v_6 block[6.1,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_result %v_6[6.7,] 
+		 9: 
+		 10: (Time) def_%v_7 
+		 11: %v_7->now def_%v_8 %v_7[6.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_PASS def_end_time %v_8[6.11,] 
+		 13: 
+		 14: %v_8->- def_%v_9 %v_8[6.11,] beginning_time[6.5,] 	 SYMBOL:	 ARGS:beginning_time,
+		 15: COPY TYPE_PASS def_total_time %v_9[6.14,] 
+		 16: 
+		 17: %v_9->> def_%v_10 %v_9[6.14,] threshold[3.0,2.5,] 	 SYMBOL:	 ARGS:threshold,
+		 18: BRANCH %v_10[6.17,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_11 message[5.0,4.0,] 
+		 2: COPY TYPE_PASS def_%v_12 message[5.0,4.0,] 
+		 3: BRANCH message[5.0,4.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Operation took too long" def_%v_13 
+		 1: COPY TYPE_PASS def_message %v_13[8.0,] 
+		 2: COPY TYPE_PASS def_%v_12 %v_13[8.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Rails) def_%v_14 
+		 2: %v_14->logger def_%v_15 %v_14[9.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "[PERF] " def_%v_16 
+		 4: COPY TYPE_StringLiteral " : " def_%v_17 
+		 5: end_time->- def_%v_18 end_time[6.12,] beginning_time[6.5,] 	 SYMBOL:	 ARGS:beginning_time,
+		 6: %v_18->* def_%v_19 %v_18[9.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 7: COPY TYPE_StringLiteral " ms" def_%v_20 
+		 8: BUILDSTRING def_%v_21 %v_16[9.3,] message[8.1,5.0,4.0,] %v_17[9.4,] %v_19[9.6,] %v_20[9.7,] 
+		 9: %v_15->warn def_%v_22 %v_15[9.2,] %v_21[9.8,] 	 SYMBOL:	 ARGS:%v_21,
+		 10: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN result[6.8,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+

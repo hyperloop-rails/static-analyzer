@@ -1,0 +1,266 @@
+SET IRMethod, name = copy_hidden_share_visibilities_to_users instanceMethod = false
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_only_recent 
+		 6: only_recent[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Boolean def_only_recent 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ShareVisibility) def_%v_3 
+		 2: HASH-hidden- def_%v_4 
+		 3: %v_3->where def_%v_5 %v_3[4.1,] %v_4[4.2,] 	 SYMBOL:	 ARGS:%v_4,
+		 4: HASH-contact- def_%v_6 
+		 5: %v_5->includes def_%v_7 %v_5[4.3,] %v_6[4.4,] 	 SYMBOL:	 ARGS:%v_6,
+		 6: COPY TYPE_PASS def_query %v_7[4.5,] 
+		 7: 
+		 8: BRANCH only_recent[3.0,2.5,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "share_visibilities.updated_at > ?" def_%v_8 
+		 1: (RECENT) def_%v_9 
+		 2: %v_9->weeks def_%v_10 %v_9[5.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_10->ago def_%v_11 %v_10[5.2,] 	 SYMBOL:	 ARGS:
+		 4: query->where def_%v_12 query[4.6,] %v_8[5.0,] %v_11[5.3,] 	 SYMBOL:	 ARGS:%v_8,%v_11,
+		 5: COPY TYPE_PASS def_query %v_12[5.4,] 
+		 6: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: query->count def_%v_13 query[5.5,4.6,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_count %v_13[7.1,] 
+		 3: 
+		 4: COPY TYPE_StringLiteral "Updating " def_%v_14 
+		 5: COPY TYPE_StringLiteral " records in batches of 1000..." def_%v_15 
+		 6: BUILDSTRING def_%v_16 %v_14[7.4,] %v_13[7.1,] %v_15[7.5,] 
+		 7: %self->puts def_%v_17 %self[2.0,] %v_16[7.6,] 	 SYMBOL:	 ARGS:%v_16,
+		 8: 
+		 9: COPY TYPE_Fixnum def_batch_count 
+		 10: 
+		 11: query->find_in_batches def_%v_18 query[7.1,5.5,4.6,] %self[7.7,2.0,] 	 SYMBOL:	 ARGS:query,
+CLOSURE BEGIN: count[7.2,] batch_count[7.9,] %self[7.7,2.0,] visibilities[] visibility[] u[] type[] id[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_visibilities 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Updating batch #" def_%cl_1_3 
+		 2: COPY TYPE_StringLiteral " of " def_%cl_1_4 
+		 3: count->/ def_%cl_1_5 count[] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: %cl_1_5->+ def_%cl_1_6 %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: COPY TYPE_StringLiteral "..." def_%cl_1_7 
+		 6: BUILDSTRING def_%cl_1_8 %cl_1_3[3.1,] batch_count[] %cl_1_4[3.2,] %cl_1_6[3.4,] %cl_1_7[3.5,] 
+		 7: %self->puts def_%cl_1_9 %self[2.0,] %cl_1_8[3.6,] 	 SYMBOL:	 ARGS:%cl_1_8,
+		 8: 
+		 9: batch_count->+ def_%cl_1_10 batch_count[] 	 SYMBOL:	 ARGS:Fixnum,
+		 10: COPY TYPE_PASS def_batch_count %cl_1_10[3.9,] 
+		 11: 
+		 12: visibilities->each def_%cl_1_11 visibilities[2.2,] %self[3.7,2.0,] 	 SYMBOL:	 ARGS:visibilities,
+CLOSURE BEGIN: visibility[] u[] type[] id[] %self[3.7,2.0,] 
+BB 1
+	outgoing: 22 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_visibility 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+		 5: 
+		 6: GLOBALVAR $! def_%cl_2_3 
+BB 4
+	outgoing: 6 7 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: visibility->shareable_type def_%cl_2_6 visibility[2.2,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_type %cl_2_6[4.2,] 
+		 4: 
+		 5: visibility->shareable_id def_%cl_2_7 visibility[4.2,2.2,] 	 SYMBOL:	 ARGS:
+		 6: %cl_2_7->to_s def_%cl_2_8 %cl_2_7[4.5,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_PASS def_id %cl_2_8[4.6,] 
+		 8: 
+		 9: visibility->contact def_%cl_2_9 visibility[4.2,4.5,2.2,] 	 SYMBOL:	 ARGS:
+		 10: %cl_2_9->user def_%cl_2_10 %cl_2_9[4.9,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_PASS def_u %cl_2_10[4.10,] 
+		 12: 
+		 13: %cl_2_10->hidden_shareables def_%cl_2_11 %cl_2_10[4.10,] 	 SYMBOL:	 ARGS:
+		 14: BRANCH %cl_2_11[4.13,] 
+BB 6
+	outgoing: 7 14 
+	datadep: 
+	instructions:
+		 0: HASH- def_%cl_2_13 
+		 1: u->hidden_shareables= def_%cl_2_12 %cl_2_13[6.0,] 	 SYMBOL:	 ARGS:%cl_2_13,
+		 2: COPY TYPE_PASS def_%cl_2_11 %cl_2_13[6.0,] 
+BB 7
+	outgoing: 8 9 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: u->hidden_shareables def_%cl_2_14 u[6.1,4.11,] 	 SYMBOL:	 ARGS:
+		 2: %cl_2_14->[] def_%cl_2_15 %cl_2_14[7.1,] type[4.3,] 	 SYMBOL:	 ARGS:type,
+		 3: BRANCH %cl_2_15[7.2,] 
+BB 8
+	outgoing: 9 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%cl_2_16 
+		 1: %cl_2_14->[]= def_%cl_2_15 %cl_2_14[7.1,] type[4.3,] %cl_2_16[8.0,] 	 SYMBOL:	 ARGS:type,%cl_2_16,
+		 2: COPY TYPE_PASS def_%cl_2_15 %cl_2_16[8.0,] 
+BB 9
+	outgoing: 10 11 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: u->hidden_shareables def_%cl_2_17 u[6.1,4.11,] 	 SYMBOL:	 ARGS:
+		 2: %cl_2_17->[] def_%cl_2_18 %cl_2_17[9.1,] type[4.3,] 	 SYMBOL:	 ARGS:type,
+		 3: %cl_2_18->include? def_%cl_2_19 %cl_2_18[9.2,] id[4.7,] 	 SYMBOL:	 ARGS:id,
+		 4: BRANCH %cl_2_19[9.3,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_2_20 
+		 1: 
+BB 11
+	outgoing: 12 14 
+	datadep: 
+	instructions:
+		 0: u->hidden_shareables def_%cl_2_21 u[6.1,4.11,] 	 SYMBOL:	 ARGS:
+		 1: %cl_2_21->[] def_%cl_2_22 %cl_2_21[11.0,] type[4.3,] 	 SYMBOL:	 ARGS:type,
+		 2: %cl_2_22-><< def_%cl_2_23 %cl_2_22[11.1,] id[4.7,] 	 SYMBOL:	 ARGS:id,
+		 3: COPY TYPE_PASS def_%cl_2_20 %cl_2_23[11.2,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-validate- def_%cl_2_24 
+		 2: u->save! def_%cl_2_25 u[6.1,4.11,] %cl_2_24[12.1,] 	 SYMBOL:	 ARGS:%cl_2_24,
+		 3: COPY TYPE_PASS def_%cl_2_5 %cl_2_25[12.2,] 
+		 4: %cl_2_3[2.6,] 
+BB 13
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+BB 14
+	outgoing: 15 16 18 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_26 
+		 1: def_%cl_2_27 %cl_2_26[14.0,] 
+		 2: BRANCH %cl_2_27[14.1,] 
+BB 15
+	outgoing: 18 22 
+	datadep: 
+	instructions:
+		 0: %cl_2_26[14.0,] 
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%cl_2_28 
+		 1: COPY TYPE_PASS def_e %cl_2_28[16.0,] 
+		 2: 
+		 3: COPY TYPE_StringLiteral "ERROR: " def_%cl_2_29 
+		 4: %cl_2_28->message def_%cl_2_30 %cl_2_28[16.0,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral " skipping pv with id: " def_%cl_2_31 
+		 6: visibility->id def_%cl_2_32 visibility[2.2,] 	 SYMBOL:	 ARGS:
+		 7: BUILDSTRING def_%cl_2_33 %cl_2_29[16.3,] %cl_2_30[16.4,] %cl_2_31[16.5,] %cl_2_32[16.6,] 
+		 8: %self->puts def_%cl_2_34 %self[2.0,] %cl_2_33[16.7,] 	 SYMBOL:	 ARGS:%cl_2_33,
+		 9: COPY TYPE_PASS def_%cl_2_5 %cl_2_34[16.8,] 
+		 10: %cl_2_3[2.6,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+BB 18
+	outgoing: 20 22 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_35 
+		 1: def_%cl_2_36 %cl_2_35[18.0,] %cl_2_3[2.6,] 
+		 2: %cl_2_35[18.0,] 
+BB 19
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_2_5[12.3,16.9,] %self[2.0,] 
+BB 20
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_37 
+		 1: def_%cl_2_38 %cl_2_37[20.0,] 
+		 2: RETURN %cl_2_38[20.1,] %self[2.0,] 
+BB 22
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: u[6.1,4.11,] e[16.1,] id[4.7,] type[4.3,] 
+		 13: RETURN %cl_1_11[3.12,] %self[3.7,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_12 
+		 1: def_%cl_1_13 %cl_1_12[4.0,] 
+		 2: RETURN %cl_1_13[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: batch_count[3.10,] 
+		 12: RETURN %v_18[7.11,] %self[7.7,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,191 @@
+SET IRMethod, name = signup instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_company 
+		 7: RECEIVECONSTARG def_sent_at 
+		 8: sent_at[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (Time) def_%v_3 
+		 1: %v_3->now def_%v_4 %v_3[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_sent_at %v_4[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Array def_%v_5 user[2.5,] company[2.6,] 
+		 2: COPY TYPE_PASS def_%v_6 user[2.5,] 
+		 3: COPY TYPE_PASS def_%v_7 company[2.6,] 
+		 4: ATTRASSIGN %self->user user[2.5,] 
+		 5: ATTRASSIGN %self->company company[2.6,] 
+		 6: 
+		 7: (I18n) def_%v_8 
+		 8: COPY TYPE_StringLiteral "email.subject.signup" def_%v_9 
+		 9: %v_8->t def_%v_10 %v_8[4.7,] %v_9[4.8,] 	 SYMBOL:	 ARGS:%v_9,
+		 10: user->email def_%v_11 user[2.5,] 	 SYMBOL:	 ARGS:
+		 11: HASH-subject-to-date- def_%v_12 %v_10[4.9,] %v_11[4.10,] sent_at[3.2,2.7,] 
+		 12: %self->mail def_%v_13 %self[4.4,4.5,2.0,] %v_12[4.11,] 	 SYMBOL:	 ARGS:%v_12,
+		 13: RETURN %v_13[4.12,] %self[4.4,4.5,4.12,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = account_created instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_created_by 
+		 7: RECEIVEARG def_welcome_message 
+		 8: RECEIVECONSTARG def_sent_at 
+		 9: sent_at[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (Time) def_%v_3 
+		 1: %v_3->now def_%v_4 %v_3[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_sent_at %v_4[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Array def_%v_5 user[2.5,] created_by[2.6,] welcome_message[2.7,] 
+		 2: COPY TYPE_PASS def_%v_6 user[2.5,] 
+		 3: COPY TYPE_PASS def_%v_7 created_by[2.6,] 
+		 4: COPY TYPE_PASS def_%v_8 welcome_message[2.7,] 
+		 5: ATTRASSIGN %self->user user[2.5,] 
+		 6: ATTRASSIGN %self->created_by created_by[2.6,] 
+		 7: ATTRASSIGN %self->welcome_message welcome_message[2.7,] 
+		 8: 
+		 9: (I18n) def_%v_9 
+		 10: COPY TYPE_StringLiteral "email.subject.account_created" def_%v_10 
+		 11: created_by->name def_%v_11 created_by[2.6,] 	 SYMBOL:	 ARGS:
+		 12: HASH-name- def_%v_12 %v_11[4.11,] 
+		 13: %v_9->t def_%v_13 %v_9[4.9,] %v_10[4.10,] %v_12[4.12,] 	 SYMBOL:	 ARGS:%v_10,%v_12,
+		 14: user->email def_%v_14 user[2.5,] 	 SYMBOL:	 ARGS:
+		 15: created_by->email def_%v_15 created_by[4.11,2.6,] 	 SYMBOL:	 ARGS:
+		 16: HASH-subject-to-date-reply_to- def_%v_16 %v_13[4.13,] %v_14[4.14,] sent_at[3.2,2.8,] %v_15[4.15,] 
+		 17: %self->mail def_%v_17 %self[4.5,4.6,4.7,2.0,] %v_16[4.16,] 	 SYMBOL:	 ARGS:%v_16,
+		 18: RETURN %v_17[4.17,] %self[4.5,4.6,4.7,4.17,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mass_email instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVECONSTARG def_sent_at 
+		 7: sent_at[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (Time) def_%v_3 
+		 1: %v_3->now def_%v_4 %v_3[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_sent_at %v_4[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->user user[2.5,] 
+		 2: 
+		 3: (I18n) def_%v_5 
+		 4: COPY TYPE_StringLiteral "email.subject.mass_email" def_%v_6 
+		 5: %v_5->t def_%v_7 %v_5[4.3,] %v_6[4.4,] 	 SYMBOL:	 ARGS:%v_6,
+		 6: user->email def_%v_8 user[2.5,] 	 SYMBOL:	 ARGS:
+		 7: HASH-subject-to-date- def_%v_9 %v_7[4.5,] %v_8[4.6,] sent_at[3.2,2.6,] 
+		 8: %self->mail def_%v_10 %self[4.1,2.0,] %v_9[4.7,] 	 SYMBOL:	 ARGS:%v_9,
+		 9: RETURN %v_10[4.8,] %self[4.1,4.8,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = subdomain_changed instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVECONSTARG def_sent_at 
+		 7: sent_at[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (Time) def_%v_3 
+		 1: %v_3->now def_%v_4 %v_3[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_sent_at %v_4[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->user user[2.5,] 
+		 2: 
+		 3: (I18n) def_%v_5 
+		 4: COPY TYPE_StringLiteral "email.subject.subdomain_changed" def_%v_6 
+		 5: user->company def_%v_7 user[2.5,] 	 SYMBOL:	 ARGS:
+		 6: %v_7->name def_%v_8 %v_7[4.5,] 	 SYMBOL:	 ARGS:
+		 7: HASH-company_name- def_%v_9 %v_8[4.6,] 
+		 8: %v_5->t def_%v_10 %v_5[4.3,] %v_6[4.4,] %v_9[4.7,] 	 SYMBOL:	 ARGS:%v_6,%v_9,
+		 9: user->email def_%v_11 user[4.5,2.5,] 	 SYMBOL:	 ARGS:
+		 10: HASH-subject-to-date- def_%v_12 %v_10[4.8,] %v_11[4.9,] sent_at[3.2,2.6,] 
+		 11: %self->mail def_%v_13 %self[4.1,2.0,] %v_12[4.10,] 	 SYMBOL:	 ARGS:%v_12,
+		 12: RETURN %v_13[4.11,] %self[4.1,4.11,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

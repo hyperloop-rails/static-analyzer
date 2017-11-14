@@ -1,0 +1,195 @@
+SET IRMethod, name = count instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_community_id 
+		 6: community_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_query 
+		 1: query[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->where_models def_%v_3 %self[2.0,] community_id[2.5,] query[4.0,] 	 SYMBOL:	 ARGS:community_id,query,
+		 2: %v_3->count def_%v_4 %v_3[6.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %v_4[6.2,] %self[6.1,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_all instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_community_id 
+		 6: community_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_community_id 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_query 
+		 1: query[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: def_opts 
+		 1: opts[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_3 opts[6.0,] 	 SYMBOL:updated_at,	 ARGS:Symbol,
+		 2: BRANCH %v_3[8.1,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: (Time) def_%v_4 
+		 1: %v_4->now def_%v_5 %v_4[9.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_3 %v_5[9.1,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN opts->[] %v_3[9.2,8.1,] 
+		 1: 
+		 2: %self->where_models def_%v_6 %self[2.0,] community_id[3.0,2.5,] query[4.0,] 	 SYMBOL:	 ARGS:community_id,query,
+		 3: (SQLUtils) def_%v_7 
+		 4: HASH-listings- def_%v_8 opts[10.0,6.0,] 
+		 5: %v_7->hash_to_query def_%v_9 %v_7[10.3,] %v_8[10.4,] 	 SYMBOL:	 ARGS:%v_8,
+		 6: %v_6->update_all def_%v_10 %v_6[10.2,] %v_9[10.5,] 	 SYMBOL:	 ARGS:%v_9,
+		 7: RETURN %v_10[10.6,] %self[10.2,2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = where_models instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_community_id 
+		 6: RECEIVEARG def_query 
+		 7: 
+		 8: (ListingModel) def_%v_3 
+		 9: HASH-community_id- def_%v_4 community_id[2.5,] 
+		 10: %v_3->where def_%v_5 %v_3[2.8,] %v_4[2.9,] 	 SYMBOL:	 ARGS:%v_4,
+		 11: COPY TYPE_PASS def_ar_query %v_5[2.10,] 
+		 12: 
+		 13: 
+		 14: query->[] def_%v_6 query[2.6,] 	 SYMBOL:open,	 ARGS:Symbol,
+		 15: %v_6->== def_%v_7 %v_6[2.14,] 	 SYMBOL:	 ARGS:Boolean,
+		 16: BRANCH %v_7[2.15,] 
+BB 3
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ar_query->currently_open def_%v_8 ar_query[2.11,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: query->[] def_%v_9 query[2.6,] 	 SYMBOL:open,	 ARGS:Symbol,
+		 2: %v_9->== def_%v_10 %v_9[4.1,] 	 SYMBOL:	 ARGS:Boolean,
+		 3: BRANCH %v_10[4.2,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (NotImplementedError) def_%v_11 
+		 2: COPY TYPE_StringLiteral "Count of closed listings is not implemented" def_%v_12 
+		 3: %v_11->new def_%v_13 %v_11[5.1,] %v_12[5.2,] 	 SYMBOL:	 ARGS:%v_12,
+		 4: %self->raise def_%v_14 %self[2.0,] %v_13[5.3,] 	 SYMBOL:	 ARGS:%v_13,
+		 5: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_14 ar_query[2.11,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_8 %v_14[6.1,5.4,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_ar_query %v_8[7.0,3.1,] 
+		 1: 
+		 2: query->except def_%v_15 query[2.6,] 	 SYMBOL:open,	 ARGS:Symbol,
+		 3: ar_query->where def_%v_16 ar_query[8.0,] %v_15[8.2,] 	 SYMBOL:	 ARGS:%v_15,
+		 4: RETURN %v_16[8.3,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,1491 @@
+SET IRMethod, name = add_commits instanceMethod = false
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_noteable 
+		 6: RECEIVEARG def_project 
+		 7: RECEIVEARG def_author 
+		 8: RECEIVEARG def_new_commits 
+		 9: RECEIVECONSTARG def_existing_commits 
+		 10: existing_commits[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_3 
+		 1: COPY TYPE_PASS def_existing_commits %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_oldrev 
+		 1: oldrev[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_oldrev 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: new_commits->length def_%v_4 new_commits[2.8,] 	 SYMBOL:	 ARGS:
+		 2: existing_commits->length def_%v_5 existing_commits[3.1,2.9,] 	 SYMBOL:	 ARGS:
+		 3: %v_4->+ def_%v_6 %v_4[6.1,] %v_5[6.2,] 	 SYMBOL:	 ARGS:%v_5,
+		 4: COPY TYPE_PASS def_total_count %v_6[6.3,] 
+		 5: 
+		 6: COPY TYPE_StringLiteral " commit" def_%v_7 
+		 7: BUILDSTRING def_%v_8 %v_6[6.3,] %v_7[6.6,] 
+		 8: %v_8->pluralize def_%v_9 %v_8[6.7,] %v_6[6.3,] 	 SYMBOL:	 ARGS:total_count,
+		 9: COPY TYPE_PASS def_commits_text %v_9[6.8,] 
+		 10: 
+		 11: COPY TYPE_StringLiteral "Added " def_%v_10 
+		 12: COPY TYPE_StringLiteral ":
+
+" def_%v_11 
+		 13: BUILDSTRING def_%v_12 %v_10[6.11,] %v_9[6.8,] %v_11[6.12,] 
+		 14: COPY TYPE_PASS def_body %v_12[6.13,] 
+		 15: 
+		 16: %self->existing_commit_summary def_%v_13 %self[2.0,] noteable[2.5,] existing_commits[6.2,3.1,2.9,] oldrev[5.0,4.0,] 	 SYMBOL:	 ARGS:noteable,existing_commits,oldrev,
+		 17: body-><< def_%v_14 body[6.14,] %v_13[6.16,] 	 SYMBOL:	 ARGS:%v_13,
+		 18: 
+		 19: %self->new_commit_summary def_%v_15 %self[6.16,2.0,] new_commits[6.1,2.8,] 	 SYMBOL:	 ARGS:new_commits,
+		 20: COPY TYPE_StringLiteral "
+" def_%v_16 
+		 21: %v_15->join def_%v_17 %v_15[6.19,] %v_16[6.20,] 	 SYMBOL:	 ARGS:%v_16,
+		 22: body-><< def_%v_18 body[6.14,6.17,] %v_17[6.21,] 	 SYMBOL:	 ARGS:%v_17,
+		 23: 
+		 24: HASH-noteable-project-author-note- def_%v_19 noteable[2.5,] project[2.6,] author[2.7,] body[6.14,6.17,6.22,] 
+		 25: %self->create_note def_%v_20 %self[6.16,6.19,2.0,] %v_19[6.24,] 	 SYMBOL:	 ARGS:%v_19,
+		 26: RETURN %v_20[6.25,] %self[6.16,6.19,6.25,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = change_assignee instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_noteable 
+		 6: RECEIVEARG def_project 
+		 7: RECEIVEARG def_author 
+		 8: RECEIVEARG def_assignee 
+		 9: 
+		 10: assignee->nil? def_%v_3 assignee[2.8,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_3[2.10,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Assignee removed" def_%v_4 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Reassigned to " def_%v_5 
+		 1: assignee->to_reference def_%v_6 assignee[2.8,] 	 SYMBOL:	 ARGS:
+		 2: BUILDSTRING def_%v_7 %v_5[4.0,] %v_6[4.1,] 
+		 3: COPY TYPE_PASS def_%v_4 %v_7[4.2,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_body %v_4[4.3,3.0,] 
+		 1: 
+		 2: HASH-noteable-project-author-note- def_%v_8 noteable[2.5,] project[2.6,] author[2.7,] %v_4[4.3,3.0,] 
+		 3: %self->create_note def_%v_9 %self[2.0,] %v_8[5.2,] 	 SYMBOL:	 ARGS:%v_8,
+		 4: RETURN %v_9[5.3,] %self[5.3,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = change_label instanceMethod = false
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_noteable 
+		 6: RECEIVEARG def_project 
+		 7: RECEIVEARG def_author 
+		 8: RECEIVEARG def_added_labels 
+		 9: RECEIVEARG def_removed_labels 
+		 10: 
+		 11: added_labels->count def_%v_3 added_labels[2.8,] 	 SYMBOL:	 ARGS:
+		 12: removed_labels->count def_%v_4 removed_labels[2.9,] 	 SYMBOL:	 ARGS:
+		 13: %v_3->+ def_%v_5 %v_3[2.11,] %v_4[2.12,] 	 SYMBOL:	 ARGS:%v_4,
+		 14: COPY TYPE_PASS def_labels_count %v_5[2.13,] 
+		 15: 
+		 16: def_%v_6 %self[2.0,] 
+CLOSURE BEGIN: label[] 
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 5 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: RECEIVEARG def_label 
+		 5: 
+		 6: HASH-format- def_%cl_1_3 
+		 7: label->to_reference def_%cl_1_4 label[2.4,] %cl_1_3[2.6,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 8: RETURN %cl_1_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[3.0,] 
+		 2: RETURN %cl_1_6[3.1,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 17: COPY TYPE_PASS def_references %v_6[2.16,] 
+		 18: 
+		 19: added_labels->map def_%v_7 added_labels[2.8,2.11,] %v_6[2.16,] 	 SYMBOL:	 ARGS:
+		 20: COPY TYPE_StringLiteral " " def_%v_8 
+		 21: %v_7->join def_%v_9 %v_7[2.19,] %v_8[2.20,] 	 SYMBOL:	 ARGS:%v_8,
+		 22: COPY TYPE_PASS def_added_labels %v_9[2.21,] 
+		 23: 
+		 24: removed_labels->map def_%v_10 removed_labels[2.9,2.12,] references[2.17,] 	 SYMBOL:	 ARGS:
+		 25: COPY TYPE_StringLiteral " " def_%v_11 
+		 26: %v_10->join def_%v_12 %v_10[2.24,] %v_11[2.25,] 	 SYMBOL:	 ARGS:%v_11,
+		 27: COPY TYPE_PASS def_removed_labels %v_12[2.26,] 
+		 28: 
+		 29: COPY TYPE_StringLiteral "" def_%v_13 
+		 30: COPY TYPE_PASS def_body %v_13[2.29,] 
+		 31: 
+		 32: added_labels->present? def_%v_14 added_labels[2.8,2.11,2.19,2.22,] 	 SYMBOL:	 ARGS:
+		 33: BRANCH %v_14[2.32,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "added " def_%v_15 
+		 2: BUILDSTRING def_%v_16 %v_15[3.1,] added_labels[2.8,2.22,] 
+		 3: body-><< def_%v_17 body[2.30,] %v_16[3.2,] 	 SYMBOL:	 ARGS:%v_16,
+		 4: 
+		 5: removed_labels->present? def_%v_18 removed_labels[2.9,2.27,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %v_18[3.5,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral " and " def_%v_19 
+		 1: body-><< def_%v_20 body[2.30,] %v_19[4.0,] 	 SYMBOL:	 ARGS:%v_19,
+		 2: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_20 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_20 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: removed_labels->present? def_%v_21 removed_labels[2.9,2.27,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_21[8.1,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "removed " def_%v_22 
+		 2: BUILDSTRING def_%v_23 %v_22[9.1,] removed_labels[2.9,2.27,] 
+		 3: body-><< def_%v_24 body[2.30,] %v_23[9.2,] 	 SYMBOL:	 ARGS:%v_23,
+		 4: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_24 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral " " def_%v_25 
+		 2: body-><< def_%v_26 body[2.30,] %v_25[11.1,] 	 SYMBOL:	 ARGS:%v_25,
+		 3: COPY TYPE_StringLiteral "label" def_%v_27 
+		 4: %v_27->pluralize def_%v_28 %v_27[11.3,] labels_count[2.14,] 	 SYMBOL:	 ARGS:labels_count,
+		 5: %v_26-><< def_%v_29 %v_26[11.2,] %v_28[11.4,] 	 SYMBOL:	 ARGS:%v_28,
+		 6: 
+		 7: body->capitalize def_%v_30 body[11.2,2.30,] 	 SYMBOL:	 ARGS:
+		 8: BUILDSTRING def_%v_31 %v_30[11.7,] 
+		 9: COPY TYPE_PASS def_body %v_31[11.8,] 
+		 10: 
+		 11: HASH-noteable-project-author-note- def_%v_32 noteable[2.5,] project[2.6,] author[2.7,] %v_31[11.8,] 
+		 12: %self->create_note def_%v_33 %self[2.0,] %v_32[11.11,] 	 SYMBOL:	 ARGS:%v_32,
+		 13: RETURN %v_33[11.12,] %self[11.12,2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = change_milestone instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_noteable 
+		 6: RECEIVEARG def_project 
+		 7: RECEIVEARG def_author 
+		 8: RECEIVEARG def_milestone 
+		 9: 
+		 10: COPY TYPE_StringLiteral "Milestone " def_%v_3 
+		 11: COPY TYPE_PASS def_body %v_3[2.10,] 
+		 12: 
+		 13: milestone->nil? def_%v_4 milestone[2.8,] 	 SYMBOL:	 ARGS:
+		 14: BRANCH %v_4[2.13,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "removed" def_%v_5 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "changed to " def_%v_6 
+		 1: milestone->to_reference def_%v_7 milestone[2.8,] project[2.6,] 	 SYMBOL:	 ARGS:project,
+		 2: BUILDSTRING def_%v_8 %v_6[4.0,] %v_7[4.1,] 
+		 3: COPY TYPE_PASS def_%v_5 %v_8[4.2,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: body->+ def_%v_9 body[2.11,] %v_5[4.3,3.0,] 	 SYMBOL:	 ARGS:%v_5,
+		 1: COPY TYPE_PASS def_body %v_9[5.0,] 
+		 2: 
+		 3: HASH-noteable-project-author-note- def_%v_10 noteable[2.5,] project[2.6,] author[2.7,] %v_9[5.0,] 
+		 4: %self->create_note def_%v_11 %self[2.0,] %v_10[5.3,] 	 SYMBOL:	 ARGS:%v_10,
+		 5: RETURN %v_11[5.4,] %self[5.4,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = change_status instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_noteable 
+		 6: RECEIVEARG def_project 
+		 7: RECEIVEARG def_author 
+		 8: RECEIVEARG def_status 
+		 9: RECEIVEARG def_source 
+		 10: 
+		 11: COPY TYPE_StringLiteral "Status changed to " def_%v_3 
+		 12: BUILDSTRING def_%v_4 %v_3[2.11,] status[2.8,] 
+		 13: COPY TYPE_PASS def_body %v_4[2.12,] 
+		 14: 
+		 15: BRANCH source[2.9,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral " by " def_%v_5 
+		 1: source->gfm_reference def_%v_6 source[2.9,] project[2.6,] 	 SYMBOL:	 ARGS:project,
+		 2: BUILDSTRING def_%v_7 %v_5[3.0,] %v_6[3.1,] 
+		 3: body->+ def_%v_8 body[2.13,] %v_7[3.2,] 	 SYMBOL:	 ARGS:%v_7,
+		 4: COPY TYPE_PASS def_body %v_8[3.3,] 
+		 5: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-noteable-project-author-note- def_%v_9 noteable[2.5,] project[2.6,] author[2.7,] body[3.4,2.13,] 
+		 2: %self->create_note def_%v_10 %self[2.0,] %v_9[5.1,] 	 SYMBOL:	 ARGS:%v_9,
+		 3: RETURN %v_10[5.2,] %self[5.2,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = merge_when_build_succeeds instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_noteable 
+		 6: RECEIVEARG def_project 
+		 7: RECEIVEARG def_author 
+		 8: RECEIVEARG def_last_commit 
+		 9: 
+		 10: COPY TYPE_StringLiteral "Enabled an automatic merge when the build for " def_%v_3 
+		 11: last_commit->to_reference def_%v_4 last_commit[2.8,] project[2.6,] 	 SYMBOL:	 ARGS:project,
+		 12: COPY TYPE_StringLiteral " succeeds" def_%v_5 
+		 13: BUILDSTRING def_%v_6 %v_3[2.10,] %v_4[2.11,] %v_5[2.12,] 
+		 14: COPY TYPE_PASS def_body %v_6[2.13,] 
+		 15: 
+		 16: HASH-noteable-project-author-note- def_%v_7 noteable[2.5,] project[2.6,] author[2.7,] %v_6[2.13,] 
+		 17: %self->create_note def_%v_8 %self[2.0,] %v_7[2.16,] 	 SYMBOL:	 ARGS:%v_7,
+		 18: RETURN %v_8[2.17,] %self[2.0,2.17,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cancel_merge_when_build_succeeds instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_noteable 
+		 6: RECEIVEARG def_project 
+		 7: RECEIVEARG def_author 
+		 8: 
+		 9: COPY TYPE_StringLiteral "Canceled the automatic merge" def_%v_3 
+		 10: COPY TYPE_PASS def_body %v_3[2.9,] 
+		 11: 
+		 12: HASH-noteable-project-author-note- def_%v_4 noteable[2.5,] project[2.6,] author[2.7,] %v_3[2.9,] 
+		 13: %self->create_note def_%v_5 %self[2.0,] %v_4[2.12,] 	 SYMBOL:	 ARGS:%v_4,
+		 14: RETURN %v_5[2.13,] %self[2.0,2.13,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = remove_merge_request_wip instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_noteable 
+		 6: RECEIVEARG def_project 
+		 7: RECEIVEARG def_author 
+		 8: 
+		 9: COPY TYPE_StringLiteral "Unmarked this merge request as a Work In Progress" def_%v_3 
+		 10: COPY TYPE_PASS def_body %v_3[2.9,] 
+		 11: 
+		 12: HASH-noteable-project-author-note- def_%v_4 noteable[2.5,] project[2.6,] author[2.7,] %v_3[2.9,] 
+		 13: %self->create_note def_%v_5 %self[2.0,] %v_4[2.12,] 	 SYMBOL:	 ARGS:%v_4,
+		 14: RETURN %v_5[2.13,] %self[2.0,2.13,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = add_merge_request_wip instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_noteable 
+		 6: RECEIVEARG def_project 
+		 7: RECEIVEARG def_author 
+		 8: 
+		 9: COPY TYPE_StringLiteral "Marked this merge request as a **Work In Progress**" def_%v_3 
+		 10: COPY TYPE_PASS def_body %v_3[2.9,] 
+		 11: 
+		 12: HASH-noteable-project-author-note- def_%v_4 noteable[2.5,] project[2.6,] author[2.7,] %v_3[2.9,] 
+		 13: %self->create_note def_%v_5 %self[2.0,] %v_4[2.12,] 	 SYMBOL:	 ARGS:%v_4,
+		 14: RETURN %v_5[2.13,] %self[2.0,2.13,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = change_title instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_noteable 
+		 6: RECEIVEARG def_project 
+		 7: RECEIVEARG def_author 
+		 8: RECEIVEARG def_old_title 
+		 9: 
+		 10: noteable->respond_to? def_%v_3 noteable[2.5,] 	 SYMBOL:title,	 ARGS:Symbol,
+		 11: BRANCH %v_3[2.10,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: COPY TYPE_StringLiteral "Title changed from **" def_%v_5 
+		 3: COPY TYPE_StringLiteral "** to **" def_%v_6 
+		 4: noteable->title def_%v_7 noteable[2.5,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "**" def_%v_8 
+		 6: BUILDSTRING def_%v_9 %v_5[3.2,] old_title[2.8,] %v_6[3.3,] %v_7[3.4,] %v_8[3.5,] 
+		 7: COPY TYPE_PASS def_body %v_9[3.6,] 
+		 8: 
+		 9: HASH-noteable-project-author-note- def_%v_10 noteable[3.4,2.5,] project[2.6,] author[2.7,] %v_9[3.6,] 
+		 10: %self->create_note def_%v_11 %self[2.0,] %v_10[3.9,] 	 SYMBOL:	 ARGS:%v_10,
+		 11: RETURN %v_11[3.10,] %self[3.10,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = change_branch instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_noteable 
+		 6: RECEIVEARG def_project 
+		 7: RECEIVEARG def_author 
+		 8: RECEIVEARG def_branch_type 
+		 9: RECEIVEARG def_old_branch 
+		 10: RECEIVEARG def_new_branch 
+		 11: 
+		 12: COPY TYPE_StringLiteral " branch changed from `" def_%v_3 
+		 13: COPY TYPE_StringLiteral "` to `" def_%v_4 
+		 14: COPY TYPE_StringLiteral "`" def_%v_5 
+		 15: BUILDSTRING def_%v_6 branch_type[2.8,] %v_3[2.12,] old_branch[2.9,] %v_4[2.13,] new_branch[2.10,] %v_5[2.14,] 
+		 16: %v_6->capitalize def_%v_7 %v_6[2.15,] 	 SYMBOL:	 ARGS:
+		 17: COPY TYPE_PASS def_body %v_7[2.16,] 
+		 18: 
+		 19: HASH-noteable-project-author-note- def_%v_8 noteable[2.5,] project[2.6,] author[2.7,] %v_7[2.16,] 
+		 20: %self->create_note def_%v_9 %self[2.0,] %v_8[2.19,] 	 SYMBOL:	 ARGS:%v_8,
+		 21: RETURN %v_9[2.20,] %self[2.0,2.20,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = change_branch_presence instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_noteable 
+		 6: RECEIVEARG def_project 
+		 7: RECEIVEARG def_author 
+		 8: RECEIVEARG def_branch_type 
+		 9: RECEIVEARG def_branch 
+		 10: RECEIVEARG def_presence 
+		 11: 
+		 12: 
+		 13: presence->== def_%v_3 presence[2.10,] 	 SYMBOL:add,	 ARGS:Symbol,
+		 14: BRANCH %v_3[2.13,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "restored" def_%v_4 
+		 2: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "deleted" def_%v_5 
+		 2: COPY TYPE_PASS def_%v_4 %v_5[4.1,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_verb %v_4[4.2,3.1,] 
+		 1: 
+		 2: COPY TYPE_StringLiteral " " def_%v_6 
+		 3: branch_type->to_s def_%v_7 branch_type[2.8,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral " branch `" def_%v_8 
+		 5: COPY TYPE_StringLiteral "`" def_%v_9 
+		 6: BUILDSTRING def_%v_10 verb[5.0,] %v_6[5.2,] %v_7[5.3,] %v_8[5.4,] branch[2.9,] %v_9[5.5,] 
+		 7: %v_10->capitalize def_%v_11 %v_10[5.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_body %v_11[5.7,] 
+		 9: 
+		 10: HASH-noteable-project-author-note- def_%v_12 noteable[2.5,] project[2.6,] author[2.7,] %v_11[5.7,] 
+		 11: %self->create_note def_%v_13 %self[2.0,] %v_12[5.10,] 	 SYMBOL:	 ARGS:%v_12,
+		 12: RETURN %v_13[5.11,] %self[5.11,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = new_issue_branch instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_issue 
+		 6: RECEIVEARG def_project 
+		 7: RECEIVEARG def_author 
+		 8: RECEIVEARG def_branch 
+		 9: 
+		 10: (Gitlab) def_%v_3 
+		 11: (inherit Routing) def_%v_4 %v_3[2.10,] 
+		 12: %v_4[2.11,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.10,] 	 SYMBOL:Routing,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_4->url_helpers def_%v_5 %v_4[3.0,2.11,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_h %v_5[4.0,] 
+		 2: 
+		 3: project->namespace def_%v_6 project[2.6,] 	 SYMBOL:	 ARGS:
+		 4: project->default_branch def_%v_7 project[4.3,2.6,] 	 SYMBOL:	 ARGS:
+		 5: HASH-from-to- def_%v_8 %v_7[4.4,] branch[2.8,] 
+		 6: h->namespace_project_compare_url def_%v_9 h[4.1,] %v_6[4.3,] project[4.3,4.4,2.6,] %v_8[4.5,] 	 SYMBOL:	 ARGS:%v_6,project,%v_8,
+		 7: COPY TYPE_PASS def_link %v_9[4.6,] 
+		 8: 
+		 9: COPY TYPE_StringLiteral "Started branch [`" def_%v_10 
+		 10: COPY TYPE_StringLiteral "`](" def_%v_11 
+		 11: COPY TYPE_StringLiteral ")" def_%v_12 
+		 12: BUILDSTRING def_%v_13 %v_10[4.9,] branch[2.8,] %v_11[4.10,] %v_9[4.6,] %v_12[4.11,] 
+		 13: COPY TYPE_PASS def_body %v_13[4.12,] 
+		 14: 
+		 15: HASH-noteable-project-author-note- def_%v_14 issue[2.5,] project[4.3,4.4,2.6,] author[2.7,] %v_13[4.12,] 
+		 16: %self->create_note def_%v_15 %self[2.0,] %v_14[4.15,] 	 SYMBOL:	 ARGS:%v_14,
+		 17: RETURN %v_15[4.16,] %self[4.16,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cross_reference instanceMethod = false
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_noteable 
+		 6: RECEIVEARG def_mentioner 
+		 7: RECEIVEARG def_author 
+		 8: 
+		 9: %self->cross_reference_disallowed? def_%v_3 %self[2.0,] noteable[2.5,] mentioner[2.6,] 	 SYMBOL:	 ARGS:noteable,mentioner,
+		 10: BRANCH %v_3[2.9,] 
+BB 3
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: noteable->project def_%v_5 noteable[2.5,] 	 SYMBOL:	 ARGS:
+		 3: mentioner->gfm_reference def_%v_6 mentioner[2.6,] %v_5[4.2,] 	 SYMBOL:	 ARGS:%v_5,
+		 4: COPY TYPE_PASS def_gfm_reference %v_6[4.3,] 
+		 5: 
+		 6: noteable->project def_%v_7 noteable[4.2,2.5,] 	 SYMBOL:	 ARGS:
+		 7: %self->cross_reference_note_content def_%v_8 %self[2.0,] gfm_reference[4.4,] 	 SYMBOL:	 ARGS:gfm_reference,
+		 8: HASH-project-author-note- def_%v_9 %v_7[4.6,] author[2.7,] %v_8[4.7,] 
+		 9: COPY TYPE_PASS def_note_options %v_9[4.8,] 
+		 10: 
+		 11: (Commit) def_%v_10 
+		 12: noteable->kind_of? def_%v_11 noteable[4.2,4.6,2.5,] %v_10[4.11,] 	 SYMBOL:	 ARGS:%v_10,
+		 13: BRANCH %v_11[4.12,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Commit" def_%v_12 
+		 2: noteable->id def_%v_13 noteable[2.5,] 	 SYMBOL:	 ARGS:
+		 3: HASH-noteable_type-commit_id- def_%v_14 %v_12[6.1,] %v_13[6.2,] 
+		 4: note_options->merge! def_%v_15 note_options[4.9,] %v_14[6.3,] 	 SYMBOL:	 ARGS:%v_14,
+		 5: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-noteable- def_%v_16 noteable[2.5,] 
+		 2: note_options->merge! def_%v_17 note_options[4.9,] %v_16[7.1,] 	 SYMBOL:	 ARGS:%v_16,
+		 3: COPY TYPE_PASS def_%v_15 %v_17[7.2,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ExternalIssue) def_%v_18 
+		 2: noteable->is_a? def_%v_19 noteable[2.5,] %v_18[8.1,] 	 SYMBOL:	 ARGS:%v_18,
+		 3: BRANCH %v_19[8.2,] 
+BB 9
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: noteable->project def_%v_20 noteable[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_20->issues_tracker def_%v_21 %v_20[9.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_21->create_cross_reference_note def_%v_22 %v_21[9.2,] noteable[9.1,2.5,] mentioner[2.6,] author[2.7,] 	 SYMBOL:	 ARGS:noteable,mentioner,author,
+		 4: RETURN %v_22[9.3,] %self[2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->create_note def_%v_23 %self[2.0,] note_options[4.9,] 	 SYMBOL:	 ARGS:note_options,
+		 2: RETURN %v_23[10.1,] %self[10.1,2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cross_reference? instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_note_text 
+		 6: 
+		 7: %self->cross_reference_note_prefix def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: note_text->start_with? def_%v_4 note_text[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: RETURN %v_4[2.8,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cross_reference_disallowed? instanceMethod = false
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_noteable 
+		 6: RECEIVEARG def_mentioner 
+		 7: 
+		 8: (ExternalIssue) def_%v_3 
+		 9: noteable->is_a? def_%v_4 noteable[2.5,] %v_3[2.8,] 	 SYMBOL:	 ARGS:%v_3,
+		 10: BRANCH %v_4[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: noteable->project def_%v_5 noteable[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->jira_tracker_active? def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->! def_%v_7 %v_6[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_4 %v_7[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[3.3,2.9,] 
+BB 5
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: (MergeRequest) def_%v_9 
+		 3: mentioner->is_a? def_%v_10 mentioner[2.6,] %v_9[6.2,] 	 SYMBOL:	 ARGS:%v_9,
+		 4: BRANCH %v_10[6.3,] 
+BB 8
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+		 1: 
+		 2: (Commit) def_%v_12 
+		 3: noteable->is_a? def_%v_13 noteable[2.5,] %v_12[8.2,] 	 SYMBOL:	 ARGS:%v_12,
+		 4: BRANCH %v_13[8.3,] 
+BB 9
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+		 1: 
+		 2: mentioner->commits def_%v_15 mentioner[2.6,] 	 SYMBOL:	 ARGS:
+		 3: %v_15->include? def_%v_16 %v_15[11.2,] noteable[2.5,] 	 SYMBOL:	 ARGS:noteable,
+		 4: RETURN %v_16[11.3,] %self[2.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cross_reference_exists? instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_noteable 
+		 6: RECEIVEARG def_mentioner 
+		 7: 
+		 8: (Note) def_%v_3 
+		 9: %v_3->system def_%v_4 %v_3[2.8,] 	 SYMBOL:	 ARGS:
+		 10: noteable->class def_%v_5 noteable[2.5,] 	 SYMBOL:	 ARGS:
+		 11: HASH-noteable_type- def_%v_6 %v_5[2.10,] 
+		 12: %v_4->where def_%v_7 %v_4[2.9,] %v_6[2.11,] 	 SYMBOL:	 ARGS:%v_6,
+		 13: COPY TYPE_PASS def_notes %v_7[2.12,] 
+		 14: 
+		 15: (Commit) def_%v_8 
+		 16: noteable->is_a? def_%v_9 noteable[2.5,2.10,] %v_8[2.15,] 	 SYMBOL:	 ARGS:%v_8,
+		 17: BRANCH %v_9[2.16,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: noteable->id def_%v_10 noteable[2.5,] 	 SYMBOL:	 ARGS:
+		 2: HASH-commit_id- def_%v_11 %v_10[3.1,] 
+		 3: notes->where def_%v_12 notes[2.13,] %v_11[3.2,] 	 SYMBOL:	 ARGS:%v_11,
+		 4: COPY TYPE_PASS def_notes %v_12[3.3,] 
+		 5: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: noteable->id def_%v_13 noteable[2.5,] 	 SYMBOL:	 ARGS:
+		 2: HASH-noteable_id- def_%v_14 %v_13[4.1,] 
+		 3: notes->where def_%v_15 notes[2.13,] %v_14[4.2,] 	 SYMBOL:	 ARGS:%v_14,
+		 4: COPY TYPE_PASS def_notes %v_15[4.3,] 
+		 5: COPY TYPE_PASS def_%v_12 %v_15[4.3,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->notes_for_mentioner def_%v_16 %self[2.0,] mentioner[2.6,] noteable[2.5,] notes[4.4,3.4,] 	 SYMBOL:	 ARGS:mentioner,noteable,notes,
+		 2: %v_16->count def_%v_17 %v_16[5.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_17->> def_%v_18 %v_17[5.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: RETURN %v_18[5.3,] %self[5.1,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = notes_for_mentioner instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_mentioner 
+		 6: RECEIVEARG def_noteable 
+		 7: RECEIVEARG def_notes 
+		 8: 
+		 9: (Commit) def_%v_3 
+		 10: mentioner->is_a? def_%v_4 mentioner[2.5,] %v_3[2.9,] 	 SYMBOL:	 ARGS:%v_3,
+		 11: BRANCH %v_4[2.10,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "note LIKE ?" def_%v_5 
+		 2: %self->cross_reference_note_prefix def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "%" def_%v_7 
+		 4: mentioner->to_reference def_%v_8 mentioner[2.5,] 	 SYMBOL:	 ARGS:Nil,
+		 5: BUILDSTRING def_%v_9 %v_6[3.2,] %v_7[3.3,] %v_8[3.4,] 
+		 6: notes->where def_%v_10 notes[2.7,] %v_5[3.1,] %v_9[3.5,] 	 SYMBOL:	 ARGS:%v_5,%v_9,
+		 7: RETURN %v_10[3.6,] %self[3.2,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: noteable->project def_%v_11 noteable[2.6,] 	 SYMBOL:	 ARGS:
+		 2: mentioner->gfm_reference def_%v_12 mentioner[2.5,] %v_11[4.1,] 	 SYMBOL:	 ARGS:%v_11,
+		 3: COPY TYPE_PASS def_gfm_reference %v_12[4.2,] 
+		 4: 
+		 5: %self->cross_reference_note_content def_%v_13 %self[2.0,] %v_12[4.2,] 	 SYMBOL:	 ARGS:gfm_reference,
+		 6: HASH-note- def_%v_14 %v_13[4.5,] 
+		 7: notes->where def_%v_15 notes[2.7,] %v_14[4.6,] 	 SYMBOL:	 ARGS:%v_14,
+		 8: RETURN %v_15[4.7,] %self[4.5,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create_note instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_args 
+		 6: args[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_args %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Note) def_%v_4 
+		 2: HASH-system- def_%v_5 
+		 3: args->merge def_%v_6 args[3.1,2.5,] %v_5[4.2,] 	 SYMBOL:	 ARGS:%v_5,
+		 4: %v_4->create def_%v_7 %v_4[4.1,] %v_6[4.3,] 	 SYMBOL:	 ARGS:%v_6,
+		 5: RETURN %v_7[4.4,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cross_reference_note_prefix instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "mentioned in " def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cross_reference_note_content instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_gfm_reference 
+		 6: 
+		 7: %self->cross_reference_note_prefix def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: BUILDSTRING def_%v_4 %v_3[2.7,] gfm_reference[2.5,] 
+		 9: RETURN %v_4[2.8,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = new_commit_summary instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_new_commits 
+		 6: 
+		 7: new_commits->collect def_%v_3 new_commits[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:new_commits,
+CLOSURE BEGIN: commit[] %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_commit 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "* " def_%cl_1_3 
+		 2: commit->short_id def_%cl_1_4 commit[2.2,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral " - " def_%cl_1_5 
+		 4: commit->title def_%cl_1_6 commit[3.2,2.2,] 	 SYMBOL:	 ARGS:
+		 5: %self->escape_html def_%cl_1_7 %self[2.0,] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 6: BUILDSTRING def_%cl_1_8 %cl_1_3[3.1,] %cl_1_4[3.2,] %cl_1_5[3.3,] %cl_1_7[3.5,] 
+		 7: RETURN %cl_1_8[3.6,] %self[3.5,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_9 
+		 1: def_%cl_1_10 %cl_1_9[4.0,] 
+		 2: RETURN %cl_1_10[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: RETURN %v_3[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = existing_commit_summary instanceMethod = false
+BB 1
+	outgoing: 21 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_noteable 
+		 6: RECEIVEARG def_existing_commits 
+		 7: RECEIVECONSTARG def_oldrev 
+		 8: oldrev[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_oldrev 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: existing_commits->empty? def_%v_3 existing_commits[2.6,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_3[4.1,] 
+BB 5
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_4 
+		 1: RETURN %v_4[5.0,] %self[2.0,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: existing_commits->size def_%v_6 existing_commits[2.6,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_count %v_6[6.2,] 
+		 4: 
+		 5: %v_6->== def_%v_7 %v_6[6.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 6: BRANCH %v_7[6.5,] 
+BB 8
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: existing_commits->first def_%v_8 existing_commits[2.6,] 	 SYMBOL:	 ARGS:
+		 2: %v_8->short_id def_%v_9 %v_8[8.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+BB 9
+	outgoing: 10 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_10 oldrev[3.0,2.7,] 
+		 2: BRANCH oldrev[3.0,2.7,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: (Gitlab) def_%v_11 
+		 1: (inherit Git) def_%v_12 %v_11[10.0,] 
+		 2: %v_12[10.1,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %v_11->const_missing def_%v_12 %v_11[10.0,] 	 SYMBOL:Git,	 ARGS:Symbol,
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: %v_12->blank_ref? def_%v_13 %v_12[11.0,10.1,] oldrev[3.0,2.7,] 	 SYMBOL:	 ARGS:oldrev,
+		 1: %v_13->! def_%v_14 %v_13[12.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_10 %v_14[12.1,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_10[12.2,9.1,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Commit) def_%v_15 
+		 2: %v_15->truncate_sha def_%v_16 %v_15[14.1,] oldrev[3.0,2.7,] 	 SYMBOL:	 ARGS:oldrev,
+		 3: COPY TYPE_StringLiteral "..." def_%v_17 
+		 4: existing_commits->last def_%v_18 existing_commits[2.6,] 	 SYMBOL:	 ARGS:
+		 5: %v_18->short_id def_%v_19 %v_18[14.4,] 	 SYMBOL:	 ARGS:
+		 6: BUILDSTRING def_%v_20 %v_16[14.2,] %v_17[14.3,] %v_19[14.5,] 
+		 7: 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: existing_commits->first def_%v_21 existing_commits[2.6,] 	 SYMBOL:	 ARGS:
+		 2: %v_21->short_id def_%v_22 %v_21[15.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral ".." def_%v_23 
+		 4: existing_commits->last def_%v_24 existing_commits[15.1,2.6,] 	 SYMBOL:	 ARGS:
+		 5: %v_24->short_id def_%v_25 %v_24[15.4,] 	 SYMBOL:	 ARGS:
+		 6: BUILDSTRING def_%v_26 %v_22[15.2,] %v_23[15.3,] %v_25[15.5,] 
+		 7: COPY TYPE_PASS def_%v_20 %v_26[15.6,] 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_9 %v_20[15.7,14.6,] 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_commit_ids %v_9[16.0,8.2,] 
+		 1: 
+		 2: COPY TYPE_StringLiteral " commit" def_%v_27 
+		 3: BUILDSTRING def_%v_28 count[6.3,] %v_27[17.2,] 
+		 4: %v_28->pluralize def_%v_29 %v_28[17.3,] count[6.3,] 	 SYMBOL:	 ARGS:count,
+		 5: COPY TYPE_PASS def_commits_text %v_29[17.4,] 
+		 6: 
+		 7: noteable->target_branch def_%v_30 noteable[2.5,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_branch %v_30[17.7,] 
+		 9: 
+		 10: noteable->for_fork? def_%v_31 noteable[17.7,2.5,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_31[17.10,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: noteable->target_project_namespace def_%v_32 noteable[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral ":" def_%v_33 
+		 2: BUILDSTRING def_%v_34 %v_32[18.0,] %v_33[18.1,] branch[17.8,] 
+		 3: COPY TYPE_PASS def_branch %v_34[18.2,] 
+		 4: 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_34 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "* " def_%v_35 
+		 2: COPY TYPE_StringLiteral " - " def_%v_36 
+		 3: COPY TYPE_StringLiteral " from branch `" def_%v_37 
+		 4: COPY TYPE_StringLiteral "`
+" def_%v_38 
+		 5: BUILDSTRING def_%v_39 %v_35[20.1,] commit_ids[17.0,] %v_36[20.2,] commits_text[17.5,] %v_37[20.3,] branch[18.3,17.8,] %v_38[20.4,] 
+		 6: RETURN %v_39[20.5,] %self[2.0,] 
+BB 21
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = change_task_status instanceMethod = false
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_noteable 
+		 6: RECEIVEARG def_project 
+		 7: RECEIVEARG def_author 
+		 8: RECEIVEARG def_new_task 
+		 9: 
+		 10: new_task->complete? def_%v_3 new_task[2.8,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_3[2.10,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: (Taskable) def_%v_4 
+		 1: (inherit COMPLETED) def_%v_5 %v_4[3.0,] 
+		 2: %v_5[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,] 	 SYMBOL:COMPLETED,	 ARGS:Symbol,
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: (Taskable) def_%v_6 
+		 1: (inherit INCOMPLETE) def_%v_7 %v_6[6.0,] 
+		 2: %v_7[6.1,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[6.0,] 	 SYMBOL:INCOMPLETE,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_5 %v_7[7.0,6.1,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_status_label %v_5[8.0,4.0,3.1,] 
+		 1: 
+		 2: COPY TYPE_StringLiteral "Marked the task **" def_%v_8 
+		 3: new_task->source def_%v_9 new_task[2.8,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "** as " def_%v_10 
+		 5: BUILDSTRING def_%v_11 %v_8[9.2,] %v_9[9.3,] %v_10[9.4,] status_label[9.0,] 
+		 6: COPY TYPE_PASS def_body %v_11[9.5,] 
+		 7: 
+		 8: HASH-noteable-project-author-note- def_%v_12 noteable[2.5,] project[2.6,] author[2.7,] %v_11[9.5,] 
+		 9: %self->create_note def_%v_13 %self[2.0,] %v_12[9.8,] 	 SYMBOL:	 ARGS:%v_12,
+		 10: RETURN %v_13[9.9,] %self[9.9,2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = noteable_moved instanceMethod = false
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_noteable 
+		 6: RECEIVEARG def_project 
+		 7: RECEIVEARG def_noteable_ref 
+		 8: RECEIVEARG def_author 
+		 9: def_direction 
+		 10: direction[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Array def_%v_3 
+		 2: %v_3->include? def_%v_4 %v_3[4.1,] direction[2.9,] 	 SYMBOL:	 ARGS:direction,
+		 3: BRANCH %v_4[4.2,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ArgumentError) def_%v_6 
+		 2: COPY TYPE_StringLiteral "Invalid direction `" def_%v_7 
+		 3: COPY TYPE_StringLiteral "`" def_%v_8 
+		 4: BUILDSTRING def_%v_9 %v_7[6.2,] direction[2.9,] %v_8[6.3,] 
+		 5: %self->raise def_%v_10 %self[2.0,] %v_6[6.1,] %v_9[6.4,] 	 SYMBOL:	 ARGS:%v_6,%v_9,
+		 6: COPY TYPE_PASS def_%v_5 %v_10[6.5,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: noteable_ref->to_reference def_%v_11 noteable_ref[2.7,] project[2.6,] 	 SYMBOL:	 ARGS:project,
+		 2: COPY TYPE_PASS def_cross_reference %v_11[7.1,] 
+		 3: 
+		 4: COPY TYPE_StringLiteral "Moved " def_%v_12 
+		 5: COPY TYPE_StringLiteral " " def_%v_13 
+		 6: BUILDSTRING def_%v_14 %v_12[7.4,] direction[2.9,] %v_13[7.5,] %v_11[7.1,] 
+		 7: COPY TYPE_PASS def_body %v_14[7.6,] 
+		 8: 
+		 9: HASH-noteable-project-author-note- def_%v_15 noteable[2.5,] project[2.6,] author[2.8,] %v_14[7.6,] 
+		 10: %self->create_note def_%v_16 %self[2.0,] %v_15[7.9,] 	 SYMBOL:	 ARGS:%v_15,
+		 11: RETURN %v_16[7.10,] %self[7.10,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = escape_html instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_text 
+		 6: 
+		 7: (Rack) def_%v_3 
+		 8: (inherit Utils) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:Utils,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_4->escape_html def_%v_5 %v_4[3.0,2.8,] text[2.5,] 	 SYMBOL:	 ARGS:text,
+		 1: RETURN %v_5[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

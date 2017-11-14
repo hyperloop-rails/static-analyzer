@@ -1,0 +1,160 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_app 
+		 6: RECEIVECONSTARG def_options 
+		 7: options[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->app app[2.5,] 
+		 2: 
+		 3: ATTRASSIGN %self->options options[3.1,2.6,] 
+		 4: RETURN options[3.1,2.6,] %self[4.1,4.3,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = call instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_env 
+		 6: 
+		 7: COPY TYPE_StringLiteral "HTTP_USER_AGENT" def_%v_3 
+		 8: env->[] def_%v_4 env[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: COPY TYPE_Regexp def_%v_5 
+		 10: %v_4->=~ def_%v_6 %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: BRANCH %v_6[2.10,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "HTTP_USER_AGENT" def_%v_7 
+		 1: env->[] def_%v_8 env[2.5,] %v_7[3.0,] 	 SYMBOL:	 ARGS:%v_7,
+		 2: %self->ie_version def_%v_9 %self[2.0,] %v_8[3.1,] 	 SYMBOL:	 ARGS:%v_8,
+		 3: GETFIELD %self->options def_%v_10 %self[3.2,2.0,] 
+		 4: %v_10->[] def_%v_11 %v_10[3.3,] 	 SYMBOL:minimum,	 ARGS:Symbol,
+		 5: %v_9->< def_%v_12 %v_9[3.2,] %v_11[3.4,] 	 SYMBOL:	 ARGS:%v_11,
+		 6: COPY TYPE_PASS def_%v_6 %v_12[3.5,] 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[3.6,2.10,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "          <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+          <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+            <head>
+              <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+              <title>Diaspora doesn't support your version of Internet Explorer. Try Firefox, Chrome or Opera!</title>
+            </head>
+            <body>
+              <h1>Diaspora doesn't support your version of Internet Explorer.</h1>
+              You can use one of these browsers (and many more):
+              <ul>
+                <li><a href="https://www.mozilla.org/firefox/">Firefox</a></li>
+                <li><a href="https://www.google.com/chrome/">Chrome</a></li>
+                <li><a href="https://www.opera.com/">Opera</a></li>
+              </ul>
+            </body>
+          </html>
+" def_%v_13 
+		 2: COPY TYPE_PASS def_html %v_13[5.1,] 
+		 3: 
+		 4: COPY TYPE_StringLiteral "Content-Type" def_%v_14 
+		 5: COPY TYPE_StringLiteral "text/html" def_%v_15 
+		 6: COPY TYPE_StringLiteral "Content-Length" def_%v_16 
+		 7: %v_13->size def_%v_17 %v_13[5.1,] 	 SYMBOL:	 ARGS:
+		 8: %v_17->to_s def_%v_18 %v_17[5.7,] 	 SYMBOL:	 ARGS:
+		 9: HASH- def_%v_19 %v_14[5.4,] %v_15[5.5,] %v_16[5.6,] %v_18[5.8,] 
+		 10: (Rack) def_%v_20 
+		 11: (inherit Response) def_%v_21 %v_20[5.10,] 
+		 12: %v_21[5.11,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_20->const_missing def_%v_21 %v_20[5.10,] 	 SYMBOL:Response,	 ARGS:Symbol,
+BB 7
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_22 html[5.2,] 
+		 1: %v_21->new def_%v_23 %v_21[6.0,5.11,] %v_22[7.0,] 	 SYMBOL:	 ARGS:%v_22,
+		 2: COPY TYPE_Array def_%v_24 %v_19[5.9,] %v_23[7.1,] 
+		 3: RETURN %v_24[7.2,] %self[2.0,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_25 
+		 1: 
+		 2: GETFIELD %self->app def_%v_26 %self[2.0,] 
+		 3: %v_26->call def_%v_27 %v_26[8.2,] env[2.5,] 	 SYMBOL:	 ARGS:env,
+		 4: RETURN %v_27[8.3,] %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ie_version instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_ua_string 
+		 6: 
+		 7: COPY TYPE_Regexp def_%v_3 
+		 8: ua_string->match def_%v_4 ua_string[2.5,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: %v_4->[] def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:Fixnum,
+		 10: %v_5->to_f def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: RETURN %v_6[2.10,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

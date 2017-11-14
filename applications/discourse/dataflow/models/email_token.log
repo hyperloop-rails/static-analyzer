@@ -1,0 +1,492 @@
+SET IRMethod, name = token_length instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: RETURN %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = valid_after instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SiteSetting) def_%v_3 
+		 7: %v_3->email_token_valid_hours def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->hours def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->ago def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: RETURN %v_6[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = confirm_valid_after instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SiteSetting) def_%v_3 
+		 7: %v_3->email_token_grace_period_hours def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->hours def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->ago def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: RETURN %v_6[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = unconfirmed instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: HASH-confirmed- def_%v_3 
+		 7: %self->where def_%v_4 %self[2.0,] %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_3,
+		 8: RETURN %v_4[2.7,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = active instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: HASH-expired- def_%v_3 
+		 7: %self->where def_%v_4 %self[2.0,] %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_3,
+		 8: COPY TYPE_StringLiteral "created_at > ?" def_%v_5 
+		 9: %self->valid_after def_%v_6 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 10: %v_4->where def_%v_7 %v_4[2.7,] %v_5[2.8,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_5,%v_6,
+		 11: RETURN %v_7[2.10,] %self[2.0,2.7,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = generate_token instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SecureRandom) def_%v_3 
+		 7: (EmailToken) def_%v_4 
+		 8: %v_4->token_length def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->hex def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = valid_token_format? instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_token 
+		 6: 
+		 7: token->present? def_%v_3 token[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_4 
+		 1: COPY TYPE_StringLiteral "[a-f0-9]{" def_%v_5 
+		 2: token->length def_%v_6 token[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_6->/ def_%v_7 %v_6[3.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: COPY TYPE_StringLiteral "}" def_%v_8 
+		 5: def_%v_9 %v_4[3.0,] %v_5[3.1,] %v_7[3.3,] %v_8[3.4,] 
+		 6: token->=~ def_%v_10 token[3.2,2.5,] %v_9[3.5,] 	 SYMBOL:	 ARGS:%v_9,
+		 7: RETURN %v_10[3.6,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.7,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = atomic_confirm instanceMethod = false
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_token 
+		 6: 
+		 7: HASH-success- def_%v_3 
+		 8: COPY TYPE_PASS def_failure %v_3[2.7,] 
+		 9: 
+		 10: %self->valid_token_format? def_%v_4 %self[2.0,] token[2.5,] 	 SYMBOL:	 ARGS:token,
+		 11: BRANCH %v_4[2.10,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: %self->confirmable def_%v_6 %self[2.0,] token[2.5,] 	 SYMBOL:	 ARGS:token,
+		 3: COPY TYPE_PASS def_email_token %v_6[3.2,] 
+		 4: 
+		 5: %v_6->blank? def_%v_7 %v_6[3.2,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %v_7[3.5,] 
+BB 4
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN failure[2.8,] %self[2.0,] 
+BB 6
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN failure[2.8,] %self[2.0,] 
+BB 7
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: email_token->user def_%v_9 email_token[3.3,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_user %v_9[7.2,] 
+		 4: 
+		 5: ATTRASSIGN failure->[] %v_9[7.2,] 
+		 6: 
+		 7: (EmailToken) def_%v_10 
+		 8: email_token->id def_%v_11 email_token[7.2,3.3,] 	 SYMBOL:	 ARGS:
+		 9: HASH-id-expired- def_%v_12 %v_11[7.8,] 
+		 10: %v_10->where def_%v_13 %v_10[7.7,] %v_12[7.9,] 	 SYMBOL:	 ARGS:%v_12,
+		 11: COPY TYPE_StringLiteral "confirmed = true" def_%v_14 
+		 12: %v_13->update_all def_%v_15 %v_13[7.10,] %v_14[7.11,] 	 SYMBOL:	 ARGS:%v_14,
+		 13: COPY TYPE_PASS def_row_count %v_15[7.12,] 
+		 14: 
+		 15: %v_15->== def_%v_16 %v_15[7.12,] 	 SYMBOL:	 ARGS:Fixnum,
+		 16: BRANCH %v_16[7.15,] 
+BB 9
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-success-user-email_token- def_%v_17 user[7.3,] email_token[3.3,] 
+		 2: RETURN %v_17[9.1,] %self[2.0,] 
+BB 10
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_18 
+		 1: 
+		 2: RETURN failure[7.5,2.8,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = confirm instanceMethod = false
+BB 1
+	outgoing: 17 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 15 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_token 
+		 6: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (User) def_%v_6 
+		 3: %v_6->transaction def_%v_7 %v_6[4.2,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_6,
+CLOSURE BEGIN: %self[2.0,] token[2.5,] result[] user[] 
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->atomic_confirm def_%cl_1_3 %self[2.0,] token[] 	 SYMBOL:	 ARGS:token,
+		 2: COPY TYPE_PASS def_result %cl_1_3[3.1,] 
+		 3: 
+		 4: %cl_1_3->[] def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:user,	 ARGS:Symbol,
+		 5: COPY TYPE_PASS def_user %cl_1_4[3.4,] 
+		 6: 
+		 7: result->[] def_%cl_1_5 result[3.2,] 	 SYMBOL:success,	 ARGS:Symbol,
+		 8: BRANCH %cl_1_5[3.7,] 
+BB 4
+	outgoing: 6 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user->active? def_%cl_1_6 user[3.5,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_6->! def_%cl_1_7 %cl_1_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN user->send_welcome_message %cl_1_7[4.2,] 
+		 4: 
+		 5: ATTRASSIGN user->active 
+		 6: 
+		 7: result->[] def_%cl_1_8 result[3.2,] 	 SYMBOL:email_token,	 ARGS:Symbol,
+		 8: %cl_1_8->email def_%cl_1_9 %cl_1_8[4.7,] 	 SYMBOL:	 ARGS:
+		 9: ATTRASSIGN user->email %cl_1_9[4.8,] 
+		 10: 
+		 11: user->save! def_%cl_1_10 user[4.1,4.3,4.5,4.9,3.5,] 	 SYMBOL:	 ARGS:
+		 12: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_10 
+BB 6
+	outgoing: 7 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH user[4.3,4.5,4.9,3.5,] 
+BB 7
+	outgoing: 8 9 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Invite) def_%cl_1_11 
+		 2: user->email def_%cl_1_12 user[4.3,4.5,4.9,3.5,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_11->redeem_from_email def_%cl_1_13 %cl_1_11[7.1,] %cl_1_12[7.2,] 	 SYMBOL:	 ARGS:%cl_1_12,
+		 4: %cl_1_13->present? def_%cl_1_14 %cl_1_13[7.3,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %cl_1_14[7.4,] 
+BB 8
+	outgoing: 13 15 
+	datadep: 
+	instructions:
+		 0: (User) def_%cl_1_15 
+		 1: (Email) def_%cl_1_16 
+		 2: user->email def_%cl_1_17 user[4.3,4.5,4.9,3.5,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_16->downcase def_%cl_1_18 %cl_1_16[8.1,] %cl_1_17[8.2,] 	 SYMBOL:	 ARGS:%cl_1_17,
+		 4: HASH-email- def_%cl_1_19 %cl_1_18[8.3,] 
+		 5: %cl_1_15->find_by def_%cl_1_20 %cl_1_15[8.0,] %cl_1_19[8.4,] 	 SYMBOL:	 ARGS:%cl_1_19,
+		 6: 
+		 7: RETURN %cl_1_20[8.5,] %self[2.0,] 
+BB 9
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_21 
+		 1: 
+		 2: COPY TYPE_PASS def_%cl_1_22 user[4.3,4.5,4.9,3.5,] 
+		 3: RETURN user[4.3,4.5,4.9,3.5,] %self[2.0,] 
+BB 11
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_23 
+		 1: def_%cl_1_24 %cl_1_23[13.0,] 
+		 2: RETURN %cl_1_24[13.1,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: user[3.5,4.3,4.5,4.9,] 
+		 4: COPY TYPE_PASS def_%v_5 %v_7[4.3,] 
+		 5: 
+		 6: %v_3[2.6,] 
+BB 6
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+BB 7
+	outgoing: 8 9 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_8 
+		 2: (ActiveRecord) def_%v_9 
+		 3: (inherit RecordInvalid) def_%v_10 %v_9[7.2,] 
+		 4: %v_10[7.3,] 
+BB 8
+	outgoing: 9 13 
+	datadep: 
+	instructions:
+		 0: %v_9->const_missing def_%v_10 %v_9[7.2,] 	 SYMBOL:RecordInvalid,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 11 13 
+	datadep: 
+	instructions:
+		 0: def_%v_11 %v_10[8.0,7.3,] %v_8[7.1,] 
+		 1: BRANCH %v_11[9.0,] 
+BB 10
+	outgoing: 13 17 
+	datadep: 
+	instructions:
+		 0: %v_8[7.1,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: %v_3[2.6,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+BB 13
+	outgoing: 15 17 
+	datadep: 
+	instructions:
+		 0: def_%v_12 
+		 1: def_%v_13 %v_12[13.0,] %v_3[2.6,] 
+		 2: %v_12[13.0,] 
+BB 14
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[4.4,11.0,] %self[2.0,] 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: def_%v_14 
+		 1: def_%v_15 %v_14[15.0,] 
+		 2: RETURN %v_15[15.1,] %self[2.0,] 
+BB 17
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = confirmable instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_token 
+		 6: 
+		 7: (EmailToken) def_%v_3 
+		 8: COPY TYPE_StringLiteral "token = ? and expired = FALSE AND ((NOT confirmed AND created_at >= ?) OR (confirmed AND created_at >= ?))" def_%v_4 
+		 9: (EmailToken) def_%v_5 
+		 10: %v_5->valid_after def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: (EmailToken) def_%v_7 
+		 12: %v_7->confirm_valid_after def_%v_8 %v_7[2.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_3->where def_%v_9 %v_3[2.7,] %v_4[2.8,] token[2.5,] %v_6[2.10,] %v_8[2.12,] 	 SYMBOL:	 ARGS:%v_4,token,%v_6,%v_8,
+		 14: %v_9->includes def_%v_10 %v_9[2.13,] 	 SYMBOL:user,	 ARGS:Symbol,
+		 15: %v_10->first def_%v_11 %v_10[2.14,] 	 SYMBOL:	 ARGS:
+		 16: RETURN %v_11[2.15,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

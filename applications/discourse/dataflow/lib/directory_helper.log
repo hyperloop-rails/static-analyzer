@@ -1,0 +1,172 @@
+SET IRMethod, name = tmp_directory instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_prefix 
+		 6: 
+		 7: %self->directory_cache def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_%v_4 %v_3[2.7,] 
+		 9: %v_3->[] def_%v_5 %v_3[2.7,] prefix[2.5,] 	 SYMBOL:	 ARGS:prefix,
+		 10: BRANCH %v_5[2.9,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (File) def_%v_6 
+		 2: (Rails) def_%v_7 
+		 3: %v_7->root def_%v_8 %v_7[3.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "tmp" def_%v_9 
+		 5: (Time) def_%v_10 
+		 6: %v_10->now def_%v_11 %v_10[3.5,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "%Y%m%d%H%M%S" def_%v_12 
+		 8: BUILDSTRING def_%v_13 prefix[2.5,] %v_12[3.7,] 
+		 9: %v_11->strftime def_%v_14 %v_11[3.6,] %v_13[3.8,] 	 SYMBOL:	 ARGS:%v_13,
+		 10: %v_6->join def_%v_15 %v_6[3.1,] %v_8[3.3,] %v_9[3.4,] %v_14[3.9,] 	 SYMBOL:	 ARGS:%v_8,%v_9,%v_14,
+		 11: COPY TYPE_PASS def_f %v_15[3.10,] 
+		 12: 
+		 13: (Dir) def_%v_16 
+		 14: %v_16->[] def_%v_17 %v_16[3.13,] %v_15[3.10,] 	 SYMBOL:	 ARGS:f,
+		 15: %v_17->present? def_%v_18 %v_17[3.14,] 	 SYMBOL:	 ARGS:
+		 16: BRANCH %v_18[3.15,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_19 
+		 1: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: (FileUtils) def_%v_20 
+		 1: %v_20->mkdir_p def_%v_21 %v_20[5.0,] f[3.11,] 	 SYMBOL:	 ARGS:f,
+		 2: COPY TYPE_PASS def_%v_19 %v_21[5.1,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %v_4->[]= def_%v_5 %v_4[2.8,] prefix[2.5,] f[3.11,] 	 SYMBOL:	 ARGS:prefix,f,
+		 2: RETURN f[3.11,] %self[2.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[2.9,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = remove_tmp_directory instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_prefix 
+		 6: 
+		 7: %self->directory_cache def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->[] def_%v_4 %v_3[2.7,] prefix[2.5,] 	 SYMBOL:	 ARGS:prefix,
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_5 
+		 1: COPY TYPE_PASS def_%v_4 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_tmp_directory_name %v_4[3.1,2.8,] 
+		 1: 
+		 2: %self->directory_cache def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_6->delete def_%v_7 %v_6[4.2,] prefix[2.5,] 	 SYMBOL:	 ARGS:prefix,
+		 4: 
+		 5: (Dir) def_%v_8 
+		 6: %v_8->[] def_%v_9 %v_8[4.5,] tmp_directory_name[4.0,] 	 SYMBOL:	 ARGS:tmp_directory_name,
+		 7: %v_9->present? def_%v_10 %v_9[4.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_10[4.7,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: (FileUtils) def_%v_11 
+		 1: %v_11->rm_rf def_%v_12 %v_11[5.0,] tmp_directory_name[4.0,] 	 SYMBOL:	 ARGS:tmp_directory_name,
+		 2: RETURN %v_12[5.1,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = directory_cache instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->directory_cache def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_6 
+		 1: ATTRASSIGN %self->directory_cache %v_6[5.0,] 
+		 2: RETURN %v_6[5.0,] %self[5.1,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+

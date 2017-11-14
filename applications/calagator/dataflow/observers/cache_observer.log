@@ -1,0 +1,127 @@
+SET IRMethod, name = daily_key_for instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_name 
+		 6: RECEIVECONSTARG def_request 
+		 7: request[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_request 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "@" def_%v_3 
+		 2: (Time) def_%v_4 
+		 3: %v_4->zone def_%v_5 %v_4[4.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_5->now def_%v_6 %v_5[4.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "%Y%m%d" def_%v_7 
+		 6: %v_6->strftime def_%v_8 %v_6[4.4,] %v_7[4.5,] 	 SYMBOL:	 ARGS:%v_7,
+		 7: BUILDSTRING def_%v_9 name[2.5,] %v_3[4.1,] %v_8[4.6,] 
+		 8: RETURN %v_9[4.7,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = expire_all instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Rails) def_%v_3 
+		 7: %v_3->logger def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "CacheObserver::expire_all: invoked" def_%v_5 
+		 9: %v_4->info def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: 
+		 11: (Rails) def_%v_7 
+		 12: %v_7->cache def_%v_8 %v_7[2.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_8->clear def_%v_9 %v_8[2.12,] 	 SYMBOL:	 ARGS:
+		 14: RETURN %v_9[2.13,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = after_save instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_record 
+		 6: 
+		 7: (Rails) def_%v_3 
+		 8: %v_3->logger def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_StringLiteral "CacheObserver#after_save: invoked" def_%v_5 
+		 10: %v_4->info def_%v_6 %v_4[2.8,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: 
+		 12: %self->class def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 13: %v_7->expire_all def_%v_8 %v_7[2.12,] 	 SYMBOL:	 ARGS:
+		 14: RETURN %v_8[2.13,] %self[2.0,2.12,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = after_destroy instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_record 
+		 6: 
+		 7: (Rails) def_%v_3 
+		 8: %v_3->logger def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_StringLiteral "CacheObserver#after_destroy: invoked" def_%v_5 
+		 10: %v_4->info def_%v_6 %v_4[2.8,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: 
+		 12: %self->class def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 13: %v_7->expire_all def_%v_8 %v_7[2.12,] 	 SYMBOL:	 ARGS:
+		 14: RETURN %v_8[2.13,] %self[2.0,2.12,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

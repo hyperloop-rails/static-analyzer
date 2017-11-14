@@ -1,0 +1,140 @@
+SET IRMethod, name = execute instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 8 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_project 
+		 6: RECEIVEARG def_current_user 
+		 7: RECEIVEARG def_params 
+		 8: 
+		 9: params->[] def_%v_3 params[2.7,] 	 SYMBOL:target_type,	 ARGS:Symbol,
+		 10: COPY TYPE_PASS def_target_type %v_3[2.9,] 
+		 11: 
+		 12: params->[] def_%v_4 params[2.7,2.9,] 	 SYMBOL:target_id,	 ARGS:Symbol,
+		 13: COPY TYPE_PASS def_target_id %v_4[2.12,] 
+		 14: 
+		 15: (Time) def_%v_5 
+		 16: params->fetch def_%v_6 params[2.7,2.9,2.12,] 	 SYMBOL:last_fetched_at,	 ARGS:Symbol,Fixnum,
+		 17: %v_6->to_i def_%v_7 %v_6[2.16,] 	 SYMBOL:	 ARGS:
+		 18: %v_5->at def_%v_8 %v_5[2.15,] %v_7[2.17,] 	 SYMBOL:	 ARGS:%v_7,
+		 19: COPY TYPE_PASS def_last_fetched_at %v_8[2.18,] 
+		 20: 
+		 21: COPY TYPE_StringLiteral "commit" def_%v_11 
+		 22: def_%v_10 %v_11[2.21,] target_type[2.10,] 
+		 23: BRANCH %v_10[2.22,] 
+BB 3
+	outgoing: 4 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "issue" def_%v_13 
+		 1: def_%v_12 %v_13[3.0,] target_type[2.10,] 
+		 2: BRANCH %v_12[3.1,] 
+BB 4
+	outgoing: 5 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "merge_request" def_%v_15 
+		 1: def_%v_14 %v_15[4.0,] target_type[2.10,] 
+		 2: BRANCH %v_14[4.1,] 
+BB 5
+	outgoing: 6 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "snippet" def_%v_17 
+		 1: def_%v_16 %v_17[5.0,] target_type[2.10,] 
+		 2: BRANCH %v_16[5.1,] 
+BB 6
+	outgoing: 7 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "project_snippet" def_%v_19 
+		 1: def_%v_18 %v_19[6.0,] target_type[2.10,] 
+		 2: BRANCH %v_18[6.1,] 
+BB 7
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "invalid target_type" def_%v_39 
+		 2: %self->raise def_%v_40 %self[2.0,] %v_39[7.1,] 	 SYMBOL:	 ARGS:%v_39,
+		 3: COPY TYPE_PASS def_%v_9 %v_40[7.2,] 
+		 4: 
+BB 8
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: project->notes def_%v_20 project[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_20->for_commit_id def_%v_21 %v_20[8.1,] target_id[2.13,] 	 SYMBOL:	 ARGS:target_id,
+		 3: %v_21->non_diff_notes def_%v_22 %v_21[8.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_%v_9 %v_22[8.3,] 
+		 5: 
+BB 9
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: project->issues def_%v_23 project[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_23->find def_%v_24 %v_23[9.1,] target_id[2.13,] 	 SYMBOL:	 ARGS:target_id,
+		 3: %v_24->notes def_%v_25 %v_24[9.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_25->nonawards def_%v_26 %v_25[9.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_26->inc_author def_%v_27 %v_26[9.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_PASS def_%v_9 %v_27[9.5,] 
+		 7: 
+BB 10
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: project->merge_requests def_%v_28 project[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_28->find def_%v_29 %v_28[10.1,] target_id[2.13,] 	 SYMBOL:	 ARGS:target_id,
+		 3: %v_29->mr_and_commit_notes def_%v_30 %v_29[10.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_30->nonawards def_%v_31 %v_30[10.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_31->inc_author def_%v_32 %v_31[10.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_PASS def_%v_9 %v_32[10.5,] 
+		 7: 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: project->snippets def_%v_33 project[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_33->find def_%v_34 %v_33[11.1,] target_id[2.13,] 	 SYMBOL:	 ARGS:target_id,
+		 3: %v_34->notes def_%v_35 %v_34[11.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_%v_9 %v_35[11.3,] 
+		 5: 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: project->snippets def_%v_36 project[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_36->find def_%v_37 %v_36[12.0,] target_id[2.13,] 	 SYMBOL:	 ARGS:target_id,
+		 2: %v_37->notes def_%v_38 %v_37[12.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_9 %v_38[12.2,] 
+		 4: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_notes %v_9[8.4,9.6,10.6,11.4,12.3,7.3,] 
+		 1: 
+		 2: COPY TYPE_StringLiteral "updated_at > ?" def_%v_41 
+		 3: (FETCH_OVERLAP) def_%v_42 
+		 4: last_fetched_at->- def_%v_43 last_fetched_at[2.19,] %v_42[14.3,] 	 SYMBOL:	 ARGS:%v_42,
+		 5: notes->where def_%v_44 notes[14.0,] %v_41[14.2,] %v_43[14.4,] 	 SYMBOL:	 ARGS:%v_41,%v_43,
+		 6: %v_44->fresh def_%v_45 %v_44[14.5,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %v_45[14.6,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+

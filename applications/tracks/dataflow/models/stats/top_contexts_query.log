@@ -1,0 +1,193 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVECONSTARG def_options 
+		 7: options[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->user user[2.5,] 
+		 2: 
+		 3: options->fetch def_%v_4 options[3.1,2.6,] %self[4.1,2.0,] 	 SYMBOL:running,	 ARGS:Symbol,options,
+CLOSURE BEGIN: 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: ATTRASSIGN %self->running %v_4[4.3,] 
+		 5: 
+		 6: options->fetch def_%v_5 options[4.3,3.1,2.6,] %self[4.1,4.4,2.0,] 	 SYMBOL:limit,	 ARGS:Symbol,options,
+CLOSURE BEGIN: 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 7: ATTRASSIGN %self->limit %v_5[4.6,] 
+		 8: RETURN %v_5[4.6,] %self[4.1,4.4,4.7,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = result instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->contexts def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->sql def_%v_5 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: %self->user def_%v_6 %self[2.0,2.6,2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_6->id def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_Array def_%v_8 %v_5[2.8,] %v_7[2.10,] 
+		 12: %v_4->find_by_sql def_%v_9 %v_4[2.7,] %v_8[2.11,] 	 SYMBOL:	 ARGS:%v_8,
+		 13: RETURN %v_9[2.12,] %self[2.0,2.6,2.8,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = sql instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "SELECT c.id AS id, c.name AS name, count(c.id) AS total " def_%v_3 
+		 7: COPY TYPE_PASS def_query %v_3[2.6,] 
+		 8: 
+		 9: COPY TYPE_StringLiteral "FROM contexts c, todos t " def_%v_4 
+		 10: %v_3-><< def_%v_5 %v_3[2.6,] %v_4[2.9,] 	 SYMBOL:	 ARGS:%v_4,
+		 11: 
+		 12: COPY TYPE_StringLiteral "WHERE t.context_id=c.id " def_%v_6 
+		 13: query-><< def_%v_7 query[2.7,] %v_6[2.12,] 	 SYMBOL:	 ARGS:%v_6,
+		 14: 
+		 15: COPY TYPE_StringLiteral "AND t.user_id = ? " def_%v_8 
+		 16: query-><< def_%v_9 query[2.7,2.13,] %v_8[2.15,] 	 SYMBOL:	 ARGS:%v_8,
+		 17: 
+		 18: %self->running def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 19: BRANCH %v_10[2.18,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "AND t.completed_at IS NULL " def_%v_11 
+		 2: query-><< def_%v_12 query[2.7,] %v_11[3.1,] 	 SYMBOL:	 ARGS:%v_11,
+		 3: 
+		 4: COPY TYPE_StringLiteral "AND NOT c.state='hidden' " def_%v_13 
+		 5: query-><< def_%v_14 query[3.2,2.7,] %v_13[3.4,] 	 SYMBOL:	 ARGS:%v_13,
+		 6: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "GROUP BY c.id, c.name " def_%v_15 
+		 2: query-><< def_%v_16 query[2.7,] %v_15[5.1,] 	 SYMBOL:	 ARGS:%v_15,
+		 3: 
+		 4: COPY TYPE_StringLiteral "ORDER BY total DESC " def_%v_17 
+		 5: query-><< def_%v_18 query[5.2,2.7,] %v_17[5.4,] 	 SYMBOL:	 ARGS:%v_17,
+		 6: 
+		 7: %self->limit def_%v_19 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_19[5.7,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "LIMIT " def_%v_20 
+		 2: %self->limit def_%v_21 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BUILDSTRING def_%v_22 %v_20[6.1,] %v_21[6.2,] 
+		 4: query-><< def_%v_23 query[2.7,] %v_22[6.3,] 	 SYMBOL:	 ARGS:%v_22,
+		 5: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_23 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN query[2.7,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,60 @@
+SET IRMethod, name = parse_pagination_opts instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_pagination_opts 
+		 6: pagination_opts[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_pagination_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_default_per_page 
+		 1: default_per_page[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_default_per_page 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->Maybe def_%v_4 %self[2.0,] pagination_opts[3.1,2.5,] 	 SYMBOL:	 ARGS:pagination_opts,
+		 2: %v_4->[] def_%v_5 %v_4[6.1,] 	 SYMBOL:per_page,	 ARGS:Symbol,
+		 3: %v_5->to_i def_%v_6 %v_5[6.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_6->or_else def_%v_7 %v_6[6.3,] default_per_page[5.0,4.0,] 	 SYMBOL:	 ARGS:default_per_page,
+		 5: COPY TYPE_PASS def_per_page %v_7[6.4,] 
+		 6: 
+		 7: %self->Maybe def_%v_8 %self[6.1,2.0,] pagination_opts[3.1,2.5,] 	 SYMBOL:	 ARGS:pagination_opts,
+		 8: %v_8->[] def_%v_9 %v_8[6.7,] 	 SYMBOL:page,	 ARGS:Symbol,
+		 9: %v_9->to_i def_%v_10 %v_9[6.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_10->or_else def_%v_11 %v_10[6.9,] 	 SYMBOL:	 ARGS:Fixnum,
+		 11: COPY TYPE_PASS def_page %v_11[6.10,] 
+		 12: 
+		 13: 
+		 14: %v_11->- def_%v_12 %v_11[6.10,] 	 SYMBOL:	 ARGS:Fixnum,
+		 15: per_page->* def_%v_13 per_page[6.5,] %v_12[6.14,] 	 SYMBOL:	 ARGS:%v_12,
+		 16: HASH-per_page-page-limit-offset- def_%v_14 per_page[6.5,6.15,] page[6.11,] per_page[6.5,6.15,] %v_13[6.15,] 
+		 17: RETURN %v_14[6.16,] %self[6.1,6.7,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+

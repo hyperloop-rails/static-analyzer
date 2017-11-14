@@ -1,0 +1,96 @@
+SET IRMethod, name = create instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Conversation) def_%v_3 
+		 7: %self->params def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->[] def_%v_5 %v_4[2.7,] 	 SYMBOL:conversation_id,	 ARGS:Symbol,
+		 9: %v_3->find def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: COPY TYPE_PASS def_conversation %v_6[2.9,] 
+		 11: 
+		 12: %self->params def_%v_7 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 13: %v_7->require def_%v_8 %v_7[2.12,] 	 SYMBOL:message,	 ARGS:Symbol,
+		 14: %v_8->permit def_%v_9 %v_8[2.13,] 	 SYMBOL:text,	 ARGS:Symbol,
+		 15: COPY TYPE_PASS def_opts %v_9[2.14,] 
+		 16: 
+		 17: %self->current_user def_%v_10 %self[2.0,2.7,2.12,] 	 SYMBOL:	 ARGS:
+		 18: %v_10->build_message def_%v_11 %v_10[2.17,] conversation[2.10,] opts[2.15,] 	 SYMBOL:	 ARGS:conversation,opts,
+		 19: COPY TYPE_PASS def_message %v_11[2.18,] 
+		 20: 
+		 21: %v_11->save def_%v_12 %v_11[2.18,] 	 SYMBOL:	 ARGS:
+		 22: BRANCH %v_12[2.21,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->logger def_%v_13 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "event=create type=comment user=" def_%v_14 
+		 3: %self->current_user def_%v_15 %self[3.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_15->diaspora_handle def_%v_16 %v_15[3.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral " status=success " def_%v_17 
+		 6: COPY TYPE_StringLiteral "message=" def_%v_18 
+		 7: 
+		 8: message->id def_%v_19 message[2.19,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_StringLiteral " chars=" def_%v_20 
+		 10: %self->params def_%v_21 %self[3.1,3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 11: %v_21->[] def_%v_22 %v_21[3.10,] 	 SYMBOL:message,	 ARGS:Symbol,
+		 12: %v_22->[] def_%v_23 %v_22[3.11,] 	 SYMBOL:text,	 ARGS:Symbol,
+		 13: %v_23->length def_%v_24 %v_23[3.12,] 	 SYMBOL:	 ARGS:
+		 14: BUILDSTRING def_%v_25 %v_18[3.6,] %v_19[3.8,] %v_20[3.9,] %v_24[3.13,] 
+		 15: BUILDSTRING def_%v_26 %v_14[3.2,] %v_16[3.4,] %v_17[3.5,] %v_25[3.14,] 
+		 16: %v_13->info def_%v_27 %v_13[3.1,] %v_26[3.15,] 	 SYMBOL:	 ARGS:%v_26,
+		 17: 
+		 18: (Postzord) def_%v_28 
+		 19: (inherit Dispatcher) def_%v_29 %v_28[3.18,] 
+		 20: %v_29[3.19,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_28->const_missing def_%v_29 %v_28[3.18,] 	 SYMBOL:Dispatcher,	 ARGS:Symbol,
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->current_user def_%v_30 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_29->build def_%v_31 %v_29[4.0,3.19,] %v_30[5.0,] message[2.19,] 	 SYMBOL:	 ARGS:%v_30,message,
+		 2: %v_31->post def_%v_32 %v_31[5.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_33 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: (I18n) def_%v_34 
+		 3: COPY TYPE_StringLiteral "conversations.new_conversation.fail" def_%v_35 
+		 4: %v_34->t def_%v_36 %v_34[6.2,] %v_35[6.3,] 	 SYMBOL:	 ARGS:%v_35,
+		 5: ATTRASSIGN %v_33->[] %v_36[6.4,] 
+		 6: COPY TYPE_PASS def_%v_32 %v_36[6.4,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: conversation->id def_%v_37 conversation[2.10,] 	 SYMBOL:	 ARGS:
+		 2: HASH-conversation_id- def_%v_38 %v_37[7.1,] 
+		 3: %self->conversations_path def_%v_39 %self[2.0,] %v_38[7.2,] 	 SYMBOL:	 ARGS:%v_38,
+		 4: %self->redirect_to def_%v_40 %self[7.3,2.0,] %v_39[7.3,] 	 SYMBOL:	 ARGS:%v_39,
+		 5: RETURN %v_40[7.4,] %self[7.3,7.4,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+

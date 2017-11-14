@@ -1,0 +1,72 @@
+SET IRMethod, name = create instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->require def_%v_4 %v_3[2.6,] 	 SYMBOL:username_or_email,	 ARGS:Symbol,
+		 8: 
+		 9: (User) def_%v_5 
+		 10: %self->params def_%v_6 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 11: %v_6->[] def_%v_7 %v_6[2.10,] 	 SYMBOL:username_or_email,	 ARGS:Symbol,
+		 12: %v_5->find_by_username_or_email def_%v_8 %v_5[2.9,] %v_7[2.11,] 	 SYMBOL:	 ARGS:%v_7,
+		 13: COPY TYPE_PASS def_user %v_8[2.12,] 
+		 14: 
+		 15: %v_8->blank? def_%v_9 %v_8[2.12,] 	 SYMBOL:	 ARGS:
+		 16: BRANCH %v_9[2.15,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: (Discourse) def_%v_10 
+		 1: (inherit NotFound) def_%v_11 %v_10[3.0,] 
+		 2: %v_11[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_10->const_missing def_%v_11 %v_10[3.0,] 	 SYMBOL:NotFound,	 ARGS:Symbol,
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->raise def_%v_12 %self[2.0,] %v_11[4.0,3.1,] 	 SYMBOL:	 ARGS:%v_11,
+		 1: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->guardian def_%v_13 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_13->ensure_can_impersonate! def_%v_14 %v_13[7.1,] user[2.13,] 	 SYMBOL:	 ARGS:user,
+		 3: 
+		 4: (StaffActionLogger) def_%v_15 
+		 5: %self->current_user def_%v_16 %self[7.1,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %v_15->new def_%v_17 %v_15[7.4,] %v_16[7.5,] 	 SYMBOL:	 ARGS:%v_16,
+		 7: %v_17->log_impersonate def_%v_18 %v_17[7.6,] user[2.13,] 	 SYMBOL:	 ARGS:user,
+		 8: 
+		 9: %self->log_on_user def_%v_19 %self[7.1,7.5,2.0,] user[2.13,] 	 SYMBOL:	 ARGS:user,
+		 10: 
+		 11: HASH-nothing- def_%v_20 
+		 12: %self->render def_%v_21 %self[7.1,7.5,7.9,2.0,] %v_20[7.11,] 	 SYMBOL:	 ARGS:%v_20,
+		 13: RETURN %v_21[7.12,] %self[7.1,7.5,7.9,7.12,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+

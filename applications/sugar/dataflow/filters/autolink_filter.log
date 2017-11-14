@@ -1,0 +1,141 @@
+SET IRMethod, name = process instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: COPY TYPE_Regexp def_%v_3 
+		 8: post->gsub def_%v_4 post[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,post,
+CLOSURE BEGIN: %self[2.0,] match[] uri[] space[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_NthRef def_%cl_1_3 
+		 2: COPY TYPE_NthRef def_%cl_1_4 
+		 3: COPY TYPE_Array def_%cl_1_5 %cl_1_3[3.1,] %cl_1_4[3.2,] 
+		 4: COPY TYPE_PASS def_%cl_1_6 %cl_1_3[3.1,] 
+		 5: COPY TYPE_PASS def_%cl_1_7 %cl_1_4[3.2,] 
+		 6: COPY TYPE_PASS def_space %cl_1_3[3.1,] 
+		 7: COPY TYPE_PASS def_match %cl_1_4[3.2,] 
+		 8: 
+		 9: (URI) def_%cl_1_8 
+		 10: COPY TYPE_NthRef def_%cl_1_9 
+		 11: %cl_1_8->extract def_%cl_1_10 %cl_1_8[3.9,] %cl_1_9[3.10,] 	 SYMBOL:	 ARGS:%cl_1_9,
+		 12: %cl_1_10->try def_%cl_1_11 %cl_1_10[3.11,] 	 SYMBOL:first,	 ARGS:Symbol,
+		 13: COPY TYPE_PASS def_uri %cl_1_11[3.12,] 
+		 14: 
+		 15: %self->autolink def_%cl_1_12 %self[2.0,] %cl_1_11[3.12,] 	 SYMBOL:	 ARGS:uri,
+		 16: match->gsub def_%cl_1_13 match[3.7,] uri[3.13,] %cl_1_12[3.15,] 	 SYMBOL:	 ARGS:uri,%cl_1_12,
+		 17: space->+ def_%cl_1_14 space[3.6,] %cl_1_13[3.16,] 	 SYMBOL:	 ARGS:%cl_1_13,
+		 18: RETURN %cl_1_14[3.17,] %self[3.15,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_15 
+		 1: def_%cl_1_16 %cl_1_15[4.0,] 
+		 2: RETURN %cl_1_16[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: match[3.7,] uri[3.13,] 
+		 9: RETURN %v_4[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = autolink instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_url 
+		 6: 
+		 7: COPY TYPE_Regexp def_%v_3 
+		 8: url->=~ def_%v_4 url[2.5,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "<img src="" def_%v_5 
+		 2: COPY TYPE_StringLiteral "">" def_%v_6 
+		 3: BUILDSTRING def_%v_7 %v_5[3.1,] url[2.5,] %v_6[3.2,] 
+		 4: RETURN %v_7[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Regexp def_%v_8 
+		 2: url->=~ def_%v_9 url[2.5,] 	 SYMBOL:	 ARGS:%v_8,
+		 3: BRANCH %v_9[4.2,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "<img src="" def_%v_10 
+		 2: COPY TYPE_Regexp def_%v_11 
+		 3: COPY TYPE_StringLiteral ".gif" def_%v_12 
+		 4: url->gsub def_%v_13 url[2.5,] %v_12[5.3,] 	 SYMBOL:	 ARGS:%v_11,%v_12,
+		 5: %v_10->+ def_%v_14 %v_10[5.1,] %v_13[5.4,] 	 SYMBOL:	 ARGS:%v_13,
+		 6: COPY TYPE_StringLiteral "">" def_%v_15 
+		 7: %v_14->+ def_%v_16 %v_14[5.5,] %v_15[5.6,] 	 SYMBOL:	 ARGS:%v_15,
+		 8: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "<a href="" def_%v_17 
+		 2: COPY TYPE_StringLiteral "">" def_%v_18 
+		 3: COPY TYPE_StringLiteral "</a>" def_%v_19 
+		 4: BUILDSTRING def_%v_20 %v_17[6.1,] url[2.5,] %v_18[6.2,] url[2.5,] %v_19[6.3,] 
+		 5: COPY TYPE_PASS def_%v_16 %v_20[6.4,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_16[6.5,5.7,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+

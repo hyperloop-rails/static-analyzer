@@ -1,0 +1,718 @@
+SET IRMethod, name = test_email instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_recipient_email 
+		 6: RECEIVEARG def_subject 
+		 7: RECEIVEARG def_body 
+		 8: 
+		 9: body->html_safe def_%v_3 body[2.7,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral "text/html" def_%v_4 
+		 11: HASH-to-subject-body-content_type- def_%v_5 recipient_email[2.5,] subject[2.6,] %v_3[2.9,] %v_4[2.10,] 
+		 12: %self->mail def_%v_6 %self[2.0,] %v_5[2.11,] 	 SYMBOL:	 ARGS:%v_5,
+		 13: RETURN %v_6[2.12,] %self[2.0,2.12,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = allowed_email_domains instanceMethod = false
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Gitlab) def_%v_3 
+		 7: %v_3->config def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->gitlab def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->host def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral "." def_%v_7 
+		 11: %v_6->split def_%v_8 %v_6[2.9,] %v_7[2.10,] 	 SYMBOL:	 ARGS:%v_7,
+		 12: COPY TYPE_PASS def_domain_parts %v_8[2.11,] 
+		 13: 
+		 14: COPY TYPE_Array def_%v_9 
+		 15: COPY TYPE_PASS def_allowed_domains %v_9[2.14,] 
+		 16: 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: COPY TYPE_StringLiteral "." def_%v_11 
+		 3: domain_parts->join def_%v_12 domain_parts[2.12,] %v_11[4.2,] 	 SYMBOL:	 ARGS:%v_11,
+		 4: allowed_domains-><< def_%v_13 allowed_domains[2.15,] %v_12[4.3,] 	 SYMBOL:	 ARGS:%v_12,
+		 5: 
+		 6: domain_parts->shift def_%v_14 domain_parts[4.3,2.12,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: domain_parts->length def_%v_15 domain_parts[4.3,4.6,2.12,] 	 SYMBOL:	 ARGS:
+		 9: (ActionDispatch) def_%v_16 
+		 10: (inherit Http) def_%v_17 %v_16[4.9,] 
+		 11: %v_17[4.10,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_16->const_missing def_%v_17 %v_16[4.9,] 	 SYMBOL:Http,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: (inherit URL) def_%v_18 %v_17[6.0,4.10,] 
+		 1: %v_18[7.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_17->const_missing def_%v_18 %v_17[6.0,4.10,] 	 SYMBOL:URL,	 ARGS:Symbol,
+BB 9
+	outgoing: 4 10 
+	datadep: 
+	instructions:
+		 0: %v_18->tld_length def_%v_19 %v_18[8.0,7.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_15->> def_%v_20 %v_15[4.8,] %v_19[9.0,] 	 SYMBOL:	 ARGS:%v_19,
+		 2: BRANCH %v_20[9.1,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+		 2: RETURN allowed_domains[2.15,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_send_from_user_email? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_sender 
+		 6: 
+		 7: sender->email def_%v_3 sender[2.5,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "@" def_%v_4 
+		 9: %v_3->split def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: %v_5->last def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_PASS def_sender_domain %v_6[2.10,] 
+		 12: 
+		 13: %self->class def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 14: %v_7->allowed_email_domains def_%v_8 %v_7[2.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_8->include? def_%v_9 %v_8[2.14,] sender_domain[2.11,] 	 SYMBOL:	 ARGS:sender_domain,
+		 16: RETURN %v_9[2.15,] %self[2.0,2.13,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = sender instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_sender_id 
+		 6: RECEIVECONSTARG def_send_from_user_email 
+		 7: send_from_user_email[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Boolean def_send_from_user_email 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%v_3 
+		 2: %v_3->find def_%v_4 %v_3[4.1,] sender_id[2.5,] 	 SYMBOL:	 ARGS:sender_id,
+		 3: COPY TYPE_PASS def_sender %v_4[4.2,] 
+		 4: BRANCH %v_4[4.2,] 
+BB 5
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: %self->default_sender_address def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_address %v_6[5.2,] 
+		 4: 
+		 5: sender->name def_%v_7 sender[4.3,] 	 SYMBOL:	 ARGS:
+		 6: ATTRASSIGN address->display_name %v_7[5.5,] 
+		 7: 
+		 8: COPY TYPE_PASS def_%v_8 send_from_user_email[3.0,2.6,] 
+		 9: BRANCH send_from_user_email[3.0,2.6,] 
+BB 6
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %self->can_send_from_user_email? def_%v_9 %self[2.0,] sender[4.3,] 	 SYMBOL:	 ARGS:sender,
+		 1: COPY TYPE_PASS def_%v_8 %v_9[8.0,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_8[8.1,5.8,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: sender->email def_%v_10 sender[4.3,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN address->address %v_10[10.1,] 
+		 3: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: address->format def_%v_11 address[10.2,5.3,5.6,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_11[12.1,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = recipient instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_recipient_id 
+		 6: 
+		 7: (User) def_%v_3 
+		 8: %v_3->find def_%v_4 %v_3[2.7,] recipient_id[2.5,] 	 SYMBOL:	 ARGS:recipient_id,
+		 9: ATTRASSIGN %self->current_user %v_4[2.8,] 
+		 10: 
+		 11: GETFIELD %self->current_user def_%v_5 %self[2.0,2.9,] 
+		 12: %v_5->notification_email def_%v_6 %v_5[2.11,] 	 SYMBOL:	 ARGS:
+		 13: RETURN %v_6[2.12,] %self[2.0,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = subject instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_extra 
+		 6: 
+		 7: COPY TYPE_StringLiteral "" def_%v_3 
+		 8: COPY TYPE_PASS def_subject %v_3[2.7,] 
+		 9: 
+		 10: GETFIELD %self->project def_%v_4 %self[2.0,] 
+		 11: BRANCH %v_4[2.10,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->project def_%v_5 %self[2.0,] 
+		 2: %v_5->name def_%v_6 %v_5[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral " | " def_%v_7 
+		 4: BUILDSTRING def_%v_8 %v_6[3.2,] %v_7[3.3,] 
+		 5: subject-><< def_%v_9 subject[2.8,] %v_8[3.4,] 	 SYMBOL:	 ARGS:%v_8,
+		 6: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: extra->present? def_%v_10 extra[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_10[5.1,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral " | " def_%v_11 
+		 1: extra->join def_%v_12 extra[2.5,] %v_11[6.0,] 	 SYMBOL:	 ARGS:%v_11,
+		 2: subject-><< def_%v_13 subject[2.8,] %v_12[6.1,] 	 SYMBOL:	 ARGS:%v_12,
+		 3: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN subject[2.8,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = message_id instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_model 
+		 6: 
+		 7: model->class def_%v_3 model[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->model_name def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->singular_route_key def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_PASS def_model_name %v_5[2.9,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "<" def_%v_6 
+		 13: COPY TYPE_StringLiteral "_" def_%v_7 
+		 14: model->id def_%v_8 model[2.5,2.7,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_StringLiteral "@" def_%v_9 
+		 16: (Gitlab) def_%v_10 
+		 17: %v_10->config def_%v_11 %v_10[2.16,] 	 SYMBOL:	 ARGS:
+		 18: %v_11->gitlab def_%v_12 %v_11[2.17,] 	 SYMBOL:	 ARGS:
+		 19: %v_12->host def_%v_13 %v_12[2.18,] 	 SYMBOL:	 ARGS:
+		 20: COPY TYPE_StringLiteral ">" def_%v_14 
+		 21: BUILDSTRING def_%v_15 %v_6[2.12,] model_name[2.10,] %v_7[2.13,] %v_8[2.14,] %v_9[2.15,] %v_13[2.19,] %v_14[2.20,] 
+		 22: RETURN %v_15[2.21,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mail_thread instanceMethod = true
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_model 
+		 6: RECEIVECONSTARG def_headers 
+		 7: headers[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_headers %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->add_project_headers def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: COPY TYPE_StringLiteral "X-GitLab-" def_%v_5 
+		 4: model->class def_%v_6 model[2.5,] 	 SYMBOL:	 ARGS:
+		 5: %v_6->name def_%v_7 %v_6[4.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral "-ID" def_%v_8 
+		 7: BUILDSTRING def_%v_9 %v_5[4.3,] %v_7[4.5,] %v_8[4.6,] 
+		 8: model->id def_%v_10 model[4.4,2.5,] 	 SYMBOL:	 ARGS:
+		 9: ATTRASSIGN headers->[] %v_9[4.7,] %v_10[4.8,] 
+		 10: 
+		 11: COPY TYPE_StringLiteral "X-GitLab-Reply-Key" def_%v_11 
+		 12: %self->reply_key def_%v_12 %self[4.1,2.0,] 	 SYMBOL:	 ARGS:
+		 13: ATTRASSIGN headers->[] %v_11[4.11,] %v_12[4.12,] 
+		 14: 
+		 15: (Gitlab) def_%v_13 
+		 16: (inherit IncomingEmail) def_%v_14 %v_13[4.15,] 
+		 17: %v_14[4.16,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_13->const_missing def_%v_14 %v_13[4.15,] 	 SYMBOL:IncomingEmail,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 14 
+	datadep: 
+	instructions:
+		 0: %v_14->enabled? def_%v_15 %v_14[5.0,4.16,] 	 SYMBOL:	 ARGS:
+		 1: BRANCH %v_15[6.0,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Mail) def_%v_16 
+		 2: (inherit Address) def_%v_17 %v_16[7.1,] 
+		 3: %v_17[7.2,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_16->const_missing def_%v_17 %v_16[7.1,] 	 SYMBOL:Address,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: (Gitlab) def_%v_18 
+		 1: (inherit IncomingEmail) def_%v_19 %v_18[9.0,] 
+		 2: %v_19[9.1,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %v_18->const_missing def_%v_19 %v_18[9.0,] 	 SYMBOL:IncomingEmail,	 ARGS:Symbol,
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: %self->reply_key def_%v_20 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_19->reply_address def_%v_21 %v_19[10.0,9.1,] %v_20[11.0,] 	 SYMBOL:	 ARGS:%v_20,
+		 2: %v_17->new def_%v_22 %v_17[8.0,7.2,] %v_21[11.1,] 	 SYMBOL:	 ARGS:%v_21,
+		 3: COPY TYPE_PASS def_address %v_22[11.2,] 
+		 4: 
+		 5: GETFIELD %self->project def_%v_23 %self[11.0,2.0,] 
+		 6: %v_23->name_with_namespace def_%v_24 %v_23[11.5,] 	 SYMBOL:	 ARGS:
+		 7: ATTRASSIGN address->display_name %v_24[11.6,] 
+		 8: 
+		 9: COPY TYPE_StringLiteral "Reply-To" def_%v_25 
+		 10: ATTRASSIGN headers->[] %v_25[11.9,] address[11.3,11.7,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "<reply-" def_%v_26 
+		 13: %self->reply_key def_%v_27 %self[11.0,2.0,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_StringLiteral "@" def_%v_28 
+		 15: (Gitlab) def_%v_29 
+		 16: %v_29->config def_%v_30 %v_29[11.15,] 	 SYMBOL:	 ARGS:
+		 17: %v_30->gitlab def_%v_31 %v_30[11.16,] 	 SYMBOL:	 ARGS:
+		 18: %v_31->host def_%v_32 %v_31[11.17,] 	 SYMBOL:	 ARGS:
+		 19: COPY TYPE_StringLiteral ">" def_%v_33 
+		 20: BUILDSTRING def_%v_34 %v_26[11.12,] %v_27[11.13,] %v_28[11.14,] %v_32[11.18,] %v_33[11.19,] 
+		 21: %v_34->freeze def_%v_35 %v_34[11.20,] 	 SYMBOL:	 ARGS:
+		 22: COPY TYPE_PASS def_fallback_reply_message_id %v_35[11.21,] 
+		 23: 
+		 24: COPY TYPE_StringLiteral "References" def_%v_37 
+		 25: headers->[] def_%v_36 headers[11.10,4.9,4.13,3.1,2.6,] %v_37[11.24,] 	 SYMBOL:	 ARGS:%v_37,
+		 26: BRANCH %v_36[11.25,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_38 
+		 1: headers->[]= def_%v_36 headers[11.10,4.9,4.13,3.1,2.6,] %v_37[11.24,] %v_38[12.0,] 	 SYMBOL:	 ARGS:%v_37,%v_38,
+		 2: COPY TYPE_PASS def_%v_36 %v_38[12.0,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "References" def_%v_39 
+		 2: headers->[] def_%v_40 headers[12.1,11.10,4.9,4.13,3.1,2.6,] %v_39[13.1,] 	 SYMBOL:	 ARGS:%v_39,
+		 3: COPY TYPE_StringLiteral " " def_%v_41 
+		 4: %v_40-><< def_%v_42 %v_40[13.2,] %v_41[13.3,] 	 SYMBOL:	 ARGS:%v_41,
+		 5: %v_42-><< def_%v_43 %v_42[13.4,] fallback_reply_message_id[11.22,] 	 SYMBOL:	 ARGS:fallback_reply_message_id,
+		 6: 
+		 7: ATTRASSIGN %self->reply_by_email 
+		 8: COPY TYPE_Boolean def_%v_44 
+		 9: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_44 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->mail def_%v_45 %self[13.7,2.0,] headers[12.1,11.10,4.9,4.13,3.1,2.6,] 	 SYMBOL:	 ARGS:headers,
+		 2: RETURN %v_45[15.1,] %self[15.1,13.7,2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mail_new_thread instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_model 
+		 6: RECEIVECONSTARG def_headers 
+		 7: headers[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_headers %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Message-ID" def_%v_4 
+		 2: %self->message_id def_%v_5 %self[2.0,] model[2.5,] 	 SYMBOL:	 ARGS:model,
+		 3: ATTRASSIGN headers->[] %v_4[4.1,] %v_5[4.2,] 
+		 4: 
+		 5: %self->mail_thread def_%v_6 %self[4.2,2.0,] model[2.5,] headers[4.3,3.1,2.6,] 	 SYMBOL:	 ARGS:model,headers,
+		 6: RETURN %v_6[4.5,] %self[4.2,4.5,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mail_answer_thread instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_model 
+		 6: RECEIVECONSTARG def_headers 
+		 7: headers[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_headers %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Message-ID" def_%v_4 
+		 2: COPY TYPE_StringLiteral "<" def_%v_5 
+		 3: (SecureRandom) def_%v_6 
+		 4: %v_6->hex def_%v_7 %v_6[4.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "@" def_%v_8 
+		 6: (Gitlab) def_%v_9 
+		 7: %v_9->config def_%v_10 %v_9[4.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_10->gitlab def_%v_11 %v_10[4.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_11->host def_%v_12 %v_11[4.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral ">" def_%v_13 
+		 11: BUILDSTRING def_%v_14 %v_5[4.2,] %v_7[4.4,] %v_8[4.5,] %v_12[4.9,] %v_13[4.10,] 
+		 12: ATTRASSIGN headers->[] %v_4[4.1,] %v_14[4.11,] 
+		 13: 
+		 14: COPY TYPE_StringLiteral "In-Reply-To" def_%v_15 
+		 15: %self->message_id def_%v_16 %self[2.0,] model[2.5,] 	 SYMBOL:	 ARGS:model,
+		 16: ATTRASSIGN headers->[] %v_15[4.14,] %v_16[4.15,] 
+		 17: 
+		 18: COPY TYPE_StringLiteral "References" def_%v_17 
+		 19: %self->message_id def_%v_18 %self[4.15,2.0,] model[2.5,] 	 SYMBOL:	 ARGS:model,
+		 20: ATTRASSIGN headers->[] %v_17[4.18,] %v_18[4.19,] 
+		 21: 
+		 22: headers->[] def_%v_19 headers[4.12,4.16,4.20,3.1,2.6,] 	 SYMBOL:subject,	 ARGS:Symbol,
+		 23: BRANCH %v_19[4.22,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: headers->[] def_%v_20 headers[4.12,4.16,4.20,3.1,2.6,] 	 SYMBOL:subject,	 ARGS:Symbol,
+		 1: COPY TYPE_StringLiteral "Re: " def_%v_21 
+		 2: %v_20->prepend def_%v_22 %v_20[5.0,] %v_21[5.1,] 	 SYMBOL:	 ARGS:%v_21,
+		 3: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->mail_thread def_%v_23 %self[2.0,] model[2.5,] headers[4.12,4.16,4.20,3.1,2.6,] 	 SYMBOL:	 ARGS:model,headers,
+		 2: RETURN %v_23[7.1,] %self[7.1,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = reply_key instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->reply_key def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: (SentNotification) def_%v_6 
+		 1: %v_6->reply_key def_%v_7 %v_6[5.0,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %self->reply_key %v_7[5.1,] 
+		 3: RETURN %v_7[5.1,] %self[5.2,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = add_project_headers instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->project def_%v_3 %self[2.0,] 
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: %self->headers def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "X-GitLab-Project" def_%v_6 
+		 4: GETFIELD %self->project def_%v_7 %self[3.2,2.0,] 
+		 5: %v_7->name def_%v_8 %v_7[3.4,] 	 SYMBOL:	 ARGS:
+		 6: ATTRASSIGN %v_5->[] %v_6[3.3,] %v_8[3.5,] 
+		 7: 
+		 8: %self->headers def_%v_9 %self[3.2,2.0,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_StringLiteral "X-GitLab-Project-Id" def_%v_10 
+		 10: GETFIELD %self->project def_%v_11 %self[3.2,3.8,2.0,] 
+		 11: %v_11->id def_%v_12 %v_11[3.10,] 	 SYMBOL:	 ARGS:
+		 12: ATTRASSIGN %v_9->[] %v_10[3.9,] %v_12[3.11,] 
+		 13: 
+		 14: %self->headers def_%v_13 %self[3.2,3.8,2.0,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_StringLiteral "X-GitLab-Project-Path" def_%v_14 
+		 16: GETFIELD %self->project def_%v_15 %self[3.2,3.8,3.14,2.0,] 
+		 17: %v_15->path_with_namespace def_%v_16 %v_15[3.16,] 	 SYMBOL:	 ARGS:
+		 18: ATTRASSIGN %v_13->[] %v_14[3.15,] %v_16[3.17,] 
+		 19: RETURN %v_16[3.17,] %self[3.2,3.8,3.14,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

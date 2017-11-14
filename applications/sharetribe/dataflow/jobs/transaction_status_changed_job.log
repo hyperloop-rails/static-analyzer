@@ -1,0 +1,80 @@
+SET IRMethod, name = before instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_job 
+		 6: 
+		 7: (ApplicationHelper) def_%v_3 
+		 8: %self->community_id def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->store_community_service_name_to_thread_from_community_id def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: RETURN %v_5[2.9,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = perform instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Community) def_%v_3 
+		 7: %self->community_id def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->find def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: COPY TYPE_PASS def_community %v_5[2.8,] 
+		 10: 
+		 11: (Transaction) def_%v_6 
+		 12: %self->conversation_id def_%v_7 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 13: %v_6->find def_%v_8 %v_6[2.11,] %v_7[2.12,] 	 SYMBOL:	 ARGS:%v_7,
+		 14: COPY TYPE_PASS def_transaction %v_8[2.13,] 
+		 15: 
+		 16: (Person) def_%v_9 
+		 17: %self->current_user_id def_%v_10 %self[2.0,2.7,2.12,] 	 SYMBOL:	 ARGS:
+		 18: %v_9->find def_%v_11 %v_9[2.16,] %v_10[2.17,] 	 SYMBOL:	 ARGS:%v_10,
+		 19: COPY TYPE_PASS def_current_user %v_11[2.18,] 
+		 20: 
+		 21: transaction->other_party def_%v_12 transaction[2.14,] %v_11[2.18,] 	 SYMBOL:	 ARGS:current_user,
+		 22: COPY TYPE_StringLiteral "email_when_conversation_" def_%v_13 
+		 23: transaction->status def_%v_14 transaction[2.14,2.21,] 	 SYMBOL:	 ARGS:
+		 24: BUILDSTRING def_%v_15 %v_13[2.22,] %v_14[2.23,] 
+		 25: %v_12->should_receive? def_%v_16 %v_12[2.21,] %v_15[2.24,] 	 SYMBOL:	 ARGS:%v_15,
+		 26: BRANCH %v_16[2.25,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PersonMailer) def_%v_17 
+		 2: %v_17->conversation_status_changed def_%v_18 %v_17[3.1,] transaction[2.14,] community[2.9,] 	 SYMBOL:	 ARGS:transaction,community,
+		 3: %v_18->deliver def_%v_19 %v_18[3.2,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %v_19[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

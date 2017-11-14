@@ -1,0 +1,303 @@
+SET IRMethod, name = name instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "google_oauth2" def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = after_authenticate instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_auth_hash 
+		 6: 
+		 7: %self->parse_hash def_%v_3 %self[2.0,] auth_hash[2.5,] 	 SYMBOL:	 ARGS:auth_hash,
+		 8: COPY TYPE_PASS def_session_info %v_3[2.7,] 
+		 9: 
+		 10: %v_3->[] def_%v_4 %v_3[2.7,] 	 SYMBOL:google,	 ARGS:Symbol,
+		 11: COPY TYPE_PASS def_google_hash %v_4[2.10,] 
+		 12: 
+		 13: (Auth) def_%v_5 
+		 14: (inherit Result) def_%v_6 %v_5[2.13,] 
+		 15: %v_6[2.14,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_5->const_missing def_%v_6 %v_5[2.13,] 	 SYMBOL:Result,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %v_6->new def_%v_7 %v_6[3.0,2.14,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_result %v_7[4.0,] 
+		 2: 
+		 3: session_info->[] def_%v_8 session_info[2.8,] 	 SYMBOL:email,	 ARGS:Symbol,
+		 4: ATTRASSIGN result->email %v_8[4.3,] 
+		 5: 
+		 6: session_info->[] def_%v_9 session_info[4.3,2.8,] 	 SYMBOL:email_valid,	 ARGS:Symbol,
+		 7: ATTRASSIGN result->email_valid %v_9[4.6,] 
+		 8: 
+		 9: session_info->[] def_%v_10 session_info[4.3,4.6,2.8,] 	 SYMBOL:name,	 ARGS:Symbol,
+		 10: ATTRASSIGN result->name %v_10[4.9,] 
+		 11: 
+		 12: ATTRASSIGN result->extra_data google_hash[2.11,] 
+		 13: 
+		 14: (GoogleUserInfo) def_%v_11 
+		 15: google_hash->[] def_%v_12 google_hash[2.11,] 	 SYMBOL:google_user_id,	 ARGS:Symbol,
+		 16: HASH-google_user_id- def_%v_13 %v_12[4.15,] 
+		 17: %v_11->find_by def_%v_14 %v_11[4.14,] %v_13[4.16,] 	 SYMBOL:	 ARGS:%v_13,
+		 18: COPY TYPE_PASS def_user_info %v_14[4.17,] 
+		 19: 
+		 20: %v_14->try def_%v_15 %v_14[4.17,] 	 SYMBOL:user,	 ARGS:Symbol,
+		 21: ATTRASSIGN result->user %v_15[4.20,] 
+		 22: 
+		 23: result->user def_%v_16 result[4.1,4.4,4.7,4.10,4.12,4.21,] 	 SYMBOL:	 ARGS:
+		 24: %v_16->! def_%v_17 %v_16[4.23,] 	 SYMBOL:	 ARGS:
+		 25: BRANCH %v_17[4.24,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: result->email def_%v_18 result[4.1,4.4,4.7,4.10,4.12,4.21,] 	 SYMBOL:	 ARGS:
+		 1: %v_18->blank? def_%v_19 %v_18[5.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_19->! def_%v_20 %v_19[5.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_17 %v_20[5.2,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_17[5.3,4.24,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: (User) def_%v_21 
+		 1: result->email def_%v_22 result[4.1,4.4,4.7,4.10,4.12,4.21,] 	 SYMBOL:	 ARGS:
+		 2: %v_21->find_by_email def_%v_23 %v_21[7.0,] %v_22[7.1,] 	 SYMBOL:	 ARGS:%v_22,
+		 3: ATTRASSIGN result->user %v_23[7.2,] 
+		 4: COPY TYPE_PASS def_%v_17 %v_23[7.2,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_17[7.4,5.3,4.24,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (GoogleUserInfo) def_%v_24 
+		 2: result->user def_%v_25 result[7.3,4.1,4.4,4.7,4.10,4.12,4.21,] 	 SYMBOL:	 ARGS:
+		 3: %v_25->id def_%v_26 %v_25[9.2,] 	 SYMBOL:	 ARGS:
+		 4: HASH-user_id- def_%v_27 %v_26[9.3,] 
+		 5: %v_27->merge def_%v_28 %v_27[9.4,] google_hash[2.11,] 	 SYMBOL:	 ARGS:google_hash,
+		 6: %v_24->create def_%v_29 %v_24[9.1,] %v_28[9.5,] 	 SYMBOL:	 ARGS:%v_28,
+		 7: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_29 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN result[7.3,4.1,4.4,4.7,4.10,4.12,4.21,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = after_create_account instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_auth 
+		 7: 
+		 8: auth->[] def_%v_3 auth[2.6,] 	 SYMBOL:extra_data,	 ARGS:Symbol,
+		 9: COPY TYPE_PASS def_data %v_3[2.8,] 
+		 10: 
+		 11: (GoogleUserInfo) def_%v_4 
+		 12: user->id def_%v_5 user[2.5,] 	 SYMBOL:	 ARGS:
+		 13: HASH-user_id- def_%v_6 %v_5[2.12,] 
+		 14: %v_6->merge def_%v_7 %v_6[2.13,] data[2.9,] 	 SYMBOL:	 ARGS:data,
+		 15: %v_4->create def_%v_8 %v_4[2.11,] %v_7[2.14,] 	 SYMBOL:	 ARGS:%v_7,
+		 16: RETURN %v_8[2.15,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = register_middleware instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_omniauth 
+		 6: 
+		 7: %self->lambda def_%v_3 %self[2.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: env[] strategy[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_env 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "omniauth.strategy" def_%cl_1_3 
+		 2: env->[] def_%cl_1_4 env[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: COPY TYPE_PASS def_strategy %cl_1_4[3.2,] 
+		 4: 
+		 5: %cl_1_4->options def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 6: (SiteSetting) def_%cl_1_6 
+		 7: %cl_1_6->google_oauth2_client_id def_%cl_1_7 %cl_1_6[3.6,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN %cl_1_5->[] %cl_1_7[3.7,] 
+		 9: 
+		 10: strategy->options def_%cl_1_8 strategy[3.3,] 	 SYMBOL:	 ARGS:
+		 11: (SiteSetting) def_%cl_1_9 
+		 12: %cl_1_9->google_oauth2_client_secret def_%cl_1_10 %cl_1_9[3.11,] 	 SYMBOL:	 ARGS:
+		 13: ATTRASSIGN %cl_1_8->[] %cl_1_10[3.12,] 
+		 14: RETURN %cl_1_10[3.12,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_11 
+		 1: def_%cl_1_12 %cl_1_11[4.0,] 
+		 2: RETURN %cl_1_12[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: strategy[3.3,] 
+		 8: HASH-setup-skip_jwt- def_%v_4 %v_3[2.7,] 
+		 9: omniauth->provider def_%v_5 omniauth[2.5,] %v_4[2.8,] 	 SYMBOL:google_oauth2,	 ARGS:Symbol,%v_4,
+		 10: RETURN %v_5[2.9,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = parse_hash instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_hash 
+		 6: 
+		 7: hash->[] def_%v_3 hash[2.5,] 	 SYMBOL:extra,	 ARGS:Symbol,
+		 8: %v_3->[] def_%v_4 %v_3[2.7,] 	 SYMBOL:raw_info,	 ARGS:Symbol,
+		 9: COPY TYPE_PASS def_extra %v_4[2.8,] 
+		 10: 
+		 11: HASH- def_%v_5 
+		 12: COPY TYPE_PASS def_h %v_5[2.11,] 
+		 13: 
+		 14: hash->[] def_%v_6 hash[2.5,2.7,] 	 SYMBOL:info,	 ARGS:Symbol,
+		 15: %v_6->[] def_%v_7 %v_6[2.14,] 	 SYMBOL:email,	 ARGS:Symbol,
+		 16: ATTRASSIGN h->[] %v_7[2.15,] 
+		 17: 
+		 18: hash->[] def_%v_8 hash[2.5,2.7,2.14,] 	 SYMBOL:info,	 ARGS:Symbol,
+		 19: %v_8->[] def_%v_9 %v_8[2.18,] 	 SYMBOL:name,	 ARGS:Symbol,
+		 20: ATTRASSIGN h->[] %v_9[2.19,] 
+		 21: 
+		 22: hash->[] def_%v_10 hash[2.5,2.7,2.14,2.18,] 	 SYMBOL:extra,	 ARGS:Symbol,
+		 23: %v_10->[] def_%v_11 %v_10[2.22,] 	 SYMBOL:raw_info,	 ARGS:Symbol,
+		 24: %v_11->[] def_%v_12 %v_11[2.23,] 	 SYMBOL:email_verified,	 ARGS:Symbol,
+		 25: ATTRASSIGN h->[] %v_12[2.24,] 
+		 26: 
+		 27: hash->[] def_%v_13 hash[2.5,2.7,2.14,2.18,2.22,] 	 SYMBOL:uid,	 ARGS:Symbol,
+		 28: BRANCH %v_13[2.27,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: extra->[] def_%v_14 extra[2.9,] 	 SYMBOL:sub,	 ARGS:Symbol,
+		 1: COPY TYPE_PASS def_%v_13 %v_14[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: extra->[] def_%v_15 extra[2.9,] 	 SYMBOL:email,	 ARGS:Symbol,
+		 1: extra->[] def_%v_16 extra[4.0,2.9,] 	 SYMBOL:given_name,	 ARGS:Symbol,
+		 2: extra->[] def_%v_17 extra[4.0,4.1,2.9,] 	 SYMBOL:family_name,	 ARGS:Symbol,
+		 3: extra->[] def_%v_18 extra[4.0,4.1,4.2,2.9,] 	 SYMBOL:gender,	 ARGS:Symbol,
+		 4: extra->[] def_%v_19 extra[4.0,4.1,4.2,4.3,2.9,] 	 SYMBOL:name,	 ARGS:Symbol,
+		 5: extra->[] def_%v_20 extra[4.0,4.1,4.2,4.3,4.4,2.9,] 	 SYMBOL:hd,	 ARGS:Symbol,
+		 6: extra->[] def_%v_21 extra[4.0,4.1,4.2,4.3,4.4,4.5,2.9,] 	 SYMBOL:profile,	 ARGS:Symbol,
+		 7: extra->[] def_%v_22 extra[4.0,4.1,4.2,4.3,4.4,4.5,4.6,2.9,] 	 SYMBOL:picture,	 ARGS:Symbol,
+		 8: HASH-google_user_id-email-first_name-last_name-gender-name-link-profile_link-picture- def_%v_23 %v_13[3.1,2.27,] %v_15[4.0,] %v_16[4.1,] %v_17[4.2,] %v_18[4.3,] %v_19[4.4,] %v_20[4.5,] %v_21[4.6,] %v_22[4.7,] 
+		 9: ATTRASSIGN h->[] %v_23[4.8,] 
+		 10: 
+		 11: RETURN h[4.9,2.12,2.16,2.20,2.25,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

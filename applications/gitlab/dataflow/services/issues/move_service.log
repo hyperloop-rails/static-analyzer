@@ -1,0 +1,566 @@
+SET IRMethod, name = execute instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_issue 
+		 6: RECEIVEARG def_new_project 
+		 7: 
+		 8: ATTRASSIGN %self->old_issue issue[2.5,] 
+		 9: 
+		 10: GETFIELD %self->project def_%v_3 %self[2.0,] 
+		 11: ATTRASSIGN %self->old_project %v_3[2.10,] 
+		 12: 
+		 13: ATTRASSIGN %self->new_project new_project[2.6,] 
+		 14: 
+		 15: %self->current_user def_%v_4 %self[2.0,2.8,2.11,2.13,] 	 SYMBOL:	 ARGS:
+		 16: issue->can_move? def_%v_5 issue[2.5,] %v_4[2.15,] new_project[2.6,] 	 SYMBOL:	 ARGS:%v_4,new_project,
+		 17: BRANCH %v_5[2.16,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (MoveError) def_%v_7 
+		 2: COPY TYPE_StringLiteral "Cannot move issue due to insufficient permissions!" def_%v_8 
+		 3: %self->raise def_%v_9 %self[2.0,2.8,2.11,2.13,] %v_7[4.1,] %v_8[4.2,] 	 SYMBOL:	 ARGS:%v_7,%v_8,
+		 4: COPY TYPE_PASS def_%v_6 %v_9[4.3,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->project def_%v_10 %self[2.0,] 
+		 2: %v_10->== def_%v_11 %v_10[5.1,] new_project[2.6,] 	 SYMBOL:	 ARGS:new_project,
+		 3: BRANCH %v_11[5.2,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (MoveError) def_%v_12 
+		 2: COPY TYPE_StringLiteral "Cannot move issue to project it originates from!" def_%v_13 
+		 3: %self->raise def_%v_14 %self[2.0,2.8,2.11,2.13,] %v_12[6.1,] %v_13[6.2,] 	 SYMBOL:	 ARGS:%v_12,%v_13,
+		 4: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ActiveRecord) def_%v_15 
+		 2: (inherit Base) def_%v_16 %v_15[8.1,] 
+		 3: %v_16[8.2,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_15->const_missing def_%v_16 %v_15[8.1,] 	 SYMBOL:Base,	 ARGS:Symbol,
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %v_16->transaction def_%v_17 %v_16[9.0,8.2,] %self[2.0,2.8,2.11,2.13,] 	 SYMBOL:	 ARGS:%v_16,
+CLOSURE BEGIN: %self[2.0,2.8,2.11,2.13,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->create_new_issue def_%cl_1_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %self->new_issue %cl_1_3[3.1,] 
+		 3: 
+		 4: %self->rewrite_notes def_%cl_1_4 %self[3.1,3.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: 
+		 6: %self->add_note_moved_from def_%cl_1_5 %self[3.1,3.2,3.4,2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: %self->add_note_moved_to def_%cl_1_6 %self[3.1,3.2,3.4,3.6,2.0,] 	 SYMBOL:	 ARGS:
+		 9: 
+		 10: %self->close_issue def_%cl_1_7 %self[3.1,3.2,3.4,3.6,3.8,2.0,] 	 SYMBOL:	 ARGS:
+		 11: 
+		 12: %self->mark_as_moved def_%cl_1_8 %self[3.1,3.2,3.4,3.6,3.8,3.10,2.0,] 	 SYMBOL:	 ARGS:
+		 13: RETURN %cl_1_8[3.12,] %self[3.1,3.2,3.4,3.6,3.8,3.10,3.12,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_9 
+		 1: def_%cl_1_10 %cl_1_9[4.0,] 
+		 2: RETURN %cl_1_10[4.1,] %self[3.2,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 1: 
+		 2: %self->notify_participants def_%v_18 %self[2.0,2.8,2.11,2.13,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: GETFIELD %self->new_issue def_%v_19 %self[10.2,2.0,] 
+		 5: RETURN %v_19[10.4,] %self[10.2,2.0,2.8,2.11,2.13,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create_new_issue instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->cloneable_label_ids def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->cloneable_milestone_id def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 8: GETFIELD %self->new_project def_%v_5 %self[2.0,2.6,2.7,] 
+		 9: GETFIELD %self->old_issue def_%v_6 %self[2.0,2.6,2.7,] 
+		 10: %v_6->author def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: GETFIELD %self->old_issue def_%v_8 %self[2.0,2.6,2.7,] 
+		 12: %v_8->description def_%v_9 %v_8[2.11,] 	 SYMBOL:	 ARGS:
+		 13: %self->rewrite_content def_%v_10 %self[2.0,2.6,2.7,] %v_9[2.12,] 	 SYMBOL:	 ARGS:%v_9,
+		 14: HASH-id-iid-label_ids-milestone_id-project-author-description- def_%v_11 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] %v_7[2.10,] %v_10[2.13,] 
+		 15: COPY TYPE_PASS def_new_params %v_11[2.14,] 
+		 16: 
+		 17: GETFIELD %self->old_issue def_%v_12 %self[2.0,2.6,2.7,2.13,] 
+		 18: %v_12->serializable_hash def_%v_13 %v_12[2.17,] 	 SYMBOL:	 ARGS:
+		 19: %v_13->symbolize_keys def_%v_14 %v_13[2.18,] 	 SYMBOL:	 ARGS:
+		 20: %v_14->merge def_%v_15 %v_14[2.19,] new_params[2.15,] 	 SYMBOL:	 ARGS:new_params,
+		 21: COPY TYPE_PASS def_new_params %v_15[2.20,] 
+		 22: 
+		 23: (CreateService) def_%v_16 
+		 24: GETFIELD %self->new_project def_%v_17 %self[2.0,2.6,2.7,2.13,] 
+		 25: GETFIELD %self->current_user def_%v_18 %self[2.0,2.6,2.7,2.13,] 
+		 26: %v_16->new def_%v_19 %v_16[2.23,] %v_17[2.24,] %v_18[2.25,] %v_15[2.20,] 	 SYMBOL:	 ARGS:%v_17,%v_18,new_params,
+		 27: %v_19->execute def_%v_20 %v_19[2.26,] 	 SYMBOL:	 ARGS:
+		 28: RETURN %v_20[2.27,] %self[2.0,2.6,2.7,2.13,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cloneable_label_ids instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->new_project def_%v_3 %self[2.0,] 
+		 7: %v_3->labels def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: GETFIELD %self->old_issue def_%v_5 %self[2.0,] 
+		 9: %v_5->labels def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_6->pluck def_%v_7 %v_6[2.9,] 	 SYMBOL:title,	 ARGS:Symbol,
+		 11: HASH-title- def_%v_8 %v_7[2.10,] 
+		 12: %v_4->where def_%v_9 %v_4[2.7,] %v_8[2.11,] 	 SYMBOL:	 ARGS:%v_8,
+		 13: %v_9->pluck def_%v_10 %v_9[2.12,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 14: RETURN %v_10[2.13,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cloneable_milestone_id instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->new_project def_%v_3 %self[2.0,] 
+		 7: %v_3->milestones def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: GETFIELD %self->old_issue def_%v_5 %self[2.0,] 
+		 9: %v_5->milestone def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_6->try def_%v_7 %v_6[2.9,] 	 SYMBOL:title,	 ARGS:Symbol,
+		 11: HASH-title- def_%v_8 %v_7[2.10,] 
+		 12: %v_4->find_by def_%v_9 %v_4[2.7,] %v_8[2.11,] 	 SYMBOL:	 ARGS:%v_8,
+		 13: %v_9->try def_%v_10 %v_9[2.12,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 14: RETURN %v_10[2.13,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = rewrite_notes instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->old_issue def_%v_3 %self[2.0,] 
+		 7: %v_3->notes def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->find_each def_%v_5 %v_4[2.7,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: note[] %self[2.0,] new_note[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_note 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: note->dup def_%cl_1_3 note[2.2,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_new_note %cl_1_3[3.1,] 
+		 3: 
+		 4: GETFIELD %self->new_project def_%cl_1_4 %self[2.0,] 
+		 5: GETFIELD %self->new_issue def_%cl_1_5 %self[2.0,] 
+		 6: %cl_1_3->note def_%cl_1_6 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 7: %self->rewrite_content def_%cl_1_7 %self[2.0,] %cl_1_6[3.6,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 8: note->created_at def_%cl_1_8 note[3.1,2.2,] 	 SYMBOL:	 ARGS:
+		 9: note->updated_at def_%cl_1_9 note[3.1,3.8,2.2,] 	 SYMBOL:	 ARGS:
+		 10: HASH-project-noteable-note-created_at-updated_at- def_%cl_1_10 %cl_1_4[3.4,] %cl_1_5[3.5,] %cl_1_7[3.7,] %cl_1_8[3.8,] %cl_1_9[3.9,] 
+		 11: COPY TYPE_PASS def_new_params %cl_1_10[3.10,] 
+		 12: 
+		 13: new_note->update def_%cl_1_11 new_note[3.2,] %cl_1_10[3.10,] 	 SYMBOL:	 ARGS:new_params,
+		 14: RETURN %cl_1_11[3.13,] %self[3.7,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_12 
+		 1: def_%cl_1_13 %cl_1_12[4.0,] 
+		 2: RETURN %cl_1_13[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: new_params[3.11,] new_note[3.2,] 
+		 9: RETURN %v_5[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = rewrite_content instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_content 
+		 6: 
+		 7: BRANCH content[2.5,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_3 
+		 1: 
+		 2: (Gitlab) def_%v_4 
+		 3: (inherit Gfm) def_%v_5 %v_4[3.2,] 
+		 4: %v_5[3.3,] 
+BB 4
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.2,] 	 SYMBOL:Gfm,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: (inherit ReferenceRewriter) def_%v_6 %v_5[6.0,3.3,] 
+		 1: %v_6[7.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_5->const_missing def_%v_6 %v_5[6.0,3.3,] 	 SYMBOL:ReferenceRewriter,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: (Gitlab) def_%v_7 
+		 1: (inherit Gfm) def_%v_8 %v_7[9.0,] 
+		 2: %v_8[9.1,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %v_7->const_missing def_%v_8 %v_7[9.0,] 	 SYMBOL:Gfm,	 ARGS:Symbol,
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: (inherit UploadsRewriter) def_%v_9 %v_8[10.0,9.1,] 
+		 1: %v_9[11.0,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: %v_8->const_missing def_%v_9 %v_8[10.0,9.1,] 	 SYMBOL:UploadsRewriter,	 ARGS:Symbol,
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_10 %v_6[8.0,7.0,] %v_9[12.0,11.0,] 
+		 1: COPY TYPE_PASS def_rewriters %v_10[13.0,] 
+		 2: 
+		 3: %v_10->inject def_%v_11 %v_10[13.0,] content[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:content,%v_10,
+CLOSURE BEGIN: %self[2.0,] klass[] text[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_text 
+		 3: RECEIVEARG def_klass 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->old_project def_%cl_1_3 %self[2.0,] 
+		 2: GETFIELD %self->current_user def_%cl_1_4 %self[2.0,] 
+		 3: klass->new def_%cl_1_5 klass[2.3,] text[2.2,] %cl_1_3[3.1,] %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:text,%cl_1_3,%cl_1_4,
+		 4: COPY TYPE_PASS def_rewriter %cl_1_5[3.3,] 
+		 5: 
+		 6: GETFIELD %self->new_project def_%cl_1_6 %self[2.0,] 
+		 7: %cl_1_5->rewrite def_%cl_1_7 %cl_1_5[3.3,] %cl_1_6[3.6,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 8: RETURN %cl_1_7[3.7,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[4.0,] 
+		 2: RETURN %cl_1_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: rewriter[3.4,] klass[2.3,] 
+		 4: RETURN %v_11[13.3,] %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = close_issue instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (CloseService) def_%v_3 
+		 7: GETFIELD %self->old_project def_%v_4 %self[2.0,] 
+		 8: GETFIELD %self->current_user def_%v_5 %self[2.0,] 
+		 9: %v_3->new def_%v_6 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_4,%v_5,
+		 10: COPY TYPE_PASS def_close_service %v_6[2.9,] 
+		 11: 
+		 12: GETFIELD %self->old_issue def_%v_7 %self[2.0,] 
+		 13: HASH-notifications-system_note- def_%v_8 
+		 14: %v_6->execute def_%v_9 %v_6[2.9,] %v_7[2.12,] %v_8[2.13,] 	 SYMBOL:	 ARGS:%v_7,%v_8,
+		 15: RETURN %v_9[2.14,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = add_note_moved_from instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SystemNoteService) def_%v_3 
+		 7: GETFIELD %self->new_issue def_%v_4 %self[2.0,] 
+		 8: GETFIELD %self->new_project def_%v_5 %self[2.0,] 
+		 9: GETFIELD %self->old_issue def_%v_6 %self[2.0,] 
+		 10: GETFIELD %self->current_user def_%v_7 %self[2.0,] 
+		 11: HASH-direction- def_%v_8 
+		 12: %v_3->noteable_moved def_%v_9 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] %v_6[2.9,] %v_7[2.10,] %v_8[2.11,] 	 SYMBOL:	 ARGS:%v_4,%v_5,%v_6,%v_7,%v_8,
+		 13: RETURN %v_9[2.12,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = add_note_moved_to instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SystemNoteService) def_%v_3 
+		 7: GETFIELD %self->old_issue def_%v_4 %self[2.0,] 
+		 8: GETFIELD %self->old_project def_%v_5 %self[2.0,] 
+		 9: GETFIELD %self->new_issue def_%v_6 %self[2.0,] 
+		 10: GETFIELD %self->current_user def_%v_7 %self[2.0,] 
+		 11: HASH-direction- def_%v_8 
+		 12: %v_3->noteable_moved def_%v_9 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] %v_6[2.9,] %v_7[2.10,] %v_8[2.11,] 	 SYMBOL:	 ARGS:%v_4,%v_5,%v_6,%v_7,%v_8,
+		 13: RETURN %v_9[2.12,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mark_as_moved instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->old_issue def_%v_3 %self[2.0,] 
+		 7: GETFIELD %self->new_issue def_%v_4 %self[2.0,] 
+		 8: HASH-moved_to- def_%v_5 %v_4[2.7,] 
+		 9: %v_3->update def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = notify_participants instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->notification_service def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: GETFIELD %self->old_issue def_%v_4 %self[2.0,2.6,] 
+		 8: GETFIELD %self->new_issue def_%v_5 %self[2.0,2.6,] 
+		 9: GETFIELD %self->current_user def_%v_6 %self[2.0,2.6,] 
+		 10: %v_3->issue_moved def_%v_7 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_4,%v_5,%v_6,
+		 11: RETURN %v_7[2.10,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

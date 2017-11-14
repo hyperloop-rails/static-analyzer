@@ -1,0 +1,753 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Rails) def_%v_3 
+		 7: %v_3->env def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->test? def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->! def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: ATTRASSIGN %self->async %v_6[2.9,] 
+		 11: 
+		 12: (Queue) def_%v_7 
+		 13: %v_7->new def_%v_8 %v_7[2.12,] 	 SYMBOL:	 ARGS:
+		 14: ATTRASSIGN %self->queue %v_8[2.13,] 
+		 15: 
+		 16: (Mutex) def_%v_9 
+		 17: %v_9->new def_%v_10 %v_9[2.16,] 	 SYMBOL:	 ARGS:
+		 18: ATTRASSIGN %self->mutex %v_10[2.17,] 
+		 19: 
+		 20: ATTRASSIGN %self->paused 
+		 21: 
+		 22: ATTRASSIGN %self->thread 
+		 23: RETURN %self[2.0,2.10,2.14,2.18,2.20,2.22,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = pause instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->stop! def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: ATTRASSIGN %self->paused 
+		 9: RETURN %self[2.0,2.6,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = resume instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: ATTRASSIGN %self->paused 
+		 7: RETURN %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = async= instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_val 
+		 6: 
+		 7: ATTRASSIGN %self->async val[2.5,] 
+		 8: RETURN val[2.5,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = later instanceMethod = true
+BB 1
+	outgoing: 19 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_desc 
+		 6: desc[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_desc 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_db 
+		 1: db[4.0,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (RailsMultisite) def_%v_3 
+		 1: (inherit ConnectionManagement) def_%v_4 %v_3[5.0,] 
+		 2: %v_4[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[5.0,] 	 SYMBOL:ConnectionManagement,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_4->current_db def_%v_5 %v_4[6.0,5.1,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_db %v_5[7.0,] 
+BB 8
+	outgoing: 9 17 
+	datadep: 
+	instructions:
+		 0: def_%v_6 
+		 1: def_blk %v_6[8.0,] 
+		 2: 
+		 3: 
+		 4: GETFIELD %self->async def_%v_7 %self[2.0,] 
+		 5: BRANCH %v_7[8.4,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->thread def_%v_8 %self[2.0,] 
+		 1: BRANCH %v_8[9.0,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->thread def_%v_9 %self[2.0,] 
+		 1: %v_9->alive? def_%v_10 %v_9[10.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_8 %v_10[10.1,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_8[10.2,9.0,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->paused def_%v_11 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_8 %v_11[12.0,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_8[12.1,10.2,9.0,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+		 1: 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: %self->start_thread def_%v_13 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_12 %v_13[15.0,] 
+BB 16
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->queue def_%v_14 %self[2.0,] 
+		 2: COPY TYPE_Array def_%v_15 db[7.1,4.0,] blk[8.1,] desc[3.0,2.5,] 
+		 3: %v_14-><< def_%v_16 %v_14[16.1,] %v_15[16.2,] 	 SYMBOL:	 ARGS:%v_15,
+		 4: RETURN %v_16[16.3,] %self[2.0,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: blk->call def_%v_17 blk[8.1,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_17[17.1,] %self[2.0,] 
+BB 19
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = stop! instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->thread def_%v_3 %self[2.0,] 
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->thread def_%v_4 %self[2.0,] 
+		 1: %v_4->alive? def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.2,2.6,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->thread def_%v_6 %self[2.0,] 
+		 1: %v_6->kill def_%v_7 %v_6[5.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->thread 
+		 2: RETURN %self[7.1,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = stopped? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->thread def_%v_3 %self[2.0,] 
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->thread def_%v_4 %self[2.0,] 
+		 1: %v_4->alive? def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_3->! def_%v_6 %v_3[3.2,2.6,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_6[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = do_all_work instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->queue def_%v_4 %self[2.0,] 
+		 1: %v_4->empty? def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_5->! def_%v_6 %v_5[3.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_6[3.2,] 
+BB 4
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: COPY TYPE_Boolean def__non_block 
+		 3: %self->do_work def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:Boolean,
+		 4: 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = start_thread instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->mutex def_%v_3 %self[2.0,] 
+		 7: %v_3->synchronize def_%v_4 %v_3[2.6,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: GETFIELD %self->thread def_%cl_1_3 %self[2.0,] 
+		 6: BRANCH %cl_1_3[2.5,] 
+BB 4
+	outgoing: 5 9 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->thread def_%cl_1_4 %self[2.0,] 
+		 1: %cl_1_4->alive? def_%cl_1_5 %cl_1_4[4.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%cl_1_3 %cl_1_5[4.1,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_3[4.2,2.5,] 
+BB 6
+	outgoing: 9 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_6 
+BB 8
+	outgoing: 9 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Thread) def_%cl_1_7 
+		 2: %cl_1_7->new def_%cl_1_8 %cl_1_7[8.1,] %self[2.0,] 	 SYMBOL:	 ARGS:%cl_1_7,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+BB 4
+	outgoing: 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH 
+BB 5
+	outgoing: 6 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->do_work def_%cl_2_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+BB 6
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 7
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_5 
+		 1: def_%cl_2_6 %cl_2_5[9.0,] 
+		 2: RETURN %cl_2_6[9.1,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: ATTRASSIGN %self->thread %cl_1_8[8.2,] 
+		 4: RETURN %cl_1_8[8.2,] %self[8.3,2.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_9 
+		 1: def_%cl_1_10 %cl_1_9[9.0,] 
+		 2: RETURN %cl_1_10[9.1,] %self[8.3,2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%v_5 
+		 1: def_%v_6 %v_5[4.0,] 
+		 2: RETURN %v_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = do_work instanceMethod = true
+BB 1
+	outgoing: 35 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_non_block 
+		 6: non_block[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Boolean def_non_block 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_3 
+BB 6
+	outgoing: 7 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: GETFIELD %self->queue def_%v_10 %self[2.0,] 
+		 3: %v_10->deq def_%v_11 %v_10[6.2,] non_block[3.0,2.5,] 	 SYMBOL:	 ARGS:non_block,
+		 4: def_%v_12 %v_11[6.3,] 
+		 5: def_%v_13 %v_12[6.4,] 
+		 6: def_%v_14 %v_12[6.4,] 
+		 7: def_%v_15 %v_12[6.4,] 
+		 8: COPY TYPE_PASS def_db %v_13[6.5,] 
+		 9: COPY TYPE_PASS def_job %v_14[6.6,] 
+		 10: COPY TYPE_PASS def_desc %v_15[6.7,] 
+		 11: 
+		 12: GLOBALVAR $! def_%v_16 
+BB 7
+	outgoing: 9 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: BRANCH db[6.8,] 
+BB 9
+	outgoing: 10 11 15 
+	datadep: 
+	instructions:
+		 0: (RailsMultisite) def_%v_19 
+		 1: (inherit ConnectionManagement) def_%v_20 %v_19[9.0,] 
+		 2: %v_20[9.1,] 
+BB 10
+	outgoing: 11 15 
+	datadep: 
+	instructions:
+		 0: %v_19->const_missing def_%v_20 %v_19[9.0,] 	 SYMBOL:ConnectionManagement,	 ARGS:Symbol,
+BB 11
+	outgoing: 13 15 
+	datadep: 
+	instructions:
+		 0: HASH-db- def_%v_21 db[6.8,] 
+		 1: %v_20->establish_connection def_%v_22 %v_20[10.0,9.1,] %v_21[11.0,] 	 SYMBOL:	 ARGS:%v_21,
+		 2: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: job->call def_%v_23 job[6.9,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_18 %v_23[13.1,] 
+		 3: %v_16[6.12,] 
+BB 14
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+BB 15
+	outgoing: 16 17 19 
+	datadep: 
+	instructions:
+		 0: def_%v_24 
+		 1: def_%v_25 %v_24[15.0,] 
+		 2: BRANCH %v_25[15.1,] 
+BB 16
+	outgoing: 19 35 
+	datadep: 
+	instructions:
+		 0: %v_24[15.0,] 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_26 
+		 1: COPY TYPE_PASS def_ex %v_26[17.0,] 
+		 2: 
+		 3: (Discourse) def_%v_27 
+		 4: COPY TYPE_StringLiteral "Running deferred code '" def_%v_28 
+		 5: COPY TYPE_StringLiteral "'" def_%v_29 
+		 6: BUILDSTRING def_%v_30 %v_28[17.4,] desc[6.10,] %v_29[17.5,] 
+		 7: HASH-message- def_%v_31 %v_30[17.6,] 
+		 8: %v_27->handle_job_exception def_%v_32 %v_27[17.3,] %v_26[17.0,] %v_31[17.7,] 	 SYMBOL:	 ARGS:ex,%v_31,
+		 9: COPY TYPE_PASS def_%v_18 %v_32[17.8,] 
+		 10: %v_16[6.12,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+BB 19
+	outgoing: 24 35 
+	datadep: 
+	instructions:
+		 0: def_%v_33 
+		 1: def_%v_34 %v_33[19.0,] %v_16[6.12,] 
+		 2: %v_33[19.0,] 
+BB 20
+	outgoing: 21 24 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_9 %v_18[13.2,17.9,] 
+		 1: %v_3[4.0,] 
+BB 21
+	outgoing: 22 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ActiveRecord) def_%v_4 
+		 2: (inherit Base) def_%v_5 %v_4[21.1,] 
+		 3: %v_5[21.2,] 
+BB 22
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[21.1,] 	 SYMBOL:Base,	 ARGS:Symbol,
+BB 23
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: %v_5->connection_handler def_%v_6 %v_5[22.0,21.2,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->clear_active_connections! def_%v_7 %v_6[23.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 24
+	outgoing: 25 26 30 
+	datadep: 
+	instructions:
+		 0: def_%v_35 
+		 1: def_%v_36 %v_35[24.0,] 
+		 2: BRANCH %v_36[24.1,] 
+BB 25
+	outgoing: 30 35 
+	datadep: 
+	instructions:
+		 0: %v_35[24.0,] 
+BB 26
+	outgoing: 27 30 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_37 
+		 1: COPY TYPE_PASS def_ex %v_37[26.0,] 
+		 2: 
+		 3: (Discourse) def_%v_38 
+		 4: COPY TYPE_StringLiteral "Processing deferred code queue" def_%v_39 
+		 5: HASH-message- def_%v_40 %v_39[26.4,] 
+		 6: %v_38->handle_job_exception def_%v_41 %v_38[26.3,] %v_37[26.0,] %v_40[26.5,] 	 SYMBOL:	 ARGS:ex,%v_40,
+		 7: COPY TYPE_PASS def_%v_9 %v_41[26.6,] 
+		 8: %v_3[4.0,] 
+BB 27
+	outgoing: 28 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ActiveRecord) def_%v_4 
+		 2: (inherit Base) def_%v_5 %v_4[27.1,] 
+		 3: %v_5[27.2,] 
+BB 28
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[27.1,] 	 SYMBOL:Base,	 ARGS:Symbol,
+BB 29
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: %v_5->connection_handler def_%v_6 %v_5[28.0,27.2,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->clear_active_connections! def_%v_7 %v_6[29.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 30
+	outgoing: 32 33 
+	datadep: 
+	instructions:
+		 0: def_%v_42 
+		 1: def_%v_43 %v_42[30.0,] %v_3[4.0,] 
+		 2: 
+		 3: (ActiveRecord) def_%v_4 
+		 4: (inherit Base) def_%v_5 %v_4[30.3,] 
+		 5: %v_5[30.4,] 
+BB 32
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[30.3,] 	 SYMBOL:Base,	 ARGS:Symbol,
+BB 33
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: %v_5->connection_handler def_%v_6 %v_5[32.0,30.4,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->clear_active_connections! def_%v_7 %v_6[33.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_42[30.0,] 
+BB 34
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: RETURN %v_9[20.0,26.7,] %self[2.0,] 
+BB 35
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = process_client instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_client 
+		 6: 
+		 7: (Defer) def_%v_3 
+		 8: %v_3->pause def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: 
+		 10: %self->-unknown-super-target- def_%v_5 %self[2.0,] client[2.5,] %v_0[2.1,] 	 SYMBOL:	 ARGS:client,
+		 11: 
+		 12: (Defer) def_%v_6 
+		 13: %v_6->do_all_work def_%v_7 %v_6[2.12,] 	 SYMBOL:	 ARGS:
+		 14: 
+		 15: (Defer) def_%v_8 
+		 16: %v_8->resume def_%v_9 %v_8[2.15,] 	 SYMBOL:	 ARGS:
+		 17: RETURN %v_9[2.16,] %self[2.0,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

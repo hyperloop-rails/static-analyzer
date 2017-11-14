@@ -1,0 +1,743 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_html 
+		 6: 
+		 7: (String) def_%v_3 
+		 8: %v_3->=== def_%v_4 %v_3[2.7,] html[2.5,] 	 SYMBOL:	 ARGS:html,
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Nokogiri) def_%v_5 
+		 2: %v_5->HTML def_%v_6 %v_5[3.1,] html[2.5,] 	 SYMBOL:	 ARGS:html,
+		 3: ATTRASSIGN %self->doc %v_6[3.2,] 
+		 4: RETURN %v_6[3.2,] %self[3.3,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->doc html[2.5,] 
+		 2: RETURN html[2.5,] %self[4.1,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = trim instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_inp 
+		 6: RECEIVECONSTARG def_opts 
+		 7: opts[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (HtmlCleaner) def_%v_4 
+		 2: %v_4->new def_%v_5 %v_4[4.1,] inp[2.5,] 	 SYMBOL:	 ARGS:inp,
+		 3: COPY TYPE_PASS def_cleaner %v_5[4.2,] 
+		 4: 
+		 5: opts->[] def_%v_6 opts[3.1,2.6,] 	 SYMBOL:return,	 ARGS:Symbol,
+		 6: BRANCH %v_6[4.5,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (String) def_%v_7 
+		 1: %v_7->=== def_%v_8 %v_7[5.0,] inp[2.5,] 	 SYMBOL:	 ARGS:inp,
+		 2: BRANCH %v_8[5.1,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%v_9 
+		 1: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%v_9 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: opts->[]= def_%v_6 opts[3.1,2.6,] %v_9[7.0,6.0,] 	 SYMBOL:return,	 ARGS:Symbol,%v_9,
+		 1: COPY TYPE_PASS def_%v_6 %v_9[7.0,6.0,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_10 opts[8.0,3.1,2.6,] 	 SYMBOL:return,	 ARGS:Symbol,
+		 2: %v_10->== def_%v_11 %v_10[9.1,] 	 SYMBOL:string,	 ARGS:Symbol,
+		 3: BRANCH %v_11[9.2,] 
+BB 10
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: cleaner->output_html def_%v_12 cleaner[4.3,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_12[10.1,] %self[2.0,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: cleaner->output_document def_%v_13 cleaner[4.3,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_13[11.1,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_document_text instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_doc 
+		 6: 
+		 7: COPY TYPE_StringLiteral "//body" def_%v_3 
+		 8: doc->xpath def_%v_4 doc[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: COPY TYPE_PASS def_body %v_4[2.8,] 
+		 10: 
+		 11: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: body->inner_html def_%v_5 body[2.9,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_5[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: doc->inner_html def_%v_6 doc[2.5,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = output_document instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->out def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->doc def_%v_6 %self[2.0,] 
+		 2: COPY TYPE_PASS def_doc %v_6[5.1,] 
+		 3: 
+		 4: %self->trim_process_node def_%v_7 %self[2.0,] %v_6[5.1,] 	 SYMBOL:	 ARGS:doc,
+		 5: 
+		 6: %self->add_newlines def_%v_8 %self[5.4,2.0,] doc[5.2,] 	 SYMBOL:	 ARGS:doc,
+		 7: 
+		 8: ATTRASSIGN %self->out doc[5.2,] 
+		 9: RETURN doc[5.2,] %self[5.4,5.6,5.8,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = output_html instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (HtmlCleaner) def_%v_3 
+		 7: %self->output_document def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->get_document_text def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = add_newlines instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_doc 
+		 6: 
+		 7: COPY TYPE_StringLiteral "//br" def_%v_3 
+		 8: doc->xpath def_%v_4 doc[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: %v_4->each def_%v_5 %v_4[2.8,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: %self[2.0,] doc[2.5,2.8,] br[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_br 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->new_linebreak_node def_%cl_1_3 %self[2.0,] doc[] 	 SYMBOL:	 ARGS:doc,Fixnum,
+		 2: br->replace def_%cl_1_4 br[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: RETURN %cl_1_4[3.2,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: 
+		 11: COPY TYPE_StringLiteral "//p" def_%v_6 
+		 12: doc->xpath def_%v_7 doc[2.5,2.8,] %v_6[2.11,] 	 SYMBOL:	 ARGS:%v_6,
+		 13: %v_7->each def_%v_8 %v_7[2.12,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: %self[2.0,] doc[2.5,2.8,2.12,] p[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_p 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->new_linebreak_node def_%cl_2_3 %self[2.0,] doc[] 	 SYMBOL:	 ARGS:doc,
+		 2: p->before def_%cl_2_4 p[2.2,] %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:%cl_2_3,
+		 3: 
+		 4: %self->new_linebreak_node def_%cl_2_5 %self[3.1,2.0,] doc[] 	 SYMBOL:	 ARGS:doc,Fixnum,
+		 5: p->after def_%cl_2_6 p[3.2,2.2,] %cl_2_5[3.4,] 	 SYMBOL:	 ARGS:%cl_2_5,
+		 6: RETURN %cl_2_6[3.5,] %self[3.1,3.4,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_7 
+		 1: def_%cl_2_8 %cl_2_7[4.0,] 
+		 2: RETURN %cl_2_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 14: RETURN %v_8[2.13,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = new_linebreak_node instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_doc 
+		 6: RECEIVECONSTARG def_count 
+		 7: count[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_count 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Nokogiri) def_%v_3 
+		 2: (inherit XML) def_%v_4 %v_3[4.1,] 
+		 3: %v_4[4.2,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[4.1,] 	 SYMBOL:XML,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: (inherit Text) def_%v_5 %v_4[5.0,4.2,] 
+		 1: %v_5[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[5.0,4.2,] 	 SYMBOL:Text,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "
+" def_%v_6 
+		 1: %v_6->* def_%v_7 %v_6[8.0,] count[3.0,2.6,] 	 SYMBOL:	 ARGS:count,
+		 2: %v_5->new def_%v_8 %v_5[7.0,6.0,] %v_7[8.1,] doc[2.5,] 	 SYMBOL:	 ARGS:%v_7,doc,
+		 3: RETURN %v_8[8.2,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = trim_process_node instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_node 
+		 6: 
+		 7: %self->should_hoist? def_%v_3 %self[2.0,] node[2.5,] 	 SYMBOL:	 ARGS:node,
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->trim_hoist_element def_%v_4 %self[2.0,] node[2.5,] 	 SYMBOL:	 ARGS:node,
+		 2: COPY TYPE_PASS def_hoisted %v_4[3.1,] 
+		 3: 
+		 4: %v_4->each def_%v_5 %v_4[3.1,] %self[3.1,2.0,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: %self[3.1,2.0,] child[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_child 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->trim_process_node def_%cl_1_3 %self[2.0,] child[2.2,] 	 SYMBOL:	 ARGS:child,
+		 2: RETURN %cl_1_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 5: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->should_delete? def_%v_6 %self[2.0,] node[2.5,] 	 SYMBOL:	 ARGS:node,
+		 2: BRANCH %v_6[4.1,] 
+BB 5
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: node->remove def_%v_7 node[2.5,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: node->children def_%v_8 node[2.5,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_children %v_8[6.1,] 
+		 3: BRANCH %v_8[6.1,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: children->each def_%v_9 children[6.2,] %self[2.0,] 	 SYMBOL:	 ARGS:children,
+CLOSURE BEGIN: %self[2.0,] child[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_child 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->trim_process_node def_%cl_2_3 %self[2.0,] child[2.2,] 	 SYMBOL:	 ARGS:child,
+		 2: RETURN %cl_2_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_4 
+		 1: def_%cl_2_5 %cl_2_4[4.0,] 
+		 2: RETURN %cl_2_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_7 %v_9[8.0,7.1,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_5 %v_7[9.0,5.1,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN node[2.5,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = trim_hoist_element instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_element 
+		 6: 
+		 7: COPY TYPE_Array def_%v_3 
+		 8: COPY TYPE_PASS def_hoisted %v_3[2.7,] 
+		 9: 
+		 10: element->children def_%v_4 element[2.5,] 	 SYMBOL:	 ARGS:
+		 11: %v_4->each def_%v_5 %v_4[2.10,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: element[2.5,2.10,] child[] hoisted[2.8,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_child 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: element->before def_%cl_1_3 element[] child[2.2,] 	 SYMBOL:	 ARGS:child,
+		 2: 
+		 3: hoisted-><< def_%cl_1_4 hoisted[] child[2.2,] 	 SYMBOL:	 ARGS:child,
+		 4: RETURN %cl_1_4[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 12: 
+		 13: element->remove def_%v_6 element[2.5,2.10,] 	 SYMBOL:	 ARGS:
+		 14: 
+		 15: RETURN hoisted[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = should_hoist? instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_node 
+		 6: 
+		 7: node->element? def_%v_3 node[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: (HTML_HOIST_ELEMENTS) def_%v_5 
+		 3: node->name def_%v_6 node[2.5,] 	 SYMBOL:	 ARGS:
+		 4: %v_5->include? def_%v_7 %v_5[3.2,] %v_6[3.3,] 	 SYMBOL:	 ARGS:%v_6,
+		 5: RETURN %v_7[3.4,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = should_delete? instanceMethod = true
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_node 
+		 6: 
+		 7: (HTML_DELETE_ELEMENT_TYPES) def_%v_3 
+		 8: node->type def_%v_4 node[2.5,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->include? def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: BRANCH %v_5[2.9,] 
+BB 3
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: node->element? def_%v_7 node[2.5,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_7[4.2,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: node->name def_%v_8 node[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "head" def_%v_9 
+		 2: %v_8->== def_%v_10 %v_8[6.0,] %v_9[6.1,] 	 SYMBOL:	 ARGS:%v_9,
+		 3: COPY TYPE_PASS def_%v_7 %v_10[6.2,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_7[6.3,4.2,] 
+BB 8
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+		 1: 
+		 2: node->text? def_%v_12 node[2.5,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_12[9.2,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: node->text def_%v_13 node[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_13->strip def_%v_14 %v_13[11.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_14->blank? def_%v_15 %v_14[11.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_12 %v_15[11.2,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_12[11.3,9.2,] 
+BB 13
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+		 1: 
+		 2: RETURN %self[2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,1322 @@
+SET IRMethod, name = search instanceMethod = true
+BB 1
+	outgoing: 22 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_community_id 
+		 6: community_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_search 
+		 1: search[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: def_includes 
+		 1: includes[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: includes->map def_%v_3 includes[6.0,] %self[2.0,] 	 SYMBOL:	 ARGS:includes,
+CLOSURE BEGIN: m[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_m 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (INCLUDE_MAP) def_%cl_1_3 
+		 2: %cl_1_3->[] def_%cl_1_4 %cl_1_3[3.1,] m[2.2,] 	 SYMBOL:	 ARGS:m,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: COPY TYPE_PASS def_included_models %v_3[8.1,] 
+		 3: 
+		 4: %self->needs_db_query? def_%v_4 %self[2.0,] search[4.0,] 	 SYMBOL:	 ARGS:search,
+		 5: BRANCH %v_4[8.4,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %self->needs_search? def_%v_5 %self[2.0,] search[4.0,] 	 SYMBOL:	 ARGS:search,
+		 1: COPY TYPE_PASS def_%v_4 %v_5[9.0,] 
+BB 10
+	outgoing: 11 14 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[9.1,8.4,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Result) def_%v_6 
+		 2: (inherit Error) def_%v_7 %v_6[11.1,] 
+		 3: %v_7[11.2,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[11.1,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: (ArgumentError) def_%v_8 
+		 1: COPY TYPE_StringLiteral "Both DB query and search engine would be needed to fulfill the search" def_%v_9 
+		 2: %v_8->new def_%v_10 %v_8[13.0,] %v_9[13.1,] 	 SYMBOL:	 ARGS:%v_9,
+		 3: %v_7->new def_%v_11 %v_7[12.0,11.2,] %v_10[13.2,] 	 SYMBOL:	 ARGS:%v_10,
+		 4: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 15
+	outgoing: 16 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->needs_search? def_%v_12 %self[2.0,] search[4.0,] 	 SYMBOL:	 ARGS:search,
+		 2: BRANCH %v_12[15.1,] 
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: search->[] def_%v_13 search[4.0,] 	 SYMBOL:per_page,	 ARGS:Symbol,
+		 2: search->[] def_%v_14 search[16.1,4.0,] 	 SYMBOL:page,	 ARGS:Symbol,
+		 3: %self->search_out_of_bounds? def_%v_15 %self[2.0,] %v_13[16.1,] %v_14[16.2,] 	 SYMBOL:	 ARGS:%v_13,%v_14,
+		 4: BRANCH %v_15[16.3,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Array def_%v_16 
+		 2: %self->success_result def_%v_17 %self[2.0,] %v_16[17.1,] includes[6.0,] 	 SYMBOL:	 ARGS:Fixnum,%v_16,includes,
+		 3: 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-community_id-search-included_models-includes- def_%v_18 community_id[2.5,] search[4.0,] included_models[8.2,] includes[6.0,] 
+		 2: %self->search_with_sphinx def_%v_19 %self[2.0,] %v_18[18.1,] 	 SYMBOL:	 ARGS:%v_18,
+		 3: COPY TYPE_PASS def_%v_17 %v_19[18.2,] 
+BB 19
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: RETURN %v_17[18.3,17.2,] %self[2.0,] 
+BB 20
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-community_id-search-included_models-includes- def_%v_20 community_id[2.5,] search[4.0,] included_models[8.2,] includes[6.0,] 
+		 2: %self->fetch_from_db def_%v_21 %self[2.0,] %v_20[20.1,] 	 SYMBOL:	 ARGS:%v_20,
+		 3: RETURN %v_21[20.2,] %self[20.2,2.0,] 
+BB 22
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = success_result instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_count 
+		 6: RECEIVEARG def_listings 
+		 7: RECEIVEARG def_includes 
+		 8: 
+		 9: (Result) def_%v_3 
+		 10: (inherit Success) def_%v_4 %v_3[2.9,] 
+		 11: %v_4[2.10,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.9,] 	 SYMBOL:Success,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: listings->map def_%v_5 listings[2.6,] %self[2.0,] 	 SYMBOL:	 ARGS:listings,
+CLOSURE BEGIN: %self[2.0,] l[] includes[2.7,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_l 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->to_hash def_%cl_1_3 %self[2.0,] l[2.2,] includes[] 	 SYMBOL:	 ARGS:l,includes,
+		 2: RETURN %cl_1_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 1: HASH-count-listings- def_%v_6 count[2.5,] %v_5[4.0,] 
+		 2: %v_4->new def_%v_7 %v_4[3.0,2.10,] %v_6[4.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: RETURN %v_7[4.2,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = fetch_from_db instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_community_id 
+		 6: community_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_search 
+		 1: search[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: def_included_models 
+		 1: included_models[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: def_includes 
+		 1: includes[8.0,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (HashUtils) def_%v_3 
+		 2: search->[] def_%v_4 search[4.0,] 	 SYMBOL:author_id,	 ARGS:Symbol,
+		 3: HASH-community_id-author_id-deleted- def_%v_5 community_id[2.5,] %v_4[10.2,] 
+		 4: %v_3->compact def_%v_6 %v_3[10.1,] %v_5[10.3,] 	 SYMBOL:	 ARGS:%v_5,
+		 5: COPY TYPE_PASS def_where_opts %v_6[10.4,] 
+		 6: 
+		 7: (Listing) def_%v_7 
+		 8: %v_7->where def_%v_8 %v_7[10.7,] %v_6[10.4,] 	 SYMBOL:	 ARGS:where_opts,
+		 9: %v_8->includes def_%v_9 %v_8[10.8,] included_models[6.0,] 	 SYMBOL:	 ARGS:included_models,
+		 10: COPY TYPE_StringLiteral "listings.sort_date DESC" def_%v_10 
+		 11: %v_9->order def_%v_11 %v_9[10.9,] %v_10[10.10,] 	 SYMBOL:	 ARGS:%v_10,
+		 12: search->[] def_%v_12 search[10.2,4.0,] 	 SYMBOL:per_page,	 ARGS:Symbol,
+		 13: search->[] def_%v_13 search[10.2,10.12,4.0,] 	 SYMBOL:page,	 ARGS:Symbol,
+		 14: HASH-per_page-page- def_%v_14 %v_12[10.12,] %v_13[10.13,] 
+		 15: %v_11->paginate def_%v_15 %v_11[10.11,] %v_14[10.14,] 	 SYMBOL:	 ARGS:%v_14,
+		 16: COPY TYPE_PASS def_query %v_15[10.15,] 
+		 17: 
+		 18: 
+		 19: search->[] def_%v_16 search[10.2,10.12,10.13,4.0,] 	 SYMBOL:include_closed,	 ARGS:Symbol,
+		 20: BRANCH %v_16[10.19,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_17 query[10.16,] 
+		 2: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: query->currently_open def_%v_18 query[10.16,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_17 %v_18[12.1,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_listings %v_17[12.2,11.1,] 
+		 1: 
+		 2: %v_17->total_entries def_%v_19 %v_17[12.2,11.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->success_result def_%v_20 %self[2.0,] %v_19[13.2,] listings[13.0,] includes[8.0,] 	 SYMBOL:	 ARGS:%v_19,listings,includes,
+		 4: RETURN %v_20[13.3,] %self[13.3,2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = search_with_sphinx instanceMethod = true
+BB 1
+	outgoing: 40 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_community_id 
+		 6: community_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_search 
+		 1: search[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: def_included_models 
+		 1: included_models[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: def_includes 
+		 1: includes[8.0,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: search->[] def_%v_3 search[4.0,] 	 SYMBOL:fields,	 ARGS:Symbol,
+		 2: %v_3->select def_%v_4 %v_3[10.1,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: f[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_f 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: f->[] def_%cl_1_3 f[2.2,] 	 SYMBOL:type,	 ARGS:Symbol,
+		 2: %cl_1_3->== def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:numeric_range,	 ARGS:Symbol,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: COPY TYPE_PASS def_numeric_search_fields %v_4[10.2,] 
+		 4: 
+		 5: %v_4->present? def_%v_5 %v_4[10.2,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_PASS def_perform_numeric_search %v_5[10.5,] 
+		 7: 
+		 8: 
+		 9: numeric_search_fields->present? def_%v_6 numeric_search_fields[10.3,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_6[10.9,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: numeric_search_fields->map def_%v_7 numeric_search_fields[10.3,] %self[2.0,] 	 SYMBOL:	 ARGS:numeric_search_fields,
+CLOSURE BEGIN: n[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_n 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: n->[] def_%cl_2_3 n[2.2,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 2: n->[] def_%cl_2_4 n[3.1,2.2,] 	 SYMBOL:value,	 ARGS:Symbol,
+		 3: HASH-custom_field_id-numeric_value- def_%cl_2_5 %cl_2_3[3.1,] %cl_2_4[3.2,] 
+		 4: RETURN %cl_2_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_6 
+		 1: def_%cl_2_7 %cl_2_6[4.0,] 
+		 2: RETURN %cl_2_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: COPY TYPE_PASS def_numeric_search_params %v_7[11.1,] 
+		 3: 
+		 4: (NumericFieldValue) def_%v_8 
+		 5: %v_8->search_many def_%v_9 %v_8[11.4,] %v_7[11.1,] 	 SYMBOL:	 ARGS:numeric_search_params,
+		 6: %v_9->collect def_%v_10 %v_9[11.5,] 	 SYMBOL:listing_id,	 ARGS:
+		 7: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Array def_%v_11 
+		 2: COPY TYPE_PASS def_%v_10 %v_11[12.1,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_numeric_search_match_listing_ids %v_10[12.2,11.6,] 
+		 1: 
+		 2: COPY TYPE_PASS def_%v_12 perform_numeric_search[10.6,] 
+		 3: BRANCH perform_numeric_search[10.6,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: numeric_search_match_listing_ids->empty? def_%v_13 numeric_search_match_listing_ids[13.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_12 %v_13[14.0,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_12[14.1,13.2,] 
+BB 16
+	outgoing: 40 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Array def_%v_14 
+		 2: %self->success_result def_%v_15 %self[2.0,] %v_14[16.1,] 	 SYMBOL:	 ARGS:Fixnum,%v_14,Nil,
+		 3: RETURN %v_15[16.2,] %self[16.2,2.0,] 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (HashUtils) def_%v_16 
+		 2: search->[] def_%v_17 search[4.0,] 	 SYMBOL:categories,	 ARGS:Symbol,
+		 3: search->[] def_%v_18 search[17.2,4.0,] 	 SYMBOL:listing_shape_id,	 ARGS:Symbol,
+		 4: search->[] def_%v_19 search[17.2,17.3,4.0,] 	 SYMBOL:price_cents,	 ARGS:Symbol,
+		 5: HASH-community_id-category_id-listing_shape_id-price_cents-listing_id- def_%v_20 community_id[2.5,] %v_17[17.2,] %v_18[17.3,] %v_19[17.4,] numeric_search_match_listing_ids[13.0,] 
+		 6: %v_16->compact def_%v_21 %v_16[17.1,] %v_20[17.5,] 	 SYMBOL:	 ARGS:%v_20,
+		 7: COPY TYPE_PASS def_with %v_21[17.6,] 
+		 8: 
+		 9: search->[] def_%v_22 search[17.2,17.3,17.4,4.0,] 	 SYMBOL:fields,	 ARGS:Symbol,
+		 10: %v_22->select def_%v_23 %v_22[17.9,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_22,
+CLOSURE BEGIN: v[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_v 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: v->[] def_%cl_3_3 v[2.2,] 	 SYMBOL:type,	 ARGS:Symbol,
+		 2: %cl_3_3->== def_%cl_3_4 %cl_3_3[3.1,] 	 SYMBOL:selection_group,	 ARGS:Symbol,
+		 3: RETURN %cl_3_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_5 
+		 1: def_%cl_3_6 %cl_3_5[4.0,] 
+		 2: RETURN %cl_3_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 11: COPY TYPE_PASS def_selection_groups %v_23[17.10,] 
+		 12: 
+		 13: %v_23->group_by def_%v_24 %v_23[17.10,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_23,
+CLOSURE BEGIN: v[17.10,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: RECEIVEARG def_v 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: v->[] def_%cl_4_3 v[2.2,] 	 SYMBOL:operator,	 ARGS:Symbol,
+		 2: RETURN %cl_4_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_4_4 
+		 1: def_%cl_4_5 %cl_4_4[4.0,] 
+		 2: RETURN %cl_4_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 14: COPY TYPE_PASS def_grouped_by_operator %v_24[17.13,] 
+		 15: 
+		 16: 
+		 17: %v_24->[] def_%v_25 %v_24[17.13,] 	 SYMBOL:or,	 ARGS:Symbol,
+		 18: BRANCH %v_25[17.17,] 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_26 
+		 1: COPY TYPE_PASS def_%v_25 %v_26[18.0,] 
+BB 19
+	outgoing: 20 21 
+	datadep: 
+	instructions:
+		 0: %v_25->map def_%v_27 %v_25[18.1,17.17,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_25,
+CLOSURE BEGIN: v[17.10,17.13,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_5_0 
+		 2: RECEIVEARG def_v 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: v->[] def_%cl_5_3 v[2.2,] 	 SYMBOL:value,	 ARGS:Symbol,
+		 2: RETURN %cl_5_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_5_4 
+		 1: def_%cl_5_5 %cl_5_4[4.0,] 
+		 2: RETURN %cl_5_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 1: 
+		 2: grouped_by_operator->[] def_%v_28 grouped_by_operator[17.14,] 	 SYMBOL:and,	 ARGS:Symbol,
+		 3: BRANCH %v_28[19.2,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_29 
+		 1: COPY TYPE_PASS def_%v_28 %v_29[20.0,] 
+BB 21
+	outgoing: 22 23 
+	datadep: 
+	instructions:
+		 0: %v_28->flat_map def_%v_30 %v_28[20.1,19.2,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_28,
+CLOSURE BEGIN: v[19.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_6_0 
+		 2: RECEIVEARG def_v 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: v->[] def_%cl_6_3 v[2.2,] 	 SYMBOL:value,	 ARGS:Symbol,
+		 2: RETURN %cl_6_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_6_4 
+		 1: def_%cl_6_5 %cl_6_4[4.0,] 
+		 2: RETURN %cl_6_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 1: HASH-custom_dropdown_field_options-custom_checkbox_field_options- def_%v_31 %v_27[19.0,] %v_30[21.0,] 
+		 2: COPY TYPE_PASS def_with_all %v_31[21.1,] 
+		 3: 
+		 4: (Listing) def_%v_32 
+		 5: (Riddle) def_%v_33 
+		 6: (inherit Query) def_%v_34 %v_33[21.5,] 
+		 7: %v_34[21.6,] 
+BB 22
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: %v_33->const_missing def_%v_34 %v_33[21.5,] 	 SYMBOL:Query,	 ARGS:Symbol,
+BB 23
+	outgoing: 24 25 
+	datadep: 
+	instructions:
+		 0: search->[] def_%v_35 search[4.0,] 	 SYMBOL:keywords,	 ARGS:Symbol,
+		 1: BRANCH %v_35[23.0,] 
+BB 24
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_36 
+		 1: COPY TYPE_PASS def_%v_35 %v_36[24.0,] 
+BB 25
+	outgoing: 27 
+	datadep: 
+	instructions:
+		 0: %v_34->escape def_%v_37 %v_34[22.0,21.6,] %v_35[24.1,23.0,] 	 SYMBOL:	 ARGS:%v_35,
+		 1: HASH-include- def_%v_38 included_models[6.0,] 
+		 2: search->[] def_%v_39 search[4.0,] 	 SYMBOL:page,	 ARGS:Symbol,
+		 3: search->[] def_%v_40 search[25.2,4.0,] 	 SYMBOL:per_page,	 ARGS:Symbol,
+		 4: COPY TYPE_StringLiteral "sort_date DESC" def_%v_41 
+		 5: HASH-sql-page-per_page-star-with-with_all-order-max_query_time- def_%v_42 %v_38[25.1,] %v_39[25.2,] %v_40[25.3,] with[17.7,] with_all[21.2,] %v_41[25.4,] 
+		 6: %v_32->search def_%v_43 %v_32[21.4,] %v_37[25.0,] %v_42[25.5,] 	 SYMBOL:	 ARGS:%v_37,%v_42,
+		 7: COPY TYPE_PASS def_models %v_43[25.6,] 
+		 8: 
+		 9: GLOBALVAR $! def_%v_44 
+BB 27
+	outgoing: 28 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: models->total_entries def_%v_47 models[25.7,] 	 SYMBOL:	 ARGS:
+		 3: %self->success_result def_%v_48 %self[2.0,] %v_47[27.2,] models[27.2,25.7,] includes[8.0,] 	 SYMBOL:	 ARGS:%v_47,models,includes,
+		 4: COPY TYPE_PASS def_%v_46 %v_48[27.3,] 
+		 5: %v_44[25.9,] 
+BB 28
+	outgoing: 38 
+	datadep: 
+	instructions:
+		 0: 
+BB 29
+	outgoing: 30 31 37 
+	datadep: 
+	instructions:
+		 0: def_%v_49 
+		 1: (ThinkingSphinx) def_%v_50 
+		 2: (inherit SphinxError) def_%v_51 %v_50[29.1,] 
+		 3: %v_51[29.2,] 
+BB 30
+	outgoing: 31 37 
+	datadep: 
+	instructions:
+		 0: %v_50->const_missing def_%v_51 %v_50[29.1,] 	 SYMBOL:SphinxError,	 ARGS:Symbol,
+BB 31
+	outgoing: 32 33 37 
+	datadep: 
+	instructions:
+		 0: def_%v_52 %v_51[30.0,29.2,] %v_49[29.0,] 
+		 1: BRANCH %v_52[31.0,] 
+BB 32
+	outgoing: 37 40 
+	datadep: 
+	instructions:
+		 0: %v_49[29.0,] 
+BB 33
+	outgoing: 34 35 37 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_53 
+		 1: COPY TYPE_PASS def_e %v_53[33.0,] 
+		 2: 
+		 3: (Result) def_%v_54 
+		 4: (inherit Error) def_%v_55 %v_54[33.3,] 
+		 5: %v_55[33.4,] 
+BB 34
+	outgoing: 35 37 
+	datadep: 
+	instructions:
+		 0: %v_54->const_missing def_%v_55 %v_54[33.3,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 35
+	outgoing: 36 37 
+	datadep: 
+	instructions:
+		 0: %v_55->new def_%v_56 %v_55[34.0,33.4,] e[33.1,] 	 SYMBOL:	 ARGS:e,
+		 1: COPY TYPE_PASS def_%v_46 %v_56[35.0,] 
+		 2: %v_44[25.9,] 
+BB 36
+	outgoing: 38 
+	datadep: 
+	instructions:
+		 0: 
+BB 37
+	outgoing: 40 
+	datadep: 
+	instructions:
+		 0: def_%v_57 
+		 1: def_%v_58 %v_57[37.0,] %v_44[25.9,] 
+		 2: %v_57[37.0,] 
+BB 38
+	outgoing: 40 
+	datadep: 
+	instructions:
+		 0: RETURN %v_46[27.4,35.1,] %self[2.0,] 
+BB 40
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = to_hash instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_l 
+		 6: RECEIVEARG def_includes 
+		 7: 
+		 8: l->id def_%v_3 l[2.5,] 	 SYMBOL:	 ARGS:
+		 9: l->title def_%v_4 l[2.5,2.8,] 	 SYMBOL:	 ARGS:
+		 10: l->description def_%v_5 l[2.5,2.8,2.9,] 	 SYMBOL:	 ARGS:
+		 11: l->updated_at def_%v_6 l[2.5,2.8,2.9,2.10,] 	 SYMBOL:	 ARGS:
+		 12: l->created_at def_%v_7 l[2.5,2.8,2.9,2.10,2.11,] 	 SYMBOL:	 ARGS:
+		 13: l->category_id def_%v_8 l[2.5,2.8,2.9,2.10,2.11,2.12,] 	 SYMBOL:	 ARGS:
+		 14: l->comments_count def_%v_9 l[2.5,2.8,2.9,2.10,2.11,2.12,2.13,] 	 SYMBOL:	 ARGS:
+		 15: l->price def_%v_10 l[2.5,2.8,2.9,2.10,2.11,2.12,2.13,2.14,] 	 SYMBOL:	 ARGS:
+		 16: l->unit_tr_key def_%v_11 l[2.5,2.8,2.9,2.10,2.11,2.12,2.13,2.14,2.15,] 	 SYMBOL:	 ARGS:
+		 17: l->unit_type def_%v_12 l[2.5,2.8,2.9,2.10,2.11,2.12,2.13,2.14,2.15,2.16,] 	 SYMBOL:	 ARGS:
+		 18: l->quantity def_%v_13 l[2.5,2.8,2.9,2.10,2.11,2.12,2.13,2.14,2.15,2.16,2.17,] 	 SYMBOL:	 ARGS:
+		 19: l->shape_name_tr_key def_%v_14 l[2.5,2.8,2.9,2.10,2.11,2.12,2.13,2.14,2.15,2.16,2.17,2.18,] 	 SYMBOL:	 ARGS:
+		 20: l->listing_shape_id def_%v_15 l[2.5,2.8,2.9,2.10,2.11,2.12,2.13,2.14,2.15,2.16,2.17,2.18,2.19,] 	 SYMBOL:	 ARGS:
+		 21: HASH-id-title-description-updated_at-created_at-category_id-comment_count-price-unit_tr_key-unit_type-quantity-shape_name_tr_key-listing_shape_id- def_%v_16 %v_3[2.8,] %v_4[2.9,] %v_5[2.10,] %v_6[2.11,] %v_7[2.12,] %v_8[2.13,] %v_9[2.14,] %v_10[2.15,] %v_11[2.16,] %v_12[2.17,] %v_13[2.18,] %v_14[2.19,] %v_15[2.20,] 
+		 22: %self->location_hash def_%v_17 %self[2.0,] l[2.5,2.8,2.9,2.10,2.11,2.12,2.13,2.14,2.15,2.16,2.17,2.18,2.19,2.20,] includes[2.6,] 	 SYMBOL:	 ARGS:l,includes,
+		 23: %v_16->merge def_%v_18 %v_16[2.21,] %v_17[2.22,] 	 SYMBOL:	 ARGS:%v_17,
+		 24: %self->author_hash def_%v_19 %self[2.0,2.22,] l[2.5,2.8,2.9,2.10,2.11,2.12,2.13,2.14,2.15,2.16,2.17,2.18,2.19,2.20,] includes[2.6,] 	 SYMBOL:	 ARGS:l,includes,
+		 25: %v_18->merge def_%v_20 %v_18[2.23,] %v_19[2.24,] 	 SYMBOL:	 ARGS:%v_19,
+		 26: %self->listing_images_hash def_%v_21 %self[2.0,2.22,2.24,] l[2.5,2.8,2.9,2.10,2.11,2.12,2.13,2.14,2.15,2.16,2.17,2.18,2.19,2.20,] includes[2.6,] 	 SYMBOL:	 ARGS:l,includes,
+		 27: %v_20->merge def_%v_22 %v_20[2.25,] %v_21[2.26,] 	 SYMBOL:	 ARGS:%v_21,
+		 28: RETURN %v_22[2.27,] %self[2.0,2.22,2.24,2.26,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = location_hash instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_l 
+		 6: RECEIVEARG def_includes 
+		 7: 
+		 8: includes->include? def_%v_3 includes[2.6,] 	 SYMBOL:location,	 ARGS:Symbol,
+		 9: BRANCH %v_3[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: l->location def_%v_4 l[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %self->Maybe def_%v_5 %self[2.0,] %v_4[3.1,] 	 SYMBOL:	 ARGS:%v_4,
+		 3: COPY TYPE_PASS def_m_location %v_5[3.2,] 
+		 4: 
+		 5: %v_5->latitude def_%v_6 %v_5[3.2,] 	 SYMBOL:	 ARGS:
+		 6: %v_6->or_else def_%v_7 %v_6[3.5,] 	 SYMBOL:	 ARGS:Nil,
+		 7: m_location->longitude def_%v_8 m_location[3.3,] 	 SYMBOL:	 ARGS:
+		 8: %v_8->or_else def_%v_9 %v_8[3.7,] 	 SYMBOL:	 ARGS:Nil,
+		 9: m_location->address def_%v_10 m_location[3.3,3.7,] 	 SYMBOL:	 ARGS:
+		 10: %v_10->or_else def_%v_11 %v_10[3.9,] 	 SYMBOL:	 ARGS:Nil,
+		 11: HASH-latitude-longitude-address- def_%v_12 %v_7[3.6,] %v_9[3.8,] %v_11[3.10,] 
+		 12: RETURN %v_7[3.6,] %v_9[3.8,] %v_11[3.10,] %self[3.2,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH- def_%v_13 
+		 2: RETURN %v_13[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = author_hash instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_l 
+		 6: RECEIVEARG def_includes 
+		 7: 
+		 8: includes->include? def_%v_3 includes[2.6,] 	 SYMBOL:num_of_reviews,	 ARGS:Symbol,
+		 9: BRANCH %v_3[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: includes->include? def_%v_4 includes[2.6,] 	 SYMBOL:author,	 ARGS:Symbol,
+		 1: COPY TYPE_PASS def_%v_3 %v_4[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.8,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: l->author_id def_%v_5 l[2.5,] 	 SYMBOL:	 ARGS:
+		 2: l->author def_%v_6 l[5.1,2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_6->username def_%v_7 %v_6[5.2,] 	 SYMBOL:	 ARGS:
+		 4: l->author def_%v_8 l[5.1,5.2,2.5,] 	 SYMBOL:	 ARGS:
+		 5: %v_8->given_name def_%v_9 %v_8[5.4,] 	 SYMBOL:	 ARGS:
+		 6: l->author def_%v_10 l[5.1,5.2,5.4,2.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_10->family_name def_%v_11 %v_10[5.6,] 	 SYMBOL:	 ARGS:
+		 8: l->author def_%v_12 l[5.1,5.2,5.4,5.6,2.5,] 	 SYMBOL:	 ARGS:
+		 9: %v_12->organization_name def_%v_13 %v_12[5.8,] 	 SYMBOL:	 ARGS:
+		 10: l->author def_%v_14 l[5.1,5.2,5.4,5.6,5.8,2.5,] 	 SYMBOL:	 ARGS:
+		 11: %v_14->is_organization def_%v_15 %v_14[5.10,] 	 SYMBOL:	 ARGS:
+		 12: l->author def_%v_16 l[5.1,5.2,5.4,5.6,5.8,5.10,2.5,] 	 SYMBOL:	 ARGS:
+		 13: %v_16->image def_%v_17 %v_16[5.12,] 	 SYMBOL:thumb,	 ARGS:Symbol,
+		 14: HASH-thumb- def_%v_18 %v_17[5.13,] 
+		 15: l->author def_%v_19 l[5.1,5.2,5.4,5.6,5.8,5.10,5.12,2.5,] 	 SYMBOL:	 ARGS:
+		 16: %v_19->deleted? def_%v_20 %v_19[5.15,] 	 SYMBOL:	 ARGS:
+		 17: HASH-id-username-first_name-last_name-organization_name-is_organization-avatar-is_deleted- def_%v_21 %v_5[5.1,] %v_7[5.3,] %v_9[5.5,] %v_11[5.7,] %v_13[5.9,] %v_15[5.11,] %v_18[5.14,] %v_20[5.16,] 
+		 18: %self->num_of_reviews_hash def_%v_22 %self[2.0,] l[5.1,5.2,5.4,5.6,5.8,5.10,5.12,5.15,2.5,] includes[2.6,] 	 SYMBOL:	 ARGS:l,includes,
+		 19: %v_21->merge def_%v_23 %v_21[5.17,] %v_22[5.18,] 	 SYMBOL:	 ARGS:%v_22,
+		 20: HASH-author- def_%v_24 %v_23[5.19,] 
+		 21: RETURN %v_23[5.19,] %self[5.18,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH- def_%v_25 
+		 2: RETURN %v_25[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = num_of_reviews_hash instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_l 
+		 6: RECEIVEARG def_includes 
+		 7: 
+		 8: includes->include? def_%v_3 includes[2.6,] 	 SYMBOL:num_of_reviews,	 ARGS:Symbol,
+		 9: BRANCH %v_3[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: l->author def_%v_4 l[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_4->received_testimonials def_%v_5 %v_4[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->size def_%v_6 %v_5[3.2,] 	 SYMBOL:	 ARGS:
+		 4: HASH-num_of_reviews- def_%v_7 %v_6[3.3,] 
+		 5: RETURN %v_6[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH- def_%v_8 
+		 2: RETURN %v_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = listing_images_hash instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_l 
+		 6: RECEIVEARG def_includes 
+		 7: 
+		 8: includes->include? def_%v_3 includes[2.6,] 	 SYMBOL:listing_images,	 ARGS:Symbol,
+		 9: BRANCH %v_3[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: l->listing_images def_%v_4 l[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_4->first def_%v_5 %v_4[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->Maybe def_%v_6 %self[2.0,] %v_5[3.2,] 	 SYMBOL:	 ARGS:%v_5,
+		 4: %v_6->select def_%v_7 %v_6[3.3,] %self[3.3,2.0,] 	 SYMBOL:	 ARGS:%v_6,
+CLOSURE BEGIN: li[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_li 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: li->image_ready? def_%cl_1_3 li[2.2,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 5: %v_7->map def_%v_8 %v_7[3.4,] %self[3.3,2.0,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: li[3.4,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_li 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: li->image def_%cl_2_3 li[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_2_3->url def_%cl_2_4 %cl_2_3[3.1,] 	 SYMBOL:thumb,	 ARGS:Symbol,
+		 3: li->image def_%cl_2_5 li[3.1,2.2,] 	 SYMBOL:	 ARGS:
+		 4: %cl_2_5->url def_%cl_2_6 %cl_2_5[3.3,] 	 SYMBOL:small_3x2,	 ARGS:Symbol,
+		 5: li->image def_%cl_2_7 li[3.1,3.3,2.2,] 	 SYMBOL:	 ARGS:
+		 6: %cl_2_7->url def_%cl_2_8 %cl_2_7[3.5,] 	 SYMBOL:medium,	 ARGS:Symbol,
+		 7: HASH-thumb-small_3x2-medium- def_%cl_2_9 %cl_2_4[3.2,] %cl_2_6[3.4,] %cl_2_8[3.6,] 
+		 8: COPY TYPE_Array def_%cl_2_10 %cl_2_9[3.7,] 
+		 9: RETURN %cl_2_10[3.8,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_11 
+		 1: def_%cl_2_12 %cl_2_11[4.0,] 
+		 2: RETURN %cl_2_12[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 6: COPY TYPE_Array def_%v_9 
+		 7: %v_8->or_else def_%v_10 %v_8[3.5,] %v_9[3.6,] 	 SYMBOL:	 ARGS:%v_9,
+		 8: HASH-listing_images- def_%v_11 %v_10[3.7,] 
+		 9: RETURN %v_10[3.7,] %self[3.3,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH- def_%v_12 
+		 2: RETURN %v_12[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = search_out_of_bounds? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_per_page 
+		 6: RECEIVEARG def_page 
+		 7: 
+		 8: (SPHINX_MAX_MATCHES) def_%v_3 
+		 9: %v_3->to_f def_%v_4 %v_3[2.8,] 	 SYMBOL:	 ARGS:
+		 10: per_page->to_f def_%v_5 per_page[2.5,] 	 SYMBOL:	 ARGS:
+		 11: %v_4->/ def_%v_6 %v_4[2.9,] %v_5[2.10,] 	 SYMBOL:	 ARGS:%v_5,
+		 12: COPY TYPE_PASS def_pages %v_6[2.11,] 
+		 13: 
+		 14: %v_6->ceil def_%v_7 %v_6[2.11,] 	 SYMBOL:	 ARGS:
+		 15: page->> def_%v_8 page[2.6,] %v_7[2.14,] 	 SYMBOL:	 ARGS:%v_7,
+		 16: RETURN %v_8[2.15,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = needs_db_query? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_search 
+		 6: 
+		 7: search->[] def_%v_3 search[2.5,] 	 SYMBOL:author_id,	 ARGS:Symbol,
+		 8: %v_3->present? def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: search->[] def_%v_5 search[2.5,] 	 SYMBOL:include_closed,	 ARGS:Symbol,
+		 1: %v_5->== def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:Boolean,
+		 2: RETURN %v_6[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_4[2.8,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = needs_search? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_search 
+		 6: 
+		 7: COPY TYPE_Array def_%v_3 
+		 8: %v_3->any? def_%v_4 %v_3[2.7,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: search[2.5,] field[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_field 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: search->[] def_%cl_1_3 search[] field[2.2,] 	 SYMBOL:	 ARGS:field,
+		 2: %cl_1_3->present? def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: RETURN %v_4[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = selection_groups instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_groups 
+		 6: 
+		 7: groups->[] def_%v_3 groups[2.5,] 	 SYMBOL:search_type,	 ARGS:Symbol,
+		 8: %v_3->== def_%v_4 %v_3[2.7,] 	 SYMBOL:and,	 ARGS:Symbol,
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: groups->[] def_%v_5 groups[2.5,] 	 SYMBOL:values,	 ARGS:Symbol,
+		 2: %v_5->flatten def_%v_6 %v_5[3.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %v_6[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: groups->[] def_%v_7 groups[2.5,] 	 SYMBOL:values,	 ARGS:Symbol,
+		 2: RETURN %v_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

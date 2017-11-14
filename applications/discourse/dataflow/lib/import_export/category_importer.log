@@ -1,0 +1,551 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_export_data 
+		 6: 
+		 7: ATTRASSIGN %self->export_data export_data[2.5,] 
+		 8: 
+		 9: (TopicImporter) def_%v_3 
+		 10: GETFIELD %self->export_data def_%v_4 %self[2.0,2.7,] 
+		 11: %v_3->new def_%v_5 %v_3[2.9,] %v_4[2.10,] 	 SYMBOL:	 ARGS:%v_4,
+		 12: ATTRASSIGN %self->topic_importer %v_5[2.11,] 
+		 13: RETURN %v_5[2.11,] %self[2.0,2.7,2.12,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = perform instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: GLOBALVAR $! def_%v_3 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (RateLimiter) def_%v_7 
+		 2: %v_7->disable def_%v_8 %v_7[3.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: %self->import_users def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: 
+		 6: %self->import_groups def_%v_10 %self[3.4,2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: %self->import_categories def_%v_11 %self[3.4,3.6,2.0,] 	 SYMBOL:	 ARGS:
+		 9: 
+		 10: %self->import_topics def_%v_12 %self[3.4,3.6,3.8,2.0,] 	 SYMBOL:	 ARGS:
+		 11: 
+		 12: COPY TYPE_PASS def_%v_6 %self[3.4,3.6,3.8,3.10,2.0,] 
+BB 4
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (RateLimiter) def_%v_4 
+		 2: %v_4->enable def_%v_5 %v_4[4.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %v_6[3.12,] %self[2.0,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%v_13 
+		 1: def_%v_14 %v_13[5.0,] %v_3[2.5,] 
+		 2: 
+		 3: (RateLimiter) def_%v_4 
+		 4: %v_4->enable def_%v_5 %v_4[5.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_13[5.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = import_groups instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->export_data def_%v_3 %self[2.0,] 
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:groups,	 ARGS:Symbol,
+		 8: %v_4->empty? def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: GETFIELD %self->export_data def_%v_7 %self[2.0,] 
+		 3: %v_7->[] def_%v_8 %v_7[4.2,] 	 SYMBOL:groups,	 ARGS:Symbol,
+		 4: %v_8->each def_%v_9 %v_8[4.3,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_8,
+CLOSURE BEGIN: group_data[] g[] user_ids[] %self[2.0,] external_user_id[] new_group[] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_group_data 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: group_data->dup def_%cl_1_3 group_data[2.2,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_g %cl_1_3[3.1,] 
+		 3: 
+		 4: %cl_1_3->delete def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:user_ids,	 ARGS:Symbol,
+		 5: COPY TYPE_PASS def_user_ids %cl_1_4[3.4,] 
+		 6: 
+		 7: g->delete def_%cl_1_5 g[3.2,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 8: COPY TYPE_PASS def_external_id %cl_1_5[3.7,] 
+		 9: 
+		 10: (Group) def_%cl_1_6 
+		 11: g->[] def_%cl_1_7 g[3.2,3.7,] 	 SYMBOL:name,	 ARGS:Symbol,
+		 12: %cl_1_6->find_by_name def_%cl_1_8 %cl_1_6[3.10,] %cl_1_7[3.11,] 	 SYMBOL:	 ARGS:%cl_1_7,
+		 13: BRANCH %cl_1_8[3.12,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (Group) def_%cl_1_9 
+		 1: %cl_1_9->create! def_%cl_1_10 %cl_1_9[4.0,] g[3.2,] 	 SYMBOL:	 ARGS:g,
+		 2: COPY TYPE_PASS def_%cl_1_8 %cl_1_10[4.1,] 
+BB 5
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_new_group %cl_1_8[4.2,3.12,] 
+		 1: 
+		 2: user_ids->each def_%cl_1_11 user_ids[3.5,] %self[2.0,] 	 SYMBOL:	 ARGS:user_ids,
+CLOSURE BEGIN: %self[2.0,] external_user_id[] new_group[5.0,] 
+BB 1
+	outgoing: 17 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_external_user_id 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+		 5: 
+		 6: GLOBALVAR $! def_%cl_2_3 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%cl_2_6 
+		 2: GETFIELD %self->topic_importer def_%cl_2_7 %self[2.0,] 
+		 3: %cl_2_7->new_user_id def_%cl_2_8 %cl_2_7[4.2,] external_user_id[2.2,] 	 SYMBOL:	 ARGS:external_user_id,
+		 4: %cl_2_6->find def_%cl_2_9 %cl_2_6[4.1,] %cl_2_8[4.3,] 	 SYMBOL:	 ARGS:%cl_2_8,
+		 5: new_group->add def_%cl_2_10 new_group[] %cl_2_9[4.4,] 	 SYMBOL:	 ARGS:%cl_2_9,
+		 6: COPY TYPE_PASS def_%cl_2_5 %cl_2_10[4.5,] 
+		 7: %cl_2_3[2.6,] 
+BB 6
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+BB 7
+	outgoing: 8 9 13 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_11 
+		 1: def_%cl_2_12 %cl_2_11[7.0,] 
+		 2: BRANCH %cl_2_12[7.1,] 
+BB 8
+	outgoing: 13 17 
+	datadep: 
+	instructions:
+		 0: %cl_2_11[7.0,] 
+BB 9
+	outgoing: 10 11 13 
+	datadep: 
+	instructions:
+		 0: (ActiveRecord) def_%cl_2_13 
+		 1: (inherit RecordNotUnique) def_%cl_2_14 %cl_2_13[9.0,] 
+		 2: %cl_2_14[9.1,] 
+BB 10
+	outgoing: 11 13 
+	datadep: 
+	instructions:
+		 0: %cl_2_13->const_missing def_%cl_2_14 %cl_2_13[9.0,] 	 SYMBOL:RecordNotUnique,	 ARGS:Symbol,
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_2_5 %cl_2_14[10.0,9.1,] 
+		 1: %cl_2_3[2.6,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+BB 13
+	outgoing: 15 17 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_15 
+		 1: def_%cl_2_16 %cl_2_15[13.0,] %cl_2_3[2.6,] 
+		 2: %cl_2_15[13.0,] 
+BB 14
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_2_5[4.6,11.0,] %self[2.0,] 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_17 
+		 1: def_%cl_2_18 %cl_2_17[15.0,] 
+		 2: RETURN %cl_2_18[15.1,] %self[2.0,] 
+BB 17
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: RETURN %cl_1_11[5.2,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_12 
+		 1: def_%cl_1_13 %cl_1_12[6.0,] 
+		 2: RETURN %cl_1_13[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: new_group[5.0,] user_ids[3.5,] g[3.2,] external_id[3.8,] 
+		 5: RETURN %v_9[4.4,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = import_users instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->topic_importer def_%v_3 %self[2.0,] 
+		 7: %v_3->import_users def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = import_categories instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->export_data def_%v_3 %self[2.0,] 
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:category,	 ARGS:Symbol,
+		 8: %v_4->delete def_%v_5 %v_4[2.7,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 9: COPY TYPE_PASS def_id %v_5[2.8,] 
+		 10: 
+		 11: (CategoryCustomField) def_%v_6 
+		 12: COPY TYPE_StringLiteral "import_id" def_%v_7 
+		 13: %v_5->to_s def_%v_8 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 14: HASH-name-value- def_%v_9 %v_7[2.12,] %v_8[2.13,] 
+		 15: %v_6->where def_%v_10 %v_6[2.11,] %v_9[2.14,] 	 SYMBOL:	 ARGS:%v_9,
+		 16: %v_10->first def_%v_11 %v_10[2.15,] 	 SYMBOL:	 ARGS:
+		 17: %v_11->try def_%v_12 %v_11[2.16,] 	 SYMBOL:category,	 ARGS:Symbol,
+		 18: COPY TYPE_PASS def_parent %v_12[2.17,] 
+		 19: 
+		 20: BRANCH %v_12[2.17,] 
+BB 3
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+		 1: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->export_data def_%v_14 %self[2.0,] 
+		 2: %v_14->[] def_%v_15 %v_14[4.1,] 	 SYMBOL:category,	 ARGS:Symbol,
+		 3: %v_15->delete def_%v_16 %v_15[4.2,] 	 SYMBOL:permissions_params,	 ARGS:Symbol,
+		 4: COPY TYPE_PASS def_permissions %v_16[4.3,] 
+		 5: 
+		 6: (Category) def_%v_17 
+		 7: GETFIELD %self->export_data def_%v_18 %self[2.0,] 
+		 8: %v_18->[] def_%v_19 %v_18[4.7,] 	 SYMBOL:category,	 ARGS:Symbol,
+		 9: %v_17->new def_%v_20 %v_17[4.6,] %v_19[4.8,] 	 SYMBOL:	 ARGS:%v_19,
+		 10: COPY TYPE_PASS def_parent %v_20[4.9,] 
+		 11: 
+		 12: GETFIELD %self->topic_importer def_%v_21 %self[2.0,] 
+		 13: GETFIELD %self->export_data def_%v_22 %self[2.0,] 
+		 14: %v_22->[] def_%v_23 %v_22[4.13,] 	 SYMBOL:category,	 ARGS:Symbol,
+		 15: %v_23->[] def_%v_24 %v_23[4.14,] 	 SYMBOL:user_id,	 ARGS:Symbol,
+		 16: %v_21->new_user_id def_%v_25 %v_21[4.12,] %v_24[4.15,] 	 SYMBOL:	 ARGS:%v_24,
+		 17: ATTRASSIGN parent->user_id %v_25[4.16,] 
+		 18: 
+		 19: parent->custom_fields def_%v_26 parent[4.10,4.17,2.18,] 	 SYMBOL:	 ARGS:
+		 20: COPY TYPE_StringLiteral "import_id" def_%v_27 
+		 21: ATTRASSIGN %v_26->[] %v_27[4.20,] id[2.9,] 
+		 22: 
+		 23: BRANCH permissions[4.4,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN parent->permissions permissions[4.4,] 
+		 1: COPY TYPE_PASS def_%v_28 permissions[4.4,] 
+		 2: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_28 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: parent->save! def_%v_29 parent[5.0,4.10,4.17,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: GETFIELD %self->export_data def_%v_30 %self[2.0,] 
+		 4: %v_30->[] def_%v_31 %v_30[7.3,] 	 SYMBOL:category,	 ARGS:Symbol,
+		 5: %v_31->[] def_%v_32 %v_31[7.4,] 	 SYMBOL:description,	 ARGS:Symbol,
+		 6: %self->set_category_description def_%v_33 %self[2.0,] parent[7.1,5.0,4.10,4.17,] %v_32[7.5,] 	 SYMBOL:	 ARGS:parent,%v_32,
+		 7: COPY TYPE_PASS def_%v_13 %v_33[7.6,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->export_data def_%v_34 %self[2.0,] 
+		 2: %v_34->[] def_%v_35 %v_34[8.1,] 	 SYMBOL:subcategories,	 ARGS:Symbol,
+		 3: %v_35->each def_%v_36 %v_35[8.2,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_35,
+CLOSURE BEGIN: cat_attrs[] parent[5.0,2.18,4.10,4.17,] subcategory[] %self[2.0,] id[2.9,] permissions[4.4,] 
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_cat_attrs 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: cat_attrs->delete def_%cl_1_3 cat_attrs[2.2,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_id %cl_1_3[3.1,] 
+		 3: 
+		 4: (CategoryCustomField) def_%cl_1_4 
+		 5: COPY TYPE_StringLiteral "import_id" def_%cl_1_5 
+		 6: %cl_1_3->to_s def_%cl_1_6 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 7: HASH-name-value- def_%cl_1_7 %cl_1_5[3.5,] %cl_1_6[3.6,] 
+		 8: %cl_1_4->where def_%cl_1_8 %cl_1_4[3.4,] %cl_1_7[3.7,] 	 SYMBOL:	 ARGS:%cl_1_7,
+		 9: %cl_1_8->first def_%cl_1_9 %cl_1_8[3.8,] 	 SYMBOL:	 ARGS:
+		 10: %cl_1_9->try def_%cl_1_10 %cl_1_9[3.9,] 	 SYMBOL:category,	 ARGS:Symbol,
+		 11: COPY TYPE_PASS def_existing %cl_1_10[3.10,] 
+		 12: 
+		 13: BRANCH %cl_1_10[3.10,] 
+BB 4
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_11 
+		 1: RETURN %cl_1_11[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 6 7 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: cat_attrs->delete def_%cl_1_12 cat_attrs[2.2,] 	 SYMBOL:permissions_params,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_permissions %cl_1_12[5.1,] 
+		 3: 
+		 4: (Category) def_%cl_1_13 
+		 5: %cl_1_13->new def_%cl_1_14 %cl_1_13[5.4,] cat_attrs[5.1,2.2,] 	 SYMBOL:	 ARGS:cat_attrs,
+		 6: COPY TYPE_PASS def_subcategory %cl_1_14[5.5,] 
+		 7: 
+		 8: parent->id def_%cl_1_15 parent[] 	 SYMBOL:	 ARGS:
+		 9: ATTRASSIGN subcategory->parent_category_id %cl_1_15[5.8,] 
+		 10: 
+		 11: GETFIELD %self->topic_importer def_%cl_1_16 %self[2.0,] 
+		 12: cat_attrs->[] def_%cl_1_17 cat_attrs[5.1,2.2,] 	 SYMBOL:user_id,	 ARGS:Symbol,
+		 13: %cl_1_16->new_user_id def_%cl_1_18 %cl_1_16[5.11,] %cl_1_17[5.12,] 	 SYMBOL:	 ARGS:%cl_1_17,
+		 14: ATTRASSIGN subcategory->user_id %cl_1_18[5.13,] 
+		 15: 
+		 16: subcategory->custom_fields def_%cl_1_19 subcategory[5.6,5.9,5.14,] 	 SYMBOL:	 ARGS:
+		 17: COPY TYPE_StringLiteral "import_id" def_%cl_1_20 
+		 18: ATTRASSIGN %cl_1_19->[] %cl_1_20[5.17,] id[3.2,] 
+		 19: 
+		 20: BRANCH permissions[5.2,] 
+BB 6
+	outgoing: 8 10 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN subcategory->permissions permissions[5.2,] 
+		 1: COPY TYPE_PASS def_%cl_1_21 permissions[5.2,] 
+		 2: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_21 
+BB 8
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: subcategory->save! def_%cl_1_22 subcategory[6.0,5.6,5.9,5.14,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: cat_attrs->[] def_%cl_1_23 cat_attrs[2.2,] 	 SYMBOL:description,	 ARGS:Symbol,
+		 4: %self->set_category_description def_%cl_1_24 %self[2.0,] subcategory[8.1,6.0,5.6,5.9,5.14,] %cl_1_23[8.3,] 	 SYMBOL:	 ARGS:subcategory,%cl_1_23,
+		 5: RETURN %cl_1_24[8.4,] %self[8.4,2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_25 
+		 1: def_%cl_1_26 %cl_1_25[10.0,] 
+		 2: RETURN %cl_1_26[10.1,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: existing[3.11,] permissions[5.2,] id[3.2,] subcategory[5.6,5.9,5.14,6.0,] 
+		 4: RETURN %v_36[8.3,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = set_category_description instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_c 
+		 6: RECEIVEARG def_description 
+		 7: 
+		 8: c->topic def_%v_3 c[2.5,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->ordered_posts def_%v_4 %v_3[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_4->first def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_PASS def_post %v_5[2.10,] 
+		 12: 
+		 13: ATTRASSIGN %v_5->raw description[2.6,] 
+		 14: 
+		 15: post->save! def_%v_6 post[2.11,] 	 SYMBOL:	 ARGS:
+		 16: 
+		 17: post->rebake! def_%v_7 post[2.11,2.15,] 	 SYMBOL:	 ARGS:
+		 18: RETURN %v_7[2.17,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = import_topics instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->topic_importer def_%v_3 %self[2.0,] 
+		 7: %v_3->import_topics def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

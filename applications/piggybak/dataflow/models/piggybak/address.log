@@ -1,0 +1,244 @@
+SET IRMethod, name = set_default_country instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->country def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (Country) def_%v_5 
+		 1: (Piggybak) def_%v_6 
+		 2: %v_6->config def_%v_7 %v_6[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_7->default_country def_%v_8 %v_7[3.2,] 	 SYMBOL:	 ARGS:
+		 4: HASH-abbr- def_%v_9 %v_8[3.3,] 
+		 5: %v_5->where def_%v_10 %v_5[3.0,] %v_9[3.4,] 	 SYMBOL:	 ARGS:%v_9,
+		 6: %v_10->first def_%v_11 %v_10[3.5,] 	 SYMBOL:	 ARGS:
+		 7: %self->country= def_%v_4 %v_11[3.6,] 	 SYMBOL:	 ARGS:%v_11,
+		 8: RETURN %v_11[3.6,] %self[3.7,2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.6,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = admin_label instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->firstname def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral " " def_%v_4 
+		 8: %self->lastname def_%v_5 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_StringLiteral "<br />" def_%v_6 
+		 10: BUILDSTRING def_%v_7 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] %v_6[2.9,] 
+		 11: COPY TYPE_PASS def_address %v_7[2.10,] 
+		 12: 
+		 13: %self->address1 def_%v_8 %self[2.0,2.6,2.8,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_StringLiteral "<br />" def_%v_9 
+		 15: BUILDSTRING def_%v_10 %v_8[2.13,] %v_9[2.14,] 
+		 16: address->+ def_%v_11 address[2.11,] %v_10[2.15,] 	 SYMBOL:	 ARGS:%v_10,
+		 17: COPY TYPE_PASS def_address %v_11[2.16,] 
+		 18: 
+		 19: %self->address2 def_%v_12 %self[2.0,2.6,2.8,2.13,] 	 SYMBOL:	 ARGS:
+		 20: BRANCH %v_12[2.19,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->address2 def_%v_13 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "" def_%v_14 
+		 2: %v_13->!= def_%v_15 %v_13[3.0,] %v_14[3.1,] 	 SYMBOL:	 ARGS:%v_14,
+		 3: COPY TYPE_PASS def_%v_12 %v_15[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_12[3.3,2.19,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->address2 def_%v_16 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "<br />" def_%v_17 
+		 3: BUILDSTRING def_%v_18 %v_16[5.1,] %v_17[5.2,] 
+		 4: address->+ def_%v_19 address[2.11,2.17,] %v_18[5.3,] 	 SYMBOL:	 ARGS:%v_18,
+		 5: COPY TYPE_PASS def_address %v_19[5.4,] 
+		 6: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_19 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->city def_%v_20 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral ", " def_%v_21 
+		 3: %self->state_display def_%v_22 %self[7.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral " " def_%v_23 
+		 5: %self->zip def_%v_24 %self[7.1,7.3,2.0,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral "<br />" def_%v_25 
+		 7: BUILDSTRING def_%v_26 %v_20[7.1,] %v_21[7.2,] %v_22[7.3,] %v_23[7.4,] %v_24[7.5,] %v_25[7.6,] 
+		 8: address->+ def_%v_27 address[5.5,2.11,2.17,] %v_26[7.7,] 	 SYMBOL:	 ARGS:%v_26,
+		 9: COPY TYPE_PASS def_address %v_27[7.8,] 
+		 10: 
+		 11: %self->country def_%v_28 %self[7.1,7.3,7.5,2.0,] 	 SYMBOL:	 ARGS:
+		 12: %v_28->name def_%v_29 %v_28[7.11,] 	 SYMBOL:	 ARGS:
+		 13: BUILDSTRING def_%v_30 %v_29[7.12,] 
+		 14: address->+ def_%v_31 address[7.8,7.9,] %v_30[7.13,] 	 SYMBOL:	 ARGS:%v_30,
+		 15: COPY TYPE_PASS def_address %v_31[7.14,] 
+		 16: 
+		 17: RETURN %v_31[7.14,] %self[7.1,7.3,7.5,7.11,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = state_display instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->state def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->state def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->name def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_5[3.1,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->state_id def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_6[4.0,] %self[4.0,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = document_address_changes instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->order_billing def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->present? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->changed? def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_4 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->order_billing def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->recorded_changes def_%v_7 %v_6[5.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->formatted_changes def_%v_8 %self[5.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_7-><< def_%v_9 %v_7[5.2,] %v_8[5.3,] 	 SYMBOL:	 ARGS:%v_8,
+		 5: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->order_shipping def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_10->present? def_%v_11 %v_10[7.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_11[7.2,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %self->changed? def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_11 %v_12[8.0,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_11[8.1,7.2,] 
+BB 10
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->order_shipping def_%v_13 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_13->recorded_changes def_%v_14 %v_13[10.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->formatted_changes def_%v_15 %self[10.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_14-><< def_%v_16 %v_14[10.2,] %v_15[10.3,] 	 SYMBOL:	 ARGS:%v_15,
+		 5: RETURN %v_16[10.4,] %self[10.1,10.3,2.0,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+

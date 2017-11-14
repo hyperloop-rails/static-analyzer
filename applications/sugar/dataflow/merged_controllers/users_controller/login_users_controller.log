@@ -1,0 +1,201 @@
+SET IRMethod, name = login instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RETURN %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = authenticate instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (User) def_%v_3 
+		 7: %self->params def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->[] def_%v_5 %v_4[2.7,] 	 SYMBOL:email,	 ARGS:Symbol,
+		 9: %self->params def_%v_6 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 10: %v_6->[] def_%v_7 %v_6[2.9,] 	 SYMBOL:password,	 ARGS:Symbol,
+		 11: %v_3->find_and_authenticate_with_password def_%v_8 %v_3[2.6,] %v_5[2.8,] %v_7[2.10,] 	 SYMBOL:	 ARGS:%v_5,%v_7,
+		 12: ATTRASSIGN %self->current_user %v_8[2.11,] 
+		 13: 
+		 14: %self->current_user? def_%v_9 %self[2.0,2.7,2.9,2.12,] 	 SYMBOL:	 ARGS:
+		 15: BRANCH %v_9[2.14,] 
+BB 3
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->discussions_url def_%v_10 %self[2.0,2.12,] 	 SYMBOL:	 ARGS:
+		 2: %self->redirect_to def_%v_11 %self[3.1,2.0,2.12,] %v_10[3.1,] 	 SYMBOL:	 ARGS:%v_10,
+		 3: RETURN %v_11[3.2,] %self[3.1,3.2,2.0,2.12,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_12 %self[2.0,2.12,] 	 SYMBOL:	 ARGS:
+		 2: %v_12->[] def_%v_13 %v_12[4.1,] 	 SYMBOL:notice,	 ARGS:Symbol,
+		 3: BRANCH %v_13[4.2,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "That's not a valid email or password." def_%v_14 
+		 1: %v_12->[]= def_%v_13 %v_12[4.1,] %v_14[5.0,] 	 SYMBOL:notice,	 ARGS:Symbol,%v_14,
+		 2: COPY TYPE_PASS def_%v_13 %v_14[5.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->login_users_url def_%v_15 %self[2.0,2.12,] 	 SYMBOL:	 ARGS:
+		 2: %self->redirect_to def_%v_16 %self[6.1,2.0,2.12,] %v_15[6.1,] 	 SYMBOL:	 ARGS:%v_15,
+		 3: RETURN %v_16[6.2,] %self[6.1,6.2,2.0,2.12,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = logout instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->deauthenticate! def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: %self->flash def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_StringLiteral "You have been logged out." def_%v_5 
+		 10: ATTRASSIGN %v_4->[] %v_5[2.9,] 
+		 11: 
+		 12: (Sugar) def_%v_6 
+		 13: %v_6->public_browsing? def_%v_7 %v_6[2.12,] 	 SYMBOL:	 ARGS:
+		 14: BRANCH %v_7[2.13,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->discussions_url def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->login_users_url def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_8 %v_9[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->redirect_to def_%v_10 %self[2.0,] %v_8[4.1,3.0,] 	 SYMBOL:	 ARGS:%v_8,
+		 1: RETURN %v_10[5.0,] %self[5.0,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = detect_admin_signup instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (User) def_%v_3 
+		 7: %v_3->any? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: %self->new_user_path def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %self->redirect_to def_%v_7 %self[4.2,2.0,] %v_6[4.2,] 	 SYMBOL:	 ARGS:%v_6,
+		 4: RETURN %v_7[4.3,] %self[4.2,4.3,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_if_already_logged_in instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->current_user? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: %self->discussions_url def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %self->redirect_to def_%v_6 %self[3.2,2.0,] %v_5[3.2,] 	 SYMBOL:	 ARGS:%v_5,
+		 4: RETURN %v_6[3.3,] %self[3.2,3.3,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

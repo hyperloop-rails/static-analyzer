@@ -1,0 +1,286 @@
+SET IRMethod, name = post_action instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_due_at 
+		 6: RECEIVEARG def_item 
+		 7: RECEIVECONSTARG def_method 
+		 8: method[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "came_due" def_%v_3 
+		 1: COPY TYPE_PASS def_method %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-due_at-pending_item-trigger_method- def_%v_4 due_at[2.5,] item[2.6,] method[3.1,2.7,] 
+		 2: %self->create! def_%v_5 %self[2.0,] %v_4[4.1,] 	 SYMBOL:	 ARGS:%v_4,
+		 3: 
+		 4: %self->fire def_%v_6 %self[4.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: RETURN %v_6[4.4,] %self[4.2,4.4,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = fire instanceMethod = true
+BB 1
+	outgoing: 20 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: COPY TYPE_StringLiteral "due_at <= ?" def_%v_6 
+		 3: (Time) def_%v_7 
+		 4: %v_7->now def_%v_8 %v_7[4.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_Array def_%v_9 %v_6[4.2,] %v_8[4.4,] 
+		 6: %self->destroy_all def_%v_10 %self[2.0,] %v_9[4.5,] 	 SYMBOL:	 ARGS:%v_9,
+		 7: 
+		 8: COPY TYPE_Boolean def_%v_5 
+		 9: %v_3[2.5,] 
+BB 5
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 18 
+	datadep: 
+	instructions:
+		 0: def_%v_11 
+		 1: def_%v_12 %v_11[6.0,] 
+		 2: BRANCH %v_12[6.1,] 
+BB 7
+	outgoing: 18 20 
+	datadep: 
+	instructions:
+		 0: %v_11[6.0,] 
+BB 8
+	outgoing: 9 10 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Migrator) def_%v_13 
+		 2: %v_13->new def_%v_14 %v_13[8.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_migrator %v_14[8.2,] 
+		 4: 
+		 5: %v_14->pending_migrations def_%v_15 %v_14[8.2,] 	 SYMBOL:	 ARGS:
+		 6: %v_15->empty? def_%v_16 %v_15[8.5,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_16[8.6,] 
+BB 9
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+		 1: 
+BB 10
+	outgoing: 11 14 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: migrator->current_schema_version def_%v_18 migrator[8.3,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_starting_version %v_18[10.1,] 
+		 3: 
+		 4: migrator->migrate def_%v_19 migrator[10.1,8.3,] 	 SYMBOL:	 ARGS:
+		 5: 
+		 6: starting_version->== def_%v_20 starting_version[10.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 7: BRANCH %v_20[10.6,] 
+BB 11
+	outgoing: 12 13 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Rails) def_%v_21 
+		 2: %v_21->root def_%v_22 %v_21[11.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "/Rakefile" def_%v_23 
+		 4: BUILDSTRING def_%v_24 %v_22[11.2,] %v_23[11.3,] 
+		 5: %self->load def_%v_25 %self[2.0,] %v_24[11.4,] 	 SYMBOL:	 ARGS:%v_24,
+		 6: 
+		 7: (Rake) def_%v_26 
+		 8: (inherit Task) def_%v_27 %v_26[11.7,] 
+		 9: %v_27[11.8,] 
+BB 12
+	outgoing: 13 18 
+	datadep: 
+	instructions:
+		 0: %v_26->const_missing def_%v_27 %v_26[11.7,] 	 SYMBOL:Task,	 ARGS:Symbol,
+BB 13
+	outgoing: 15 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "db:seed" def_%v_28 
+		 1: %v_27->[] def_%v_29 %v_27[12.0,11.8,] %v_28[13.0,] 	 SYMBOL:	 ARGS:%v_28,
+		 2: %v_29->invoke def_%v_30 %v_29[13.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: (User) def_%v_31 
+		 5: %v_31->reset_column_information def_%v_32 %v_31[13.4,] 	 SYMBOL:	 ARGS:
+		 6: 
+		 7: (Article) def_%v_33 
+		 8: %v_33->reset_column_information def_%v_34 %v_33[13.7,] 	 SYMBOL:	 ARGS:
+		 9: 
+		 10: (Page) def_%v_35 
+		 11: %v_35->reset_column_information def_%v_36 %v_35[13.10,] 	 SYMBOL:	 ARGS:
+		 12: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_36 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_17 %v_36[14.0,13.11,] 
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_5 %v_17[15.0,9.0,] 
+		 1: %v_3[2.5,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: def_%v_37 
+		 1: def_%v_38 %v_37[18.0,] %v_3[2.5,] 
+		 2: %v_37[18.0,] 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[4.8,16.0,] %self[2.0,] 
+BB 20
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = remove instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_pending_item 
+		 6: RECEIVECONSTARG def_conditions 
+		 7: conditions[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_conditions %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: pending_item->new_record? def_%v_4 pending_item[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_4[4.1,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: pending_item->id def_%v_6 pending_item[2.5,] 	 SYMBOL:	 ARGS:
+		 3: pending_item->class def_%v_7 pending_item[6.2,2.5,] 	 SYMBOL:	 ARGS:
+		 4: %v_7->to_s def_%v_8 %v_7[6.3,] 	 SYMBOL:	 ARGS:
+		 5: HASH-pending_item_id-pending_item_type- def_%v_9 %v_6[6.2,] %v_8[6.4,] 
+		 6: conditions->merge def_%v_10 conditions[3.1,2.6,] %v_9[6.5,] 	 SYMBOL:	 ARGS:%v_9,
+		 7: COPY TYPE_PASS def_conditions %v_10[6.6,] 
+		 8: 
+		 9: %self->where def_%v_11 %self[2.0,] %v_10[6.6,] 	 SYMBOL:	 ARGS:conditions,
+		 10: %v_11->delete_all def_%v_12 %v_11[6.9,] 	 SYMBOL:	 ARGS:
+		 11: RETURN %v_12[6.10,] %self[6.9,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = trigger_pending_item instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->pending_item def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->pending_item def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %self->trigger_method def_%v_5 %self[3.0,2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_4->send def_%v_6 %v_4[3.0,] %v_5[3.1,] 	 SYMBOL:	 ARGS:%v_5,
+		 3: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

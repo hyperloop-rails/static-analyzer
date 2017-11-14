@@ -1,0 +1,119 @@
+SET IRMethod, name = validate_each instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_record 
+		 6: RECEIVEARG def_attribute 
+		 7: RECEIVEARG def_value 
+		 8: 
+		 9: %self->title_validator def_%v_3 %self[2.0,] record[2.5,] 	 SYMBOL:	 ARGS:record,
+		 10: %v_3->validate_each def_%v_4 %v_3[2.9,] record[2.5,] attribute[2.6,] value[2.7,] 	 SYMBOL:	 ARGS:record,attribute,value,
+		 11: RETURN %v_4[2.10,] %self[2.0,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = title_validator instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_record 
+		 6: 
+		 7: record->user def_%v_3 record[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->try def_%v_4 %v_3[2.7,] 	 SYMBOL:admin?,	 ARGS:Symbol,
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_6 
+		 2: %v_6->max_topic_title_length def_%v_7 %v_6[3.1,] 	 SYMBOL:	 ARGS:
+		 3: CONSTANT def_%v_5 %v_7[3.2,] 
+		 4: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: record->private_message? def_%v_8 record[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_8[4.1,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_9 
+		 2: %v_9->private_message_title_length def_%v_10 %v_9[5.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_11 
+		 2: %v_11->topic_title_length def_%v_12 %v_11[6.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_10 %v_12[6.2,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_5 %v_10[6.3,5.2,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_length_range %v_5[7.0,3.3,] 
+		 1: 
+		 2: (ActiveModel) def_%v_13 
+		 3: (inherit Validations) def_%v_14 %v_13[8.2,] 
+		 4: %v_14[8.3,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_13->const_missing def_%v_14 %v_13[8.2,] 	 SYMBOL:Validations,	 ARGS:Symbol,
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: (inherit LengthValidator) def_%v_15 %v_14[9.0,8.3,] 
+		 1: %v_15[10.0,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %v_14->const_missing def_%v_15 %v_14[9.0,8.3,] 	 SYMBOL:LengthValidator,	 ARGS:Symbol,
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: HASH-attributes-in-allow_blank- def_%v_16 length_range[8.0,] 
+		 1: %v_15->new def_%v_17 %v_15[11.0,10.0,] %v_16[12.0,] 	 SYMBOL:	 ARGS:%v_16,
+		 2: RETURN %v_17[12.1,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+

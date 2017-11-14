@@ -1,0 +1,340 @@
+SET IRMethod, name = can_receive_payments? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_person 
+		 6: 
+		 7: person->braintree_account def_%v_3 person[2.5,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_braintree_account %v_3[2.7,] 
+		 9: 
+		 10: %v_3->present? def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_4[2.10,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: braintree_account->status def_%v_5 braintree_account[2.8,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "active" def_%v_6 
+		 2: %v_5->== def_%v_7 %v_5[3.0,] %v_6[3.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: RETURN %v_7[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_4[2.10,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = new_payment_path instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_person 
+		 6: RECEIVEARG def_message 
+		 7: RECEIVEARG def_locale 
+		 8: 
+		 9: message->payment def_%v_3 message[2.6,] 	 SYMBOL:	 ARGS:
+		 10: %v_3->id def_%v_4 %v_3[2.9,] 	 SYMBOL:	 ARGS:
+		 11: person->id def_%v_5 person[2.5,] 	 SYMBOL:	 ARGS:
+		 12: %v_5->to_s def_%v_6 %v_5[2.11,] 	 SYMBOL:	 ARGS:
+		 13: message->id def_%v_7 message[2.6,2.9,] 	 SYMBOL:	 ARGS:
+		 14: %v_7->to_s def_%v_8 %v_7[2.13,] 	 SYMBOL:	 ARGS:
+		 15: HASH-id-person_id-message_id-locale- def_%v_9 %v_4[2.10,] %v_6[2.12,] %v_8[2.14,] locale[2.7,] 
+		 16: %self->edit_person_message_braintree_payment_path def_%v_10 %self[2.0,] %v_9[2.15,] 	 SYMBOL:	 ARGS:%v_9,
+		 17: RETURN %v_10[2.16,] %self[2.0,2.16,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = new_payment_url instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_person 
+		 6: RECEIVEARG def_message 
+		 7: RECEIVEARG def_locale 
+		 8: RECEIVECONSTARG def_other_params 
+		 9: other_params[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_other_params %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: message->payment def_%v_4 message[2.6,] 	 SYMBOL:	 ARGS:
+		 2: %v_4->id def_%v_5 %v_4[4.1,] 	 SYMBOL:	 ARGS:
+		 3: person->id def_%v_6 person[2.5,] 	 SYMBOL:	 ARGS:
+		 4: %v_6->to_s def_%v_7 %v_6[4.3,] 	 SYMBOL:	 ARGS:
+		 5: message->id def_%v_8 message[4.1,2.6,] 	 SYMBOL:	 ARGS:
+		 6: %v_8->to_s def_%v_9 %v_8[4.5,] 	 SYMBOL:	 ARGS:
+		 7: HASH-id-person_id-message_id-locale- def_%v_10 %v_5[4.2,] %v_7[4.4,] %v_9[4.6,] locale[2.7,] 
+		 8: other_params->merge def_%v_11 other_params[3.1,2.8,] %v_10[4.7,] 	 SYMBOL:	 ARGS:%v_10,
+		 9: %self->edit_person_message_braintree_payment_url def_%v_12 %self[2.0,] %v_11[4.8,] 	 SYMBOL:	 ARGS:%v_11,
+		 10: RETURN %v_12[4.9,] %self[4.9,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = has_additional_terms_of_use instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: RETURN %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = name instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "braintree" def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = form_template_dir instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "payments/simple_form" def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = invoice_form_type instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "simple" def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = new_payment instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (BraintreePayment) def_%v_3 
+		 7: %v_3->new def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_payment %v_4[2.7,] 
+		 9: 
+		 10: ATTRASSIGN %v_4->payment_gateway %self[2.0,] 
+		 11: 
+		 12: %self->community def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 13: ATTRASSIGN payment->community %v_5[2.12,] 
+		 14: 
+		 15: COPY TYPE_StringLiteral "USD" def_%v_6 
+		 16: ATTRASSIGN payment->currency %v_6[2.15,] 
+		 17: 
+		 18: RETURN payment[2.8,2.13,2.16,] %self[2.0,2.12,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = hold_in_escrow instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: RETURN %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = configured? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->braintree_environment def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->braintree_merchant_id def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->braintree_master_merchant_id def_%v_5 %self[2.0,2.6,2.7,] 	 SYMBOL:	 ARGS:
+		 9: %self->braintree_public_key def_%v_6 %self[2.0,2.6,2.7,2.8,] 	 SYMBOL:	 ARGS:
+		 10: %self->braintree_private_key def_%v_7 %self[2.0,2.6,2.7,2.8,2.9,] 	 SYMBOL:	 ARGS:
+		 11: %self->braintree_client_side_encryption_key def_%v_8 %self[2.0,2.6,2.7,2.8,2.9,2.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_Array def_%v_9 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] %v_6[2.9,] %v_7[2.10,] %v_8[2.11,] 
+		 13: %v_9->all? def_%v_10 %v_9[2.12,] %self[2.0,2.6,2.7,2.8,2.9,2.10,2.11,] 	 SYMBOL:	 ARGS:%v_9,
+CLOSURE BEGIN: x[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_x 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: x->present? def_%cl_1_3 x[2.2,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 14: RETURN %v_10[2.13,] %self[2.0,2.6,2.7,2.8,2.9,2.10,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = gateway_type instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: RETURN %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

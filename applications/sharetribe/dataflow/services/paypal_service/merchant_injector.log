@@ -1,0 +1,248 @@
+SET IRMethod, name = paypal_merchant instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->paypal_merchant def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->build_paypal_merchant def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: ATTRASSIGN %self->paypal_merchant %v_6[5.0,] 
+		 2: RETURN %v_6[5.0,] %self[5.0,5.1,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_paypal_merchant instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (DataTypes) def_%v_3 
+		 7: (APP_CONFIG) def_%v_4 
+		 8: %self->build_endpoint def_%v_5 %self[2.0,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: (APP_CONFIG) def_%v_6 
+		 10: %self->build_api_credentials def_%v_7 %self[2.0,2.8,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: (APP_CONFIG) def_%v_8 
+		 12: %self->build_ipn_hook def_%v_9 %self[2.0,2.8,2.10,] %v_8[2.11,] 	 SYMBOL:	 ARGS:%v_8,
+		 13: (APP_CONFIG) def_%v_10 
+		 14: %v_10->paypal_button_source def_%v_11 %v_10[2.13,] 	 SYMBOL:	 ARGS:
+		 15: HASH-endpoint-api_credentials-ipn_hook-button_source- def_%v_12 %v_5[2.8,] %v_7[2.10,] %v_9[2.12,] %v_11[2.14,] 
+		 16: %v_3->create_config def_%v_13 %v_3[2.6,] %v_12[2.15,] 	 SYMBOL:	 ARGS:%v_12,
+		 17: COPY TYPE_PASS def_config %v_13[2.16,] 
+		 18: 
+		 19: (PaypalService) def_%v_14 
+		 20: (inherit Merchant) def_%v_15 %v_14[2.19,] 
+		 21: %v_15[2.20,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_14->const_missing def_%v_15 %v_14[2.19,] 	 SYMBOL:Merchant,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (PaypalService) def_%v_16 
+		 1: (inherit Logger) def_%v_17 %v_16[4.0,] 
+		 2: %v_17[4.1,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_16->const_missing def_%v_17 %v_16[4.0,] 	 SYMBOL:Logger,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_17->new def_%v_18 %v_17[5.0,4.1,] 	 SYMBOL:	 ARGS:
+		 1: %v_15->new def_%v_19 %v_15[3.0,2.20,] config[2.17,] %v_18[6.0,] 	 SYMBOL:	 ARGS:config,%v_18,
+		 2: RETURN %v_19[6.1,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_ipn_hook instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_app_config 
+		 6: 
+		 7: app_config->paypal_ipn_domain def_%v_3 app_config[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Rails) def_%v_4 
+		 2: %v_4->application def_%v_5 %v_4[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->routes def_%v_6 %v_5[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_6->url_helpers def_%v_7 %v_6[3.3,] 	 SYMBOL:	 ARGS:
+		 5: app_config->paypal_ipn_domain def_%v_8 app_config[2.5,] 	 SYMBOL:	 ARGS:
+		 6: app_config->paypal_ipn_protocol def_%v_9 app_config[3.5,2.5,] 	 SYMBOL:	 ARGS:
+		 7: HASH-host-protocol- def_%v_10 %v_8[3.5,] %v_9[3.6,] 
+		 8: %v_7->paypal_ipn_hook_url def_%v_11 %v_7[3.4,] %v_10[3.7,] 	 SYMBOL:	 ARGS:%v_10,
+		 9: COPY TYPE_PASS def_hook_url %v_11[3.8,] 
+		 10: 
+		 11: (DataTypes) def_%v_12 
+		 12: HASH-url- def_%v_13 %v_11[3.8,] 
+		 13: %v_12->create_ipn_hook def_%v_14 %v_12[3.11,] %v_13[3.12,] 	 SYMBOL:	 ARGS:%v_13,
+		 14: RETURN %v_14[3.13,] %self[2.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PaypalService) def_%v_15 
+		 2: (inherit Logger) def_%v_16 %v_15[4.1,] 
+		 3: %v_16[4.2,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_15->const_missing def_%v_16 %v_15[4.1,] 	 SYMBOL:Logger,	 ARGS:Symbol,
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_16->new def_%v_17 %v_16[5.0,4.2,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "Paypal IPN host not defined. You will not receive IPN notifications!" def_%v_18 
+		 2: %v_17->warn def_%v_19 %v_17[6.0,] %v_18[6.1,] 	 SYMBOL:	 ARGS:%v_18,
+		 3: 
+		 4: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_endpoint instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_config 
+		 6: 
+		 7: (PaypalService) def_%v_3 
+		 8: (inherit DataTypes) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:DataTypes,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: config->paypal_endpoint def_%v_5 config[2.5,] 	 SYMBOL:	 ARGS:
+		 1: HASH-endpoint_name- def_%v_6 %v_5[4.0,] 
+		 2: %v_4->create_endpoint def_%v_7 %v_4[3.0,2.8,] %v_6[4.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: RETURN %v_7[4.2,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_api_credentials instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_config 
+		 6: 
+		 7: (PaypalService) def_%v_3 
+		 8: (inherit DataTypes) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:DataTypes,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: config->paypal_username def_%v_5 config[2.5,] 	 SYMBOL:	 ARGS:
+		 1: config->paypal_password def_%v_6 config[4.0,2.5,] 	 SYMBOL:	 ARGS:
+		 2: config->paypal_signature def_%v_7 config[4.0,4.1,2.5,] 	 SYMBOL:	 ARGS:
+		 3: config->paypal_app_id def_%v_8 config[4.0,4.1,4.2,2.5,] 	 SYMBOL:	 ARGS:
+		 4: config->paypal_partner_id def_%v_9 config[4.0,4.1,4.2,4.3,2.5,] 	 SYMBOL:	 ARGS:
+		 5: HASH-username-password-signature-app_id-partner_id- def_%v_10 %v_5[4.0,] %v_6[4.1,] %v_7[4.2,] %v_8[4.3,] %v_9[4.4,] 
+		 6: %v_4->create_api_credentials def_%v_11 %v_4[3.0,2.8,] %v_10[4.5,] 	 SYMBOL:	 ARGS:%v_10,
+		 7: RETURN %v_11[4.6,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

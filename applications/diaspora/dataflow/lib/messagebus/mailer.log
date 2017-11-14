@@ -1,0 +1,270 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_api_key 
+		 6: 
+		 7: (MessagebusApi) def_%v_3 
+		 8: (inherit Messagebus) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:Messagebus,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_4->new def_%v_5 %v_4[3.0,2.8,] api_key[2.5,] 	 SYMBOL:	 ARGS:api_key,
+		 1: ATTRASSIGN %self->client %v_5[4.0,] 
+		 2: RETURN %v_5[4.0,] %self[4.1,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = new instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_settings 
+		 6: 
+		 7: HASH- def_%v_3 
+		 8: ATTRASSIGN %self->settings %v_3[2.7,] 
+		 9: 
+		 10: RETURN %self[2.0,2.8,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = from_header_parse instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_string 
+		 6: 
+		 7: COPY TYPE_StringLiteral "<" def_%v_3 
+		 8: string->split def_%v_4 string[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: %v_4->[] def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:Fixnum,
+		 10: COPY TYPE_StringLiteral """ def_%v_6 
+		 11: %v_5->delete def_%v_7 %v_5[2.9,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_6,
+		 12: RETURN %v_7[2.11,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = deliver instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_message 
+		 6: 
+		 7: %self->deliver! def_%v_3 %self[2.0,] message[2.5,] 	 SYMBOL:	 ARGS:message,
+		 8: RETURN %v_3[2.7,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = deliver! instanceMethod = true
+BB 1
+	outgoing: 21 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 10 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_message 
+		 6: 
+		 7: message->to def_%v_3 message[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->first def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: message->subject def_%v_5 message[2.5,2.7,] 	 SYMBOL:	 ARGS:
+		 10: (AppConfig) def_%v_6 
+		 11: %v_6->mail def_%v_7 %v_6[2.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_7->sender_address def_%v_8 %v_7[2.11,] 	 SYMBOL:	 ARGS:
+		 13: message->[] def_%v_9 message[2.5,2.7,2.9,] 	 SYMBOL:from,	 ARGS:Symbol,
+		 14: %v_9->to_s def_%v_10 %v_9[2.13,] 	 SYMBOL:	 ARGS:
+		 15: %self->from_header_parse def_%v_11 %self[2.0,] %v_10[2.14,] 	 SYMBOL:	 ARGS:%v_10,
+		 16: HASH-toEmail-subject-fromEmail-fromName- def_%v_12 %v_4[2.8,] %v_5[2.9,] %v_8[2.12,] %v_11[2.15,] 
+		 17: COPY TYPE_PASS def_msg %v_12[2.16,] 
+		 18: 
+		 19: message->multipart? def_%v_13 message[2.5,2.7,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 20: BRANCH %v_13[2.19,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: message->text_part def_%v_14 message[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_14[3.1,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: message->text_part def_%v_15 message[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_15->body def_%v_16 %v_15[4.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_16->to_s def_%v_17 %v_16[4.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN msg->[] %v_17[4.2,] 
+		 4: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: message->html_part def_%v_18 message[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_18[6.1,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: message->html_part def_%v_19 message[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_19->body def_%v_20 %v_19[7.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_20->to_s def_%v_21 %v_20[7.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN msg->[] %v_21[7.2,] 
+		 4: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: message->body def_%v_22 message[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_22->to_s def_%v_23 %v_22[10.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN msg->[] %v_23[10.2,] 
+		 4: 
+		 5: message->body def_%v_24 message[10.1,2.5,] 	 SYMBOL:	 ARGS:
+		 6: %v_24->to_s def_%v_25 %v_24[10.5,] 	 SYMBOL:	 ARGS:
+		 7: ATTRASSIGN msg->[] %v_25[10.6,] 
+		 8: COPY TYPE_PASS def_%v_21 %v_25[10.6,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%v_26 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: GETFIELD %self->client def_%v_29 %self[2.0,] 
+		 3: %v_29->add_message def_%v_30 %v_29[13.2,] msg[10.3,10.7,2.17,7.3,4.3,] 	 SYMBOL:	 ARGS:msg,Boolean,
+		 4: COPY TYPE_PASS def_%v_28 %v_30[13.3,] 
+		 5: %v_26[11.1,] 
+BB 14
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+BB 15
+	outgoing: 16 17 19 
+	datadep: 
+	instructions:
+		 0: def_%v_31 
+		 1: def_%v_32 %v_31[15.0,] 
+		 2: BRANCH %v_32[15.1,] 
+BB 16
+	outgoing: 19 21 
+	datadep: 
+	instructions:
+		 0: %v_31[15.0,] 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_33 
+		 1: COPY TYPE_PASS def_message_bus_api_error %v_33[17.0,] 
+		 2: 
+		 3: COPY TYPE_StringLiteral "Messagebus API error=" def_%v_34 
+		 4: COPY TYPE_StringLiteral ", message=" def_%v_35 
+		 5: msg->inspect def_%v_36 msg[10.3,10.7,2.17,7.3,4.3,] 	 SYMBOL:	 ARGS:
+		 6: BUILDSTRING def_%v_37 %v_34[17.3,] message_bus_api_error[17.1,] %v_35[17.4,] %v_36[17.5,] 
+		 7: %self->raise def_%v_38 %self[2.0,] %v_37[17.6,] 	 SYMBOL:	 ARGS:%v_37,
+		 8: COPY TYPE_PASS def_%v_28 %v_38[17.7,] 
+		 9: %v_26[11.1,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+BB 19
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: def_%v_39 
+		 1: def_%v_40 %v_39[19.0,] %v_26[11.1,] 
+		 2: %v_39[19.0,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: RETURN %v_28[13.4,17.8,] %self[2.0,] 
+BB 21
+	outgoing: 
+	datadep: 
+	instructions:
+

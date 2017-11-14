@@ -1,0 +1,973 @@
+SET IRMethod, name = scrub_html_for_search instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_html 
+		 6: 
+		 7: (HtmlScrubber) def_%v_3 
+		 8: %v_3->scrub def_%v_4 %v_3[2.7,] html[2.5,] 	 SYMBOL:	 ARGS:html,
+		 9: RETURN %v_4[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_index instanceMethod = false
+BB 1
+	outgoing: 18 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_table 
+		 6: RECEIVEARG def_id 
+		 7: RECEIVEARG def_search_data 
+		 8: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (Search) def_%v_6 
+		 3: %v_6->prepare_data def_%v_7 %v_6[4.2,] search_data[2.7,] 	 SYMBOL:	 ARGS:search_data,
+		 4: COPY TYPE_PASS def_search_data %v_7[4.3,] 
+		 5: 
+		 6: COPY TYPE_StringLiteral "_search_data" def_%v_8 
+		 7: BUILDSTRING def_%v_9 table[2.5,] %v_8[4.6,] 
+		 8: COPY TYPE_PASS def_table_name %v_9[4.7,] 
+		 9: 
+		 10: COPY TYPE_StringLiteral "_id" def_%v_10 
+		 11: BUILDSTRING def_%v_11 table[2.5,] %v_10[4.10,] 
+		 12: COPY TYPE_PASS def_foreign_key %v_11[4.11,] 
+		 13: 
+		 14: COPY TYPE_StringLiteral "user" def_%v_12 
+		 15: table->== def_%v_13 table[2.5,] %v_12[4.14,] 	 SYMBOL:	 ARGS:%v_12,
+		 16: BRANCH %v_13[4.15,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "simple" def_%v_14 
+		 1: 
+BB 6
+	outgoing: 7 12 
+	datadep: 
+	instructions:
+		 0: (Search) def_%v_15 
+		 1: %v_15->long_locale def_%v_16 %v_15[6.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_14 %v_16[6.1,] 
+BB 7
+	outgoing: 8 9 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_stemmer %v_14[6.2,5.0,] 
+		 1: 
+		 2: (Post) def_%v_17 
+		 3: COPY TYPE_StringLiteral "UPDATE " def_%v_18 
+		 4: COPY TYPE_StringLiteral "
+                                   SET
+                                      raw_data = :search_data,
+                                      locale = :locale,
+                                      search_data = TO_TSVECTOR('" def_%v_19 
+		 5: 
+		 6: COPY TYPE_StringLiteral "', :search_data)
+                                   WHERE " def_%v_20 
+		 7: 
+		 8: COPY TYPE_StringLiteral " = :id" def_%v_21 
+		 9: BUILDSTRING def_%v_22 %v_18[7.3,] table_name[4.8,] %v_19[7.4,] %v_14[6.2,5.0,] %v_20[7.6,] foreign_key[4.12,] %v_21[7.8,] 
+		 10: (SiteSetting) def_%v_23 
+		 11: %v_23->default_locale def_%v_24 %v_23[7.10,] 	 SYMBOL:	 ARGS:
+		 12: HASH-search_data-id-locale- def_%v_25 search_data[4.4,] id[2.6,] %v_24[7.11,] 
+		 13: %v_17->exec_sql_row_count def_%v_26 %v_17[7.2,] %v_22[7.9,] %v_25[7.12,] 	 SYMBOL:	 ARGS:%v_22,%v_25,
+		 14: COPY TYPE_PASS def_rows %v_26[7.13,] 
+		 15: 
+		 16: %v_26->== def_%v_27 %v_26[7.13,] 	 SYMBOL:	 ARGS:Fixnum,
+		 17: BRANCH %v_27[7.16,] 
+BB 8
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Post) def_%v_28 
+		 2: COPY TYPE_StringLiteral "INSERT INTO " def_%v_29 
+		 3: COPY TYPE_StringLiteral "
+                    (" def_%v_30 
+		 4: 
+		 5: COPY TYPE_StringLiteral ", search_data, locale, raw_data)
+                    VALUES (:id, TO_TSVECTOR('" def_%v_31 
+		 6: 
+		 7: COPY TYPE_StringLiteral "', :search_data), :locale, :search_data)" def_%v_32 
+		 8: BUILDSTRING def_%v_33 %v_29[8.2,] table_name[4.8,] %v_30[8.3,] foreign_key[4.12,] %v_31[8.5,] stemmer[7.0,] %v_32[8.7,] 
+		 9: (SiteSetting) def_%v_34 
+		 10: %v_34->default_locale def_%v_35 %v_34[8.9,] 	 SYMBOL:	 ARGS:
+		 11: HASH-search_data-id-locale- def_%v_36 search_data[4.4,] id[2.6,] %v_35[8.10,] 
+		 12: %v_28->exec_sql def_%v_37 %v_28[8.1,] %v_33[8.8,] %v_36[8.11,] 	 SYMBOL:	 ARGS:%v_33,%v_36,
+		 13: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_37 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_5 %v_37[9.0,8.12,] 
+		 1: 
+		 2: %v_3[2.8,] 
+BB 11
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+BB 12
+	outgoing: 13 14 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_38 
+		 2: def_%v_39 %v_38[12.1,] 
+		 3: BRANCH %v_39[12.2,] 
+BB 13
+	outgoing: 16 18 
+	datadep: 
+	instructions:
+		 0: %v_38[12.1,] 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: %v_3[2.8,] 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: def_%v_40 
+		 1: def_%v_41 %v_40[16.0,] %v_3[2.8,] 
+		 2: %v_40[16.0,] 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[10.0,14.0,] %self[2.0,] 
+BB 18
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_topics_index instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_topic_id 
+		 6: RECEIVEARG def_title 
+		 7: RECEIVEARG def_cooked 
+		 8: 
+		 9: title->dup def_%v_3 title[2.6,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral " " def_%v_4 
+		 11: %v_3-><< def_%v_5 %v_3[2.9,] %v_4[2.10,] 	 SYMBOL:	 ARGS:%v_4,
+		 12: %self->scrub_html_for_search def_%v_6 %self[2.0,] cooked[2.7,] 	 SYMBOL:	 ARGS:cooked,
+		 13: (Topic) def_%v_8 
+		 14: (inherit MAX_SIMILAR_BODY_LENGTH) def_%v_9 %v_8[2.13,] 
+		 15: %v_9[2.14,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_8->const_missing def_%v_9 %v_8[2.13,] 	 SYMBOL:MAX_SIMILAR_BODY_LENGTH,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: CONSTANT def_%v_7 %v_9[3.0,2.14,] 
+		 1: %v_6->[] def_%v_10 %v_6[2.12,] %v_7[4.0,] 	 SYMBOL:	 ARGS:%v_7,
+		 2: %v_5-><< def_%v_11 %v_5[2.11,] %v_10[4.1,] 	 SYMBOL:	 ARGS:%v_10,
+		 3: COPY TYPE_PASS def_search_data %v_11[4.2,] 
+		 4: 
+		 5: COPY TYPE_StringLiteral "topic" def_%v_12 
+		 6: %self->update_index def_%v_13 %self[2.0,] %v_12[4.5,] topic_id[2.5,] %v_11[4.2,] 	 SYMBOL:	 ARGS:%v_12,topic_id,search_data,
+		 7: RETURN %v_13[4.6,] %self[4.6,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_posts_index instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post_id 
+		 6: RECEIVEARG def_cooked 
+		 7: RECEIVEARG def_title 
+		 8: RECEIVEARG def_category 
+		 9: 
+		 10: %self->scrub_html_for_search def_%v_3 %self[2.0,] cooked[2.6,] 	 SYMBOL:	 ARGS:cooked,
+		 11: COPY TYPE_StringLiteral " " def_%v_4 
+		 12: %v_3-><< def_%v_5 %v_3[2.10,] %v_4[2.11,] 	 SYMBOL:	 ARGS:%v_4,
+		 13: title->dup def_%v_6 title[2.7,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_StringLiteral "UTF-8" def_%v_7 
+		 15: %v_6->force_encoding def_%v_8 %v_6[2.13,] %v_7[2.14,] 	 SYMBOL:	 ARGS:%v_7,
+		 16: %v_5-><< def_%v_9 %v_5[2.12,] %v_8[2.15,] 	 SYMBOL:	 ARGS:%v_8,
+		 17: COPY TYPE_PASS def_search_data %v_9[2.16,] 
+		 18: 
+		 19: BRANCH category[2.8,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral " " def_%v_10 
+		 1: search_data-><< def_%v_11 search_data[2.17,] %v_10[3.0,] 	 SYMBOL:	 ARGS:%v_10,
+		 2: %v_11-><< def_%v_12 %v_11[3.1,] category[2.8,] 	 SYMBOL:	 ARGS:category,
+		 3: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "post" def_%v_13 
+		 2: %self->update_index def_%v_14 %self[2.0,] %v_13[5.1,] post_id[2.5,] search_data[2.17,] 	 SYMBOL:	 ARGS:%v_13,post_id,search_data,
+		 3: RETURN %v_14[5.2,] %self[5.2,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_users_index instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user_id 
+		 6: RECEIVEARG def_username 
+		 7: RECEIVEARG def_name 
+		 8: 
+		 9: username->dup def_%v_3 username[2.6,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral " " def_%v_4 
+		 11: %v_3-><< def_%v_5 %v_3[2.9,] %v_4[2.10,] 	 SYMBOL:	 ARGS:%v_4,
+		 12: COPY TYPE_PASS def_%v_6 name[2.7,] 
+		 13: BRANCH name[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_7 
+		 1: COPY TYPE_PASS def_%v_6 %v_7[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_5-><< def_%v_8 %v_5[2.11,] %v_6[3.1,2.12,] 	 SYMBOL:	 ARGS:%v_6,
+		 1: COPY TYPE_PASS def_search_data %v_8[4.0,] 
+		 2: 
+		 3: COPY TYPE_StringLiteral "user" def_%v_9 
+		 4: %self->update_index def_%v_10 %self[2.0,] %v_9[4.3,] user_id[2.5,] %v_8[4.0,] 	 SYMBOL:	 ARGS:%v_9,user_id,search_data,
+		 5: RETURN %v_10[4.4,] %self[4.4,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_categories_index instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_category_id 
+		 6: RECEIVEARG def_name 
+		 7: 
+		 8: COPY TYPE_StringLiteral "category" def_%v_3 
+		 9: %self->update_index def_%v_4 %self[2.0,] %v_3[2.8,] category_id[2.5,] name[2.6,] 	 SYMBOL:	 ARGS:%v_3,category_id,name,
+		 10: RETURN %v_4[2.9,] %self[2.0,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = index instanceMethod = false
+BB 1
+	outgoing: 48 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_obj 
+		 6: 
+		 7: obj->class def_%v_3 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 8: (Post) def_%v_4 
+		 9: %v_3->== def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: BRANCH %v_5[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: obj->cooked_changed? def_%v_6 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_5 %v_6[3.0,] 
+BB 4
+	outgoing: 5 15 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[3.1,2.9,] 
+BB 5
+	outgoing: 6 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: obj->topic def_%v_7 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_7[5.1,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: obj->topic def_%v_8 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_8->category def_%v_9 %v_8[6.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_9[6.2,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: obj->topic def_%v_10 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_10->category def_%v_11 %v_10[7.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_11->name def_%v_12 %v_11[7.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_category_name %v_12[7.2,] 
+		 4: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SearchObserver) def_%v_13 
+		 2: obj->id def_%v_14 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 3: obj->cooked def_%v_15 obj[9.2,2.5,] 	 SYMBOL:	 ARGS:
+		 4: obj->topic def_%v_16 obj[9.2,9.3,2.5,] 	 SYMBOL:	 ARGS:
+		 5: %v_16->title def_%v_17 %v_16[9.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_13->update_posts_index def_%v_18 %v_13[9.1,] %v_14[9.2,] %v_15[9.3,] %v_17[9.5,] category_name[7.3,] 	 SYMBOL:	 ARGS:%v_14,%v_15,%v_17,category_name,
+		 7: 
+		 8: obj->is_first_post? def_%v_19 obj[9.2,9.3,9.4,2.5,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_19[9.8,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: (SearchObserver) def_%v_20 
+		 1: obj->topic_id def_%v_21 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 2: obj->topic def_%v_22 obj[10.1,2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_22->title def_%v_23 %v_22[10.2,] 	 SYMBOL:	 ARGS:
+		 4: obj->cooked def_%v_24 obj[10.1,10.2,2.5,] 	 SYMBOL:	 ARGS:
+		 5: %v_20->update_topics_index def_%v_25 %v_20[10.0,] %v_21[10.1,] %v_23[10.3,] %v_24[10.4,] 	 SYMBOL:	 ARGS:%v_21,%v_23,%v_24,
+		 6: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_25 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Rails) def_%v_26 
+		 2: %v_26->logger def_%v_27 %v_26[13.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "Orphan post skipped in search_observer, topic_id: " def_%v_28 
+		 4: obj->topic_id def_%v_29 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral " post_id: " def_%v_30 
+		 6: obj->id def_%v_31 obj[13.4,2.5,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral " raw: " def_%v_32 
+		 8: obj->raw def_%v_33 obj[13.4,13.6,2.5,] 	 SYMBOL:	 ARGS:
+		 9: BUILDSTRING def_%v_34 %v_28[13.3,] %v_29[13.4,] %v_30[13.5,] %v_31[13.6,] %v_32[13.7,] %v_33[13.8,] 
+		 10: %v_27->warn def_%v_35 %v_27[13.2,] %v_34[13.9,] 	 SYMBOL:	 ARGS:%v_34,
+		 11: COPY TYPE_PASS def_%v_25 %v_35[13.10,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_25 
+BB 16
+	outgoing: 17 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: obj->class def_%v_36 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 2: (User) def_%v_37 
+		 3: %v_36->== def_%v_38 %v_36[16.1,] %v_37[16.2,] 	 SYMBOL:	 ARGS:%v_37,
+		 4: BRANCH %v_38[16.3,] 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: obj->username_changed? def_%v_39 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 1: BRANCH %v_39[17.0,] 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: obj->name_changed? def_%v_40 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_39 %v_40[18.0,] 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_38 %v_39[18.1,17.0,] 
+BB 20
+	outgoing: 21 27 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_38[19.0,16.3,] 
+BB 21
+	outgoing: 22 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SearchObserver) def_%v_41 
+		 2: obj->id def_%v_42 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 3: obj->username_lower def_%v_43 obj[21.2,2.5,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_43[21.3,] 
+BB 22
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_44 
+		 1: COPY TYPE_PASS def_%v_43 %v_44[22.0,] 
+BB 23
+	outgoing: 24 25 
+	datadep: 
+	instructions:
+		 0: obj->name def_%v_45 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 1: BRANCH %v_45[23.0,] 
+BB 24
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: obj->name def_%v_46 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_46->downcase def_%v_47 %v_46[24.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 25
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_48 
+		 1: COPY TYPE_PASS def_%v_47 %v_48[25.0,] 
+BB 26
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: %v_41->update_users_index def_%v_49 %v_41[21.1,] %v_42[21.2,] %v_43[22.1,21.3,] %v_47[25.1,24.1,] 	 SYMBOL:	 ARGS:%v_42,%v_43,%v_47,
+		 1: 
+BB 27
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_49 
+BB 28
+	outgoing: 29 30 
+	datadep: 
+	instructions:
+		 0: 
+		 1: obj->class def_%v_50 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 2: (Topic) def_%v_51 
+		 3: %v_50->== def_%v_52 %v_50[28.1,] %v_51[28.2,] 	 SYMBOL:	 ARGS:%v_51,
+		 4: BRANCH %v_52[28.3,] 
+BB 29
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: obj->title_changed? def_%v_53 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_52 %v_53[29.0,] 
+BB 30
+	outgoing: 31 41 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_52[29.1,28.3,] 
+BB 31
+	outgoing: 32 39 
+	datadep: 
+	instructions:
+		 0: 
+		 1: obj->posts def_%v_54 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_54[31.1,] 
+BB 32
+	outgoing: 33 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: obj->posts def_%v_55 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 2: HASH-post_number- def_%v_56 
+		 3: %v_55->find_by def_%v_57 %v_55[32.1,] %v_56[32.2,] 	 SYMBOL:	 ARGS:%v_56,
+		 4: COPY TYPE_PASS def_post %v_57[32.3,] 
+		 5: 
+		 6: BRANCH %v_57[32.3,] 
+BB 33
+	outgoing: 34 35 
+	datadep: 
+	instructions:
+		 0: 
+		 1: obj->category def_%v_58 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_58[33.1,] 
+BB 34
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: obj->category def_%v_59 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_59->name def_%v_60 %v_59[34.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_category_name %v_60[34.1,] 
+		 3: 
+BB 35
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_60 
+BB 36
+	outgoing: 38 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SearchObserver) def_%v_61 
+		 2: post->id def_%v_62 post[32.4,] 	 SYMBOL:	 ARGS:
+		 3: post->cooked def_%v_63 post[36.2,32.4,] 	 SYMBOL:	 ARGS:
+		 4: obj->title def_%v_64 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 5: %v_61->update_posts_index def_%v_65 %v_61[36.1,] %v_62[36.2,] %v_63[36.3,] %v_64[36.4,] category_name[34.2,7.3,] 	 SYMBOL:	 ARGS:%v_62,%v_63,%v_64,category_name,
+		 6: 
+		 7: (SearchObserver) def_%v_66 
+		 8: obj->id def_%v_67 obj[36.4,2.5,] 	 SYMBOL:	 ARGS:
+		 9: obj->title def_%v_68 obj[36.4,36.8,2.5,] 	 SYMBOL:	 ARGS:
+		 10: post->cooked def_%v_69 post[36.2,36.3,32.4,] 	 SYMBOL:	 ARGS:
+		 11: %v_66->update_topics_index def_%v_70 %v_66[36.7,] %v_67[36.8,] %v_68[36.9,] %v_69[36.10,] 	 SYMBOL:	 ARGS:%v_67,%v_68,%v_69,
+		 12: 
+BB 37
+	outgoing: 38 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_70 
+BB 38
+	outgoing: 40 
+	datadep: 
+	instructions:
+		 0: 
+BB 39
+	outgoing: 40 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_70 
+BB 40
+	outgoing: 42 
+	datadep: 
+	instructions:
+		 0: 
+BB 41
+	outgoing: 42 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_70 
+BB 42
+	outgoing: 43 44 
+	datadep: 
+	instructions:
+		 0: 
+		 1: obj->class def_%v_71 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 2: (Category) def_%v_72 
+		 3: %v_71->== def_%v_73 %v_71[42.1,] %v_72[42.2,] 	 SYMBOL:	 ARGS:%v_72,
+		 4: BRANCH %v_73[42.3,] 
+BB 43
+	outgoing: 44 
+	datadep: 
+	instructions:
+		 0: obj->name_changed? def_%v_74 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_73 %v_74[43.0,] 
+BB 44
+	outgoing: 45 46 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_73[43.1,42.3,] 
+BB 45
+	outgoing: 48 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SearchObserver) def_%v_75 
+		 2: obj->id def_%v_76 obj[2.5,] 	 SYMBOL:	 ARGS:
+		 3: obj->name def_%v_77 obj[45.2,2.5,] 	 SYMBOL:	 ARGS:
+		 4: %v_75->update_categories_index def_%v_78 %v_75[45.1,] %v_76[45.2,] %v_77[45.3,] 	 SYMBOL:	 ARGS:%v_76,%v_77,
+		 5: RETURN %v_78[45.4,] %self[2.0,] 
+BB 46
+	outgoing: 48 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 48
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = after_save instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_object 
+		 6: 
+		 7: (SearchObserver) def_%v_3 
+		 8: %v_3->index def_%v_4 %v_3[2.7,] object[2.5,] 	 SYMBOL:	 ARGS:object,
+		 9: RETURN %v_4[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "" def_%v_3 
+		 7: ATTRASSIGN %self->scrubbed %v_3[2.6,] 
+		 8: RETURN %v_3[2.6,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = scrub instanceMethod = false
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_html 
+		 6: 
+		 7: %self->new def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_me %v_3[2.7,] 
+		 9: 
+		 10: (Nokogiri) def_%v_4 
+		 11: (inherit HTML) def_%v_5 %v_4[2.10,] 
+		 12: %v_5[2.11,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[2.10,] 	 SYMBOL:HTML,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit SAX) def_%v_6 %v_5[3.0,2.11,] 
+		 1: %v_6[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_5->const_missing def_%v_6 %v_5[3.0,2.11,] 	 SYMBOL:SAX,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: (inherit Parser) def_%v_7 %v_6[5.0,4.0,] 
+		 1: %v_7[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[5.0,4.0,] 	 SYMBOL:Parser,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: %v_7->new def_%v_8 %v_7[7.0,6.0,] me[2.8,] 	 SYMBOL:	 ARGS:me,
+		 1: COPY TYPE_PASS def_parser %v_8[8.0,] 
+		 2: 
+		 3: 
+		 4: COPY TYPE_StringLiteral "<div>" def_%v_9 
+		 5: COPY TYPE_PASS def_copy %v_9[8.4,] 
+		 6: 
+		 7: html->nil? def_%v_10 html[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_10[8.7,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+		 1: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: copy-><< def_%v_12 copy[8.5,] html[2.5,] 	 SYMBOL:	 ARGS:html,
+		 1: COPY TYPE_PASS def_%v_11 %v_12[10.0,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "</div>" def_%v_13 
+		 2: copy-><< def_%v_14 copy[8.5,] %v_13[11.1,] 	 SYMBOL:	 ARGS:%v_13,
+		 3: 
+		 4: html->nil? def_%v_15 html[2.5,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %v_15[11.4,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+		 1: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: parser->parse def_%v_17 parser[8.1,] html[2.5,] 	 SYMBOL:	 ARGS:html,
+		 1: COPY TYPE_PASS def_%v_16 %v_17[13.0,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: me->scrubbed def_%v_18 me[2.8,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_18[14.1,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = start_element instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_name 
+		 6: RECEIVECONSTARG def_attributes 
+		 7: attributes[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_3 
+		 1: COPY TYPE_PASS def_attributes %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Hash) def_%v_4 
+		 2: attributes->flatten def_%v_6 attributes[3.1,2.6,] 	 SYMBOL:	 ARGS:
+		 3: def_%v_5 %v_6[4.2,] 
+		 4: %v_4->[] def_%v_7 %v_4[4.1,] %v_5[4.3,] 	 SYMBOL:	 ARGS:Splat,
+		 5: COPY TYPE_PASS def_attributes %v_7[4.4,] 
+		 6: 
+		 7: COPY TYPE_StringLiteral "alt" def_%v_8 
+		 8: %v_7->[] def_%v_9 %v_7[4.4,] %v_8[4.7,] 	 SYMBOL:	 ARGS:%v_8,
+		 9: BRANCH %v_9[4.8,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->scrubbed def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral " " def_%v_11 
+		 3: %v_10-><< def_%v_12 %v_10[5.1,] %v_11[5.2,] 	 SYMBOL:	 ARGS:%v_11,
+		 4: 
+		 5: %self->scrubbed def_%v_13 %self[5.1,2.0,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral "alt" def_%v_14 
+		 7: attributes->[] def_%v_15 attributes[4.5,] %v_14[5.6,] 	 SYMBOL:	 ARGS:%v_14,
+		 8: %v_13-><< def_%v_16 %v_13[5.5,] %v_15[5.7,] 	 SYMBOL:	 ARGS:%v_15,
+		 9: 
+		 10: %self->scrubbed def_%v_17 %self[5.1,5.5,2.0,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_StringLiteral " " def_%v_18 
+		 12: %v_17-><< def_%v_19 %v_17[5.10,] %v_18[5.11,] 	 SYMBOL:	 ARGS:%v_18,
+		 13: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_19 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "title" def_%v_20 
+		 2: attributes->[] def_%v_21 attributes[4.5,] %v_20[7.1,] 	 SYMBOL:	 ARGS:%v_20,
+		 3: BRANCH %v_21[7.2,] 
+BB 8
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->scrubbed def_%v_22 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral " " def_%v_23 
+		 3: %v_22-><< def_%v_24 %v_22[8.1,] %v_23[8.2,] 	 SYMBOL:	 ARGS:%v_23,
+		 4: 
+		 5: %self->scrubbed def_%v_25 %self[8.1,2.0,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral "title" def_%v_26 
+		 7: attributes->[] def_%v_27 attributes[4.5,] %v_26[8.6,] 	 SYMBOL:	 ARGS:%v_26,
+		 8: %v_25-><< def_%v_28 %v_25[8.5,] %v_27[8.7,] 	 SYMBOL:	 ARGS:%v_27,
+		 9: 
+		 10: %self->scrubbed def_%v_29 %self[8.1,8.5,2.0,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_StringLiteral " " def_%v_30 
+		 12: %v_29-><< def_%v_31 %v_29[8.10,] %v_30[8.11,] 	 SYMBOL:	 ARGS:%v_30,
+		 13: RETURN %v_31[8.12,] %self[8.1,8.5,8.10,2.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = characters instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_string 
+		 6: 
+		 7: %self->scrubbed def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral " " def_%v_4 
+		 9: %v_3-><< def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: 
+		 11: %self->scrubbed def_%v_6 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 12: %v_6-><< def_%v_7 %v_6[2.11,] string[2.5,] 	 SYMBOL:	 ARGS:string,
+		 13: 
+		 14: %self->scrubbed def_%v_8 %self[2.0,2.7,2.11,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_StringLiteral " " def_%v_9 
+		 16: %v_8-><< def_%v_10 %v_8[2.14,] %v_9[2.15,] 	 SYMBOL:	 ARGS:%v_9,
+		 17: RETURN %v_10[2.16,] %self[2.0,2.7,2.11,2.14,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

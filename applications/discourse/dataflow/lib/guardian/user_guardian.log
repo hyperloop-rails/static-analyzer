@@ -1,0 +1,661 @@
+SET IRMethod, name = can_edit_user? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->is_me? def_%v_3 %self[2.0,] user[2.5,] 	 SYMBOL:	 ARGS:user,
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->is_staff? def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_4[3.0,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.7,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_edit_username? instanceMethod = true
+BB 1
+	outgoing: 18 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: (SiteSetting) def_%v_3 
+		 8: %v_3->sso_overrides_username? def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%v_5 
+		 1: %v_5->enable_sso? def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_4 %v_6[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[3.2,2.8,] 
+BB 5
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+		 2: %self->is_staff? def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_8[6.2,] 
+BB 8
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: 
+		 2: (SiteSetting) def_%v_10 
+		 3: %v_10->username_change_period def_%v_11 %v_10[9.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_11-><= def_%v_12 %v_11[9.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: BRANCH %v_12[9.4,] 
+BB 11
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 12
+	outgoing: 14 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+		 1: 
+		 2: %self->is_me? def_%v_14 %self[2.0,] user[2.5,] 	 SYMBOL:	 ARGS:user,
+		 3: BRANCH %v_14[12.2,] 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: user->post_count def_%v_15 user[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_15->== def_%v_16 %v_15[14.0,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: BRANCH %v_16[14.1,] 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: user->created_at def_%v_17 user[2.5,] 	 SYMBOL:	 ARGS:
+		 1: (SiteSetting) def_%v_18 
+		 2: %v_18->username_change_period def_%v_19 %v_18[15.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_19->days def_%v_20 %v_19[15.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_20->ago def_%v_21 %v_20[15.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_17->> def_%v_22 %v_17[15.0,] %v_21[15.4,] 	 SYMBOL:	 ARGS:%v_21,
+		 6: COPY TYPE_PASS def_%v_16 %v_22[15.5,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: RETURN %v_16[15.6,14.1,] %self[2.0,] 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: RETURN %v_14[12.2,] %self[2.0,] 
+BB 18
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_edit_email? instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: (SiteSetting) def_%v_3 
+		 8: %v_3->sso_overrides_email? def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%v_5 
+		 1: %v_5->enable_sso? def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_4 %v_6[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[3.2,2.8,] 
+BB 5
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+		 2: (SiteSetting) def_%v_8 
+		 3: %v_8->email_editable? def_%v_9 %v_8[6.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_9[6.3,] 
+BB 8
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+		 2: %self->is_staff? def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_11[8.2,] 
+BB 9
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+		 1: 
+		 2: %self->can_edit? def_%v_13 %self[2.0,] user[2.5,] 	 SYMBOL:	 ARGS:user,
+		 3: RETURN %v_13[12.2,] %self[12.2,2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_edit_name? instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: (SiteSetting) def_%v_3 
+		 8: %v_3->enable_names? def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->! def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_5[2.9,] 
+BB 3
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: (SiteSetting) def_%v_7 
+		 3: %v_7->sso_overrides_name? def_%v_8 %v_7[4.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_8[4.3,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%v_9 
+		 1: %v_9->enable_sso? def_%v_10 %v_9[6.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_8 %v_10[6.1,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_8[6.2,4.3,] 
+BB 8
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+		 1: 
+		 2: %self->is_staff? def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_12[9.2,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+		 1: 
+		 2: %self->can_edit? def_%v_14 %self[2.0,] user[2.5,] 	 SYMBOL:	 ARGS:user,
+		 3: RETURN %v_14[12.2,] %self[12.2,2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_see_notifications? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->is_me? def_%v_3 %self[2.0,] user[2.5,] 	 SYMBOL:	 ARGS:user,
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->is_admin? def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_4[3.0,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.7,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_block_user? instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: COPY TYPE_PASS def_%v_3 user[2.5,] 
+		 8: BRANCH user[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->is_staff? def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_3 %v_4[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: user->staff? def_%v_5 user[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->! def_%v_6 %v_5[5.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_6[5.1,] %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[3.1,2.7,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_unblock_user? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: COPY TYPE_PASS def_%v_3 user[2.5,] 
+		 8: BRANCH user[2.5,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->is_staff? def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_4[3.0,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.7,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_delete_user? instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: user->nil? def_%v_3 user[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: user->admin? def_%v_4 user[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_3 %v_4[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: %self->is_me? def_%v_6 %self[2.0,] user[2.5,] 	 SYMBOL:	 ARGS:user,
+		 3: BRANCH %v_6[6.2,] 
+BB 8
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user->post_count def_%v_7 user[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_7-><= def_%v_8 %v_7[8.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: RETURN %v_8[8.2,] %self[2.0,] 
+BB 9
+	outgoing: 10 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->is_staff? def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_9[9.1,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: user->first_post_created_at def_%v_10 user[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_10->nil? def_%v_11 %v_10[10.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_11[10.1,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: user->first_post_created_at def_%v_12 user[2.5,] 	 SYMBOL:	 ARGS:
+		 1: (SiteSetting) def_%v_13 
+		 2: %v_13->delete_user_max_post_age def_%v_14 %v_13[11.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_14->to_i def_%v_15 %v_14[11.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_15->days def_%v_16 %v_15[11.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_16->ago def_%v_17 %v_16[11.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_12->> def_%v_18 %v_12[11.0,] %v_17[11.5,] 	 SYMBOL:	 ARGS:%v_17,
+		 7: COPY TYPE_PASS def_%v_11 %v_18[11.6,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_9 %v_11[11.7,10.1,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %v_9[12.0,9.1,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_anonymize_user? instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->is_staff? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: user->nil? def_%v_4 user[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->! def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.2,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: user->staff? def_%v_6 user[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->! def_%v_7 %v_6[5.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_7[5.1,] %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[3.2,2.7,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_check_emails? instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->is_admin? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: %self->is_staff? def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: BRANCH %v_4[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%v_5 
+		 1: %v_5->show_email_on_profile def_%v_6 %v_5[4.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_4 %v_6[4.1,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_4[4.2,3.0,] %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.7,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = restrict_user_fields? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: user->trust_level def_%v_3 user[2.5,] 	 SYMBOL:	 ARGS:
+		 8: (TrustLevel) def_%v_4 
+		 9: %v_4->[] def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:Fixnum,
+		 10: %v_3->== def_%v_6 %v_3[2.7,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: BRANCH %v_6[2.10,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->anonymous? def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_7[3.0,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_6[2.10,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_see_staff_info? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: COPY TYPE_PASS def_%v_3 user[2.5,] 
+		 8: BRANCH user[2.5,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->is_staff? def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_4[3.0,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.7,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

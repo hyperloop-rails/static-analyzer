@@ -1,0 +1,204 @@
+SET IRMethod, name = hub instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "hub.challenge" def_%v_4 
+		 8: %v_3->[] def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: HASH-text-status-layout- def_%v_6 %v_5[2.8,] 
+		 10: %self->render def_%v_7 %self[2.0,2.6,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: RETURN %v_7[2.10,] %self[2.0,2.6,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = receive_public instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->logger def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "received a public message" def_%v_4 
+		 8: %v_3->info def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: 
+		 10: (Workers) def_%v_6 
+		 11: (inherit ReceiveUnencryptedSalmon) def_%v_7 %v_6[2.10,] 
+		 12: %v_7[2.11,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[2.10,] 	 SYMBOL:ReceiveUnencryptedSalmon,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (CGI) def_%v_8 
+		 1: %self->params def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_9->[] def_%v_10 %v_9[4.1,] 	 SYMBOL:xml,	 ARGS:Symbol,
+		 3: %v_8->unescape def_%v_11 %v_8[4.0,] %v_10[4.2,] 	 SYMBOL:	 ARGS:%v_10,
+		 4: %v_7->perform_async def_%v_12 %v_7[3.0,2.11,] %v_11[4.3,] 	 SYMBOL:	 ARGS:%v_11,
+		 5: 
+		 6: HASH-nothing-status- def_%v_13 
+		 7: %self->render def_%v_14 %self[4.1,2.0,] %v_13[4.6,] 	 SYMBOL:	 ARGS:%v_13,
+		 8: RETURN %v_14[4.7,] %self[4.1,4.7,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = receive instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Person) def_%v_3 
+		 7: %self->params def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->[] def_%v_5 %v_4[2.7,] 	 SYMBOL:guid,	 ARGS:Symbol,
+		 9: %v_3->find_by_guid def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: COPY TYPE_PASS def_person %v_6[2.9,] 
+		 11: 
+		 12: %v_6->nil? def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 13: BRANCH %v_7[2.12,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: person->owner_id def_%v_8 person[2.10,] 	 SYMBOL:	 ARGS:
+		 1: %v_8->nil? def_%v_9 %v_8[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_7 %v_9[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_7[3.2,2.12,] 
+BB 5
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->logger def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "Received post for nonexistent person " def_%v_11 
+		 3: %self->params def_%v_12 %self[5.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_12->[] def_%v_13 %v_12[5.3,] 	 SYMBOL:guid,	 ARGS:Symbol,
+		 5: BUILDSTRING def_%v_14 %v_11[5.2,] %v_13[5.4,] 
+		 6: %v_10->error def_%v_15 %v_10[5.1,] %v_14[5.5,] 	 SYMBOL:	 ARGS:%v_14,
+		 7: 
+		 8: HASH-nothing-status- def_%v_16 
+		 9: %self->render def_%v_17 %self[5.1,5.3,2.0,] %v_16[5.8,] 	 SYMBOL:	 ARGS:%v_16,
+		 10: 
+		 11: RETURN %self[5.1,5.3,5.9,2.0,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_18 
+		 1: 
+		 2: person->owner def_%v_19 person[2.10,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN %self->user %v_19[6.2,] 
+		 4: 
+		 5: %self->logger def_%v_20 %self[6.3,2.0,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral "received a private message for user: " def_%v_21 
+		 7: GETFIELD %self->user def_%v_22 %self[6.3,6.5,2.0,] 
+		 8: %v_22->id def_%v_23 %v_22[6.7,] 	 SYMBOL:	 ARGS:
+		 9: BUILDSTRING def_%v_24 %v_21[6.6,] %v_23[6.8,] 
+		 10: %v_20->info def_%v_25 %v_20[6.5,] %v_24[6.9,] 	 SYMBOL:	 ARGS:%v_24,
+		 11: 
+		 12: (Workers) def_%v_26 
+		 13: (inherit ReceiveEncryptedSalmon) def_%v_27 %v_26[6.12,] 
+		 14: %v_27[6.13,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_26->const_missing def_%v_27 %v_26[6.12,] 	 SYMBOL:ReceiveEncryptedSalmon,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_28 %self[6.3,2.0,] 
+		 1: %v_28->id def_%v_29 %v_28[9.0,] 	 SYMBOL:	 ARGS:
+		 2: (CGI) def_%v_30 
+		 3: %self->params def_%v_31 %self[6.3,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_31->[] def_%v_32 %v_31[9.3,] 	 SYMBOL:xml,	 ARGS:Symbol,
+		 5: %v_30->unescape def_%v_33 %v_30[9.2,] %v_32[9.4,] 	 SYMBOL:	 ARGS:%v_32,
+		 6: %v_27->perform_async def_%v_34 %v_27[8.0,6.13,] %v_29[9.1,] %v_33[9.5,] 	 SYMBOL:	 ARGS:%v_29,%v_33,
+		 7: 
+		 8: HASH-nothing-status- def_%v_35 
+		 9: %self->render def_%v_36 %self[9.3,6.3,2.0,] %v_35[9.8,] 	 SYMBOL:	 ARGS:%v_35,
+		 10: RETURN %v_36[9.9,] %self[9.3,9.9,6.3,2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_for_xml instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:xml,	 ARGS:Symbol,
+		 8: %v_4->nil? def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-nothing-status- def_%v_6 
+		 2: %self->render def_%v_7 %self[2.0,] %v_6[3.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: 
+		 4: RETURN %self[3.2,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

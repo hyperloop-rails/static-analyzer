@@ -1,0 +1,83 @@
+SET IRMethod, name = drawing instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->drawing_params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->current_user def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-user- def_%v_5 %v_4[2.7,] 
+		 9: %v_3->merge def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: %self->create_post def_%v_7 %self[2.0,2.6,2.7,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: RETURN %v_7[2.10,] %self[2.0,2.6,2.7,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = drawing_params instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (PostImage) def_%v_3 
+		 7: (Base64) def_%v_4 
+		 8: %self->params def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->[] def_%v_6 %v_5[2.8,] 	 SYMBOL:drawing,	 ARGS:Symbol,
+		 10: %v_4->decode64 def_%v_7 %v_4[2.7,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: COPY TYPE_StringLiteral "image/jpeg" def_%v_8 
+		 12: COPY TYPE_StringLiteral "drawing.jpg" def_%v_9 
+		 13: HASH-data-content_type-filename- def_%v_10 %v_7[2.10,] %v_8[2.11,] %v_9[2.12,] 
+		 14: %v_3->create def_%v_11 %v_3[2.6,] %v_10[2.13,] 	 SYMBOL:	 ARGS:%v_10,
+		 15: COPY TYPE_PASS def_post_image %v_11[2.14,] 
+		 16: 
+		 17: %v_11->valid? def_%v_12 %v_11[2.14,] 	 SYMBOL:	 ARGS:
+		 18: BRANCH %v_12[2.17,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+		 1: 
+		 2: COPY TYPE_StringLiteral "<div class="drawing">" def_%v_15 
+		 3: COPY TYPE_StringLiteral "[image:" def_%v_16 
+		 4: 
+		 5: post_image->id def_%v_17 post_image[2.15,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral ":" def_%v_18 
+		 7: post_image->content_hash def_%v_19 post_image[3.5,2.15,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "]" def_%v_20 
+		 9: BUILDSTRING def_%v_21 %v_16[3.3,] %v_17[3.5,] %v_18[3.6,] %v_19[3.7,] %v_20[3.8,] 
+		 10: COPY TYPE_StringLiteral "</div>" def_%v_22 
+		 11: BUILDSTRING def_%v_23 %v_15[3.2,] %v_21[3.9,] %v_22[3.10,] 
+		 12: HASH-body- def_%v_24 %v_23[3.11,] 
+		 13: RETURN %v_24[3.12,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_14 
+		 1: RETURN %v_14[4.0,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

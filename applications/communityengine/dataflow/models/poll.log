@@ -1,0 +1,223 @@
+SET IRMethod, name = voted? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->votes def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: user->id def_%v_4 user[2.5,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->find_by_user_id def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: %v_5->nil? def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_6->! def_%v_7 %v_6[2.10,] 	 SYMBOL:	 ARGS:
+		 12: RETURN %v_7[2.11,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = add_choices instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_choices 
+		 6: 
+		 7: choices->each def_%v_3 choices[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:choices,
+CLOSURE BEGIN: %self[2.0,] description[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_description 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->choices def_%cl_1_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: HASH-description- def_%cl_1_4 description[2.2,] 
+		 3: %cl_1_3->new def_%cl_1_5 %cl_1_3[3.1,] %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:%cl_1_4,
+		 4: COPY TYPE_PASS def_choice %cl_1_5[3.3,] 
+		 5: 
+		 6: %cl_1_5->save def_%cl_1_6 %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %cl_1_6[3.6,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_7 
+		 1: def_%cl_1_8 %cl_1_7[4.0,] 
+		 2: RETURN %cl_1_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: choice[3.4,] 
+		 8: RETURN %v_3[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_recent instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_options 
+		 6: options[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-limit- def_%v_4 
+		 2: options->reverse_merge! def_%v_5 options[3.1,2.5,] %v_4[4.1,] 	 SYMBOL:	 ARGS:%v_4,
+		 3: 
+		 4: HASH-post- def_%v_6 
+		 5: %self->includes def_%v_7 %self[2.0,] %v_6[4.4,] 	 SYMBOL:	 ARGS:%v_6,
+		 6: COPY TYPE_StringLiteral "polls.created_at desc" def_%v_8 
+		 7: %v_7->order def_%v_9 %v_7[4.5,] %v_8[4.6,] 	 SYMBOL:	 ARGS:%v_8,
+		 8: options->[] def_%v_10 options[4.2,3.1,2.5,] 	 SYMBOL:limit,	 ARGS:Symbol,
+		 9: %v_9->limit def_%v_11 %v_9[4.7,] %v_10[4.8,] 	 SYMBOL:	 ARGS:%v_10,
+		 10: RETURN %v_11[4.9,] %self[4.5,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_popular instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_options 
+		 6: options[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: CONSTANT def_%v_4 	 SYMBOL:	 ARGS:
+		 2: %v_4->ago def_%v_5 %v_4[4.1,] 	 SYMBOL:	 ARGS:
+		 3: HASH-limit-since- def_%v_6 %v_5[4.2,] 
+		 4: options->reverse_merge! def_%v_7 options[3.1,2.5,] %v_6[4.3,] 	 SYMBOL:	 ARGS:%v_6,
+		 5: 
+		 6: HASH-post- def_%v_8 
+		 7: %self->includes def_%v_9 %self[2.0,] %v_8[4.6,] 	 SYMBOL:	 ARGS:%v_8,
+		 8: COPY TYPE_StringLiteral "polls.created_at > ?" def_%v_10 
+		 9: options->[] def_%v_11 options[4.4,3.1,2.5,] 	 SYMBOL:since,	 ARGS:Symbol,
+		 10: %v_9->where def_%v_12 %v_9[4.7,] %v_10[4.8,] %v_11[4.9,] 	 SYMBOL:	 ARGS:%v_10,%v_11,
+		 11: COPY TYPE_StringLiteral "polls.votes_count desc" def_%v_13 
+		 12: %v_12->order def_%v_14 %v_12[4.10,] %v_13[4.11,] 	 SYMBOL:	 ARGS:%v_13,
+		 13: options->[] def_%v_15 options[4.4,4.9,3.1,2.5,] 	 SYMBOL:limit,	 ARGS:Symbol,
+		 14: %v_14->limit def_%v_16 %v_14[4.12,] %v_15[4.13,] 	 SYMBOL:	 ARGS:%v_15,
+		 15: RETURN %v_16[4.14,] %self[4.7,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_popular_in_category instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_category 
+		 6: RECEIVECONSTARG def_options 
+		 7: options[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-limit- def_%v_4 
+		 2: options->reverse_merge! def_%v_5 options[3.1,2.6,] %v_4[4.1,] 	 SYMBOL:	 ARGS:%v_4,
+		 3: 
+		 4: %self->includes def_%v_6 %self[2.0,] 	 SYMBOL:post,	 ARGS:Symbol,
+		 5: COPY TYPE_StringLiteral "polls.votes_count desc" def_%v_7 
+		 6: %v_6->order def_%v_8 %v_6[4.4,] %v_7[4.5,] 	 SYMBOL:	 ARGS:%v_7,
+		 7: COPY TYPE_StringLiteral "posts.category_id = ?" def_%v_9 
+		 8: category->id def_%v_10 category[2.5,] 	 SYMBOL:	 ARGS:
+		 9: %v_8->where def_%v_11 %v_8[4.6,] %v_9[4.7,] %v_10[4.8,] 	 SYMBOL:	 ARGS:%v_9,%v_10,
+		 10: %v_11->references def_%v_12 %v_11[4.9,] 	 SYMBOL:posts,	 ARGS:Symbol,
+		 11: options->[] def_%v_13 options[4.2,3.1,2.6,] 	 SYMBOL:limit,	 ARGS:Symbol,
+		 12: %v_12->limit def_%v_14 %v_12[4.10,] %v_13[4.11,] 	 SYMBOL:	 ARGS:%v_13,
+		 13: RETURN %v_14[4.12,] %self[4.4,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

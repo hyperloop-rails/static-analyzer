@@ -1,0 +1,825 @@
+SET IRMethod, name = start instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->pid_file def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->already_running? def_%v_4 %self[2.0,2.6,] %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_3,
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "autospec appears to be running, it is possible the pid file is old" def_%v_5 
+		 2: %self->puts def_%v_6 %self[2.0,] %v_5[3.1,] 	 SYMBOL:	 ARGS:%v_5,
+		 3: 
+		 4: COPY TYPE_StringLiteral "if you are sure it is not running, delete " def_%v_7 
+		 5: %self->pid_file def_%v_8 %self[3.2,2.0,] 	 SYMBOL:	 ARGS:
+		 6: BUILDSTRING def_%v_9 %v_7[3.4,] %v_8[3.5,] 
+		 7: %self->puts def_%v_10 %self[3.2,3.5,2.0,] %v_9[3.6,] 	 SYMBOL:	 ARGS:%v_9,
+		 8: 
+		 9: RETURN %self[3.2,3.5,3.7,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+		 1: 
+		 2: %self->pid_file def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: (Process) def_%v_13 
+		 4: %v_13->pid def_%v_14 %v_13[4.3,] 	 SYMBOL:	 ARGS:
+		 5: %self->write_pid_file def_%v_15 %self[4.2,2.0,] %v_12[4.2,] %v_14[4.4,] 	 SYMBOL:	 ARGS:%v_12,%v_14,
+		 6: 
+		 7: %self->start_spork def_%v_16 %self[4.2,4.5,2.0,] 	 SYMBOL:	 ARGS:
+		 8: 
+		 9: ATTRASSIGN %self->spork_running 
+		 10: RETURN %self[4.2,4.5,4.7,4.9,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = running? instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->monitor_thread def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: (Thread) def_%v_6 
+		 1: %v_6->new def_%v_7 %v_6[5.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_6,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Process) def_%cl_1_3 
+		 2: GETFIELD %self->spork_pid def_%cl_1_4 %self[2.0,] 
+		 3: %cl_1_3->wait def_%cl_1_5 %cl_1_3[3.1,] %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:%cl_1_4,
+		 4: 
+		 5: ATTRASSIGN %self->spork_running 
+		 6: RETURN %self[3.5,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[3.5,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: ATTRASSIGN %self->monitor_thread %v_7[5.1,] 
+		 3: COPY TYPE_PASS def_%v_5 %v_7[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->spork_running def_%v_8 %self[2.0,] 
+		 2: RETURN %v_8[6.1,] %self[5.2,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = run instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_specs 
+		 6: 
+		 7: COPY TYPE_StringLiteral "-r" def_%v_3 
+		 8: (File) def_%v_4 
+		 9: %v_4->dirname def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:Filename,
+		 10: COPY TYPE_StringLiteral "/formatter.rb" def_%v_6 
+		 11: BUILDSTRING def_%v_7 %v_5[2.9,] %v_6[2.10,] 
+		 12: COPY TYPE_StringLiteral "-f" def_%v_8 
+		 13: COPY TYPE_StringLiteral "Autospec::Formatter" def_%v_9 
+		 14: specs->split def_%v_10 specs[2.5,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_Array def_%v_11 %v_3[2.7,] %v_7[2.11,] %v_8[2.12,] %v_9[2.13,] %v_10[2.14,] 
+		 16: %v_11->flatten def_%v_12 %v_11[2.15,] 	 SYMBOL:	 ARGS:
+		 17: COPY TYPE_PASS def_args %v_12[2.16,] 
+		 18: 
+		 19: %self->spork_service def_%v_13 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 20: GLOBALVAR $stderr def_%v_14 
+		 21: GLOBALVAR $stdout def_%v_15 
+		 22: %v_13->run def_%v_16 %v_13[2.19,] args[2.17,] %v_14[2.20,] %v_15[2.21,] 	 SYMBOL:	 ARGS:args,%v_14,%v_15,
+		 23: RETURN %v_16[2.22,] %self[2.0,2.19,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = reload instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->stop_spork def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: %self->sleep def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 9: 
+		 10: %self->start_spork def_%v_5 %self[2.0,2.6,2.8,] 	 SYMBOL:	 ARGS:
+		 11: RETURN %v_5[2.10,] %self[2.0,2.6,2.8,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = abort instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->spork_service def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->abort def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = stop instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->stop_spork def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = spork_pid_file instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Rails) def_%v_3 
+		 7: %v_3->root def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "tmp/pids/spork.pid" def_%v_5 
+		 9: %v_4->+ def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = pid_file instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Rails) def_%v_3 
+		 7: %v_3->root def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "tmp/pids/autospec.pid" def_%v_5 
+		 9: %v_4->+ def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = already_running? instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 13 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_pid_file 
+		 6: 
+		 7: (File) def_%v_3 
+		 8: %v_3->exists? def_%v_4 %v_3[2.7,] pid_file[2.5,] 	 SYMBOL:	 ARGS:pid_file,
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (File) def_%v_5 
+		 2: %v_5->read def_%v_6 %v_5[3.1,] pid_file[2.5,] 	 SYMBOL:	 ARGS:pid_file,
+		 3: %v_6->to_i def_%v_7 %v_6[3.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_pid %v_7[3.3,] 
+		 5: 
+		 6: GLOBALVAR $! def_%v_8 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Process) def_%v_11 
+		 2: %v_11->getpgid def_%v_12 %v_11[5.1,] pid[3.4,] 	 SYMBOL:	 ARGS:pid,
+		 3: COPY TYPE_PASS def_%v_10 %v_12[5.2,] 
+		 4: 
+		 5: %v_8[3.6,] 
+BB 6
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+BB 7
+	outgoing: 8 9 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_13 
+		 2: def_%v_14 %v_13[7.1,] 
+		 3: BRANCH %v_14[7.2,] 
+BB 8
+	outgoing: 11 15 
+	datadep: 
+	instructions:
+		 0: %v_13[7.1,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+		 2: %v_8[3.6,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+BB 11
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: def_%v_15 
+		 1: def_%v_16 %v_15[11.0,] %v_8[3.6,] 
+		 2: %v_15[11.0,] 
+BB 12
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %v_10[5.3,9.0,] %self[2.0,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = write_pid_file instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_file 
+		 6: RECEIVEARG def_pid 
+		 7: 
+		 8: (FileUtils) def_%v_3 
+		 9: (Rails) def_%v_4 
+		 10: %v_4->root def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_StringLiteral "tmp/pids" def_%v_6 
+		 12: %v_5->+ def_%v_7 %v_5[2.10,] %v_6[2.11,] 	 SYMBOL:	 ARGS:%v_6,
+		 13: %v_3->mkdir_p def_%v_8 %v_3[2.8,] %v_7[2.12,] 	 SYMBOL:	 ARGS:%v_7,
+		 14: 
+		 15: (File) def_%v_9 
+		 16: COPY TYPE_StringLiteral "w" def_%v_10 
+		 17: %v_9->open def_%v_11 %v_9[2.15,] file[2.5,] %v_10[2.16,] %self[2.0,] 	 SYMBOL:	 ARGS:file,%v_10,%v_9,
+CLOSURE BEGIN: f[] pid[2.6,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_f 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: f->write def_%cl_1_3 f[2.2,] pid[] 	 SYMBOL:	 ARGS:pid,
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 18: RETURN %v_11[2.17,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = spork_running? instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->spork_service def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->port def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_5 %v_7[4.2,] 
+		 4: 
+		 5: %v_3[2.6,] 
+BB 5
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_8 
+		 2: def_%v_9 %v_8[6.1,] 
+		 3: BRANCH %v_9[6.2,] 
+BB 7
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: %v_8[6.1,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: %v_3[2.6,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: def_%v_10 
+		 1: def_%v_11 %v_10[10.0,] %v_3[2.6,] 
+		 2: %v_10[10.0,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[4.3,8.0,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = spork_service instanceMethod = true
+BB 1
+	outgoing: 21 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: 
+		 7: GETFIELD %self->drb_listener_running def_%v_3 %self[2.0,] 
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_5 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (DRb) def_%v_8 
+		 3: COPY TYPE_StringLiteral "druby://127.0.0.1:0" def_%v_9 
+		 4: %v_8->start_service def_%v_10 %v_8[6.2,] %v_9[6.3,] 	 SYMBOL:	 ARGS:%v_9,
+		 5: COPY TYPE_PASS def_%v_7 %v_10[6.4,] 
+		 6: %v_5[4.0,] 
+BB 7
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 10 14 
+	datadep: 
+	instructions:
+		 0: def_%v_11 
+		 1: (SocketError) def_%v_12 
+		 2: (Errno) def_%v_13 
+		 3: (inherit EADDRNOTAVAIL) def_%v_14 %v_13[8.2,] 
+		 4: %v_14[8.3,] 
+BB 9
+	outgoing: 10 14 
+	datadep: 
+	instructions:
+		 0: %v_13->const_missing def_%v_14 %v_13[8.2,] 	 SYMBOL:EADDRNOTAVAIL,	 ARGS:Symbol,
+BB 10
+	outgoing: 11 12 14 
+	datadep: 
+	instructions:
+		 0: def_%v_15 %v_12[8.1,] %v_14[9.0,8.3,] %v_11[8.0,] 
+		 1: BRANCH %v_15[10.0,] 
+BB 11
+	outgoing: 14 21 
+	datadep: 
+	instructions:
+		 0: %v_11[8.0,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (DRb) def_%v_16 
+		 2: COPY TYPE_StringLiteral "druby://:0" def_%v_17 
+		 3: %v_16->start_service def_%v_18 %v_16[12.1,] %v_17[12.2,] 	 SYMBOL:	 ARGS:%v_17,
+		 4: COPY TYPE_PASS def_%v_7 %v_18[12.3,] 
+		 5: %v_5[4.0,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+BB 14
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: def_%v_19 
+		 1: def_%v_20 %v_19[14.0,] %v_5[4.0,] 
+		 2: %v_19[14.0,] 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->drb_listener_running 
+		 2: COPY TYPE_Boolean def_%v_4 
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_22 %self[15.1,2.0,] 
+		 2: COPY TYPE_PASS def_%v_21 %v_22[16.1,] 
+		 3: %v_22[16.1,] 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->spork_service def_%v_23 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_21 %v_23[17.0,] 
+BB 18
+	outgoing: 19 20 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_21[17.1,16.2,] 
+BB 19
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: (DRbObject) def_%v_24 
+		 1: COPY TYPE_StringLiteral "druby://127.0.0.1:8989" def_%v_25 
+		 2: %v_24->new_with_uri def_%v_26 %v_24[19.0,] %v_25[19.1,] 	 SYMBOL:	 ARGS:%v_25,
+		 3: ATTRASSIGN %self->spork_service %v_26[19.2,] 
+		 4: RETURN %v_26[19.2,] %self[19.3,15.1,2.0,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: RETURN %v_23[17.0,] %self[15.1,2.0,] 
+BB 21
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = start_spork instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->spork_pid_file def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->already_running? def_%v_4 %self[2.0,2.6,] %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_3,
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Killing old orphan spork instance" def_%v_5 
+		 2: %self->puts def_%v_6 %self[2.0,] %v_5[3.1,] 	 SYMBOL:	 ARGS:%v_5,
+		 3: 
+		 4: %self->stop_spork def_%v_7 %self[3.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: 
+		 6: %self->sleep def_%v_8 %self[3.2,3.4,2.0,] 	 SYMBOL:	 ARGS:Fixnum,
+		 7: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Process) def_%v_9 
+		 2: COPY TYPE_StringLiteral "RAILS_ENV" def_%v_10 
+		 3: COPY TYPE_StringLiteral "test" def_%v_11 
+		 4: HASH- def_%v_12 %v_10[5.2,] %v_11[5.3,] 
+		 5: COPY TYPE_StringLiteral "bundle exec spork" def_%v_13 
+		 6: %v_9->spawn def_%v_14 %v_9[5.1,] %v_12[5.4,] %v_13[5.5,] 	 SYMBOL:	 ARGS:%v_12,%v_13,
+		 7: ATTRASSIGN %self->spork_pid %v_14[5.6,] 
+		 8: 
+		 9: %self->spork_pid_file def_%v_15 %self[5.7,2.0,] 	 SYMBOL:	 ARGS:
+		 10: GETFIELD %self->spork_pid def_%v_16 %self[5.7,5.9,2.0,] 
+		 11: %self->write_pid_file def_%v_17 %self[5.7,5.9,2.0,] %v_15[5.9,] %v_16[5.10,] 	 SYMBOL:	 ARGS:%v_15,%v_16,
+		 12: 
+		 13: COPY TYPE_Boolean def_running 
+		 14: 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: running->! def_%v_19 running[5.13,7.3,] 	 SYMBOL:	 ARGS:
+		 1: BRANCH %v_19[6.0,] 
+BB 7
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->spork_running? def_%v_20 %self[5.7,2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_running %v_20[7.2,] 
+		 4: 
+		 5: %self->sleep def_%v_21 %self[7.2,5.7,2.0,] 	 SYMBOL:	 ARGS:Float,
+		 6: 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %self[5.7,2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = stop_spork instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (File) def_%v_3 
+		 7: %self->spork_pid_file def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->read def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: %v_5->to_i def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_PASS def_pid %v_6[2.9,] 
+		 11: 
+		 12: GLOBALVAR $! def_%v_7 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Process) def_%v_10 
+		 2: COPY TYPE_StringLiteral "SIGTERM" def_%v_11 
+		 3: %v_10->kill def_%v_12 %v_10[4.1,] %v_11[4.2,] pid[2.10,] 	 SYMBOL:	 ARGS:%v_11,pid,
+		 4: COPY TYPE_PASS def_%v_9 %v_12[4.3,] 
+		 5: 
+		 6: %v_7[2.12,] 
+BB 5
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_13 
+		 2: def_%v_14 %v_13[6.1,] 
+		 3: BRANCH %v_14[6.2,] 
+BB 7
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: %v_13[6.1,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: 
+		 2: %v_7[2.12,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: def_%v_15 
+		 1: def_%v_16 %v_15[10.0,] %v_7[2.12,] 
+		 2: %v_15[10.0,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %v_9[4.4,8.0,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+

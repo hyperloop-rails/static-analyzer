@@ -1,0 +1,504 @@
+SET IRMethod, name = create instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_community_id 
+		 6: community_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_transaction_id 
+		 1: transaction_id[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: def_op_name 
+		 1: op_name[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: def_op_input 
+		 1: op_input[8.0,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_3 
+		 1: COPY TYPE_PASS def_op_input %v_3[9.0,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-community_id-transaction_id-op_name-op_input- def_%v_4 community_id[2.5,] transaction_id[4.0,] op_name[6.0,] op_input[9.1,8.0,] 
+		 2: %self->create_unique def_%v_5 %self[2.0,] %v_4[10.1,] 	 SYMBOL:	 ARGS:%v_4,
+		 3: RETURN %v_5[10.2,] %self[10.2,2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_to_completed instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_process_token 
+		 6: process_token[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_op_output 
+		 1: op_output[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ProcessTokenModel) def_%v_3 
+		 2: HASH-process_token- def_%v_4 process_token[2.5,] 
+		 3: %v_3->where def_%v_5 %v_3[6.1,] %v_4[6.2,] 	 SYMBOL:	 ARGS:%v_4,
+		 4: %v_5->first! def_%v_6 %v_5[6.3,] 	 SYMBOL:	 ARGS:
+		 5: (YAML) def_%v_7 
+		 6: %v_7->dump def_%v_8 %v_7[6.5,] op_output[4.0,] 	 SYMBOL:	 ARGS:op_output,
+		 7: HASH-op_completed-op_output- def_%v_9 %v_8[6.6,] 
+		 8: %v_6->update_attributes def_%v_10 %v_6[6.4,] %v_9[6.7,] 	 SYMBOL:	 ARGS:%v_9,
+		 9: RETURN %v_10[6.8,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_by_transaction instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_community_id 
+		 6: community_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_transaction_id 
+		 1: transaction_id[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: def_op_name 
+		 1: op_name[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ProcessTokenModel) def_%v_3 
+		 2: HASH-transaction_id-community_id-op_name- def_%v_4 transaction_id[4.0,] community_id[2.5,] op_name[6.0,] 
+		 3: %v_3->where def_%v_5 %v_3[8.1,] %v_4[8.2,] 	 SYMBOL:	 ARGS:%v_4,
+		 4: %v_5->first def_%v_6 %v_5[8.3,] 	 SYMBOL:	 ARGS:
+		 5: %self->Maybe def_%v_7 %self[2.0,] %v_6[8.4,] 	 SYMBOL:	 ARGS:%v_6,
+		 6: %v_7->map def_%v_8 %v_7[8.5,] %self[8.5,2.0,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: %self[8.5,2.0,] model[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_model 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->from_model def_%cl_1_3 %self[2.0,] model[2.2,] 	 SYMBOL:	 ARGS:model,
+		 2: RETURN %cl_1_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 7: %v_8->or_else def_%v_9 %v_8[8.6,] 	 SYMBOL:	 ARGS:Nil,
+		 8: RETURN %v_9[8.7,] %self[8.5,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_by_process_token instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_process_token 
+		 6: 
+		 7: (ProcessTokenModel) def_%v_3 
+		 8: HASH-process_token- def_%v_4 process_token[2.5,] 
+		 9: %v_3->where def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: %v_5->first def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %self->Maybe def_%v_7 %self[2.0,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_6,
+		 12: %v_7->map def_%v_8 %v_7[2.11,] %self[2.0,2.11,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: %self[2.0,2.11,] model[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_model 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->from_model def_%cl_1_3 %self[2.0,] model[2.2,] 	 SYMBOL:	 ARGS:model,
+		 2: RETURN %cl_1_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 13: %v_8->or_else def_%v_9 %v_8[2.12,] 	 SYMBOL:	 ARGS:Nil,
+		 14: RETURN %v_9[2.13,] %self[2.0,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = gen_process_token_uuid instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SecureRandom) def_%v_3 
+		 7: %v_3->uuid def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create_unique instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_info 
+		 6: 
+		 7: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (ProcessTokenModel) def_%v_6 
+		 3: %self->gen_process_token_uuid def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: (YAML) def_%v_8 
+		 5: info->[] def_%v_9 info[2.5,] 	 SYMBOL:op_input,	 ARGS:Symbol,
+		 6: %v_8->dump def_%v_10 %v_8[4.4,] %v_9[4.5,] 	 SYMBOL:	 ARGS:%v_9,
+		 7: HASH-process_token-op_input- def_%v_11 %v_7[4.3,] %v_10[4.6,] 
+		 8: info->merge def_%v_12 info[4.5,2.5,] %v_11[4.7,] 	 SYMBOL:	 ARGS:%v_11,
+		 9: %v_6->create! def_%v_13 %v_6[4.2,] %v_12[4.8,] 	 SYMBOL:	 ARGS:%v_12,
+		 10: COPY TYPE_PASS def_%v_5 %v_13[4.9,] 
+		 11: 
+		 12: %v_3[2.7,] 
+BB 5
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_14 
+		 2: (ActiveRecord) def_%v_15 
+		 3: (inherit RecordNotUnique) def_%v_16 %v_15[6.2,] 
+		 4: %v_16[6.3,] 
+BB 7
+	outgoing: 8 12 
+	datadep: 
+	instructions:
+		 0: %v_15->const_missing def_%v_16 %v_15[6.2,] 	 SYMBOL:RecordNotUnique,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 10 12 
+	datadep: 
+	instructions:
+		 0: def_%v_17 %v_16[7.0,6.3,] %v_14[6.1,] 
+		 1: BRANCH %v_17[8.0,] 
+BB 9
+	outgoing: 12 14 
+	datadep: 
+	instructions:
+		 0: %v_14[6.1,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Nil def_%v_5 
+		 2: 
+		 3: %v_3[2.7,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: def_%v_18 
+		 1: def_%v_19 %v_18[12.0,] %v_3[2.7,] 
+		 2: %v_18[12.0,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_model %v_5[4.10,10.1,] 
+		 1: 
+		 2: %self->Maybe def_%v_20 %self[2.0,] %v_5[4.10,10.1,] 	 SYMBOL:	 ARGS:model,
+		 3: %v_20->map def_%v_21 %v_20[13.2,] %self[13.2,2.0,] 	 SYMBOL:	 ARGS:%v_20,
+CLOSURE BEGIN: %self[13.2,2.0,] m[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_m 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->from_model def_%cl_1_3 %self[2.0,] m[2.2,] 	 SYMBOL:	 ARGS:m,
+		 2: RETURN %cl_1_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: %v_21->or_else def_%v_22 %v_21[13.3,] 	 SYMBOL:	 ARGS:Nil,
+		 5: RETURN %v_22[13.4,] %self[13.2,2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = from_model instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_model 
+		 6: 
+		 7: (EntityUtils) def_%v_3 
+		 8: %v_3->model_to_hash def_%v_4 %v_3[2.7,] model[2.5,] 	 SYMBOL:	 ARGS:model,
+		 9: COPY TYPE_PASS def_model_hash %v_4[2.8,] 
+		 10: 
+		 11: %v_4->[] def_%v_5 %v_4[2.8,] 	 SYMBOL:op_input,	 ARGS:Symbol,
+		 12: %v_5->nil? def_%v_6 %v_5[2.11,] 	 SYMBOL:	 ARGS:
+		 13: BRANCH %v_6[2.12,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (YAML) def_%v_8 
+		 1: model_hash->[] def_%v_9 model_hash[2.9,] 	 SYMBOL:op_input,	 ARGS:Symbol,
+		 2: %v_8->load def_%v_10 %v_8[4.0,] %v_9[4.1,] 	 SYMBOL:	 ARGS:%v_9,
+		 3: ATTRASSIGN model_hash->[] %v_10[4.2,] 
+		 4: COPY TYPE_PASS def_%v_7 %v_10[4.2,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: model_hash->[] def_%v_11 model_hash[4.3,2.9,] 	 SYMBOL:op_output,	 ARGS:Symbol,
+		 2: %v_11->nil? def_%v_12 %v_11[5.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_12[5.2,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+		 1: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: (YAML) def_%v_14 
+		 1: model_hash->[] def_%v_15 model_hash[4.3,2.9,] 	 SYMBOL:op_output,	 ARGS:Symbol,
+		 2: %v_14->load def_%v_16 %v_14[7.0,] %v_15[7.1,] 	 SYMBOL:	 ARGS:%v_15,
+		 3: ATTRASSIGN model_hash->[] %v_16[7.2,] 
+		 4: COPY TYPE_PASS def_%v_13 %v_16[7.2,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ProcessToken) def_%v_17 
+		 2: %v_17->call def_%v_18 %v_17[8.1,] model_hash[7.3,4.3,2.9,] 	 SYMBOL:	 ARGS:model_hash,
+		 3: RETURN %v_18[8.2,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+

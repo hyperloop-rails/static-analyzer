@@ -1,0 +1,412 @@
+SET IRMethod, name = implements_process instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_process 
+		 6: 
+		 7: COPY TYPE_Array def_%v_3 
+		 8: %v_3->include? def_%v_4 %v_3[2.7,] process[2.5,] 	 SYMBOL:	 ARGS:process,
+		 9: RETURN %v_4[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create_payment instanceMethod = true
+BB 1
+	outgoing: 19 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_tx 
+		 6: tx[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_gateway_fields 
+		 1: gateway_fields[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: def_prefer_async 
+		 1: prefer_async[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: tx->[] def_%v_3 tx[2.5,] 	 SYMBOL:shipping_price,	 ARGS:Symbol,
+		 2: %self->Maybe def_%v_4 %self[2.0,] %v_3[8.1,] 	 SYMBOL:	 ARGS:%v_3,
+		 3: %v_4->or_else def_%v_5 %v_4[8.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: COPY TYPE_PASS def_shipping_total %v_5[8.3,] 
+		 5: 
+		 6: tx->[] def_%v_6 tx[8.1,2.5,] 	 SYMBOL:unit_price,	 ARGS:Symbol,
+		 7: tx->[] def_%v_7 tx[8.1,8.6,2.5,] 	 SYMBOL:listing_quantity,	 ARGS:Symbol,
+		 8: %v_6->* def_%v_8 %v_6[8.6,] %v_7[8.7,] 	 SYMBOL:	 ARGS:%v_7,
+		 9: %v_8->+ def_%v_9 %v_8[8.8,] shipping_total[8.4,] 	 SYMBOL:	 ARGS:shipping_total,
+		 10: COPY TYPE_PASS def_order_total %v_9[8.9,] 
+		 11: 
+		 12: (DataTypes) def_%v_10 
+		 13: tx->[] def_%v_11 tx[8.1,8.6,8.7,2.5,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 14: tx->[] def_%v_12 tx[8.1,8.6,8.7,8.13,2.5,] 	 SYMBOL:listing_title,	 ARGS:Symbol,
+		 15: tx->[] def_%v_13 tx[8.1,8.6,8.7,8.13,8.14,2.5,] 	 SYMBOL:listing_quantity,	 ARGS:Symbol,
+		 16: tx->[] def_%v_14 tx[8.1,8.6,8.7,8.13,8.14,8.15,2.5,] 	 SYMBOL:unit_price,	 ARGS:Symbol,
+		 17: tx->[] def_%v_15 tx[8.1,8.6,8.7,8.13,8.14,8.15,8.16,2.5,] 	 SYMBOL:listing_author_id,	 ARGS:Symbol,
+		 18: tx->[] def_%v_16 tx[8.1,8.6,8.7,8.13,8.14,8.15,8.16,8.17,2.5,] 	 SYMBOL:delivery_method,	 ARGS:Symbol,
+		 19: %v_16->== def_%v_17 %v_16[8.18,] 	 SYMBOL:shipping,	 ARGS:Symbol,
+		 20: tx->[] def_%v_18 tx[8.1,8.6,8.7,8.13,8.14,8.15,8.16,8.17,8.18,2.5,] 	 SYMBOL:shipping_price,	 ARGS:Symbol,
+		 21: gateway_fields->[] def_%v_19 gateway_fields[4.0,] 	 SYMBOL:success_url,	 ARGS:Symbol,
+		 22: gateway_fields->[] def_%v_20 gateway_fields[8.21,4.0,] 	 SYMBOL:cancel_url,	 ARGS:Symbol,
+		 23: gateway_fields->[] def_%v_21 gateway_fields[8.21,8.22,4.0,] 	 SYMBOL:merchant_brand_logo_url,	 ARGS:Symbol,
+		 24: HASH-transaction_id-payment_action-item_name-item_quantity-item_price-merchant_id-require_shipping_address-shipping_total-order_total-success-cancel-merchant_brand_logo_url- def_%v_22 %v_11[8.13,] %v_12[8.14,] %v_13[8.15,] %v_14[8.16,] %v_15[8.17,] %v_17[8.19,] %v_18[8.20,] order_total[8.10,] %v_19[8.21,] %v_20[8.22,] %v_21[8.23,] 
+		 25: %v_10->create_create_payment_request def_%v_23 %v_10[8.12,] %v_22[8.24,] 	 SYMBOL:	 ARGS:%v_22,
+		 26: COPY TYPE_PASS def_create_payment_info %v_23[8.25,] 
+		 27: 
+		 28: %self->paypal_api def_%v_24 %self[8.2,2.0,] 	 SYMBOL:	 ARGS:
+		 29: %v_24->payments def_%v_25 %v_24[8.28,] 	 SYMBOL:	 ARGS:
+		 30: tx->[] def_%v_26 tx[8.1,8.6,8.7,8.13,8.14,8.15,8.16,8.17,8.18,8.20,2.5,] 	 SYMBOL:community_id,	 ARGS:Symbol,
+		 31: HASH-async- def_%v_27 prefer_async[6.0,] 
+		 32: %v_25->request def_%v_28 %v_25[8.29,] %v_26[8.30,] create_payment_info[8.26,] %v_27[8.31,] 	 SYMBOL:	 ARGS:%v_26,create_payment_info,%v_27,
+		 33: COPY TYPE_PASS def_result %v_28[8.32,] 
+		 34: 
+		 35: %v_28->[] def_%v_29 %v_28[8.32,] 	 SYMBOL:success,	 ARGS:Symbol,
+		 36: %v_29->! def_%v_30 %v_29[8.35,] 	 SYMBOL:	 ARGS:
+		 37: BRANCH %v_30[8.36,] 
+BB 9
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SyncCompletion) def_%v_31 
+		 2: %v_31->new def_%v_32 %v_31[9.1,] result[8.33,] 	 SYMBOL:	 ARGS:result,
+		 3: RETURN %v_32[9.2,] %self[2.0,] 
+BB 10
+	outgoing: 12 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_33 
+		 1: 
+		 2: BRANCH prefer_async[6.0,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (AsyncCompletion) def_%v_34 
+		 2: (Result) def_%v_35 
+		 3: (inherit Success) def_%v_36 %v_35[12.2,] 
+		 4: %v_36[12.3,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: %v_35->const_missing def_%v_36 %v_35[12.2,] 	 SYMBOL:Success,	 ARGS:Symbol,
+BB 14
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: result->[] def_%v_37 result[8.33,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 1: %v_37->[] def_%v_38 %v_37[14.0,] 	 SYMBOL:process_token,	 ARGS:Symbol,
+		 2: HASH-process_token- def_%v_39 %v_38[14.1,] 
+		 3: %v_36->new def_%v_40 %v_36[13.0,12.3,] %v_39[14.2,] 	 SYMBOL:	 ARGS:%v_39,
+		 4: %v_34->new def_%v_41 %v_34[12.1,] %v_40[14.3,] 	 SYMBOL:	 ARGS:%v_40,
+		 5: RETURN %v_41[14.4,] %self[2.0,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (AsyncCompletion) def_%v_42 
+		 2: (Result) def_%v_43 
+		 3: (inherit Success) def_%v_44 %v_43[15.2,] 
+		 4: %v_44[15.3,] 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: %v_43->const_missing def_%v_44 %v_43[15.2,] 	 SYMBOL:Success,	 ARGS:Symbol,
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: result->[] def_%v_45 result[8.33,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 1: %v_45->[] def_%v_46 %v_45[17.0,] 	 SYMBOL:redirect_url,	 ARGS:Symbol,
+		 2: HASH-redirect_url- def_%v_47 %v_46[17.1,] 
+		 3: %v_44->new def_%v_48 %v_44[16.0,15.3,] %v_47[17.2,] 	 SYMBOL:	 ARGS:%v_47,
+		 4: %v_42->new def_%v_49 %v_42[15.1,] %v_48[17.3,] 	 SYMBOL:	 ARGS:%v_48,
+		 5: RETURN %v_49[17.4,] %self[2.0,] 
+BB 19
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = reject_payment instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_tx 
+		 6: tx[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_reason 
+		 1: reason[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_3 
+		 1: COPY TYPE_PASS def_reason %v_3[5.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (AsyncCompletion) def_%v_4 
+		 2: %self->paypal_api def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->payments def_%v_6 %v_5[6.2,] 	 SYMBOL:	 ARGS:
+		 4: tx->[] def_%v_7 tx[2.5,] 	 SYMBOL:community_id,	 ARGS:Symbol,
+		 5: tx->[] def_%v_8 tx[6.4,2.5,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 6: HASH-note- def_%v_9 reason[5.1,4.0,] 
+		 7: %v_6->void def_%v_10 %v_6[6.3,] %v_7[6.4,] %v_8[6.5,] %v_9[6.6,] 	 SYMBOL:	 ARGS:%v_7,%v_8,%v_9,
+		 8: %v_4->new def_%v_11 %v_4[6.1,] %v_10[6.7,] 	 SYMBOL:	 ARGS:%v_10,
+		 9: RETURN %v_11[6.8,] %self[6.2,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = complete_preauthorization instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_tx 
+		 6: tx[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (AsyncCompletion) def_%v_3 
+		 2: %self->paypal_api def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_4->payments def_%v_5 %v_4[4.2,] 	 SYMBOL:	 ARGS:
+		 4: tx->[] def_%v_6 tx[2.5,] 	 SYMBOL:community_id,	 ARGS:Symbol,
+		 5: tx->[] def_%v_7 tx[4.4,2.5,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 6: %v_5->get_payment def_%v_8 %v_5[4.3,] %v_6[4.4,] %v_7[4.5,] 	 SYMBOL:	 ARGS:%v_6,%v_7,
+		 7: %v_8->and_then def_%v_9 %v_8[4.6,] %self[4.2,2.0,] 	 SYMBOL:	 ARGS:%v_8,
+CLOSURE BEGIN: %self[4.2,2.0,] tx[4.4,4.5,2.5,] payment[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_payment 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->paypal_api def_%cl_1_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_3->payments def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: tx->[] def_%cl_1_5 tx[] 	 SYMBOL:community_id,	 ARGS:Symbol,
+		 4: tx->[] def_%cl_1_6 tx[3.3,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 5: (DataTypes) def_%cl_1_7 
+		 6: payment->[] def_%cl_1_8 payment[2.2,] 	 SYMBOL:authorization_total,	 ARGS:Symbol,
+		 7: HASH-payment_total- def_%cl_1_9 %cl_1_8[3.6,] 
+		 8: %cl_1_7->create_payment_info def_%cl_1_10 %cl_1_7[3.5,] %cl_1_9[3.7,] 	 SYMBOL:	 ARGS:%cl_1_9,
+		 9: %cl_1_4->full_capture def_%cl_1_11 %cl_1_4[3.2,] %cl_1_5[3.3,] %cl_1_6[3.4,] %cl_1_10[3.8,] 	 SYMBOL:	 ARGS:%cl_1_5,%cl_1_6,%cl_1_10,
+		 10: RETURN %cl_1_11[3.9,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_12 
+		 1: def_%cl_1_13 %cl_1_12[4.0,] 
+		 2: RETURN %cl_1_13[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: %v_3->new def_%v_10 %v_3[4.1,] %v_9[4.7,] 	 SYMBOL:	 ARGS:%v_9,
+		 9: RETURN %v_10[4.8,] %self[4.2,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_payment_details instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_tx 
+		 6: tx[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->paypal_api def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_3->payments def_%v_4 %v_3[4.1,] 	 SYMBOL:	 ARGS:
+		 3: tx->[] def_%v_5 tx[2.5,] 	 SYMBOL:community_id,	 ARGS:Symbol,
+		 4: tx->[] def_%v_6 tx[4.3,2.5,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 5: %v_4->get_payment def_%v_7 %v_4[4.2,] %v_5[4.3,] %v_6[4.4,] 	 SYMBOL:	 ARGS:%v_5,%v_6,
+		 6: %v_7->maybe def_%v_8 %v_7[4.5,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_PASS def_payment %v_8[4.6,] 
+		 8: 
+		 9: %v_8->[] def_%v_9 %v_8[4.6,] 	 SYMBOL:payment_total,	 ARGS:Symbol,
+		 10: %v_9->or_else def_%v_10 %v_9[4.9,] 	 SYMBOL:	 ARGS:Nil,
+		 11: COPY TYPE_PASS def_payment_total %v_10[4.10,] 
+		 12: 
+		 13: payment->[] def_%v_11 payment[4.7,] 	 SYMBOL:payment_total,	 ARGS:Symbol,
+		 14: payment->[] def_%v_12 payment[4.7,4.13,] 	 SYMBOL:authorization_total,	 ARGS:Symbol,
+		 15: %v_12->or_else def_%v_13 %v_12[4.14,] 	 SYMBOL:	 ARGS:Nil,
+		 16: %v_11->or_else def_%v_14 %v_11[4.13,] %v_13[4.15,] 	 SYMBOL:	 ARGS:%v_13,
+		 17: %self->Maybe def_%v_15 %self[4.1,2.0,] %v_14[4.16,] 	 SYMBOL:	 ARGS:%v_14,
+		 18: tx->[] def_%v_16 tx[4.3,4.4,2.5,] 	 SYMBOL:unit_price,	 ARGS:Symbol,
+		 19: %v_15->or_else def_%v_17 %v_15[4.17,] %v_16[4.18,] 	 SYMBOL:	 ARGS:%v_16,
+		 20: COPY TYPE_PASS def_total_price %v_17[4.19,] 
+		 21: 
+		 22: payment->[] def_%v_18 payment[4.7,4.13,4.14,] 	 SYMBOL:commission_total,	 ARGS:Symbol,
+		 23: %v_18->or_else def_%v_19 %v_18[4.22,] 	 SYMBOL:	 ARGS:Nil,
+		 24: payment->[] def_%v_20 payment[4.7,4.13,4.14,4.22,] 	 SYMBOL:fee_total,	 ARGS:Symbol,
+		 25: %v_20->or_else def_%v_21 %v_20[4.24,] 	 SYMBOL:	 ARGS:Nil,
+		 26: HASH-payment_total-total_price-charged_commission-payment_gateway_fee- def_%v_22 payment_total[4.11,] total_price[4.20,] %v_19[4.23,] %v_21[4.25,] 
+		 27: RETURN %v_22[4.26,] %self[4.1,4.17,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = paypal_api instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (PaypalService) def_%v_3 
+		 7: (inherit API) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit Api) def_%v_5 %v_4[3.0,2.7,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:Api,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[5.0,4.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+

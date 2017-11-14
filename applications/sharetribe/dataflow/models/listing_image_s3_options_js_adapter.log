@@ -1,0 +1,128 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_listing 
+		 6: 
+		 7: (S3Uploader) def_%v_3 
+		 8: %v_3->new def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_PASS def_s3uploader %v_4[2.8,] 
+		 10: 
+		 11: (ApplicationHelper) def_%v_5 
+		 12: %v_5->use_upload_s3? def_%v_6 %v_5[2.11,] 	 SYMBOL:	 ARGS:
+		 13: BRANCH %v_6[2.12,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: s3uploader->url def_%v_7 s3uploader[2.9,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %self->s3_upload_path %v_7[3.1,] 
+		 3: 
+		 4: s3uploader->fields def_%v_8 s3uploader[3.1,2.9,] 	 SYMBOL:	 ARGS:
+		 5: ATTRASSIGN %self->s3_fields %v_8[3.4,] 
+		 6: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: listing->new_record? def_%v_9 listing[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_9[5.1,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->add_from_file_listing_images_path def_%v_10 %self[3.2,3.5,2.0,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: listing->id def_%v_11 listing[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %self->add_from_file_listing_listing_images_path def_%v_12 %self[3.2,3.5,2.0,] %v_11[7.0,] 	 SYMBOL:	 ARGS:%v_11,
+		 2: COPY TYPE_PASS def_%v_10 %v_12[7.1,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->save_from_file %v_10[7.2,6.0,] 
+		 1: 
+		 2: listing->new_record? def_%v_13 listing[2.5,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_13[8.2,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %self->add_from_url_listing_images_path def_%v_14 %self[8.0,3.2,3.5,2.0,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: listing->id def_%v_15 listing[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %self->add_from_url_listing_listing_images_path def_%v_16 %self[8.0,3.2,3.5,2.0,] %v_15[10.0,] 	 SYMBOL:	 ARGS:%v_15,
+		 2: COPY TYPE_PASS def_%v_14 %v_16[10.1,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->save_from_url %v_14[10.2,9.0,] 
+		 1: 
+		 2: (APP_CONFIG) def_%v_17 
+		 3: %v_17->max_image_filesize def_%v_18 %v_17[11.2,] 	 SYMBOL:	 ARGS:
+		 4: ATTRASSIGN %self->max_image_filesize %v_18[11.3,] 
+		 5: 
+		 6: (APP_CONFIG) def_%v_19 
+		 7: %v_19->original_image_width def_%v_20 %v_19[11.6,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN %self->original_image_width %v_20[11.7,] 
+		 9: 
+		 10: (APP_CONFIG) def_%v_21 
+		 11: %v_21->original_image_height def_%v_22 %v_21[11.10,] 	 SYMBOL:	 ARGS:
+		 12: ATTRASSIGN %self->original_image_height %v_22[11.11,] 
+		 13: RETURN %v_22[11.11,] %self[11.0,11.4,11.8,11.12,8.0,3.2,3.5,2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = to_hash instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (HashUtils) def_%v_3 
+		 7: (HashUtils) def_%v_4 
+		 8: %v_4->object_to_hash def_%v_5 %v_4[2.7,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+		 9: %v_3->camelize_keys def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,Boolean,
+		 10: RETURN %v_6[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

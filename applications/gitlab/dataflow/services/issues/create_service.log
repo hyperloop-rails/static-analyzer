@@ -1,0 +1,87 @@
+SET IRMethod, name = execute instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->filter_params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: %self->params def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->[] def_%v_5 %v_4[2.8,] 	 SYMBOL:label_ids,	 ARGS:Symbol,
+		 10: COPY TYPE_PASS def_label_params %v_5[2.9,] 
+		 11: 
+		 12: %self->project def_%v_6 %self[2.0,2.6,2.8,] 	 SYMBOL:	 ARGS:
+		 13: %v_6->issues def_%v_7 %v_6[2.12,] 	 SYMBOL:	 ARGS:
+		 14: %self->params def_%v_8 %self[2.0,2.6,2.8,2.12,] 	 SYMBOL:	 ARGS:
+		 15: %v_8->except def_%v_9 %v_8[2.14,] 	 SYMBOL:label_ids,	 ARGS:Symbol,
+		 16: %v_7->new def_%v_10 %v_7[2.13,] %v_9[2.15,] 	 SYMBOL:	 ARGS:%v_9,
+		 17: COPY TYPE_PASS def_issue %v_10[2.16,] 
+		 18: 
+		 19: %self->params def_%v_11 %self[2.0,2.6,2.8,2.12,2.14,] 	 SYMBOL:	 ARGS:
+		 20: %v_11->[] def_%v_12 %v_11[2.19,] 	 SYMBOL:author,	 ARGS:Symbol,
+		 21: BRANCH %v_12[2.20,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->current_user def_%v_13 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_12 %v_13[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN issue->author %v_12[3.1,2.20,] 
+		 1: 
+		 2: issue->save def_%v_14 issue[4.0,2.17,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_14[4.2,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-label_ids- def_%v_15 label_params[2.10,] 
+		 2: issue->update_attributes def_%v_16 issue[4.0,2.17,] %v_15[5.1,] 	 SYMBOL:	 ARGS:%v_15,
+		 3: 
+		 4: %self->notification_service def_%v_17 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: %self->current_user def_%v_18 %self[5.4,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %v_17->new_issue def_%v_19 %v_17[5.4,] issue[5.2,4.0,2.17,] %v_18[5.5,] 	 SYMBOL:	 ARGS:issue,%v_18,
+		 7: 
+		 8: %self->todo_service def_%v_20 %self[5.4,5.5,2.0,] 	 SYMBOL:	 ARGS:
+		 9: %self->current_user def_%v_21 %self[5.4,5.5,5.8,2.0,] 	 SYMBOL:	 ARGS:
+		 10: %v_20->new_issue def_%v_22 %v_20[5.8,] issue[5.2,4.0,2.17,] %v_21[5.9,] 	 SYMBOL:	 ARGS:issue,%v_21,
+		 11: 
+		 12: %self->event_service def_%v_23 %self[5.4,5.5,5.8,5.9,2.0,] 	 SYMBOL:	 ARGS:
+		 13: %self->current_user def_%v_24 %self[5.4,5.5,5.8,5.9,5.12,2.0,] 	 SYMBOL:	 ARGS:
+		 14: %v_23->open_issue def_%v_25 %v_23[5.12,] issue[5.2,4.0,2.17,] %v_24[5.13,] 	 SYMBOL:	 ARGS:issue,%v_24,
+		 15: 
+		 16: %self->current_user def_%v_26 %self[5.4,5.5,5.8,5.9,5.12,5.13,2.0,] 	 SYMBOL:	 ARGS:
+		 17: issue->create_cross_references! def_%v_27 issue[5.2,4.0,2.17,] %v_26[5.16,] 	 SYMBOL:	 ARGS:%v_26,
+		 18: 
+		 19: COPY TYPE_StringLiteral "open" def_%v_28 
+		 20: %self->execute_hooks def_%v_29 %self[5.4,5.5,5.8,5.9,5.12,5.13,5.16,2.0,] issue[5.2,5.17,4.0,2.17,] %v_28[5.19,] 	 SYMBOL:	 ARGS:issue,%v_28,
+		 21: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_29 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN issue[4.0,2.17,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,221 @@
+SET IRMethod, name = get_avatar instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_options 
+		 6: options[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->delete def_%v_4 options[3.1,2.5,] 	 SYMBOL:email,	 ARGS:Symbol,
+		 2: BRANCH %v_4[4.1,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_5 
+		 1: COPY TYPE_PASS def_%v_4 %v_5[5.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_email %v_4[5.1,4.1,] 
+		 1: 
+		 2: %self->gravatar_tag def_%v_6 %self[2.0,] %v_4[5.1,4.1,] options[3.1,2.5,] 	 SYMBOL:	 ARGS:email,options,
+		 3: RETURN %v_6[6.2,] %self[6.2,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = name instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "Gravatar" def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = gravatar_tag instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_email 
+		 6: RECEIVECONSTARG def_options 
+		 7: options[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Digest) def_%v_4 
+		 2: (inherit MD5) def_%v_5 %v_4[4.1,] 
+		 3: %v_5[4.2,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[4.1,] 	 SYMBOL:MD5,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: email->strip def_%v_6 email[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->hexdigest def_%v_7 %v_5[5.0,4.2,] %v_6[6.0,] 	 SYMBOL:	 ARGS:%v_6,
+		 2: ATTRASSIGN options->[] %v_7[6.1,] 
+		 3: 
+		 4: options->include? def_%v_8 options[6.2,3.1,2.6,] 	 SYMBOL:default,	 ARGS:Symbol,
+		 5: BRANCH %v_8[6.4,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: (CGI) def_%v_9 
+		 1: options->[] def_%v_10 options[6.2,3.1,2.6,] 	 SYMBOL:default,	 ARGS:Symbol,
+		 2: %v_9->escape def_%v_11 %v_9[7.0,] %v_10[7.1,] 	 SYMBOL:	 ARGS:%v_10,
+		 3: ATTRASSIGN options->[] %v_11[7.2,] 
+		 4: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_12 options[7.3,6.2,3.1,2.6,] 	 SYMBOL:size,	 ARGS:Symbol,
+		 2: BRANCH %v_12[9.1,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: options->[]= def_%v_12 options[7.3,6.2,3.1,2.6,] 	 SYMBOL:size,	 ARGS:Symbol,Fixnum,
+		 1: COPY TYPE_Fixnum def_%v_12 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_13 options[10.0,7.3,6.2,3.1,2.6,] 	 SYMBOL:class,	 ARGS:Symbol,
+		 2: BRANCH %v_13[11.1,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: options->[] def_%v_14 options[10.0,7.3,6.2,3.1,2.6,] 	 SYMBOL:class,	 ARGS:Symbol,
+		 1: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "avatar gravatar" def_%v_15 
+		 1: COPY TYPE_PASS def_%v_14 %v_15[13.0,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_klass %v_14[13.1,12.0,] 
+		 1: 
+		 2: COPY TYPE_StringLiteral "//www.gravatar.com/avatar.php?" def_%v_16 
+		 3: options->map def_%v_17 options[10.0,7.3,6.2,3.1,2.6,] %self[2.0,] 	 SYMBOL:	 ARGS:options,
+CLOSURE BEGIN: key[] value[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_key 
+		 3: RECEIVEARG def_value 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "=" def_%cl_1_3 
+		 2: BUILDSTRING def_%cl_1_4 key[2.2,] %cl_1_3[3.1,] value[2.3,] 
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: value[2.3,] 
+		 4: %v_17->sort def_%v_18 %v_17[14.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "&amp;" def_%v_19 
+		 6: %v_18->join def_%v_20 %v_18[14.4,] %v_19[14.5,] 	 SYMBOL:	 ARGS:%v_19,
+		 7: %v_16-><< def_%v_21 %v_16[14.2,] %v_20[14.6,] 	 SYMBOL:	 ARGS:%v_20,
+		 8: COPY TYPE_PASS def_url %v_21[14.7,] 
+		 9: 
+		 10: COPY TYPE_StringLiteral "<img src="" def_%v_22 
+		 11: COPY TYPE_StringLiteral "" class="" def_%v_23 
+		 12: COPY TYPE_StringLiteral "" alt="Gravatar" />" def_%v_24 
+		 13: BUILDSTRING def_%v_25 %v_22[14.10,] %v_21[14.7,] %v_23[14.11,] klass[14.0,] %v_24[14.12,] 
+		 14: RETURN %v_25[14.13,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+

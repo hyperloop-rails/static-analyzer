@@ -1,0 +1,721 @@
+SET IRMethod, name = provider instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "twitter" def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = post instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: RECEIVECONSTARG def_url 
+		 7: url[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_3 
+		 1: COPY TYPE_PASS def_url %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->logger def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "event=post_to_service type=twitter sender_id=" def_%v_5 
+		 3: %self->user_id def_%v_6 %self[4.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral " post=" def_%v_7 
+		 5: post->guid def_%v_8 post[2.5,] 	 SYMBOL:	 ARGS:
+		 6: BUILDSTRING def_%v_9 %v_5[4.2,] %v_6[4.3,] %v_7[4.4,] %v_8[4.5,] 
+		 7: %v_4->debug def_%v_10 %v_4[4.1,] %v_9[4.6,] 	 SYMBOL:	 ARGS:%v_9,
+		 8: 
+		 9: %self->attempt_post def_%v_11 %self[4.1,4.3,2.0,] post[4.5,2.5,] 	 SYMBOL:	 ARGS:post,
+		 10: COPY TYPE_PASS def_tweet %v_11[4.9,] 
+		 11: 
+		 12: %v_11->id def_%v_12 %v_11[4.9,] 	 SYMBOL:	 ARGS:
+		 13: ATTRASSIGN post->tweet_id %v_12[4.12,] 
+		 14: 
+		 15: post->save def_%v_13 post[4.5,4.13,2.5,] 	 SYMBOL:	 ARGS:
+		 16: RETURN %v_13[4.15,] %self[4.1,4.3,4.9,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = profile_photo_url instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->client def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->nickname def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->user def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: COPY TYPE_StringLiteral "original" def_%v_6 
+		 10: %v_5->profile_image_url_https def_%v_7 %v_5[2.8,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: RETURN %v_7[2.10,] %self[2.0,2.6,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = delete_post instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: post->present? def_%v_3 post[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: post->tweet_id def_%v_4 post[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->present? def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.2,2.7,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->logger def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "event=delete_from_service type=twitter sender_id=" def_%v_7 
+		 3: %self->user_id def_%v_8 %self[5.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral " post=" def_%v_9 
+		 5: post->guid def_%v_10 post[2.5,] 	 SYMBOL:	 ARGS:
+		 6: BUILDSTRING def_%v_11 %v_7[5.2,] %v_8[5.3,] %v_9[5.4,] %v_10[5.5,] 
+		 7: %v_6->debug def_%v_12 %v_6[5.1,] %v_11[5.6,] 	 SYMBOL:	 ARGS:%v_11,
+		 8: 
+		 9: post->tweet_id def_%v_13 post[5.5,2.5,] 	 SYMBOL:	 ARGS:
+		 10: %self->delete_from_twitter def_%v_14 %self[5.1,5.3,2.0,] %v_13[5.9,] 	 SYMBOL:	 ARGS:%v_13,
+		 11: RETURN %v_14[5.10,] %self[5.1,5.3,5.10,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = client instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->client def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (Twitter) def_%v_6 
+		 1: (inherit REST) def_%v_7 %v_6[5.0,] 
+		 2: %v_7[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[5.0,] 	 SYMBOL:REST,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: (inherit Client) def_%v_8 %v_7[6.0,5.1,] 
+		 1: %v_8[7.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_7->const_missing def_%v_8 %v_7[6.0,5.1,] 	 SYMBOL:Client,	 ARGS:Symbol,
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %v_8->new def_%v_9 %v_8[8.0,7.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_8,
+CLOSURE BEGIN: config[] %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_config 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (AppConfig) def_%cl_1_3 
+		 2: %cl_1_3->services def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_4->twitter def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_5->key def_%cl_1_6 %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:
+		 5: ATTRASSIGN config->consumer_key %cl_1_6[3.4,] 
+		 6: 
+		 7: (AppConfig) def_%cl_1_7 
+		 8: %cl_1_7->services def_%cl_1_8 %cl_1_7[3.7,] 	 SYMBOL:	 ARGS:
+		 9: %cl_1_8->twitter def_%cl_1_9 %cl_1_8[3.8,] 	 SYMBOL:	 ARGS:
+		 10: %cl_1_9->secret def_%cl_1_10 %cl_1_9[3.9,] 	 SYMBOL:	 ARGS:
+		 11: ATTRASSIGN config->consumer_secret %cl_1_10[3.10,] 
+		 12: 
+		 13: %self->access_token def_%cl_1_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 14: ATTRASSIGN config->access_token %cl_1_11[3.13,] 
+		 15: 
+		 16: %self->access_secret def_%cl_1_12 %self[3.13,2.0,] 	 SYMBOL:	 ARGS:
+		 17: ATTRASSIGN config->access_token_secret %cl_1_12[3.16,] 
+		 18: RETURN %cl_1_12[3.16,] %self[3.13,3.16,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_13 
+		 1: def_%cl_1_14 %cl_1_13[4.0,] 
+		 2: RETURN %cl_1_14[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 1: ATTRASSIGN %self->client %v_9[9.0,] 
+		 2: RETURN %v_9[9.0,] %self[9.1,2.0,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = attempt_post instanceMethod = true
+BB 1
+	outgoing: 21 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: RECEIVECONSTARG def_retry_count 
+		 7: retry_count[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_retry_count 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_3 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->build_twitter_post def_%v_6 %self[2.0,] post[2.5,] retry_count[3.0,2.6,] 	 SYMBOL:	 ARGS:post,retry_count,
+		 3: COPY TYPE_PASS def_message %v_6[6.2,] 
+		 4: 
+		 5: %self->client def_%v_7 %self[6.2,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %v_7->update def_%v_8 %v_7[6.5,] message[6.3,] 	 SYMBOL:	 ARGS:message,
+		 7: COPY TYPE_PASS def_%v_5 %v_8[6.6,] 
+		 8: %v_3[4.0,] 
+BB 7
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 10 19 
+	datadep: 
+	instructions:
+		 0: def_%v_9 
+		 1: (Twitter) def_%v_10 
+		 2: (inherit Error) def_%v_11 %v_10[8.1,] 
+		 3: %v_11[8.2,] 
+BB 9
+	outgoing: 10 19 
+	datadep: 
+	instructions:
+		 0: %v_10->const_missing def_%v_11 %v_10[8.1,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 10
+	outgoing: 11 12 19 
+	datadep: 
+	instructions:
+		 0: (inherit Forbidden) def_%v_12 %v_11[9.0,8.2,] 
+		 1: %v_12[10.0,] 
+BB 11
+	outgoing: 12 19 
+	datadep: 
+	instructions:
+		 0: %v_11->const_missing def_%v_12 %v_11[9.0,8.2,] 	 SYMBOL:Forbidden,	 ARGS:Symbol,
+BB 12
+	outgoing: 13 14 19 
+	datadep: 
+	instructions:
+		 0: def_%v_13 %v_12[11.0,10.0,] %v_9[8.0,] 
+		 1: BRANCH %v_13[12.0,] 
+BB 13
+	outgoing: 19 21 
+	datadep: 
+	instructions:
+		 0: %v_9[8.0,] 
+BB 14
+	outgoing: 15 16 19 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_14 
+		 1: COPY TYPE_PASS def_e %v_14[14.0,] 
+		 2: 
+		 3: %v_14->message def_%v_15 %v_14[14.0,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "is over 140" def_%v_16 
+		 5: %v_15->include? def_%v_17 %v_15[14.3,] %v_16[14.4,] 	 SYMBOL:	 ARGS:%v_16,
+		 6: %v_17->! def_%v_18 %v_17[14.5,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_18[14.6,] 
+BB 15
+	outgoing: 17 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->raise def_%v_19 %self[2.0,] e[14.1,] 	 SYMBOL:	 ARGS:e,
+		 2: 
+BB 16
+	outgoing: 17 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: retry_count->+ def_%v_20 retry_count[3.0,2.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: %self->attempt_post def_%v_21 %self[2.0,] post[2.5,] %v_20[16.1,] 	 SYMBOL:	 ARGS:post,%v_20,
+		 3: COPY TYPE_PASS def_%v_19 %v_21[16.2,] 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_5 %v_19[16.3,15.1,] 
+		 1: %v_3[4.0,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+BB 19
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: def_%v_22 
+		 1: def_%v_23 %v_22[19.0,] %v_3[4.0,] 
+		 2: %v_22[19.0,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[6.7,17.0,] %self[2.0,] 
+BB 21
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_twitter_post instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: RECEIVECONSTARG def_retry_count 
+		 7: retry_count[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_retry_count 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (MAX_CHARACTERS) def_%v_3 
+		 2: %v_3->- def_%v_4 %v_3[4.1,] retry_count[3.0,2.6,] 	 SYMBOL:	 ARGS:retry_count,
+		 3: COPY TYPE_PASS def_max_characters %v_4[4.2,] 
+		 4: 
+		 5: post->message def_%v_5 post[2.5,] 	 SYMBOL:	 ARGS:
+		 6: %v_5->plain_text_without_markdown def_%v_6 %v_5[4.5,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_PASS def_post_text %v_6[4.6,] 
+		 8: 
+		 9: %self->truncate_and_add_post_link def_%v_7 %self[2.0,] post[4.5,2.5,] %v_6[4.6,] max_characters[4.3,] 	 SYMBOL:	 ARGS:post,post_text,max_characters,
+		 10: RETURN %v_7[4.9,] %self[4.9,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = truncate_and_add_post_link instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: RECEIVEARG def_post_text 
+		 7: RECEIVEARG def_max_characters 
+		 8: 
+		 9: %self->needs_link? def_%v_3 %self[2.0,] post[2.5,] post_text[2.6,] max_characters[2.7,] 	 SYMBOL:	 ARGS:post,post_text,max_characters,
+		 10: BRANCH %v_3[2.9,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: (AppConfig) def_%v_5 
+		 3: %v_5->pod_uri def_%v_6 %v_5[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_6->scheme def_%v_7 %v_6[3.3,] 	 SYMBOL:	 ARGS:
+		 5: (AppConfig) def_%v_8 
+		 6: %v_8->pod_uri def_%v_9 %v_8[3.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_9->authority def_%v_10 %v_9[3.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-protocol-host- def_%v_11 %v_7[3.4,] %v_10[3.7,] 
+		 9: %self->short_post_url def_%v_12 %self[2.0,] post[2.5,] %v_11[3.8,] 	 SYMBOL:	 ARGS:post,%v_11,
+		 10: COPY TYPE_PASS def_post_url %v_12[3.9,] 
+		 11: 
+		 12: (SHORTENED_URL_LENGTH) def_%v_13 
+		 13: max_characters->- def_%v_14 max_characters[2.7,] %v_13[3.12,] 	 SYMBOL:	 ARGS:%v_13,
+		 14: %v_14->+ def_%v_15 %v_14[3.13,] 	 SYMBOL:	 ARGS:Fixnum,
+		 15: post_text->truncate def_%v_16 post_text[2.6,] %v_15[3.14,] 	 SYMBOL:	 ARGS:%v_15,
+		 16: COPY TYPE_PASS def_truncated_text %v_16[3.15,] 
+		 17: 
+		 18: %self->restore_truncated_url def_%v_17 %self[3.9,2.0,] %v_16[3.15,] post_text[3.15,2.6,] max_characters[3.13,2.7,] 	 SYMBOL:	 ARGS:truncated_text,post_text,max_characters,
+		 19: COPY TYPE_PASS def_truncated_text %v_17[3.18,] 
+		 20: 
+		 21: COPY TYPE_StringLiteral " " def_%v_18 
+		 22: BUILDSTRING def_%v_19 %v_17[3.18,] %v_18[3.21,] post_url[3.10,] 
+		 23: RETURN %v_19[3.22,] %self[3.9,3.18,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN post_text[2.6,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = needs_link? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: RECEIVEARG def_post_text 
+		 7: RECEIVEARG def_max_characters 
+		 8: 
+		 9: %self->adjust_length_for_urls def_%v_3 %self[2.0,] post_text[2.6,] 	 SYMBOL:	 ARGS:post_text,
+		 10: %v_3->> def_%v_4 %v_3[2.9,] max_characters[2.7,] 	 SYMBOL:	 ARGS:max_characters,
+		 11: BRANCH %v_4[2.10,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: post->photos def_%v_5 post[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->any? def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_6[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_4[2.10,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = adjust_length_for_urls instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post_text 
+		 6: 
+		 7: post_text->length def_%v_3 post_text[2.5,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_real_length %v_3[2.7,] 
+		 9: 
+		 10: (URI) def_%v_4 
+		 11: COPY TYPE_StringLiteral "http" def_%v_5 
+		 12: COPY TYPE_StringLiteral "https" def_%v_6 
+		 13: COPY TYPE_Array def_%v_7 %v_5[2.11,] %v_6[2.12,] 
+		 14: %v_4->extract def_%v_8 %v_4[2.10,] post_text[2.5,2.7,] %v_7[2.13,] %self[2.0,] 	 SYMBOL:	 ARGS:post_text,%v_7,%v_4,
+CLOSURE BEGIN: url[] real_length[2.8,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_url 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: url->length def_%cl_1_3 url[2.2,] 	 SYMBOL:	 ARGS:
+		 2: (SHORTENED_URL_LENGTH) def_%cl_1_4 
+		 3: %cl_1_3->>= def_%cl_1_5 %cl_1_3[3.1,] %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:%cl_1_4,
+		 4: BRANCH %cl_1_5[3.3,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: url->length def_%cl_1_6 url[2.2,] 	 SYMBOL:	 ARGS:
+		 2: (SHORTENED_URL_LENGTH) def_%cl_1_7 
+		 3: %cl_1_6->- def_%cl_1_8 %cl_1_6[4.1,] %cl_1_7[4.2,] 	 SYMBOL:	 ARGS:%cl_1_7,
+		 4: real_length->- def_%cl_1_9 real_length[] %cl_1_8[4.3,] 	 SYMBOL:	 ARGS:%cl_1_8,
+		 5: COPY TYPE_PASS def_real_length %cl_1_9[4.4,] 
+		 6: 
+BB 5
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SHORTENED_URL_LENGTH) def_%cl_1_10 
+		 2: url->length def_%cl_1_11 url[2.2,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_10->- def_%cl_1_12 %cl_1_10[5.1,] %cl_1_11[5.2,] 	 SYMBOL:	 ARGS:%cl_1_11,
+		 4: real_length->+ def_%cl_1_13 real_length[] %cl_1_12[5.3,] 	 SYMBOL:	 ARGS:%cl_1_12,
+		 5: COPY TYPE_PASS def_real_length %cl_1_13[5.4,] 
+		 6: RETURN %cl_1_13[5.4,] %self[2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_9[4.4,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_14 
+		 1: def_%cl_1_15 %cl_1_14[7.0,] 
+		 2: RETURN %cl_1_15[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: real_length[5.5,4.5,] 
+		 15: 
+		 16: RETURN real_length[2.8,2.14,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = restore_truncated_url instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_truncated_text 
+		 6: RECEIVEARG def_post_text 
+		 7: RECEIVEARG def_max_characters 
+		 8: 
+		 9: COPY TYPE_StringLiteral "" def_%v_3 
+		 10: (LINK_PATTERN) def_%v_4 
+		 11: COPY TYPE_StringLiteral "\Z" def_%v_5 
+		 12: def_%v_6 %v_3[2.9,] %v_4[2.10,] %v_5[2.11,] 
+		 13: truncated_text->!~ def_%v_7 truncated_text[2.5,] %v_6[2.12,] 	 SYMBOL:	 ARGS:%v_6,
+		 14: BRANCH %v_7[2.13,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN truncated_text[2.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: (LINK_PATTERN) def_%v_9 
+		 3: COPY TYPE_StringLiteral "http" def_%v_10 
+		 4: truncated_text->rindex def_%v_11 truncated_text[2.5,] %v_10[4.3,] 	 SYMBOL:	 ARGS:%v_10,
+		 5: post_text->match def_%v_12 post_text[2.6,] %v_9[4.2,] %v_11[4.4,] 	 SYMBOL:	 ARGS:%v_9,%v_11,
+		 6: %v_12->[] def_%v_13 %v_12[4.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 7: COPY TYPE_PASS def_url %v_13[4.6,] 
+		 8: 
+		 9: (SHORTENED_URL_LENGTH) def_%v_14 
+		 10: max_characters->- def_%v_15 max_characters[2.7,] %v_14[4.9,] 	 SYMBOL:	 ARGS:%v_14,
+		 11: %v_15->+ def_%v_16 %v_15[4.10,] 	 SYMBOL:	 ARGS:Fixnum,
+		 12: COPY TYPE_StringLiteral " " def_%v_17 
+		 13: COPY TYPE_StringLiteral "" def_%v_18 
+		 14: HASH-separator-omission- def_%v_19 %v_17[4.12,] %v_18[4.13,] 
+		 15: post_text->truncate def_%v_20 post_text[4.5,2.6,] %v_16[4.11,] %v_19[4.14,] 	 SYMBOL:	 ARGS:%v_16,%v_19,
+		 16: COPY TYPE_PASS def_truncated_text %v_20[4.15,] 
+		 17: 
+		 18: COPY TYPE_StringLiteral " " def_%v_21 
+		 19: COPY TYPE_StringLiteral " ..." def_%v_22 
+		 20: BUILDSTRING def_%v_23 %v_20[4.15,] %v_21[4.18,] url[4.7,] %v_22[4.19,] 
+		 21: RETURN %v_23[4.20,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = delete_from_twitter instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_service_post_id 
+		 6: 
+		 7: %self->client def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->status_destroy def_%v_4 %v_3[2.7,] service_post_id[2.5,] 	 SYMBOL:	 ARGS:service_post_id,
+		 9: RETURN %v_4[2.8,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

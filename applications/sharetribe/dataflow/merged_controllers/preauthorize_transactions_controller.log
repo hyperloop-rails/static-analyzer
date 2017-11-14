@@ -1,0 +1,4839 @@
+SET IRMethod, name = initiate instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:delivery,	 ARGS:Symbol,
+		 8: GETFIELD %self->listing def_%v_5 %self[2.0,2.6,] 
+		 9: %v_5->require_shipping_address def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: GETFIELD %self->listing def_%v_7 %self[2.0,2.6,] 
+		 11: %v_7->pickup_enabled def_%v_8 %v_7[2.10,] 	 SYMBOL:	 ARGS:
+		 12: HASH-delivery_method_str-shipping-pickup- def_%v_9 %v_4[2.7,] %v_6[2.9,] %v_8[2.11,] 
+		 13: %self->valid_delivery_method def_%v_10 %self[2.0,2.6,] %v_9[2.12,] 	 SYMBOL:	 ARGS:%v_9,
+		 14: COPY TYPE_PASS def_delivery_method %v_10[2.13,] 
+		 15: 
+		 16: %v_10->== def_%v_11 %v_10[2.13,] 	 SYMBOL:errored,	 ARGS:Symbol,
+		 17: BRANCH %v_11[2.16,] 
+BB 3
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->error_not_found_path def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->redirect_to def_%v_13 %self[3.1,2.0,] %v_12[3.1,] 	 SYMBOL:	 ARGS:%v_12,
+		 3: RETURN %v_13[3.2,] %self[3.1,3.2,2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+		 1: 
+		 2: (TransactionViewUtils) def_%v_15 
+		 3: %self->params def_%v_16 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_16->[] def_%v_17 %v_16[4.3,] 	 SYMBOL:quantity,	 ARGS:Symbol,
+		 5: %v_15->parse_quantity def_%v_18 %v_15[4.2,] %v_17[4.4,] 	 SYMBOL:	 ARGS:%v_17,
+		 6: COPY TYPE_PASS def_quantity %v_18[4.5,] 
+		 7: 
+		 8: %self->params def_%v_19 %self[4.3,2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_19->[] def_%v_20 %v_19[4.8,] 	 SYMBOL:listing_id,	 ARGS:Symbol,
+		 10: delivery_method->== def_%v_21 delivery_method[2.14,] 	 SYMBOL:shipping,	 ARGS:Symbol,
+		 11: HASH-listing_id-quantity-shipping_enabled- def_%v_22 %v_20[4.9,] quantity[4.6,] %v_21[4.10,] 
+		 12: %self->view_params def_%v_23 %self[4.3,4.8,2.0,] %v_22[4.11,] 	 SYMBOL:	 ARGS:%v_22,
+		 13: COPY TYPE_PASS def_vprms %v_23[4.12,] 
+		 14: 
+		 15: (TransactionViewUtils) def_%v_24 
+		 16: %v_23->[] def_%v_25 %v_23[4.12,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 17: %v_25->[] def_%v_26 %v_25[4.16,] 	 SYMBOL:price,	 ARGS:Symbol,
+		 18: vprms->[] def_%v_27 vprms[4.13,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 19: %self->translate_unit_from_listing def_%v_28 %self[4.3,4.8,4.12,2.0,] %v_27[4.18,] 	 SYMBOL:	 ARGS:%v_27,
+		 20: vprms->[] def_%v_29 vprms[4.13,4.18,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 21: %self->translate_selector_label_from_listing def_%v_30 %self[4.3,4.8,4.12,4.19,2.0,] %v_29[4.20,] 	 SYMBOL:	 ARGS:%v_29,
+		 22: 
+		 23: quantity->> def_%v_31 quantity[4.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 24: BRANCH %v_31[4.23,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: vprms->[] def_%v_32 vprms[4.13,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 1: %v_32->[] def_%v_33 %v_32[6.0,] 	 SYMBOL:shipping_price,	 ARGS:Symbol,
+		 2: %v_33->present? def_%v_34 %v_33[6.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_31 %v_34[6.2,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_31[6.3,4.23,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: vprms->[] def_%v_35 vprms[4.13,] 	 SYMBOL:subtotal,	 ARGS:Symbol,
+		 1: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_35 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: delivery_method->== def_%v_36 delivery_method[2.14,] 	 SYMBOL:shipping,	 ARGS:Symbol,
+		 2: BRANCH %v_36[10.1,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: vprms->[] def_%v_37 vprms[4.13,] 	 SYMBOL:shipping_price,	 ARGS:Symbol,
+		 1: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_37 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: vprms->[] def_%v_38 vprms[4.13,] 	 SYMBOL:total_price,	 ARGS:Symbol,
+		 1: HASH-booking-quantity-listing_price-localized_unit_type-localized_selector_label-subtotal-shipping_price-total- def_%v_39 quantity[4.6,] %v_26[4.17,] %v_28[4.19,] %v_30[4.21,] %v_35[9.0,8.0,] %v_37[12.0,11.0,] %v_38[13.0,] 
+		 2: %v_24->price_break_down_locals def_%v_40 %v_24[4.15,] %v_39[13.1,] 	 SYMBOL:	 ARGS:%v_39,
+		 3: COPY TYPE_PASS def_price_break_down_locals %v_40[13.2,] 
+		 4: 
+		 5: (LocalizationUtils) def_%v_41 
+		 6: GETFIELD %self->current_community def_%v_42 %self[2.0,] 
+		 7: %v_42->country def_%v_43 %v_42[13.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_41->valid_country_code def_%v_44 %v_41[13.5,] %v_43[13.7,] 	 SYMBOL:	 ARGS:%v_43,
+		 9: COPY TYPE_PASS def_community_country_code %v_44[13.8,] 
+		 10: 
+		 11: %self->ruby_code_from_view def_%v_45 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 12: %v_45->ruby_code_from_view def_%v_46 %v_45[13.11,] %self[13.11,2.0,] 	 SYMBOL:	 ARGS:%v_45,
+CLOSURE BEGIN: %self[13.11,2.0,] announcement[] author_link[] quantity[4.6,] form[] delivery_method[2.14,] param[] value[] 
+BB 1
+	outgoing: 39 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_rb_from_view 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 11 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (APP_CONFIG) def_%cl_1_3 
+		 2: %cl_1_3->use_kissmetrics def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_1_4[3.2,] 
+BB 4
+	outgoing: 5 6 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "_kms('//i.kissmetrics.com/i.js');_kms('" def_%cl_1_5 
+		 2: (APP_CONFIG) def_%cl_1_6 
+		 3: %cl_1_6->kissmetrics_url def_%cl_1_7 %cl_1_6[4.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "');" def_%cl_1_8 
+		 5: BUILDSTRING def_%cl_1_9 %cl_1_5[4.1,] %cl_1_7[4.3,] %cl_1_8[4.4,] 
+		 6: 
+		 7: 
+		 8: GETFIELD %self->current_user def_%cl_1_10 %self[2.0,] 
+		 9: BRANCH %cl_1_10[4.8,] 
+BB 5
+	outgoing: 7 37 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "_kmq.push(['identify', '" def_%cl_1_11 
+		 1: GETFIELD %self->current_user def_%cl_1_12 %self[2.0,] 
+		 2: %cl_1_12->id def_%cl_1_13 %cl_1_12[5.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "']);" def_%cl_1_14 
+		 4: BUILDSTRING def_%cl_1_15 %cl_1_11[5.0,] %cl_1_13[5.2,] %cl_1_14[5.3,] 
+		 5: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_15 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: GETFIELD %self->current_community def_%cl_1_16 %self[2.0,] 
+		 3: BRANCH %cl_1_16[7.2,] 
+BB 8
+	outgoing: 10 37 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "_kmq.push(['set', {'SiteName' : '" def_%cl_1_17 
+		 1: GETFIELD %self->current_community def_%cl_1_18 %self[2.0,] 
+		 2: %cl_1_18->ident def_%cl_1_19 %cl_1_18[8.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "'}]);" def_%cl_1_20 
+		 4: BUILDSTRING def_%cl_1_21 %cl_1_17[8.0,] %cl_1_19[8.2,] %cl_1_20[8.3,] 
+		 5: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "_kmq.push(['set', {'SiteName' : 'dashboard'}]);" def_%cl_1_22 
+		 2: COPY TYPE_PASS def_%cl_1_21 %cl_1_22[9.1,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_21 
+BB 12
+	outgoing: 13 14 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%cl_1_23 
+		 2: %cl_1_23->locale def_%cl_1_24 %cl_1_23[12.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: %self->content_for def_%cl_1_25 %self[2.0,] 	 SYMBOL:head,	 ARGS:Symbol,
+		 5: 
+		 6: %self->display_expiration_notice? def_%cl_1_26 %self[12.4,2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %cl_1_26[12.6,] 
+BB 13
+	outgoing: 15 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->content_for def_%cl_1_27 %self[2.0,] %self[2.0,] 	 SYMBOL:javascript,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: COPY TYPE_StringLiteral "expiration.title" def_%cl_1_28 
+		 4: %self->t def_%cl_1_29 %self[13.1,2.0,] %cl_1_28[13.3,] 	 SYMBOL:	 ARGS:%cl_1_28,
+		 5: 
+		 6: COPY TYPE_StringLiteral "expiration.sub_title_new" def_%cl_1_30 
+		 7: %self->t def_%cl_1_31 %self[13.1,13.4,2.0,] %cl_1_30[13.6,] 	 SYMBOL:	 ARGS:%cl_1_30,
+		 8: 
+		 9: %self->external_plan_service_login_url def_%cl_1_32 %self[13.1,13.4,13.7,2.0,] 	 SYMBOL:	 ARGS:
+		 10: 
+		 11: COPY TYPE_StringLiteral "expiration.link_to_external_service" def_%cl_1_33 
+		 12: %self->t def_%cl_1_34 %self[13.1,13.4,13.7,13.9,2.0,] %cl_1_33[13.11,] 	 SYMBOL:	 ARGS:%cl_1_33,
+		 13: 
+		 14: COPY TYPE_StringLiteral "expiration.need_more_info" def_%cl_1_35 
+		 15: %self->t def_%cl_1_36 %self[13.1,13.4,13.7,13.9,13.12,2.0,] %cl_1_35[13.14,] 	 SYMBOL:	 ARGS:%cl_1_35,
+		 16: 
+		 17: COPY TYPE_StringLiteral "expiration.contact_us" def_%cl_1_37 
+		 18: %self->t def_%cl_1_38 %self[13.1,13.4,13.7,13.9,13.12,13.15,2.0,] %cl_1_37[13.17,] 	 SYMBOL:	 ARGS:%cl_1_37,
+		 19: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_38 
+BB 15
+	outgoing: 16 17 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->content_for def_%cl_1_39 %self[2.0,] %self[2.0,] 	 SYMBOL:page_content,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: %self[2.0,] announcement[] author_link[] quantity[] form[] delivery_method[] 
+BB 1
+	outgoing: 31 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->with_big_cover_photo def_%cl_3_3 %self[2.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->action_button_label def_%cl_4_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: %self->listing def_%cl_4_4 %self[3.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %cl_4_4->[] def_%cl_4_5 %cl_4_4[3.3,] 	 SYMBOL:title,	 ARGS:Symbol,
+		 5: %self->listing def_%cl_4_6 %self[3.1,3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %cl_4_6->[] def_%cl_4_7 %cl_4_6[3.5,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 7: %self->listing_path def_%cl_4_8 %self[3.1,3.3,3.5,2.0,] %cl_4_7[3.6,] 	 SYMBOL:	 ARGS:%cl_4_7,
+		 8: %self->link_to def_%cl_4_9 %self[3.1,3.3,3.5,3.7,2.0,] %cl_4_5[3.4,] %cl_4_8[3.7,] 	 SYMBOL:	 ARGS:%cl_4_5,%cl_4_8,
+		 9: RETURN %cl_4_9[3.8,] %self[3.1,3.3,3.5,3.7,3.8,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_4_10 
+		 1: def_%cl_4_11 %cl_4_10[4.0,] 
+		 2: RETURN %cl_4_11[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: %self->with_small_cover_photo def_%cl_3_4 %self[3.1,2.0,] %self[3.1,2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: %self[3.1,2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_5_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%cl_5_3 %cl_5_0[2.1,] 
+		 2: 
+		 3: %self->action_button_label def_%cl_5_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: 
+		 5: %self->listing def_%cl_5_5 %self[3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %cl_5_5->[] def_%cl_5_6 %cl_5_5[3.5,] 	 SYMBOL:title,	 ARGS:Symbol,
+		 7: %self->listing def_%cl_5_7 %self[3.3,3.5,2.0,] 	 SYMBOL:	 ARGS:
+		 8: %cl_5_7->[] def_%cl_5_8 %cl_5_7[3.7,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 9: %self->listing_path def_%cl_5_9 %self[3.3,3.5,3.7,2.0,] %cl_5_8[3.8,] 	 SYMBOL:	 ARGS:%cl_5_8,
+		 10: %self->link_to def_%cl_5_10 %self[3.3,3.5,3.7,3.9,2.0,] %cl_5_6[3.6,] %cl_5_9[3.9,] 	 SYMBOL:	 ARGS:%cl_5_6,%cl_5_9,
+		 11: RETURN %cl_5_10[3.10,] %self[3.3,3.5,3.7,3.9,3.10,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_5_11 
+		 1: def_%cl_5_12 %cl_5_11[4.0,] 
+		 2: RETURN %cl_5_12[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: 
+		 5: COPY TYPE_StringLiteral "ss-check" def_%cl_3_5 
+		 6: COPY TYPE_StringLiteral "ss-info" def_%cl_3_6 
+		 7: COPY TYPE_StringLiteral "ss-alert" def_%cl_3_7 
+		 8: HASH-notice-warning-error- def_%cl_3_8 %cl_3_5[3.5,] %cl_3_6[3.6,] %cl_3_7[3.7,] 
+		 9: %cl_3_8->each def_%cl_3_9 %cl_3_8[3.8,] %self[3.1,3.3,2.0,] 	 SYMBOL:	 ARGS:%cl_3_8,
+CLOSURE BEGIN: %self[3.1,3.3,2.0,] announcement[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_6_0 
+		 2: RECEIVEARG def_announcement 
+		 3: RECEIVEARG def_icon_class 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%cl_6_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_6_3->[] def_%cl_6_4 %cl_6_3[3.1,] announcement[2.2,] 	 SYMBOL:	 ARGS:announcement,
+		 3: BRANCH %cl_6_4[3.2,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: announcement->to_s def_%cl_6_5 announcement[2.2,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: 
+		 4: %self->flash def_%cl_6_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: %cl_6_6->[] def_%cl_6_7 %cl_6_6[4.4,] announcement[4.1,2.2,] 	 SYMBOL:	 ARGS:announcement,
+		 6: 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_6_7[4.5,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_6_8 
+		 1: def_%cl_6_9 %cl_6_8[7.0,] 
+		 2: RETURN %cl_6_9[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: icon_class[2.3,] 
+		 10: 
+		 11: %self->content_for def_%cl_3_10 %self[3.1,3.3,2.0,] %self[3.1,3.3,2.0,] 	 SYMBOL:javascript,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_7_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 12: 
+		 13: %self->content_for def_%cl_3_11 %self[3.1,3.3,3.11,2.0,] %self[3.1,3.3,3.11,2.0,] 	 SYMBOL:extra_javascript,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_8_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 14: 
+		 15: %self->author def_%cl_3_12 %self[3.1,3.3,3.11,3.13,2.0,] 	 SYMBOL:	 ARGS:
+		 16: %cl_3_12->[] def_%cl_3_13 %cl_3_12[3.15,] 	 SYMBOL:display_name,	 ARGS:Symbol,
+		 17: %self->author def_%cl_3_14 %self[3.1,3.3,3.11,3.13,3.15,2.0,] 	 SYMBOL:	 ARGS:
+		 18: %cl_3_14->[] def_%cl_3_15 %cl_3_14[3.17,] 	 SYMBOL:username,	 ARGS:Symbol,
+		 19: HASH-id- def_%cl_3_16 %cl_3_15[3.18,] 
+		 20: %self->person_path def_%cl_3_17 %self[3.1,3.3,3.11,3.13,3.15,3.17,2.0,] %cl_3_16[3.19,] 	 SYMBOL:	 ARGS:%cl_3_16,
+		 21: %self->link_to def_%cl_3_18 %self[3.1,3.3,3.11,3.13,3.15,3.17,3.20,2.0,] %cl_3_13[3.16,] %cl_3_17[3.20,] 	 SYMBOL:	 ARGS:%cl_3_13,%cl_3_17,
+		 22: COPY TYPE_PASS def_author_link %cl_3_18[3.21,] 
+		 23: 
+		 24: COPY TYPE_StringLiteral "listing_conversations.preauthorize.details" def_%cl_3_19 
+		 25: %self->t def_%cl_3_20 %self[3.1,3.3,3.11,3.13,3.15,3.17,3.20,3.21,2.0,] %cl_3_19[3.24,] 	 SYMBOL:	 ARGS:%cl_3_19,
+		 26: 
+		 27: COPY TYPE_StringLiteral "listing_conversations.preauthorize.by" def_%cl_3_21 
+		 28: %self->listing def_%cl_3_22 %self[3.1,3.3,3.11,3.13,3.15,3.17,3.20,3.21,3.25,2.0,] 	 SYMBOL:	 ARGS:
+		 29: %cl_3_22->[] def_%cl_3_23 %cl_3_22[3.28,] 	 SYMBOL:title,	 ARGS:Symbol,
+		 30: BUILDSTRING def_%cl_3_24 %cl_3_23[3.29,] 
+		 31: %self->listing def_%cl_3_25 %self[3.1,3.3,3.11,3.13,3.15,3.17,3.20,3.21,3.25,3.28,2.0,] 	 SYMBOL:	 ARGS:
+		 32: %cl_3_25->[] def_%cl_3_26 %cl_3_25[3.31,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 33: %self->listing_path def_%cl_3_27 %self[3.1,3.3,3.11,3.13,3.15,3.17,3.20,3.21,3.25,3.28,3.31,2.0,] %cl_3_26[3.32,] 	 SYMBOL:	 ARGS:%cl_3_26,
+		 34: %self->link_to def_%cl_3_28 %self[3.1,3.3,3.11,3.13,3.15,3.17,3.20,3.21,3.25,3.28,3.31,3.33,2.0,] %cl_3_24[3.30,] %cl_3_27[3.33,] 	 SYMBOL:	 ARGS:%cl_3_24,%cl_3_27,
+		 35: HASH-listing-author- def_%cl_3_29 %cl_3_28[3.34,] author_link[3.22,] 
+		 36: %self->t def_%cl_3_30 %self[3.1,3.3,3.11,3.13,3.15,3.17,3.20,3.21,3.25,3.28,3.31,3.33,3.34,2.0,] %cl_3_21[3.27,] %cl_3_29[3.35,] 	 SYMBOL:	 ARGS:%cl_3_21,%cl_3_29,
+		 37: %cl_3_30->html_safe def_%cl_3_31 %cl_3_30[3.36,] 	 SYMBOL:	 ARGS:
+		 38: 
+		 39: %self->booking def_%cl_3_32 %self[3.1,3.3,3.11,3.13,3.15,3.17,3.20,3.21,3.25,3.28,3.31,3.33,3.34,3.36,2.0,] 	 SYMBOL:	 ARGS:
+		 40: BRANCH %cl_3_32[3.39,] 
+BB 4
+	outgoing: 16 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "transactions.initiate.price_per_day" def_%cl_3_33 
+		 2: %self->t def_%cl_3_34 %self[2.0,] %cl_3_33[4.1,] 	 SYMBOL:	 ARGS:%cl_3_33,
+		 3: 
+		 4: %self->listing_price def_%cl_3_35 %self[4.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %self->humanized_money_with_symbol def_%cl_3_36 %self[4.2,4.4,2.0,] %cl_3_35[4.4,] 	 SYMBOL:	 ARGS:%cl_3_35,
+		 6: 
+		 7: COPY TYPE_StringLiteral "transactions.initiate.booked_days" def_%cl_3_37 
+		 8: %self->t def_%cl_3_38 %self[4.2,4.4,4.5,2.0,] %cl_3_37[4.7,] 	 SYMBOL:	 ARGS:%cl_3_37,
+		 9: 
+		 10: %self->start_on def_%cl_3_39 %self[4.2,4.4,4.5,4.8,2.0,] 	 SYMBOL:	 ARGS:
+		 11: HASH-format- def_%cl_3_40 
+		 12: %self->l def_%cl_3_41 %self[4.2,4.4,4.5,4.8,4.10,2.0,] %cl_3_39[4.10,] %cl_3_40[4.11,] 	 SYMBOL:	 ARGS:%cl_3_39,%cl_3_40,
+		 13: 
+		 14: COPY TYPE_StringLiteral "-" def_%cl_3_42 
+		 15: 
+		 16: %self->end_on def_%cl_3_43 %self[4.2,4.4,4.5,4.8,4.10,4.12,2.0,] 	 SYMBOL:	 ARGS:
+		 17: HASH-format- def_%cl_3_44 
+		 18: %self->l def_%cl_3_45 %self[4.2,4.4,4.5,4.8,4.10,4.12,4.16,2.0,] %cl_3_43[4.16,] %cl_3_44[4.17,] 	 SYMBOL:	 ARGS:%cl_3_43,%cl_3_44,
+		 19: 
+		 20: COPY TYPE_StringLiteral "(" def_%cl_3_46 
+		 21: %self->duration def_%cl_3_47 %self[4.2,4.4,4.5,4.8,4.10,4.12,4.16,4.18,2.0,] 	 SYMBOL:	 ARGS:
+		 22: COPY TYPE_StringLiteral "listing_conversations.preauthorize.day" def_%cl_3_48 
+		 23: %self->t def_%cl_3_49 %self[4.2,4.4,4.5,4.8,4.10,4.12,4.16,4.18,4.21,2.0,] %cl_3_48[4.22,] 	 SYMBOL:	 ARGS:%cl_3_48,
+		 24: COPY TYPE_StringLiteral "listing_conversations.preauthorize.days" def_%cl_3_50 
+		 25: %self->t def_%cl_3_51 %self[4.2,4.4,4.5,4.8,4.10,4.12,4.16,4.18,4.21,4.23,2.0,] %cl_3_50[4.24,] 	 SYMBOL:	 ARGS:%cl_3_50,
+		 26: %self->pluralize def_%cl_3_52 %self[4.2,4.4,4.5,4.8,4.10,4.12,4.16,4.18,4.21,4.23,4.25,2.0,] %cl_3_47[4.21,] %cl_3_49[4.23,] %cl_3_51[4.25,] 	 SYMBOL:	 ARGS:%cl_3_47,%cl_3_49,%cl_3_51,
+		 27: COPY TYPE_StringLiteral ")" def_%cl_3_53 
+		 28: BUILDSTRING def_%cl_3_54 %cl_3_46[4.20,] %cl_3_52[4.26,] %cl_3_53[4.27,] 
+		 29: 
+BB 5
+	outgoing: 6 7 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: quantity->present? def_%cl_3_55 quantity[] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_3_55[5.1,] 
+BB 6
+	outgoing: 7 29 
+	datadep: 
+	instructions:
+		 0: %self->localized_unit_type def_%cl_3_56 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %cl_3_56->present? def_%cl_3_57 %cl_3_56[6.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%cl_3_55 %cl_3_57[6.1,] 
+BB 7
+	outgoing: 8 14 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_3_55[6.2,5.1,] 
+BB 8
+	outgoing: 9 12 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "transactions.price_per_quantity" def_%cl_3_58 
+		 2: %self->localized_unit_type def_%cl_3_59 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: HASH-unit_type- def_%cl_3_60 %cl_3_59[8.2,] 
+		 4: %self->t def_%cl_3_61 %self[8.2,2.0,] %cl_3_58[8.1,] %cl_3_60[8.3,] 	 SYMBOL:	 ARGS:%cl_3_58,%cl_3_60,
+		 5: 
+		 6: %self->listing_price def_%cl_3_62 %self[8.2,8.4,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->humanized_money_with_symbol def_%cl_3_63 %self[8.2,8.4,8.6,2.0,] %cl_3_62[8.6,] 	 SYMBOL:	 ARGS:%cl_3_62,
+		 8: 
+		 9: quantity->> def_%cl_3_64 quantity[] 	 SYMBOL:	 ARGS:Fixnum,
+		 10: BRANCH %cl_3_64[8.9,] 
+BB 9
+	outgoing: 10 11 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->localized_selector_label def_%cl_3_65 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_3_65[9.1,] 
+BB 10
+	outgoing: 11 29 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "transactions.initiate.quantity" def_%cl_3_66 
+		 1: %self->t def_%cl_3_67 %self[2.0,] %cl_3_66[10.0,] 	 SYMBOL:	 ARGS:%cl_3_66,
+		 2: COPY TYPE_PASS def_%cl_3_65 %cl_3_67[10.1,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%cl_3_68 quantity[] 
+		 2: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_3_68 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_3_68 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_3_54 %cl_3_68[14.0,12.0,11.1,] 
+BB 16
+	outgoing: 17 18 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->subtotal def_%cl_3_69 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_3_69->present? def_%cl_3_70 %cl_3_69[16.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_3_70[16.2,] 
+BB 17
+	outgoing: 19 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "transactions.initiate.subtotal" def_%cl_3_71 
+		 2: %self->t def_%cl_3_72 %self[2.0,] %cl_3_71[17.1,] 	 SYMBOL:	 ARGS:%cl_3_71,
+		 3: 
+		 4: %self->subtotal def_%cl_3_73 %self[17.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %self->humanized_money_with_symbol def_%cl_3_74 %self[17.2,17.4,2.0,] %cl_3_73[17.4,] 	 SYMBOL:	 ARGS:%cl_3_73,
+		 6: 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_3_74 
+BB 19
+	outgoing: 20 21 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->shipping_price def_%cl_3_75 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_3_75->present? def_%cl_3_76 %cl_3_75[19.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_3_76[19.2,] 
+BB 20
+	outgoing: 22 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "transactions.initiate.shipping-price" def_%cl_3_77 
+		 2: %self->t def_%cl_3_78 %self[2.0,] %cl_3_77[20.1,] 	 SYMBOL:	 ARGS:%cl_3_77,
+		 3: 
+		 4: %self->shipping_price def_%cl_3_79 %self[20.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %self->humanized_money_with_symbol def_%cl_3_80 %self[20.2,20.4,2.0,] %cl_3_79[20.4,] 	 SYMBOL:	 ARGS:%cl_3_79,
+		 6: 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_3_80 
+BB 22
+	outgoing: 23 27 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->total def_%cl_3_81 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_3_81->present? def_%cl_3_82 %cl_3_81[22.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_3_82[22.2,] 
+BB 23
+	outgoing: 24 25 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->total_label def_%cl_3_83 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_3_83->present? def_%cl_3_84 %cl_3_83[23.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_3_84[23.2,] 
+BB 24
+	outgoing: 26 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->total_label def_%cl_3_85 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 25
+	outgoing: 26 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "transactions.total" def_%cl_3_86 
+		 2: %self->t def_%cl_3_87 %self[2.0,] %cl_3_86[25.1,] 	 SYMBOL:	 ARGS:%cl_3_86,
+		 3: COPY TYPE_PASS def_%cl_3_85 %cl_3_87[25.2,] 
+BB 26
+	outgoing: 28 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->total def_%cl_3_88 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->humanized_money_with_symbol def_%cl_3_89 %self[26.1,2.0,] %cl_3_88[26.1,] 	 SYMBOL:	 ARGS:%cl_3_88,
+		 3: 
+BB 27
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_3_89 
+BB 28
+	outgoing: 29 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->preauthorize_form def_%cl_3_90 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->form_action def_%cl_3_91 %self[28.1,2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "post" def_%cl_3_92 
+		 4: COPY TYPE_StringLiteral "transaction-form" def_%cl_3_93 
+		 5: HASH-id- def_%cl_3_94 %cl_3_93[28.4,] 
+		 6: HASH-url-method-html- def_%cl_3_95 %cl_3_91[28.2,] %cl_3_92[28.3,] %cl_3_94[28.5,] 
+		 7: %self->form_for def_%cl_3_96 %self[28.1,28.2,2.0,] %cl_3_90[28.1,] %cl_3_95[28.6,] %self[28.1,28.2,2.0,] 	 SYMBOL:	 ARGS:%cl_3_90,%cl_3_95,%self,
+CLOSURE BEGIN: %self[28.1,28.2,2.0,] form[] author_link[3.22,] quantity[] delivery_method[] 
+BB 1
+	outgoing: 20 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_9_0 
+		 2: RECEIVEARG def_form 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->preauthorize_form def_%cl_9_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_9_3->respond_to? def_%cl_9_4 %cl_9_3[3.1,] 	 SYMBOL:start_on,	 ARGS:Symbol,
+		 3: BRANCH %cl_9_4[3.2,] 
+BB 4
+	outgoing: 5 18 
+	datadep: 
+	instructions:
+		 0: %self->preauthorize_form def_%cl_9_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %cl_9_5->respond_to? def_%cl_9_6 %cl_9_5[4.0,] 	 SYMBOL:end_on,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%cl_9_4 %cl_9_6[4.1,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_9_4[4.2,3.2,] 
+BB 6
+	outgoing: 8 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->preauthorize_form def_%cl_9_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_9_7->start_on def_%cl_9_8 %cl_9_7[6.1,] 	 SYMBOL:	 ARGS:
+		 3: HASH-discard_day-discard_month-discard_year-default- def_%cl_9_9 %cl_9_8[6.2,] 
+		 4: form->date_select def_%cl_9_10 form[2.2,] %cl_9_9[6.3,] 	 SYMBOL:start_on,	 ARGS:Symbol,%cl_9_9,
+		 5: 
+		 6: %self->preauthorize_form def_%cl_9_11 %self[6.1,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %cl_9_11->end_on def_%cl_9_12 %cl_9_11[6.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-discard_day-discard_month-discard_year-default- def_%cl_9_13 %cl_9_12[6.7,] 
+		 9: form->date_select def_%cl_9_14 form[6.4,2.2,] %cl_9_13[6.8,] 	 SYMBOL:end_on,	 ARGS:Symbol,%cl_9_13,
+		 10: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_9_14 
+BB 8
+	outgoing: 9 10 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "conversations.new.optional_message_to" def_%cl_9_15 
+		 2: HASH-author_name- def_%cl_9_16 author_link[] 
+		 3: %self->t def_%cl_9_17 %self[2.0,] %cl_9_15[8.1,] %cl_9_16[8.2,] 	 SYMBOL:	 ARGS:%cl_9_15,%cl_9_16,
+		 4: %cl_9_17->html_safe def_%cl_9_18 %cl_9_17[8.3,] 	 SYMBOL:	 ARGS:
+		 5: 
+		 6: COPY TYPE_StringLiteral "text_area" def_%cl_9_19 
+		 7: HASH-class- def_%cl_9_20 %cl_9_19[8.6,] 
+		 8: form->text_area def_%cl_9_21 form[2.2,] %cl_9_20[8.7,] 	 SYMBOL:content,	 ARGS:Symbol,%cl_9_20,
+		 9: 
+		 10: GETFIELD %self->current_user def_%cl_9_22 %self[8.3,2.0,] 
+		 11: %cl_9_22->id def_%cl_9_23 %cl_9_22[8.10,] 	 SYMBOL:	 ARGS:
+		 12: HASH-value- def_%cl_9_24 %cl_9_23[8.11,] 
+		 13: form->hidden_field def_%cl_9_25 form[8.8,2.2,] %cl_9_24[8.12,] 	 SYMBOL:sender_id,	 ARGS:Symbol,%cl_9_24,
+		 14: 
+		 15: GETFIELD %self->current_community def_%cl_9_26 %self[8.3,2.0,] 
+		 16: %cl_9_26->transaction_agreement_in_use def_%cl_9_27 %cl_9_26[8.15,] 	 SYMBOL:	 ARGS:
+		 17: BRANCH %cl_9_27[8.16,] 
+BB 9
+	outgoing: 11 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "required" def_%cl_9_28 
+		 2: HASH-class- def_%cl_9_29 %cl_9_28[9.1,] 
+		 3: form->check_box def_%cl_9_30 form[2.2,] %cl_9_29[9.2,] 	 SYMBOL:contract_agreed,	 ARGS:Symbol,%cl_9_29,
+		 4: 
+		 5: GETFIELD %self->community_customization def_%cl_9_31 %self[2.0,] 
+		 6: %cl_9_31->transaction_agreement_label def_%cl_9_32 %cl_9_31[9.5,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: COPY TYPE_StringLiteral ".read_more" def_%cl_9_33 
+		 9: %self->t def_%cl_9_34 %self[2.0,] %cl_9_33[9.8,] 	 SYMBOL:	 ARGS:%cl_9_33,
+		 10: COPY TYPE_StringLiteral "#" def_%cl_9_35 
+		 11: COPY TYPE_StringLiteral "transaction-agreement-read-more" def_%cl_9_36 
+		 12: HASH-id- def_%cl_9_37 %cl_9_36[9.11,] 
+		 13: %self->link_to def_%cl_9_38 %self[9.9,2.0,] %cl_9_34[9.9,] %cl_9_35[9.10,] %cl_9_37[9.12,] 	 SYMBOL:	 ARGS:%cl_9_34,%cl_9_35,%cl_9_37,
+		 14: %cl_9_38->html_safe def_%cl_9_39 %cl_9_38[9.13,] 	 SYMBOL:	 ARGS:
+		 15: 
+		 16: COPY TYPE_StringLiteral "layouts/lightbox" def_%cl_9_40 
+		 17: COPY TYPE_StringLiteral "transaction-agreement-content" def_%cl_9_41 
+		 18: HASH-id- def_%cl_9_42 %cl_9_41[9.17,] 
+		 19: HASH-layout-locals- def_%cl_9_43 %cl_9_40[9.16,] %cl_9_42[9.18,] 
+		 20: %self->render def_%cl_9_44 %self[9.9,9.13,2.0,] %cl_9_43[9.19,] %self[9.9,9.13,2.0,] 	 SYMBOL:	 ARGS:%cl_9_43,%self,
+CLOSURE BEGIN: %self[9.9,9.13,2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_10_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->text_with_line_breaks def_%cl_10_3 %self[2.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_11_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->community_customization def_%cl_11_3 %self[2.0,] 
+		 2: %cl_11_3->transaction_agreement_content def_%cl_11_4 %cl_11_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_11_4->html_safe def_%cl_11_5 %cl_11_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %cl_11_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_11_6 
+		 1: def_%cl_11_7 %cl_11_6[4.0,] 
+		 2: RETURN %cl_11_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: RETURN %cl_10_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_10_4 
+		 1: def_%cl_10_5 %cl_10_4[4.0,] 
+		 2: RETURN %cl_10_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 21: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_9_44 
+BB 11
+	outgoing: 12 13 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->local_assigns def_%cl_9_45 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_9_45->has_key? def_%cl_9_46 %cl_9_45[11.1,] 	 SYMBOL:quantity,	 ARGS:Symbol,
+		 3: BRANCH %cl_9_46[11.2,] 
+BB 12
+	outgoing: 14 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-value- def_%cl_9_47 quantity[] 
+		 2: form->hidden_field def_%cl_9_48 form[2.2,] %cl_9_47[12.1,] 	 SYMBOL:quantity,	 ARGS:Symbol,%cl_9_47,
+		 3: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_9_48 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH delivery_method[] 
+BB 15
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-value- def_%cl_9_49 delivery_method[] 
+		 2: form->hidden_field def_%cl_9_50 form[2.2,] %cl_9_49[15.1,] 	 SYMBOL:delivery_method,	 ARGS:Symbol,%cl_9_49,
+		 3: 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_9_50 
+BB 17
+	outgoing: 18 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "paypal.pay_with_paypal" def_%cl_9_51 
+		 2: %self->t def_%cl_9_52 %self[2.0,] %cl_9_51[17.1,] 	 SYMBOL:	 ARGS:%cl_9_51,
+		 3: COPY TYPE_StringLiteral "checkout-with-paypal-button" def_%cl_9_53 
+		 4: HASH-class- def_%cl_9_54 %cl_9_53[17.3,] 
+		 5: form->button def_%cl_9_55 form[2.2,] %cl_9_52[17.2,] %cl_9_54[17.4,] 	 SYMBOL:	 ARGS:%cl_9_52,%cl_9_54,
+		 6: 
+		 7: (PaypalCountryHelper) def_%cl_9_56 
+		 8: %self->country_code def_%cl_9_57 %self[17.2,2.0,] 	 SYMBOL:	 ARGS:
+		 9: %cl_9_56->popup_link def_%cl_9_58 %cl_9_56[17.7,] %cl_9_57[17.8,] 	 SYMBOL:	 ARGS:%cl_9_57,
+		 10: COPY TYPE_PASS def_how_paypal_works_link %cl_9_58[17.9,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "https://www.paypalobjects.com/webstatic/en_US/i/buttons/cc-badges-ppmcvdam.png" def_%cl_9_59 
+		 13: COPY TYPE_StringLiteral "max-width: 100%" def_%cl_9_60 
+		 14: HASH-style- def_%cl_9_61 %cl_9_60[17.13,] 
+		 15: %self->image_tag def_%cl_9_62 %self[17.2,17.8,2.0,] %cl_9_59[17.12,] %cl_9_61[17.14,] 	 SYMBOL:	 ARGS:%cl_9_59,%cl_9_61,
+		 16: 
+		 17: 
+		 18: COPY TYPE_StringLiteral "listings.listing_actions.how_paypal_works" def_%cl_9_63 
+		 19: %self->t def_%cl_9_64 %self[17.2,17.8,17.15,2.0,] %cl_9_63[17.18,] 	 SYMBOL:	 ARGS:%cl_9_63,
+		 20: 
+		 21: COPY TYPE_StringLiteral "listings.listing_actions.payment_help" def_%cl_9_65 
+		 22: %self->t def_%cl_9_66 %self[17.2,17.8,17.15,17.19,2.0,] %cl_9_65[17.21,] 	 SYMBOL:	 ARGS:%cl_9_65,
+		 23: 
+		 24: %self->content_for def_%cl_9_67 %self[17.2,17.8,17.15,17.19,17.22,2.0,] %self[17.2,17.8,17.15,17.19,17.22,2.0,] 	 SYMBOL:extra_javascript,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_12_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 25: 
+		 26: COPY TYPE_StringLiteral "listing_conversations.preauthorize.you_will_be_charged" def_%cl_9_68 
+		 27: %self->expiration_period def_%cl_9_69 %self[17.2,17.8,17.15,17.19,17.22,17.24,2.0,] 	 SYMBOL:	 ARGS:
+		 28: HASH-author-expiration_period- def_%cl_9_70 author_link[] %cl_9_69[17.27,] 
+		 29: %self->t def_%cl_9_71 %self[17.2,17.8,17.15,17.19,17.22,17.24,17.27,2.0,] %cl_9_68[17.26,] %cl_9_70[17.28,] 	 SYMBOL:	 ARGS:%cl_9_68,%cl_9_70,
+		 30: %cl_9_71->html_safe def_%cl_9_72 %cl_9_71[17.29,] 	 SYMBOL:	 ARGS:
+		 31: RETURN %cl_9_72[17.30,] %self[17.2,17.8,17.15,17.19,17.22,17.24,17.27,17.29,2.0,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: def_%cl_9_73 
+		 1: def_%cl_9_74 %cl_9_73[18.0,] 
+		 2: RETURN %cl_9_74[18.1,] %self[2.0,] 
+BB 20
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: how_paypal_works_link[17.10,] 
+		 8: 
+		 9: COPY TYPE_StringLiteral "For security reasons JavaScript has to be enabled" def_%cl_3_97 
+		 10: RETURN %cl_3_97[28.9,] %self[28.1,28.2,28.7,2.0,] 
+BB 29
+	outgoing: 31 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_98 
+		 1: def_%cl_3_99 %cl_3_98[29.0,] 
+		 2: RETURN %cl_3_99[29.1,] %self[2.0,] 
+BB 31
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: %self->params def_%cl_1_40 %self[15.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_40->[] def_%cl_1_41 %cl_1_40[15.3,] 	 SYMBOL:controller,	 ARGS:Symbol,
+		 5: COPY TYPE_StringLiteral "homepage" def_%cl_1_42 
+		 6: %cl_1_41->== def_%cl_1_43 %cl_1_41[15.4,] %cl_1_42[15.5,] 	 SYMBOL:	 ARGS:%cl_1_42,
+		 7: BRANCH %cl_1_43[15.6,] 
+BB 16
+	outgoing: 17 37 
+	datadep: 
+	instructions:
+		 0: %self->params def_%cl_1_44 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %cl_1_44->[] def_%cl_1_45 %cl_1_44[16.0,] 	 SYMBOL:action,	 ARGS:Symbol,
+		 2: COPY TYPE_StringLiteral "index" def_%cl_1_46 
+		 3: %cl_1_45->== def_%cl_1_47 %cl_1_45[16.1,] %cl_1_46[16.2,] 	 SYMBOL:	 ARGS:%cl_1_46,
+		 4: COPY TYPE_PASS def_%cl_1_43 %cl_1_47[16.3,] 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_43[16.4,15.6,] 
+BB 18
+	outgoing: 20 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%cl_1_48 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "action" def_%cl_1_49 
+		 3: COPY TYPE_StringLiteral "controller" def_%cl_1_50 
+		 4: COPY TYPE_StringLiteral "q" def_%cl_1_51 
+		 5: COPY TYPE_StringLiteral "view" def_%cl_1_52 
+		 6: COPY TYPE_StringLiteral "utf8" def_%cl_1_53 
+		 7: %cl_1_48->except def_%cl_1_54 %cl_1_48[18.1,] %cl_1_49[18.2,] %cl_1_50[18.3,] %cl_1_51[18.4,] %cl_1_52[18.5,] %cl_1_53[18.6,] 	 SYMBOL:	 ARGS:%cl_1_49,%cl_1_50,%cl_1_51,%cl_1_52,%cl_1_53,
+		 8: %cl_1_54->each def_%cl_1_55 %cl_1_54[18.7,] %self[18.1,2.0,] 	 SYMBOL:	 ARGS:%cl_1_54,
+CLOSURE BEGIN: param[] %self[18.1,2.0,] value[] 
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_13_0 
+		 2: RECEIVEARG def_param 
+		 3: RECEIVEARG def_value 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Regexp def_%cl_13_3 
+		 2: param->match def_%cl_13_4 param[2.2,] 	 SYMBOL:	 ARGS:%cl_13_3,
+		 3: BRANCH %cl_13_4[3.2,] 
+BB 4
+	outgoing: 5 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Regexp def_%cl_13_5 
+		 1: param->match def_%cl_13_6 param[2.2,] 	 SYMBOL:	 ARGS:%cl_13_5,
+		 2: COPY TYPE_PASS def_%cl_13_4 %cl_13_6[4.1,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_13_4[4.2,3.2,] 
+BB 6
+	outgoing: 7 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Regexp def_%cl_13_7 
+		 1: param->match def_%cl_13_8 param[2.2,] 	 SYMBOL:	 ARGS:%cl_13_7,
+		 2: COPY TYPE_PASS def_%cl_13_4 %cl_13_8[6.1,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_13_4[6.2,4.2,3.2,] 
+BB 8
+	outgoing: 9 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Regexp def_%cl_13_9 
+		 1: param->match def_%cl_13_10 param[2.2,] 	 SYMBOL:	 ARGS:%cl_13_9,
+		 2: COPY TYPE_PASS def_%cl_13_4 %cl_13_10[8.1,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_13_4[8.2,6.2,4.2,3.2,] 
+BB 10
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_13_11 
+		 1: RETURN %cl_13_11[10.0,] %self[2.0,] 
+BB 11
+	outgoing: 13 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->hidden_field_tag def_%cl_13_12 %self[2.0,] param[2.2,] value[2.3,] 	 SYMBOL:	 ARGS:param,value,
+		 2: RETURN %cl_13_12[11.1,] %self[11.1,2.0,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: def_%cl_13_13 
+		 1: def_%cl_13_14 %cl_13_13[13.0,] 
+		 2: RETURN %cl_13_14[13.1,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: value[2.3,] 
+		 9: 
+		 10: COPY TYPE_StringLiteral "view" def_%cl_1_56 
+		 11: GETFIELD %self->view_type def_%cl_1_57 %self[18.1,2.0,] 
+		 12: %self->hidden_field_tag def_%cl_1_58 %self[18.1,2.0,] %cl_1_56[18.10,] %cl_1_57[18.11,] 	 SYMBOL:	 ARGS:%cl_1_56,%cl_1_57,
+		 13: 
+		 14: %self->content_for def_%cl_1_59 %self[18.1,18.12,2.0,] 	 SYMBOL:page_content,	 ARGS:Symbol,
+		 15: 
+BB 19
+	outgoing: 20 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->content_for def_%cl_1_60 %self[2.0,] 	 SYMBOL:page_content,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%cl_1_59 %cl_1_60[19.1,] 
+BB 20
+	outgoing: 21 29 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (APP_CONFIG) def_%cl_1_61 
+		 2: %cl_1_61->use_google_analytics def_%cl_1_62 %cl_1_61[20.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_1_62[20.2,] 
+BB 21
+	outgoing: 22 23 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "_gaq.push(['_setAccount', '" def_%cl_1_63 
+		 2: (APP_CONFIG) def_%cl_1_64 
+		 3: %cl_1_64->google_analytics_key def_%cl_1_65 %cl_1_64[21.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "']);" def_%cl_1_66 
+		 5: BUILDSTRING def_%cl_1_67 %cl_1_63[21.1,] %cl_1_65[21.3,] %cl_1_66[21.4,] 
+		 6: 
+		 7: COPY TYPE_StringLiteral "_gaq.push(['_setDomainName', '." def_%cl_1_68 
+		 8: (PublicSuffix) def_%cl_1_69 
+		 9: %self->request def_%cl_1_70 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 10: %cl_1_70->host def_%cl_1_71 %cl_1_70[21.9,] 	 SYMBOL:	 ARGS:
+		 11: %cl_1_69->parse def_%cl_1_72 %cl_1_69[21.8,] %cl_1_71[21.10,] 	 SYMBOL:	 ARGS:%cl_1_71,
+		 12: %cl_1_72->domain def_%cl_1_73 %cl_1_72[21.11,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_StringLiteral "']);" def_%cl_1_74 
+		 14: BUILDSTRING def_%cl_1_75 %cl_1_68[21.7,] %cl_1_73[21.12,] %cl_1_74[21.13,] 
+		 15: 
+		 16: GETFIELD %self->current_community def_%cl_1_76 %self[21.9,2.0,] 
+		 17: BRANCH %cl_1_76[21.16,] 
+BB 22
+	outgoing: 23 37 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_community def_%cl_1_77 %self[2.0,] 
+		 1: %cl_1_77->google_analytics_key def_%cl_1_78 %cl_1_77[22.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%cl_1_76 %cl_1_78[22.1,] 
+BB 23
+	outgoing: 24 27 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_76[22.2,21.16,] 
+BB 24
+	outgoing: 25 26 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "_gaq.push(['b._setAccount', '" def_%cl_1_79 
+		 2: GETFIELD %self->current_community def_%cl_1_80 %self[2.0,] 
+		 3: %cl_1_80->google_analytics_key def_%cl_1_81 %cl_1_80[24.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "']);" def_%cl_1_82 
+		 5: BUILDSTRING def_%cl_1_83 %cl_1_79[24.1,] %cl_1_81[24.3,] %cl_1_82[24.4,] 
+		 6: 
+		 7: COPY TYPE_StringLiteral "_gaq.push(['b._setDomainName', '." def_%cl_1_84 
+		 8: (PublicSuffix) def_%cl_1_85 
+		 9: %self->request def_%cl_1_86 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 10: %cl_1_86->host def_%cl_1_87 %cl_1_86[24.9,] 	 SYMBOL:	 ARGS:
+		 11: %cl_1_85->parse def_%cl_1_88 %cl_1_85[24.8,] %cl_1_87[24.10,] 	 SYMBOL:	 ARGS:%cl_1_87,
+		 12: %cl_1_88->domain def_%cl_1_89 %cl_1_88[24.11,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_StringLiteral "']);" def_%cl_1_90 
+		 14: BUILDSTRING def_%cl_1_91 %cl_1_84[24.7,] %cl_1_89[24.12,] %cl_1_90[24.13,] 
+		 15: 
+		 16: COPY TYPE_StringLiteral "_gaq.push(['b._addIgnoredOrganic', '" def_%cl_1_92 
+		 17: GETFIELD %self->current_community def_%cl_1_93 %self[24.9,2.0,] 
+		 18: (I18n) def_%cl_1_94 
+		 19: %cl_1_94->locale def_%cl_1_95 %cl_1_94[24.18,] 	 SYMBOL:	 ARGS:
+		 20: %cl_1_93->name def_%cl_1_96 %cl_1_93[24.17,] %cl_1_95[24.19,] 	 SYMBOL:	 ARGS:%cl_1_95,
+		 21: %self->Maybe def_%cl_1_97 %self[24.9,2.0,] %cl_1_96[24.20,] 	 SYMBOL:	 ARGS:%cl_1_96,
+		 22: COPY TYPE_StringLiteral "'" def_%cl_1_98 
+		 23: COPY TYPE_StringLiteral "" def_%cl_1_99 
+		 24: %cl_1_97->gsub def_%cl_1_100 %cl_1_97[24.21,] %cl_1_98[24.22,] %cl_1_99[24.23,] 	 SYMBOL:	 ARGS:%cl_1_98,%cl_1_99,
+		 25: COPY TYPE_StringLiteral "" def_%cl_1_101 
+		 26: %cl_1_100->or_else def_%cl_1_102 %cl_1_100[24.24,] %cl_1_101[24.25,] 	 SYMBOL:	 ARGS:%cl_1_101,
+		 27: COPY TYPE_StringLiteral "']);" def_%cl_1_103 
+		 28: BUILDSTRING def_%cl_1_104 %cl_1_92[24.16,] %cl_1_102[24.26,] %cl_1_103[24.27,] 
+		 29: 
+		 30: COPY TYPE_StringLiteral "_gaq.push(['b._addIgnoredOrganic', '" def_%cl_1_105 
+		 31: GETFIELD %self->current_community def_%cl_1_106 %self[24.9,24.21,2.0,] 
+		 32: %cl_1_106->domain def_%cl_1_107 %cl_1_106[24.31,] 	 SYMBOL:	 ARGS:
+		 33: BRANCH %cl_1_107[24.32,] 
+BB 25
+	outgoing: 26 37 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_community def_%cl_1_108 %self[2.0,] 
+		 1: %cl_1_108->ident def_%cl_1_109 %cl_1_108[25.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%cl_1_107 %cl_1_109[25.1,] 
+BB 26
+	outgoing: 28 37 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "']);" def_%cl_1_110 
+		 1: BUILDSTRING def_%cl_1_111 %cl_1_105[24.30,] %cl_1_107[25.2,24.32,] %cl_1_110[26.0,] 
+		 2: 
+BB 27
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_111 
+BB 28
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: 
+BB 29
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_111 
+BB 30
+	outgoing: 31 32 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->content_for def_%cl_1_112 %self[2.0,] 	 SYMBOL:location_search,	 ARGS:Symbol,
+		 2: 
+		 3: COPY TYPE_StringLiteral "application" def_%cl_1_113 
+		 4: %self->javascript_include_tag def_%cl_1_114 %self[30.1,2.0,] %cl_1_113[30.3,] 	 SYMBOL:	 ARGS:%cl_1_113,
+		 5: 
+		 6: 
+		 7: GETFIELD %self->analytics_event def_%cl_1_115 %self[30.1,30.4,2.0,] 
+		 8: BRANCH %cl_1_115[30.7,] 
+BB 31
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_116 
+		 1: 
+BB 32
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_116 
+BB 33
+	outgoing: 34 35 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Rails) def_%cl_1_117 
+		 2: %cl_1_117->env def_%cl_1_118 %cl_1_117[33.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_118->test? def_%cl_1_119 %cl_1_118[33.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %cl_1_119[33.3,] 
+BB 34
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_120 
+		 1: 
+BB 35
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_120 
+BB 36
+	outgoing: 37 39 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->content_for def_%cl_1_121 %self[2.0,] 	 SYMBOL:extra_javascript,	 ARGS:Symbol,
+		 2: 
+		 3: COPY TYPE_StringLiteral "error_pages.no_javascript.javascript_is_disabled_in_your_browser" def_%cl_1_122 
+		 4: %self->t def_%cl_1_123 %self[36.1,2.0,] %cl_1_122[36.3,] 	 SYMBOL:	 ARGS:%cl_1_122,
+		 5: 
+		 6: COPY TYPE_StringLiteral "error_pages.no_javascript.kassi_does_not_currently_work_without_javascript" def_%cl_1_124 
+		 7: %self->t def_%cl_1_125 %self[36.1,36.4,2.0,] %cl_1_124[36.6,] 	 SYMBOL:	 ARGS:%cl_1_124,
+		 8: RETURN %cl_1_125[36.7,] %self[36.1,36.4,36.7,2.0,] 
+BB 37
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_126 
+		 1: def_%cl_1_127 %cl_1_126[37.0,] 
+		 2: RETURN %cl_1_127[37.1,] %self[2.0,] 
+BB 39
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 13: RETURN %v_46[13.12,] %self[13.11,2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = initiated instanceMethod = true
+BB 1
+	outgoing: 23 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:listing_conversation,	 ARGS:Symbol,
+		 8: COPY TYPE_PASS def_conversation_params %v_4[2.7,] 
+		 9: 
+		 10: GETFIELD %self->current_community def_%v_5 %self[2.0,2.6,] 
+		 11: %v_5->transaction_agreement_in_use? def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_6[2.11,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: conversation_params->[] def_%v_7 conversation_params[2.8,] 	 SYMBOL:contract_agreed,	 ARGS:Symbol,
+		 1: COPY TYPE_StringLiteral "1" def_%v_8 
+		 2: %v_7->!= def_%v_9 %v_7[3.0,] %v_8[3.1,] 	 SYMBOL:	 ARGS:%v_8,
+		 3: COPY TYPE_PASS def_%v_6 %v_9[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[3.3,2.11,] 
+BB 5
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->request def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_10->xhr? def_%v_11 %v_10[5.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "error_messages.transaction_agreement.required_error" def_%v_12 
+		 4: %self->t def_%v_13 %self[5.1,2.0,] %v_12[5.3,] 	 SYMBOL:	 ARGS:%v_12,
+		 5: HASH-action- def_%v_14 
+		 6: %self->render_error_response def_%v_15 %self[5.1,5.4,2.0,] %v_11[5.2,] %v_13[5.4,] %v_14[5.5,] 	 SYMBOL:	 ARGS:%v_11,%v_13,%v_14,
+		 7: RETURN %v_15[5.6,] %self[5.1,5.4,5.6,2.0,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+		 1: 
+		 2: (PreauthorizeMessageForm) def_%v_17 
+		 3: GETFIELD %self->listing def_%v_18 %self[2.0,] 
+		 4: %v_18->id def_%v_19 %v_18[6.3,] 	 SYMBOL:	 ARGS:
+		 5: HASH-listing_id- def_%v_20 %v_19[6.4,] 
+		 6: conversation_params->merge def_%v_21 conversation_params[2.8,] %v_20[6.5,] 	 SYMBOL:	 ARGS:%v_20,
+		 7: %v_17->new def_%v_22 %v_17[6.2,] %v_21[6.6,] 	 SYMBOL:	 ARGS:%v_21,
+		 8: COPY TYPE_PASS def_preauthorize_form %v_22[6.7,] 
+		 9: 
+		 10: %v_22->valid? def_%v_23 %v_22[6.7,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_23[6.10,] 
+BB 8
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_24 
+		 1: 
+		 2: preauthorize_form->delivery_method def_%v_33 preauthorize_form[6.8,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->listing def_%v_34 %self[2.0,] 
+		 4: %v_34->require_shipping_address def_%v_35 %v_34[8.3,] 	 SYMBOL:	 ARGS:
+		 5: GETFIELD %self->listing def_%v_36 %self[2.0,] 
+		 6: %v_36->pickup_enabled def_%v_37 %v_36[8.5,] 	 SYMBOL:	 ARGS:
+		 7: HASH-delivery_method_str-shipping-pickup- def_%v_38 %v_33[8.2,] %v_35[8.4,] %v_37[8.6,] 
+		 8: %self->valid_delivery_method def_%v_39 %self[2.0,] %v_38[8.7,] 	 SYMBOL:	 ARGS:%v_38,
+		 9: COPY TYPE_PASS def_delivery_method %v_39[8.8,] 
+		 10: 
+		 11: %v_39->== def_%v_40 %v_39[8.8,] 	 SYMBOL:errored,	 ARGS:Symbol,
+		 12: BRANCH %v_40[8.11,] 
+BB 9
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->request def_%v_25 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_25->xhr? def_%v_26 %v_25[9.1,] 	 SYMBOL:	 ARGS:
+		 3: preauthorize_form->errors def_%v_27 preauthorize_form[6.8,] 	 SYMBOL:	 ARGS:
+		 4: %v_27->full_messages def_%v_28 %v_27[9.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral ", " def_%v_29 
+		 6: %v_28->join def_%v_30 %v_28[9.4,] %v_29[9.5,] 	 SYMBOL:	 ARGS:%v_29,
+		 7: HASH-action- def_%v_31 
+		 8: %self->render_error_response def_%v_32 %self[9.1,2.0,] %v_26[9.2,] %v_30[9.6,] %v_31[9.7,] 	 SYMBOL:	 ARGS:%v_26,%v_30,%v_31,
+		 9: RETURN %v_32[9.8,] %self[9.1,9.8,2.0,] 
+BB 11
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->request def_%v_41 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_41->xhr? def_%v_42 %v_41[11.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "Delivery method is invalid." def_%v_43 
+		 4: HASH-action- def_%v_44 
+		 5: %self->render_error_response def_%v_45 %self[11.1,2.0,] %v_42[11.2,] %v_43[11.3,] %v_44[11.4,] 	 SYMBOL:	 ARGS:%v_42,%v_43,%v_44,
+		 6: RETURN %v_45[11.5,] %self[11.1,11.5,2.0,] 
+BB 12
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_46 
+		 1: 
+		 2: (TransactionViewUtils) def_%v_47 
+		 3: preauthorize_form->quantity def_%v_48 preauthorize_form[6.8,] 	 SYMBOL:	 ARGS:
+		 4: %v_47->parse_quantity def_%v_49 %v_47[12.2,] %v_48[12.3,] 	 SYMBOL:	 ARGS:%v_48,
+		 5: COPY TYPE_PASS def_quantity %v_49[12.4,] 
+		 6: 
+		 7: GETFIELD %self->listing def_%v_50 %self[2.0,] 
+		 8: %v_50->shipping_price def_%v_51 %v_50[12.7,] 	 SYMBOL:	 ARGS:
+		 9: GETFIELD %self->listing def_%v_52 %self[2.0,] 
+		 10: %v_52->shipping_price_additional def_%v_53 %v_52[12.9,] 	 SYMBOL:	 ARGS:
+		 11: %self->shipping_price_total def_%v_54 %self[2.0,] %v_51[12.8,] %v_53[12.10,] quantity[12.5,] 	 SYMBOL:	 ARGS:%v_51,%v_53,quantity,
+		 12: COPY TYPE_PASS def_shipping_price %v_54[12.11,] 
+		 13: 
+		 14: GETFIELD %self->current_community def_%v_55 %self[12.11,2.0,] 
+		 15: GETFIELD %self->listing def_%v_56 %self[12.11,2.0,] 
+		 16: GETFIELD %self->current_user def_%v_57 %self[12.11,2.0,] 
+		 17: preauthorize_form->content def_%v_58 preauthorize_form[12.3,6.8,] 	 SYMBOL:	 ARGS:
+		 18: %self->request def_%v_59 %self[12.11,2.0,] 	 SYMBOL:	 ARGS:
+		 19: %v_59->xhr? def_%v_60 %v_59[12.18,] 	 SYMBOL:	 ARGS:
+		 20: HASH-payment_type-community-listing-listing_quantity-user-content-use_async-delivery_method-shipping_price- def_%v_61 %v_55[12.14,] %v_56[12.15,] quantity[12.5,] %v_57[12.16,] %v_58[12.17,] %v_60[12.19,] delivery_method[8.9,] shipping_price[12.12,] 
+		 21: %self->create_preauth_transaction def_%v_62 %self[12.11,12.18,2.0,] %v_61[12.20,] 	 SYMBOL:	 ARGS:%v_61,
+		 22: COPY TYPE_PASS def_transaction_response %v_62[12.21,] 
+		 23: 
+		 24: %v_62->[] def_%v_63 %v_62[12.21,] 	 SYMBOL:success,	 ARGS:Symbol,
+		 25: BRANCH %v_63[12.24,] 
+BB 14
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_64 
+		 1: 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: transaction_response->[] def_%v_65 transaction_response[12.22,] 	 SYMBOL:success,	 ARGS:Symbol,
+		 2: BRANCH %v_65[15.1,] 
+BB 16
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_66 
+		 1: COPY TYPE_PASS def_%v_64 %v_66[16.0,] 
+BB 17
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: %self->request def_%v_67 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_67->xhr? def_%v_68 %v_67[17.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "error_messages.paypal.generic_error" def_%v_69 
+		 3: %self->t def_%v_70 %self[17.0,2.0,] %v_69[17.2,] 	 SYMBOL:	 ARGS:%v_69,
+		 4: HASH-action- def_%v_71 
+		 5: %self->render_error_response def_%v_72 %self[17.0,17.3,2.0,] %v_68[17.1,] %v_70[17.3,] %v_71[17.4,] 	 SYMBOL:	 ARGS:%v_68,%v_70,%v_71,
+		 6: RETURN %v_72[17.5,] %self[17.0,17.3,17.5,2.0,] 
+BB 19
+	outgoing: 20 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: transaction_response->[] def_%v_73 transaction_response[12.22,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 2: %v_73->[] def_%v_74 %v_73[19.1,] 	 SYMBOL:transaction,	 ARGS:Symbol,
+		 3: %v_74->[] def_%v_75 %v_74[19.2,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 4: COPY TYPE_PASS def_transaction_id %v_75[19.3,] 
+		 5: 
+		 6: transaction_response->[] def_%v_76 transaction_response[19.1,12.22,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 7: %v_76->[] def_%v_77 %v_76[19.6,] 	 SYMBOL:gateway_fields,	 ARGS:Symbol,
+		 8: %v_77->[] def_%v_78 %v_77[19.7,] 	 SYMBOL:redirect_url,	 ARGS:Symbol,
+		 9: BRANCH %v_78[19.8,] 
+BB 20
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: transaction_response->[] def_%v_79 transaction_response[12.22,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 2: %v_79->[] def_%v_80 %v_79[20.1,] 	 SYMBOL:gateway_fields,	 ARGS:Symbol,
+		 3: %v_80->[] def_%v_81 %v_80[20.2,] 	 SYMBOL:redirect_url,	 ARGS:Symbol,
+		 4: %self->redirect_to def_%v_82 %self[2.0,] %v_81[20.3,] 	 SYMBOL:	 ARGS:%v_81,
+		 5: RETURN %v_82[20.4,] %self[20.4,2.0,] 
+BB 21
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: transaction_response->[] def_%v_83 transaction_response[12.22,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 2: %v_83->[] def_%v_84 %v_83[21.1,] 	 SYMBOL:gateway_fields,	 ARGS:Symbol,
+		 3: %v_84->[] def_%v_85 %v_84[21.2,] 	 SYMBOL:process_token,	 ARGS:Symbol,
+		 4: %self->transaction_op_status_path def_%v_86 %self[2.0,] %v_85[21.3,] 	 SYMBOL:	 ARGS:%v_85,
+		 5: COPY TYPE_StringLiteral "error_messages.paypal.generic_error" def_%v_87 
+		 6: %self->t def_%v_88 %self[21.4,2.0,] %v_87[21.5,] 	 SYMBOL:	 ARGS:%v_87,
+		 7: HASH-op_status_url-op_error_msg- def_%v_89 %v_86[21.4,] %v_88[21.6,] 
+		 8: HASH-json- def_%v_90 %v_89[21.7,] 
+		 9: %self->render def_%v_91 %self[21.4,21.6,2.0,] %v_90[21.8,] 	 SYMBOL:	 ARGS:%v_90,
+		 10: RETURN %v_91[21.9,] %self[21.4,21.6,21.9,2.0,] 
+BB 23
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = book instanceMethod = true
+BB 1
+	outgoing: 25 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:delivery,	 ARGS:Symbol,
+		 8: GETFIELD %self->listing def_%v_5 %self[2.0,2.6,] 
+		 9: %v_5->require_shipping_address def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: GETFIELD %self->listing def_%v_7 %self[2.0,2.6,] 
+		 11: %v_7->pickup_enabled def_%v_8 %v_7[2.10,] 	 SYMBOL:	 ARGS:
+		 12: HASH-delivery_method_str-shipping-pickup- def_%v_9 %v_4[2.7,] %v_6[2.9,] %v_8[2.11,] 
+		 13: %self->valid_delivery_method def_%v_10 %self[2.0,2.6,] %v_9[2.12,] 	 SYMBOL:	 ARGS:%v_9,
+		 14: COPY TYPE_PASS def_delivery_method %v_10[2.13,] 
+		 15: 
+		 16: %v_10->== def_%v_11 %v_10[2.13,] 	 SYMBOL:errored,	 ARGS:Symbol,
+		 17: BRANCH %v_11[2.16,] 
+BB 3
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->error_not_found_path def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->redirect_to def_%v_13 %self[3.1,2.0,] %v_12[3.1,] 	 SYMBOL:	 ARGS:%v_12,
+		 3: RETURN %v_13[3.2,] %self[3.1,3.2,2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+		 1: 
+		 2: %self->params def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_15->[] def_%v_16 %v_15[4.2,] 	 SYMBOL:start_on,	 ARGS:Symbol,
+		 4: %self->params def_%v_17 %self[4.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_17->[] def_%v_18 %v_17[4.4,] 	 SYMBOL:end_on,	 ARGS:Symbol,
+		 6: %self->verified_booking_data def_%v_19 %self[4.2,4.4,2.0,] %v_16[4.3,] %v_18[4.5,] 	 SYMBOL:	 ARGS:%v_16,%v_18,
+		 7: COPY TYPE_PASS def_booking_data %v_19[4.6,] 
+		 8: 
+		 9: %self->params def_%v_20 %self[4.2,4.4,4.6,2.0,] 	 SYMBOL:	 ARGS:
+		 10: %v_20->[] def_%v_21 %v_20[4.9,] 	 SYMBOL:listing_id,	 ARGS:Symbol,
+		 11: booking_data->[] def_%v_22 booking_data[4.7,] 	 SYMBOL:duration,	 ARGS:Symbol,
+		 12: delivery_method->== def_%v_23 delivery_method[2.14,] 	 SYMBOL:shipping,	 ARGS:Symbol,
+		 13: HASH-listing_id-quantity-shipping_enabled- def_%v_24 %v_21[4.10,] %v_22[4.11,] %v_23[4.12,] 
+		 14: %self->view_params def_%v_25 %self[4.2,4.4,4.6,4.9,2.0,] %v_24[4.13,] 	 SYMBOL:	 ARGS:%v_24,
+		 15: COPY TYPE_PASS def_vprms %v_25[4.14,] 
+		 16: 
+		 17: booking_data->[] def_%v_26 booking_data[4.7,4.11,] 	 SYMBOL:error,	 ARGS:Symbol,
+		 18: %v_26->present? def_%v_27 %v_26[4.17,] 	 SYMBOL:	 ARGS:
+		 19: BRANCH %v_27[4.18,] 
+BB 6
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_28 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: booking_data->[] def_%v_29 booking_data[4.7,] 	 SYMBOL:error,	 ARGS:Symbol,
+		 3: ATTRASSIGN %v_28->[] %v_29[6.2,] 
+		 4: 
+		 5: vprms->[] def_%v_30 vprms[4.15,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 6: %v_30->[] def_%v_31 %v_30[6.5,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 7: %self->listing_path def_%v_32 %self[6.1,2.0,] %v_31[6.6,] 	 SYMBOL:	 ARGS:%v_31,
+		 8: %self->redirect_to def_%v_33 %self[6.1,6.7,2.0,] %v_32[6.7,] 	 SYMBOL:	 ARGS:%v_32,
+		 9: RETURN %v_33[6.8,] %self[6.1,6.7,6.8,2.0,] 
+BB 7
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_34 
+		 1: 
+		 2: 
+		 3: vprms->[] def_%v_35 vprms[4.15,] 	 SYMBOL:payment_type,	 ARGS:Symbol,
+		 4: %v_35->== def_%v_36 %v_35[7.3,] 	 SYMBOL:braintree,	 ARGS:Symbol,
+		 5: BRANCH %v_36[7.4,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->current_community def_%v_37 %self[2.0,] 
+		 2: %v_37->id def_%v_38 %v_37[9.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->braintree_gateway_locals def_%v_39 %self[2.0,] %v_38[9.2,] 	 SYMBOL:	 ARGS:%v_38,
+		 4: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH- def_%v_40 
+		 2: COPY TYPE_PASS def_%v_39 %v_40[10.1,] 
+BB 11
+	outgoing: 12 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_gateway_locals %v_39[10.2,9.3,] 
+		 1: 
+		 2: vprms->[] def_%v_41 vprms[4.15,] 	 SYMBOL:payment_type,	 ARGS:Symbol,
+		 3: def_%v_43 %v_41[11.2,] 
+		 4: BRANCH %v_43[11.3,] 
+BB 12
+	outgoing: 13 15 
+	datadep: 
+	instructions:
+		 0: def_%v_44 %v_41[11.2,] 
+		 1: BRANCH %v_44[12.0,] 
+BB 13
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ArgumentError) def_%v_47 
+		 2: COPY TYPE_StringLiteral "Unknown payment type " def_%v_48 
+		 3: vprms->[] def_%v_49 vprms[4.15,] 	 SYMBOL:payment_type,	 ARGS:Symbol,
+		 4: COPY TYPE_StringLiteral " for booking" def_%v_50 
+		 5: BUILDSTRING def_%v_51 %v_48[13.2,] %v_49[13.3,] %v_50[13.4,] 
+		 6: %v_47->new def_%v_52 %v_47[13.1,] %v_51[13.5,] 	 SYMBOL:	 ARGS:%v_51,
+		 7: %self->raise def_%v_53 %self[2.0,] %v_52[13.6,] 	 SYMBOL:	 ARGS:%v_52,
+		 8: COPY TYPE_PASS def_%v_42 %v_53[13.7,] 
+		 9: 
+BB 14
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "listing_conversations/preauthorize" def_%v_45 
+		 2: COPY TYPE_PASS def_%v_42 %v_45[14.1,] 
+		 3: 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "listing_conversations/initiate" def_%v_46 
+		 2: COPY TYPE_PASS def_%v_42 %v_46[15.1,] 
+		 3: 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_view %v_42[14.2,15.2,13.8,] 
+		 1: 
+		 2: (LocalizationUtils) def_%v_54 
+		 3: GETFIELD %self->current_community def_%v_55 %self[2.0,] 
+		 4: %v_55->country def_%v_56 %v_55[17.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_54->valid_country_code def_%v_57 %v_54[17.2,] %v_56[17.4,] 	 SYMBOL:	 ARGS:%v_56,
+		 6: COPY TYPE_PASS def_community_country_code %v_57[17.5,] 
+		 7: 
+		 8: (TransactionViewUtils) def_%v_58 
+		 9: booking_data->[] def_%v_59 booking_data[4.7,] 	 SYMBOL:start_on,	 ARGS:Symbol,
+		 10: booking_data->[] def_%v_60 booking_data[17.9,4.7,] 	 SYMBOL:end_on,	 ARGS:Symbol,
+		 11: booking_data->[] def_%v_61 booking_data[17.9,17.10,4.7,] 	 SYMBOL:duration,	 ARGS:Symbol,
+		 12: vprms->[] def_%v_62 vprms[4.15,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 13: %v_62->[] def_%v_63 %v_62[17.12,] 	 SYMBOL:price,	 ARGS:Symbol,
+		 14: vprms->[] def_%v_64 vprms[17.12,4.15,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 15: %self->translate_unit_from_listing def_%v_65 %self[2.0,] %v_64[17.14,] 	 SYMBOL:	 ARGS:%v_64,
+		 16: vprms->[] def_%v_66 vprms[17.12,17.14,4.15,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 17: %self->translate_selector_label_from_listing def_%v_67 %self[17.15,2.0,] %v_66[17.16,] 	 SYMBOL:	 ARGS:%v_66,
+		 18: vprms->[] def_%v_68 vprms[17.12,17.14,17.16,4.15,] 	 SYMBOL:subtotal,	 ARGS:Symbol,
+		 19: 
+		 20: delivery_method->== def_%v_69 delivery_method[2.14,] 	 SYMBOL:shipping,	 ARGS:Symbol,
+		 21: BRANCH %v_69[17.20,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: vprms->[] def_%v_70 vprms[4.15,] 	 SYMBOL:shipping_price,	 ARGS:Symbol,
+		 1: 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_70 
+BB 20
+	outgoing: 21 22 
+	datadep: 
+	instructions:
+		 0: vprms->[] def_%v_71 vprms[4.15,] 	 SYMBOL:total_price,	 ARGS:Symbol,
+		 1: HASH-booking-start_on-end_on-duration-listing_price-localized_unit_type-localized_selector_label-subtotal-shipping_price-total- def_%v_72 %v_59[17.9,] %v_60[17.10,] %v_61[17.11,] %v_63[17.13,] %v_65[17.15,] %v_67[17.17,] %v_68[17.18,] %v_70[19.0,18.0,] %v_71[20.0,] 
+		 2: %v_58->price_break_down_locals def_%v_73 %v_58[17.8,] %v_72[20.1,] 	 SYMBOL:	 ARGS:%v_72,
+		 3: COPY TYPE_PASS def_price_break_down_locals %v_73[20.2,] 
+		 4: 
+		 5: (PreauthorizeBookingForm) def_%v_74 
+		 6: booking_data->[] def_%v_75 booking_data[4.7,] 	 SYMBOL:start_on,	 ARGS:Symbol,
+		 7: booking_data->[] def_%v_76 booking_data[20.6,4.7,] 	 SYMBOL:end_on,	 ARGS:Symbol,
+		 8: HASH-start_on-end_on- def_%v_77 %v_75[20.6,] %v_76[20.7,] 
+		 9: %v_74->new def_%v_78 %v_74[20.5,] %v_77[20.8,] 	 SYMBOL:	 ARGS:%v_77,
+		 10: vprms->[] def_%v_79 vprms[20.0,4.15,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 11: vprms->[] def_%v_80 vprms[20.0,20.10,4.15,] 	 SYMBOL:subtotal,	 ARGS:Symbol,
+		 12: vprms->[] def_%v_81 vprms[20.0,20.10,20.11,4.15,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 13: %v_81->[] def_%v_82 %v_81[20.12,] 	 SYMBOL:author_id,	 ARGS:Symbol,
+		 14: %self->query_person_entity def_%v_83 %self[2.0,] %v_82[20.13,] 	 SYMBOL:	 ARGS:%v_82,
+		 15: vprms->[] def_%v_84 vprms[20.0,20.10,20.11,20.12,4.15,] 	 SYMBOL:action_button_label,	 ARGS:Symbol,
+		 16: (MarketplaceService) def_%v_85 
+		 17: (inherit Transaction) def_%v_86 %v_85[20.16,] 
+		 18: %v_86[20.17,] 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: %v_85->const_missing def_%v_86 %v_85[20.16,] 	 SYMBOL:Transaction,	 ARGS:Symbol,
+BB 22
+	outgoing: 23 24 
+	datadep: 
+	instructions:
+		 0: (inherit Entity) def_%v_87 %v_86[21.0,20.17,] 
+		 1: %v_87[22.0,] 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: %v_86->const_missing def_%v_87 %v_86[21.0,20.17,] 	 SYMBOL:Entity,	 ARGS:Symbol,
+BB 24
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: vprms->[] def_%v_88 vprms[4.15,] 	 SYMBOL:payment_type,	 ARGS:Symbol,
+		 1: %v_87->authorization_expiration_period def_%v_89 %v_87[23.0,22.0,] %v_88[24.0,] 	 SYMBOL:	 ARGS:%v_88,
+		 2: GETFIELD %self->current_user def_%v_90 %self[2.0,] 
+		 3: %v_90->id def_%v_91 %v_90[24.2,] 	 SYMBOL:	 ARGS:
+		 4: vprms->[] def_%v_92 vprms[24.0,4.15,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 5: %v_92->[] def_%v_93 %v_92[24.4,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 6: HASH-person_id-listing_id- def_%v_94 %v_91[24.3,] %v_93[24.5,] 
+		 7: %self->booked_path def_%v_95 %self[2.0,] %v_94[24.6,] 	 SYMBOL:	 ARGS:%v_94,
+		 8: HASH-preauthorize_form-country_code-listing-delivery_method-subtotal-author-action_button_label-expiration_period-form_action-price_break_down_locals- def_%v_96 %v_78[20.9,] community_country_code[17.6,] %v_79[20.10,] delivery_method[2.14,] %v_80[20.11,] %v_83[20.14,] %v_84[20.15,] %v_89[24.1,] %v_95[24.7,] price_break_down_locals[20.3,] 
+		 9: %v_96->merge def_%v_97 %v_96[24.8,] gateway_locals[11.0,] 	 SYMBOL:	 ARGS:gateway_locals,
+		 10: HASH-locals- def_%v_98 %v_97[24.9,] 
+		 11: %self->render def_%v_99 %self[24.7,2.0,] view[17.0,] %v_98[24.10,] 	 SYMBOL:	 ARGS:view,%v_98,
+		 12: RETURN %v_99[24.11,] %self[24.7,24.11,2.0,] 
+BB 25
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = booked instanceMethod = true
+BB 1
+	outgoing: 34 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (MarketplaceService) def_%v_3 
+		 7: (inherit Community) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Community,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit Query) def_%v_5 %v_4[3.0,2.7,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:Query,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_community def_%v_6 %self[2.0,] 
+		 1: %v_6->id def_%v_7 %v_6[6.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_5->payment_type def_%v_8 %v_5[5.0,4.0,] %v_7[6.1,] 	 SYMBOL:	 ARGS:%v_7,
+		 3: COPY TYPE_PASS def_payment_type %v_8[6.2,] 
+		 4: 
+		 5: %self->params def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 6: %v_9->[] def_%v_10 %v_9[6.5,] 	 SYMBOL:listing_conversation,	 ARGS:Symbol,
+		 7: COPY TYPE_PASS def_conversation_params %v_10[6.6,] 
+		 8: 
+		 9: (DateUtils) def_%v_11 
+		 10: %v_11->from_date_select def_%v_12 %v_11[6.9,] %v_10[6.6,] 	 SYMBOL:start_on,	 ARGS:conversation_params,Symbol,
+		 11: COPY TYPE_PASS def_start_on %v_12[6.10,] 
+		 12: 
+		 13: (DateUtils) def_%v_13 
+		 14: %v_13->from_date_select def_%v_14 %v_13[6.13,] conversation_params[6.7,] 	 SYMBOL:end_on,	 ARGS:conversation_params,Symbol,
+		 15: COPY TYPE_PASS def_end_on %v_14[6.14,] 
+		 16: 
+		 17: (PreauthorizeBookingForm) def_%v_15 
+		 18: GETFIELD %self->listing def_%v_16 %self[6.5,2.0,] 
+		 19: %v_16->id def_%v_17 %v_16[6.18,] 	 SYMBOL:	 ARGS:
+		 20: HASH-start_on-end_on-listing_id- def_%v_18 start_on[6.11,] end_on[6.15,] %v_17[6.19,] 
+		 21: conversation_params->merge def_%v_19 conversation_params[6.7,] %v_18[6.20,] 	 SYMBOL:	 ARGS:%v_18,
+		 22: %v_15->new def_%v_20 %v_15[6.17,] %v_19[6.21,] 	 SYMBOL:	 ARGS:%v_19,
+		 23: COPY TYPE_PASS def_preauthorize_form %v_20[6.22,] 
+		 24: 
+		 25: GETFIELD %self->current_community def_%v_21 %self[6.5,2.0,] 
+		 26: %v_21->transaction_agreement_in_use? def_%v_22 %v_21[6.25,] 	 SYMBOL:	 ARGS:
+		 27: BRANCH %v_22[6.26,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: conversation_params->[] def_%v_23 conversation_params[6.7,] 	 SYMBOL:contract_agreed,	 ARGS:Symbol,
+		 1: COPY TYPE_StringLiteral "1" def_%v_24 
+		 2: %v_23->!= def_%v_25 %v_23[7.0,] %v_24[7.1,] 	 SYMBOL:	 ARGS:%v_24,
+		 3: COPY TYPE_PASS def_%v_22 %v_25[7.2,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_22[7.3,6.26,] 
+BB 9
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->request def_%v_26 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_26->xhr? def_%v_27 %v_26[9.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "error_messages.transaction_agreement.required_error" def_%v_28 
+		 4: %self->t def_%v_29 %self[9.1,2.0,] %v_28[9.3,] 	 SYMBOL:	 ARGS:%v_28,
+		 5: (TransactionViewUtils) def_%v_30 
+		 6: %v_30->stringify_booking_date def_%v_31 %v_30[9.5,] start_on[6.11,] 	 SYMBOL:	 ARGS:start_on,
+		 7: (TransactionViewUtils) def_%v_32 
+		 8: %v_32->stringify_booking_date def_%v_33 %v_32[9.7,] end_on[6.15,] 	 SYMBOL:	 ARGS:end_on,
+		 9: HASH-action-start_on-end_on- def_%v_34 %v_31[9.6,] %v_33[9.8,] 
+		 10: %self->render_error_response def_%v_35 %self[9.1,9.4,2.0,] %v_27[9.2,] %v_29[9.4,] %v_34[9.9,] 	 SYMBOL:	 ARGS:%v_27,%v_29,%v_34,
+		 11: RETURN %v_35[9.10,] %self[9.1,9.4,9.10,2.0,] 
+BB 10
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_36 
+		 1: 
+		 2: preauthorize_form->delivery_method def_%v_37 preauthorize_form[6.23,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->listing def_%v_38 %self[2.0,] 
+		 4: %v_38->require_shipping_address def_%v_39 %v_38[10.3,] 	 SYMBOL:	 ARGS:
+		 5: GETFIELD %self->listing def_%v_40 %self[2.0,] 
+		 6: %v_40->pickup_enabled def_%v_41 %v_40[10.5,] 	 SYMBOL:	 ARGS:
+		 7: HASH-delivery_method_str-shipping-pickup- def_%v_42 %v_37[10.2,] %v_39[10.4,] %v_41[10.6,] 
+		 8: %self->valid_delivery_method def_%v_43 %self[2.0,] %v_42[10.7,] 	 SYMBOL:	 ARGS:%v_42,
+		 9: COPY TYPE_PASS def_delivery_method %v_43[10.8,] 
+		 10: 
+		 11: %v_43->== def_%v_44 %v_43[10.8,] 	 SYMBOL:errored,	 ARGS:Symbol,
+		 12: BRANCH %v_44[10.11,] 
+BB 12
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->request def_%v_45 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_45->xhr? def_%v_46 %v_45[12.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "Delivery method is invalid." def_%v_47 
+		 4: HASH-action- def_%v_48 
+		 5: %self->render_error_response def_%v_49 %self[12.1,2.0,] %v_46[12.2,] %v_47[12.3,] %v_48[12.4,] 	 SYMBOL:	 ARGS:%v_46,%v_47,%v_48,
+		 6: RETURN %v_49[12.5,] %self[12.1,12.5,2.0,] 
+BB 13
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_50 
+		 1: 
+		 2: preauthorize_form->valid? def_%v_51 preauthorize_form[6.23,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_51[13.2,] 
+BB 15
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_52 
+		 1: 
+		 2: GETFIELD %self->current_community def_%v_65 %self[2.0,] 
+		 3: GETFIELD %self->listing def_%v_66 %self[2.0,] 
+		 4: GETFIELD %self->current_user def_%v_67 %self[2.0,] 
+		 5: (DateUtils) def_%v_68 
+		 6: preauthorize_form->start_on def_%v_69 preauthorize_form[6.23,] 	 SYMBOL:	 ARGS:
+		 7: preauthorize_form->end_on def_%v_70 preauthorize_form[15.6,6.23,] 	 SYMBOL:	 ARGS:
+		 8: %v_68->duration_days def_%v_71 %v_68[15.5,] %v_69[15.6,] %v_70[15.7,] 	 SYMBOL:	 ARGS:%v_69,%v_70,
+		 9: preauthorize_form->content def_%v_72 preauthorize_form[15.6,15.7,6.23,] 	 SYMBOL:	 ARGS:
+		 10: %self->request def_%v_73 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 11: %v_73->xhr? def_%v_74 %v_73[15.10,] 	 SYMBOL:	 ARGS:
+		 12: GETFIELD %self->listing def_%v_75 %self[15.10,2.0,] 
+		 13: %v_75->shipping_price def_%v_76 %v_75[15.12,] 	 SYMBOL:	 ARGS:
+		 14: %self->params def_%v_77 %self[15.10,2.0,] 	 SYMBOL:	 ARGS:
+		 15: %v_77->[] def_%v_78 %v_77[15.14,] 	 SYMBOL:braintree_payment,	 ARGS:Symbol,
+		 16: preauthorize_form->start_on def_%v_79 preauthorize_form[15.6,15.7,15.9,6.23,] 	 SYMBOL:	 ARGS:
+		 17: preauthorize_form->end_on def_%v_80 preauthorize_form[15.6,15.7,15.9,15.16,6.23,] 	 SYMBOL:	 ARGS:
+		 18: HASH-start_on-end_on- def_%v_81 %v_79[15.16,] %v_80[15.17,] 
+		 19: HASH-payment_type-community-listing-user-listing_quantity-content-use_async-delivery_method-shipping_price-bt_payment_params-booking_fields- def_%v_82 payment_type[6.3,] %v_65[15.2,] %v_66[15.3,] %v_67[15.4,] %v_71[15.8,] %v_72[15.9,] %v_74[15.11,] delivery_method[10.9,] %v_76[15.13,] %v_78[15.15,] %v_81[15.18,] 
+		 20: %self->create_preauth_transaction def_%v_83 %self[15.10,15.14,2.0,] %v_82[15.19,] 	 SYMBOL:	 ARGS:%v_82,
+		 21: COPY TYPE_PASS def_transaction_response %v_83[15.20,] 
+		 22: 
+		 23: %v_83->[] def_%v_84 %v_83[15.20,] 	 SYMBOL:success,	 ARGS:Symbol,
+		 24: BRANCH %v_84[15.23,] 
+BB 16
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->request def_%v_53 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_53->xhr? def_%v_54 %v_53[16.1,] 	 SYMBOL:	 ARGS:
+		 3: preauthorize_form->errors def_%v_55 preauthorize_form[6.23,] 	 SYMBOL:	 ARGS:
+		 4: %v_55->full_messages def_%v_56 %v_55[16.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral ", " def_%v_57 
+		 6: %v_56->join def_%v_58 %v_56[16.4,] %v_57[16.5,] 	 SYMBOL:	 ARGS:%v_57,
+		 7: (TransactionViewUtils) def_%v_59 
+		 8: %v_59->stringify_booking_date def_%v_60 %v_59[16.7,] start_on[6.11,] 	 SYMBOL:	 ARGS:start_on,
+		 9: (TransactionViewUtils) def_%v_61 
+		 10: %v_61->stringify_booking_date def_%v_62 %v_61[16.9,] end_on[6.15,] 	 SYMBOL:	 ARGS:end_on,
+		 11: HASH-action-start_on-end_on- def_%v_63 %v_60[16.8,] %v_62[16.10,] 
+		 12: %self->render_error_response def_%v_64 %self[16.1,2.0,] %v_54[16.2,] %v_58[16.6,] %v_63[16.11,] 	 SYMBOL:	 ARGS:%v_54,%v_58,%v_63,
+		 13: RETURN %v_64[16.12,] %self[16.1,16.12,2.0,] 
+BB 18
+	outgoing: 24 26 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_85 
+		 1: 
+		 2: transaction_response->[] def_%v_100 transaction_response[15.21,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 3: %v_100->[] def_%v_101 %v_100[18.2,] 	 SYMBOL:transaction,	 ARGS:Symbol,
+		 4: %v_101->[] def_%v_102 %v_101[18.3,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 5: COPY TYPE_PASS def_transaction_id %v_102[18.4,] 
+		 6: 
+		 7: def_%v_104 payment_type[6.3,] 
+		 8: BRANCH %v_104[18.7,] 
+BB 19
+	outgoing: 20 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: payment_type->== def_%v_86 payment_type[6.3,] 	 SYMBOL:paypal,	 ARGS:Symbol,
+		 3: BRANCH %v_86[19.2,] 
+BB 20
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "error_messages.paypal.generic_error" def_%v_87 
+		 2: %self->t def_%v_88 %self[2.0,] %v_87[20.1,] 	 SYMBOL:	 ARGS:%v_87,
+		 3: 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "An error occured while trying to create a new transaction: " def_%v_89 
+		 2: transaction_response->[] def_%v_90 transaction_response[15.21,] 	 SYMBOL:error_msg,	 ARGS:Symbol,
+		 3: BUILDSTRING def_%v_91 %v_89[21.1,] %v_90[21.2,] 
+		 4: COPY TYPE_PASS def_%v_88 %v_91[21.3,] 
+BB 22
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_error %v_88[21.4,20.2,] 
+		 1: 
+		 2: %self->request def_%v_92 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_92->xhr? def_%v_93 %v_92[22.2,] 	 SYMBOL:	 ARGS:
+		 4: (TransactionViewUtils) def_%v_94 
+		 5: %v_94->stringify_booking_date def_%v_95 %v_94[22.4,] start_on[6.11,] 	 SYMBOL:	 ARGS:start_on,
+		 6: (TransactionViewUtils) def_%v_96 
+		 7: %v_96->stringify_booking_date def_%v_97 %v_96[22.6,] end_on[6.15,] 	 SYMBOL:	 ARGS:end_on,
+		 8: HASH-action-start_on-end_on- def_%v_98 %v_95[22.5,] %v_97[22.7,] 
+		 9: %self->render_error_response def_%v_99 %self[22.2,2.0,] %v_93[22.3,] error[22.0,] %v_98[22.8,] 	 SYMBOL:	 ARGS:%v_93,error,%v_98,
+		 10: RETURN %v_99[22.9,] %self[22.2,22.9,2.0,] 
+BB 24
+	outgoing: 25 30 
+	datadep: 
+	instructions:
+		 0: def_%v_105 payment_type[6.3,] 
+		 1: BRANCH %v_105[24.0,] 
+BB 25
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_103 
+		 1: 
+BB 26
+	outgoing: 27 28 
+	datadep: 
+	instructions:
+		 0: 
+		 1: transaction_response->[] def_%v_106 transaction_response[15.21,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 2: %v_106->[] def_%v_107 %v_106[26.1,] 	 SYMBOL:gateway_fields,	 ARGS:Symbol,
+		 3: %v_107->[] def_%v_108 %v_107[26.2,] 	 SYMBOL:redirect_url,	 ARGS:Symbol,
+		 4: BRANCH %v_108[26.3,] 
+BB 27
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: 
+		 1: transaction_response->[] def_%v_109 transaction_response[15.21,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 2: %v_109->[] def_%v_110 %v_109[27.1,] 	 SYMBOL:gateway_fields,	 ARGS:Symbol,
+		 3: %v_110->[] def_%v_111 %v_110[27.2,] 	 SYMBOL:redirect_url,	 ARGS:Symbol,
+		 4: %self->redirect_to def_%v_112 %self[2.0,] %v_111[27.3,] 	 SYMBOL:	 ARGS:%v_111,
+		 5: RETURN %v_112[27.4,] %self[27.4,2.0,] 
+BB 28
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: 
+		 1: transaction_response->[] def_%v_114 transaction_response[15.21,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 2: %v_114->[] def_%v_115 %v_114[28.1,] 	 SYMBOL:gateway_fields,	 ARGS:Symbol,
+		 3: %v_115->[] def_%v_116 %v_115[28.2,] 	 SYMBOL:process_token,	 ARGS:Symbol,
+		 4: %self->transaction_op_status_path def_%v_117 %self[2.0,] %v_116[28.3,] 	 SYMBOL:	 ARGS:%v_116,
+		 5: COPY TYPE_StringLiteral "error_messages.paypal.generic_error" def_%v_118 
+		 6: %self->t def_%v_119 %self[28.4,2.0,] %v_118[28.5,] 	 SYMBOL:	 ARGS:%v_118,
+		 7: HASH-op_status_url-op_error_msg- def_%v_120 %v_117[28.4,] %v_119[28.6,] 
+		 8: HASH-json- def_%v_121 %v_120[28.7,] 
+		 9: %self->render def_%v_122 %self[28.4,28.6,2.0,] %v_121[28.8,] 	 SYMBOL:	 ARGS:%v_121,
+		 10: RETURN %v_122[28.9,] %self[28.4,28.6,28.9,2.0,] 
+BB 30
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->current_user def_%v_123 %self[2.0,] 
+		 2: %v_123->id def_%v_124 %v_123[30.1,] 	 SYMBOL:	 ARGS:
+		 3: HASH-person_id-id- def_%v_125 %v_124[30.2,] transaction_id[18.5,] 
+		 4: %self->person_transaction_path def_%v_126 %self[2.0,] %v_125[30.3,] 	 SYMBOL:	 ARGS:%v_125,
+		 5: %self->redirect_to def_%v_127 %self[30.4,2.0,] %v_126[30.4,] 	 SYMBOL:	 ARGS:%v_126,
+		 6: RETURN %v_127[30.5,] %self[30.4,30.5,2.0,] 
+BB 33
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: RETURN %v_103[25.0,] %self[2.0,] 
+BB 34
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = preauthorize instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (TransactionViewUtils) def_%v_3 
+		 7: %self->params def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->[] def_%v_5 %v_4[2.7,] 	 SYMBOL:quantity,	 ARGS:Symbol,
+		 9: %v_3->parse_quantity def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: COPY TYPE_PASS def_quantity %v_6[2.9,] 
+		 11: 
+		 12: %self->params def_%v_7 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 13: %v_7->[] def_%v_8 %v_7[2.12,] 	 SYMBOL:listing_id,	 ARGS:Symbol,
+		 14: HASH-listing_id-quantity- def_%v_9 %v_8[2.13,] quantity[2.10,] 
+		 15: %self->view_params def_%v_10 %self[2.0,2.7,2.12,] %v_9[2.14,] 	 SYMBOL:	 ARGS:%v_9,
+		 16: COPY TYPE_PASS def_vprms %v_10[2.15,] 
+		 17: 
+		 18: (BraintreePaymentQuery) def_%v_11 
+		 19: GETFIELD %self->current_community def_%v_12 %self[2.0,2.7,2.12,2.15,] 
+		 20: %v_12->id def_%v_13 %v_12[2.19,] 	 SYMBOL:	 ARGS:
+		 21: %v_11->braintree_settings def_%v_14 %v_11[2.18,] %v_13[2.20,] 	 SYMBOL:	 ARGS:%v_13,
+		 22: COPY TYPE_PASS def_braintree_settings %v_14[2.21,] 
+		 23: 
+		 24: (TransactionViewUtils) def_%v_15 
+		 25: vprms->[] def_%v_16 vprms[2.16,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 26: %v_16->[] def_%v_17 %v_16[2.25,] 	 SYMBOL:price,	 ARGS:Symbol,
+		 27: vprms->[] def_%v_18 vprms[2.16,2.25,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 28: %self->translate_unit_from_listing def_%v_19 %self[2.0,2.7,2.12,2.15,] %v_18[2.27,] 	 SYMBOL:	 ARGS:%v_18,
+		 29: vprms->[] def_%v_20 vprms[2.16,2.25,2.27,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 30: %self->translate_selector_label_from_listing def_%v_21 %self[2.0,2.7,2.12,2.15,2.28,] %v_20[2.29,] 	 SYMBOL:	 ARGS:%v_20,
+		 31: 
+		 32: quantity->> def_%v_22 quantity[2.10,] 	 SYMBOL:	 ARGS:Fixnum,
+		 33: BRANCH %v_22[2.32,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: vprms->[] def_%v_23 vprms[2.16,] 	 SYMBOL:subtotal,	 ARGS:Symbol,
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_23 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: vprms->[] def_%v_24 vprms[2.16,] 	 SYMBOL:total_price,	 ARGS:Symbol,
+		 1: HASH-booking-quantity-listing_price-localized_unit_type-localized_selector_label-subtotal-total- def_%v_25 quantity[2.10,] %v_17[2.26,] %v_19[2.28,] %v_21[2.30,] %v_23[4.0,3.0,] %v_24[5.0,] 
+		 2: %v_15->price_break_down_locals def_%v_26 %v_15[2.24,] %v_25[5.1,] 	 SYMBOL:	 ARGS:%v_25,
+		 3: COPY TYPE_PASS def_price_break_down_locals %v_26[5.2,] 
+		 4: 
+		 5: %self->ruby_code_from_view def_%v_27 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 6: %v_27->ruby_code_from_view def_%v_28 %v_27[5.5,] %self[5.5,2.0,] 	 SYMBOL:	 ARGS:%v_27,
+CLOSURE BEGIN: %self[5.5,2.0,] announcement[] author_link[] quantity[2.10,] form[] param[] value[] 
+BB 1
+	outgoing: 39 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_rb_from_view 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 11 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (APP_CONFIG) def_%cl_1_3 
+		 2: %cl_1_3->use_kissmetrics def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_1_4[3.2,] 
+BB 4
+	outgoing: 5 6 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "_kms('//i.kissmetrics.com/i.js');_kms('" def_%cl_1_5 
+		 2: (APP_CONFIG) def_%cl_1_6 
+		 3: %cl_1_6->kissmetrics_url def_%cl_1_7 %cl_1_6[4.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "');" def_%cl_1_8 
+		 5: BUILDSTRING def_%cl_1_9 %cl_1_5[4.1,] %cl_1_7[4.3,] %cl_1_8[4.4,] 
+		 6: 
+		 7: 
+		 8: GETFIELD %self->current_user def_%cl_1_10 %self[2.0,] 
+		 9: BRANCH %cl_1_10[4.8,] 
+BB 5
+	outgoing: 7 37 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "_kmq.push(['identify', '" def_%cl_1_11 
+		 1: GETFIELD %self->current_user def_%cl_1_12 %self[2.0,] 
+		 2: %cl_1_12->id def_%cl_1_13 %cl_1_12[5.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "']);" def_%cl_1_14 
+		 4: BUILDSTRING def_%cl_1_15 %cl_1_11[5.0,] %cl_1_13[5.2,] %cl_1_14[5.3,] 
+		 5: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_15 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: GETFIELD %self->current_community def_%cl_1_16 %self[2.0,] 
+		 3: BRANCH %cl_1_16[7.2,] 
+BB 8
+	outgoing: 10 37 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "_kmq.push(['set', {'SiteName' : '" def_%cl_1_17 
+		 1: GETFIELD %self->current_community def_%cl_1_18 %self[2.0,] 
+		 2: %cl_1_18->ident def_%cl_1_19 %cl_1_18[8.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "'}]);" def_%cl_1_20 
+		 4: BUILDSTRING def_%cl_1_21 %cl_1_17[8.0,] %cl_1_19[8.2,] %cl_1_20[8.3,] 
+		 5: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "_kmq.push(['set', {'SiteName' : 'dashboard'}]);" def_%cl_1_22 
+		 2: COPY TYPE_PASS def_%cl_1_21 %cl_1_22[9.1,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_21 
+BB 12
+	outgoing: 13 14 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%cl_1_23 
+		 2: %cl_1_23->locale def_%cl_1_24 %cl_1_23[12.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: %self->content_for def_%cl_1_25 %self[2.0,] 	 SYMBOL:head,	 ARGS:Symbol,
+		 5: 
+		 6: %self->display_expiration_notice? def_%cl_1_26 %self[12.4,2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %cl_1_26[12.6,] 
+BB 13
+	outgoing: 15 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->content_for def_%cl_1_27 %self[2.0,] %self[2.0,] 	 SYMBOL:javascript,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: COPY TYPE_StringLiteral "expiration.title" def_%cl_1_28 
+		 4: %self->t def_%cl_1_29 %self[13.1,2.0,] %cl_1_28[13.3,] 	 SYMBOL:	 ARGS:%cl_1_28,
+		 5: 
+		 6: COPY TYPE_StringLiteral "expiration.sub_title_new" def_%cl_1_30 
+		 7: %self->t def_%cl_1_31 %self[13.1,13.4,2.0,] %cl_1_30[13.6,] 	 SYMBOL:	 ARGS:%cl_1_30,
+		 8: 
+		 9: %self->external_plan_service_login_url def_%cl_1_32 %self[13.1,13.4,13.7,2.0,] 	 SYMBOL:	 ARGS:
+		 10: 
+		 11: COPY TYPE_StringLiteral "expiration.link_to_external_service" def_%cl_1_33 
+		 12: %self->t def_%cl_1_34 %self[13.1,13.4,13.7,13.9,2.0,] %cl_1_33[13.11,] 	 SYMBOL:	 ARGS:%cl_1_33,
+		 13: 
+		 14: COPY TYPE_StringLiteral "expiration.need_more_info" def_%cl_1_35 
+		 15: %self->t def_%cl_1_36 %self[13.1,13.4,13.7,13.9,13.12,2.0,] %cl_1_35[13.14,] 	 SYMBOL:	 ARGS:%cl_1_35,
+		 16: 
+		 17: COPY TYPE_StringLiteral "expiration.contact_us" def_%cl_1_37 
+		 18: %self->t def_%cl_1_38 %self[13.1,13.4,13.7,13.9,13.12,13.15,2.0,] %cl_1_37[13.17,] 	 SYMBOL:	 ARGS:%cl_1_37,
+		 19: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_38 
+BB 15
+	outgoing: 16 17 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->content_for def_%cl_1_39 %self[2.0,] %self[2.0,] 	 SYMBOL:page_content,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: %self[2.0,] announcement[] author_link[] quantity[] form[] 
+BB 1
+	outgoing: 31 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->with_big_cover_photo def_%cl_3_3 %self[2.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->action_button_label def_%cl_4_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: %self->listing def_%cl_4_4 %self[3.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %cl_4_4->[] def_%cl_4_5 %cl_4_4[3.3,] 	 SYMBOL:title,	 ARGS:Symbol,
+		 5: %self->listing def_%cl_4_6 %self[3.1,3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %cl_4_6->[] def_%cl_4_7 %cl_4_6[3.5,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 7: %self->listing_path def_%cl_4_8 %self[3.1,3.3,3.5,2.0,] %cl_4_7[3.6,] 	 SYMBOL:	 ARGS:%cl_4_7,
+		 8: %self->link_to def_%cl_4_9 %self[3.1,3.3,3.5,3.7,2.0,] %cl_4_5[3.4,] %cl_4_8[3.7,] 	 SYMBOL:	 ARGS:%cl_4_5,%cl_4_8,
+		 9: RETURN %cl_4_9[3.8,] %self[3.1,3.3,3.5,3.7,3.8,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_4_10 
+		 1: def_%cl_4_11 %cl_4_10[4.0,] 
+		 2: RETURN %cl_4_11[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: %self->with_small_cover_photo def_%cl_3_4 %self[3.1,2.0,] %self[3.1,2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: %self[3.1,2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_5_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%cl_5_3 %cl_5_0[2.1,] 
+		 2: 
+		 3: %self->action_button_label def_%cl_5_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: 
+		 5: %self->listing def_%cl_5_5 %self[3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %cl_5_5->[] def_%cl_5_6 %cl_5_5[3.5,] 	 SYMBOL:title,	 ARGS:Symbol,
+		 7: %self->listing def_%cl_5_7 %self[3.3,3.5,2.0,] 	 SYMBOL:	 ARGS:
+		 8: %cl_5_7->[] def_%cl_5_8 %cl_5_7[3.7,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 9: %self->listing_path def_%cl_5_9 %self[3.3,3.5,3.7,2.0,] %cl_5_8[3.8,] 	 SYMBOL:	 ARGS:%cl_5_8,
+		 10: %self->link_to def_%cl_5_10 %self[3.3,3.5,3.7,3.9,2.0,] %cl_5_6[3.6,] %cl_5_9[3.9,] 	 SYMBOL:	 ARGS:%cl_5_6,%cl_5_9,
+		 11: RETURN %cl_5_10[3.10,] %self[3.3,3.5,3.7,3.9,3.10,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_5_11 
+		 1: def_%cl_5_12 %cl_5_11[4.0,] 
+		 2: RETURN %cl_5_12[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: 
+		 5: COPY TYPE_StringLiteral "ss-check" def_%cl_3_5 
+		 6: COPY TYPE_StringLiteral "ss-info" def_%cl_3_6 
+		 7: COPY TYPE_StringLiteral "ss-alert" def_%cl_3_7 
+		 8: HASH-notice-warning-error- def_%cl_3_8 %cl_3_5[3.5,] %cl_3_6[3.6,] %cl_3_7[3.7,] 
+		 9: %cl_3_8->each def_%cl_3_9 %cl_3_8[3.8,] %self[3.1,3.3,2.0,] 	 SYMBOL:	 ARGS:%cl_3_8,
+CLOSURE BEGIN: %self[3.1,3.3,2.0,] announcement[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_6_0 
+		 2: RECEIVEARG def_announcement 
+		 3: RECEIVEARG def_icon_class 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%cl_6_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_6_3->[] def_%cl_6_4 %cl_6_3[3.1,] announcement[2.2,] 	 SYMBOL:	 ARGS:announcement,
+		 3: BRANCH %cl_6_4[3.2,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: announcement->to_s def_%cl_6_5 announcement[2.2,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: 
+		 4: %self->flash def_%cl_6_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: %cl_6_6->[] def_%cl_6_7 %cl_6_6[4.4,] announcement[4.1,2.2,] 	 SYMBOL:	 ARGS:announcement,
+		 6: 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_6_7[4.5,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_6_8 
+		 1: def_%cl_6_9 %cl_6_8[7.0,] 
+		 2: RETURN %cl_6_9[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: icon_class[2.3,] 
+		 10: 
+		 11: %self->content_for def_%cl_3_10 %self[3.1,3.3,2.0,] %self[3.1,3.3,2.0,] 	 SYMBOL:extra_javascript,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: %self[3.1,3.3,2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_7_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "https://js.braintreegateway.com/v1/braintree.js" def_%cl_7_3 
+		 2: %self->javascript_include_tag def_%cl_7_4 %self[2.0,] %cl_7_3[3.1,] 	 SYMBOL:	 ARGS:%cl_7_3,
+		 3: RETURN %cl_7_4[3.2,] %self[3.2,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_7_5 
+		 1: def_%cl_7_6 %cl_7_5[4.0,] 
+		 2: RETURN %cl_7_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 12: 
+		 13: %self->content_for def_%cl_3_11 %self[3.1,3.3,3.11,2.0,] %self[3.1,3.3,3.11,2.0,] 	 SYMBOL:extra_javascript,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_8_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 14: 
+		 15: %self->content_for def_%cl_3_12 %self[3.1,3.3,3.11,3.13,2.0,] %self[3.1,3.3,3.11,3.13,2.0,] 	 SYMBOL:javascript,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_9_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 16: 
+		 17: %self->author def_%cl_3_13 %self[3.1,3.3,3.11,3.13,3.15,2.0,] 	 SYMBOL:	 ARGS:
+		 18: %cl_3_13->[] def_%cl_3_14 %cl_3_13[3.17,] 	 SYMBOL:display_name,	 ARGS:Symbol,
+		 19: %self->author def_%cl_3_15 %self[3.1,3.3,3.11,3.13,3.15,3.17,2.0,] 	 SYMBOL:	 ARGS:
+		 20: %cl_3_15->[] def_%cl_3_16 %cl_3_15[3.19,] 	 SYMBOL:username,	 ARGS:Symbol,
+		 21: HASH-id- def_%cl_3_17 %cl_3_16[3.20,] 
+		 22: %self->person_path def_%cl_3_18 %self[3.1,3.3,3.11,3.13,3.15,3.17,3.19,2.0,] %cl_3_17[3.21,] 	 SYMBOL:	 ARGS:%cl_3_17,
+		 23: %self->link_to def_%cl_3_19 %self[3.1,3.3,3.11,3.13,3.15,3.17,3.19,3.22,2.0,] %cl_3_14[3.18,] %cl_3_18[3.22,] 	 SYMBOL:	 ARGS:%cl_3_14,%cl_3_18,
+		 24: COPY TYPE_PASS def_author_link %cl_3_19[3.23,] 
+		 25: 
+		 26: COPY TYPE_StringLiteral ".details" def_%cl_3_20 
+		 27: %self->t def_%cl_3_21 %self[3.1,3.3,3.11,3.13,3.15,3.17,3.19,3.22,3.23,2.0,] %cl_3_20[3.26,] 	 SYMBOL:	 ARGS:%cl_3_20,
+		 28: 
+		 29: COPY TYPE_StringLiteral ".by" def_%cl_3_22 
+		 30: %self->listing def_%cl_3_23 %self[3.1,3.3,3.11,3.13,3.15,3.17,3.19,3.22,3.23,3.27,2.0,] 	 SYMBOL:	 ARGS:
+		 31: %cl_3_23->[] def_%cl_3_24 %cl_3_23[3.30,] 	 SYMBOL:title,	 ARGS:Symbol,
+		 32: BUILDSTRING def_%cl_3_25 %cl_3_24[3.31,] 
+		 33: %self->listing def_%cl_3_26 %self[3.1,3.3,3.11,3.13,3.15,3.17,3.19,3.22,3.23,3.27,3.30,2.0,] 	 SYMBOL:	 ARGS:
+		 34: %cl_3_26->[] def_%cl_3_27 %cl_3_26[3.33,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 35: %self->listing_path def_%cl_3_28 %self[3.1,3.3,3.11,3.13,3.15,3.17,3.19,3.22,3.23,3.27,3.30,3.33,2.0,] %cl_3_27[3.34,] 	 SYMBOL:	 ARGS:%cl_3_27,
+		 36: %self->link_to def_%cl_3_29 %self[3.1,3.3,3.11,3.13,3.15,3.17,3.19,3.22,3.23,3.27,3.30,3.33,3.35,2.0,] %cl_3_25[3.32,] %cl_3_28[3.35,] 	 SYMBOL:	 ARGS:%cl_3_25,%cl_3_28,
+		 37: HASH-listing-author- def_%cl_3_30 %cl_3_29[3.36,] author_link[3.24,] 
+		 38: %self->t def_%cl_3_31 %self[3.1,3.3,3.11,3.13,3.15,3.17,3.19,3.22,3.23,3.27,3.30,3.33,3.35,3.36,2.0,] %cl_3_22[3.29,] %cl_3_30[3.37,] 	 SYMBOL:	 ARGS:%cl_3_22,%cl_3_30,
+		 39: %cl_3_31->html_safe def_%cl_3_32 %cl_3_31[3.38,] 	 SYMBOL:	 ARGS:
+		 40: 
+		 41: %self->booking def_%cl_3_33 %self[3.1,3.3,3.11,3.13,3.15,3.17,3.19,3.22,3.23,3.27,3.30,3.33,3.35,3.36,3.38,2.0,] 	 SYMBOL:	 ARGS:
+		 42: BRANCH %cl_3_33[3.41,] 
+BB 4
+	outgoing: 16 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "transactions.initiate.price_per_day" def_%cl_3_34 
+		 2: %self->t def_%cl_3_35 %self[2.0,] %cl_3_34[4.1,] 	 SYMBOL:	 ARGS:%cl_3_34,
+		 3: 
+		 4: %self->listing_price def_%cl_3_36 %self[4.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %self->humanized_money_with_symbol def_%cl_3_37 %self[4.2,4.4,2.0,] %cl_3_36[4.4,] 	 SYMBOL:	 ARGS:%cl_3_36,
+		 6: 
+		 7: COPY TYPE_StringLiteral "transactions.initiate.booked_days" def_%cl_3_38 
+		 8: %self->t def_%cl_3_39 %self[4.2,4.4,4.5,2.0,] %cl_3_38[4.7,] 	 SYMBOL:	 ARGS:%cl_3_38,
+		 9: 
+		 10: %self->start_on def_%cl_3_40 %self[4.2,4.4,4.5,4.8,2.0,] 	 SYMBOL:	 ARGS:
+		 11: HASH-format- def_%cl_3_41 
+		 12: %self->l def_%cl_3_42 %self[4.2,4.4,4.5,4.8,4.10,2.0,] %cl_3_40[4.10,] %cl_3_41[4.11,] 	 SYMBOL:	 ARGS:%cl_3_40,%cl_3_41,
+		 13: 
+		 14: COPY TYPE_StringLiteral "-" def_%cl_3_43 
+		 15: 
+		 16: %self->end_on def_%cl_3_44 %self[4.2,4.4,4.5,4.8,4.10,4.12,2.0,] 	 SYMBOL:	 ARGS:
+		 17: HASH-format- def_%cl_3_45 
+		 18: %self->l def_%cl_3_46 %self[4.2,4.4,4.5,4.8,4.10,4.12,4.16,2.0,] %cl_3_44[4.16,] %cl_3_45[4.17,] 	 SYMBOL:	 ARGS:%cl_3_44,%cl_3_45,
+		 19: 
+		 20: COPY TYPE_StringLiteral "(" def_%cl_3_47 
+		 21: %self->duration def_%cl_3_48 %self[4.2,4.4,4.5,4.8,4.10,4.12,4.16,4.18,2.0,] 	 SYMBOL:	 ARGS:
+		 22: COPY TYPE_StringLiteral "listing_conversations.preauthorize.day" def_%cl_3_49 
+		 23: %self->t def_%cl_3_50 %self[4.2,4.4,4.5,4.8,4.10,4.12,4.16,4.18,4.21,2.0,] %cl_3_49[4.22,] 	 SYMBOL:	 ARGS:%cl_3_49,
+		 24: COPY TYPE_StringLiteral "listing_conversations.preauthorize.days" def_%cl_3_51 
+		 25: %self->t def_%cl_3_52 %self[4.2,4.4,4.5,4.8,4.10,4.12,4.16,4.18,4.21,4.23,2.0,] %cl_3_51[4.24,] 	 SYMBOL:	 ARGS:%cl_3_51,
+		 26: %self->pluralize def_%cl_3_53 %self[4.2,4.4,4.5,4.8,4.10,4.12,4.16,4.18,4.21,4.23,4.25,2.0,] %cl_3_48[4.21,] %cl_3_50[4.23,] %cl_3_52[4.25,] 	 SYMBOL:	 ARGS:%cl_3_48,%cl_3_50,%cl_3_52,
+		 27: COPY TYPE_StringLiteral ")" def_%cl_3_54 
+		 28: BUILDSTRING def_%cl_3_55 %cl_3_47[4.20,] %cl_3_53[4.26,] %cl_3_54[4.27,] 
+		 29: 
+BB 5
+	outgoing: 6 7 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: quantity->present? def_%cl_3_56 quantity[] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_3_56[5.1,] 
+BB 6
+	outgoing: 7 29 
+	datadep: 
+	instructions:
+		 0: %self->localized_unit_type def_%cl_3_57 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %cl_3_57->present? def_%cl_3_58 %cl_3_57[6.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%cl_3_56 %cl_3_58[6.1,] 
+BB 7
+	outgoing: 8 14 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_3_56[6.2,5.1,] 
+BB 8
+	outgoing: 9 12 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "transactions.price_per_quantity" def_%cl_3_59 
+		 2: %self->localized_unit_type def_%cl_3_60 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: HASH-unit_type- def_%cl_3_61 %cl_3_60[8.2,] 
+		 4: %self->t def_%cl_3_62 %self[8.2,2.0,] %cl_3_59[8.1,] %cl_3_61[8.3,] 	 SYMBOL:	 ARGS:%cl_3_59,%cl_3_61,
+		 5: 
+		 6: %self->listing_price def_%cl_3_63 %self[8.2,8.4,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->humanized_money_with_symbol def_%cl_3_64 %self[8.2,8.4,8.6,2.0,] %cl_3_63[8.6,] 	 SYMBOL:	 ARGS:%cl_3_63,
+		 8: 
+		 9: quantity->> def_%cl_3_65 quantity[] 	 SYMBOL:	 ARGS:Fixnum,
+		 10: BRANCH %cl_3_65[8.9,] 
+BB 9
+	outgoing: 10 11 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->localized_selector_label def_%cl_3_66 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_3_66[9.1,] 
+BB 10
+	outgoing: 11 29 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "transactions.initiate.quantity" def_%cl_3_67 
+		 1: %self->t def_%cl_3_68 %self[2.0,] %cl_3_67[10.0,] 	 SYMBOL:	 ARGS:%cl_3_67,
+		 2: COPY TYPE_PASS def_%cl_3_66 %cl_3_68[10.1,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%cl_3_69 quantity[] 
+		 2: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_3_69 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_3_69 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_3_55 %cl_3_69[14.0,12.0,11.1,] 
+BB 16
+	outgoing: 17 18 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->subtotal def_%cl_3_70 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_3_70->present? def_%cl_3_71 %cl_3_70[16.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_3_71[16.2,] 
+BB 17
+	outgoing: 19 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "transactions.initiate.subtotal" def_%cl_3_72 
+		 2: %self->t def_%cl_3_73 %self[2.0,] %cl_3_72[17.1,] 	 SYMBOL:	 ARGS:%cl_3_72,
+		 3: 
+		 4: %self->subtotal def_%cl_3_74 %self[17.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %self->humanized_money_with_symbol def_%cl_3_75 %self[17.2,17.4,2.0,] %cl_3_74[17.4,] 	 SYMBOL:	 ARGS:%cl_3_74,
+		 6: 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_3_75 
+BB 19
+	outgoing: 20 21 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->shipping_price def_%cl_3_76 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_3_76->present? def_%cl_3_77 %cl_3_76[19.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_3_77[19.2,] 
+BB 20
+	outgoing: 22 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "transactions.initiate.shipping-price" def_%cl_3_78 
+		 2: %self->t def_%cl_3_79 %self[2.0,] %cl_3_78[20.1,] 	 SYMBOL:	 ARGS:%cl_3_78,
+		 3: 
+		 4: %self->shipping_price def_%cl_3_80 %self[20.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %self->humanized_money_with_symbol def_%cl_3_81 %self[20.2,20.4,2.0,] %cl_3_80[20.4,] 	 SYMBOL:	 ARGS:%cl_3_80,
+		 6: 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_3_81 
+BB 22
+	outgoing: 23 27 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->total def_%cl_3_82 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_3_82->present? def_%cl_3_83 %cl_3_82[22.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_3_83[22.2,] 
+BB 23
+	outgoing: 24 25 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->total_label def_%cl_3_84 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_3_84->present? def_%cl_3_85 %cl_3_84[23.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_3_85[23.2,] 
+BB 24
+	outgoing: 26 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->total_label def_%cl_3_86 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 25
+	outgoing: 26 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "transactions.total" def_%cl_3_87 
+		 2: %self->t def_%cl_3_88 %self[2.0,] %cl_3_87[25.1,] 	 SYMBOL:	 ARGS:%cl_3_87,
+		 3: COPY TYPE_PASS def_%cl_3_86 %cl_3_88[25.2,] 
+BB 26
+	outgoing: 28 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->total def_%cl_3_89 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->humanized_money_with_symbol def_%cl_3_90 %self[26.1,2.0,] %cl_3_89[26.1,] 	 SYMBOL:	 ARGS:%cl_3_89,
+		 3: 
+BB 27
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_3_90 
+BB 28
+	outgoing: 29 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->preauthorize_form def_%cl_3_91 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->form_action def_%cl_3_92 %self[28.1,2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "post" def_%cl_3_93 
+		 4: COPY TYPE_StringLiteral "braintree-payment-form" def_%cl_3_94 
+		 5: COPY TYPE_StringLiteral "hidden" def_%cl_3_95 
+		 6: HASH-id-class- def_%cl_3_96 %cl_3_94[28.4,] %cl_3_95[28.5,] 
+		 7: HASH-url-method-html- def_%cl_3_97 %cl_3_92[28.2,] %cl_3_93[28.3,] %cl_3_96[28.6,] 
+		 8: %self->form_for def_%cl_3_98 %self[28.1,28.2,2.0,] %cl_3_91[28.1,] %cl_3_97[28.7,] %self[28.1,28.2,2.0,] 	 SYMBOL:	 ARGS:%cl_3_91,%cl_3_97,%self,
+CLOSURE BEGIN: %self[28.1,28.2,2.0,] form[] quantity[] author_link[3.24,] 
+BB 1
+	outgoing: 17 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_10_0 
+		 2: RECEIVEARG def_form 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->preauthorize_form def_%cl_10_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_10_3->respond_to? def_%cl_10_4 %cl_10_3[3.1,] 	 SYMBOL:start_on,	 ARGS:Symbol,
+		 3: BRANCH %cl_10_4[3.2,] 
+BB 4
+	outgoing: 5 15 
+	datadep: 
+	instructions:
+		 0: %self->preauthorize_form def_%cl_10_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %cl_10_5->respond_to? def_%cl_10_6 %cl_10_5[4.0,] 	 SYMBOL:end_on,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%cl_10_4 %cl_10_6[4.1,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_10_4[4.2,3.2,] 
+BB 6
+	outgoing: 8 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->preauthorize_form def_%cl_10_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_10_7->start_on def_%cl_10_8 %cl_10_7[6.1,] 	 SYMBOL:	 ARGS:
+		 3: HASH-discard_day-discard_month-discard_year-default- def_%cl_10_9 %cl_10_8[6.2,] 
+		 4: form->date_select def_%cl_10_10 form[2.2,] %cl_10_9[6.3,] 	 SYMBOL:start_on,	 ARGS:Symbol,%cl_10_9,
+		 5: 
+		 6: %self->preauthorize_form def_%cl_10_11 %self[6.1,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %cl_10_11->end_on def_%cl_10_12 %cl_10_11[6.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-discard_day-discard_month-discard_year-default- def_%cl_10_13 %cl_10_12[6.7,] 
+		 9: form->date_select def_%cl_10_14 form[6.4,2.2,] %cl_10_13[6.8,] 	 SYMBOL:end_on,	 ARGS:Symbol,%cl_10_13,
+		 10: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_10_14 
+BB 8
+	outgoing: 9 10 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral ".payment" def_%cl_10_15 
+		 2: %self->t def_%cl_10_16 %self[2.0,] %cl_10_15[8.1,] 	 SYMBOL:	 ARGS:%cl_10_15,
+		 3: 
+		 4: %self->braintree_form def_%cl_10_17 %self[8.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %self->fields_for def_%cl_10_18 %self[8.2,8.4,2.0,] %cl_10_17[8.4,] %self[8.2,8.4,2.0,] 	 SYMBOL:braintree_payment,	 ARGS:Symbol,%cl_10_17,%self,
+CLOSURE BEGIN: %self[8.2,8.4,2.0,] form[2.2,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_11_0 
+		 2: RECEIVEARG def_form 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "braintree_payments.edit.cardholder_name" def_%cl_11_3 
+		 2: %self->t def_%cl_11_4 %self[2.0,] %cl_11_3[3.1,] 	 SYMBOL:	 ARGS:%cl_11_3,
+		 3: COPY TYPE_StringLiteral "braintree_payment[cardholder_name]" def_%cl_11_5 
+		 4: HASH-encrypted-name- def_%cl_11_6 %cl_11_5[3.3,] 
+		 5: HASH-class-placeholder-data- def_%cl_11_7 %cl_11_4[3.2,] %cl_11_6[3.4,] 
+		 6: form->text_field def_%cl_11_8 form[2.2,] %cl_11_7[3.5,] 	 SYMBOL:cardholder_name,	 ARGS:Symbol,%cl_11_7,
+		 7: 
+		 8: COPY TYPE_StringLiteral "braintree_payments.edit.credit_card_number" def_%cl_11_9 
+		 9: %self->t def_%cl_11_10 %self[3.2,2.0,] %cl_11_9[3.8,] 	 SYMBOL:	 ARGS:%cl_11_9,
+		 10: COPY TYPE_StringLiteral "braintree_payment[credit_card_number]" def_%cl_11_11 
+		 11: HASH-encrypted-name- def_%cl_11_12 %cl_11_11[3.10,] 
+		 12: HASH-class-placeholder-data- def_%cl_11_13 %cl_11_10[3.9,] %cl_11_12[3.11,] 
+		 13: form->text_field def_%cl_11_14 form[3.6,2.2,] %cl_11_13[3.12,] 	 SYMBOL:credit_card_number,	 ARGS:Symbol,%cl_11_13,
+		 14: 
+		 15: COPY TYPE_StringLiteral "braintree_payments.edit.cvv" def_%cl_11_15 
+		 16: %self->t def_%cl_11_16 %self[3.2,3.9,2.0,] %cl_11_15[3.15,] 	 SYMBOL:	 ARGS:%cl_11_15,
+		 17: COPY TYPE_StringLiteral "braintree_payment[cvv]" def_%cl_11_17 
+		 18: HASH-encrypted-name- def_%cl_11_18 %cl_11_17[3.17,] 
+		 19: HASH-class-maxlength-placeholder-data- def_%cl_11_19 %cl_11_16[3.16,] %cl_11_18[3.18,] 
+		 20: form->text_field def_%cl_11_20 form[3.6,3.13,2.2,] %cl_11_19[3.19,] 	 SYMBOL:cvv,	 ARGS:Symbol,%cl_11_19,
+		 21: 
+		 22: COPY TYPE_StringLiteral "braintree_payments.edit.exp" def_%cl_11_21 
+		 23: %self->t def_%cl_11_22 %self[3.2,3.9,3.16,2.0,] %cl_11_21[3.22,] 	 SYMBOL:	 ARGS:%cl_11_21,
+		 24: COPY TYPE_StringLiteral "preauthorize-exp" def_%cl_11_23 
+		 25: HASH-class- def_%cl_11_24 %cl_11_23[3.24,] 
+		 26: form->label def_%cl_11_25 form[3.6,3.13,3.20,2.2,] %cl_11_22[3.23,] %cl_11_24[3.25,] 	 SYMBOL:credit_card_expiration_month,	 ARGS:Symbol,%cl_11_22,%cl_11_24,
+		 27: 
+		 28: %self->credit_card_expiration_month_options def_%cl_11_26 %self[3.2,3.9,3.16,3.23,2.0,] 	 SYMBOL:	 ARGS:
+		 29: %self->options_for_select def_%cl_11_27 %self[3.2,3.9,3.16,3.23,3.28,2.0,] %cl_11_26[3.28,] 	 SYMBOL:	 ARGS:%cl_11_26,
+		 30: HASH- def_%cl_11_28 
+		 31: COPY TYPE_StringLiteral "encrypted-name" def_%cl_11_29 
+		 32: COPY TYPE_StringLiteral "braintree_payment[credit_card_expiration_month]" def_%cl_11_30 
+		 33: HASH- def_%cl_11_31 %cl_11_29[3.31,] %cl_11_30[3.32,] 
+		 34: HASH-data- def_%cl_11_32 %cl_11_31[3.33,] 
+		 35: form->select def_%cl_11_33 form[3.6,3.13,3.20,3.26,2.2,] %cl_11_27[3.29,] %cl_11_28[3.30,] %cl_11_32[3.34,] 	 SYMBOL:credit_card_expiration_month,	 ARGS:Symbol,%cl_11_27,%cl_11_28,%cl_11_32,
+		 36: 
+		 37: COPY TYPE_StringLiteral " / " def_%cl_11_34 
+		 38: 
+		 39: %self->credit_card_expiration_year_options def_%cl_11_35 %self[3.2,3.9,3.16,3.23,3.28,3.29,2.0,] 	 SYMBOL:	 ARGS:
+		 40: %self->options_for_select def_%cl_11_36 %self[3.2,3.9,3.16,3.23,3.28,3.29,3.39,2.0,] %cl_11_35[3.39,] 	 SYMBOL:	 ARGS:%cl_11_35,
+		 41: HASH- def_%cl_11_37 
+		 42: COPY TYPE_StringLiteral "encrypted-name" def_%cl_11_38 
+		 43: COPY TYPE_StringLiteral "braintree_payment[credit_card_expiration_year]" def_%cl_11_39 
+		 44: HASH- def_%cl_11_40 %cl_11_38[3.42,] %cl_11_39[3.43,] 
+		 45: HASH-data- def_%cl_11_41 %cl_11_40[3.44,] 
+		 46: form->select def_%cl_11_42 form[3.6,3.13,3.20,3.26,3.35,2.2,] %cl_11_36[3.40,] %cl_11_37[3.41,] %cl_11_41[3.45,] 	 SYMBOL:credit_card_expiration_year,	 ARGS:Symbol,%cl_11_36,%cl_11_37,%cl_11_41,
+		 47: RETURN %cl_11_42[3.46,] %self[3.2,3.9,3.16,3.23,3.28,3.29,3.39,3.40,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_11_43 
+		 1: def_%cl_11_44 %cl_11_43[4.0,] 
+		 2: RETURN %cl_11_44[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 6: 
+		 7: COPY TYPE_StringLiteral "conversations.new.optional_message_to" def_%cl_10_19 
+		 8: %self->author def_%cl_10_20 %self[8.2,8.4,8.5,2.0,] 	 SYMBOL:	 ARGS:
+		 9: %cl_10_20->[] def_%cl_10_21 %cl_10_20[8.8,] 	 SYMBOL:display_name,	 ARGS:Symbol,
+		 10: %self->author def_%cl_10_22 %self[8.2,8.4,8.5,8.8,2.0,] 	 SYMBOL:	 ARGS:
+		 11: %cl_10_22->[] def_%cl_10_23 %cl_10_22[8.10,] 	 SYMBOL:username,	 ARGS:Symbol,
+		 12: HASH-id- def_%cl_10_24 %cl_10_23[8.11,] 
+		 13: %self->person_path def_%cl_10_25 %self[8.2,8.4,8.5,8.8,8.10,2.0,] %cl_10_24[8.12,] 	 SYMBOL:	 ARGS:%cl_10_24,
+		 14: %self->link_to def_%cl_10_26 %self[8.2,8.4,8.5,8.8,8.10,8.13,2.0,] %cl_10_21[8.9,] %cl_10_25[8.13,] 	 SYMBOL:	 ARGS:%cl_10_21,%cl_10_25,
+		 15: HASH-author_name- def_%cl_10_27 %cl_10_26[8.14,] 
+		 16: %self->t def_%cl_10_28 %self[8.2,8.4,8.5,8.8,8.10,8.13,8.14,2.0,] %cl_10_19[8.7,] %cl_10_27[8.15,] 	 SYMBOL:	 ARGS:%cl_10_19,%cl_10_27,
+		 17: %cl_10_28->html_safe def_%cl_10_29 %cl_10_28[8.16,] 	 SYMBOL:	 ARGS:
+		 18: 
+		 19: COPY TYPE_StringLiteral "text_area" def_%cl_10_30 
+		 20: HASH-class- def_%cl_10_31 %cl_10_30[8.19,] 
+		 21: form->text_area def_%cl_10_32 form[8.5,] %cl_10_31[8.20,] 	 SYMBOL:content,	 ARGS:Symbol,%cl_10_31,
+		 22: 
+		 23: GETFIELD %self->current_user def_%cl_10_33 %self[8.2,8.4,8.5,8.8,8.10,8.13,8.14,8.16,2.0,] 
+		 24: %cl_10_33->id def_%cl_10_34 %cl_10_33[8.23,] 	 SYMBOL:	 ARGS:
+		 25: HASH-value- def_%cl_10_35 %cl_10_34[8.24,] 
+		 26: form->hidden_field def_%cl_10_36 form[8.5,8.21,] %cl_10_35[8.25,] 	 SYMBOL:sender_id,	 ARGS:Symbol,%cl_10_35,
+		 27: 
+		 28: GETFIELD %self->current_community def_%cl_10_37 %self[8.2,8.4,8.5,8.8,8.10,8.13,8.14,8.16,2.0,] 
+		 29: %cl_10_37->transaction_agreement_in_use def_%cl_10_38 %cl_10_37[8.28,] 	 SYMBOL:	 ARGS:
+		 30: BRANCH %cl_10_38[8.29,] 
+BB 9
+	outgoing: 11 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "required" def_%cl_10_39 
+		 2: HASH-class- def_%cl_10_40 %cl_10_39[9.1,] 
+		 3: form->check_box def_%cl_10_41 form[8.5,] %cl_10_40[9.2,] 	 SYMBOL:contract_agreed,	 ARGS:Symbol,%cl_10_40,
+		 4: 
+		 5: GETFIELD %self->community_customization def_%cl_10_42 %self[2.0,] 
+		 6: %cl_10_42->transaction_agreement_label def_%cl_10_43 %cl_10_42[9.5,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: COPY TYPE_StringLiteral ".read_more" def_%cl_10_44 
+		 9: %self->t def_%cl_10_45 %self[2.0,] %cl_10_44[9.8,] 	 SYMBOL:	 ARGS:%cl_10_44,
+		 10: COPY TYPE_StringLiteral "#" def_%cl_10_46 
+		 11: COPY TYPE_StringLiteral "transaction-agreement-read-more" def_%cl_10_47 
+		 12: HASH-id- def_%cl_10_48 %cl_10_47[9.11,] 
+		 13: %self->link_to def_%cl_10_49 %self[9.9,2.0,] %cl_10_45[9.9,] %cl_10_46[9.10,] %cl_10_48[9.12,] 	 SYMBOL:	 ARGS:%cl_10_45,%cl_10_46,%cl_10_48,
+		 14: %cl_10_49->html_safe def_%cl_10_50 %cl_10_49[9.13,] 	 SYMBOL:	 ARGS:
+		 15: 
+		 16: COPY TYPE_StringLiteral "layouts/lightbox" def_%cl_10_51 
+		 17: COPY TYPE_StringLiteral "transaction-agreement-content" def_%cl_10_52 
+		 18: HASH-id- def_%cl_10_53 %cl_10_52[9.17,] 
+		 19: HASH-layout-locals- def_%cl_10_54 %cl_10_51[9.16,] %cl_10_53[9.18,] 
+		 20: %self->render def_%cl_10_55 %self[9.9,9.13,2.0,] %cl_10_54[9.19,] %self[9.9,9.13,2.0,] 	 SYMBOL:	 ARGS:%cl_10_54,%self,
+CLOSURE BEGIN: %self[9.9,9.13,2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_12_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->text_with_line_breaks def_%cl_12_3 %self[2.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_13_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->community_customization def_%cl_13_3 %self[2.0,] 
+		 2: %cl_13_3->transaction_agreement_content def_%cl_13_4 %cl_13_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_13_4->html_safe def_%cl_13_5 %cl_13_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %cl_13_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_13_6 
+		 1: def_%cl_13_7 %cl_13_6[4.0,] 
+		 2: RETURN %cl_13_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: RETURN %cl_12_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_12_4 
+		 1: def_%cl_12_5 %cl_12_4[4.0,] 
+		 2: RETURN %cl_12_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 21: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_10_55 
+BB 11
+	outgoing: 12 13 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->local_assigns def_%cl_10_56 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_10_56->has_key? def_%cl_10_57 %cl_10_56[11.1,] 	 SYMBOL:quantity,	 ARGS:Symbol,
+		 3: BRANCH %cl_10_57[11.2,] 
+BB 12
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-value- def_%cl_10_58 quantity[] 
+		 2: form->hidden_field def_%cl_10_59 form[8.5,] %cl_10_58[12.1,] 	 SYMBOL:quantity,	 ARGS:Symbol,%cl_10_58,
+		 3: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_10_59 
+BB 14
+	outgoing: 15 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "preauthorize_payments.edit.confirm_payment" def_%cl_10_60 
+		 2: %self->t def_%cl_10_61 %self[2.0,] %cl_10_60[14.1,] 	 SYMBOL:	 ARGS:%cl_10_60,
+		 3: COPY TYPE_StringLiteral "send_button" def_%cl_10_62 
+		 4: HASH-class- def_%cl_10_63 %cl_10_62[14.3,] 
+		 5: form->button def_%cl_10_64 form[8.5,] %cl_10_61[14.2,] %cl_10_63[14.4,] 	 SYMBOL:	 ARGS:%cl_10_61,%cl_10_63,
+		 6: 
+		 7: COPY TYPE_StringLiteral ".you_will_be_charged" def_%cl_10_65 
+		 8: %self->expiration_period def_%cl_10_66 %self[14.2,2.0,] 	 SYMBOL:	 ARGS:
+		 9: HASH-author-expiration_period- def_%cl_10_67 author_link[] %cl_10_66[14.8,] 
+		 10: %self->t def_%cl_10_68 %self[14.2,14.8,2.0,] %cl_10_65[14.7,] %cl_10_67[14.9,] 	 SYMBOL:	 ARGS:%cl_10_65,%cl_10_67,
+		 11: %cl_10_68->html_safe def_%cl_10_69 %cl_10_68[14.10,] 	 SYMBOL:	 ARGS:
+		 12: RETURN %cl_10_69[14.11,] %self[14.2,14.8,14.10,2.0,] 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: def_%cl_10_70 
+		 1: def_%cl_10_71 %cl_10_70[15.0,] 
+		 2: RETURN %cl_10_71[15.1,] %self[2.0,] 
+BB 17
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: 
+		 10: COPY TYPE_StringLiteral "For security reasons JavaScript has to be enabled" def_%cl_3_99 
+		 11: RETURN %cl_3_99[28.10,] %self[28.1,28.2,28.8,2.0,] 
+BB 29
+	outgoing: 31 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_100 
+		 1: def_%cl_3_101 %cl_3_100[29.0,] 
+		 2: RETURN %cl_3_101[29.1,] %self[2.0,] 
+BB 31
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: %self->params def_%cl_1_40 %self[15.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_40->[] def_%cl_1_41 %cl_1_40[15.3,] 	 SYMBOL:controller,	 ARGS:Symbol,
+		 5: COPY TYPE_StringLiteral "homepage" def_%cl_1_42 
+		 6: %cl_1_41->== def_%cl_1_43 %cl_1_41[15.4,] %cl_1_42[15.5,] 	 SYMBOL:	 ARGS:%cl_1_42,
+		 7: BRANCH %cl_1_43[15.6,] 
+BB 16
+	outgoing: 17 37 
+	datadep: 
+	instructions:
+		 0: %self->params def_%cl_1_44 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %cl_1_44->[] def_%cl_1_45 %cl_1_44[16.0,] 	 SYMBOL:action,	 ARGS:Symbol,
+		 2: COPY TYPE_StringLiteral "index" def_%cl_1_46 
+		 3: %cl_1_45->== def_%cl_1_47 %cl_1_45[16.1,] %cl_1_46[16.2,] 	 SYMBOL:	 ARGS:%cl_1_46,
+		 4: COPY TYPE_PASS def_%cl_1_43 %cl_1_47[16.3,] 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_43[16.4,15.6,] 
+BB 18
+	outgoing: 20 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%cl_1_48 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "action" def_%cl_1_49 
+		 3: COPY TYPE_StringLiteral "controller" def_%cl_1_50 
+		 4: COPY TYPE_StringLiteral "q" def_%cl_1_51 
+		 5: COPY TYPE_StringLiteral "view" def_%cl_1_52 
+		 6: COPY TYPE_StringLiteral "utf8" def_%cl_1_53 
+		 7: %cl_1_48->except def_%cl_1_54 %cl_1_48[18.1,] %cl_1_49[18.2,] %cl_1_50[18.3,] %cl_1_51[18.4,] %cl_1_52[18.5,] %cl_1_53[18.6,] 	 SYMBOL:	 ARGS:%cl_1_49,%cl_1_50,%cl_1_51,%cl_1_52,%cl_1_53,
+		 8: %cl_1_54->each def_%cl_1_55 %cl_1_54[18.7,] %self[18.1,2.0,] 	 SYMBOL:	 ARGS:%cl_1_54,
+CLOSURE BEGIN: param[] %self[18.1,2.0,] value[] 
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_14_0 
+		 2: RECEIVEARG def_param 
+		 3: RECEIVEARG def_value 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Regexp def_%cl_14_3 
+		 2: param->match def_%cl_14_4 param[2.2,] 	 SYMBOL:	 ARGS:%cl_14_3,
+		 3: BRANCH %cl_14_4[3.2,] 
+BB 4
+	outgoing: 5 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Regexp def_%cl_14_5 
+		 1: param->match def_%cl_14_6 param[2.2,] 	 SYMBOL:	 ARGS:%cl_14_5,
+		 2: COPY TYPE_PASS def_%cl_14_4 %cl_14_6[4.1,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_14_4[4.2,3.2,] 
+BB 6
+	outgoing: 7 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Regexp def_%cl_14_7 
+		 1: param->match def_%cl_14_8 param[2.2,] 	 SYMBOL:	 ARGS:%cl_14_7,
+		 2: COPY TYPE_PASS def_%cl_14_4 %cl_14_8[6.1,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_14_4[6.2,4.2,3.2,] 
+BB 8
+	outgoing: 9 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Regexp def_%cl_14_9 
+		 1: param->match def_%cl_14_10 param[2.2,] 	 SYMBOL:	 ARGS:%cl_14_9,
+		 2: COPY TYPE_PASS def_%cl_14_4 %cl_14_10[8.1,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_14_4[8.2,6.2,4.2,3.2,] 
+BB 10
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_14_11 
+		 1: RETURN %cl_14_11[10.0,] %self[2.0,] 
+BB 11
+	outgoing: 13 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->hidden_field_tag def_%cl_14_12 %self[2.0,] param[2.2,] value[2.3,] 	 SYMBOL:	 ARGS:param,value,
+		 2: RETURN %cl_14_12[11.1,] %self[11.1,2.0,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: def_%cl_14_13 
+		 1: def_%cl_14_14 %cl_14_13[13.0,] 
+		 2: RETURN %cl_14_14[13.1,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: value[2.3,] 
+		 9: 
+		 10: COPY TYPE_StringLiteral "view" def_%cl_1_56 
+		 11: GETFIELD %self->view_type def_%cl_1_57 %self[18.1,2.0,] 
+		 12: %self->hidden_field_tag def_%cl_1_58 %self[18.1,2.0,] %cl_1_56[18.10,] %cl_1_57[18.11,] 	 SYMBOL:	 ARGS:%cl_1_56,%cl_1_57,
+		 13: 
+		 14: %self->content_for def_%cl_1_59 %self[18.1,18.12,2.0,] 	 SYMBOL:page_content,	 ARGS:Symbol,
+		 15: 
+BB 19
+	outgoing: 20 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->content_for def_%cl_1_60 %self[2.0,] 	 SYMBOL:page_content,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%cl_1_59 %cl_1_60[19.1,] 
+BB 20
+	outgoing: 21 29 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (APP_CONFIG) def_%cl_1_61 
+		 2: %cl_1_61->use_google_analytics def_%cl_1_62 %cl_1_61[20.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_1_62[20.2,] 
+BB 21
+	outgoing: 22 23 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "_gaq.push(['_setAccount', '" def_%cl_1_63 
+		 2: (APP_CONFIG) def_%cl_1_64 
+		 3: %cl_1_64->google_analytics_key def_%cl_1_65 %cl_1_64[21.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "']);" def_%cl_1_66 
+		 5: BUILDSTRING def_%cl_1_67 %cl_1_63[21.1,] %cl_1_65[21.3,] %cl_1_66[21.4,] 
+		 6: 
+		 7: COPY TYPE_StringLiteral "_gaq.push(['_setDomainName', '." def_%cl_1_68 
+		 8: (PublicSuffix) def_%cl_1_69 
+		 9: %self->request def_%cl_1_70 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 10: %cl_1_70->host def_%cl_1_71 %cl_1_70[21.9,] 	 SYMBOL:	 ARGS:
+		 11: %cl_1_69->parse def_%cl_1_72 %cl_1_69[21.8,] %cl_1_71[21.10,] 	 SYMBOL:	 ARGS:%cl_1_71,
+		 12: %cl_1_72->domain def_%cl_1_73 %cl_1_72[21.11,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_StringLiteral "']);" def_%cl_1_74 
+		 14: BUILDSTRING def_%cl_1_75 %cl_1_68[21.7,] %cl_1_73[21.12,] %cl_1_74[21.13,] 
+		 15: 
+		 16: GETFIELD %self->current_community def_%cl_1_76 %self[21.9,2.0,] 
+		 17: BRANCH %cl_1_76[21.16,] 
+BB 22
+	outgoing: 23 37 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_community def_%cl_1_77 %self[2.0,] 
+		 1: %cl_1_77->google_analytics_key def_%cl_1_78 %cl_1_77[22.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%cl_1_76 %cl_1_78[22.1,] 
+BB 23
+	outgoing: 24 27 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_76[22.2,21.16,] 
+BB 24
+	outgoing: 25 26 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "_gaq.push(['b._setAccount', '" def_%cl_1_79 
+		 2: GETFIELD %self->current_community def_%cl_1_80 %self[2.0,] 
+		 3: %cl_1_80->google_analytics_key def_%cl_1_81 %cl_1_80[24.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "']);" def_%cl_1_82 
+		 5: BUILDSTRING def_%cl_1_83 %cl_1_79[24.1,] %cl_1_81[24.3,] %cl_1_82[24.4,] 
+		 6: 
+		 7: COPY TYPE_StringLiteral "_gaq.push(['b._setDomainName', '." def_%cl_1_84 
+		 8: (PublicSuffix) def_%cl_1_85 
+		 9: %self->request def_%cl_1_86 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 10: %cl_1_86->host def_%cl_1_87 %cl_1_86[24.9,] 	 SYMBOL:	 ARGS:
+		 11: %cl_1_85->parse def_%cl_1_88 %cl_1_85[24.8,] %cl_1_87[24.10,] 	 SYMBOL:	 ARGS:%cl_1_87,
+		 12: %cl_1_88->domain def_%cl_1_89 %cl_1_88[24.11,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_StringLiteral "']);" def_%cl_1_90 
+		 14: BUILDSTRING def_%cl_1_91 %cl_1_84[24.7,] %cl_1_89[24.12,] %cl_1_90[24.13,] 
+		 15: 
+		 16: COPY TYPE_StringLiteral "_gaq.push(['b._addIgnoredOrganic', '" def_%cl_1_92 
+		 17: GETFIELD %self->current_community def_%cl_1_93 %self[24.9,2.0,] 
+		 18: (I18n) def_%cl_1_94 
+		 19: %cl_1_94->locale def_%cl_1_95 %cl_1_94[24.18,] 	 SYMBOL:	 ARGS:
+		 20: %cl_1_93->name def_%cl_1_96 %cl_1_93[24.17,] %cl_1_95[24.19,] 	 SYMBOL:	 ARGS:%cl_1_95,
+		 21: %self->Maybe def_%cl_1_97 %self[24.9,2.0,] %cl_1_96[24.20,] 	 SYMBOL:	 ARGS:%cl_1_96,
+		 22: COPY TYPE_StringLiteral "'" def_%cl_1_98 
+		 23: COPY TYPE_StringLiteral "" def_%cl_1_99 
+		 24: %cl_1_97->gsub def_%cl_1_100 %cl_1_97[24.21,] %cl_1_98[24.22,] %cl_1_99[24.23,] 	 SYMBOL:	 ARGS:%cl_1_98,%cl_1_99,
+		 25: COPY TYPE_StringLiteral "" def_%cl_1_101 
+		 26: %cl_1_100->or_else def_%cl_1_102 %cl_1_100[24.24,] %cl_1_101[24.25,] 	 SYMBOL:	 ARGS:%cl_1_101,
+		 27: COPY TYPE_StringLiteral "']);" def_%cl_1_103 
+		 28: BUILDSTRING def_%cl_1_104 %cl_1_92[24.16,] %cl_1_102[24.26,] %cl_1_103[24.27,] 
+		 29: 
+		 30: COPY TYPE_StringLiteral "_gaq.push(['b._addIgnoredOrganic', '" def_%cl_1_105 
+		 31: GETFIELD %self->current_community def_%cl_1_106 %self[24.9,24.21,2.0,] 
+		 32: %cl_1_106->domain def_%cl_1_107 %cl_1_106[24.31,] 	 SYMBOL:	 ARGS:
+		 33: BRANCH %cl_1_107[24.32,] 
+BB 25
+	outgoing: 26 37 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_community def_%cl_1_108 %self[2.0,] 
+		 1: %cl_1_108->ident def_%cl_1_109 %cl_1_108[25.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%cl_1_107 %cl_1_109[25.1,] 
+BB 26
+	outgoing: 28 37 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "']);" def_%cl_1_110 
+		 1: BUILDSTRING def_%cl_1_111 %cl_1_105[24.30,] %cl_1_107[25.2,24.32,] %cl_1_110[26.0,] 
+		 2: 
+BB 27
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_111 
+BB 28
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: 
+BB 29
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_111 
+BB 30
+	outgoing: 31 32 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->content_for def_%cl_1_112 %self[2.0,] 	 SYMBOL:location_search,	 ARGS:Symbol,
+		 2: 
+		 3: COPY TYPE_StringLiteral "application" def_%cl_1_113 
+		 4: %self->javascript_include_tag def_%cl_1_114 %self[30.1,2.0,] %cl_1_113[30.3,] 	 SYMBOL:	 ARGS:%cl_1_113,
+		 5: 
+		 6: 
+		 7: GETFIELD %self->analytics_event def_%cl_1_115 %self[30.1,30.4,2.0,] 
+		 8: BRANCH %cl_1_115[30.7,] 
+BB 31
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_116 
+		 1: 
+BB 32
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_116 
+BB 33
+	outgoing: 34 35 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Rails) def_%cl_1_117 
+		 2: %cl_1_117->env def_%cl_1_118 %cl_1_117[33.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_118->test? def_%cl_1_119 %cl_1_118[33.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %cl_1_119[33.3,] 
+BB 34
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_120 
+		 1: 
+BB 35
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_120 
+BB 36
+	outgoing: 37 39 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->content_for def_%cl_1_121 %self[2.0,] 	 SYMBOL:extra_javascript,	 ARGS:Symbol,
+		 2: 
+		 3: COPY TYPE_StringLiteral "error_pages.no_javascript.javascript_is_disabled_in_your_browser" def_%cl_1_122 
+		 4: %self->t def_%cl_1_123 %self[36.1,2.0,] %cl_1_122[36.3,] 	 SYMBOL:	 ARGS:%cl_1_122,
+		 5: 
+		 6: COPY TYPE_StringLiteral "error_pages.no_javascript.kassi_does_not_currently_work_without_javascript" def_%cl_1_124 
+		 7: %self->t def_%cl_1_125 %self[36.1,36.4,2.0,] %cl_1_124[36.6,] 	 SYMBOL:	 ARGS:%cl_1_124,
+		 8: RETURN %cl_1_125[36.7,] %self[36.1,36.4,36.7,2.0,] 
+BB 37
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_126 
+		 1: def_%cl_1_127 %cl_1_126[37.0,] 
+		 2: RETURN %cl_1_127[37.1,] %self[2.0,] 
+BB 39
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 7: RETURN %v_28[5.6,] %self[5.5,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = preauthorized instanceMethod = true
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:listing_conversation,	 ARGS:Symbol,
+		 8: COPY TYPE_PASS def_conversation_params %v_4[2.7,] 
+		 9: 
+		 10: GETFIELD %self->current_community def_%v_5 %self[2.0,2.6,] 
+		 11: %v_5->transaction_agreement_in_use? def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_6[2.11,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: conversation_params->[] def_%v_7 conversation_params[2.8,] 	 SYMBOL:contract_agreed,	 ARGS:Symbol,
+		 1: COPY TYPE_StringLiteral "1" def_%v_8 
+		 2: %v_7->!= def_%v_9 %v_7[3.0,] %v_8[3.1,] 	 SYMBOL:	 ARGS:%v_8,
+		 3: COPY TYPE_PASS def_%v_6 %v_9[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[3.3,2.11,] 
+BB 5
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "error_messages.transaction_agreement.required_error" def_%v_11 
+		 3: %self->t def_%v_12 %self[5.1,2.0,] %v_11[5.2,] 	 SYMBOL:	 ARGS:%v_11,
+		 4: ATTRASSIGN %v_10->[] %v_12[5.3,] 
+		 5: 
+		 6: HASH-action- def_%v_13 
+		 7: %self->redirect_to def_%v_14 %self[5.1,5.3,2.0,] %v_13[5.6,] 	 SYMBOL:	 ARGS:%v_13,
+		 8: RETURN %v_14[5.7,] %self[5.1,5.3,5.7,2.0,] 
+BB 6
+	outgoing: 8 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+		 1: 
+		 2: (PreauthorizeMessageForm) def_%v_16 
+		 3: GETFIELD %self->listing def_%v_17 %self[2.0,] 
+		 4: %v_17->id def_%v_18 %v_17[6.3,] 	 SYMBOL:	 ARGS:
+		 5: HASH-listing_id- def_%v_19 %v_18[6.4,] 
+		 6: conversation_params->merge def_%v_20 conversation_params[2.8,] %v_19[6.5,] 	 SYMBOL:	 ARGS:%v_19,
+		 7: %v_16->new def_%v_21 %v_16[6.2,] %v_20[6.6,] 	 SYMBOL:	 ARGS:%v_20,
+		 8: COPY TYPE_PASS def_preauthorize_form %v_21[6.7,] 
+		 9: 
+		 10: %v_21->valid? def_%v_22 %v_21[6.7,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_22[6.10,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (BraintreeForm) def_%v_23 
+		 2: %self->params def_%v_24 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_24->[] def_%v_25 %v_24[8.2,] 	 SYMBOL:braintree_payment,	 ARGS:Symbol,
+		 4: %v_23->new def_%v_26 %v_23[8.1,] %v_25[8.3,] 	 SYMBOL:	 ARGS:%v_25,
+		 5: COPY TYPE_PASS def_braintree_form %v_26[8.4,] 
+		 6: 
+		 7: (TransactionViewUtils) def_%v_27 
+		 8: preauthorize_form->quantity def_%v_28 preauthorize_form[6.8,] 	 SYMBOL:	 ARGS:
+		 9: %v_27->parse_quantity def_%v_29 %v_27[8.7,] %v_28[8.8,] 	 SYMBOL:	 ARGS:%v_28,
+		 10: COPY TYPE_PASS def_quantity %v_29[8.9,] 
+		 11: 
+		 12: (TransactionService) def_%v_30 
+		 13: (inherit Transaction) def_%v_31 %v_30[8.12,] 
+		 14: %v_31[8.13,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_30->const_missing def_%v_31 %v_30[8.12,] 	 SYMBOL:Transaction,	 ARGS:Symbol,
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_community def_%v_32 %self[2.0,] 
+		 1: %v_32->id def_%v_33 %v_32[10.0,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->listing def_%v_34 %self[2.0,] 
+		 3: %v_34->id def_%v_35 %v_34[10.2,] 	 SYMBOL:	 ARGS:
+		 4: GETFIELD %self->listing def_%v_36 %self[2.0,] 
+		 5: %v_36->title def_%v_37 %v_36[10.4,] 	 SYMBOL:	 ARGS:
+		 6: GETFIELD %self->current_user def_%v_38 %self[2.0,] 
+		 7: %v_38->id def_%v_39 %v_38[10.6,] 	 SYMBOL:	 ARGS:
+		 8: GETFIELD %self->listing def_%v_40 %self[2.0,] 
+		 9: %v_40->author def_%v_41 %v_40[10.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_41->id def_%v_42 %v_41[10.9,] 	 SYMBOL:	 ARGS:
+		 11: GETFIELD %self->listing def_%v_43 %self[2.0,] 
+		 12: %v_43->unit_type def_%v_44 %v_43[10.11,] 	 SYMBOL:	 ARGS:
+		 13: GETFIELD %self->listing def_%v_45 %self[2.0,] 
+		 14: %v_45->price def_%v_46 %v_45[10.13,] 	 SYMBOL:	 ARGS:
+		 15: GETFIELD %self->listing def_%v_47 %self[2.0,] 
+		 16: %v_47->unit_tr_key def_%v_48 %v_47[10.15,] 	 SYMBOL:	 ARGS:
+		 17: preauthorize_form->content def_%v_49 preauthorize_form[6.8,] 	 SYMBOL:	 ARGS:
+		 18: HASH-community_id-listing_id-listing_title-starter_id-listing_author_id-unit_type-unit_price-unit_tr_key-listing_quantity-content-payment_gateway-payment_process- def_%v_50 %v_33[10.1,] %v_35[10.3,] %v_37[10.5,] %v_39[10.7,] %v_42[10.10,] %v_44[10.12,] %v_46[10.14,] %v_48[10.16,] quantity[8.10,] %v_49[10.17,] 
+		 19: braintree_form->to_hash def_%v_51 braintree_form[8.5,] 	 SYMBOL:	 ARGS:
+		 20: HASH-transaction-gateway_fields- def_%v_52 %v_50[10.18,] %v_51[10.19,] 
+		 21: %v_31->create def_%v_53 %v_31[9.0,8.13,] %v_52[10.20,] 	 SYMBOL:	 ARGS:%v_52,
+		 22: COPY TYPE_PASS def_transaction_response %v_53[10.21,] 
+		 23: 
+		 24: %v_53->[] def_%v_54 %v_53[10.21,] 	 SYMBOL:success,	 ARGS:Symbol,
+		 25: BRANCH %v_54[10.24,] 
+BB 11
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_55 
+		 1: 
+		 2: transaction_response->[] def_%v_62 transaction_response[10.22,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 3: %v_62->[] def_%v_63 %v_62[11.2,] 	 SYMBOL:transaction,	 ARGS:Symbol,
+		 4: %v_63->[] def_%v_64 %v_63[11.3,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 5: COPY TYPE_PASS def_transaction_id %v_64[11.4,] 
+		 6: 
+		 7: GETFIELD %self->current_user def_%v_65 %self[2.0,] 
+		 8: %v_65->id def_%v_66 %v_65[11.7,] 	 SYMBOL:	 ARGS:
+		 9: HASH-person_id-id- def_%v_67 %v_66[11.8,] transaction_id[11.5,] 
+		 10: %self->person_transaction_path def_%v_68 %self[2.0,] %v_67[11.9,] 	 SYMBOL:	 ARGS:%v_67,
+		 11: %self->redirect_to def_%v_69 %self[11.10,2.0,] %v_68[11.10,] 	 SYMBOL:	 ARGS:%v_68,
+		 12: 
+BB 12
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_56 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "An error occured while trying to create a new transaction: " def_%v_57 
+		 3: transaction_response->[] def_%v_58 transaction_response[10.22,] 	 SYMBOL:error_msg,	 ARGS:Symbol,
+		 4: BUILDSTRING def_%v_59 %v_57[12.2,] %v_58[12.3,] 
+		 5: ATTRASSIGN %v_56->[] %v_59[12.4,] 
+		 6: 
+		 7: HASH-action- def_%v_60 
+		 8: %self->redirect_to def_%v_61 %self[12.1,2.0,] %v_60[12.7,] 	 SYMBOL:	 ARGS:%v_60,
+		 9: RETURN %v_61[12.8,] %self[12.1,12.8,2.0,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_70 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: preauthorize_form->errors def_%v_71 preauthorize_form[6.8,] 	 SYMBOL:	 ARGS:
+		 3: %v_71->full_messages def_%v_72 %v_71[14.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral ", " def_%v_73 
+		 5: %v_72->join def_%v_74 %v_72[14.3,] %v_73[14.4,] 	 SYMBOL:	 ARGS:%v_73,
+		 6: ATTRASSIGN %v_70->[] %v_74[14.5,] 
+		 7: 
+		 8: HASH-action- def_%v_75 
+		 9: %self->redirect_to def_%v_76 %self[14.1,2.0,] %v_75[14.8,] 	 SYMBOL:	 ARGS:%v_75,
+		 10: RETURN %v_76[14.9,] %self[14.1,14.9,2.0,] 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %v_69[11.11,] %self[2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = translate_unit_from_listing instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_listing 
+		 6: 
+		 7: %self->Maybe def_%v_3 %self[2.0,] listing[2.5,] 	 SYMBOL:	 ARGS:listing,
+		 8: %v_3->select def_%v_4 %v_3[2.7,] %self[2.0,2.7,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: l[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_l 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: l->[] def_%cl_1_3 l[2.2,] 	 SYMBOL:unit_type,	 ARGS:Symbol,
+		 2: %cl_1_3->present? def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: %v_4->map def_%v_5 %v_4[2.8,] %self[2.0,2.7,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: l[2.8,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_l 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ListingViewUtils) def_%cl_2_3 
+		 2: l->[] def_%cl_2_4 l[2.2,] 	 SYMBOL:unit_type,	 ARGS:Symbol,
+		 3: l->[] def_%cl_2_5 l[3.2,2.2,] 	 SYMBOL:unit_tr_key,	 ARGS:Symbol,
+		 4: %cl_2_3->translate_unit def_%cl_2_6 %cl_2_3[3.1,] %cl_2_4[3.2,] %cl_2_5[3.3,] 	 SYMBOL:	 ARGS:%cl_2_4,%cl_2_5,
+		 5: RETURN %cl_2_6[3.4,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_7 
+		 1: def_%cl_2_8 %cl_2_7[4.0,] 
+		 2: RETURN %cl_2_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: %v_5->or_else def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:Nil,
+		 11: RETURN %v_6[2.10,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = translate_selector_label_from_listing instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_listing 
+		 6: 
+		 7: %self->Maybe def_%v_3 %self[2.0,] listing[2.5,] 	 SYMBOL:	 ARGS:listing,
+		 8: %v_3->select def_%v_4 %v_3[2.7,] %self[2.0,2.7,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: l[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_l 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: l->[] def_%cl_1_3 l[2.2,] 	 SYMBOL:unit_type,	 ARGS:Symbol,
+		 2: %cl_1_3->present? def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: %v_4->map def_%v_5 %v_4[2.8,] %self[2.0,2.7,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: l[2.8,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_l 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ListingViewUtils) def_%cl_2_3 
+		 2: l->[] def_%cl_2_4 l[2.2,] 	 SYMBOL:unit_type,	 ARGS:Symbol,
+		 3: l->[] def_%cl_2_5 l[3.2,2.2,] 	 SYMBOL:unit_selector_tr_key,	 ARGS:Symbol,
+		 4: %cl_2_3->translate_quantity def_%cl_2_6 %cl_2_3[3.1,] %cl_2_4[3.2,] %cl_2_5[3.3,] 	 SYMBOL:	 ARGS:%cl_2_4,%cl_2_5,
+		 5: RETURN %cl_2_6[3.4,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_7 
+		 1: def_%cl_2_8 %cl_2_7[4.0,] 
+		 2: RETURN %cl_2_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: %v_5->or_else def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:Nil,
+		 11: RETURN %v_6[2.10,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = view_params instanceMethod = true
+DEAD: marking instr dead!!
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_listing_id 
+		 6: listing_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_listing_id listing_id[2.5,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_quantity 
+		 1: quantity[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_quantity 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: def_shipping_enabled 
+		 1: shipping_enabled[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Boolean def_shipping_enabled 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ListingQuery) def_%v_3 
+		 2: %v_3->listing def_%v_4 %v_3[8.1,] listing_id[3.0,2.5,] 	 SYMBOL:	 ARGS:listing_id,
+		 3: COPY TYPE_PASS def_listing %v_4[8.2,] 
+		 4: 
+		 5: (MarketplaceService) def_%v_5 
+		 6: (inherit Community) def_%v_6 %v_5[8.5,] 
+		 7: %v_6[8.6,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_5->const_missing def_%v_6 %v_5[8.5,] 	 SYMBOL:Community,	 ARGS:Symbol,
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: (inherit Query) def_%v_7 %v_6[9.0,8.6,] 
+		 1: %v_7[10.0,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[9.0,8.6,] 	 SYMBOL:Query,	 ARGS:Symbol,
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_community def_%v_8 %self[2.0,] 
+		 1: %v_8->id def_%v_9 %v_8[12.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->payment_type def_%v_10 %v_7[11.0,10.0,] %v_9[12.1,] 	 SYMBOL:	 ARGS:%v_9,
+		 3: COPY TYPE_PASS def_payment_type %v_10[12.2,] 
+		 4: 
+		 5: listing->[] def_%v_11 listing[8.3,] 	 SYMBOL:action_button_tr_key,	 ARGS:Symbol,
+		 6: %self->translate def_%v_12 %self[2.0,] %v_11[12.5,] 	 SYMBOL:	 ARGS:%v_11,
+		 7: COPY TYPE_PASS def_action_button_label %v_12[12.6,] 
+		 8: 
+		 9: listing->[] def_%v_13 listing[12.5,8.3,] 	 SYMBOL:price,	 ARGS:Symbol,
+		 10: %v_13->* def_%v_14 %v_13[12.9,] quantity[5.0,4.0,] 	 SYMBOL:	 ARGS:quantity,
+		 11: COPY TYPE_PASS def_subtotal %v_14[12.10,] 
+		 12: 
+		 13: listing->[] def_%v_15 listing[12.5,12.9,8.3,] 	 SYMBOL:shipping_price,	 ARGS:Symbol,
+		 14: listing->[] def_%v_16 listing[12.5,12.9,12.13,8.3,] 	 SYMBOL:shipping_price_additional,	 ARGS:Symbol,
+		 15: %self->shipping_price_total def_%v_17 %self[12.6,2.0,] %v_15[12.13,] %v_16[12.14,] quantity[5.0,4.0,] 	 SYMBOL:	 ARGS:%v_15,%v_16,quantity,
+		 16: COPY TYPE_PASS def_shipping_price %v_17[12.15,] 
+		 17: 
+		 18: BRANCH shipping_enabled[7.0,6.0,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: subtotal->+ def_%v_18 subtotal[12.11,] shipping_price[12.16,] 	 SYMBOL:	 ARGS:shipping_price,
+		 1: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_18 subtotal[12.11,] 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_total_price %v_18[14.0,13.0,] 
+		 1: 
+		 2: HASH-listing-payment_type-action_button_label-subtotal-shipping_price-total_price- def_%v_19 listing[8.3,] payment_type[12.3,] action_button_label[12.7,] subtotal[12.11,] shipping_price[12.16,] %v_18[14.0,13.0,] 
+		 3: RETURN %v_19[15.2,] %self[2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = render_error_response instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_isXhr 
+		 6: RECEIVEARG def_error_msg 
+		 7: RECEIVEARG def_redirect_params 
+		 8: 
+		 9: BRANCH isXhr[2.5,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-error_msg- def_%v_3 error_msg[2.6,] 
+		 2: HASH-json- def_%v_4 %v_3[3.1,] 
+		 3: %self->render def_%v_5 %self[2.0,] %v_4[3.2,] 	 SYMBOL:	 ARGS:%v_4,
+		 4: RETURN %v_5[3.3,] %self[3.3,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %v_6->[] error_msg[2.6,] 
+		 3: 
+		 4: %self->redirect_to def_%v_7 %self[4.1,2.0,] redirect_params[2.7,] 	 SYMBOL:	 ARGS:redirect_params,
+		 5: RETURN %v_7[4.4,] %self[4.1,4.4,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ensure_listing_author_is_not_current_user instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->listing def_%v_3 %self[2.0,] 
+		 7: %v_3->author def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: GETFIELD %self->current_user def_%v_5 %self[2.0,] 
+		 9: %v_4->== def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: BRANCH %v_6[2.9,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "layouts.notifications.you_cannot_send_message_to_yourself" def_%v_8 
+		 3: %self->t def_%v_9 %self[3.1,2.0,] %v_8[3.2,] 	 SYMBOL:	 ARGS:%v_8,
+		 4: ATTRASSIGN %v_7->[] %v_9[3.3,] 
+		 5: 
+		 6: %self->session def_%v_10 %self[3.1,3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_10->[] def_%v_11 %v_10[3.6,] 	 SYMBOL:return_to_content,	 ARGS:Symbol,
+		 8: BRANCH %v_11[3.7,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->root def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_11 %v_12[4.0,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->redirect_to def_%v_13 %self[2.0,] %v_11[4.1,3.7,] 	 SYMBOL:	 ARGS:%v_11,
+		 1: RETURN %v_13[5.0,] %self[5.0,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ensure_authorized_to_reply instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->listing def_%v_3 %self[2.0,] 
+		 7: GETFIELD %self->current_user def_%v_4 %self[2.0,] 
+		 8: GETFIELD %self->current_community def_%v_5 %self[2.0,] 
+		 9: %v_3->visible_to? def_%v_6 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_4,%v_5,
+		 10: BRANCH %v_6[2.9,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: RETURN %v_7[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "layouts.notifications.you_are_not_authorized_to_view_this_content" def_%v_9 
+		 3: %self->t def_%v_10 %self[4.1,2.0,] %v_9[4.2,] 	 SYMBOL:	 ARGS:%v_9,
+		 4: ATTRASSIGN %v_8->[] %v_10[4.3,] 
+		 5: 
+		 6: %self->root def_%v_11 %self[4.1,4.3,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->redirect_to def_%v_12 %self[4.1,4.3,4.6,2.0,] %v_11[4.6,] 	 SYMBOL:	 ARGS:%v_11,
+		 8: BRANCH %v_12[4.7,] 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_12[4.7,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ensure_listing_is_open instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->listing def_%v_3 %self[2.0,] 
+		 7: %v_3->closed? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "layouts.notifications.you_cannot_reply_to_a_closed_offer" def_%v_6 
+		 3: %self->t def_%v_7 %self[3.1,2.0,] %v_6[3.2,] 	 SYMBOL:	 ARGS:%v_6,
+		 4: ATTRASSIGN %v_5->[] %v_7[3.3,] 
+		 5: 
+		 6: %self->session def_%v_8 %self[3.1,3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_8->[] def_%v_9 %v_8[3.6,] 	 SYMBOL:return_to_content,	 ARGS:Symbol,
+		 8: BRANCH %v_9[3.7,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->root def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_9 %v_10[4.0,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->redirect_to def_%v_11 %self[2.0,] %v_9[4.1,3.7,] 	 SYMBOL:	 ARGS:%v_9,
+		 1: RETURN %v_11[5.0,] %self[5.0,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = fetch_listing_from_params instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Listing) def_%v_3 
+		 7: %self->params def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->[] def_%v_5 %v_4[2.7,] 	 SYMBOL:listing_id,	 ARGS:Symbol,
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->[] def_%v_7 %v_6[3.0,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%v_5 %v_7[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_3->find def_%v_8 %v_3[2.6,] %v_5[3.2,2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 1: ATTRASSIGN %self->listing %v_8[4.0,] 
+		 2: RETURN %v_8[4.0,] %self[4.1,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = new_contact_form instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_conversation_params 
+		 6: conversation_params[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_conversation_params %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ContactForm) def_%v_4 
+		 2: GETFIELD %self->current_user def_%v_5 %self[2.0,] 
+		 3: %v_5->id def_%v_6 %v_5[4.2,] 	 SYMBOL:	 ARGS:
+		 4: GETFIELD %self->listing def_%v_7 %self[2.0,] 
+		 5: %v_7->id def_%v_8 %v_7[4.4,] 	 SYMBOL:	 ARGS:
+		 6: GETFIELD %self->current_community def_%v_9 %self[2.0,] 
+		 7: %v_9->id def_%v_10 %v_9[4.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-sender_id-listing_id-community_id- def_%v_11 %v_6[4.3,] %v_8[4.5,] %v_10[4.7,] 
+		 9: conversation_params->merge def_%v_12 conversation_params[3.1,2.5,] %v_11[4.8,] 	 SYMBOL:	 ARGS:%v_11,
+		 10: %v_4->new def_%v_13 %v_4[4.1,] %v_12[4.9,] 	 SYMBOL:	 ARGS:%v_12,
+		 11: RETURN %v_13[4.10,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ensure_can_receive_payment instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (MarketplaceService) def_%v_3 
+		 7: (inherit Community) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Community,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit Query) def_%v_5 %v_4[3.0,2.7,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:Query,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_community def_%v_6 %self[2.0,] 
+		 1: %v_6->id def_%v_7 %v_6[6.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_5->payment_type def_%v_8 %v_5[5.0,4.0,] %v_7[6.1,] 	 SYMBOL:	 ARGS:%v_7,
+		 3: BRANCH %v_8[6.2,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%v_8 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_payment_type %v_8[7.0,6.2,] 
+		 1: 
+		 2: (TransactionService) def_%v_9 
+		 3: (inherit Transaction) def_%v_10 %v_9[8.2,] 
+		 4: %v_10[8.3,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_9->const_missing def_%v_10 %v_9[8.2,] 	 SYMBOL:Transaction,	 ARGS:Symbol,
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_community def_%v_11 %self[2.0,] 
+		 1: %v_11->id def_%v_12 %v_11[10.0,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->listing def_%v_13 %self[2.0,] 
+		 3: %v_13->author def_%v_14 %v_13[10.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_14->id def_%v_15 %v_14[10.3,] 	 SYMBOL:	 ARGS:
+		 5: HASH-payment_gateway-community_id-listing_author_id- def_%v_16 payment_type[8.0,] %v_12[10.1,] %v_15[10.4,] 
+		 6: HASH-transaction- def_%v_17 %v_16[10.5,] 
+		 7: %v_10->can_start_transaction def_%v_18 %v_10[9.0,8.3,] %v_17[10.6,] 	 SYMBOL:	 ARGS:%v_17,
+		 8: COPY TYPE_PASS def_ready %v_18[10.7,] 
+		 9: 
+		 10: %v_18->[] def_%v_19 %v_18[10.7,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 11: %v_19->[] def_%v_20 %v_19[10.10,] 	 SYMBOL:result,	 ARGS:Symbol,
+		 12: BRANCH %v_20[10.11,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+		 1: RETURN %v_21[11.0,] %self[2.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_22 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "layouts.notifications.listing_author_payment_details_missing" def_%v_23 
+		 3: %self->t def_%v_24 %self[12.1,2.0,] %v_23[12.2,] 	 SYMBOL:	 ARGS:%v_23,
+		 4: ATTRASSIGN %v_22->[] %v_24[12.3,] 
+		 5: 
+		 6: GETFIELD %self->listing def_%v_25 %self[12.1,12.3,2.0,] 
+		 7: %self->listing_path def_%v_26 %self[12.1,12.3,2.0,] %v_25[12.6,] 	 SYMBOL:	 ARGS:%v_25,
+		 8: %self->redirect_to def_%v_27 %self[12.1,12.3,12.7,2.0,] %v_26[12.7,] 	 SYMBOL:	 ARGS:%v_26,
+		 9: RETURN %v_27[12.8,] %self[12.1,12.3,12.7,12.8,2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = verified_booking_data instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_start_on 
+		 6: RECEIVEARG def_end_on 
+		 7: 
+		 8: (BookingForm) def_%v_3 
+		 9: (TransactionViewUtils) def_%v_4 
+		 10: %v_4->parse_booking_date def_%v_5 %v_4[2.9,] start_on[2.5,] 	 SYMBOL:	 ARGS:start_on,
+		 11: (TransactionViewUtils) def_%v_6 
+		 12: %v_6->parse_booking_date def_%v_7 %v_6[2.11,] end_on[2.6,] 	 SYMBOL:	 ARGS:end_on,
+		 13: HASH-start_on-end_on- def_%v_8 %v_5[2.10,] %v_7[2.12,] 
+		 14: %v_3->new def_%v_9 %v_3[2.8,] %v_8[2.13,] 	 SYMBOL:	 ARGS:%v_8,
+		 15: COPY TYPE_PASS def_booking_form %v_9[2.14,] 
+		 16: 
+		 17: %v_9->valid? def_%v_10 %v_9[2.14,] 	 SYMBOL:	 ARGS:
+		 18: %v_10->! def_%v_11 %v_10[2.17,] 	 SYMBOL:	 ARGS:
+		 19: BRANCH %v_11[2.18,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: booking_form->errors def_%v_12 booking_form[2.15,] 	 SYMBOL:	 ARGS:
+		 2: %v_12->full_messages def_%v_13 %v_12[3.1,] 	 SYMBOL:	 ARGS:
+		 3: HASH-error- def_%v_14 %v_13[3.2,] 
+		 4: RETURN %v_13[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: booking_form->to_hash def_%v_15 booking_form[2.15,] 	 SYMBOL:	 ARGS:
+		 2: (DateUtils) def_%v_16 
+		 3: booking_form->start_on def_%v_17 booking_form[4.1,2.15,] 	 SYMBOL:	 ARGS:
+		 4: booking_form->end_on def_%v_18 booking_form[4.1,4.3,2.15,] 	 SYMBOL:	 ARGS:
+		 5: %v_16->duration_days def_%v_19 %v_16[4.2,] %v_17[4.3,] %v_18[4.4,] 	 SYMBOL:	 ARGS:%v_17,%v_18,
+		 6: HASH-duration- def_%v_20 %v_19[4.5,] 
+		 7: %v_15->merge def_%v_21 %v_15[4.1,] %v_20[4.6,] 	 SYMBOL:	 ARGS:%v_20,
+		 8: RETURN %v_21[4.7,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = valid_delivery_method instanceMethod = true
+BB 1
+	outgoing: 21 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_delivery_method_str 
+		 6: delivery_method_str[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_shipping 
+		 1: shipping[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: def_pickup 
+		 1: pickup[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Array def_%v_3 delivery_method_str[2.5,] shipping[4.0,] pickup[6.0,] 
+		 2: COPY TYPE_Array def_%v_6 
+		 3: %self->matches def_%v_7 %self[2.0,] %v_6[8.2,] 	 SYMBOL:	 ARGS:%v_6,
+		 4: def_%v_5 %v_7[8.3,] %v_3[8.1,] 
+		 5: BRANCH %v_5[8.4,] 
+BB 9
+	outgoing: 10 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "shipping" def_%v_9 
+		 1: %self->__ def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_Array def_%v_11 %v_9[9.0,] %v_10[9.1,] 
+		 3: %self->matches def_%v_12 %self[9.1,2.0,] %v_11[9.2,] 	 SYMBOL:	 ARGS:%v_11,
+		 4: def_%v_8 %v_12[9.3,] %v_3[8.1,] 
+		 5: BRANCH %v_8[9.4,] 
+BB 10
+	outgoing: 11 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_14 
+		 1: %self->matches def_%v_15 %self[2.0,] %v_14[10.0,] 	 SYMBOL:	 ARGS:%v_14,
+		 2: def_%v_13 %v_15[10.1,] %v_3[8.1,] 
+		 3: BRANCH %v_13[10.2,] 
+BB 11
+	outgoing: 12 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "pickup" def_%v_17 
+		 1: %self->__ def_%v_18 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_Array def_%v_19 %v_17[11.0,] %v_18[11.1,] 
+		 3: %self->matches def_%v_20 %self[11.1,2.0,] %v_19[11.2,] 	 SYMBOL:	 ARGS:%v_19,
+		 4: def_%v_16 %v_20[11.3,] %v_3[8.1,] 
+		 5: BRANCH %v_16[11.4,] 
+BB 12
+	outgoing: 13 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_22 
+		 1: %self->matches def_%v_23 %self[2.0,] %v_22[12.0,] 	 SYMBOL:	 ARGS:%v_22,
+		 2: def_%v_21 %v_23[12.1,] %v_3[8.1,] 
+		 3: BRANCH %v_21[12.2,] 
+BB 13
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_4 
+		 2: RETURN %self[2.0,] 
+BB 14
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_4 
+		 2: RETURN %self[2.0,] 
+BB 15
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%v_4 
+		 1: 
+BB 16
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_4 
+		 2: RETURN %self[2.0,] 
+BB 17
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%v_4 
+		 1: 
+BB 18
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Nil def_%v_4 
+		 2: RETURN %self[2.0,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: RETURN %v_4[15.0,17.0,] %self[2.0,] 
+BB 21
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = braintree_gateway_locals instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_community_id 
+		 6: 
+		 7: (BraintreePaymentQuery) def_%v_3 
+		 8: %v_3->braintree_settings def_%v_4 %v_3[2.7,] community_id[2.5,] 	 SYMBOL:	 ARGS:community_id,
+		 9: COPY TYPE_PASS def_braintree_settings %v_4[2.8,] 
+		 10: 
+		 11: %v_4->[] def_%v_5 %v_4[2.8,] 	 SYMBOL:braintree_client_side_encryption_key,	 ARGS:Symbol,
+		 12: (BraintreeForm) def_%v_6 
+		 13: %v_6->new def_%v_7 %v_6[2.12,] 	 SYMBOL:	 ARGS:
+		 14: HASH-braintree_client_side_encryption_key-braintree_form- def_%v_8 %v_5[2.11,] %v_7[2.13,] 
+		 15: RETURN %v_8[2.14,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create_preauth_transaction instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_opts 
+		 6: 
+		 7: 
+		 8: opts->[] def_%v_3 opts[2.5,] 	 SYMBOL:payment_type,	 ARGS:Symbol,
+		 9: %v_3->== def_%v_4 %v_3[2.8,] 	 SYMBOL:paypal,	 ARGS:Symbol,
+		 10: BRANCH %v_4[2.9,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_5 opts[2.5,] 	 SYMBOL:community,	 ARGS:Symbol,
+		 2: %self->Maybe def_%v_6 %self[2.0,] %v_5[3.1,] 	 SYMBOL:	 ARGS:%v_5,
+		 3: %v_6->wide_logo def_%v_7 %v_6[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_7->select def_%v_8 %v_7[3.3,] %self[3.2,2.0,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: wl[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_wl 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: wl->present? def_%cl_1_3 wl[2.2,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 5: HASH-timestamp- def_%v_9 
+		 6: %v_8->url def_%v_10 %v_8[3.4,] %v_9[3.5,] 	 SYMBOL:paypal,	 ARGS:Symbol,%v_9,
+		 7: %v_10->or_else def_%v_11 %v_10[3.6,] 	 SYMBOL:	 ARGS:Nil,
+		 8: COPY TYPE_PASS def_logo_url %v_11[3.7,] 
+		 9: 
+		 10: %self->success_paypal_service_checkout_orders_url def_%v_12 %self[3.2,2.0,] 	 SYMBOL:	 ARGS:
+		 11: opts->[] def_%v_13 opts[3.1,2.5,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 12: %v_13->id def_%v_14 %v_13[3.11,] 	 SYMBOL:	 ARGS:
+		 13: HASH-listing_id- def_%v_15 %v_14[3.12,] 
+		 14: %self->cancel_paypal_service_checkout_orders_url def_%v_16 %self[3.2,3.10,2.0,] %v_15[3.13,] 	 SYMBOL:	 ARGS:%v_15,
+		 15: HASH-merchant_brand_logo_url-success_url-cancel_url- def_%v_17 logo_url[3.8,] %v_12[3.10,] %v_16[3.14,] 
+		 16: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (BraintreeForm) def_%v_18 
+		 2: opts->[] def_%v_19 opts[2.5,] 	 SYMBOL:bt_payment_params,	 ARGS:Symbol,
+		 3: %v_18->new def_%v_20 %v_18[4.1,] %v_19[4.2,] 	 SYMBOL:	 ARGS:%v_19,
+		 4: %v_20->to_hash def_%v_21 %v_20[4.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_%v_17 %v_21[4.4,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_gateway_fields %v_17[4.5,3.15,] 
+		 1: 
+		 2: opts->[] def_%v_22 opts[2.5,] 	 SYMBOL:community,	 ARGS:Symbol,
+		 3: %v_22->id def_%v_23 %v_22[5.2,] 	 SYMBOL:	 ARGS:
+		 4: opts->[] def_%v_24 opts[5.2,2.5,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 5: %v_24->id def_%v_25 %v_24[5.4,] 	 SYMBOL:	 ARGS:
+		 6: opts->[] def_%v_26 opts[5.2,5.4,2.5,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 7: %v_26->title def_%v_27 %v_26[5.6,] 	 SYMBOL:	 ARGS:
+		 8: opts->[] def_%v_28 opts[5.2,5.4,5.6,2.5,] 	 SYMBOL:user,	 ARGS:Symbol,
+		 9: %v_28->id def_%v_29 %v_28[5.8,] 	 SYMBOL:	 ARGS:
+		 10: opts->[] def_%v_30 opts[5.2,5.4,5.6,5.8,2.5,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 11: %v_30->author def_%v_31 %v_30[5.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_31->id def_%v_32 %v_31[5.11,] 	 SYMBOL:	 ARGS:
+		 13: opts->[] def_%v_33 opts[5.2,5.4,5.6,5.8,5.10,2.5,] 	 SYMBOL:listing_quantity,	 ARGS:Symbol,
+		 14: opts->[] def_%v_34 opts[5.2,5.4,5.6,5.8,5.10,5.13,2.5,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 15: %v_34->unit_type def_%v_35 %v_34[5.14,] 	 SYMBOL:	 ARGS:
+		 16: opts->[] def_%v_36 opts[5.2,5.4,5.6,5.8,5.10,5.13,5.14,2.5,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 17: %v_36->price def_%v_37 %v_36[5.16,] 	 SYMBOL:	 ARGS:
+		 18: opts->[] def_%v_38 opts[5.2,5.4,5.6,5.8,5.10,5.13,5.14,5.16,2.5,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 19: %v_38->unit_tr_key def_%v_39 %v_38[5.18,] 	 SYMBOL:	 ARGS:
+		 20: opts->[] def_%v_40 opts[5.2,5.4,5.6,5.8,5.10,5.13,5.14,5.16,5.18,2.5,] 	 SYMBOL:listing,	 ARGS:Symbol,
+		 21: %v_40->unit_selector_tr_key def_%v_41 %v_40[5.20,] 	 SYMBOL:	 ARGS:
+		 22: opts->[] def_%v_42 opts[5.2,5.4,5.6,5.8,5.10,5.13,5.14,5.16,5.18,5.20,2.5,] 	 SYMBOL:content,	 ARGS:Symbol,
+		 23: opts->[] def_%v_43 opts[5.2,5.4,5.6,5.8,5.10,5.13,5.14,5.16,5.18,5.20,5.22,2.5,] 	 SYMBOL:payment_type,	 ARGS:Symbol,
+		 24: opts->[] def_%v_44 opts[5.2,5.4,5.6,5.8,5.10,5.13,5.14,5.16,5.18,5.20,5.22,5.23,2.5,] 	 SYMBOL:booking_fields,	 ARGS:Symbol,
+		 25: opts->[] def_%v_45 opts[5.2,5.4,5.6,5.8,5.10,5.13,5.14,5.16,5.18,5.20,5.22,5.23,5.24,2.5,] 	 SYMBOL:delivery_method,	 ARGS:Symbol,
+		 26: HASH-community_id-listing_id-listing_title-starter_id-listing_author_id-listing_quantity-unit_type-unit_price-unit_tr_key-unit_selector_tr_key-content-payment_gateway-payment_process-booking_fields-delivery_method- def_%v_46 %v_23[5.3,] %v_25[5.5,] %v_27[5.7,] %v_29[5.9,] %v_32[5.12,] %v_33[5.13,] %v_35[5.15,] %v_37[5.17,] %v_39[5.19,] %v_41[5.21,] %v_42[5.22,] %v_43[5.23,] %v_44[5.24,] %v_45[5.25,] 
+		 27: COPY TYPE_PASS def_transaction %v_46[5.26,] 
+		 28: 
+		 29: opts->[] def_%v_47 opts[5.2,5.4,5.6,5.8,5.10,5.13,5.14,5.16,5.18,5.20,5.22,5.23,5.24,5.25,2.5,] 	 SYMBOL:delivery_method,	 ARGS:Symbol,
+		 30: %v_47->== def_%v_48 %v_47[5.29,] 	 SYMBOL:shipping,	 ARGS:Symbol,
+		 31: BRANCH %v_48[5.30,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_49 opts[2.5,] 	 SYMBOL:shipping_price,	 ARGS:Symbol,
+		 2: ATTRASSIGN transaction->[] %v_49[6.1,] 
+		 3: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_49 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TransactionService) def_%v_50 
+		 2: (inherit Transaction) def_%v_51 %v_50[8.1,] 
+		 3: %v_51[8.2,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_50->const_missing def_%v_51 %v_50[8.1,] 	 SYMBOL:Transaction,	 ARGS:Symbol,
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: HASH-transaction-gateway_fields- def_%v_52 transaction[6.2,5.27,] gateway_fields[5.0,] 
+		 1: opts->[] def_%v_53 opts[2.5,] 	 SYMBOL:use_async,	 ARGS:Symbol,
+		 2: HASH-paypal_async- def_%v_54 %v_53[10.1,] 
+		 3: %v_51->create def_%v_55 %v_51[9.0,8.2,] %v_52[10.0,] %v_54[10.2,] 	 SYMBOL:	 ARGS:%v_52,%v_54,
+		 4: RETURN %v_55[10.3,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = query_person_entity instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_id 
+		 6: 
+		 7: (MarketplaceService) def_%v_3 
+		 8: (inherit Person) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:Person,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit Query) def_%v_5 %v_4[3.0,2.8,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.8,] 	 SYMBOL:Query,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_community def_%v_6 %self[2.0,] 
+		 1: %v_6->id def_%v_7 %v_6[6.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_5->person def_%v_8 %v_5[5.0,4.0,] id[2.5,] %v_7[6.1,] 	 SYMBOL:	 ARGS:id,%v_7,
+		 3: COPY TYPE_PASS def_person_entity %v_8[6.2,] 
+		 4: 
+		 5: (PersonViewUtils) def_%v_9 
+		 6: GETFIELD %self->current_community def_%v_10 %self[2.0,] 
+		 7: %v_10->name_display_type def_%v_11 %v_10[6.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_9->person_entity_display_name def_%v_12 %v_9[6.5,] person_entity[6.3,] %v_11[6.7,] 	 SYMBOL:	 ARGS:person_entity,%v_11,
+		 9: HASH-display_name- def_%v_13 %v_12[6.8,] 
+		 10: person_entity->merge def_%v_14 person_entity[6.3,] %v_13[6.9,] 	 SYMBOL:	 ARGS:%v_13,
+		 11: COPY TYPE_PASS def_person_display_entity %v_14[6.10,] 
+		 12: RETURN %v_14[6.10,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = shipping_price_total instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_shipping_price 
+		 6: RECEIVEARG def_shipping_price_additional 
+		 7: RECEIVEARG def_quantity 
+		 8: 
+		 9: %self->Maybe def_%v_3 %self[2.0,] shipping_price[2.5,] 	 SYMBOL:	 ARGS:shipping_price,
+		 10: %v_3->map def_%v_4 %v_3[2.9,] %self[2.0,2.9,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: shipping_price_additional[2.6,] quantity[2.7,] price[] 
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_price 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: shipping_price_additional->present? def_%cl_1_3 shipping_price_additional[] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_3[3.1,] 
+BB 4
+	outgoing: 5 11 
+	datadep: 
+	instructions:
+		 0: quantity->present? def_%cl_1_4 quantity[] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%cl_1_3 %cl_1_4[4.0,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_3[4.1,3.1,] 
+BB 6
+	outgoing: 7 11 
+	datadep: 
+	instructions:
+		 0: quantity->> def_%cl_1_5 quantity[] 	 SYMBOL:	 ARGS:Fixnum,
+		 1: COPY TYPE_PASS def_%cl_1_3 %cl_1_5[6.0,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_3[6.1,4.1,3.1,] 
+BB 8
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: quantity->- def_%cl_1_6 quantity[] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: shipping_price_additional->* def_%cl_1_7 shipping_price_additional[] %cl_1_6[8.1,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 3: price->+ def_%cl_1_8 price[2.2,] %cl_1_7[8.2,] 	 SYMBOL:	 ARGS:%cl_1_7,
+		 4: 
+BB 9
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN price[2.2,] %self[2.0,] 
+BB 10
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_8[8.3,] %self[2.0,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_9 
+		 1: def_%cl_1_10 %cl_1_9[11.0,] 
+		 2: RETURN %cl_1_10[11.1,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 11: %v_4->or_else def_%v_5 %v_4[2.10,] 	 SYMBOL:	 ARGS:Nil,
+		 12: RETURN %v_5[2.11,] %self[2.0,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

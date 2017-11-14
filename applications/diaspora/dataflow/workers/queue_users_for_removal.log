@@ -1,0 +1,167 @@
+SET IRMethod, name = perform instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (AppConfig) def_%v_3 
+		 7: %v_3->settings def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->maintenance def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->remove_old_users def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_6->enable? def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_7[2.10,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%v_8 
+		 2: COPY TYPE_StringLiteral "last_seen < ? and locked_at is null and remove_after is null" def_%v_9 
+		 3: (Time) def_%v_10 
+		 4: %v_10->now def_%v_11 %v_10[3.3,] 	 SYMBOL:	 ARGS:
+		 5: 
+		 6: (AppConfig) def_%v_12 
+		 7: %v_12->settings def_%v_13 %v_12[3.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_13->maintenance def_%v_14 %v_13[3.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_14->remove_old_users def_%v_15 %v_14[3.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_15->after_days def_%v_16 %v_15[3.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_16->to_i def_%v_17 %v_16[3.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_17->days def_%v_18 %v_17[3.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_11->- def_%v_19 %v_11[3.4,] %v_18[3.12,] 	 SYMBOL:	 ARGS:%v_18,
+		 14: %v_8->where def_%v_20 %v_8[3.1,] %v_9[3.2,] %v_19[3.13,] 	 SYMBOL:	 ARGS:%v_9,%v_19,
+		 15: %v_20->order def_%v_21 %v_20[3.14,] 	 SYMBOL:last_seen,	 ARGS:Symbol,
+		 16: (AppConfig) def_%v_22 
+		 17: %v_22->settings def_%v_23 %v_22[3.16,] 	 SYMBOL:	 ARGS:
+		 18: %v_23->maintenance def_%v_24 %v_23[3.17,] 	 SYMBOL:	 ARGS:
+		 19: %v_24->remove_old_users def_%v_25 %v_24[3.18,] 	 SYMBOL:	 ARGS:
+		 20: %v_25->limit_removals_to_per_day def_%v_26 %v_25[3.19,] 	 SYMBOL:	 ARGS:
+		 21: %v_21->limit def_%v_27 %v_21[3.15,] %v_26[3.20,] 	 SYMBOL:	 ARGS:%v_26,
+		 22: COPY TYPE_PASS def_users %v_27[3.21,] 
+		 23: 
+		 24: %v_27->each def_%v_28 %v_27[3.21,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_27,
+CLOSURE BEGIN: user[] remove_at[] 
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_user 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user->sign_in_count def_%cl_1_3 user[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_3->> def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: BRANCH %cl_1_4[3.2,] 
+BB 4
+	outgoing: 6 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Time) def_%cl_1_5 
+		 2: %cl_1_5->now def_%cl_1_6 %cl_1_5[4.1,] 	 SYMBOL:	 ARGS:
+		 3: (AppConfig) def_%cl_1_7 
+		 4: %cl_1_7->settings def_%cl_1_8 %cl_1_7[4.3,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_8->maintenance def_%cl_1_9 %cl_1_8[4.4,] 	 SYMBOL:	 ARGS:
+		 6: %cl_1_9->remove_old_users def_%cl_1_10 %cl_1_9[4.5,] 	 SYMBOL:	 ARGS:
+		 7: %cl_1_10->warn_days def_%cl_1_11 %cl_1_10[4.6,] 	 SYMBOL:	 ARGS:
+		 8: %cl_1_11->to_i def_%cl_1_12 %cl_1_11[4.7,] 	 SYMBOL:	 ARGS:
+		 9: %cl_1_12->days def_%cl_1_13 %cl_1_12[4.8,] 	 SYMBOL:	 ARGS:
+		 10: %cl_1_6->+ def_%cl_1_14 %cl_1_6[4.2,] %cl_1_13[4.9,] 	 SYMBOL:	 ARGS:%cl_1_13,
+		 11: COPY TYPE_PASS def_remove_at %cl_1_14[4.10,] 
+		 12: 
+BB 5
+	outgoing: 6 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Time) def_%cl_1_15 
+		 2: %cl_1_15->now def_%cl_1_16 %cl_1_15[5.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_remove_at %cl_1_16[5.2,] 
+		 4: COPY TYPE_PASS def_%cl_1_14 %cl_1_16[5.2,] 
+BB 6
+	outgoing: 7 8 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user->flag_for_removal def_%cl_1_17 user[2.2,] remove_at[5.3,4.11,] 	 SYMBOL:	 ARGS:remove_at,
+		 2: 
+		 3: user->sign_in_count def_%cl_1_18 user[6.1,2.2,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_18->> def_%cl_1_19 %cl_1_18[6.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: BRANCH %cl_1_19[6.4,] 
+BB 7
+	outgoing: 9 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Maintenance) def_%cl_1_20 
+		 2: %cl_1_20->account_removal_warning def_%cl_1_21 %cl_1_20[7.1,] user[2.2,] 	 SYMBOL:	 ARGS:user,
+		 3: %cl_1_21->deliver_now def_%cl_1_22 %cl_1_21[7.2,] 	 SYMBOL:	 ARGS:
+		 4: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_22 
+BB 9
+	outgoing: 10 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Workers) def_%cl_1_23 
+		 2: (inherit RemoveOldUser) def_%cl_1_24 %cl_1_23[9.1,] 
+		 3: %cl_1_24[9.2,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: %cl_1_23->const_missing def_%cl_1_24 %cl_1_23[9.1,] 	 SYMBOL:RemoveOldUser,	 ARGS:Symbol,
+BB 11
+	outgoing: 12 14 
+	datadep: 
+	instructions:
+		 0: CONSTANT def_%cl_1_25 	 SYMBOL:	 ARGS:
+		 1: remove_at->+ def_%cl_1_26 remove_at[5.3,4.11,] %cl_1_25[11.0,] 	 SYMBOL:	 ARGS:%cl_1_25,
+		 2: user->id def_%cl_1_27 user[2.2,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_24->perform_in def_%cl_1_28 %cl_1_24[10.0,9.2,] %cl_1_26[11.1,] %cl_1_27[11.2,] 	 SYMBOL:	 ARGS:%cl_1_26,%cl_1_27,
+		 4: RETURN %cl_1_28[11.3,] %self[2.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_29 
+		 1: def_%cl_1_30 %cl_1_29[12.0,] 
+		 2: RETURN %cl_1_30[12.1,] %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: remove_at[4.11,5.3,] 
+		 25: RETURN %v_28[3.24,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,263 @@
+SET IRMethod, name = extract_from instanceMethod = false
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: (Nokogiri) def_%v_3 
+		 8: (inherit HTML) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:HTML,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: post->cooked def_%v_5 post[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->fragment def_%v_6 %v_4[3.0,2.8,] %v_5[4.0,] 	 SYMBOL:	 ARGS:%v_5,
+		 2: COPY TYPE_PASS def_doc %v_6[4.1,] 
+		 3: 
+		 4: HASH- def_%v_7 
+		 5: COPY TYPE_PASS def_uniq %v_7[4.4,] 
+		 6: 
+		 7: COPY TYPE_Array def_%v_8 
+		 8: COPY TYPE_PASS def_ids %v_8[4.7,] 
+		 9: 
+		 10: COPY TYPE_StringLiteral "aside.quote[data-topic]" def_%v_9 
+		 11: %v_6->css def_%v_10 %v_6[4.1,] %v_9[4.10,] 	 SYMBOL:	 ARGS:%v_9,
+		 12: %v_10->each def_%v_11 %v_10[4.11,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_10,
+CLOSURE BEGIN: a[] topic_id[] post_number[] uniq[4.5,] post[4.0,2.5,] %self[2.0,] results[] ids[4.8,] 
+BB 1
+	outgoing: 17 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_a 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "data-topic" def_%cl_1_3 
+		 2: a->[] def_%cl_1_4 a[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: %cl_1_4->to_i def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_topic_id %cl_1_5[3.3,] 
+		 5: 
+		 6: COPY TYPE_StringLiteral "data-post" def_%cl_1_6 
+		 7: a->[] def_%cl_1_7 a[3.2,2.2,] %cl_1_6[3.6,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 8: %cl_1_7->to_i def_%cl_1_8 %cl_1_7[3.7,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_PASS def_post_number %cl_1_8[3.8,] 
+		 10: 
+		 11: topic_id->== def_%cl_1_9 topic_id[3.4,] 	 SYMBOL:	 ARGS:Fixnum,
+		 12: BRANCH %cl_1_9[3.11,] 
+BB 4
+	outgoing: 5 15 
+	datadep: 
+	instructions:
+		 0: post_number->== def_%cl_1_10 post_number[3.9,] 	 SYMBOL:	 ARGS:Fixnum,
+		 1: COPY TYPE_PASS def_%cl_1_9 %cl_1_10[4.0,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_9[4.1,3.11,] 
+BB 6
+	outgoing: 15 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_11 
+BB 8
+	outgoing: 9 10 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Array def_%cl_1_12 topic_id[3.4,] post_number[3.9,] 
+		 2: uniq->[] def_%cl_1_13 uniq[] %cl_1_12[8.1,] 	 SYMBOL:	 ARGS:%cl_1_12,
+		 3: BRANCH %cl_1_13[8.2,] 
+BB 9
+	outgoing: 15 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_14 
+BB 11
+	outgoing: 12 13 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Array def_%cl_1_15 topic_id[3.4,] post_number[3.9,] 
+		 2: ATTRASSIGN uniq->[] %cl_1_15[11.1,] 
+		 3: 
+		 4: COPY TYPE_StringLiteral "INSERT INTO quoted_posts(post_id, quoted_post_id, created_at, updated_at)
+               SELECT :post_id, p.id, current_timestamp, current_timestamp
+               FROM posts p
+               LEFT JOIN quoted_posts q on q.post_id = :post_id AND q.quoted_post_id = p.id
+               WHERE post_number = :post_number AND
+                     topic_id = :topic_id AND
+                     q.id IS NULL
+               RETURNING quoted_post_id
+      " def_%cl_1_16 
+		 5: post->id def_%cl_1_17 post[] 	 SYMBOL:	 ARGS:
+		 6: HASH-post_id-post_number-topic_id- def_%cl_1_18 %cl_1_17[11.5,] post_number[3.9,] topic_id[3.4,] 
+		 7: %self->exec_sql def_%cl_1_19 %self[2.0,] %cl_1_16[11.4,] %cl_1_18[11.6,] 	 SYMBOL:	 ARGS:%cl_1_16,%cl_1_18,
+		 8: COPY TYPE_PASS def_results %cl_1_19[11.7,] 
+		 9: 
+		 10: %cl_1_19->to_a def_%cl_1_20 %cl_1_19[11.7,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_PASS def_results %cl_1_20[11.10,] 
+		 12: 
+		 13: %cl_1_20->length def_%cl_1_21 %cl_1_20[11.10,] 	 SYMBOL:	 ARGS:
+		 14: %cl_1_21->> def_%cl_1_22 %cl_1_21[11.13,] 	 SYMBOL:	 ARGS:Fixnum,
+		 15: BRANCH %cl_1_22[11.14,] 
+BB 12
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: results->[] def_%cl_1_23 results[11.8,11.11,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: COPY TYPE_StringLiteral "quoted_post_id" def_%cl_1_24 
+		 3: %cl_1_23->[] def_%cl_1_25 %cl_1_23[12.1,] %cl_1_24[12.2,] 	 SYMBOL:	 ARGS:%cl_1_24,
+		 4: %cl_1_25->to_i def_%cl_1_26 %cl_1_25[12.3,] 	 SYMBOL:	 ARGS:
+		 5: ids-><< def_%cl_1_27 ids[] %cl_1_26[12.4,] 	 SYMBOL:	 ARGS:%cl_1_26,
+		 6: 
+BB 13
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 14
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_27[12.5,] %self[2.0,] 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_28 
+		 1: def_%cl_1_29 %cl_1_28[15.0,] 
+		 2: RETURN %cl_1_29[15.1,] %self[2.0,] 
+BB 17
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: topic_id[3.4,] post_number[3.9,] results[11.8,11.11,] 
+		 13: 
+		 14: ids->length def_%v_12 ids[4.8,] 	 SYMBOL:	 ARGS:
+		 15: %v_12->> def_%v_13 %v_12[4.14,] 	 SYMBOL:	 ARGS:Fixnum,
+		 16: BRANCH %v_13[4.15,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "DELETE FROM quoted_posts WHERE post_id = :post_id AND quoted_post_id NOT IN (:ids)" def_%v_14 
+		 2: post->id def_%v_15 post[2.5,] 	 SYMBOL:	 ARGS:
+		 3: HASH-post_id-ids- def_%v_16 %v_15[5.2,] ids[4.8,] 
+		 4: %self->exec_sql def_%v_17 %self[2.0,] %v_14[5.1,] %v_16[5.3,] 	 SYMBOL:	 ARGS:%v_14,%v_16,
+		 5: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+BB 7
+	outgoing: 8 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Boolean def_reply_quoted 
+		 2: 
+		 3: post->reply_to_post_number def_%v_18 post[2.5,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_18[7.3,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Post) def_%v_19 
+		 2: post->topic_id def_%v_20 post[2.5,] 	 SYMBOL:	 ARGS:
+		 3: post->reply_to_post_number def_%v_21 post[8.2,2.5,] 	 SYMBOL:	 ARGS:
+		 4: HASH-topic_id-post_number- def_%v_22 %v_20[8.2,] %v_21[8.3,] 
+		 5: %v_19->where def_%v_23 %v_19[8.1,] %v_22[8.4,] 	 SYMBOL:	 ARGS:%v_22,
+		 6: %v_23->pluck def_%v_24 %v_23[8.5,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 7: %v_24->first def_%v_25 %v_24[8.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_reply_post_id %v_25[8.7,] 
+		 9: 
+		 10: COPY TYPE_PASS def_%v_26 %v_25[8.7,] 
+		 11: BRANCH %v_25[8.7,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: ids->include? def_%v_27 ids[4.8,] reply_post_id[8.8,] 	 SYMBOL:	 ARGS:reply_post_id,
+		 1: COPY TYPE_PASS def_%v_26 %v_27[9.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %v_26->! def_%v_28 %v_26[9.1,8.10,] 	 SYMBOL:	 ARGS:
+		 1: %v_28->! def_%v_29 %v_28[10.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_reply_quoted %v_29[10.1,] 
+		 3: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_29 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: post->reply_quoted def_%v_30 post[2.5,] 	 SYMBOL:	 ARGS:
+		 2: reply_quoted->!= def_%v_31 reply_quoted[10.2,7.1,] %v_30[12.1,] 	 SYMBOL:	 ARGS:%v_30,
+		 3: BRANCH %v_31[12.2,] 
+BB 13
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-reply_quoted- def_%v_32 reply_quoted[12.2,10.2,7.1,] 
+		 2: post->update_columns def_%v_33 post[2.5,] %v_32[13.1,] 	 SYMBOL:	 ARGS:%v_32,
+		 3: RETURN %v_33[13.2,] %self[2.0,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+

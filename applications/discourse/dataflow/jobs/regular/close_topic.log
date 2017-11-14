@@ -1,0 +1,71 @@
+SET IRMethod, name = execute instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_args 
+		 6: 
+		 7: (Topic) def_%v_3 
+		 8: args->[] def_%v_4 args[2.5,] 	 SYMBOL:topic_id,	 ARGS:Symbol,
+		 9: HASH-id- def_%v_5 %v_4[2.8,] 
+		 10: %v_3->find_by def_%v_6 %v_3[2.7,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: COPY TYPE_PASS def_topic %v_6[2.10,] 
+		 12: BRANCH %v_6[2.10,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%v_7 
+		 2: args->[] def_%v_8 args[2.5,] 	 SYMBOL:user_id,	 ARGS:Symbol,
+		 3: HASH-id- def_%v_9 %v_8[3.2,] 
+		 4: %v_7->find_by def_%v_10 %v_7[3.1,] %v_9[3.3,] 	 SYMBOL:	 ARGS:%v_9,
+		 5: COPY TYPE_PASS def_closer %v_10[3.4,] 
+		 6: 
+		 7: (Guardian) def_%v_11 
+		 8: %v_11->new def_%v_12 %v_11[3.7,] %v_10[3.4,] 	 SYMBOL:	 ARGS:closer,
+		 9: COPY TYPE_PASS def_guardian %v_12[3.8,] 
+		 10: 
+		 11: %v_12->can_close? def_%v_13 %v_12[3.8,] topic[2.11,] 	 SYMBOL:	 ARGS:topic,
+		 12: BRANCH %v_13[3.11,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+		 1: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Discourse) def_%v_15 
+		 2: %v_15->system_user def_%v_16 %v_15[5.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_closer %v_16[5.2,] 
+		 4: COPY TYPE_PASS def_%v_14 %v_16[5.2,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: topic->auto_close def_%v_17 topic[2.11,] closer[5.3,3.5,] 	 SYMBOL:	 ARGS:closer,
+		 2: RETURN %v_17[6.1,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+

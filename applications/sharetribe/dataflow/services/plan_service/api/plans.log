@@ -1,0 +1,799 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_configuration 
+		 6: 
+		 7: configuration->[] def_%v_3 configuration[2.5,] 	 SYMBOL:jwt_secret,	 ARGS:Symbol,
+		 8: ATTRASSIGN %self->jwt_secret %v_3[2.7,] 
+		 9: 
+		 10: configuration->[] def_%v_4 configuration[2.5,2.7,] 	 SYMBOL:external_plan_service_login_url,	 ARGS:Symbol,
+		 11: ATTRASSIGN %self->external_plan_service_login_url %v_4[2.10,] 
+		 12: RETURN %v_4[2.10,] %self[2.0,2.8,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = active? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: RETURN %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = authorize_provisioning instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_token 
+		 6: 
+		 7: (JWTUtils) def_%v_3 
+		 8: GETFIELD %self->jwt_secret def_%v_4 %self[2.0,] 
+		 9: HASH-sub- def_%v_5 
+		 10: %v_3->decode def_%v_6 %v_3[2.7,] token[2.5,] %v_4[2.8,] %v_5[2.9,] 	 SYMBOL:	 ARGS:token,%v_4,%v_5,
+		 11: RETURN %v_6[2.10,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = authorize_trial_sync instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_token 
+		 6: 
+		 7: (JWTUtils) def_%v_3 
+		 8: GETFIELD %self->jwt_secret def_%v_4 %self[2.0,] 
+		 9: HASH-sub- def_%v_5 
+		 10: %v_3->decode def_%v_6 %v_3[2.7,] token[2.5,] %v_4[2.8,] %v_5[2.9,] 	 SYMBOL:	 ARGS:token,%v_4,%v_5,
+		 11: RETURN %v_6[2.10,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_community_id 
+		 6: community_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_plan 
+		 1: plan[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Result) def_%v_3 
+		 2: (inherit Success) def_%v_4 %v_3[6.1,] 
+		 3: %v_4[6.2,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[6.1,] 	 SYMBOL:Success,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: (PlanStore) def_%v_5 
+		 1: HASH-community_id-plan- def_%v_6 community_id[2.5,] plan[4.0,] 
+		 2: %v_5->create def_%v_7 %v_5[8.0,] %v_6[8.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: %self->with_statuses def_%v_8 %self[2.0,] %v_7[8.2,] 	 SYMBOL:	 ARGS:%v_7,
+		 4: %v_4->new def_%v_9 %v_4[7.0,6.2,] %v_8[8.3,] 	 SYMBOL:	 ARGS:%v_8,
+		 5: RETURN %v_9[8.4,] %self[8.3,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create_initial_trial instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_community_id 
+		 6: community_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_plan 
+		 1: plan[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Result) def_%v_3 
+		 2: (inherit Success) def_%v_4 %v_3[6.1,] 
+		 3: %v_4[6.2,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[6.1,] 	 SYMBOL:Success,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: (PlanStore) def_%v_5 
+		 1: HASH-community_id-plan- def_%v_6 community_id[2.5,] plan[4.0,] 
+		 2: %v_5->create_trial def_%v_7 %v_5[8.0,] %v_6[8.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: %self->with_statuses def_%v_8 %self[2.0,] %v_7[8.2,] 	 SYMBOL:	 ARGS:%v_7,
+		 4: %v_4->new def_%v_9 %v_4[7.0,6.2,] %v_8[8.3,] 	 SYMBOL:	 ARGS:%v_8,
+		 5: RETURN %v_9[8.4,] %self[8.3,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_current instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_community_id 
+		 6: community_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PlanStore) def_%v_3 
+		 2: HASH-community_id- def_%v_4 community_id[2.5,] 
+		 3: %v_3->get_current def_%v_5 %v_3[4.1,] %v_4[4.2,] 	 SYMBOL:	 ARGS:%v_4,
+		 4: %self->Maybe def_%v_6 %self[2.0,] %v_5[4.3,] 	 SYMBOL:	 ARGS:%v_5,
+		 5: %v_6->map def_%v_7 %v_6[4.4,] %self[4.4,2.0,] 	 SYMBOL:	 ARGS:%v_6,
+CLOSURE BEGIN: %self[4.4,2.0,] plan[] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_plan 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Result) def_%cl_1_3 
+		 2: (inherit Success) def_%cl_1_4 %cl_1_3[3.1,] 
+		 3: %cl_1_4[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %cl_1_3->const_missing def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:Success,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: %self->with_statuses def_%cl_1_5 %self[2.0,] plan[2.2,] 	 SYMBOL:	 ARGS:plan,
+		 1: %cl_1_4->new def_%cl_1_6 %cl_1_4[4.0,3.2,] %cl_1_5[5.0,] 	 SYMBOL:	 ARGS:%cl_1_5,
+		 2: RETURN %cl_1_6[5.1,] %self[5.0,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_7 
+		 1: def_%cl_1_8 %cl_1_7[6.0,] 
+		 2: RETURN %cl_1_8[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 6: %v_7->or_else def_%v_8 %v_7[4.5,] %self[4.4,2.0,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: community_id[2.5,] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Result) def_%cl_2_3 
+		 2: (inherit Error) def_%cl_2_4 %cl_2_3[3.1,] 
+		 3: %cl_2_4[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %cl_2_3->const_missing def_%cl_2_4 %cl_2_3[3.1,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Cannot find plan for community id: " def_%cl_2_5 
+		 1: BUILDSTRING def_%cl_2_6 %cl_2_5[5.0,] community_id[] 
+		 2: %cl_2_4->new def_%cl_2_7 %cl_2_4[4.0,3.2,] %cl_2_6[5.1,] 	 SYMBOL:	 ARGS:%cl_2_6,
+		 3: RETURN %cl_2_7[5.2,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_8 
+		 1: def_%cl_2_9 %cl_2_8[6.0,] 
+		 2: RETURN %cl_2_9[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 7: RETURN %v_8[4.6,] %self[4.4,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_trials instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_after 
+		 6: after[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_limit 
+		 1: limit[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: limit->+ def_%v_3 limit[4.0,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: COPY TYPE_PASS def_plus_one %v_3[6.1,] 
+		 3: 
+		 4: (PlanStore) def_%v_4 
+		 5: HASH-after-limit- def_%v_5 after[2.5,] %v_3[6.1,] 
+		 6: %v_4->get_trials def_%v_6 %v_4[6.4,] %v_5[6.5,] 	 SYMBOL:	 ARGS:%v_5,
+		 7: COPY TYPE_PASS def_trials %v_6[6.6,] 
+		 8: 
+		 9: %v_6->count def_%v_7 %v_6[6.6,] 	 SYMBOL:	 ARGS:
+		 10: %v_7->> def_%v_8 %v_7[6.9,] limit[6.1,4.0,] 	 SYMBOL:	 ARGS:limit,
+		 11: BRANCH %v_8[6.10,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Result) def_%v_9 
+		 2: (inherit Success) def_%v_10 %v_9[7.1,] 
+		 3: %v_10[7.2,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_9->const_missing def_%v_10 %v_9[7.1,] 	 SYMBOL:Success,	 ARGS:Symbol,
+BB 9
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: trials->take def_%v_11 trials[6.7,] limit[4.0,] 	 SYMBOL:	 ARGS:limit,
+		 1: trials->last def_%v_12 trials[9.0,6.7,] 	 SYMBOL:	 ARGS:
+		 2: %v_12->[] def_%v_13 %v_12[9.1,] 	 SYMBOL:created_at,	 ARGS:Symbol,
+		 3: %v_13->to_i def_%v_14 %v_13[9.2,] 	 SYMBOL:	 ARGS:
+		 4: HASH-plans-next_after- def_%v_15 %v_11[9.0,] %v_14[9.3,] 
+		 5: %v_10->new def_%v_16 %v_10[8.0,7.2,] %v_15[9.4,] 	 SYMBOL:	 ARGS:%v_15,
+		 6: RETURN %v_16[9.5,] %self[2.0,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Result) def_%v_17 
+		 2: (inherit Success) def_%v_18 %v_17[10.1,] 
+		 3: %v_18[10.2,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %v_17->const_missing def_%v_18 %v_17[10.1,] 	 SYMBOL:Success,	 ARGS:Symbol,
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: HASH-plans- def_%v_19 trials[6.7,] 
+		 1: %v_18->new def_%v_20 %v_18[11.0,10.2,] %v_19[12.0,] 	 SYMBOL:	 ARGS:%v_19,
+		 2: RETURN %v_20[12.1,] %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_external_service_link instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_marketplace_data 
+		 6: 
+		 7: GETFIELD %self->external_plan_service_login_url def_%v_3 %self[2.0,] 
+		 8: %self->Maybe def_%v_4 %self[2.0,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: %v_4->map def_%v_5 %v_4[2.8,] %self[2.0,2.8,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: marketplace_data[2.5,] %self[2.0,2.8,] trial_data[] marketplace[] payload[] external_plan_service_login_url[] token[] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_external_plan_service_login_url 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (LoginLinkMarketplaceData) def_%cl_1_3 
+		 2: %cl_1_3->call def_%cl_1_4 %cl_1_3[3.1,] marketplace_data[] 	 SYMBOL:	 ARGS:marketplace_data,
+		 3: COPY TYPE_PASS def_marketplace %cl_1_4[3.2,] 
+		 4: 
+		 5: (PlanStore) def_%cl_1_5 
+		 6: %cl_1_4->[] def_%cl_1_6 %cl_1_4[3.2,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 7: HASH-community_id- def_%cl_1_7 %cl_1_6[3.6,] 
+		 8: %cl_1_5->get_initial_trial def_%cl_1_8 %cl_1_5[3.5,] %cl_1_7[3.7,] 	 SYMBOL:	 ARGS:%cl_1_7,
+		 9: %self->Maybe def_%cl_1_9 %self[2.0,] %cl_1_8[3.8,] 	 SYMBOL:	 ARGS:%cl_1_8,
+		 10: %cl_1_9->map def_%cl_1_10 %cl_1_9[3.9,] %self[3.9,2.0,] 	 SYMBOL:	 ARGS:%cl_1_9,
+CLOSURE BEGIN: trial_data[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_trial_data 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ExternalPlan) def_%cl_2_3 
+		 2: (HashUtils) def_%cl_2_4 
+		 3: HASH-id-community_id- def_%cl_2_5 
+		 4: %cl_2_4->rename_keys def_%cl_2_6 %cl_2_4[3.2,] %cl_2_5[3.3,] trial_data[2.2,] 	 SYMBOL:	 ARGS:%cl_2_5,trial_data,
+		 5: %cl_2_3->call def_%cl_2_7 %cl_2_3[3.1,] %cl_2_6[3.4,] 	 SYMBOL:	 ARGS:%cl_2_6,
+		 6: RETURN %cl_2_7[3.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_8 
+		 1: def_%cl_2_9 %cl_2_8[4.0,] 
+		 2: RETURN %cl_2_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 11: %cl_1_10->or_else def_%cl_1_11 %cl_1_10[3.10,] 	 SYMBOL:	 ARGS:Nil,
+		 12: COPY TYPE_PASS def_trial_hash %cl_1_11[3.11,] 
+		 13: 
+		 14: HASH-marketplace-initial_trial_plan- def_%cl_1_12 marketplace[3.3,] %cl_1_11[3.11,] 
+		 15: COPY TYPE_PASS def_payload %cl_1_12[3.14,] 
+		 16: 
+		 17: (JWTUtils) def_%cl_1_13 
+		 18: GETFIELD %self->jwt_secret def_%cl_1_14 %self[3.9,2.0,] 
+		 19: CONSTANT def_%cl_1_15 	 SYMBOL:	 ARGS:
+		 20: %cl_1_15->from_now def_%cl_1_16 %cl_1_15[3.19,] 	 SYMBOL:	 ARGS:
+		 21: HASH-sub-exp- def_%cl_1_17 %cl_1_16[3.20,] 
+		 22: %cl_1_13->encode def_%cl_1_18 %cl_1_13[3.17,] payload[3.15,] %cl_1_14[3.18,] %cl_1_17[3.21,] 	 SYMBOL:	 ARGS:payload,%cl_1_14,%cl_1_17,
+		 23: COPY TYPE_PASS def_token %cl_1_18[3.22,] 
+		 24: 
+		 25: (Result) def_%cl_1_19 
+		 26: (inherit Success) def_%cl_1_20 %cl_1_19[3.25,] 
+		 27: %cl_1_20[3.26,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %cl_1_19->const_missing def_%cl_1_20 %cl_1_19[3.25,] 	 SYMBOL:Success,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: (URLUtils) def_%cl_1_21 
+		 1: COPY TYPE_StringLiteral "token" def_%cl_1_22 
+		 2: %cl_1_21->append_query_param def_%cl_1_23 %cl_1_21[5.0,] external_plan_service_login_url[2.2,] %cl_1_22[5.1,] token[3.23,] 	 SYMBOL:	 ARGS:external_plan_service_login_url,%cl_1_22,token,
+		 3: %cl_1_20->new def_%cl_1_24 %cl_1_20[4.0,3.26,] %cl_1_23[5.2,] 	 SYMBOL:	 ARGS:%cl_1_23,
+		 4: RETURN %cl_1_24[5.3,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_25 
+		 1: def_%cl_1_26 %cl_1_25[6.0,] 
+		 2: RETURN %cl_1_26[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: marketplace[3.3,] payload[3.15,] trial_hash[3.12,] token[3.23,] 
+		 10: %v_5->or_else def_%v_6 %v_5[2.9,] %self[2.0,2.8,] 	 SYMBOL:	 ARGS:%v_5,
+CLOSURE BEGIN: 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Result) def_%cl_3_3 
+		 2: (inherit Error) def_%cl_3_4 %cl_3_3[3.1,] 
+		 3: %cl_3_4[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %cl_3_3->const_missing def_%cl_3_4 %cl_3_3[3.1,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "external_plan_service_login_url is not defined" def_%cl_3_5 
+		 1: %cl_3_4->new def_%cl_3_6 %cl_3_4[4.0,3.2,] %cl_3_5[5.0,] 	 SYMBOL:	 ARGS:%cl_3_5,
+		 2: RETURN %cl_3_6[5.1,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_7 
+		 1: def_%cl_3_8 %cl_3_7[6.0,] 
+		 2: RETURN %cl_3_8[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 11: RETURN %v_6[2.10,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = with_statuses instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_plan 
+		 6: 
+		 7: %self->plan_expired? def_%v_3 %self[2.0,] plan[2.5,] 	 SYMBOL:	 ARGS:plan,
+		 8: %self->plan_closed? def_%v_4 %self[2.0,2.7,] plan[2.5,] 	 SYMBOL:	 ARGS:plan,
+		 9: HASH-expired-closed- def_%v_5 %v_3[2.7,] %v_4[2.8,] 
+		 10: plan->merge def_%v_6 plan[2.5,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: RETURN %v_6[2.10,] %self[2.0,2.7,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = plan_closed? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_plan 
+		 6: 
+		 7: %self->Maybe def_%v_3 %self[2.0,] plan[2.5,] 	 SYMBOL:	 ARGS:plan,
+		 8: %v_3->map def_%v_4 %v_3[2.7,] %self[2.0,2.7,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: p[] %self[2.0,2.7,] 
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_p 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: p->[] def_%cl_1_3 p[2.2,] 	 SYMBOL:plan_level,	 ARGS:Symbol,
+		 2: %cl_1_3->== def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: BRANCH %cl_1_4[3.2,] 
+BB 4
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Boolean def_%cl_1_5 
+		 2: RETURN %self[2.0,] 
+BB 5
+	outgoing: 6 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->plan_expired? def_%cl_1_6 %self[2.0,] p[2.2,] 	 SYMBOL:	 ARGS:p,
+		 2: BRANCH %cl_1_6[5.1,] 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: p->[] def_%cl_1_7 p[2.2,] 	 SYMBOL:plan_level,	 ARGS:Symbol,
+		 1: %cl_1_7->> def_%cl_1_8 %cl_1_7[6.0,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: COPY TYPE_PASS def_%cl_1_6 %cl_1_8[6.1,] 
+BB 7
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_6[6.2,5.1,] %self[2.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_9 
+		 1: def_%cl_1_10 %cl_1_9[9.0,] 
+		 2: RETURN %cl_1_10[9.1,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: %v_4->or_else def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:Boolean,
+		 10: RETURN %v_5[2.9,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = plan_expired? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_plan 
+		 6: 
+		 7: %self->Maybe def_%v_3 %self[2.0,] plan[2.5,] 	 SYMBOL:	 ARGS:plan,
+		 8: %v_3->[] def_%v_4 %v_3[2.7,] 	 SYMBOL:expires_at,	 ARGS:Symbol,
+		 9: %v_4->map def_%v_5 %v_4[2.8,] %self[2.0,2.7,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: expires_at[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_expires_at 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Time) def_%cl_1_3 
+		 2: %cl_1_3->now def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: expires_at->< def_%cl_1_5 expires_at[2.2,] %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:%cl_1_4,
+		 4: RETURN %cl_1_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: %v_5->or_else def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:Boolean,
+		 11: RETURN %v_6[2.10,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,149 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_note 
+		 6: 
+		 7: ATTRASSIGN %self->note note[2.5,] 
+		 8: RETURN note[2.5,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = execute instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->note def_%v_3 %self[2.0,] 
+		 7: %v_3->system def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->note def_%v_5 %self[2.0,] 
+		 1: %v_5->is_award def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_4 %v_6[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[3.2,2.7,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: RETURN %v_7[5.0,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (EventCreateService) def_%v_8 
+		 2: %v_8->new def_%v_9 %v_8[6.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->note def_%v_10 %self[2.0,] 
+		 4: GETFIELD %self->note def_%v_11 %self[2.0,] 
+		 5: %v_11->author def_%v_12 %v_11[6.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_9->leave_note def_%v_13 %v_9[6.2,] %v_10[6.3,] %v_12[6.5,] 	 SYMBOL:	 ARGS:%v_10,%v_12,
+		 7: 
+		 8: GETFIELD %self->note def_%v_14 %self[2.0,] 
+		 9: %v_14->create_cross_references! def_%v_15 %v_14[6.8,] 	 SYMBOL:	 ARGS:
+		 10: 
+		 11: %self->execute_note_hooks def_%v_16 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 12: RETURN %v_16[6.11,] %self[6.11,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = hook_data instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Gitlab) def_%v_3 
+		 7: (inherit NoteDataBuilder) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:NoteDataBuilder,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->note def_%v_5 %self[2.0,] 
+		 1: GETFIELD %self->note def_%v_6 %self[2.0,] 
+		 2: %v_6->author def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_4->build def_%v_8 %v_4[3.0,2.7,] %v_5[4.0,] %v_7[4.2,] 	 SYMBOL:	 ARGS:%v_5,%v_7,
+		 4: RETURN %v_8[4.3,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = execute_note_hooks instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->hook_data def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_PASS def_note_data %v_3[2.6,] 
+		 8: 
+		 9: GETFIELD %self->note def_%v_4 %self[2.0,2.6,] 
+		 10: %v_4->project def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->execute_hooks def_%v_6 %v_5[2.10,] note_data[2.7,] 	 SYMBOL:note_hooks,	 ARGS:note_data,Symbol,
+		 12: 
+		 13: GETFIELD %self->note def_%v_7 %self[2.0,2.6,] 
+		 14: %v_7->project def_%v_8 %v_7[2.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_8->execute_services def_%v_9 %v_8[2.14,] note_data[2.7,] 	 SYMBOL:note_hooks,	 ARGS:note_data,Symbol,
+		 16: RETURN %v_9[2.15,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,2077 @@
+SET IRMethod, name = thumbnail instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_width 
+		 6: width[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->width def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_width %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_height 
+		 1: height[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->height def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_height %v_4[5.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->optimized_images def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: HASH-width-height- def_%v_6 width[3.1,2.5,] height[5.1,4.0,] 
+		 3: %v_5->find_by def_%v_7 %v_5[6.1,] %v_6[6.2,] 	 SYMBOL:	 ARGS:%v_6,
+		 4: RETURN %v_7[6.3,] %self[6.1,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = has_thumbnail? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_width 
+		 6: RECEIVEARG def_height 
+		 7: 
+		 8: %self->thumbnail def_%v_3 %self[2.0,] width[2.5,] height[2.6,] 	 SYMBOL:	 ARGS:width,height,
+		 9: %v_3->present? def_%v_4 %v_3[2.8,] 	 SYMBOL:	 ARGS:
+		 10: RETURN %v_4[2.9,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create_thumbnail! instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_width 
+		 6: RECEIVEARG def_height 
+		 7: 
+		 8: (SiteSetting) def_%v_3 
+		 9: %v_3->create_thumbnails? def_%v_4 %v_3[2.8,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_4[2.9,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: (OptimizedImage) def_%v_6 
+		 3: %self->original_filename def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: (SiteSetting) def_%v_8 
+		 5: %v_8->allow_animated_thumbnails def_%v_9 %v_8[3.4,] 	 SYMBOL:	 ARGS:
+		 6: HASH-filename-allow_animation- def_%v_10 %v_7[3.3,] %v_9[3.5,] 
+		 7: %v_6->create_for def_%v_11 %v_6[3.2,] %self[3.3,2.0,] width[2.5,] height[2.6,] %v_10[3.6,] 	 SYMBOL:	 ARGS:%self,width,height,%v_10,
+		 8: COPY TYPE_PASS def_thumbnail %v_11[3.7,] 
+		 9: 
+		 10: BRANCH %v_11[3.7,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->optimized_images def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_12-><< def_%v_13 %v_12[6.1,] thumbnail[3.8,] 	 SYMBOL:	 ARGS:thumbnail,
+		 3: 
+		 4: ATTRASSIGN %self->width width[2.5,] 
+		 5: 
+		 6: ATTRASSIGN %self->height height[2.6,] 
+		 7: 
+		 8: HASH-validate- def_%v_14 
+		 9: %self->save def_%v_15 %self[6.1,6.4,6.6,2.0,] %v_14[6.8,] 	 SYMBOL:	 ARGS:%v_14,
+		 10: RETURN %v_15[6.9,] %self[6.1,6.4,6.6,6.9,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = destroy instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Upload) def_%v_3 
+		 7: %v_3->transaction def_%v_4 %v_3[2.6,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Discourse) def_%cl_1_3 
+		 2: %cl_1_3->store def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_4->remove_upload def_%cl_1_5 %cl_1_4[3.2,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+		 4: 
+		 5: def_%cl_1_6 
+		 6: %cl_1_6[3.5,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: %self->-unknown-super-target- def_%cl_1_7 %self[2.0,] %cl_1_0[2.1,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: %self->-unknown-super-target- def_%cl_1_7 %self[2.0,] %cl_1_0[2.1,] 	 SYMBOL:	 ARGS:
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_7[5.0,4.0,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[7.0,] 
+		 2: RETURN %cl_1_9[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = extension instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (File) def_%v_3 
+		 7: %self->original_filename def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->extname def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create_for instanceMethod = false
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user_id 
+		 6: RECEIVEARG def_file 
+		 7: RECEIVEARG def_filename 
+		 8: RECEIVEARG def_filesize 
+		 9: RECEIVECONSTARG def_options 
+		 10: options[2.9,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[4.0,] 
+BB 5
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (DistributedMutex) def_%v_4 
+		 2: COPY TYPE_StringLiteral "upload_" def_%v_5 
+		 3: COPY TYPE_StringLiteral "_" def_%v_6 
+		 4: BUILDSTRING def_%v_7 %v_5[5.2,] user_id[2.5,] %v_6[5.3,] filename[2.7,] 
+		 5: %v_4->synchronize def_%v_8 %v_4[5.1,] %v_7[5.4,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_7,%v_4,
+CLOSURE BEGIN: filename[2.7,] file[2.6,] %self[2.0,] svg[] w[] h[] options[4.1,2.9,] allow_animation[] width[] height[] max_pixel_ratio[] upload[] user_id[2.5,] filesize[2.8,] sha1[] f[] url[] 
+BB 1
+	outgoing: 77 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 75 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (FileHelper) def_%cl_1_3 
+		 2: %cl_1_3->is_image? def_%cl_1_4 %cl_1_3[3.1,] filename[] 	 SYMBOL:	 ARGS:filename,
+		 3: BRANCH %cl_1_4[3.2,] 
+BB 4
+	outgoing: 5 75 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "identify '" def_%cl_1_5 
+		 1: file->path def_%cl_1_6 file[] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "' >/dev/null 2>&1" def_%cl_1_7 
+		 3: BUILDSTRING def_%cl_1_8 %cl_1_5[4.0,] %cl_1_6[4.1,] %cl_1_7[4.2,] 
+		 4: %self->system def_%cl_1_9 %self[2.0,] %cl_1_8[4.3,] 	 SYMBOL:	 ARGS:%cl_1_8,
+		 5: COPY TYPE_PASS def_%cl_1_4 %cl_1_9[4.4,] 
+BB 5
+	outgoing: 6 49 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_4[4.5,3.2,] 
+BB 6
+	outgoing: 7 8 75 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Regexp def_%cl_1_10 
+		 2: filename->=~ def_%cl_1_11 filename[] 	 SYMBOL:	 ARGS:%cl_1_10,
+		 3: BRANCH %cl_1_11[6.2,] 
+BB 7
+	outgoing: 23 75 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Nokogiri) def_%cl_1_12 
+		 2: %cl_1_12->XML def_%cl_1_13 %cl_1_12[7.1,] file[] 	 SYMBOL:	 ARGS:file,
+		 3: COPY TYPE_StringLiteral "svg" def_%cl_1_14 
+		 4: %cl_1_13->at_css def_%cl_1_15 %cl_1_13[7.2,] %cl_1_14[7.3,] 	 SYMBOL:	 ARGS:%cl_1_14,
+		 5: COPY TYPE_PASS def_svg %cl_1_15[7.4,] 
+		 6: 
+		 7: COPY TYPE_StringLiteral "width" def_%cl_1_16 
+		 8: %cl_1_15->[] def_%cl_1_17 %cl_1_15[7.4,] %cl_1_16[7.7,] 	 SYMBOL:	 ARGS:%cl_1_16,
+		 9: %cl_1_17->to_i def_%cl_1_18 %cl_1_17[7.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_PASS def_w %cl_1_18[7.9,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "height" def_%cl_1_19 
+		 13: svg->[] def_%cl_1_20 svg[7.5,] %cl_1_19[7.12,] 	 SYMBOL:	 ARGS:%cl_1_19,
+		 14: %cl_1_20->to_i def_%cl_1_21 %cl_1_20[7.13,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_PASS def_h %cl_1_21[7.14,] 
+		 16: 
+BB 8
+	outgoing: 9 10 75 
+	datadep: 
+	instructions:
+		 0: 
+		 1: file->path def_%cl_1_22 file[] 	 SYMBOL:	 ARGS:
+		 2: %self->should_optimize? def_%cl_1_23 %self[2.0,] %cl_1_22[8.1,] 	 SYMBOL:	 ARGS:%cl_1_22,
+		 3: BRANCH %cl_1_23[8.2,] 
+BB 9
+	outgoing: 11 75 
+	datadep: 
+	instructions:
+		 0: file->path def_%cl_1_24 file[] 	 SYMBOL:	 ARGS:
+		 1: %self->fix_image_orientation def_%cl_1_25 %self[2.0,] %cl_1_24[9.0,] 	 SYMBOL:	 ARGS:%cl_1_24,
+		 2: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_25 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%cl_1_26 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (FastImage) def_%cl_1_29 
+		 2: %cl_1_29->new def_%cl_1_30 %cl_1_29[13.1,] file[] 	 SYMBOL:	 ARGS:file,
+		 3: COPY TYPE_PASS def_%cl_1_28 %cl_1_30[13.2,] 
+		 4: 
+		 5: %cl_1_26[11.1,] 
+BB 14
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+BB 15
+	outgoing: 16 17 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%cl_1_31 
+		 2: def_%cl_1_32 %cl_1_31[15.1,] 
+		 3: BRANCH %cl_1_32[15.2,] 
+BB 16
+	outgoing: 19 77 
+	datadep: 
+	instructions:
+		 0: %cl_1_31[15.1,] 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_28 
+		 1: 
+		 2: %cl_1_26[11.1,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+BB 19
+	outgoing: 75 77 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_33 
+		 1: def_%cl_1_34 %cl_1_33[19.0,] %cl_1_26[11.1,] 
+		 2: %cl_1_33[19.0,] 
+BB 20
+	outgoing: 21 22 75 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_image_info %cl_1_28[13.3,17.0,] 
+		 1: 
+		 2: %cl_1_28->try def_%cl_1_36 %cl_1_28[13.3,17.0,] 	 SYMBOL:size,	 ARGS:Symbol,
+		 3: BRANCH %cl_1_36[20.2,] 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%cl_1_37 
+		 1: COPY TYPE_PASS def_%cl_1_36 %cl_1_37[21.0,] 
+BB 22
+	outgoing: 23 75 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_35 %cl_1_36[21.1,20.2,] 
+		 1: def_%cl_1_38 %cl_1_35[22.0,] 
+		 2: def_%cl_1_39 %cl_1_38[22.1,] 
+		 3: def_%cl_1_40 %cl_1_38[22.1,] 
+		 4: COPY TYPE_PASS def_w %cl_1_39[22.2,] 
+		 5: COPY TYPE_PASS def_h %cl_1_40[22.3,] 
+		 6: COPY TYPE_PASS def_%cl_1_21 %cl_1_35[22.0,] 
+BB 23
+	outgoing: 24 35 75 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ImageSizer) def_%cl_1_41 
+		 2: %cl_1_41->resize def_%cl_1_42 %cl_1_41[23.1,] w[22.4,7.10,] h[22.5,7.15,] 	 SYMBOL:	 ARGS:w,h,
+		 3: def_%cl_1_43 %cl_1_42[23.2,] 
+		 4: def_%cl_1_44 %cl_1_43[23.3,] 
+		 5: def_%cl_1_45 %cl_1_43[23.3,] 
+		 6: COPY TYPE_PASS def_width %cl_1_44[23.4,] 
+		 7: COPY TYPE_PASS def_height %cl_1_45[23.5,] 
+		 8: 
+		 9: file->rewind def_%cl_1_46 file[] 	 SYMBOL:	 ARGS:
+		 10: 
+		 11: (CROPPED_IMAGE_TYPES) def_%cl_1_47 
+		 12: options->[] def_%cl_1_48 options[] 	 SYMBOL:image_type,	 ARGS:Symbol,
+		 13: %cl_1_47->include? def_%cl_1_49 %cl_1_47[23.11,] %cl_1_48[23.12,] 	 SYMBOL:	 ARGS:%cl_1_48,
+		 14: BRANCH %cl_1_49[23.13,] 
+BB 24
+	outgoing: 25 26 75 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%cl_1_50 
+		 2: %cl_1_50->allow_animated_thumbnails def_%cl_1_51 %cl_1_50[24.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_allow_animation %cl_1_51[24.2,] 
+		 4: 
+		 5: (Discourse) def_%cl_1_52 
+		 6: (inherit PIXEL_RATIOS) def_%cl_1_53 %cl_1_52[24.5,] 
+		 7: %cl_1_53[24.6,] 
+BB 25
+	outgoing: 26 75 
+	datadep: 
+	instructions:
+		 0: %cl_1_52->const_missing def_%cl_1_53 %cl_1_52[24.5,] 	 SYMBOL:PIXEL_RATIOS,	 ARGS:Symbol,
+BB 26
+	outgoing: 27 30 75 
+	datadep: 
+	instructions:
+		 0: %cl_1_53->max def_%cl_1_54 %cl_1_53[25.0,24.6,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_max_pixel_ratio %cl_1_54[26.0,] 
+		 2: 
+		 3: options->[] def_%cl_1_55 options[] 	 SYMBOL:image_type,	 ARGS:Symbol,
+		 4: COPY TYPE_StringLiteral "avatar" def_%cl_1_58 
+		 5: def_%cl_1_57 %cl_1_58[26.4,] %cl_1_55[26.3,] 
+		 6: BRANCH %cl_1_57[26.5,] 
+BB 27
+	outgoing: 28 31 75 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "profile_background" def_%cl_1_60 
+		 1: def_%cl_1_59 %cl_1_60[27.0,] %cl_1_55[26.3,] 
+		 2: BRANCH %cl_1_59[27.1,] 
+BB 28
+	outgoing: 29 32 75 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "card_background" def_%cl_1_62 
+		 1: def_%cl_1_61 %cl_1_62[28.0,] %cl_1_55[26.3,] 
+		 2: BRANCH %cl_1_61[28.1,] 
+BB 29
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_56 
+		 1: 
+BB 30
+	outgoing: 34 75 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%cl_1_63 
+		 2: %cl_1_63->allow_animated_avatars def_%cl_1_64 %cl_1_63[30.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_allow_animation %cl_1_64[30.2,] 
+		 4: 
+		 5: (Discourse) def_%cl_1_65 
+		 6: %cl_1_65->avatar_sizes def_%cl_1_66 %cl_1_65[30.5,] 	 SYMBOL:	 ARGS:
+		 7: %cl_1_66->max def_%cl_1_67 %cl_1_66[30.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_height %cl_1_67[30.7,] 
+		 9: COPY TYPE_PASS def_width %cl_1_67[30.7,] 
+		 10: 
+		 11: (OptimizedImage) def_%cl_1_68 
+		 12: file->path def_%cl_1_69 file[] 	 SYMBOL:	 ARGS:
+		 13: file->path def_%cl_1_70 file[30.12,] 	 SYMBOL:	 ARGS:
+		 14: HASH-filename-allow_animation- def_%cl_1_71 filename[] allow_animation[30.3,] 
+		 15: %cl_1_68->resize def_%cl_1_72 %cl_1_68[30.11,] %cl_1_69[30.12,] %cl_1_70[30.13,] width[30.9,] height[30.8,] %cl_1_71[30.14,] 	 SYMBOL:	 ARGS:%cl_1_69,%cl_1_70,width,height,%cl_1_71,
+		 16: COPY TYPE_PASS def_%cl_1_56 %cl_1_72[30.15,] 
+		 17: 
+BB 31
+	outgoing: 34 75 
+	datadep: 
+	instructions:
+		 0: 
+		 1: max_pixel_ratio->* def_%cl_1_73 max_pixel_ratio[26.1,] 	 SYMBOL:	 ARGS:max_pixel_ratio,
+		 2: COPY TYPE_PASS def_max_width %cl_1_73[31.1,] 
+		 3: 
+		 4: (ImageSizer) def_%cl_1_74 
+		 5: HASH-max_width-max_height- def_%cl_1_75 %cl_1_73[31.1,] %cl_1_73[31.1,] 
+		 6: %cl_1_74->resize def_%cl_1_76 %cl_1_74[31.4,] w[22.4,7.10,] h[22.5,7.15,] %cl_1_75[31.5,] 	 SYMBOL:	 ARGS:w,h,%cl_1_75,
+		 7: def_%cl_1_77 %cl_1_76[31.6,] 
+		 8: def_%cl_1_78 %cl_1_77[31.7,] 
+		 9: def_%cl_1_79 %cl_1_77[31.7,] 
+		 10: COPY TYPE_PASS def_width %cl_1_78[31.8,] 
+		 11: COPY TYPE_PASS def_height %cl_1_79[31.9,] 
+		 12: 
+		 13: (OptimizedImage) def_%cl_1_80 
+		 14: file->path def_%cl_1_81 file[] 	 SYMBOL:	 ARGS:
+		 15: file->path def_%cl_1_82 file[31.14,] 	 SYMBOL:	 ARGS:
+		 16: COPY TYPE_StringLiteral "x" def_%cl_1_83 
+		 17: BUILDSTRING def_%cl_1_84 width[31.10,] %cl_1_83[31.16,] height[31.11,] 
+		 18: HASH-filename-allow_animation- def_%cl_1_85 filename[] allow_animation[24.3,] 
+		 19: %cl_1_80->downsize def_%cl_1_86 %cl_1_80[31.13,] %cl_1_81[31.14,] %cl_1_82[31.15,] %cl_1_84[31.17,] %cl_1_85[31.18,] 	 SYMBOL:	 ARGS:%cl_1_81,%cl_1_82,%cl_1_84,%cl_1_85,
+		 20: COPY TYPE_PASS def_%cl_1_56 %cl_1_86[31.19,] 
+		 21: 
+BB 32
+	outgoing: 34 75 
+	datadep: 
+	instructions:
+		 0: 
+		 1: max_pixel_ratio->* def_%cl_1_87 max_pixel_ratio[26.1,] 	 SYMBOL:	 ARGS:max_pixel_ratio,
+		 2: COPY TYPE_PASS def_max_width %cl_1_87[32.1,] 
+		 3: 
+		 4: (ImageSizer) def_%cl_1_88 
+		 5: HASH-max_width-max_height- def_%cl_1_89 %cl_1_87[32.1,] %cl_1_87[32.1,] 
+		 6: %cl_1_88->resize def_%cl_1_90 %cl_1_88[32.4,] w[22.4,7.10,] h[22.5,7.15,] %cl_1_89[32.5,] 	 SYMBOL:	 ARGS:w,h,%cl_1_89,
+		 7: def_%cl_1_91 %cl_1_90[32.6,] 
+		 8: def_%cl_1_92 %cl_1_91[32.7,] 
+		 9: def_%cl_1_93 %cl_1_91[32.7,] 
+		 10: COPY TYPE_PASS def_width %cl_1_92[32.8,] 
+		 11: COPY TYPE_PASS def_height %cl_1_93[32.9,] 
+		 12: 
+		 13: (OptimizedImage) def_%cl_1_94 
+		 14: file->path def_%cl_1_95 file[] 	 SYMBOL:	 ARGS:
+		 15: file->path def_%cl_1_96 file[32.14,] 	 SYMBOL:	 ARGS:
+		 16: COPY TYPE_StringLiteral "x" def_%cl_1_97 
+		 17: BUILDSTRING def_%cl_1_98 width[32.10,] %cl_1_97[32.16,] height[32.11,] 
+		 18: HASH-filename-allow_animation- def_%cl_1_99 filename[] allow_animation[24.3,] 
+		 19: %cl_1_94->downsize def_%cl_1_100 %cl_1_94[32.13,] %cl_1_95[32.14,] %cl_1_96[32.15,] %cl_1_98[32.17,] %cl_1_99[32.18,] 	 SYMBOL:	 ARGS:%cl_1_95,%cl_1_96,%cl_1_98,%cl_1_99,
+		 20: COPY TYPE_PASS def_%cl_1_56 %cl_1_100[32.19,] 
+		 21: 
+BB 34
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: 
+BB 35
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_56 
+BB 36
+	outgoing: 37 47 75 
+	datadep: 
+	instructions:
+		 0: 
+		 1: file->path def_%cl_1_101 file[] 	 SYMBOL:	 ARGS:
+		 2: %self->should_optimize? def_%cl_1_102 %self[2.0,] %cl_1_101[36.1,] 	 SYMBOL:	 ARGS:%cl_1_101,
+		 3: BRANCH %cl_1_102[36.2,] 
+BB 37
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%cl_1_103 
+BB 39
+	outgoing: 40 41 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ImageOptim) def_%cl_1_106 
+		 2: %cl_1_106->new def_%cl_1_107 %cl_1_106[39.1,] 	 SYMBOL:	 ARGS:
+		 3: file->path def_%cl_1_108 file[] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_107->optimize_image! def_%cl_1_109 %cl_1_107[39.2,] %cl_1_108[39.3,] 	 SYMBOL:	 ARGS:%cl_1_108,
+		 5: COPY TYPE_PASS def_%cl_1_105 %cl_1_109[39.4,] 
+		 6: 
+		 7: %cl_1_103[37.1,] 
+BB 40
+	outgoing: 46 
+	datadep: 
+	instructions:
+		 0: 
+BB 41
+	outgoing: 42 43 45 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%cl_1_110 
+		 2: def_%cl_1_111 %cl_1_110[41.1,] 
+		 3: BRANCH %cl_1_111[41.2,] 
+BB 42
+	outgoing: 45 77 
+	datadep: 
+	instructions:
+		 0: %cl_1_110[41.1,] 
+BB 43
+	outgoing: 44 45 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_105 
+		 1: 
+		 2: %cl_1_103[37.1,] 
+BB 44
+	outgoing: 46 
+	datadep: 
+	instructions:
+		 0: 
+BB 45
+	outgoing: 75 77 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_112 
+		 1: def_%cl_1_113 %cl_1_112[45.0,] %cl_1_103[37.1,] 
+		 2: %cl_1_112[45.0,] 
+BB 46
+	outgoing: 48 75 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (File) def_%cl_1_114 
+		 2: file->path def_%cl_1_115 file[] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_114->size def_%cl_1_116 %cl_1_114[46.1,] %cl_1_115[46.2,] 	 SYMBOL:	 ARGS:%cl_1_115,
+		 4: COPY TYPE_PASS def_filesize %cl_1_116[46.3,] 
+		 5: 
+BB 47
+	outgoing: 48 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_116 
+BB 48
+	outgoing: 50 
+	datadep: 
+	instructions:
+		 0: 
+BB 49
+	outgoing: 50 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_116 
+BB 50
+	outgoing: 51 52 75 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Digest) def_%cl_1_117 
+		 2: (inherit SHA1) def_%cl_1_118 %cl_1_117[50.1,] 
+		 3: %cl_1_118[50.2,] 
+BB 51
+	outgoing: 52 75 
+	datadep: 
+	instructions:
+		 0: %cl_1_117->const_missing def_%cl_1_118 %cl_1_117[50.1,] 	 SYMBOL:SHA1,	 ARGS:Symbol,
+BB 52
+	outgoing: 53 56 75 
+	datadep: 
+	instructions:
+		 0: %cl_1_118->file def_%cl_1_119 %cl_1_118[51.0,50.2,] file[] 	 SYMBOL:	 ARGS:file,
+		 1: %cl_1_119->hexdigest def_%cl_1_120 %cl_1_119[52.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_sha1 %cl_1_120[52.1,] 
+		 3: 
+		 4: HASH-sha1- def_%cl_1_121 %cl_1_120[52.1,] 
+		 5: %self->find_by def_%cl_1_122 %self[2.0,] %cl_1_121[52.4,] 	 SYMBOL:	 ARGS:%cl_1_121,
+		 6: COPY TYPE_PASS def_upload %cl_1_122[52.5,] 
+		 7: 
+		 8: COPY TYPE_PASS def_%cl_1_123 %cl_1_122[52.5,] 
+		 9: BRANCH %cl_1_122[52.5,] 
+BB 53
+	outgoing: 54 55 75 
+	datadep: 
+	instructions:
+		 0: upload->url def_%cl_1_124 upload[52.6,] 	 SYMBOL:	 ARGS:
+		 1: %cl_1_124->blank? def_%cl_1_125 %cl_1_124[53.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_125[53.1,] 
+BB 54
+	outgoing: 55 75 
+	datadep: 
+	instructions:
+		 0: upload->width def_%cl_1_126 upload[52.6,] 	 SYMBOL:	 ARGS:
+		 1: upload->height def_%cl_1_127 upload[54.0,52.6,] 	 SYMBOL:	 ARGS:
+		 2: %self->is_dimensionless_image? def_%cl_1_128 %self[2.0,] filename[] %cl_1_126[54.0,] %cl_1_127[54.1,] 	 SYMBOL:	 ARGS:filename,%cl_1_126,%cl_1_127,
+		 3: COPY TYPE_PASS def_%cl_1_125 %cl_1_128[54.2,] 
+BB 55
+	outgoing: 56 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_1_123 %cl_1_125[54.3,53.1,] 
+BB 56
+	outgoing: 57 58 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_123[55.0,52.8,] 
+BB 57
+	outgoing: 59 75 
+	datadep: 
+	instructions:
+		 0: 
+		 1: upload->destroy def_%cl_1_129 upload[52.6,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: COPY TYPE_Nil def_upload 
+		 4: COPY TYPE_Nil def_%cl_1_130 
+		 5: 
+BB 58
+	outgoing: 59 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_130 
+BB 59
+	outgoing: 60 61 75 
+	datadep: 
+	instructions:
+		 0: 
+		 1: upload->nil? def_%cl_1_131 upload[57.3,52.6,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_131[59.1,] 
+BB 60
+	outgoing: 62 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_132 
+		 1: 
+BB 61
+	outgoing: 75 77 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN upload[57.3,52.6,] %self[2.0,] 
+BB 62
+	outgoing: 63 64 75 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Upload) def_%cl_1_133 
+		 2: %cl_1_133->new def_%cl_1_134 %cl_1_133[62.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_upload %cl_1_134[62.2,] 
+		 4: 
+		 5: ATTRASSIGN %cl_1_134->user_id user_id[] 
+		 6: 
+		 7: ATTRASSIGN upload->original_filename filename[] 
+		 8: 
+		 9: ATTRASSIGN upload->filesize filesize[46.4,] 
+		 10: 
+		 11: ATTRASSIGN upload->sha1 sha1[52.2,] 
+		 12: 
+		 13: COPY TYPE_StringLiteral "" def_%cl_1_135 
+		 14: ATTRASSIGN upload->url %cl_1_135[62.13,] 
+		 15: 
+		 16: ATTRASSIGN upload->width width[23.6,30.9,31.10,32.10,] 
+		 17: 
+		 18: ATTRASSIGN upload->height height[23.7,30.8,31.11,32.11,] 
+		 19: 
+		 20: options->[] def_%cl_1_136 options[] 	 SYMBOL:origin,	 ARGS:Symbol,
+		 21: BRANCH %cl_1_136[62.20,] 
+BB 63
+	outgoing: 65 75 
+	datadep: 
+	instructions:
+		 0: options->[] def_%cl_1_137 options[] 	 SYMBOL:origin,	 ARGS:Symbol,
+		 1: CONSTANT def_%cl_1_138 
+		 2: %cl_1_137->[] def_%cl_1_139 %cl_1_137[63.0,] %cl_1_138[63.1,] 	 SYMBOL:	 ARGS:%cl_1_138,
+		 3: ATTRASSIGN upload->origin %cl_1_139[63.2,] 
+		 4: 
+BB 64
+	outgoing: 65 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_139 
+BB 65
+	outgoing: 66 67 75 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%cl_1_140 options[] 	 SYMBOL:is_attachment_for_group_message,	 ARGS:Symbol,
+		 2: BRANCH %cl_1_140[65.1,] 
+BB 66
+	outgoing: 68 75 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN upload->is_attachment_for_group_message 
+		 2: COPY TYPE_Boolean def_%cl_1_141 
+		 3: 
+BB 67
+	outgoing: 68 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_141 
+BB 68
+	outgoing: 69 70 75 
+	datadep: 
+	instructions:
+		 0: 
+		 1: upload->width def_%cl_1_142 upload[66.1,63.3,62.3,62.7,62.9,62.11,62.14,62.16,62.18,] 	 SYMBOL:	 ARGS:
+		 2: upload->height def_%cl_1_143 upload[68.1,66.1,63.3,62.3,62.7,62.9,62.11,62.14,62.16,62.18,] 	 SYMBOL:	 ARGS:
+		 3: %self->is_dimensionless_image? def_%cl_1_144 %self[2.0,] filename[] %cl_1_142[68.1,] %cl_1_143[68.2,] 	 SYMBOL:	 ARGS:filename,%cl_1_142,%cl_1_143,
+		 4: BRANCH %cl_1_144[68.3,] 
+BB 69
+	outgoing: 75 77 
+	datadep: 
+	instructions:
+		 0: 
+		 1: upload->errors def_%cl_1_145 upload[66.1,63.3,62.3,62.7,62.9,62.11,62.14,62.16,62.18,] 	 SYMBOL:	 ARGS:
+		 2: (I18n) def_%cl_1_146 
+		 3: COPY TYPE_StringLiteral "upload.images.size_not_found" def_%cl_1_147 
+		 4: %cl_1_146->t def_%cl_1_148 %cl_1_146[69.2,] %cl_1_147[69.3,] 	 SYMBOL:	 ARGS:%cl_1_147,
+		 5: %cl_1_145->add def_%cl_1_149 %cl_1_145[69.1,] %cl_1_148[69.4,] 	 SYMBOL:base,	 ARGS:Symbol,%cl_1_148,
+		 6: 
+		 7: 
+		 8: RETURN upload[69.1,66.1,63.3,62.3,62.7,62.9,62.11,62.14,62.16,62.18,] %self[2.0,] 
+BB 70
+	outgoing: 71 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_150 
+BB 71
+	outgoing: 72 73 75 
+	datadep: 
+	instructions:
+		 0: 
+		 1: upload->save def_%cl_1_151 upload[66.1,63.3,62.3,62.7,62.9,62.11,62.14,62.16,62.18,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_151[71.1,] 
+BB 72
+	outgoing: 74 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_152 
+		 1: 
+BB 73
+	outgoing: 75 77 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN upload[66.1,63.3,62.3,62.7,62.9,62.11,62.14,62.16,62.18,] %self[2.0,] 
+BB 74
+	outgoing: 75 77 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (File) def_%cl_1_153 
+		 2: file->path def_%cl_1_154 file[] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_153->open def_%cl_1_155 %cl_1_153[74.1,] %cl_1_154[74.2,] %self[2.0,] 	 SYMBOL:	 ARGS:%cl_1_154,%cl_1_153,
+CLOSURE BEGIN: options[] f[] upload[66.1,63.3,62.3,62.7,62.9,62.11,62.14,62.16,62.18,] url[] user_id[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_f 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Discourse) def_%cl_2_3 
+		 2: %cl_2_3->store def_%cl_2_4 %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: options->[] def_%cl_2_5 options[] 	 SYMBOL:content_type,	 ARGS:Symbol,
+		 4: %cl_2_4->store_upload def_%cl_2_6 %cl_2_4[3.2,] f[2.2,] upload[] %cl_2_5[3.3,] 	 SYMBOL:	 ARGS:f,upload,%cl_2_5,
+		 5: COPY TYPE_PASS def_url %cl_2_6[3.4,] 
+		 6: 
+		 7: %cl_2_6->present? def_%cl_2_7 %cl_2_6[3.4,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %cl_2_7[3.7,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN upload->url url[3.5,] 
+		 2: 
+		 3: upload->save def_%cl_2_8 upload[4.1,] 	 SYMBOL:	 ARGS:
+		 4: 
+BB 5
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: upload->errors def_%cl_2_9 upload[] 	 SYMBOL:	 ARGS:
+		 2: (I18n) def_%cl_2_10 
+		 3: COPY TYPE_StringLiteral "upload.store_failure" def_%cl_2_11 
+		 4: upload->id def_%cl_2_12 upload[5.1,] 	 SYMBOL:	 ARGS:
+		 5: HASH-upload_id-user_id- def_%cl_2_13 %cl_2_12[5.4,] user_id[] 
+		 6: %cl_2_10->t def_%cl_2_14 %cl_2_10[5.2,] %cl_2_11[5.3,] %cl_2_13[5.5,] 	 SYMBOL:	 ARGS:%cl_2_11,%cl_2_13,
+		 7: %cl_2_9->add def_%cl_2_15 %cl_2_9[5.1,] %cl_2_14[5.6,] 	 SYMBOL:url,	 ARGS:Symbol,%cl_2_14,
+		 8: RETURN %cl_2_15[5.7,] %self[2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_2_8[4.3,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_16 
+		 1: def_%cl_2_17 %cl_2_16[7.0,] 
+		 2: RETURN %cl_2_17[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: url[3.5,] 
+		 4: 
+		 5: RETURN upload[66.1,63.3,62.3,62.7,62.9,62.11,62.14,62.16,62.18,] %self[2.0,] 
+BB 75
+	outgoing: 77 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_156 
+		 1: def_%cl_1_157 %cl_1_156[75.0,] 
+		 2: RETURN %cl_1_157[75.1,] %self[2.0,] 
+BB 77
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: max_pixel_ratio[26.1,] max_width[31.2,32.2,] sha1[52.2,] allow_animation[24.3,30.3,] upload[52.6,57.3,62.3,62.7,62.9,62.11,62.14,62.16,62.18,63.3,66.1,] w[7.10,22.4,] h[7.15,22.5,] width[23.6,30.9,31.10,32.10,] filesize[46.4,] image_info[20.0,] height[23.7,30.8,31.11,32.11,] 
+		 6: RETURN %v_8[5.5,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%v_9 
+		 1: def_%v_10 %v_9[6.0,] 
+		 2: RETURN %v_10[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = should_optimize? instanceMethod = false
+BB 1
+	outgoing: 24 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_path 
+		 6: 
+		 7: COPY TYPE_Regexp def_%v_3 
+		 8: path->=~ def_%v_4 path[2.5,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: COPY TYPE_Regexp def_%v_6 
+		 3: path->!~ def_%v_7 path[2.5,] 	 SYMBOL:	 ARGS:%v_6,
+		 4: BRANCH %v_7[4.3,] 
+BB 6
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: GLOBALVAR $! def_%v_9 
+BB 9
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (FastImage) def_%v_12 
+		 2: %v_12->new def_%v_13 %v_12[9.1,] path[2.5,] 	 SYMBOL:	 ARGS:path,
+		 3: COPY TYPE_PASS def_%v_11 %v_13[9.2,] 
+		 4: 
+		 5: %v_9[7.2,] 
+BB 11
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+BB 12
+	outgoing: 13 14 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_14 
+		 2: def_%v_15 %v_14[12.1,] 
+		 3: BRANCH %v_15[12.2,] 
+BB 13
+	outgoing: 16 24 
+	datadep: 
+	instructions:
+		 0: %v_14[12.1,] 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+		 1: 
+		 2: %v_9[7.2,] 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+BB 16
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: def_%v_16 
+		 1: def_%v_17 %v_16[16.0,] %v_9[7.2,] 
+		 2: %v_16[16.0,] 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_image_info %v_11[9.3,14.0,] 
+		 1: 
+		 2: %v_11->try def_%v_19 %v_11[9.3,14.0,] 	 SYMBOL:size,	 ARGS:Symbol,
+		 3: BRANCH %v_19[17.2,] 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_20 
+		 1: COPY TYPE_PASS def_%v_19 %v_20[18.0,] 
+BB 19
+	outgoing: 20 21 
+	datadep: 
+	instructions:
+		 0: def_%v_18 %v_19[18.1,17.2,] 
+		 1: def_%v_21 %v_18[19.0,] 
+		 2: def_%v_22 %v_21[19.1,] 
+		 3: def_%v_23 %v_21[19.1,] 
+		 4: COPY TYPE_PASS def_w %v_22[19.2,] 
+		 5: COPY TYPE_PASS def_h %v_23[19.3,] 
+		 6: 
+		 7: %v_22->> def_%v_24 %v_22[19.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: BRANCH %v_24[19.7,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: h->> def_%v_25 h[19.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 1: COPY TYPE_PASS def_%v_24 %v_25[20.0,] 
+BB 21
+	outgoing: 22 23 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_24[20.1,19.7,] 
+BB 22
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: w->* def_%v_26 w[19.4,] h[19.5,] 	 SYMBOL:	 ARGS:h,
+		 1: (LARGE_PNG_SIZE) def_%v_27 
+		 2: %v_26->< def_%v_28 %v_26[22.0,] %v_27[22.1,] 	 SYMBOL:	 ARGS:%v_27,
+		 3: RETURN %v_28[22.2,] %self[2.0,] 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: RETURN %v_24[20.1,19.7,] %self[2.0,] 
+BB 24
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = is_dimensionless_image? instanceMethod = false
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 10 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_filename 
+		 6: RECEIVEARG def_width 
+		 7: RECEIVEARG def_height 
+		 8: 
+		 9: (FileHelper) def_%v_3 
+		 10: %v_3->is_image? def_%v_4 %v_3[2.9,] filename[2.5,] 	 SYMBOL:	 ARGS:filename,
+		 11: BRANCH %v_4[2.10,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: width->blank? def_%v_5 width[2.6,] 	 SYMBOL:	 ARGS:
+		 1: BRANCH %v_5[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: width->== def_%v_6 width[2.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 1: COPY TYPE_PASS def_%v_5 %v_6[4.0,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[4.1,3.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: height->blank? def_%v_7 height[2.7,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_5 %v_7[6.0,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[6.1,4.1,3.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: height->== def_%v_8 height[2.7,] 	 SYMBOL:	 ARGS:Fixnum,
+		 1: COPY TYPE_PASS def_%v_5 %v_8[8.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[8.1,6.1,4.1,3.0,] %self[2.0,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %v_4[2.10,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_from_url instanceMethod = false
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_url 
+		 6: 
+		 7: url->blank? def_%v_3 url[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: (Discourse) def_%v_5 
+		 3: %v_5->asset_host def_%v_6 %v_5[4.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_6->present? def_%v_7 %v_6[4.3,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %v_7[4.4,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_8 
+		 1: COPY TYPE_StringLiteral "^" def_%v_9 
+		 2: (Discourse) def_%v_10 
+		 3: %v_10->asset_host def_%v_11 %v_10[6.2,] 	 SYMBOL:	 ARGS:
+		 4: def_%v_12 %v_8[6.0,] %v_9[6.1,] %v_11[6.3,] 
+		 5: COPY TYPE_StringLiteral "" def_%v_13 
+		 6: url->sub def_%v_14 url[2.5,] %v_12[6.4,] %v_13[6.5,] 	 SYMBOL:	 ARGS:%v_12,%v_13,
+		 7: COPY TYPE_PASS def_url %v_14[6.6,] 
+		 8: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_15 
+		 2: %v_15->s3_cdn_url def_%v_16 %v_15[8.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_16->present? def_%v_17 %v_16[8.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_17[8.3,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_18 
+		 1: COPY TYPE_StringLiteral "^" def_%v_19 
+		 2: (SiteSetting) def_%v_20 
+		 3: %v_20->s3_cdn_url def_%v_21 %v_20[9.2,] 	 SYMBOL:	 ARGS:
+		 4: def_%v_22 %v_18[9.0,] %v_19[9.1,] %v_21[9.3,] 
+		 5: (Discourse) def_%v_23 
+		 6: %v_23->store def_%v_24 %v_23[9.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_24->absolute_base_url def_%v_25 %v_24[9.6,] 	 SYMBOL:	 ARGS:
+		 8: url->sub def_%v_26 url[6.7,2.5,] %v_22[9.4,] %v_25[9.7,] 	 SYMBOL:	 ARGS:%v_22,%v_25,
+		 9: COPY TYPE_PASS def_url %v_26[9.8,] 
+		 10: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_26 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Upload) def_%v_27 
+		 2: HASH-url- def_%v_28 url[9.9,6.7,2.5,] 
+		 3: %v_27->find_by def_%v_29 %v_27[11.1,] %v_28[11.2,] 	 SYMBOL:	 ARGS:%v_28,
+		 4: RETURN %v_29[11.3,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = fix_image_orientation instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_path 
+		 6: 
+		 7: COPY TYPE_StringLiteral "convert " def_%v_3 
+		 8: COPY TYPE_StringLiteral " -auto-orient " def_%v_4 
+		 9: def_%v_5 %v_3[2.7,] path[2.5,] %v_4[2.8,] path[2.5,] 
+		 10: RETURN %v_5[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = migrate_to_new_scheme instanceMethod = false
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_limit 
+		 6: limit[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_limit 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Array def_%v_3 
+		 2: COPY TYPE_PASS def_problems %v_3[4.1,] 
+		 3: 
+		 4: (SiteSetting) def_%v_4 
+		 5: %v_4->migrate_to_new_scheme def_%v_5 %v_4[4.4,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %v_5[4.5,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_6 
+		 2: %v_6->max_image_size_kb def_%v_7 %v_6[5.1,] 	 SYMBOL:	 ARGS:
+		 3: (SiteSetting) def_%v_8 
+		 4: %v_8->max_attachment_size_kb def_%v_9 %v_8[5.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_Array def_%v_10 %v_7[5.2,] %v_9[5.4,] 
+		 6: %v_10->max def_%v_11 %v_10[5.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_11->kilobytes def_%v_12 %v_11[5.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_max_file_size_kb %v_12[5.7,] 
+		 9: 
+		 10: (FileStore) def_%v_13 
+		 11: (inherit LocalStore) def_%v_14 %v_13[5.10,] 
+		 12: %v_14[5.11,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_13->const_missing def_%v_14 %v_13[5.10,] 	 SYMBOL:LocalStore,	 ARGS:Symbol,
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_14->new def_%v_15 %v_14[6.0,5.11,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_local_store %v_15[7.0,] 
+		 2: 
+		 3: (Upload) def_%v_16 
+		 4: COPY TYPE_StringLiteral "url NOT LIKE '%/original/_X/%'" def_%v_17 
+		 5: %v_16->where def_%v_18 %v_16[7.3,] %v_17[7.4,] 	 SYMBOL:	 ARGS:%v_17,
+		 6: %v_18->limit def_%v_19 %v_18[7.5,] limit[3.0,2.5,] 	 SYMBOL:	 ARGS:limit,
+		 7: HASH-id- def_%v_20 
+		 8: %v_19->order def_%v_21 %v_19[7.6,] %v_20[7.7,] 	 SYMBOL:	 ARGS:%v_20,
+		 9: %v_21->each def_%v_22 %v_21[7.8,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_21,
+CLOSURE BEGIN: upload[] previous_url[] url[] max_file_size_kb[5.8,] local_store[7.1,] path[] %self[2.0,] f[] external[] file[] problems[4.2,] 
+BB 1
+	outgoing: 105 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_upload 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+		 5: 
+		 6: GLOBALVAR $! def_%cl_1_3 
+BB 4
+	outgoing: 6 16 60 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: upload->url def_%cl_1_22 upload[2.2,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_22->dup def_%cl_1_23 %cl_1_22[4.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_previous_url %cl_1_23[4.3,] 
+		 5: 
+		 6: COPY TYPE_Regexp def_%cl_1_24 
+		 7: %cl_1_23->=~ def_%cl_1_25 %cl_1_23[4.3,] 	 SYMBOL:	 ARGS:%cl_1_24,
+		 8: COPY TYPE_PASS def_external %cl_1_25[4.7,] 
+		 9: 
+		 10: BRANCH %cl_1_25[4.7,] 
+BB 6
+	outgoing: 7 60 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%cl_1_26 
+		 2: %cl_1_26->scheme def_%cl_1_27 %cl_1_26[6.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral ":" def_%cl_1_28 
+		 4: %cl_1_27->+ def_%cl_1_29 %cl_1_27[6.2,] %cl_1_28[6.3,] 	 SYMBOL:	 ARGS:%cl_1_28,
+		 5: %cl_1_29->+ def_%cl_1_30 %cl_1_29[6.4,] previous_url[4.4,] 	 SYMBOL:	 ARGS:previous_url,
+		 6: COPY TYPE_PASS def_url %cl_1_30[6.5,] 
+		 7: 
+		 8: GLOBALVAR $! def_%cl_1_31 
+BB 7
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (FileHelper) def_%cl_1_34 
+		 2: COPY TYPE_StringLiteral "discourse" def_%cl_1_35 
+		 3: %cl_1_34->download def_%cl_1_36 %cl_1_34[7.1,] url[6.6,] max_file_size_kb[] %cl_1_35[7.2,] 	 SYMBOL:	 ARGS:url,max_file_size_kb,%cl_1_35,Boolean,
+		 4: COPY TYPE_PASS def_%cl_1_33 %cl_1_36[7.3,] 
+		 5: 
+		 6: %cl_1_31[6.8,] 
+BB 9
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 11 12 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%cl_1_37 
+		 2: def_%cl_1_38 %cl_1_37[10.1,] 
+		 3: BRANCH %cl_1_38[10.2,] 
+BB 11
+	outgoing: 14 105 
+	datadep: 
+	instructions:
+		 0: %cl_1_37[10.1,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_33 
+		 1: 
+		 2: %cl_1_31[6.8,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+BB 14
+	outgoing: 60 105 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_39 
+		 1: def_%cl_1_40 %cl_1_39[14.0,] %cl_1_31[6.8,] 
+		 2: %cl_1_39[14.0,] 
+BB 15
+	outgoing: 17 60 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_file %cl_1_33[7.4,12.0,] 
+		 1: 
+		 2: %cl_1_33->path def_%cl_1_41 %cl_1_33[7.4,12.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_path %cl_1_41[15.2,] 
+		 4: 
+BB 16
+	outgoing: 17 60 
+	datadep: 
+	instructions:
+		 0: 
+		 1: local_store->path_for def_%cl_1_42 local_store[] upload[2.2,] 	 SYMBOL:	 ARGS:upload,
+		 2: COPY TYPE_PASS def_path %cl_1_42[16.1,] 
+		 3: COPY TYPE_PASS def_%cl_1_41 %cl_1_42[16.1,] 
+BB 17
+	outgoing: 18 21 60 
+	datadep: 
+	instructions:
+		 0: 
+		 1: upload->sha1 def_%cl_1_43 upload[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_43->blank? def_%cl_1_44 %cl_1_43[17.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_1_44[17.2,] 
+BB 18
+	outgoing: 19 20 60 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Digest) def_%cl_1_45 
+		 2: (inherit SHA1) def_%cl_1_46 %cl_1_45[18.1,] 
+		 3: %cl_1_46[18.2,] 
+BB 19
+	outgoing: 20 60 
+	datadep: 
+	instructions:
+		 0: %cl_1_45->const_missing def_%cl_1_46 %cl_1_45[18.1,] 	 SYMBOL:SHA1,	 ARGS:Symbol,
+BB 20
+	outgoing: 22 60 
+	datadep: 
+	instructions:
+		 0: %cl_1_46->file def_%cl_1_47 %cl_1_46[19.0,18.2,] path[16.2,15.3,] 	 SYMBOL:	 ARGS:path,
+		 1: %cl_1_47->hexdigest def_%cl_1_48 %cl_1_47[20.0,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN upload->sha1 %cl_1_48[20.1,] 
+		 3: 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_48 
+BB 22
+	outgoing: 23 24 60 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (FileHelper) def_%cl_1_49 
+		 2: (File) def_%cl_1_50 
+		 3: %cl_1_50->basename def_%cl_1_51 %cl_1_50[22.2,] path[16.2,15.3,] 	 SYMBOL:	 ARGS:path,
+		 4: %cl_1_49->is_image? def_%cl_1_52 %cl_1_49[22.1,] %cl_1_51[22.3,] 	 SYMBOL:	 ARGS:%cl_1_51,
+		 5: BRANCH %cl_1_52[22.4,] 
+BB 23
+	outgoing: 25 60 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ImageOptim) def_%cl_1_53 
+		 2: %cl_1_53->new def_%cl_1_54 %cl_1_53[23.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_54->optimize_image! def_%cl_1_55 %cl_1_54[23.2,] path[16.2,15.3,] 	 SYMBOL:	 ARGS:path,
+		 4: 
+BB 24
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_55 
+BB 25
+	outgoing: 26 27 60 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (File) def_%cl_1_56 
+		 2: %cl_1_56->open def_%cl_1_57 %cl_1_56[25.1,] path[16.2,15.3,] %self[2.0,] 	 SYMBOL:	 ARGS:path,%cl_1_56,
+CLOSURE BEGIN: f[] upload[20.2,2.2,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_f 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Discourse) def_%cl_2_3 
+		 2: %cl_2_3->store def_%cl_2_4 %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_2_4->store_upload def_%cl_2_5 %cl_2_4[3.2,] f[2.2,] upload[] 	 SYMBOL:	 ARGS:f,upload,
+		 4: ATTRASSIGN upload->url %cl_2_5[3.3,] 
+		 5: 
+		 6: f->size def_%cl_2_6 f[2.2,] 	 SYMBOL:	 ARGS:
+		 7: ATTRASSIGN upload->filesize %cl_2_6[3.6,] 
+		 8: 
+		 9: upload->save def_%cl_2_7 upload[3.4,3.7,] 	 SYMBOL:	 ARGS:
+		 10: RETURN %cl_2_7[3.9,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_8 
+		 1: def_%cl_2_9 %cl_2_8[4.0,] 
+		 2: RETURN %cl_2_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: 
+		 4: BRANCH external[4.8,] 
+BB 26
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_58 
+		 1: 
+BB 27
+	outgoing: 28 60 
+	datadep: 
+	instructions:
+		 0: (DbHelper) def_%cl_1_59 
+		 1: (UrlHelper) def_%cl_1_60 
+		 2: %cl_1_60->absolute def_%cl_1_61 %cl_1_60[27.1,] previous_url[4.4,] 	 SYMBOL:	 ARGS:previous_url,
+		 3: upload->url def_%cl_1_62 upload[20.2,2.2,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_59->remap def_%cl_1_63 %cl_1_59[27.0,] %cl_1_61[27.2,] %cl_1_62[27.3,] 	 SYMBOL:	 ARGS:%cl_1_61,%cl_1_62,
+		 5: COPY TYPE_PASS def_%cl_1_58 %cl_1_63[27.4,] 
+BB 28
+	outgoing: 29 30 60 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (DbHelper) def_%cl_1_64 
+		 2: upload->url def_%cl_1_65 upload[20.2,2.2,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_64->remap def_%cl_1_66 %cl_1_64[28.1,] previous_url[4.4,] %cl_1_65[28.2,] 	 SYMBOL:	 ARGS:previous_url,%cl_1_65,
+		 4: 
+		 5: BRANCH external[4.8,] 
+BB 29
+	outgoing: 40 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_67 
+		 1: 
+BB 30
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%cl_1_68 
+BB 32
+	outgoing: 33 34 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (FileUtils) def_%cl_1_71 
+		 2: HASH-force- def_%cl_1_72 
+		 3: %cl_1_71->rm def_%cl_1_73 %cl_1_71[32.1,] path[16.2,15.3,] %cl_1_72[32.2,] 	 SYMBOL:	 ARGS:path,%cl_1_72,
+		 4: COPY TYPE_PASS def_%cl_1_70 %cl_1_73[32.3,] 
+		 5: 
+		 6: %cl_1_68[30.1,] 
+BB 33
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: 
+BB 34
+	outgoing: 35 36 38 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%cl_1_74 
+		 2: def_%cl_1_75 %cl_1_74[34.1,] 
+		 3: BRANCH %cl_1_75[34.2,] 
+BB 35
+	outgoing: 38 105 
+	datadep: 
+	instructions:
+		 0: %cl_1_74[34.1,] 
+BB 36
+	outgoing: 37 38 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_70 
+		 1: 
+		 2: %cl_1_68[30.1,] 
+BB 37
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: 
+BB 38
+	outgoing: 60 105 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_76 
+		 1: def_%cl_1_77 %cl_1_76[38.0,] %cl_1_68[30.1,] 
+		 2: %cl_1_76[38.0,] 
+BB 39
+	outgoing: 40 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_1_67 %cl_1_70[32.4,36.0,] 
+BB 40
+	outgoing: 41 60 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_1_21 %cl_1_67[39.0,29.0,] 
+		 1: %cl_1_3[2.6,] 
+BB 41
+	outgoing: 43 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%cl_1_4 
+BB 43
+	outgoing: 44 45 
+	datadep: 
+	instructions:
+		 0: 
+		 1: file->try def_%cl_1_7 file[15.0,] 	 SYMBOL:unlink,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%cl_1_6 %cl_1_7[43.1,] 
+		 3: 
+		 4: %cl_1_4[41.1,] 
+BB 44
+	outgoing: 50 
+	datadep: 
+	instructions:
+		 0: 
+BB 45
+	outgoing: 46 47 49 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%cl_1_8 
+		 2: def_%cl_1_9 %cl_1_8[45.1,] 
+		 3: BRANCH %cl_1_9[45.2,] 
+BB 46
+	outgoing: 49 105 
+	datadep: 
+	instructions:
+		 0: %cl_1_8[45.1,] 
+BB 47
+	outgoing: 48 49 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_6 
+		 1: 
+		 2: %cl_1_4[41.1,] 
+BB 48
+	outgoing: 50 
+	datadep: 
+	instructions:
+		 0: 
+BB 49
+	outgoing: 105 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_10 
+		 1: def_%cl_1_11 %cl_1_10[49.0,] %cl_1_4[41.1,] 
+		 2: %cl_1_10[49.0,] 
+BB 50
+	outgoing: 52 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%cl_1_12 
+BB 52
+	outgoing: 53 54 
+	datadep: 
+	instructions:
+		 0: 
+		 1: file->try def_%cl_1_15 file[15.0,] 	 SYMBOL:close,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%cl_1_14 %cl_1_15[52.1,] 
+		 3: 
+		 4: %cl_1_12[50.1,] 
+BB 53
+	outgoing: 59 
+	datadep: 
+	instructions:
+		 0: 
+BB 54
+	outgoing: 55 56 58 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%cl_1_16 
+		 2: def_%cl_1_17 %cl_1_16[54.1,] 
+		 3: BRANCH %cl_1_17[54.2,] 
+BB 55
+	outgoing: 58 105 
+	datadep: 
+	instructions:
+		 0: %cl_1_16[54.1,] 
+BB 56
+	outgoing: 57 58 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_14 
+		 1: 
+		 2: %cl_1_12[50.1,] 
+BB 57
+	outgoing: 59 
+	datadep: 
+	instructions:
+		 0: 
+BB 58
+	outgoing: 105 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_18 
+		 1: def_%cl_1_19 %cl_1_18[58.0,] %cl_1_12[50.1,] 
+		 2: %cl_1_18[58.0,] 
+BB 59
+	outgoing: 102 
+	datadep: 
+	instructions:
+		 0: 
+BB 60
+	outgoing: 61 62 82 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_78 
+		 1: def_%cl_1_79 %cl_1_78[60.0,] 
+		 2: BRANCH %cl_1_79[60.1,] 
+BB 61
+	outgoing: 82 105 
+	datadep: 
+	instructions:
+		 0: %cl_1_78[60.0,] 
+BB 62
+	outgoing: 63 82 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%cl_1_80 
+		 1: COPY TYPE_PASS def_e %cl_1_80[62.0,] 
+		 2: 
+		 3: HASH-upload-ex- def_%cl_1_81 upload[20.2,2.2,] %cl_1_80[62.0,] 
+		 4: problems-><< def_%cl_1_82 problems[] %cl_1_81[62.3,] 	 SYMBOL:	 ARGS:%cl_1_81,
+		 5: COPY TYPE_PASS def_%cl_1_21 %cl_1_82[62.4,] 
+		 6: %cl_1_3[2.6,] 
+BB 63
+	outgoing: 65 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%cl_1_4 
+BB 65
+	outgoing: 66 67 
+	datadep: 
+	instructions:
+		 0: 
+		 1: file->try def_%cl_1_7 file[15.0,] 	 SYMBOL:unlink,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%cl_1_6 %cl_1_7[65.1,] 
+		 3: 
+		 4: %cl_1_4[63.1,] 
+BB 66
+	outgoing: 72 
+	datadep: 
+	instructions:
+		 0: 
+BB 67
+	outgoing: 68 69 71 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%cl_1_8 
+		 2: def_%cl_1_9 %cl_1_8[67.1,] 
+		 3: BRANCH %cl_1_9[67.2,] 
+BB 68
+	outgoing: 71 105 
+	datadep: 
+	instructions:
+		 0: %cl_1_8[67.1,] 
+BB 69
+	outgoing: 70 71 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_6 
+		 1: 
+		 2: %cl_1_4[63.1,] 
+BB 70
+	outgoing: 72 
+	datadep: 
+	instructions:
+		 0: 
+BB 71
+	outgoing: 105 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_10 
+		 1: def_%cl_1_11 %cl_1_10[71.0,] %cl_1_4[63.1,] 
+		 2: %cl_1_10[71.0,] 
+BB 72
+	outgoing: 74 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%cl_1_12 
+BB 74
+	outgoing: 75 76 
+	datadep: 
+	instructions:
+		 0: 
+		 1: file->try def_%cl_1_15 file[15.0,] 	 SYMBOL:close,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%cl_1_14 %cl_1_15[74.1,] 
+		 3: 
+		 4: %cl_1_12[72.1,] 
+BB 75
+	outgoing: 81 
+	datadep: 
+	instructions:
+		 0: 
+BB 76
+	outgoing: 77 78 80 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%cl_1_16 
+		 2: def_%cl_1_17 %cl_1_16[76.1,] 
+		 3: BRANCH %cl_1_17[76.2,] 
+BB 77
+	outgoing: 80 105 
+	datadep: 
+	instructions:
+		 0: %cl_1_16[76.1,] 
+BB 78
+	outgoing: 79 80 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_14 
+		 1: 
+		 2: %cl_1_12[72.1,] 
+BB 79
+	outgoing: 81 
+	datadep: 
+	instructions:
+		 0: 
+BB 80
+	outgoing: 105 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_18 
+		 1: def_%cl_1_19 %cl_1_18[80.0,] %cl_1_12[72.1,] 
+		 2: %cl_1_18[80.0,] 
+BB 81
+	outgoing: 102 
+	datadep: 
+	instructions:
+		 0: 
+BB 82
+	outgoing: 83 103 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_83 
+		 1: def_%cl_1_84 %cl_1_83[82.0,] %cl_1_3[2.6,] 
+BB 83
+	outgoing: 85 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%cl_1_4 
+BB 85
+	outgoing: 86 87 
+	datadep: 
+	instructions:
+		 0: 
+		 1: file->try def_%cl_1_7 file[15.0,] 	 SYMBOL:unlink,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%cl_1_6 %cl_1_7[85.1,] 
+		 3: 
+		 4: %cl_1_4[83.1,] 
+BB 86
+	outgoing: 92 
+	datadep: 
+	instructions:
+		 0: 
+BB 87
+	outgoing: 88 89 91 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%cl_1_8 
+		 2: def_%cl_1_9 %cl_1_8[87.1,] 
+		 3: BRANCH %cl_1_9[87.2,] 
+BB 88
+	outgoing: 91 105 
+	datadep: 
+	instructions:
+		 0: %cl_1_8[87.1,] 
+BB 89
+	outgoing: 90 91 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_6 
+		 1: 
+		 2: %cl_1_4[83.1,] 
+BB 90
+	outgoing: 92 
+	datadep: 
+	instructions:
+		 0: 
+BB 91
+	outgoing: 103 105 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_10 
+		 1: def_%cl_1_11 %cl_1_10[91.0,] %cl_1_4[83.1,] 
+		 2: %cl_1_10[91.0,] 
+BB 92
+	outgoing: 94 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%cl_1_12 
+BB 94
+	outgoing: 95 96 
+	datadep: 
+	instructions:
+		 0: 
+		 1: file->try def_%cl_1_15 file[15.0,] 	 SYMBOL:close,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%cl_1_14 %cl_1_15[94.1,] 
+		 3: 
+		 4: %cl_1_12[92.1,] 
+BB 95
+	outgoing: 101 
+	datadep: 
+	instructions:
+		 0: 
+BB 96
+	outgoing: 97 98 100 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%cl_1_16 
+		 2: def_%cl_1_17 %cl_1_16[96.1,] 
+		 3: BRANCH %cl_1_17[96.2,] 
+BB 97
+	outgoing: 100 105 
+	datadep: 
+	instructions:
+		 0: %cl_1_16[96.1,] 
+BB 98
+	outgoing: 99 100 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_14 
+		 1: 
+		 2: %cl_1_12[92.1,] 
+BB 99
+	outgoing: 101 
+	datadep: 
+	instructions:
+		 0: 
+BB 100
+	outgoing: 103 105 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_18 
+		 1: def_%cl_1_19 %cl_1_18[100.0,] %cl_1_12[92.1,] 
+		 2: %cl_1_18[100.0,] 
+BB 101
+	outgoing: 103 105 
+	datadep: 
+	instructions:
+		 0: %cl_1_83[82.0,] 
+BB 102
+	outgoing: 105 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_21[40.0,62.5,] %self[2.0,] 
+BB 103
+	outgoing: 105 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_85 
+		 1: def_%cl_1_86 %cl_1_85[103.0,] 
+		 2: RETURN %cl_1_86[103.1,] %self[2.0,] 
+BB 105
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: path[15.3,16.2,] external[4.8,] file[15.0,] e[62.1,] previous_url[4.4,] url[6.6,] 
+		 10: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN problems[4.2,] %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+

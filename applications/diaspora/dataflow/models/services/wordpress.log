@@ -1,0 +1,148 @@
+SET IRMethod, name = provider instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "wordpress" def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = post instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: RECEIVECONSTARG def__url 
+		 7: _url[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_3 
+		 1: COPY TYPE_PASS def__url %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Faraday) def_%v_4 
+		 2: COPY TYPE_StringLiteral "https://public-api.wordpress.com" def_%v_5 
+		 3: HASH-url- def_%v_6 %v_5[4.2,] 
+		 4: %v_4->new def_%v_7 %v_4[4.1,] %v_6[4.3,] 	 SYMBOL:	 ARGS:%v_6,
+		 5: %v_7->post def_%v_8 %v_7[4.4,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: %self[2.0,] req[] post[2.5,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_req 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "/rest/v1/sites/" def_%cl_1_3 
+		 2: %self->uid def_%cl_1_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "/posts/new" def_%cl_1_5 
+		 4: BUILDSTRING def_%cl_1_6 %cl_1_3[3.1,] %cl_1_4[3.2,] %cl_1_5[3.3,] 
+		 5: req->url def_%cl_1_7 req[2.2,] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 6: 
+		 7: %self->post_body def_%cl_1_8 %self[3.2,2.0,] post[] 	 SYMBOL:	 ARGS:post,
+		 8: %cl_1_8->to_json def_%cl_1_9 %cl_1_8[3.7,] 	 SYMBOL:	 ARGS:
+		 9: ATTRASSIGN req->body %cl_1_9[3.8,] 
+		 10: 
+		 11: req->headers def_%cl_1_10 req[3.5,3.9,2.2,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral "Authorization" def_%cl_1_11 
+		 13: COPY TYPE_StringLiteral "Bearer " def_%cl_1_12 
+		 14: %self->access_token def_%cl_1_13 %self[3.2,3.7,2.0,] 	 SYMBOL:	 ARGS:
+		 15: BUILDSTRING def_%cl_1_14 %cl_1_12[3.13,] %cl_1_13[3.14,] 
+		 16: ATTRASSIGN %cl_1_10->[] %cl_1_11[3.12,] %cl_1_14[3.15,] 
+		 17: 
+		 18: req->headers def_%cl_1_15 req[3.5,3.9,3.11,2.2,] 	 SYMBOL:	 ARGS:
+		 19: COPY TYPE_StringLiteral "Content-Type" def_%cl_1_16 
+		 20: COPY TYPE_StringLiteral "application/json" def_%cl_1_17 
+		 21: ATTRASSIGN %cl_1_15->[] %cl_1_16[3.19,] %cl_1_17[3.20,] 
+		 22: RETURN %cl_1_17[3.20,] %self[3.2,3.7,3.14,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_18 
+		 1: def_%cl_1_19 %cl_1_18[4.0,] 
+		 2: RETURN %cl_1_19[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 6: COPY TYPE_PASS def_res %v_8[4.5,] 
+		 7: 
+		 8: (JSON) def_%v_9 
+		 9: %v_8->env def_%v_10 %v_8[4.5,] 	 SYMBOL:	 ARGS:
+		 10: %v_10->[] def_%v_11 %v_10[4.9,] 	 SYMBOL:body,	 ARGS:Symbol,
+		 11: %v_9->parse def_%v_12 %v_9[4.8,] %v_11[4.10,] 	 SYMBOL:	 ARGS:%v_11,
+		 12: RETURN %v_12[4.11,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = post_body instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: post->message def_%v_3 post[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->title def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: post->message def_%v_5 post[2.5,2.7,] 	 SYMBOL:	 ARGS:
+		 10: HASH-disable_hovercards- def_%v_6 
+		 11: %v_5->markdownified def_%v_7 %v_5[2.9,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_6,
+		 12: HASH-title-content- def_%v_8 %v_4[2.8,] %v_7[2.11,] 
+		 13: RETURN %v_8[2.12,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

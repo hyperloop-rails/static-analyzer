@@ -1,0 +1,138 @@
+SET IRMethod, name = full_name instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->first_name def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral " " def_%v_4 
+		 8: %self->last_name def_%v_5 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: BUILDSTRING def_%v_6 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] 
+		 10: RETURN %v_6[2.9,] %self[2.0,2.6,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = short_name instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->first_name def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral " " def_%v_4 
+		 8: %self->last_name def_%v_5 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->[] def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:Fixnum,Fixnum,
+		 10: BUILDSTRING def_%v_7 %v_3[2.6,] %v_4[2.7,] %v_6[2.9,] 
+		 11: RETURN %v_7[2.10,] %self[2.0,2.6,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = reset_password! instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SecureRandom) def_%v_3 
+		 7: %v_3->hex def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: ATTRASSIGN %self->password %v_4[2.7,] 
+		 9: 
+		 10: %self->password def_%v_5 %self[2.0,2.8,] 	 SYMBOL:	 ARGS:
+		 11: ATTRASSIGN %self->password_confirmation %v_5[2.10,] 
+		 12: 
+		 13: %self->save! def_%v_6 %self[2.0,2.8,2.10,2.11,] 	 SYMBOL:	 ARGS:
+		 14: 
+		 15: (UserMailer) def_%v_7 
+		 16: %v_7->new_password def_%v_8 %v_7[2.15,] %self[2.0,2.8,2.10,2.11,2.13,] 	 SYMBOL:	 ARGS:%self,
+		 17: %v_8->deliver def_%v_9 %v_8[2.16,] 	 SYMBOL:	 ARGS:
+		 18: RETURN %v_9[2.17,] %self[2.0,2.8,2.10,2.11,2.13,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = authenticate instanceMethod = false
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_email_address 
+		 6: RECEIVEARG def_password 
+		 7: 
+		 8: HASH-email_address- def_%v_3 email_address[2.5,] 
+		 9: %self->where def_%v_4 %self[2.0,] %v_3[2.8,] 	 SYMBOL:	 ARGS:%v_3,
+		 10: %v_4->first def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_PASS def_user %v_5[2.10,] 
+		 12: 
+		 13: %v_5->nil? def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 14: BRANCH %v_6[2.13,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+		 2: user->authenticate def_%v_8 user[2.11,] password[2.6,] 	 SYMBOL:	 ARGS:password,
+		 3: BRANCH %v_8[4.2,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: 
+		 2: RETURN user[2.11,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+

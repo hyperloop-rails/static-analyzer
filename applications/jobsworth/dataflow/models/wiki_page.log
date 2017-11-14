@@ -1,0 +1,470 @@
+SET IRMethod, name = lock instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_time 
+		 6: RECEIVEARG def_locked_by 
+		 7: 
+		 8: HASH-locked_at-locked_by- def_%v_3 time[2.5,] locked_by[2.6,] 
+		 9: %self->update_attributes def_%v_4 %self[2.0,] %v_3[2.8,] 	 SYMBOL:	 ARGS:%v_3,
+		 10: RETURN %v_4[2.9,] %self[2.0,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = lock_duration instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_time 
+		 6: 
+		 7: %self->locked_at def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->nil? def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: RETURN %v_5[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->locked_at def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: time->- def_%v_7 time[2.5,] %v_6[4.0,] 	 SYMBOL:	 ARGS:%v_6,
+		 2: %v_7->/ def_%v_8 %v_7[4.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: %v_8->to_i def_%v_9 %v_8[4.2,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %v_9[4.3,] %self[4.0,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = unlock instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: HASH-locked_at-locked_by- def_%v_3 
+		 7: %self->update_attributes def_%v_4 %self[2.0,] %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_3,
+		 8: RETURN %v_4[2.7,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = locked? instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->locked_at def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->nil? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: RETURN %v_5[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->locked_at def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: (LOCKING_PERIOD) def_%v_7 
+		 2: %v_6->+ def_%v_8 %v_6[4.0,] %v_7[4.1,] 	 SYMBOL:	 ARGS:%v_7,
+		 3: (Time) def_%v_9 
+		 4: %v_9->now def_%v_10 %v_9[4.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_10->utc def_%v_11 %v_10[4.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_8->> def_%v_12 %v_8[4.2,] %v_11[4.5,] 	 SYMBOL:	 ARGS:%v_11,
+		 7: RETURN %v_12[4.6,] %self[4.0,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = locked_by instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->attributes def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "locked_by" def_%v_4 
+		 8: %v_3->[] def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: %v_5->nil? def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_6[2.9,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: RETURN %v_7[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: (User) def_%v_8 
+		 1: %self->attributes def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "locked_by" def_%v_10 
+		 3: %v_9->[] def_%v_11 %v_9[4.1,] %v_10[4.2,] 	 SYMBOL:	 ARGS:%v_10,
+		 4: %v_8->find def_%v_12 %v_8[4.0,] %v_11[4.3,] 	 SYMBOL:	 ARGS:%v_11,
+		 5: RETURN %v_12[4.4,] %self[4.1,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = pages_linking_here instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->refs def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: (WikiPage) def_%v_6 
+		 1: COPY TYPE_StringLiteral "wiki_pages.*" def_%v_7 
+		 2: %v_6->select def_%v_8 %v_6[5.0,] %v_7[5.1,] 	 SYMBOL:	 ARGS:%v_7,
+		 3: COPY TYPE_StringLiteral "LEFT OUTER JOIN wiki_references w_r ON wiki_pages.id = w_r.wiki_page_id" def_%v_9 
+		 4: %v_8->joins def_%v_10 %v_8[5.2,] %v_9[5.3,] 	 SYMBOL:	 ARGS:%v_9,
+		 5: COPY TYPE_StringLiteral "w_r.referenced_name = ? AND wiki_pages.company_id = ?" def_%v_11 
+		 6: %self->name def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->company_id def_%v_13 %self[5.6,2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_10->where def_%v_14 %v_10[5.4,] %v_11[5.5,] %v_12[5.6,] %v_13[5.7,] 	 SYMBOL:	 ARGS:%v_11,%v_12,%v_13,
+		 9: ATTRASSIGN %self->refs %v_14[5.8,] 
+		 10: RETURN %v_14[5.8,] %self[5.6,5.7,5.9,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = to_url instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "<a href="/wiki/show/" def_%v_3 
+		 7: (URI) def_%v_4 
+		 8: %self->name def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->encode def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: COPY TYPE_StringLiteral "">" def_%v_7 
+		 11: %self->name def_%v_8 %self[2.0,2.8,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral "</a>" def_%v_9 
+		 13: BUILDSTRING def_%v_10 %v_3[2.6,] %v_6[2.9,] %v_7[2.10,] %v_8[2.11,] %v_9[2.12,] 
+		 14: %v_10->html_safe def_%v_11 %v_10[2.13,] 	 SYMBOL:	 ARGS:
+		 15: RETURN %v_11[2.14,] %self[2.0,2.8,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = body instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->current_revision def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->body def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = user instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->current_revision def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->user def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = revision instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_rev 
+		 6: rev[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_rev 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: rev->> def_%v_3 rev[3.0,2.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: BRANCH %v_3[4.1,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->revisions def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: rev->- def_%v_5 rev[3.0,2.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: %v_4->[] def_%v_6 %v_4[5.0,] %v_5[5.1,] 	 SYMBOL:	 ARGS:%v_5,
+		 3: RETURN %v_6[5.2,] %self[5.0,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->current_revision def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_7[6.0,] %self[6.0,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = to_html instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_rev 
+		 6: rev[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_rev 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: rev->> def_%v_3 rev[3.0,2.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: BRANCH %v_3[4.1,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->revisions def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: rev->- def_%v_5 rev[3.0,2.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: %v_4->[] def_%v_6 %v_4[5.1,] %v_5[5.2,] 	 SYMBOL:	 ARGS:%v_5,
+		 4: %v_6->to_html def_%v_7 %v_6[5.3,] 	 SYMBOL:	 ARGS:
+		 5: RETURN %v_7[5.4,] %self[5.1,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->current_revision def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_8->to_html def_%v_9 %v_8[6.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %v_9[6.2,] %self[6.1,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = to_plain_html instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_rev 
+		 6: rev[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_rev 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: rev->> def_%v_3 rev[3.0,2.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: BRANCH %v_3[4.1,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->revisions def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: rev->- def_%v_5 rev[3.0,2.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: %v_4->[] def_%v_6 %v_4[5.1,] %v_5[5.2,] 	 SYMBOL:	 ARGS:%v_5,
+		 4: %v_6->to_plain_html def_%v_7 %v_6[5.3,] 	 SYMBOL:	 ARGS:
+		 5: RETURN %v_7[5.4,] %self[5.1,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->current_revision def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_8->to_plain_html def_%v_9 %v_8[6.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %v_9[6.2,] %self[6.1,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = started_at instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->created_at def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,991 @@
+SET IRMethod, name = find_photo_comments_for instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: (Comment) def_%v_3 
+		 8: COPY TYPE_StringLiteral "recipient_id = ? AND commentable_type = ?" def_%v_4 
+		 9: user->id def_%v_5 user[2.5,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral "Photo" def_%v_6 
+		 11: %v_3->where def_%v_7 %v_3[2.7,] %v_4[2.8,] %v_5[2.9,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_4,%v_5,%v_6,
+		 12: COPY TYPE_StringLiteral "created_at DESC" def_%v_8 
+		 13: %v_7->order def_%v_9 %v_7[2.11,] %v_8[2.12,] 	 SYMBOL:	 ARGS:%v_8,
+		 14: RETURN %v_9[2.13,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = previous_commenters_to_notify instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (User) def_%v_3 
+		 7: %v_3->includes def_%v_4 %v_3[2.6,] 	 SYMBOL:comments_as_author,	 ARGS:Symbol,
+		 8: %v_4->limit def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:Fixnum,
+		 9: COPY TYPE_PASS def_users %v_5[2.8,] 
+		 10: 
+		 11: HASH-notify_comments- def_%v_6 
+		 12: %v_5->where def_%v_7 %v_5[2.8,] %v_6[2.11,] 	 SYMBOL:	 ARGS:%v_6,
+		 13: COPY TYPE_StringLiteral "users.id NOT IN (?)" def_%v_8 
+		 14: %self->user_id def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 15: %self->recipient_id def_%v_10 %self[2.0,2.14,] 	 SYMBOL:	 ARGS:
+		 16: %v_10->to_i def_%v_11 %v_10[2.15,] 	 SYMBOL:	 ARGS:
+		 17: COPY TYPE_Array def_%v_12 %v_9[2.14,] %v_11[2.16,] 
+		 18: %v_7->where def_%v_13 %v_7[2.12,] %v_8[2.13,] %v_12[2.17,] 	 SYMBOL:	 ARGS:%v_8,%v_12,
+		 19: COPY TYPE_PASS def_users %v_13[2.18,] 
+		 20: 
+		 21: %self->commentable_id def_%v_14 %self[2.0,2.14,2.15,] 	 SYMBOL:	 ARGS:
+		 22: %self->commentable_type def_%v_15 %self[2.0,2.14,2.15,2.21,] 	 SYMBOL:	 ARGS:
+		 23: HASH-commentable_id-commentable_type-notify_by_email- def_%v_16 %v_14[2.21,] %v_15[2.22,] 
+		 24: HASH-comments- def_%v_17 %v_16[2.23,] 
+		 25: users->where def_%v_18 users[2.9,2.19,] %v_17[2.24,] 	 SYMBOL:	 ARGS:%v_17,
+		 26: COPY TYPE_PASS def_users %v_18[2.25,] 
+		 27: 
+		 28: COPY TYPE_StringLiteral "comments.created_at > ?" def_%v_19 
+		 29: CONSTANT def_%v_20 	 SYMBOL:	 ARGS:
+		 30: %v_20->ago def_%v_21 %v_20[2.29,] 	 SYMBOL:	 ARGS:
+		 31: users->where def_%v_22 users[2.9,2.19,2.25,2.26,] %v_19[2.28,] %v_21[2.30,] 	 SYMBOL:	 ARGS:%v_19,%v_21,
+		 32: COPY TYPE_PASS def_users %v_22[2.31,] 
+		 33: RETURN %v_22[2.31,] %self[2.0,2.14,2.15,2.21,2.22,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = commentable_name instanceMethod = true
+BB 1
+	outgoing: 17 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->commentable_type def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->underscore def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_type %v_4[2.7,] 
+		 9: 
+		 10: COPY TYPE_StringLiteral "user" def_%v_7 
+		 11: def_%v_6 %v_7[2.10,] %v_4[2.7,] 
+		 12: BRANCH %v_6[2.11,] 
+BB 3
+	outgoing: 4 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "post" def_%v_9 
+		 1: def_%v_8 %v_9[3.0,] type[2.8,] 
+		 2: BRANCH %v_8[3.1,] 
+BB 4
+	outgoing: 5 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "clipping" def_%v_11 
+		 1: def_%v_10 %v_11[4.0,] type[2.8,] 
+		 2: BRANCH %v_10[4.1,] 
+BB 5
+	outgoing: 6 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "photo" def_%v_13 
+		 1: def_%v_12 %v_13[5.0,] type[2.8,] 
+		 2: BRANCH %v_12[5.1,] 
+BB 6
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->commentable def_%v_32 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_32->class def_%v_33 %v_32[6.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_33->to_s def_%v_34 %v_33[6.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_34->humanize def_%v_35 %v_34[6.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_%v_5 %v_35[6.4,] 
+		 6: RETURN %v_35[6.4,] %self[6.1,2.0,] 
+BB 7
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->commentable def_%v_14 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_14->login def_%v_15 %v_14[7.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_5 %v_15[7.2,] 
+		 4: RETURN %v_15[7.2,] %self[7.1,2.0,] 
+BB 8
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->commentable def_%v_16 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_16->title def_%v_17 %v_16[8.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_5 %v_17[8.2,] 
+		 4: RETURN %v_17[8.2,] %self[8.1,2.0,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->commentable def_%v_18 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_18->description def_%v_19 %v_18[9.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_19[9.2,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Clipping from " def_%v_20 
+		 1: %self->commentable def_%v_21 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_21->user def_%v_22 %v_21[10.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_22->login def_%v_23 %v_22[10.2,] 	 SYMBOL:	 ARGS:
+		 4: BUILDSTRING def_%v_24 %v_20[10.0,] %v_23[10.3,] 
+		 5: COPY TYPE_PASS def_%v_19 %v_24[10.4,] 
+BB 11
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_5 %v_19[10.5,9.2,] 
+		 1: 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->commentable def_%v_25 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_25->description def_%v_26 %v_25[12.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_26[12.2,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Photo from " def_%v_27 
+		 1: %self->commentable def_%v_28 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_28->user def_%v_29 %v_28[13.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_29->login def_%v_30 %v_29[13.2,] 	 SYMBOL:	 ARGS:
+		 4: BUILDSTRING def_%v_31 %v_27[13.0,] %v_30[13.3,] 
+		 5: COPY TYPE_PASS def_%v_26 %v_31[13.4,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_5 %v_26[13.5,12.2,] 
+		 1: 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[11.0,14.0,] %self[2.0,] 
+BB 17
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = title_for_rss instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "Comment from " def_%v_3 
+		 7: %self->username def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: BUILDSTRING def_%v_5 %v_3[2.6,] %v_4[2.7,] 
+		 9: RETURN %v_5[2.8,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = username instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %self->user def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->login def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_5[3.1,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %self->author_name def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->blank? def_%v_7 %v_6[4.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_7[4.1,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Anonymous" def_%v_8 
+		 1: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->author_name def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_8 %v_9[6.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_8[6.1,5.0,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_recent instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_options 
+		 6: options[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH-limit- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "created_at > '" def_%v_4 
+		 2: CONSTANT def_%v_5 	 SYMBOL:	 ARGS:
+		 3: %v_5->ago def_%v_6 %v_5[4.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_6->iso8601 def_%v_7 %v_6[4.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "'" def_%v_8 
+		 6: BUILDSTRING def_%v_9 %v_4[4.1,] %v_7[4.4,] %v_8[4.5,] 
+		 7: %self->where def_%v_10 %self[2.0,] %v_9[4.6,] 	 SYMBOL:	 ARGS:%v_9,
+		 8: COPY TYPE_StringLiteral "created_at DESC" def_%v_11 
+		 9: %v_10->order def_%v_12 %v_10[4.7,] %v_11[4.8,] 	 SYMBOL:	 ARGS:%v_11,
+		 10: options->[] def_%v_13 options[3.1,2.5,] 	 SYMBOL:limit,	 ARGS:Symbol,
+		 11: %v_12->limit def_%v_14 %v_12[4.9,] %v_13[4.10,] 	 SYMBOL:	 ARGS:%v_13,
+		 12: RETURN %v_14[4.11,] %self[4.7,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_be_deleted_by instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 8 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_person 
+		 6: 
+		 7: COPY TYPE_PASS def_%v_3 person[2.5,] 
+		 8: BRANCH person[2.5,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: person->admin? def_%v_4 person[2.5,] 	 SYMBOL:	 ARGS:
+		 1: BRANCH %v_4[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: person->id def_%v_5 person[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %self->user_id def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_5->eql? def_%v_7 %v_5[4.0,] %v_6[4.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: COPY TYPE_PASS def_%v_4 %v_7[4.2,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[4.3,3.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: person->id def_%v_8 person[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %self->recipient_id def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_8->eql? def_%v_10 %v_8[6.0,] %v_9[6.1,] 	 SYMBOL:	 ARGS:%v_9,
+		 3: COPY TYPE_PASS def_%v_4 %v_10[6.2,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_4[6.3,4.3,3.0,] %self[2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.7,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = should_notify_recipient? instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->recipient def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->recipient def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->email def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.2,2.6,] 
+BB 5
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: %self->recipient def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %self->user def_%v_8 %self[5.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_7->eql? def_%v_9 %v_7[5.2,] %v_8[5.3,] 	 SYMBOL:	 ARGS:%v_8,
+		 5: BRANCH %v_9[5.4,] 
+BB 6
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+		 2: %self->recipient def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_11->notify_comments? def_%v_12 %v_11[9.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_12[9.3,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+		 1: 
+		 2: RETURN %self[2.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = notify_previous_commenters instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->previous_commenters_to_notify def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->each def_%v_4 %v_3[2.6,] %self[2.0,2.6,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: commenter[] %self[2.0,2.6,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_commenter 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: commenter->email def_%cl_1_3 commenter[2.2,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_3[3.1,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (UserNotifier) def_%cl_1_4 
+		 1: %cl_1_4->follow_up_comment_notice def_%cl_1_5 %cl_1_4[4.0,] commenter[2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:commenter,%self,
+		 2: %cl_1_5->deliver def_%cl_1_6 %cl_1_5[4.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_6[4.2,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_7 
+		 1: def_%cl_1_8 %cl_1_7[7.0,] 
+		 2: RETURN %cl_1_8[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: RETURN %v_4[2.7,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = notify_previous_anonymous_commenters instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->commentable def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->comments def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->map def_%v_5 %v_4[2.7,] %self[2.0,2.6,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: c[] %self[2.0,2.6,] 
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_c 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: c->notify_by_email? def_%cl_1_3 c[2.2,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_3[3.1,] 
+BB 4
+	outgoing: 5 13 
+	datadep: 
+	instructions:
+		 0: c->user def_%cl_1_4 c[2.2,] 	 SYMBOL:	 ARGS:
+		 1: %cl_1_4->! def_%cl_1_5 %cl_1_4[4.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%cl_1_3 %cl_1_5[4.1,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_3[4.2,3.1,] 
+BB 6
+	outgoing: 7 13 
+	datadep: 
+	instructions:
+		 0: c->author_email def_%cl_1_6 c[2.2,] 	 SYMBOL:	 ARGS:
+		 1: %self->author_email def_%cl_1_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_6->eql? def_%cl_1_8 %cl_1_6[6.0,] %cl_1_7[6.1,] 	 SYMBOL:	 ARGS:%cl_1_7,
+		 3: %cl_1_8->! def_%cl_1_9 %cl_1_8[6.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_%cl_1_3 %cl_1_9[6.3,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_3[6.4,4.2,3.1,] 
+BB 8
+	outgoing: 9 13 
+	datadep: 
+	instructions:
+		 0: c->author_email def_%cl_1_10 c[2.2,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%cl_1_3 %cl_1_10[8.0,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_3[8.1,6.4,4.2,3.1,] 
+BB 10
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: c->author_email def_%cl_1_11 c[2.2,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 11
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 12
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_11[10.0,] %self[2.0,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_12 
+		 1: def_%cl_1_13 %cl_1_12[13.0,] 
+		 2: RETURN %cl_1_13[13.1,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: %v_5->uniq def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_6->compact def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_PASS def_anonymous_commenters_emails %v_7[2.10,] 
+		 12: 
+		 13: %v_7->each def_%v_8 %v_7[2.10,] %self[2.0,2.6,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: email[] %self[2.0,2.6,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_email 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (UserNotifier) def_%cl_2_3 
+		 2: %cl_2_3->follow_up_comment_notice_anonymous def_%cl_2_4 %cl_2_3[3.1,] email[2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:email,%self,
+		 3: %cl_2_4->deliver def_%cl_2_5 %cl_2_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %cl_2_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_6 
+		 1: def_%cl_2_7 %cl_2_6[4.0,] 
+		 2: RETURN %cl_2_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 14: RETURN %v_8[2.13,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = send_notifications instanceMethod = true
+BB 1
+	outgoing: 17 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->commentable def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->respond_to? def_%v_4 %v_3[2.6,] 	 SYMBOL:send_comment_notifications?,	 ARGS:Symbol,
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->commentable def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->send_comment_notifications? def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->! def_%v_7 %v_6[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_4 %v_7[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[3.3,2.7,] 
+BB 5
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: %self->pending? def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_9[6.2,] 
+BB 8
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+		 2: %self->should_notify_recipient? def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_11[9.2,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: (UserNotifier) def_%v_12 
+		 1: %v_12->comment_notice def_%v_13 %v_12[11.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+		 2: %v_13->deliver def_%v_14 %v_13[11.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->notify_previous_commenters def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: %self->configatron def_%v_16 %self[13.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_16->allow_anonymous_commenting def_%v_17 %v_16[13.3,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %v_17[13.4,] 
+BB 14
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: %self->notify_previous_anonymous_commenters def_%v_18 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_18[14.0,] %self[14.0,2.0,] 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 17
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = token_for instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_email 
+		 6: 
+		 7: (Digest) def_%v_3 
+		 8: (inherit SHA1) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:SHA1,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->id def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "--" def_%v_6 
+		 2: COPY TYPE_StringLiteral "--" def_%v_7 
+		 3: %self->created_at def_%v_8 %self[4.0,2.0,] 	 SYMBOL:	 ARGS:
+		 4: BUILDSTRING def_%v_9 %v_5[4.0,] %v_6[4.1,] email[2.5,] %v_7[4.2,] %v_8[4.3,] 
+		 5: %v_4->hexdigest def_%v_10 %v_4[3.0,2.8,] %v_9[4.4,] 	 SYMBOL:	 ARGS:%v_9,
+		 6: RETURN %v_10[4.5,] %self[4.0,4.3,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = unsubscribe_notifications instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_email 
+		 6: 
+		 7: %self->commentable def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->comments def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: HASH-author_email- def_%v_5 email[2.5,] 
+		 10: %v_4->where def_%v_6 %v_4[2.8,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: %v_6->each def_%v_7 %v_6[2.10,] %self[2.0,2.7,] 	 SYMBOL:	 ARGS:%v_6,
+CLOSURE BEGIN: previous_comment[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_previous_comment 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: previous_comment->update_attribute def_%cl_1_3 previous_comment[2.2,] 	 SYMBOL:notify_by_email,	 ARGS:Symbol,Boolean,
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 12: RETURN %v_7[2.11,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_spam instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->configatron def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->has_key? def_%v_4 %v_3[2.6,] 	 SYMBOL:akismet_key,	 ARGS:Symbol,
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->spam? def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_4 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[3.1,2.7,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "pending" def_%v_6 
+		 2: ATTRASSIGN %self->role %v_6[5.1,] 
+		 3: RETURN %v_6[5.1,] %self[5.2,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = pending? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->role def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "pending" def_%v_4 
+		 8: %v_3->eql? def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = whitelist_attributes instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Sanitize) def_%v_3 
+		 7: %self->comment def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: (WhiteListHelper) def_%v_5 
+		 9: %v_5->settings def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral "a" def_%v_7 
+		 11: COPY TYPE_StringLiteral "rel" def_%v_8 
+		 12: COPY TYPE_StringLiteral "nofollow" def_%v_9 
+		 13: HASH- def_%v_10 %v_8[2.11,] %v_9[2.12,] 
+		 14: HASH- def_%v_11 %v_7[2.10,] %v_10[2.13,] 
+		 15: HASH-add_attributes- def_%v_12 %v_11[2.14,] 
+		 16: %v_6->merge def_%v_13 %v_6[2.9,] %v_12[2.15,] 	 SYMBOL:	 ARGS:%v_12,
+		 17: %v_3->clean def_%v_14 %v_3[2.6,] %v_4[2.7,] %v_13[2.16,] 	 SYMBOL:	 ARGS:%v_4,%v_13,
+		 18: ATTRASSIGN %self->comment %v_14[2.17,] 
+		 19: 
+		 20: %self->comment def_%v_15 %self[2.0,2.7,2.18,] 	 SYMBOL:	 ARGS:
+		 21: %self->white_list def_%v_16 %self[2.0,2.7,2.18,2.20,] %v_15[2.20,] 	 SYMBOL:	 ARGS:%v_15,
+		 22: RETURN %v_16[2.21,] %self[2.0,2.7,2.18,2.20,2.21,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

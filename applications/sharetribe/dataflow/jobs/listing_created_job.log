@@ -1,0 +1,97 @@
+SET IRMethod, name = before instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_job 
+		 6: 
+		 7: (ApplicationHelper) def_%v_3 
+		 8: %self->community_id def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->store_community_service_name_to_thread_from_community_id def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: RETURN %v_5[2.9,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = perform instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Listing) def_%v_3 
+		 7: %self->listing_id def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->find def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: COPY TYPE_PASS def_listing %v_5[2.8,] 
+		 10: 
+		 11: (Community) def_%v_6 
+		 12: %self->community_id def_%v_7 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 13: %v_6->find def_%v_8 %v_6[2.11,] %v_7[2.12,] 	 SYMBOL:	 ARGS:%v_7,
+		 14: COPY TYPE_PASS def_community %v_8[2.13,] 
+		 15: 
+		 16: (MarketplaceService) def_%v_9 
+		 17: (inherit Listing) def_%v_10 %v_9[2.16,] 
+		 18: %v_10[2.17,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_9->const_missing def_%v_10 %v_9[2.16,] 	 SYMBOL:Listing,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit Entity) def_%v_11 %v_10[3.0,2.17,] 
+		 1: %v_11[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_10->const_missing def_%v_11 %v_10[3.0,2.17,] 	 SYMBOL:Entity,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: %self->listing_id def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %self->community_id def_%v_13 %self[6.0,2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_11->send_payment_settings_reminder? def_%v_14 %v_11[5.0,4.0,] %v_12[6.0,] %v_13[6.1,] 	 SYMBOL:	 ARGS:%v_12,%v_13,
+		 3: BRANCH %v_14[6.2,] 
+BB 7
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PersonMailer) def_%v_15 
+		 2: listing->author def_%v_16 listing[2.9,] 	 SYMBOL:	 ARGS:
+		 3: %v_15->payment_settings_reminder def_%v_17 %v_15[7.1,] listing[7.2,2.9,] %v_16[7.2,] community[2.14,] 	 SYMBOL:	 ARGS:listing,%v_16,community,
+		 4: %v_17->deliver def_%v_18 %v_17[7.3,] 	 SYMBOL:	 ARGS:
+		 5: RETURN %v_18[7.4,] %self[2.0,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,122 @@
+SET IRMethod, name = can_remove_branch? instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_project 
+		 6: RECEIVEARG def_branch_name 
+		 7: 
+		 8: project->protected_branch? def_%v_3 project[2.5,] branch_name[2.6,] 	 SYMBOL:	 ARGS:branch_name,
+		 9: BRANCH %v_3[2.8,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Boolean def_%v_4 
+		 2: RETURN %self[2.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: project->repository def_%v_5 project[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->root_ref def_%v_6 %v_5[4.0,] 	 SYMBOL:	 ARGS:
+		 2: branch_name->== def_%v_7 branch_name[2.6,] %v_6[4.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: BRANCH %v_7[4.2,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Boolean def_%v_8 
+		 2: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->current_user def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->can? def_%v_10 %self[6.1,2.0,] %v_9[6.1,] project[2.5,] 	 SYMBOL:push_code,	 ARGS:%v_9,Symbol,project,
+		 3: COPY TYPE_PASS def_%v_8 %v_10[6.2,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_8[6.3,5.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_push_branch? instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_project 
+		 6: RECEIVEARG def_branch_name 
+		 7: 
+		 8: project->repository def_%v_3 project[2.5,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->branch_names def_%v_4 %v_3[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_4->include? def_%v_5 %v_4[2.9,] branch_name[2.6,] 	 SYMBOL:	 ARGS:branch_name,
+		 11: BRANCH %v_5[2.10,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: (inherit Gitlab) def_%v_7 
+		 3: %v_7[3.2,] 
+BB 4
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: CONSTANT def_%v_7 	 SYMBOL:Gitlab,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: (inherit GitAccess) def_%v_8 %v_7[6.0,3.2,] 
+		 1: %v_8[7.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_7->const_missing def_%v_8 %v_7[6.0,3.2,] 	 SYMBOL:GitAccess,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %self->current_user def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_8->new def_%v_10 %v_8[8.0,7.0,] %v_9[9.0,] project[2.5,] 	 SYMBOL:	 ARGS:%v_9,project,
+		 2: %v_10->can_push_to_branch? def_%v_11 %v_10[9.1,] branch_name[2.6,] 	 SYMBOL:	 ARGS:branch_name,
+		 3: RETURN %v_11[9.2,] %self[9.0,2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+

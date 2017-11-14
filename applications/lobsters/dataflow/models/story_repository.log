@@ -1,0 +1,746 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVECONSTARG def_params 
+		 7: params[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_params %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->user user[2.5,] 
+		 2: 
+		 3: ATTRASSIGN %self->params params[3.1,2.6,] 
+		 4: RETURN params[3.1,2.6,] %self[4.1,4.3,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = hottest instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->base_scope def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->positive_ranked def_%v_4 %self[2.0,2.6,] %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_3,
+		 8: COPY TYPE_PASS def_hottest %v_4[2.7,] 
+		 9: 
+		 10: %self->filter_hidden_and_tags def_%v_5 %self[2.0,2.6,2.7,] %v_4[2.7,] 	 SYMBOL:	 ARGS:hottest,
+		 11: COPY TYPE_PASS def_hottest %v_5[2.10,] 
+		 12: 
+		 13: COPY TYPE_StringLiteral "hotness" def_%v_6 
+		 14: %v_5->order def_%v_7 %v_5[2.10,] %v_6[2.13,] 	 SYMBOL:	 ARGS:%v_6,
+		 15: RETURN %v_7[2.14,] %self[2.0,2.6,2.7,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = hidden instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->base_scope def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_PASS def_hidden %v_3[2.6,] 
+		 8: 
+		 9: 
+		 10: GETFIELD %self->user def_%v_4 %self[2.0,2.6,] 
+		 11: BRANCH %v_4[2.10,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (Story) def_%v_5 
+		 1: %v_5->arel_table def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->[] def_%v_7 %v_6[3.1,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 3: %self->hidden_arel def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_7->in def_%v_9 %v_7[3.2,] %v_8[3.3,] 	 SYMBOL:	 ARGS:%v_8,
+		 5: hidden->where def_%v_10 hidden[2.7,] %v_9[3.4,] 	 SYMBOL:	 ARGS:%v_9,
+		 6: COPY TYPE_PASS def_hidden %v_10[3.5,] 
+		 7: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->params def_%v_11 %self[2.0,] 
+		 2: %v_11->[] def_%v_12 %v_11[5.1,] 	 SYMBOL:exclude_tags,	 ARGS:Symbol,
+		 3: %v_12->try def_%v_13 %v_12[5.2,] 	 SYMBOL:any?,	 ARGS:Symbol,
+		 4: BRANCH %v_13[5.3,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->params def_%v_14 %self[2.0,] 
+		 2: %v_14->[] def_%v_15 %v_14[6.1,] 	 SYMBOL:exclude_tags,	 ARGS:Symbol,
+		 3: %self->filter_tags def_%v_16 %self[2.0,] hidden[3.6,2.7,] %v_15[6.2,] 	 SYMBOL:	 ARGS:hidden,%v_15,
+		 4: COPY TYPE_PASS def_hidden %v_16[6.3,] 
+		 5: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "hotness" def_%v_17 
+		 2: hidden->order def_%v_18 hidden[6.4,3.6,2.7,] %v_17[8.1,] 	 SYMBOL:	 ARGS:%v_17,
+		 3: RETURN %v_18[8.2,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = newest instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->base_scope def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->filter_hidden_and_tags def_%v_4 %self[2.0,2.6,] %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_3,
+		 8: COPY TYPE_PASS def_newest %v_4[2.7,] 
+		 9: 
+		 10: COPY TYPE_StringLiteral "stories.id DESC" def_%v_5 
+		 11: %v_4->order def_%v_6 %v_4[2.7,] %v_5[2.10,] 	 SYMBOL:	 ARGS:%v_5,
+		 12: RETURN %v_6[2.11,] %self[2.0,2.6,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = newest_by_user instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->base_scope def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: user->id def_%v_4 user[2.5,] 	 SYMBOL:	 ARGS:
+		 9: HASH-user_id- def_%v_5 %v_4[2.8,] 
+		 10: %v_3->where def_%v_6 %v_3[2.7,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: COPY TYPE_StringLiteral "stories.id DESC" def_%v_7 
+		 12: %v_6->order def_%v_8 %v_6[2.10,] %v_7[2.11,] 	 SYMBOL:	 ARGS:%v_7,
+		 13: RETURN %v_8[2.12,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = recent instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->newest def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_PASS def_stories %v_3[2.6,] 
+		 8: 
+		 9: COPY TYPE_Array def_%v_4 
+		 10: COPY TYPE_PASS def_story_ids %v_4[2.9,] 
+		 11: 
+BB 3
+	outgoing: 5 4 
+	datadep: 
+	instructions:
+		 0: CONSTANT def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+CLOSURE BEGIN: stories[2.7,] x[] %self[2.0,] s[] story_ids[2.10,] keep_ids[] 
+BB 1
+	outgoing: 20 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_x 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: stories->select def_%cl_1_3 stories[] 	 SYMBOL:id,upvotes,downvotes,user_id,	 ARGS:Symbol,Symbol,Symbol,Symbol,
+		 2: (Story) def_%cl_1_4 
+		 3: %cl_1_4->arel_table def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_5->[] def_%cl_1_6 %cl_1_5[3.3,] 	 SYMBOL:created_at,	 ARGS:Symbol,
+		 5: 
+		 6: (RECENT_DAYS_OLD) def_%cl_1_7 
+		 7: %cl_1_7->+ def_%cl_1_8 %cl_1_7[3.6,] x[2.2,] 	 SYMBOL:	 ARGS:x,
+		 8: %cl_1_8->days def_%cl_1_9 %cl_1_8[3.7,] 	 SYMBOL:	 ARGS:
+		 9: %cl_1_9->ago def_%cl_1_10 %cl_1_9[3.8,] 	 SYMBOL:	 ARGS:
+		 10: %cl_1_6->gt def_%cl_1_11 %cl_1_6[3.4,] %cl_1_10[3.9,] 	 SYMBOL:	 ARGS:%cl_1_10,
+		 11: %cl_1_3->where def_%cl_1_12 %cl_1_3[3.1,] %cl_1_11[3.10,] 	 SYMBOL:	 ARGS:%cl_1_11,
+		 12: COPY TYPE_StringLiteral "stories.created_at DESC" def_%cl_1_13 
+		 13: %cl_1_12->order def_%cl_1_14 %cl_1_12[3.11,] %cl_1_13[3.12,] 	 SYMBOL:	 ARGS:%cl_1_13,
+		 14: %cl_1_14->reject def_%cl_1_15 %cl_1_14[3.13,] %self[2.0,] 	 SYMBOL:	 ARGS:%cl_1_14,
+CLOSURE BEGIN: s[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_s 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: s->score def_%cl_2_3 s[2.2,] 	 SYMBOL:	 ARGS:
+		 2: (HOT_STORY_POINTS) def_%cl_2_4 
+		 3: %cl_2_3->> def_%cl_2_5 %cl_2_3[3.1,] %cl_2_4[3.2,] 	 SYMBOL:	 ARGS:%cl_2_4,
+		 4: RETURN %cl_2_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_6 
+		 1: def_%cl_2_7 %cl_2_6[4.0,] 
+		 2: RETURN %cl_2_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 15: COPY TYPE_PASS def_story_ids %cl_1_15[3.14,] 
+		 16: 
+		 17: %cl_1_15->length def_%cl_1_16 %cl_1_15[3.14,] 	 SYMBOL:	 ARGS:
+		 18: (StoriesPaginator) def_%cl_1_17 
+		 19: (inherit STORIES_PER_PAGE) def_%cl_1_18 %cl_1_17[3.18,] 
+		 20: %cl_1_18[3.19,] 
+BB 4
+	outgoing: 5 18 
+	datadep: 
+	instructions:
+		 0: %cl_1_17->const_missing def_%cl_1_18 %cl_1_17[3.18,] 	 SYMBOL:STORIES_PER_PAGE,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 16 18 
+	datadep: 
+	instructions:
+		 0: %cl_1_18->+ def_%cl_1_19 %cl_1_18[4.0,3.19,] 	 SYMBOL:	 ARGS:Fixnum,
+		 1: %cl_1_16->> def_%cl_1_20 %cl_1_16[3.17,] %cl_1_19[5.0,] 	 SYMBOL:	 ARGS:%cl_1_19,
+		 2: BRANCH %cl_1_20[5.1,] 
+BB 6
+	outgoing: 7 8 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (StoriesPaginator) def_%cl_1_22 
+		 2: (inherit STORIES_PER_PAGE) def_%cl_1_23 %cl_1_22[6.1,] 
+		 3: %cl_1_23[6.2,] 
+BB 7
+	outgoing: 8 18 
+	datadep: 
+	instructions:
+		 0: %cl_1_22->const_missing def_%cl_1_23 %cl_1_22[6.1,] 	 SYMBOL:STORIES_PER_PAGE,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 18 
+	datadep: 
+	instructions:
+		 0: %cl_1_23->+ def_%cl_1_24 %cl_1_23[7.0,6.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 1: %cl_1_24->* def_%cl_1_25 %cl_1_24[8.0,] 	 SYMBOL:	 ARGS:Float,
+		 2: CONSTANT def_%cl_1_21 %cl_1_25[8.1,] 
+		 3: story_ids->[] def_%cl_1_26 story_ids[3.15,] %cl_1_21[8.2,] 	 SYMBOL:	 ARGS:%cl_1_21,
+		 4: COPY TYPE_PASS def_keep_ids %cl_1_26[8.3,] 
+		 5: 
+		 6: %cl_1_26->length def_%cl_1_28 %cl_1_26[8.3,] 	 SYMBOL:	 ARGS:
+		 7: %cl_1_28->- def_%cl_1_29 %cl_1_28[8.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: story_ids->length def_%cl_1_30 story_ids[8.3,3.15,] 	 SYMBOL:	 ARGS:
+		 9: CONSTANT def_%cl_1_27 %cl_1_29[8.7,] %cl_1_30[8.8,] 
+		 10: story_ids->[] def_%cl_1_31 story_ids[8.3,8.8,3.15,] %cl_1_27[8.9,] 	 SYMBOL:	 ARGS:%cl_1_27,
+		 11: COPY TYPE_PASS def_story_ids %cl_1_31[8.10,] 
+		 12: 
+BB 9
+	outgoing: 10 11 18 
+	datadep: 
+	instructions:
+		 0: keep_ids->length def_%cl_1_33 keep_ids[8.4,] 	 SYMBOL:	 ARGS:
+		 1: (StoriesPaginator) def_%cl_1_34 
+		 2: (inherit STORIES_PER_PAGE) def_%cl_1_35 %cl_1_34[9.1,] 
+		 3: %cl_1_35[9.2,] 
+BB 10
+	outgoing: 11 18 
+	datadep: 
+	instructions:
+		 0: %cl_1_34->const_missing def_%cl_1_35 %cl_1_34[9.1,] 	 SYMBOL:STORIES_PER_PAGE,	 ARGS:Symbol,
+BB 11
+	outgoing: 12 14 18 
+	datadep: 
+	instructions:
+		 0: %cl_1_35->+ def_%cl_1_36 %cl_1_35[10.0,9.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 1: %cl_1_33-><= def_%cl_1_37 %cl_1_33[9.0,] %cl_1_36[11.0,] 	 SYMBOL:	 ARGS:%cl_1_36,
+		 2: BRANCH %cl_1_37[11.1,] 
+BB 12
+	outgoing: 13 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: story_ids->shuffle! def_%cl_1_38 story_ids[8.11,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: story_ids->shift def_%cl_1_39 story_ids[12.2,8.11,] 	 SYMBOL:	 ARGS:
+		 5: keep_ids->push def_%cl_1_40 keep_ids[8.4,] %cl_1_39[12.4,] 	 SYMBOL:	 ARGS:%cl_1_39,
+BB 13
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_32 
+BB 15
+	outgoing: 18 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Story) def_%cl_1_41 
+		 2: HASH-id- def_%cl_1_42 keep_ids[8.4,] 
+		 3: %cl_1_41->where def_%cl_1_43 %cl_1_41[15.1,] %cl_1_42[15.2,] 	 SYMBOL:	 ARGS:%cl_1_42,
+		 4: COPY TYPE_PASS def_stories %cl_1_43[15.3,] 
+		 5: 
+		 6: 
+BB 16
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_45 
+		 1: def_%cl_1_46 %cl_1_45[18.0,] 
+		 2: RETURN %cl_1_46[18.1,] %self[2.0,] 
+BB 20
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: stories[15.4,] story_ids[3.15,8.11,] keep_ids[8.4,] 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: def_%v_6 
+		 1: def_%v_5 %v_6[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "stories.created_at DESC" def_%v_7 
+		 2: stories->order def_%v_8 stories[3.0,] %v_7[5.1,] 	 SYMBOL:	 ARGS:%v_7,
+		 3: RETURN %v_8[5.2,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = tagged instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_tag 
+		 6: 
+		 7: %self->base_scope def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %self->positive_ranked def_%v_4 %self[2.0,2.7,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: COPY TYPE_PASS def_tagged %v_4[2.8,] 
+		 10: 
+		 11: (Story) def_%v_5 
+		 12: %v_5->arel_table def_%v_6 %v_5[2.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_6->[] def_%v_7 %v_6[2.12,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 14: (Tagging) def_%v_8 
+		 15: %v_8->arel_table def_%v_9 %v_8[2.14,] 	 SYMBOL:	 ARGS:
+		 16: (Tagging) def_%v_10 
+		 17: %v_10->arel_table def_%v_11 %v_10[2.16,] 	 SYMBOL:	 ARGS:
+		 18: %v_11->[] def_%v_12 %v_11[2.17,] 	 SYMBOL:tag_id,	 ARGS:Symbol,
+		 19: tag->id def_%v_13 tag[2.5,] 	 SYMBOL:	 ARGS:
+		 20: %v_12->eq def_%v_14 %v_12[2.18,] %v_13[2.19,] 	 SYMBOL:	 ARGS:%v_13,
+		 21: %v_9->where def_%v_15 %v_9[2.15,] %v_14[2.20,] 	 SYMBOL:	 ARGS:%v_14,
+		 22: (Tagging) def_%v_16 
+		 23: %v_16->arel_table def_%v_17 %v_16[2.22,] 	 SYMBOL:	 ARGS:
+		 24: %v_17->[] def_%v_18 %v_17[2.23,] 	 SYMBOL:story_id,	 ARGS:Symbol,
+		 25: %v_15->project def_%v_19 %v_15[2.21,] %v_18[2.24,] 	 SYMBOL:	 ARGS:%v_18,
+		 26: %v_7->in def_%v_20 %v_7[2.13,] %v_19[2.25,] 	 SYMBOL:	 ARGS:%v_19,
+		 27: tagged->where def_%v_21 tagged[2.9,] %v_20[2.26,] 	 SYMBOL:	 ARGS:%v_20,
+		 28: COPY TYPE_PASS def_tagged %v_21[2.27,] 
+		 29: 
+		 30: COPY TYPE_StringLiteral "stories.created_at DESC" def_%v_22 
+		 31: %v_21->order def_%v_23 %v_21[2.27,] %v_22[2.30,] 	 SYMBOL:	 ARGS:%v_22,
+		 32: RETURN %v_23[2.31,] %self[2.0,2.7,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = top instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_length 
+		 6: 
+		 7: %self->base_scope def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "created_at >= (NOW() - INTERVAL " def_%v_4 
+		 9: 
+		 10: length->[] def_%v_5 length[2.5,] 	 SYMBOL:dur,	 ARGS:Symbol,
+		 11: COPY TYPE_StringLiteral " " def_%v_6 
+		 12: length->[] def_%v_7 length[2.5,2.10,] 	 SYMBOL:intv,	 ARGS:Symbol,
+		 13: %v_7->upcase def_%v_8 %v_7[2.12,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_StringLiteral ")" def_%v_9 
+		 15: BUILDSTRING def_%v_10 %v_5[2.10,] %v_6[2.11,] %v_8[2.13,] %v_9[2.14,] 
+		 16: %v_4-><< def_%v_11 %v_4[2.8,] %v_10[2.15,] 	 SYMBOL:	 ARGS:%v_10,
+		 17: %v_3->where def_%v_12 %v_3[2.7,] %v_11[2.16,] 	 SYMBOL:	 ARGS:%v_11,
+		 18: COPY TYPE_PASS def_top %v_12[2.17,] 
+		 19: 
+		 20: (Story) def_%v_13 
+		 21: %v_13->score_sql def_%v_14 %v_13[2.20,] 	 SYMBOL:	 ARGS:
+		 22: COPY TYPE_StringLiteral " DESC" def_%v_15 
+		 23: BUILDSTRING def_%v_16 %v_14[2.21,] %v_15[2.22,] 
+		 24: top->order def_%v_17 top[2.18,] %v_16[2.23,] 	 SYMBOL:	 ARGS:%v_16,
+		 25: RETURN %v_17[2.24,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = base_scope instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Story) def_%v_3 
+		 7: %v_3->unmerged def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-is_expired- def_%v_5 
+		 9: %v_4->where def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = filter_hidden_and_tags instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_scope 
+		 6: 
+		 7: 
+		 8: GETFIELD %self->user def_%v_3 %self[2.0,] 
+		 9: BRANCH %v_3[2.8,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->filter_hidden def_%v_4 %self[2.0,] scope[2.5,] 	 SYMBOL:	 ARGS:scope,
+		 1: COPY TYPE_PASS def_scope %v_4[3.0,] 
+		 2: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->params def_%v_5 %self[2.0,] 
+		 2: %v_5->[] def_%v_6 %v_5[5.1,] 	 SYMBOL:exclude_tags,	 ARGS:Symbol,
+		 3: %v_6->try def_%v_7 %v_6[5.2,] 	 SYMBOL:any?,	 ARGS:Symbol,
+		 4: BRANCH %v_7[5.3,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->params def_%v_8 %self[2.0,] 
+		 2: %v_8->[] def_%v_9 %v_8[6.1,] 	 SYMBOL:exclude_tags,	 ARGS:Symbol,
+		 3: %self->filter_tags def_%v_10 %self[2.0,] scope[3.1,2.5,] %v_9[6.2,] 	 SYMBOL:	 ARGS:scope,%v_9,
+		 4: COPY TYPE_PASS def_scope %v_10[6.3,] 
+		 5: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN scope[6.4,3.1,2.5,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = filter_hidden instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_scope 
+		 6: 
+		 7: (Story) def_%v_3 
+		 8: %v_3->arel_table def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->[] def_%v_5 %v_4[2.8,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 10: %self->hidden_arel def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->not_in def_%v_7 %v_5[2.9,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_6,
+		 12: scope->where def_%v_8 scope[2.5,] %v_7[2.11,] 	 SYMBOL:	 ARGS:%v_7,
+		 13: RETURN %v_8[2.12,] %self[2.0,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = hidden_arel instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: 
+		 7: GETFIELD %self->user def_%v_3 %self[2.0,] 
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: (HiddenStory) def_%v_4 
+		 1: %v_4->arel_table def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: (HiddenStory) def_%v_6 
+		 3: %v_6->arel_table def_%v_7 %v_6[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_7->[] def_%v_8 %v_7[3.3,] 	 SYMBOL:user_id,	 ARGS:Symbol,
+		 5: GETFIELD %self->user def_%v_9 %self[2.0,] 
+		 6: %v_9->id def_%v_10 %v_9[3.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_8->eq def_%v_11 %v_8[3.4,] %v_10[3.6,] 	 SYMBOL:	 ARGS:%v_10,
+		 8: %v_5->where def_%v_12 %v_5[3.1,] %v_11[3.7,] 	 SYMBOL:	 ARGS:%v_11,
+		 9: (HiddenStory) def_%v_13 
+		 10: %v_13->arel_table def_%v_14 %v_13[3.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_14->[] def_%v_15 %v_14[3.10,] 	 SYMBOL:story_id,	 ARGS:Symbol,
+		 12: %v_12->project def_%v_16 %v_12[3.8,] %v_15[3.11,] 	 SYMBOL:	 ARGS:%v_15,
+		 13: COPY TYPE_PASS def_hidden_arel %v_16[3.12,] 
+		 14: RETURN %v_16[3.12,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = positive_ranked instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_scope 
+		 6: 
+		 7: (Story) def_%v_3 
+		 8: %v_3->score_sql def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_StringLiteral " >= -1" def_%v_5 
+		 10: BUILDSTRING def_%v_6 %v_4[2.8,] %v_5[2.9,] 
+		 11: scope->where def_%v_7 scope[2.5,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_6,
+		 12: RETURN %v_7[2.11,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = filter_tags instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_scope 
+		 6: RECEIVEARG def_tags 
+		 7: 
+		 8: (Story) def_%v_3 
+		 9: %v_3->arel_table def_%v_4 %v_3[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_4->[] def_%v_5 %v_4[2.9,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 11: (Tagging) def_%v_6 
+		 12: %v_6->arel_table def_%v_7 %v_6[2.11,] 	 SYMBOL:	 ARGS:
+		 13: (Tagging) def_%v_8 
+		 14: %v_8->arel_table def_%v_9 %v_8[2.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_9->[] def_%v_10 %v_9[2.14,] 	 SYMBOL:tag_id,	 ARGS:Symbol,
+		 16: %v_10->in def_%v_11 %v_10[2.15,] tags[2.6,] 	 SYMBOL:	 ARGS:tags,
+		 17: %v_7->where def_%v_12 %v_7[2.12,] %v_11[2.16,] 	 SYMBOL:	 ARGS:%v_11,
+		 18: (Tagging) def_%v_13 
+		 19: %v_13->arel_table def_%v_14 %v_13[2.18,] 	 SYMBOL:	 ARGS:
+		 20: %v_14->[] def_%v_15 %v_14[2.19,] 	 SYMBOL:story_id,	 ARGS:Symbol,
+		 21: %v_12->project def_%v_16 %v_12[2.17,] %v_15[2.20,] 	 SYMBOL:	 ARGS:%v_15,
+		 22: %v_5->not_in def_%v_17 %v_5[2.10,] %v_16[2.21,] 	 SYMBOL:	 ARGS:%v_16,
+		 23: scope->where def_%v_18 scope[2.5,] %v_17[2.22,] 	 SYMBOL:	 ARGS:%v_17,
+		 24: RETURN %v_18[2.23,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

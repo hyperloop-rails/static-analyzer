@@ -1,0 +1,297 @@
+SET IRMethod, name = share_with instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_person 
+		 6: RECEIVEARG def_aspect 
+		 7: 
+		 8: %self->contacts def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: person->id def_%v_4 person[2.5,] 	 SYMBOL:	 ARGS:
+		 10: HASH-person_id- def_%v_5 %v_4[2.9,] 
+		 11: %v_3->find_or_initialize_by def_%v_6 %v_3[2.8,] %v_5[2.10,] 	 SYMBOL:	 ARGS:%v_5,
+		 12: COPY TYPE_PASS def_contact %v_6[2.11,] 
+		 13: 
+		 14: %v_6->valid? def_%v_7 %v_6[2.11,] 	 SYMBOL:	 ARGS:
+		 15: BRANCH %v_7[2.14,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: contact->receiving? def_%v_9 contact[2.12,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_9[3.2,] 
+BB 4
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: contact->dispatch_request def_%v_11 contact[2.12,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: ATTRASSIGN contact->receiving 
+		 4: COPY TYPE_Boolean def_%v_10 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: contact->aspects def_%v_12 contact[7.3,2.12,] 	 SYMBOL:	 ARGS:
+		 2: %v_12-><< def_%v_13 %v_12[8.1,] aspect[2.6,] 	 SYMBOL:	 ARGS:aspect,
+		 3: 
+		 4: contact->save def_%v_14 contact[8.1,7.3,2.12,] 	 SYMBOL:	 ARGS:
+		 5: 
+		 6: (Notification) def_%v_15 
+		 7: person->id def_%v_16 person[2.5,] 	 SYMBOL:	 ARGS:
+		 8: HASH-target_id- def_%v_17 %v_16[8.7,] 
+		 9: %v_15->where def_%v_18 %v_15[8.6,] %v_17[8.8,] 	 SYMBOL:	 ARGS:%v_17,
+		 10: %v_18->first def_%v_19 %v_18[8.9,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_PASS def_notification %v_19[8.10,] 
+		 12: BRANCH %v_19[8.10,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-unread- def_%v_20 
+		 2: notification->update_attributes def_%v_21 notification[8.11,] %v_20[9.1,] 	 SYMBOL:	 ARGS:%v_20,
+		 3: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->deliver_profile_update def_%v_22 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: RETURN contact[7.3,2.12,] %self[11.1,2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = remove_contact instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_contact 
+		 6: RECEIVECONSTARG def_opts 
+		 7: opts[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH-force-retracted- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: contact->mutual? def_%v_4 contact[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_4->! def_%v_5 %v_4[4.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_5[4.2,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: opts->[] def_%v_6 opts[3.1,2.6,] 	 SYMBOL:force,	 ARGS:Symbol,
+		 1: COPY TYPE_PASS def_%v_5 %v_6[5.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[5.1,4.2,] 
+BB 7
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: contact->destroy def_%v_7 contact[2.5,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_7[7.1,] %self[2.0,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_8 opts[3.1,2.6,] 	 SYMBOL:retracted,	 ARGS:Symbol,
+		 2: BRANCH %v_8[8.1,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-sharing- def_%v_9 
+		 2: contact->update_attributes def_%v_10 contact[2.5,] %v_9[9.1,] 	 SYMBOL:	 ARGS:%v_9,
+		 3: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-receiving- def_%v_11 
+		 2: contact->update_attributes def_%v_12 contact[2.5,] %v_11[10.1,] 	 SYMBOL:	 ARGS:%v_11,
+		 3: COPY TYPE_PASS def_%v_10 %v_12[10.2,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN %v_10[10.3,9.2,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = disconnect instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_bad_contact 
+		 6: RECEIVECONSTARG def_opts 
+		 7: opts[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: bad_contact->person def_%v_4 bad_contact[2.5,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_person %v_4[4.1,] 
+		 3: 
+		 4: %self->logger def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "event=disconnect user=" def_%v_6 
+		 6: %self->diaspora_handle def_%v_7 %self[4.4,2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral " target=" def_%v_8 
+		 8: person->diaspora_handle def_%v_9 person[4.2,] 	 SYMBOL:	 ARGS:
+		 9: BUILDSTRING def_%v_10 %v_6[4.5,] %v_7[4.6,] %v_8[4.7,] %v_9[4.8,] 
+		 10: %v_5->info def_%v_11 %v_5[4.4,] %v_10[4.9,] 	 SYMBOL:	 ARGS:%v_10,
+		 11: 
+		 12: (Retraction) def_%v_12 
+		 13: %v_12->for def_%v_13 %v_12[4.12,] %self[4.4,4.6,2.0,] 	 SYMBOL:	 ARGS:%self,
+		 14: COPY TYPE_PASS def_retraction %v_13[4.13,] 
+		 15: 
+		 16: COPY TYPE_Array def_%v_14 person[4.2,4.8,] 
+		 17: ATTRASSIGN %v_13->subscribers %v_14[4.16,] 
+		 18: 
+		 19: (Postzord) def_%v_15 
+		 20: (inherit Dispatcher) def_%v_16 %v_15[4.19,] 
+		 21: %v_16[4.20,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_15->const_missing def_%v_16 %v_15[4.19,] 	 SYMBOL:Dispatcher,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_16->build def_%v_17 %v_16[5.0,4.20,] %self[2.0,] retraction[4.14,] 	 SYMBOL:	 ARGS:%self,retraction,
+		 1: %v_17->post def_%v_18 %v_17[6.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: (AspectMembership) def_%v_19 
+		 4: bad_contact->id def_%v_20 bad_contact[2.5,] 	 SYMBOL:	 ARGS:
+		 5: HASH-contact_id- def_%v_21 %v_20[6.4,] 
+		 6: %v_19->where def_%v_22 %v_19[6.3,] %v_21[6.5,] 	 SYMBOL:	 ARGS:%v_21,
+		 7: %v_22->delete_all def_%v_23 %v_22[6.6,] 	 SYMBOL:	 ARGS:
+		 8: 
+		 9: %self->remove_contact def_%v_24 %self[2.0,] bad_contact[6.4,2.5,] opts[3.1,2.6,] 	 SYMBOL:	 ARGS:bad_contact,opts,
+		 10: RETURN %v_24[6.9,] %self[6.9,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = disconnected_by instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_person 
+		 6: 
+		 7: %self->logger def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "event=disconnected_by user=" def_%v_4 
+		 9: %self->diaspora_handle def_%v_5 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral " target=" def_%v_6 
+		 11: person->diaspora_handle def_%v_7 person[2.5,] 	 SYMBOL:	 ARGS:
+		 12: BUILDSTRING def_%v_8 %v_4[2.8,] %v_5[2.9,] %v_6[2.10,] %v_7[2.11,] 
+		 13: %v_3->info def_%v_9 %v_3[2.7,] %v_8[2.12,] 	 SYMBOL:	 ARGS:%v_8,
+		 14: 
+		 15: %self->contact_for def_%v_10 %self[2.0,2.7,2.9,] person[2.5,2.11,] 	 SYMBOL:	 ARGS:person,
+		 16: COPY TYPE_PASS def_contact %v_10[2.15,] 
+		 17: BRANCH %v_10[2.15,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-retracted- def_%v_11 
+		 2: %self->remove_contact def_%v_12 %self[2.0,] contact[2.16,] %v_11[3.1,] 	 SYMBOL:	 ARGS:contact,%v_11,
+		 3: RETURN %v_12[3.2,] %self[3.2,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

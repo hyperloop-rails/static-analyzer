@@ -1,0 +1,95 @@
+SET IRMethod, name = execute instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_args 
+		 6: 
+		 7: (SiteSetting) def_%v_3 
+		 8: %v_3->notify_about_flags_after def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->> def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:Fixnum,
+		 10: BRANCH %v_5[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (PostAction) def_%v_6 
+		 1: %v_6->flagged_posts_count def_%v_7 %v_6[3.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->> def_%v_8 %v_7[3.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: COPY TYPE_PASS def_%v_5 %v_8[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[3.3,2.9,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: (FlagQuery) def_%v_9 
+		 1: COPY TYPE_StringLiteral "active" def_%v_10 
+		 2: %v_9->flagged_post_actions def_%v_11 %v_9[5.0,] %v_10[5.1,] 	 SYMBOL:	 ARGS:%v_10,
+		 3: COPY TYPE_StringLiteral "post_actions.created_at < ?" def_%v_12 
+		 4: (SiteSetting) def_%v_13 
+		 5: %v_13->notify_about_flags_after def_%v_14 %v_13[5.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_14->to_i def_%v_15 %v_14[5.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_15->hours def_%v_16 %v_15[5.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_16->ago def_%v_17 %v_16[5.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_11->where def_%v_18 %v_11[5.2,] %v_12[5.3,] %v_17[5.8,] 	 SYMBOL:	 ARGS:%v_12,%v_17,
+		 10: %v_18->pluck def_%v_19 %v_18[5.9,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 11: %v_19->count def_%v_20 %v_19[5.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_20->> def_%v_21 %v_20[5.11,] 	 SYMBOL:	 ARGS:Fixnum,
+		 13: COPY TYPE_PASS def_%v_5 %v_21[5.12,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[5.13,3.3,2.9,] 
+BB 7
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PostCreator) def_%v_22 
+		 2: (Discourse) def_%v_23 
+		 3: %v_23->system_user def_%v_24 %v_23[7.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "staff" def_%v_25 
+		 5: COPY TYPE_Array def_%v_26 %v_25[7.4,] 
+		 6: (Archetype) def_%v_27 
+		 7: %v_27->private_message def_%v_28 %v_27[7.6,] 	 SYMBOL:	 ARGS:
+		 8: (TopicSubtype) def_%v_29 
+		 9: %v_29->system_message def_%v_30 %v_29[7.8,] 	 SYMBOL:	 ARGS:
+		 10: (I18n) def_%v_31 
+		 11: COPY TYPE_StringLiteral "flags_reminder.subject_template" def_%v_32 
+		 12: (PostAction) def_%v_33 
+		 13: %v_33->flagged_posts_count def_%v_34 %v_33[7.12,] 	 SYMBOL:	 ARGS:
+		 14: HASH-count- def_%v_35 %v_34[7.13,] 
+		 15: %v_31->t def_%v_36 %v_31[7.10,] %v_32[7.11,] %v_35[7.14,] 	 SYMBOL:	 ARGS:%v_32,%v_35,
+		 16: (I18n) def_%v_37 
+		 17: COPY TYPE_StringLiteral "flags_reminder.flags_were_submitted" def_%v_38 
+		 18: (SiteSetting) def_%v_39 
+		 19: %v_39->notify_about_flags_after def_%v_40 %v_39[7.18,] 	 SYMBOL:	 ARGS:
+		 20: HASH-count- def_%v_41 %v_40[7.19,] 
+		 21: %v_37->t def_%v_42 %v_37[7.16,] %v_38[7.17,] %v_41[7.20,] 	 SYMBOL:	 ARGS:%v_38,%v_41,
+		 22: HASH-target_group_names-archetype-subtype-title-raw- def_%v_43 %v_26[7.5,] %v_28[7.7,] %v_30[7.9,] %v_36[7.15,] %v_42[7.21,] 
+		 23: %v_22->create def_%v_44 %v_22[7.1,] %v_24[7.3,] %v_43[7.22,] 	 SYMBOL:	 ARGS:%v_24,%v_43,
+		 24: RETURN %v_44[7.23,] %self[2.0,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,944 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_details 
+		 7: 
+		 8: ATTRASSIGN %self->user user[2.5,] 
+		 9: 
+		 10: ATTRASSIGN %self->details details[2.6,] 
+		 11: 
+		 12: details->[] def_%v_3 details[2.6,] 	 SYMBOL:topic_id,	 ARGS:Symbol,
+		 13: BRANCH %v_3[2.12,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: (Topic) def_%v_4 
+		 1: details->[] def_%v_5 details[2.6,] 	 SYMBOL:topic_id,	 ARGS:Symbol,
+		 2: HASH-id- def_%v_6 %v_5[3.1,] 
+		 3: %v_4->find_by def_%v_7 %v_4[3.0,] %v_6[3.2,] 	 SYMBOL:	 ARGS:%v_6,
+		 4: ATTRASSIGN %self->topic %v_7[3.3,] 
+		 5: RETURN %v_7[3.3,] %self[3.4,2.0,2.8,2.10,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,2.8,2.10,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->check_reviving_old_topic def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->check_education_message def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_3 %v_4[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.6,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->check_new_user_many_replies def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_3 %v_5[5.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[5.1,3.1,2.6,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->check_avatar_notification def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_3 %v_6[7.0,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[7.1,5.1,3.1,2.6,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %self->check_sequential_replies def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_3 %v_7[9.0,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[9.1,7.1,5.1,3.1,2.6,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: %self->check_dominating_topic def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_8[11.0,] %self[11.0,2.0,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[9.1,7.1,5.1,3.1,2.6,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_education_message instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->creating_topic? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%v_4 %self[2.0,] 
+		 2: %v_4->created_topic_count def_%v_5 %v_4[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_count %v_5[3.2,] 
+		 4: 
+		 5: COPY TYPE_StringLiteral "education.new-topic" def_%v_6 
+		 6: COPY TYPE_PASS def_education_key %v_6[3.5,] 
+		 7: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%v_7 %self[2.0,] 
+		 2: %v_7->post_count def_%v_8 %v_7[4.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_count %v_8[4.2,] 
+		 4: 
+		 5: COPY TYPE_StringLiteral "education.new-reply" def_%v_9 
+		 6: COPY TYPE_PASS def_education_key %v_9[4.5,] 
+		 7: COPY TYPE_PASS def_%v_6 %v_9[4.5,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_10 
+		 2: %v_10->educate_until_posts def_%v_11 %v_10[5.1,] 	 SYMBOL:	 ARGS:
+		 3: count->< def_%v_12 count[4.3,3.3,] %v_11[5.2,] 	 SYMBOL:	 ARGS:%v_11,
+		 4: BRANCH %v_12[5.3,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%v_13 
+		 2: COPY TYPE_StringLiteral "education.until_posts" def_%v_14 
+		 3: (SiteSetting) def_%v_15 
+		 4: %v_15->educate_until_posts def_%v_16 %v_15[6.3,] 	 SYMBOL:	 ARGS:
+		 5: HASH-count- def_%v_17 %v_16[6.4,] 
+		 6: %v_13->t def_%v_18 %v_13[6.1,] %v_14[6.2,] %v_17[6.5,] 	 SYMBOL:	 ARGS:%v_14,%v_17,
+		 7: COPY TYPE_PASS def_education_posts_text %v_18[6.6,] 
+		 8: 
+		 9: COPY TYPE_StringLiteral "composer/education" def_%v_19 
+		 10: (PrettyText) def_%v_20 
+		 11: (I18n) def_%v_21 
+		 12: (SiteSetting) def_%v_22 
+		 13: %v_22->title def_%v_23 %v_22[6.12,] 	 SYMBOL:	 ARGS:
+		 14: HASH-education_posts_text-site_name- def_%v_24 education_posts_text[6.7,] %v_23[6.13,] 
+		 15: %v_21->t def_%v_25 %v_21[6.11,] education_key[4.6,3.6,] %v_24[6.14,] 	 SYMBOL:	 ARGS:education_key,%v_24,
+		 16: %v_20->cook def_%v_26 %v_20[6.10,] %v_25[6.15,] 	 SYMBOL:	 ARGS:%v_25,
+		 17: HASH-templateName-wait_for_typing-body- def_%v_27 %v_19[6.9,] %v_26[6.16,] 
+		 18: RETURN %v_27[6.17,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_28 
+		 1: 
+		 2: RETURN %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_new_user_many_replies instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->replying? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_4 %self[2.0,] 
+		 1: GETFIELD %self->details def_%v_5 %self[2.0,] 
+		 2: %v_5->[] def_%v_6 %v_5[3.1,] 	 SYMBOL:topic_id,	 ARGS:Symbol,
+		 3: %v_4->posted_too_much_in_topic? def_%v_7 %v_4[3.0,] %v_6[3.2,] 	 SYMBOL:	 ARGS:%v_6,
+		 4: COPY TYPE_PASS def_%v_3 %v_7[3.3,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.4,2.6,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: COPY TYPE_StringLiteral "composer/education" def_%v_9 
+		 3: (PrettyText) def_%v_10 
+		 4: (I18n) def_%v_11 
+		 5: COPY TYPE_StringLiteral "education.too_many_replies" def_%v_12 
+		 6: (SiteSetting) def_%v_13 
+		 7: %v_13->newuser_max_replies_per_topic def_%v_14 %v_13[5.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-newuser_max_replies_per_topic- def_%v_15 %v_14[5.7,] 
+		 9: %v_11->t def_%v_16 %v_11[5.4,] %v_12[5.5,] %v_15[5.8,] 	 SYMBOL:	 ARGS:%v_12,%v_15,
+		 10: %v_10->cook def_%v_17 %v_10[5.3,] %v_16[5.9,] 	 SYMBOL:	 ARGS:%v_16,
+		 11: HASH-templateName-body- def_%v_18 %v_9[5.2,] %v_17[5.10,] 
+		 12: RETURN %v_18[5.11,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_avatar_notification instanceMethod = true
+BB 1
+	outgoing: 18 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->user def_%v_3 %self[2.0,] 
+		 7: (TrustLevel) def_%v_4 
+		 8: %v_4->[] def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:Fixnum,
+		 9: %v_3->has_trust_level? def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: BRANCH %v_6[2.9,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+		 2: GETFIELD %self->user def_%v_8 %self[2.0,] 
+		 3: %v_8->uploaded_avatar_id def_%v_9 %v_8[3.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_9[3.3,] 
+BB 4
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: (UserHistory) def_%v_10 
+		 1: GETFIELD %self->user def_%v_11 %self[2.0,] 
+		 2: %v_10->exists_for_user? def_%v_12 %v_10[6.0,] %v_11[6.1,] 	 SYMBOL:notified_about_avatar,	 ARGS:%v_11,Symbol,
+		 3: COPY TYPE_PASS def_%v_9 %v_12[6.2,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_9[6.3,3.3,] 
+BB 8
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+		 1: 
+		 2: (SiteSetting) def_%v_14 
+		 3: %v_14->disable_avatar_education_message def_%v_15 %v_14[9.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_15[9.3,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%v_16 
+		 1: %v_16->sso_overrides_avatar def_%v_17 %v_16[11.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_15 %v_17[11.1,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_15[11.2,9.3,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%v_18 
+		 1: %v_18->allow_uploaded_avatars def_%v_19 %v_18[13.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_19->! def_%v_20 %v_19[13.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_15 %v_20[13.2,] 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_15[13.3,11.2,9.3,] 
+BB 15
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+		 1: 
+		 2: (UserHistory) def_%v_22 
+		 3: (UserHistory) def_%v_23 
+		 4: %v_23->actions def_%v_24 %v_23[16.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_24->[] def_%v_25 %v_24[16.4,] 	 SYMBOL:notified_about_avatar,	 ARGS:Symbol,
+		 6: GETFIELD %self->user def_%v_26 %self[2.0,] 
+		 7: %v_26->id def_%v_27 %v_26[16.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-action-target_user_id- def_%v_28 %v_25[16.5,] %v_27[16.7,] 
+		 9: %v_22->create! def_%v_29 %v_22[16.2,] %v_28[16.8,] 	 SYMBOL:	 ARGS:%v_28,
+		 10: 
+		 11: COPY TYPE_StringLiteral "composer/education" def_%v_30 
+		 12: (PrettyText) def_%v_31 
+		 13: (I18n) def_%v_32 
+		 14: COPY TYPE_StringLiteral "education.avatar" def_%v_33 
+		 15: COPY TYPE_StringLiteral "/users/" def_%v_34 
+		 16: 
+		 17: GETFIELD %self->user def_%v_35 %self[2.0,] 
+		 18: %v_35->username_lower def_%v_36 %v_35[16.17,] 	 SYMBOL:	 ARGS:
+		 19: BUILDSTRING def_%v_37 %v_34[16.15,] %v_36[16.18,] 
+		 20: HASH-profile_path- def_%v_38 %v_37[16.19,] 
+		 21: %v_32->t def_%v_39 %v_32[16.13,] %v_33[16.14,] %v_38[16.20,] 	 SYMBOL:	 ARGS:%v_33,%v_38,
+		 22: %v_31->cook def_%v_40 %v_31[16.12,] %v_39[16.21,] 	 SYMBOL:	 ARGS:%v_39,
+		 23: HASH-templateName-body- def_%v_41 %v_30[16.11,] %v_40[16.22,] 
+		 24: RETURN %v_41[16.23,] %self[2.0,] 
+BB 18
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_sequential_replies instanceMethod = true
+BB 1
+	outgoing: 21 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->replying? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->details def_%v_4 %self[2.0,] 
+		 1: %v_4->[] def_%v_5 %v_4[3.0,] 	 SYMBOL:topic_id,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.2,2.6,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%v_6 %self[2.0,] 
+		 2: %v_6->post_count def_%v_7 %v_6[5.1,] 	 SYMBOL:	 ARGS:
+		 3: (SiteSetting) def_%v_8 
+		 4: %v_8->educate_until_posts def_%v_9 %v_8[5.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_7->>= def_%v_10 %v_7[5.2,] %v_9[5.4,] 	 SYMBOL:	 ARGS:%v_9,
+		 6: COPY TYPE_PASS def_%v_3 %v_10[5.5,] 
+BB 6
+	outgoing: 7 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[5.6,3.2,2.6,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->topic def_%v_11 %self[2.0,] 
+		 1: %v_11->present? def_%v_12 %v_11[7.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_12[7.1,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->topic def_%v_13 %self[2.0,] 
+		 2: %v_13->private_message? def_%v_14 %v_13[8.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_14->! def_%v_15 %v_14[8.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_%v_12 %v_15[8.3,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_3 %v_12[8.4,7.1,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[9.0,5.6,3.2,2.6,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (UserHistory) def_%v_16 
+		 2: GETFIELD %self->user def_%v_17 %self[2.0,] 
+		 3: GETFIELD %self->details def_%v_18 %self[2.0,] 
+		 4: %v_18->[] def_%v_19 %v_18[11.3,] 	 SYMBOL:topic_id,	 ARGS:Symbol,
+		 5: HASH-topic_id- def_%v_20 %v_19[11.4,] 
+		 6: %v_16->exists_for_user? def_%v_21 %v_16[11.1,] %v_17[11.2,] %v_20[11.5,] 	 SYMBOL:notified_about_sequential_replies,	 ARGS:%v_17,Symbol,%v_20,
+		 7: %v_21->! def_%v_22 %v_21[11.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_%v_3 %v_22[11.7,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[11.8,9.0,5.6,3.2,2.6,] 
+BB 13
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_23 
+		 1: 
+		 2: (Post) def_%v_24 
+		 3: GETFIELD %self->details def_%v_25 %self[2.0,] 
+		 4: %v_25->[] def_%v_26 %v_25[13.3,] 	 SYMBOL:topic_id,	 ARGS:Symbol,
+		 5: HASH-topic_id- def_%v_27 %v_26[13.4,] 
+		 6: %v_24->where def_%v_28 %v_24[13.2,] %v_27[13.5,] 	 SYMBOL:	 ARGS:%v_27,
+		 7: COPY TYPE_StringLiteral "created_at > ?" def_%v_29 
+		 8: CONSTANT def_%v_30 	 SYMBOL:	 ARGS:
+		 9: %v_30->ago def_%v_31 %v_30[13.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_28->where def_%v_32 %v_28[13.6,] %v_29[13.7,] %v_31[13.9,] 	 SYMBOL:	 ARGS:%v_29,%v_31,
+		 11: COPY TYPE_StringLiteral "created_at desc" def_%v_33 
+		 12: %v_32->order def_%v_34 %v_32[13.10,] %v_33[13.11,] 	 SYMBOL:	 ARGS:%v_33,
+		 13: (SiteSetting) def_%v_35 
+		 14: %v_35->sequential_replies_threshold def_%v_36 %v_35[13.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_34->limit def_%v_37 %v_34[13.12,] %v_36[13.14,] 	 SYMBOL:	 ARGS:%v_36,
+		 16: %v_37->pluck def_%v_38 %v_37[13.15,] 	 SYMBOL:user_id,	 ARGS:Symbol,
+		 17: COPY TYPE_PASS def_recent_posts_user_ids %v_38[13.16,] 
+		 18: 
+		 19: %v_38->size def_%v_39 %v_38[13.16,] 	 SYMBOL:	 ARGS:
+		 20: (SiteSetting) def_%v_40 
+		 21: %v_40->sequential_replies_threshold def_%v_41 %v_40[13.20,] 	 SYMBOL:	 ARGS:
+		 22: %v_39->!= def_%v_42 %v_39[13.19,] %v_41[13.21,] 	 SYMBOL:	 ARGS:%v_41,
+		 23: BRANCH %v_42[13.22,] 
+BB 14
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: recent_posts_user_ids->detect def_%v_43 recent_posts_user_ids[13.17,] %self[2.0,] 	 SYMBOL:	 ARGS:recent_posts_user_ids,
+CLOSURE BEGIN: %self[2.0,] u[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_u 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%cl_1_3 %self[2.0,] 
+		 2: %cl_1_3->id def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: u->!= def_%cl_1_5 u[2.2,] %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:%cl_1_4,
+		 4: RETURN %cl_1_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 1: COPY TYPE_PASS def_%v_42 %v_43[16.0,] 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_42[16.1,13.22,] 
+BB 18
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 19
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_44 
+		 1: 
+		 2: (UserHistory) def_%v_45 
+		 3: (UserHistory) def_%v_46 
+		 4: %v_46->actions def_%v_47 %v_46[19.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_47->[] def_%v_48 %v_47[19.4,] 	 SYMBOL:notified_about_sequential_replies,	 ARGS:Symbol,
+		 6: GETFIELD %self->user def_%v_49 %self[2.0,] 
+		 7: %v_49->id def_%v_50 %v_49[19.6,] 	 SYMBOL:	 ARGS:
+		 8: GETFIELD %self->details def_%v_51 %self[2.0,] 
+		 9: %v_51->[] def_%v_52 %v_51[19.8,] 	 SYMBOL:topic_id,	 ARGS:Symbol,
+		 10: HASH-action-target_user_id-topic_id- def_%v_53 %v_48[19.5,] %v_50[19.7,] %v_52[19.9,] 
+		 11: %v_45->create! def_%v_54 %v_45[19.2,] %v_53[19.10,] 	 SYMBOL:	 ARGS:%v_53,
+		 12: 
+		 13: COPY TYPE_StringLiteral "composer/education" def_%v_55 
+		 14: COPY TYPE_StringLiteral "education-message" def_%v_56 
+		 15: (PrettyText) def_%v_57 
+		 16: (I18n) def_%v_58 
+		 17: COPY TYPE_StringLiteral "education.sequential_replies" def_%v_59 
+		 18: %v_58->t def_%v_60 %v_58[19.16,] %v_59[19.17,] 	 SYMBOL:	 ARGS:%v_59,
+		 19: %v_57->cook def_%v_61 %v_57[19.15,] %v_60[19.18,] 	 SYMBOL:	 ARGS:%v_60,
+		 20: HASH-templateName-wait_for_typing-extraClass-body- def_%v_62 %v_55[19.13,] %v_56[19.14,] %v_61[19.19,] 
+		 21: RETURN %v_62[19.20,] %self[2.0,] 
+BB 21
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_dominating_topic instanceMethod = true
+BB 1
+	outgoing: 24 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->replying? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->details def_%v_4 %self[2.0,] 
+		 1: %v_4->[] def_%v_5 %v_4[3.0,] 	 SYMBOL:topic_id,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.2,2.6,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%v_6 %self[2.0,] 
+		 2: %v_6->post_count def_%v_7 %v_6[5.1,] 	 SYMBOL:	 ARGS:
+		 3: (SiteSetting) def_%v_8 
+		 4: %v_8->educate_until_posts def_%v_9 %v_8[5.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_7->>= def_%v_10 %v_7[5.2,] %v_9[5.4,] 	 SYMBOL:	 ARGS:%v_9,
+		 6: COPY TYPE_PASS def_%v_3 %v_10[5.5,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[5.6,3.2,2.6,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (UserHistory) def_%v_11 
+		 2: GETFIELD %self->user def_%v_12 %self[2.0,] 
+		 3: GETFIELD %self->details def_%v_13 %self[2.0,] 
+		 4: %v_13->[] def_%v_14 %v_13[7.3,] 	 SYMBOL:topic_id,	 ARGS:Symbol,
+		 5: HASH-topic_id- def_%v_15 %v_14[7.4,] 
+		 6: %v_11->exists_for_user? def_%v_16 %v_11[7.1,] %v_12[7.2,] %v_15[7.5,] 	 SYMBOL:notified_about_dominating_topic,	 ARGS:%v_12,Symbol,%v_15,
+		 7: %v_16->! def_%v_17 %v_16[7.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_%v_3 %v_17[7.7,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[7.8,5.6,3.2,2.6,] 
+BB 9
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_18 
+		 1: 
+		 2: GETFIELD %self->topic def_%v_19 %self[2.0,] 
+		 3: %v_19->blank? def_%v_20 %v_19[9.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_20[9.3,] 
+BB 10
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->topic def_%v_21 %self[2.0,] 
+		 1: %v_21->user_id def_%v_22 %v_21[12.0,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->user def_%v_23 %self[2.0,] 
+		 3: %v_23->id def_%v_24 %v_23[12.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_22->== def_%v_25 %v_22[12.1,] %v_24[12.3,] 	 SYMBOL:	 ARGS:%v_24,
+		 5: COPY TYPE_PASS def_%v_20 %v_25[12.4,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_20[12.5,9.3,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->topic def_%v_26 %self[2.0,] 
+		 1: %v_26->posts_count def_%v_27 %v_26[14.0,] 	 SYMBOL:	 ARGS:
+		 2: (SiteSetting) def_%v_28 
+		 3: %v_28->summary_posts_required def_%v_29 %v_28[14.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_27->< def_%v_30 %v_27[14.1,] %v_29[14.3,] 	 SYMBOL:	 ARGS:%v_29,
+		 5: COPY TYPE_PASS def_%v_20 %v_30[14.4,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_20[14.5,12.5,9.3,] 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->topic def_%v_31 %self[2.0,] 
+		 1: %v_31->private_message? def_%v_32 %v_31[16.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_20 %v_32[16.1,] 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_20[16.2,14.5,12.5,9.3,] 
+BB 18
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 19
+	outgoing: 21 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_33 
+		 1: 
+		 2: GETFIELD %self->user def_%v_34 %self[2.0,] 
+		 3: %v_34->posts def_%v_35 %v_34[19.2,] 	 SYMBOL:	 ARGS:
+		 4: GETFIELD %self->topic def_%v_36 %self[2.0,] 
+		 5: %v_36->id def_%v_37 %v_36[19.4,] 	 SYMBOL:	 ARGS:
+		 6: HASH-topic_id- def_%v_38 %v_37[19.5,] 
+		 7: %v_35->where def_%v_39 %v_35[19.3,] %v_38[19.6,] 	 SYMBOL:	 ARGS:%v_38,
+		 8: %v_39->count def_%v_40 %v_39[19.7,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_PASS def_posts_by_user %v_40[19.8,] 
+		 10: 
+		 11: %v_40->to_f def_%v_41 %v_40[19.8,] 	 SYMBOL:	 ARGS:
+		 12: GETFIELD %self->topic def_%v_42 %self[2.0,] 
+		 13: %v_42->posts_count def_%v_43 %v_42[19.12,] 	 SYMBOL:	 ARGS:
+		 14: %v_43->to_f def_%v_44 %v_43[19.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_41->/ def_%v_45 %v_41[19.11,] %v_44[19.14,] 	 SYMBOL:	 ARGS:%v_44,
+		 16: COPY TYPE_PASS def_ratio %v_45[19.15,] 
+		 17: 
+		 18: (SiteSetting) def_%v_46 
+		 19: %v_46->dominating_topic_minimum_percent def_%v_47 %v_46[19.18,] 	 SYMBOL:	 ARGS:
+		 20: %v_47->to_f def_%v_48 %v_47[19.19,] 	 SYMBOL:	 ARGS:
+		 21: %v_48->/ def_%v_49 %v_48[19.20,] 	 SYMBOL:	 ARGS:Float,
+		 22: ratio->< def_%v_50 ratio[19.16,] %v_49[19.21,] 	 SYMBOL:	 ARGS:%v_49,
+		 23: BRANCH %v_50[19.22,] 
+BB 21
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 22
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_51 
+		 1: 
+		 2: (UserHistory) def_%v_52 
+		 3: (UserHistory) def_%v_53 
+		 4: %v_53->actions def_%v_54 %v_53[22.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_54->[] def_%v_55 %v_54[22.4,] 	 SYMBOL:notified_about_dominating_topic,	 ARGS:Symbol,
+		 6: GETFIELD %self->user def_%v_56 %self[2.0,] 
+		 7: %v_56->id def_%v_57 %v_56[22.6,] 	 SYMBOL:	 ARGS:
+		 8: GETFIELD %self->details def_%v_58 %self[2.0,] 
+		 9: %v_58->[] def_%v_59 %v_58[22.8,] 	 SYMBOL:topic_id,	 ARGS:Symbol,
+		 10: HASH-action-target_user_id-topic_id- def_%v_60 %v_55[22.5,] %v_57[22.7,] %v_59[22.9,] 
+		 11: %v_52->create! def_%v_61 %v_52[22.2,] %v_60[22.10,] 	 SYMBOL:	 ARGS:%v_60,
+		 12: 
+		 13: COPY TYPE_StringLiteral "composer/education" def_%v_62 
+		 14: COPY TYPE_StringLiteral "education-message" def_%v_63 
+		 15: (PrettyText) def_%v_64 
+		 16: (I18n) def_%v_65 
+		 17: COPY TYPE_StringLiteral "education.dominating_topic" def_%v_66 
+		 18: 
+		 19: ratio->* def_%v_67 ratio[19.16,] 	 SYMBOL:	 ARGS:Fixnum,
+		 20: %v_67->round def_%v_68 %v_67[22.19,] 	 SYMBOL:	 ARGS:
+		 21: HASH-percent- def_%v_69 %v_68[22.20,] 
+		 22: %v_65->t def_%v_70 %v_65[22.16,] %v_66[22.17,] %v_69[22.21,] 	 SYMBOL:	 ARGS:%v_66,%v_69,
+		 23: %v_64->cook def_%v_71 %v_64[22.15,] %v_70[22.22,] 	 SYMBOL:	 ARGS:%v_70,
+		 24: HASH-templateName-wait_for_typing-extraClass-body- def_%v_72 %v_62[22.13,] %v_63[22.14,] %v_71[22.23,] 
+		 25: RETURN %v_72[22.24,] %self[2.0,] 
+BB 24
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_reviving_old_topic instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->replying? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: GETFIELD %self->topic def_%v_5 %self[2.0,] 
+		 3: %v_5->nil? def_%v_6 %v_5[3.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_6[3.3,] 
+BB 4
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%v_7 
+		 1: %v_7->warn_reviving_old_topic_age def_%v_8 %v_7[6.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_8->< def_%v_9 %v_8[6.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: COPY TYPE_PASS def_%v_6 %v_9[6.2,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[6.3,3.3,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->topic def_%v_10 %self[2.0,] 
+		 1: %v_10->last_posted_at def_%v_11 %v_10[8.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_11->nil? def_%v_12 %v_11[8.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_6 %v_12[8.2,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[8.3,6.3,3.3,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->topic def_%v_13 %self[2.0,] 
+		 1: %v_13->last_posted_at def_%v_14 %v_13[10.0,] 	 SYMBOL:	 ARGS:
+		 2: (SiteSetting) def_%v_15 
+		 3: %v_15->warn_reviving_old_topic_age def_%v_16 %v_15[10.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_16->days def_%v_17 %v_16[10.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_17->ago def_%v_18 %v_17[10.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_14->> def_%v_19 %v_14[10.1,] %v_18[10.5,] 	 SYMBOL:	 ARGS:%v_18,
+		 7: COPY TYPE_PASS def_%v_6 %v_19[10.6,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[10.7,8.3,6.3,3.3,] 
+BB 12
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_20 
+		 1: 
+		 2: COPY TYPE_StringLiteral "composer/education" def_%v_21 
+		 3: COPY TYPE_StringLiteral "education-message" def_%v_22 
+		 4: (PrettyText) def_%v_23 
+		 5: (I18n) def_%v_24 
+		 6: COPY TYPE_StringLiteral "education.reviving_old_topic" def_%v_25 
+		 7: 
+		 8: (Time) def_%v_26 
+		 9: %v_26->zone def_%v_27 %v_26[13.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_27->now def_%v_28 %v_27[13.9,] 	 SYMBOL:	 ARGS:
+		 11: GETFIELD %self->topic def_%v_29 %self[2.0,] 
+		 12: %v_29->last_posted_at def_%v_30 %v_29[13.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_28->- def_%v_31 %v_28[13.10,] %v_30[13.12,] 	 SYMBOL:	 ARGS:%v_30,
+		 14: %v_31->round def_%v_32 %v_31[13.13,] 	 SYMBOL:	 ARGS:
+		 15: CONSTANT def_%v_33 	 SYMBOL:	 ARGS:
+		 16: %v_32->/ def_%v_34 %v_32[13.14,] %v_33[13.15,] 	 SYMBOL:	 ARGS:%v_33,
+		 17: HASH-days- def_%v_35 %v_34[13.16,] 
+		 18: %v_24->t def_%v_36 %v_24[13.5,] %v_25[13.6,] %v_35[13.17,] 	 SYMBOL:	 ARGS:%v_25,%v_35,
+		 19: %v_23->cook def_%v_37 %v_23[13.4,] %v_36[13.18,] 	 SYMBOL:	 ARGS:%v_36,
+		 20: HASH-templateName-wait_for_typing-extraClass-body- def_%v_38 %v_21[13.2,] %v_22[13.3,] %v_37[13.19,] 
+		 21: RETURN %v_38[13.20,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = creating_topic? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->details def_%v_3 %self[2.0,] 
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:composerAction,	 ARGS:Symbol,
+		 8: COPY TYPE_StringLiteral "createTopic" def_%v_5 
+		 9: %v_4->== def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = replying? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->details def_%v_3 %self[2.0,] 
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:composerAction,	 ARGS:Symbol,
+		 8: COPY TYPE_StringLiteral "reply" def_%v_5 
+		 9: %v_4->== def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

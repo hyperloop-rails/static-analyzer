@@ -1,0 +1,340 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_embed_url 
+		 6: RECEIVECONSTARG def_opts 
+		 7: opts[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_opts 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->embed_url embed_url[2.5,] 
+		 2: 
+		 3: opts->[] def_%v_3 opts[3.0,2.6,] 	 SYMBOL:author_username,	 ARGS:Symbol,
+		 4: ATTRASSIGN %self->author_username %v_3[4.3,] 
+		 5: 
+		 6: COPY TYPE_PASS def_%v_4 opts[4.3,3.0,2.6,] 
+		 7: BRANCH opts[4.3,3.0,2.6,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_5 
+		 1: COPY TYPE_PASS def_%v_4 %v_5[5.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->opts %v_4[5.1,4.6,] 
+		 1: RETURN %v_4[5.1,4.6,] %self[6.0,4.1,4.4,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = retrieve instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->invalid_host? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->retrieved_recently? def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_3 %v_4[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.6,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: RETURN %v_5[5.0,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->perform_retrieve def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_6[6.0,] %self[6.0,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = invalid_host? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (EmbeddableHost) def_%v_3 
+		 7: GETFIELD %self->embed_url def_%v_4 %self[2.0,] 
+		 8: %v_3->host_allowed? def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: %v_5->! def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: RETURN %v_6[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = retrieved_recently? instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->opts def_%v_3 %self[2.0,] 
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:no_throttle,	 ARGS:Symbol,
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: COPY TYPE_StringLiteral "retrieved:" def_%v_6 
+		 3: GETFIELD %self->embed_url def_%v_7 %self[2.0,] 
+		 4: BUILDSTRING def_%v_8 %v_6[4.2,] %v_7[4.3,] 
+		 5: COPY TYPE_PASS def_retrieved_key %v_8[4.4,] 
+		 6: 
+		 7: GLOBALVAR $redis def_%v_9 
+		 8: COPY TYPE_StringLiteral "1" def_%v_10 
+		 9: %v_9->setnx def_%v_11 %v_9[4.7,] %v_8[4.4,] %v_10[4.8,] 	 SYMBOL:	 ARGS:retrieved_key,%v_10,
+		 10: BRANCH %v_11[4.9,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $redis def_%v_12 
+		 2: %v_12->expire def_%v_13 %v_12[6.1,] retrieved_key[4.5,] 	 SYMBOL:	 ARGS:retrieved_key,Fixnum,
+		 3: 
+		 4: RETURN %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+		 1: 
+		 2: RETURN %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = perform_retrieve instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (TopicEmbed) def_%v_3 
+		 7: GETFIELD %self->embed_url def_%v_4 %self[2.0,] 
+		 8: HASH-embed_url- def_%v_5 %v_4[2.7,] 
+		 9: %v_3->where def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: %v_6->exists? def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_7[2.10,] 
+BB 3
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: (SiteSetting) def_%v_9 
+		 3: %v_9->feed_polling_enabled? def_%v_10 %v_9[4.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_10[4.3,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Jobs) def_%v_11 
+		 2: (inherit PollFeed) def_%v_12 %v_11[6.1,] 
+		 3: %v_12[6.2,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_11->const_missing def_%v_12 %v_11[6.1,] 	 SYMBOL:PollFeed,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: %v_12->new def_%v_13 %v_12[7.0,6.2,] 	 SYMBOL:	 ARGS:
+		 1: HASH- def_%v_14 
+		 2: %v_13->execute def_%v_15 %v_13[8.0,] %v_14[8.1,] 	 SYMBOL:	 ARGS:%v_14,
+		 3: 
+		 4: (TopicEmbed) def_%v_16 
+		 5: GETFIELD %self->embed_url def_%v_17 %self[2.0,] 
+		 6: HASH-embed_url- def_%v_18 %v_17[8.5,] 
+		 7: %v_16->where def_%v_19 %v_16[8.4,] %v_18[8.6,] 	 SYMBOL:	 ARGS:%v_18,
+		 8: %v_19->exists? def_%v_20 %v_19[8.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_20[8.8,] 
+BB 9
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 10
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+		 1: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->fetch_http def_%v_22 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_22[13.1,] %self[13.1,2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = fetch_http instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->author_username def_%v_3 %self[2.0,] 
+		 7: %v_3->nil? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_5 
+		 2: %v_5->embed_by_username def_%v_6 %v_5[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_6->downcase def_%v_7 %v_6[3.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_username %v_7[3.3,] 
+		 5: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->author_username def_%v_8 %self[2.0,] 
+		 2: COPY TYPE_PASS def_username %v_8[4.1,] 
+		 3: COPY TYPE_PASS def_%v_7 %v_8[4.1,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%v_9 
+		 2: username->downcase def_%v_10 username[4.2,3.4,] 	 SYMBOL:	 ARGS:
+		 3: HASH-username_lower- def_%v_11 %v_10[5.2,] 
+		 4: %v_9->where def_%v_12 %v_9[5.1,] %v_11[5.3,] 	 SYMBOL:	 ARGS:%v_11,
+		 5: %v_12->first def_%v_13 %v_12[5.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_PASS def_user %v_13[5.5,] 
+		 7: 
+		 8: %v_13->blank? def_%v_14 %v_13[5.5,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_14[5.8,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+		 1: 
+		 2: (TopicEmbed) def_%v_16 
+		 3: GETFIELD %self->embed_url def_%v_17 %self[2.0,] 
+		 4: %v_16->import_remote def_%v_18 %v_16[7.2,] user[5.6,] %v_17[7.3,] 	 SYMBOL:	 ARGS:user,%v_17,
+		 5: RETURN %v_18[7.4,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+

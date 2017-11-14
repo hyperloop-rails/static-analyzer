@@ -1,0 +1,159 @@
+SET IRMethod, name = initialize_rows instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_community 
+		 6: 
+		 7: community->vat def_%v_3 community[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PaymentRow) def_%v_4 
+		 2: %v_4->new def_%v_5 %v_4[3.1,] 	 SYMBOL:	 ARGS:
+		 3: (PaymentRow) def_%v_6 
+		 4: %v_6->new def_%v_7 %v_6[3.3,] 	 SYMBOL:	 ARGS:
+		 5: (PaymentRow) def_%v_8 
+		 6: %v_8->new def_%v_9 %v_8[3.5,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_Array def_%v_10 %v_5[3.2,] %v_7[3.4,] %v_9[3.6,] 
+		 8: ATTRASSIGN %self->rows %v_10[3.7,] 
+		 9: RETURN %v_10[3.7,] %self[3.8,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PaymentRow) def_%v_11 
+		 2: %v_11->new def_%v_12 %v_11[4.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_Array def_%v_13 %v_12[4.2,] 
+		 4: ATTRASSIGN %self->rows %v_13[4.3,] 
+		 5: RETURN %v_13[4.3,] %self[4.4,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = sum_exists? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->rows def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->empty? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->! def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %v_5[2.8,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = summary_string instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->rows def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->collect def_%v_4 %v_3[2.6,] 	 SYMBOL:title,	 ARGS:
+		 8: COPY TYPE_StringLiteral ", " def_%v_5 
+		 9: %v_4->join def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = total_sum instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->rows def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->collect def_%v_4 %v_3[2.6,] 	 SYMBOL:sum_with_vat,	 ARGS:
+		 8: %v_4->sum def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %v_5[2.8,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = default_sum instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_listing 
+		 6: RECEIVECONSTARG def_vat 
+		 7: vat[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_vat 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->rows def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: listing->title def_%v_4 listing[2.5,] 	 SYMBOL:	 ARGS:
+		 3: listing->currency def_%v_5 listing[4.2,2.5,] 	 SYMBOL:	 ARGS:
+		 4: listing->price def_%v_6 listing[4.2,4.3,2.5,] 	 SYMBOL:	 ARGS:
+		 5: HASH-title-currency-sum-vat- def_%v_7 %v_4[4.2,] %v_5[4.3,] %v_6[4.4,] vat[3.0,2.6,] 
+		 6: %v_3->build def_%v_8 %v_3[4.1,] %v_7[4.5,] 	 SYMBOL:	 ARGS:%v_7,
+		 7: RETURN %v_8[4.6,] %self[4.1,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

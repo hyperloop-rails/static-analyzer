@@ -1,0 +1,592 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_merchant 
+		 6: RECEIVECONSTARG def_logger 
+		 7: logger[2.6,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: (PaypalService) def_%v_3 
+		 1: (inherit Logger) def_%v_4 %v_3[3.0,] 
+		 2: %v_4[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[3.0,] 	 SYMBOL:Logger,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->new def_%v_5 %v_4[4.0,3.1,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_logger %v_5[5.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->logger logger[5.1,2.6,] 
+		 2: 
+		 3: ATTRASSIGN %self->merchant merchant[2.5,] 
+		 4: 
+		 5: (Lookup) def_%v_6 
+		 6: %v_6->new def_%v_7 %v_6[6.5,] logger[5.1,2.6,] 	 SYMBOL:	 ARGS:logger,
+		 7: ATTRASSIGN %self->lookup %v_7[6.6,] 
+		 8: RETURN %v_7[6.6,] %self[6.1,6.3,6.7,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = paypal_merchant instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->merchant def_%v_3 %self[2.0,] 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = charge_commission instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_community_id 
+		 6: RECEIVEARG def_person_id 
+		 7: RECEIVEARG def_info 
+		 8: def_async 
+		 9: async[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Boolean def_async 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->lookup def_%v_3 %self[2.0,] 
+		 2: info->[] def_%v_4 info[2.7,] 	 SYMBOL:transaction_id,	 ARGS:Symbol,
+		 3: %v_3->with_completed_payment def_%v_5 %v_3[4.1,] community_id[2.5,] %v_4[4.2,] %self[2.0,] 	 SYMBOL:	 ARGS:community_id,%v_4,%v_3,
+CLOSURE BEGIN: %self[2.0,] payment[] community_id[2.5,] person_id[2.6,] m_acc[] admin_acc[] info[4.2,2.7,] async[3.0,2.8,] proc_token[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_payment 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->lookup def_%cl_1_3 %self[2.0,] 
+		 2: payment->[] def_%cl_1_4 payment[2.2,] 	 SYMBOL:receiver_id,	 ARGS:Symbol,
+		 3: %cl_1_3->with_accounts def_%cl_1_5 %cl_1_3[3.1,] community_id[] person_id[] %cl_1_4[3.2,] %self[2.0,] 	 SYMBOL:	 ARGS:community_id,person_id,%cl_1_4,%cl_1_3,
+CLOSURE BEGIN: %self[2.0,] m_acc[] admin_acc[] info[] community_id[] payment[3.2,2.2,] async[] proc_token[] 
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_m_acc 
+		 3: RECEIVEARG def_admin_acc 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->seller_is_admin? def_%cl_2_3 %self[2.0,] m_acc[2.2,] admin_acc[2.3,] 	 SYMBOL:	 ARGS:m_acc,admin_acc,
+		 2: BRANCH %cl_2_3[3.1,] 
+BB 4
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: info->[] def_%cl_2_4 info[] 	 SYMBOL:transaction_id,	 ARGS:Symbol,
+		 2: m_acc->[] def_%cl_2_5 m_acc[2.2,] 	 SYMBOL:person_id,	 ARGS:Symbol,
+		 3: %self->commission_not_applicable def_%cl_2_6 %self[2.0,] community_id[] %cl_2_4[4.1,] %cl_2_5[4.2,] payment[] 	 SYMBOL:seller_is_admin,	 ARGS:community_id,%cl_2_4,%cl_2_5,payment,Symbol,
+		 4: 
+BB 5
+	outgoing: 6 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH async[] 
+BB 6
+	outgoing: 7 8 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Worker) def_%cl_2_7 
+		 2: info->[] def_%cl_2_8 info[] 	 SYMBOL:transaction_id,	 ARGS:Symbol,
+		 3: COPY TYPE_Array def_%cl_2_9 community_id[] info[6.2,] m_acc[2.2,] admin_acc[2.3,] payment[] 
+		 4: HASH-community_id-transaction_id-op_name-op_input- def_%cl_2_10 community_id[] %cl_2_8[6.2,] %cl_2_9[6.3,] 
+		 5: %cl_2_7->enqueue_billing_agreements_op def_%cl_2_11 %cl_2_7[6.1,] %cl_2_10[6.4,] 	 SYMBOL:	 ARGS:%cl_2_10,
+		 6: COPY TYPE_PASS def_proc_token %cl_2_11[6.5,] 
+		 7: 
+		 8: (Result) def_%cl_2_12 
+		 9: (inherit Success) def_%cl_2_13 %cl_2_12[6.8,] 
+		 10: %cl_2_13[6.9,] 
+BB 7
+	outgoing: 8 12 
+	datadep: 
+	instructions:
+		 0: %cl_2_12->const_missing def_%cl_2_13 %cl_2_12[6.8,] 	 SYMBOL:Success,	 ARGS:Symbol,
+BB 8
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: (DataTypes) def_%cl_2_14 
+		 1: proc_token->[] def_%cl_2_15 proc_token[6.6,] 	 SYMBOL:process_token,	 ARGS:Symbol,
+		 2: proc_token->[] def_%cl_2_16 proc_token[8.1,6.6,] 	 SYMBOL:op_completed,	 ARGS:Symbol,
+		 3: proc_token->[] def_%cl_2_17 proc_token[8.1,8.2,6.6,] 	 SYMBOL:op_output,	 ARGS:Symbol,
+		 4: HASH-process_token-completed-result- def_%cl_2_18 %cl_2_15[8.1,] %cl_2_16[8.2,] %cl_2_17[8.3,] 
+		 5: %cl_2_14->create_process_status def_%cl_2_19 %cl_2_14[8.0,] %cl_2_18[8.4,] 	 SYMBOL:	 ARGS:%cl_2_18,
+		 6: %cl_2_13->new def_%cl_2_20 %cl_2_13[7.0,6.9,] %cl_2_19[8.5,] 	 SYMBOL:	 ARGS:%cl_2_19,
+		 7: 
+BB 9
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->do_charge_commission def_%cl_2_21 %self[2.0,] community_id[] info[] m_acc[2.2,] admin_acc[2.3,] payment[] 	 SYMBOL:	 ARGS:community_id,info,m_acc,admin_acc,payment,
+		 2: COPY TYPE_PASS def_%cl_2_20 %cl_2_21[9.1,] 
+BB 10
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_2_20[9.2,8.6,] %self[2.0,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_2_6[4.3,] %self[2.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_22 
+		 1: def_%cl_2_23 %cl_2_22[12.0,] 
+		 2: RETURN %cl_2_23[12.1,] %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: admin_acc[2.3,] proc_token[6.6,] 
+		 4: RETURN %cl_1_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: RETURN %v_5[4.3,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = seller_is_admin? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_m_acc 
+		 6: RECEIVEARG def_admin_acc 
+		 7: 
+		 8: m_acc->[] def_%v_3 m_acc[2.5,] 	 SYMBOL:payer_id,	 ARGS:Symbol,
+		 9: admin_acc->[] def_%v_4 admin_acc[2.6,] 	 SYMBOL:payer_id,	 ARGS:Symbol,
+		 10: %v_3->== def_%v_5 %v_3[2.8,] %v_4[2.9,] 	 SYMBOL:	 ARGS:%v_4,
+		 11: RETURN %v_5[2.10,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = commission_not_applicable instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_community_id 
+		 6: RECEIVEARG def_transaction_id 
+		 7: RECEIVEARG def_merchant_id 
+		 8: RECEIVEARG def_payment 
+		 9: RECEIVEARG def_status 
+		 10: 
+		 11: (PaypalService) def_%v_3 
+		 12: (inherit Store) def_%v_4 %v_3[2.11,] 
+		 13: %v_4[2.12,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.11,] 	 SYMBOL:Store,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit PaypalPayment) def_%v_5 %v_4[3.0,2.12,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.12,] 	 SYMBOL:PaypalPayment,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: HASH-commission_status- def_%v_6 status[2.9,] 
+		 1: payment->merge def_%v_7 payment[2.8,] %v_6[6.0,] 	 SYMBOL:	 ARGS:%v_6,
+		 2: HASH-data-community_id-transaction_id- def_%v_8 %v_7[6.1,] community_id[2.5,] transaction_id[2.6,] 
+		 3: %v_5->update def_%v_9 %v_5[5.0,4.0,] %v_8[6.2,] 	 SYMBOL:	 ARGS:%v_8,
+		 4: COPY TYPE_PASS def_updated_payment %v_9[6.3,] 
+		 5: 
+		 6: (Result) def_%v_10 
+		 7: (inherit Success) def_%v_11 %v_10[6.6,] 
+		 8: %v_11[6.7,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_10->const_missing def_%v_11 %v_10[6.6,] 	 SYMBOL:Success,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: (DataTypes) def_%v_12 
+		 1: %v_12->create_payment def_%v_13 %v_12[8.0,] updated_payment[6.4,] 	 SYMBOL:	 ARGS:updated_payment,
+		 2: %v_11->new def_%v_14 %v_11[7.0,6.7,] %v_13[8.1,] 	 SYMBOL:	 ARGS:%v_13,
+		 3: RETURN %v_14[8.2,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = do_charge_commission instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_community_id 
+		 6: RECEIVEARG def_info 
+		 7: RECEIVEARG def_m_acc 
+		 8: RECEIVEARG def_admin_acc 
+		 9: RECEIVEARG def_payment 
+		 10: 
+		 11: info->[] def_%v_3 info[2.6,] 	 SYMBOL:transaction_id,	 ARGS:Symbol,
+		 12: (MerchantData) def_%v_4 
+		 13: admin_acc->[] def_%v_5 admin_acc[2.8,] 	 SYMBOL:email,	 ARGS:Symbol,
+		 14: m_acc->[] def_%v_6 m_acc[2.7,] 	 SYMBOL:billing_agreement_billing_agreement_id,	 ARGS:Symbol,
+		 15: info->[] def_%v_7 info[2.6,2.11,] 	 SYMBOL:commission_to_admin,	 ARGS:Symbol,
+		 16: info->[] def_%v_8 info[2.6,2.11,2.15,] 	 SYMBOL:payment_name,	 ARGS:Symbol,
+		 17: info->[] def_%v_9 info[2.6,2.11,2.15,2.16,] 	 SYMBOL:payment_desc,	 ARGS:Symbol,
+		 18: BRANCH %v_9[2.17,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: info->[] def_%v_10 info[2.6,] 	 SYMBOL:payment_name,	 ARGS:Symbol,
+		 1: COPY TYPE_PASS def_%v_9 %v_10[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (Invnum) def_%v_11 
+		 1: info->[] def_%v_12 info[2.6,] 	 SYMBOL:transaction_id,	 ARGS:Symbol,
+		 2: %v_11->create def_%v_13 %v_11[4.0,] community_id[2.5,] %v_12[4.1,] 	 SYMBOL:commission,	 ARGS:community_id,%v_12,Symbol,
+		 3: HASH-receiver_username-billing_agreement_id-payment_total-name-desc-invnum- def_%v_14 %v_5[2.13,] %v_6[2.14,] %v_7[2.15,] %v_8[2.16,] %v_9[3.1,2.17,] %v_13[4.2,] 
+		 4: %v_4->create_do_reference_transaction def_%v_15 %v_4[2.12,] %v_14[4.3,] 	 SYMBOL:	 ARGS:%v_14,
+		 5: COPY TYPE_StringLiteral "10001" def_%v_16 
+		 6: COPY TYPE_StringLiteral "x-timeout" def_%v_17 
+		 7: COPY TYPE_StringLiteral "x-servererror" def_%v_18 
+		 8: COPY TYPE_Array def_%v_19 %v_16[4.5,] %v_17[4.6,] %v_18[4.7,] 
+		 9: 
+		 10: %self->method def_%v_20 %self[2.0,] 	 SYMBOL:commission_payment_failed,	 ARGS:Symbol,
+		 11: %v_20->call def_%v_21 %v_20[4.10,] payment[2.9,] 	 SYMBOL:	 ARGS:payment,
+		 12: HASH-codes_to_retry-try_max-finally- def_%v_22 %v_19[4.8,] %v_21[4.11,] 
+		 13: HASH-error_policy- def_%v_23 %v_22[4.12,] 
+		 14: %self->with_success def_%v_24 %self[4.10,2.0,] community_id[2.5,] %v_3[2.11,] %v_15[4.4,] %v_23[4.13,] %self[4.10,2.0,] 	 SYMBOL:	 ARGS:community_id,%v_3,%v_15,%v_23,%self,
+CLOSURE BEGIN: ref_tx_res[] payment[2.9,] info[4.1,2.6,] community_id[2.5,] updated_payment[] 
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_ref_tx_res 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PaypalService) def_%cl_1_3 
+		 2: (inherit Store) def_%cl_1_4 %cl_1_3[3.1,] 
+		 3: %cl_1_4[3.2,] 
+BB 4
+	outgoing: 5 10 
+	datadep: 
+	instructions:
+		 0: %cl_1_3->const_missing def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:Store,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 7 10 
+	datadep: 
+	instructions:
+		 0: (inherit PaypalPayment) def_%cl_1_5 %cl_1_4[4.0,3.2,] 
+		 1: %cl_1_5[5.0,] 
+BB 6
+	outgoing: 7 10 
+	datadep: 
+	instructions:
+		 0: %cl_1_4->const_missing def_%cl_1_5 %cl_1_4[4.0,3.2,] 	 SYMBOL:PaypalPayment,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 9 10 
+	datadep: 
+	instructions:
+		 0: ref_tx_res->[] def_%cl_1_6 ref_tx_res[2.2,] 	 SYMBOL:payment_id,	 ARGS:Symbol,
+		 1: ref_tx_res->[] def_%cl_1_7 ref_tx_res[7.0,2.2,] 	 SYMBOL:payment_date,	 ARGS:Symbol,
+		 2: ref_tx_res->[] def_%cl_1_8 ref_tx_res[7.0,7.1,2.2,] 	 SYMBOL:payment_total,	 ARGS:Symbol,
+		 3: ref_tx_res->[] def_%cl_1_9 ref_tx_res[7.0,7.1,7.2,2.2,] 	 SYMBOL:fee,	 ARGS:Symbol,
+		 4: ref_tx_res->[] def_%cl_1_10 ref_tx_res[7.0,7.1,7.2,7.3,2.2,] 	 SYMBOL:payment_status,	 ARGS:Symbol,
+		 5: ref_tx_res->[] def_%cl_1_11 ref_tx_res[7.0,7.1,7.2,7.3,7.4,2.2,] 	 SYMBOL:pending_reason,	 ARGS:Symbol,
+		 6: HASH-commission_payment_id-commission_payment_date-commission_total-commission_fee_total-commission_status-commission_pending_reason- def_%cl_1_12 %cl_1_6[7.0,] %cl_1_7[7.1,] %cl_1_8[7.2,] %cl_1_9[7.3,] %cl_1_10[7.4,] %cl_1_11[7.5,] 
+		 7: payment->merge def_%cl_1_13 payment[] %cl_1_12[7.6,] 	 SYMBOL:	 ARGS:%cl_1_12,
+		 8: info->[] def_%cl_1_14 info[] 	 SYMBOL:transaction_id,	 ARGS:Symbol,
+		 9: HASH-data-community_id-transaction_id- def_%cl_1_15 %cl_1_13[7.7,] community_id[] %cl_1_14[7.8,] 
+		 10: %cl_1_5->update def_%cl_1_16 %cl_1_5[6.0,5.0,] %cl_1_15[7.9,] 	 SYMBOL:	 ARGS:%cl_1_15,
+		 11: COPY TYPE_PASS def_updated_payment %cl_1_16[7.10,] 
+		 12: 
+		 13: (Result) def_%cl_1_17 
+		 14: (inherit Success) def_%cl_1_18 %cl_1_17[7.13,] 
+		 15: %cl_1_18[7.14,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: %cl_1_17->const_missing def_%cl_1_18 %cl_1_17[7.13,] 	 SYMBOL:Success,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: (DataTypes) def_%cl_1_19 
+		 1: %cl_1_19->create_payment def_%cl_1_20 %cl_1_19[9.0,] updated_payment[7.11,] 	 SYMBOL:	 ARGS:updated_payment,
+		 2: %cl_1_18->new def_%cl_1_21 %cl_1_18[8.0,7.14,] %cl_1_20[9.1,] 	 SYMBOL:	 ARGS:%cl_1_20,
+		 3: RETURN %cl_1_21[9.2,] %self[2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_22 
+		 1: def_%cl_1_23 %cl_1_22[10.0,] 
+		 2: RETURN %cl_1_23[10.1,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: updated_payment[7.11,] 
+		 15: RETURN %v_24[4.14,] %self[4.10,4.14,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mark_payment_errored instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_cid 
+		 6: RECEIVEARG def_txid 
+		 7: RECEIVEARG def_payment 
+		 8: 
+		 9: (PaypalService) def_%v_3 
+		 10: (inherit Store) def_%v_4 %v_3[2.9,] 
+		 11: %v_4[2.10,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.9,] 	 SYMBOL:Store,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit PaypalPayment) def_%v_5 %v_4[3.0,2.10,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.10,] 	 SYMBOL:PaypalPayment,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: HASH-commission_status- def_%v_6 
+		 1: payment->merge def_%v_7 payment[2.7,] %v_6[6.0,] 	 SYMBOL:	 ARGS:%v_6,
+		 2: HASH-data-community_id-transaction_id- def_%v_8 %v_7[6.1,] cid[2.5,] txid[2.6,] 
+		 3: %v_5->update def_%v_9 %v_5[5.0,4.0,] %v_8[6.2,] 	 SYMBOL:	 ARGS:%v_8,
+		 4: RETURN %v_9[6.3,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = commission_payment_failed instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_payment 
+		 6: 
+		 7: def_%v_3 %self[2.0,] 
+CLOSURE BEGIN: %self[2.0,] cid[] txid[] payment[2.5,] request[] err_response[] 
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 5 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: RECEIVEARG def_cid 
+		 5: RECEIVEARG def_txid 
+		 6: RECEIVEARG def_request 
+		 7: RECEIVEARG def_err_response 
+		 8: 
+		 9: %self->mark_payment_errored def_%cl_1_3 %self[2.0,] cid[2.4,] txid[2.5,] payment[] 	 SYMBOL:	 ARGS:cid,txid,payment,
+		 10: 
+		 11: %self->log_and_return def_%cl_1_4 %self[2.0,2.9,] cid[2.4,] txid[2.5,] request[2.6,] err_response[2.7,] 	 SYMBOL:	 ARGS:cid,txid,request,err_response,
+		 12: RETURN %cl_1_4[2.11,] %self[2.0,2.9,2.11,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[3.0,] 
+		 2: RETURN %cl_1_6[3.1,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: request[2.6,] err_response[2.7,] txid[2.5,] 
+		 8: RETURN %v_3[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,173 @@
+SET IRMethod, name = build_end instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_build 
+		 6: 
+		 7: build->project def_%v_3 build[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %self->build_data def_%v_4 %self[2.0,] build[2.5,2.7,] 	 SYMBOL:	 ARGS:build,
+		 9: %self->execute_hooks def_%v_5 %self[2.0,2.8,] %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_3,%v_4,
+		 10: RETURN %v_5[2.9,] %self[2.0,2.8,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = execute_hooks instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_project 
+		 6: RECEIVEARG def_data 
+		 7: 
+		 8: project->web_hooks def_%v_3 project[2.5,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->each def_%v_4 %v_3[2.8,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: %self[2.0,] web_hook[] data[2.6,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_web_hook 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->async_execute_hook def_%cl_1_3 %self[2.0,] web_hook[2.2,] data[] 	 SYMBOL:	 ARGS:web_hook,data,
+		 2: RETURN %cl_1_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: RETURN %v_4[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = async_execute_hook instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_hook 
+		 6: RECEIVEARG def_data 
+		 7: 
+		 8: (Sidekiq) def_%v_3 
+		 9: (inherit Client) def_%v_4 %v_3[2.8,] 
+		 10: %v_4[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.8,] 	 SYMBOL:Client,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (Ci) def_%v_5 
+		 1: (inherit WebHookWorker) def_%v_6 %v_5[4.0,] 
+		 2: %v_6[4.1,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_5->const_missing def_%v_6 %v_5[4.0,] 	 SYMBOL:WebHookWorker,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: hook->id def_%v_7 hook[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->enqueue def_%v_8 %v_4[3.0,2.9,] %v_6[5.0,4.1,] %v_7[6.0,] data[2.6,] 	 SYMBOL:	 ARGS:%v_6,%v_7,data,
+		 2: RETURN %v_8[6.1,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_data instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_build 
+		 6: 
+		 7: build->project def_%v_3 build[2.5,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_project %v_3[2.7,] 
+		 9: 
+		 10: HASH- def_%v_4 
+		 11: COPY TYPE_PASS def_data %v_4[2.10,] 
+		 12: 
+		 13: build->id def_%v_5 build[2.5,2.7,] 	 SYMBOL:	 ARGS:
+		 14: build->name def_%v_6 build[2.5,2.7,2.13,] 	 SYMBOL:	 ARGS:
+		 15: build->status def_%v_7 build[2.5,2.7,2.13,2.14,] 	 SYMBOL:	 ARGS:
+		 16: build->started_at def_%v_8 build[2.5,2.7,2.13,2.14,2.15,] 	 SYMBOL:	 ARGS:
+		 17: build->finished_at def_%v_9 build[2.5,2.7,2.13,2.14,2.15,2.16,] 	 SYMBOL:	 ARGS:
+		 18: project->id def_%v_10 project[2.8,] 	 SYMBOL:	 ARGS:
+		 19: project->name def_%v_11 project[2.8,2.18,] 	 SYMBOL:	 ARGS:
+		 20: project->gitlab_url def_%v_12 project[2.8,2.18,2.19,] 	 SYMBOL:	 ARGS:
+		 21: build->ref def_%v_13 build[2.5,2.7,2.13,2.14,2.15,2.16,2.17,] 	 SYMBOL:	 ARGS:
+		 22: build->before_sha def_%v_14 build[2.5,2.7,2.13,2.14,2.15,2.16,2.17,2.21,] 	 SYMBOL:	 ARGS:
+		 23: build->sha def_%v_15 build[2.5,2.7,2.13,2.14,2.15,2.16,2.17,2.21,2.22,] 	 SYMBOL:	 ARGS:
+		 24: HASH-build_id-build_name-build_status-build_started_at-build_finished_at-project_id-project_name-gitlab_url-ref-before_sha-sha- def_%v_16 %v_5[2.13,] %v_6[2.14,] %v_7[2.15,] %v_8[2.16,] %v_9[2.17,] %v_10[2.18,] %v_11[2.19,] %v_12[2.20,] %v_13[2.21,] %v_14[2.22,] %v_15[2.23,] 
+		 25: data->merge! def_%v_17 data[2.11,] %v_16[2.24,] 	 SYMBOL:	 ARGS:%v_16,
+		 26: RETURN %v_17[2.25,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

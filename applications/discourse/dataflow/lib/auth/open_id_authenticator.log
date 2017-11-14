@@ -1,0 +1,333 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_name 
+		 6: RECEIVEARG def_identifier 
+		 7: RECEIVECONSTARG def_opts 
+		 8: opts[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->name name[2.5,] 
+		 2: 
+		 3: ATTRASSIGN %self->identifier identifier[2.6,] 
+		 4: 
+		 5: ATTRASSIGN %self->opts opts[3.1,2.7,] 
+		 6: RETURN opts[3.1,2.7,] %self[4.1,4.3,4.5,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = after_authenticate instanceMethod = true
+BB 1
+	outgoing: 21 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_auth_token 
+		 6: 
+		 7: (Auth) def_%v_3 
+		 8: (inherit Result) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:Result,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: %v_4->new def_%v_5 %v_4[3.0,2.8,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_result %v_5[4.0,] 
+		 2: 
+		 3: auth_token->[] def_%v_6 auth_token[2.5,] 	 SYMBOL:info,	 ARGS:Symbol,
+		 4: COPY TYPE_PASS def_data %v_6[4.3,] 
+		 5: 
+		 6: auth_token->[] def_%v_7 auth_token[4.3,2.5,] 	 SYMBOL:extra,	 ARGS:Symbol,
+		 7: %v_7->[] def_%v_8 %v_7[4.6,] 	 SYMBOL:response,	 ARGS:Symbol,
+		 8: %v_8->identity_url def_%v_9 %v_8[4.7,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_PASS def_identity_url %v_9[4.8,] 
+		 10: 
+		 11: data->[] def_%v_10 data[4.4,] 	 SYMBOL:email,	 ARGS:Symbol,
+		 12: COPY TYPE_PASS def_email %v_10[4.11,] 
+		 13: ATTRASSIGN result->email %v_10[4.11,] 
+		 14: 
+		 15: email->blank? def_%v_11 email[4.12,] 	 SYMBOL:	 ARGS:
+		 16: BRANCH %v_11[4.15,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (Discourse) def_%v_12 
+		 1: (inherit InvalidParameters) def_%v_13 %v_12[5.0,] 
+		 2: %v_13[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_12->const_missing def_%v_13 %v_12[5.0,] 	 SYMBOL:InvalidParameters,	 ARGS:Symbol,
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_13->new def_%v_14 %v_13[6.0,5.1,] 	 SYMBOL:email,	 ARGS:Symbol,
+		 1: %self->raise def_%v_15 %self[2.0,] %v_14[7.0,] 	 SYMBOL:	 ARGS:%v_14,
+		 2: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: data->[] def_%v_16 data[4.4,] 	 SYMBOL:name,	 ARGS:Symbol,
+		 2: BRANCH %v_16[9.1,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: data->[] def_%v_17 data[4.4,] 	 SYMBOL:email,	 ARGS:Symbol,
+		 1: COPY TYPE_PASS def_%v_16 %v_17[10.0,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN result->name %v_16[10.1,9.1,] 
+		 1: 
+		 2: data->[] def_%v_18 data[4.4,] 	 SYMBOL:nickname,	 ARGS:Symbol,
+		 3: BRANCH %v_18[11.2,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: data->[] def_%v_19 data[4.4,] 	 SYMBOL:email,	 ARGS:Symbol,
+		 1: COPY TYPE_PASS def_%v_18 %v_19[12.0,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN result->username %v_18[12.1,11.2,] 
+		 1: 
+		 2: (UserOpenId) def_%v_20 
+		 3: %v_20->find_by_url def_%v_21 %v_20[13.2,] identity_url[4.9,] 	 SYMBOL:	 ARGS:identity_url,
+		 4: COPY TYPE_PASS def_user_open_id %v_21[13.3,] 
+		 5: 
+		 6: %v_21->! def_%v_22 %v_21[13.3,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_22[13.6,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->opts def_%v_23 %self[2.0,] 
+		 1: %v_23->[] def_%v_24 %v_23[14.0,] 	 SYMBOL:trusted,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%v_22 %v_24[14.1,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_22[14.2,13.6,] 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: (User) def_%v_25 
+		 1: %v_25->find_by_email def_%v_26 %v_25[16.0,] email[4.12,] 	 SYMBOL:	 ARGS:email,
+		 2: COPY TYPE_PASS def_user %v_26[16.1,] 
+		 3: COPY TYPE_PASS def_%v_22 %v_26[16.1,] 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_22[16.3,14.2,13.6,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (UserOpenId) def_%v_27 
+		 2: user->id def_%v_28 user[16.2,] 	 SYMBOL:	 ARGS:
+		 3: HASH-url-user_id-email-active- def_%v_29 identity_url[4.9,] %v_28[18.2,] email[4.12,] 
+		 4: %v_27->create def_%v_30 %v_27[18.1,] %v_29[18.3,] 	 SYMBOL:	 ARGS:%v_29,
+		 5: COPY TYPE_PASS def_user_open_id %v_30[18.4,] 
+		 6: 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_30 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user_open_id->try def_%v_31 user_open_id[18.5,13.4,] 	 SYMBOL:user,	 ARGS:Symbol,
+		 2: ATTRASSIGN result->user %v_31[20.1,] 
+		 3: 
+		 4: HASH-openid_url-email- def_%v_32 identity_url[4.9,] email[4.12,] 
+		 5: ATTRASSIGN result->extra_data %v_32[20.4,] 
+		 6: 
+		 7: GETFIELD %self->opts def_%v_33 %self[2.0,] 
+		 8: %v_33->[] def_%v_34 %v_33[20.7,] 	 SYMBOL:trusted,	 ARGS:Symbol,
+		 9: ATTRASSIGN result->email_valid %v_34[20.8,] 
+		 10: 
+		 11: RETURN result[20.2,20.5,20.9,13.0,11.0,4.1,4.13,] %self[2.0,] 
+BB 21
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = after_create_account instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_auth 
+		 7: 
+		 8: auth->[] def_%v_3 auth[2.6,] 	 SYMBOL:extra_data,	 ARGS:Symbol,
+		 9: COPY TYPE_PASS def_data %v_3[2.8,] 
+		 10: 
+		 11: (UserOpenId) def_%v_4 
+		 12: user->id def_%v_5 user[2.5,] 	 SYMBOL:	 ARGS:
+		 13: data->[] def_%v_6 data[2.9,] 	 SYMBOL:openid_url,	 ARGS:Symbol,
+		 14: data->[] def_%v_7 data[2.9,2.13,] 	 SYMBOL:email,	 ARGS:Symbol,
+		 15: HASH-user_id-url-email-active- def_%v_8 %v_5[2.12,] %v_6[2.13,] %v_7[2.14,] 
+		 16: %v_4->create def_%v_9 %v_4[2.11,] %v_8[2.15,] 	 SYMBOL:	 ARGS:%v_8,
+		 17: RETURN %v_9[2.16,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = register_middleware instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_omniauth 
+		 6: 
+		 7: %self->lambda def_%v_3 %self[2.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: env[] 
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_env 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "omniauth.strategy" def_%cl_1_3 
+		 2: env->[] def_%cl_1_4 env[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: COPY TYPE_PASS def_strategy %cl_1_4[3.2,] 
+		 4: 
+		 5: %cl_1_4->options def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 6: (OpenID) def_%cl_1_6 
+		 7: (inherit Store) def_%cl_1_7 %cl_1_6[3.6,] 
+		 8: %cl_1_7[3.7,] 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: %cl_1_6->const_missing def_%cl_1_7 %cl_1_6[3.6,] 	 SYMBOL:Store,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 7 8 
+	datadep: 
+	instructions:
+		 0: (inherit Redis) def_%cl_1_8 %cl_1_7[4.0,3.7,] 
+		 1: %cl_1_8[5.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: %cl_1_7->const_missing def_%cl_1_8 %cl_1_7[4.0,3.7,] 	 SYMBOL:Redis,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 10 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $redis def_%cl_1_9 
+		 1: %cl_1_8->new def_%cl_1_10 %cl_1_8[6.0,5.0,] %cl_1_9[7.0,] 	 SYMBOL:	 ARGS:%cl_1_9,
+		 2: ATTRASSIGN %cl_1_5->[] %cl_1_10[7.1,] 
+		 3: RETURN %cl_1_10[7.1,] %self[2.0,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_11 
+		 1: def_%cl_1_12 %cl_1_11[8.0,] 
+		 2: RETURN %cl_1_12[8.1,] %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: strategy[3.3,] 
+		 8: %self->name def_%v_4 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 9: %self->identifier def_%v_5 %self[2.0,2.7,2.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral "omniauth-openid" def_%v_6 
+		 11: HASH-setup-name-identifier-require- def_%v_7 %v_3[2.7,] %v_4[2.8,] %v_5[2.9,] %v_6[2.10,] 
+		 12: omniauth->provider def_%v_8 omniauth[2.5,] %v_7[2.11,] 	 SYMBOL:open_id,	 ARGS:Symbol,%v_7,
+		 13: RETURN %v_8[2.12,] %self[2.0,2.7,2.8,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

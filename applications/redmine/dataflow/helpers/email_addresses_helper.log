@@ -1,0 +1,53 @@
+SET IRMethod, name = toggle_email_address_notify_link instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_address 
+		 6: 
+		 7: address->notify? def_%v_3 address[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->l def_%v_4 %self[2.0,] 	 SYMBOL:label_disable_notifications,	 ARGS:Symbol,
+		 2: address->user def_%v_5 address[2.5,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "0" def_%v_6 
+		 4: HASH-notify- def_%v_7 %v_6[3.3,] 
+		 5: %self->user_email_address_path def_%v_8 %self[3.1,2.0,] %v_5[3.2,] address[3.2,2.5,] %v_7[3.4,] 	 SYMBOL:	 ARGS:%v_5,address,%v_7,
+		 6: %self->l def_%v_9 %self[3.1,3.5,2.0,] 	 SYMBOL:label_disable_notifications,	 ARGS:Symbol,
+		 7: COPY TYPE_StringLiteral "icon-only icon-email" def_%v_10 
+		 8: HASH-method-remote-title-class- def_%v_11 %v_9[3.6,] %v_10[3.7,] 
+		 9: %self->link_to def_%v_12 %self[3.1,3.5,3.6,2.0,] %v_4[3.1,] %v_8[3.5,] %v_11[3.8,] 	 SYMBOL:	 ARGS:%v_4,%v_8,%v_11,
+		 10: RETURN %v_12[3.9,] %self[3.1,3.5,3.6,3.9,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->l def_%v_13 %self[2.0,] 	 SYMBOL:label_enable_notifications,	 ARGS:Symbol,
+		 2: address->user def_%v_14 address[2.5,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "1" def_%v_15 
+		 4: HASH-notify- def_%v_16 %v_15[4.3,] 
+		 5: %self->user_email_address_path def_%v_17 %self[4.1,2.0,] %v_14[4.2,] address[4.2,2.5,] %v_16[4.4,] 	 SYMBOL:	 ARGS:%v_14,address,%v_16,
+		 6: %self->l def_%v_18 %self[4.1,4.5,2.0,] 	 SYMBOL:label_enable_notifications,	 ARGS:Symbol,
+		 7: COPY TYPE_StringLiteral "icon-only icon-email-disabled" def_%v_19 
+		 8: HASH-method-remote-title-class- def_%v_20 %v_18[4.6,] %v_19[4.7,] 
+		 9: %self->link_to def_%v_21 %self[4.1,4.5,4.6,2.0,] %v_13[4.1,] %v_17[4.5,] %v_20[4.8,] 	 SYMBOL:	 ARGS:%v_13,%v_17,%v_20,
+		 10: RETURN %v_21[4.9,] %self[4.1,4.5,4.6,4.9,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

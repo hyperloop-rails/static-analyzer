@@ -1,0 +1,1354 @@
+SET IRMethod, name = link_to_author instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_event 
+		 6: 
+		 7: event->author def_%v_3 event[2.5,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_author %v_3[2.7,] 
+		 9: 
+		 10: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: author->name def_%v_4 author[2.8,] 	 SYMBOL:	 ARGS:
+		 2: author->username def_%v_5 author[3.1,2.8,] 	 SYMBOL:	 ARGS:
+		 3: %self->user_path def_%v_6 %self[2.0,] %v_5[3.2,] 	 SYMBOL:	 ARGS:%v_5,
+		 4: author->name def_%v_7 author[3.1,3.2,2.8,] 	 SYMBOL:	 ARGS:
+		 5: HASH-title- def_%v_8 %v_7[3.4,] 
+		 6: %self->link_to def_%v_9 %self[3.3,2.0,] %v_4[3.1,] %v_6[3.3,] %v_8[3.5,] 	 SYMBOL:	 ARGS:%v_4,%v_6,%v_8,
+		 7: RETURN %v_9[3.6,] %self[3.3,3.6,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->author_name def_%v_10 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_10[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = event_action_name instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_event 
+		 6: 
+		 7: event->target_type def_%v_3 event[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->note? def_%v_4 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_4[3.1,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->note_target_type def_%v_5 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->target_type def_%v_6 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->titleize def_%v_7 %v_6[5.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_7->downcase def_%v_8 %v_7[5.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_%v_5 %v_8[5.3,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "project" def_%v_9 
+		 2: COPY TYPE_PASS def_%v_5 %v_9[7.1,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_target %v_5[7.2,5.4,4.1,] 
+		 1: 
+		 2: event->action_name def_%v_10 event[2.5,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_Array def_%v_11 %v_10[8.2,] target[8.0,] 
+		 4: COPY TYPE_StringLiteral " " def_%v_12 
+		 5: %v_11->join def_%v_13 %v_11[8.3,] %v_12[8.4,] 	 SYMBOL:	 ARGS:%v_12,
+		 6: RETURN %v_13[8.5,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = event_filter_link instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_key 
+		 6: RECEIVEARG def_tooltip 
+		 7: 
+		 8: key->to_s def_%v_3 key[2.5,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_PASS def_key %v_3[2.8,] 
+		 10: 
+		 11: GETFIELD %self->event_filter def_%v_4 %self[2.0,] 
+		 12: %v_4->active? def_%v_5 %v_4[2.11,] %v_3[2.8,] 	 SYMBOL:	 ARGS:key,
+		 13: BRANCH %v_5[2.12,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "active" def_%v_6 
+		 1: COPY TYPE_PASS def_active %v_6[3.0,] 
+		 2: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "event-filter-link" def_%v_7 
+		 2: 
+		 3: COPY TYPE_StringLiteral "_event_filter" def_%v_8 
+		 4: BUILDSTRING def_%v_9 key[2.5,2.9,] %v_8[5.3,] 
+		 5: COPY TYPE_StringLiteral "Filter by " def_%v_10 
+		 6: 
+		 7: tooltip->downcase def_%v_11 tooltip[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BUILDSTRING def_%v_12 %v_10[5.5,] %v_11[5.7,] 
+		 9: HASH-class-id-title- def_%v_13 %v_7[5.1,] %v_9[5.4,] %v_12[5.8,] 
+		 10: COPY TYPE_PASS def_link_opts %v_13[5.9,] 
+		 11: 
+		 12: HASH-class- def_%v_14 active[3.1,] 
+		 13: %self->content_tag def_%v_15 %self[2.0,] %v_14[5.12,] %self[2.0,] 	 SYMBOL:li,	 ARGS:Symbol,%v_14,%self,
+CLOSURE BEGIN: %self[2.0,] link_opts[5.10,] tooltip[5.7,2.6,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->request def_%cl_1_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_3->path def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->link_to def_%cl_1_5 %self[3.1,2.0,] %cl_1_4[3.2,] link_opts[] %self[3.1,2.0,] 	 SYMBOL:	 ARGS:%cl_1_4,link_opts,%self,
+CLOSURE BEGIN: tooltip[] %self[3.1,2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral " " def_%cl_2_3 
+		 2: %cl_2_3->+ def_%cl_2_4 %cl_2_3[3.1,] tooltip[] 	 SYMBOL:	 ARGS:tooltip,
+		 3: %self->content_tag def_%cl_2_5 %self[2.0,] %cl_2_4[3.2,] 	 SYMBOL:span,	 ARGS:Symbol,%cl_2_4,
+		 4: RETURN %cl_2_5[3.3,] %self[3.3,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_6 
+		 1: def_%cl_2_7 %cl_2_6[4.0,] 
+		 2: RETURN %cl_2_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: RETURN %cl_1_5[3.3,] %self[3.1,3.3,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 14: RETURN %v_15[5.13,] %self[5.13,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = event_preposition instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_event 
+		 6: 
+		 7: event->push? def_%v_3 event[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: event->commented? def_%v_4 event[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_3 %v_4[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: event->target def_%v_5 event[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_3 %v_5[5.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[5.1,3.1,2.7,] 
+BB 7
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "at" def_%v_6 
+		 2: RETURN %self[2.0,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->milestone? def_%v_7 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_7[8.1,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "in" def_%v_8 
+		 2: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN %v_8[10.0,9.1,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = event_feed_title instanceMethod = true
+BB 1
+	outgoing: 21 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_event 
+		 6: 
+		 7: COPY TYPE_Array def_%v_3 
+		 8: COPY TYPE_PASS def_words %v_3[2.7,] 
+		 9: 
+		 10: event->author_name def_%v_4 event[2.5,] 	 SYMBOL:	 ARGS:
+		 11: words-><< def_%v_5 words[2.8,] %v_4[2.10,] 	 SYMBOL:	 ARGS:%v_4,
+		 12: 
+		 13: %self->event_action_name def_%v_6 %self[2.0,] event[2.5,2.10,] 	 SYMBOL:	 ARGS:event,
+		 14: words-><< def_%v_7 words[2.8,2.11,] %v_6[2.13,] 	 SYMBOL:	 ARGS:%v_6,
+		 15: 
+		 16: event->push? def_%v_8 event[2.5,2.10,] 	 SYMBOL:	 ARGS:
+		 17: BRANCH %v_8[2.16,] 
+BB 3
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->ref_type def_%v_9 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: words-><< def_%v_10 words[2.8,] %v_9[3.1,] 	 SYMBOL:	 ARGS:%v_9,
+		 3: 
+		 4: event->ref_name def_%v_11 event[3.1,2.5,] 	 SYMBOL:	 ARGS:
+		 5: words-><< def_%v_12 words[3.2,2.8,] %v_11[3.4,] 	 SYMBOL:	 ARGS:%v_11,
+		 6: 
+		 7: COPY TYPE_StringLiteral "at" def_%v_13 
+		 8: words-><< def_%v_14 words[3.2,3.5,2.8,] %v_13[3.7,] 	 SYMBOL:	 ARGS:%v_13,
+		 9: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->commented? def_%v_15 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_15[4.1,] 
+BB 5
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->note_target_reference def_%v_16 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: words-><< def_%v_17 words[2.8,] %v_16[5.1,] 	 SYMBOL:	 ARGS:%v_16,
+		 3: 
+		 4: COPY TYPE_StringLiteral "at" def_%v_18 
+		 5: words-><< def_%v_19 words[5.2,2.8,] %v_18[5.4,] 	 SYMBOL:	 ARGS:%v_18,
+		 6: 
+BB 6
+	outgoing: 7 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->milestone? def_%v_20 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_20[6.1,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->target_iid def_%v_21 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_21[7.1,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "#" def_%v_22 
+		 1: event->target_iid def_%v_23 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BUILDSTRING def_%v_24 %v_22[8.0,] %v_23[8.1,] 
+		 3: words-><< def_%v_25 words[2.8,] %v_24[8.2,] 	 SYMBOL:	 ARGS:%v_24,
+		 4: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_25 
+BB 10
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "in" def_%v_26 
+		 2: words-><< def_%v_27 words[2.8,] %v_26[10.1,] 	 SYMBOL:	 ARGS:%v_26,
+		 3: 
+BB 11
+	outgoing: 12 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->target def_%v_28 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_28[11.1,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "#" def_%v_29 
+		 2: event->target_iid def_%v_30 event[2.5,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral ":" def_%v_31 
+		 4: BUILDSTRING def_%v_32 %v_29[12.1,] %v_30[12.2,] %v_31[12.3,] 
+		 5: words-><< def_%v_33 words[2.8,] %v_32[12.4,] 	 SYMBOL:	 ARGS:%v_32,
+		 6: 
+		 7: event->target def_%v_34 event[12.2,2.5,] 	 SYMBOL:	 ARGS:
+		 8: %v_34->respond_to? def_%v_35 %v_34[12.7,] 	 SYMBOL:title,	 ARGS:Symbol,
+		 9: BRANCH %v_35[12.8,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: event->target def_%v_36 event[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_36->title def_%v_37 %v_36[13.0,] 	 SYMBOL:	 ARGS:
+		 2: words-><< def_%v_38 words[2.8,] %v_37[13.1,] 	 SYMBOL:	 ARGS:%v_37,
+		 3: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_38 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "at" def_%v_39 
+		 2: words-><< def_%v_40 words[2.8,] %v_39[15.1,] 	 SYMBOL:	 ARGS:%v_39,
+		 3: 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_40 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_27 %v_40[16.0,15.2,] 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_19 %v_27[17.0,10.2,] 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_14 %v_19[18.0,5.5,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->project_name def_%v_41 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: words-><< def_%v_42 words[2.8,] %v_41[20.1,] 	 SYMBOL:	 ARGS:%v_41,
+		 3: 
+		 4: COPY TYPE_StringLiteral " " def_%v_43 
+		 5: words->join def_%v_44 words[20.2,2.8,] %v_43[20.4,] 	 SYMBOL:	 ARGS:%v_43,
+		 6: RETURN %v_44[20.5,] %self[2.0,] 
+BB 21
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = event_feed_url instanceMethod = true
+BB 1
+	outgoing: 23 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_event 
+		 6: 
+		 7: event->issue? def_%v_3 event[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->project def_%v_4 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_4->namespace def_%v_5 %v_4[3.1,] 	 SYMBOL:	 ARGS:
+		 3: event->project def_%v_6 event[3.1,2.5,] 	 SYMBOL:	 ARGS:
+		 4: event->issue def_%v_7 event[3.1,3.3,2.5,] 	 SYMBOL:	 ARGS:
+		 5: %self->namespace_project_issue_url def_%v_8 %self[2.0,] %v_5[3.2,] %v_6[3.3,] %v_7[3.4,] 	 SYMBOL:	 ARGS:%v_5,%v_6,%v_7,
+		 6: RETURN %v_8[3.5,] %self[3.5,2.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->merge_request? def_%v_9 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_9[4.1,] 
+BB 5
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->project def_%v_10 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_10->namespace def_%v_11 %v_10[5.1,] 	 SYMBOL:	 ARGS:
+		 3: event->project def_%v_12 event[5.1,2.5,] 	 SYMBOL:	 ARGS:
+		 4: event->merge_request def_%v_13 event[5.1,5.3,2.5,] 	 SYMBOL:	 ARGS:
+		 5: %self->namespace_project_merge_request_url def_%v_14 %self[2.0,] %v_11[5.2,] %v_12[5.3,] %v_13[5.4,] 	 SYMBOL:	 ARGS:%v_11,%v_12,%v_13,
+		 6: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->note? def_%v_15 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_15[6.1,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: event->commit_note? def_%v_16 event[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_15 %v_16[7.0,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_15[7.1,6.1,] 
+BB 9
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->project def_%v_17 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_17->namespace def_%v_18 %v_17[9.1,] 	 SYMBOL:	 ARGS:
+		 3: event->project def_%v_19 event[9.1,2.5,] 	 SYMBOL:	 ARGS:
+		 4: event->note_target def_%v_20 event[9.1,9.3,2.5,] 	 SYMBOL:	 ARGS:
+		 5: %self->namespace_project_commit_url def_%v_21 %self[2.0,] %v_18[9.2,] %v_19[9.3,] %v_20[9.4,] 	 SYMBOL:	 ARGS:%v_18,%v_19,%v_20,
+		 6: 
+BB 10
+	outgoing: 11 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->note? def_%v_22 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_22[10.1,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->note_target def_%v_23 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_23[11.1,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->event_note_target_path def_%v_24 %self[2.0,] event[2.5,] 	 SYMBOL:	 ARGS:event,
+		 2: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_24 
+BB 14
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->push? def_%v_25 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_25[15.1,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->push_event_feed_url def_%v_26 %self[2.0,] event[2.5,] 	 SYMBOL:	 ARGS:event,
+		 2: 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_26 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_24 %v_26[17.0,16.1,] 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_21 %v_24[18.0,13.0,12.1,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_14 %v_21[19.0,9.5,] 
+BB 21
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: RETURN %v_14[20.0,5.5,] %self[2.0,] 
+BB 23
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = push_event_feed_url instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_event 
+		 6: 
+		 7: event->push_with_commits? def_%v_3 event[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: event->md_ref? def_%v_4 event[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_3 %v_4[3.0,] 
+BB 4
+	outgoing: 5 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->commits_count def_%v_5 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_5->> def_%v_6 %v_5[5.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: BRANCH %v_6[5.2,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->project def_%v_7 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->namespace def_%v_8 %v_7[6.1,] 	 SYMBOL:	 ARGS:
+		 3: event->project def_%v_9 event[6.1,2.5,] 	 SYMBOL:	 ARGS:
+		 4: event->commit_from def_%v_10 event[6.1,6.3,2.5,] 	 SYMBOL:	 ARGS:
+		 5: event->commit_to def_%v_11 event[6.1,6.3,6.4,2.5,] 	 SYMBOL:	 ARGS:
+		 6: HASH-from-to- def_%v_12 %v_10[6.4,] %v_11[6.5,] 
+		 7: %self->namespace_project_compare_url def_%v_13 %self[2.0,] %v_8[6.2,] %v_9[6.3,] %v_12[6.6,] 	 SYMBOL:	 ARGS:%v_8,%v_9,%v_12,
+		 8: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->project def_%v_14 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_14->namespace def_%v_15 %v_14[7.1,] 	 SYMBOL:	 ARGS:
+		 3: event->project def_%v_16 event[7.1,2.5,] 	 SYMBOL:	 ARGS:
+		 4: event->commit_to def_%v_17 event[7.1,7.3,2.5,] 	 SYMBOL:	 ARGS:
+		 5: HASH-id- def_%v_18 %v_17[7.4,] 
+		 6: %self->namespace_project_commit_url def_%v_19 %self[2.0,] %v_15[7.2,] %v_16[7.3,] %v_18[7.5,] 	 SYMBOL:	 ARGS:%v_15,%v_16,%v_18,
+		 7: COPY TYPE_PASS def_%v_13 %v_19[7.6,] 
+BB 8
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %v_13[7.7,6.7,] %self[2.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->project def_%v_20 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_20->namespace def_%v_21 %v_20[9.1,] 	 SYMBOL:	 ARGS:
+		 3: event->project def_%v_22 event[9.1,2.5,] 	 SYMBOL:	 ARGS:
+		 4: event->ref_name def_%v_23 event[9.1,9.3,2.5,] 	 SYMBOL:	 ARGS:
+		 5: %self->namespace_project_commits_url def_%v_24 %self[2.0,] %v_21[9.2,] %v_22[9.3,] %v_23[9.4,] 	 SYMBOL:	 ARGS:%v_21,%v_22,%v_23,
+		 6: RETURN %v_24[9.5,] %self[9.5,2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = event_feed_summary instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_event 
+		 6: 
+		 7: event->issue? def_%v_3 event[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "events/event_issue" def_%v_4 
+		 2: event->issue def_%v_5 event[2.5,] 	 SYMBOL:	 ARGS:
+		 3: HASH-issue- def_%v_6 %v_5[3.2,] 
+		 4: %self->render def_%v_7 %self[2.0,] %v_4[3.1,] %v_6[3.3,] 	 SYMBOL:	 ARGS:%v_4,%v_6,
+		 5: RETURN %v_7[3.4,] %self[3.4,2.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->push? def_%v_8 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_8[4.1,] 
+BB 5
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "events/event_push" def_%v_9 
+		 2: HASH-event- def_%v_10 event[2.5,] 
+		 3: %self->render def_%v_11 %self[2.0,] %v_9[5.1,] %v_10[5.2,] 	 SYMBOL:	 ARGS:%v_9,%v_10,
+		 4: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->merge_request? def_%v_12 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_12[6.1,] 
+BB 7
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "events/event_merge_request" def_%v_13 
+		 2: event->merge_request def_%v_14 event[2.5,] 	 SYMBOL:	 ARGS:
+		 3: HASH-merge_request- def_%v_15 %v_14[7.2,] 
+		 4: %self->render def_%v_16 %self[2.0,] %v_13[7.1,] %v_15[7.3,] 	 SYMBOL:	 ARGS:%v_13,%v_15,
+		 5: 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->note? def_%v_17 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_17[8.1,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "events/event_note" def_%v_18 
+		 2: event->note def_%v_19 event[2.5,] 	 SYMBOL:	 ARGS:
+		 3: HASH-note- def_%v_20 %v_19[9.2,] 
+		 4: %self->render def_%v_21 %self[2.0,] %v_18[9.1,] %v_20[9.3,] 	 SYMBOL:	 ARGS:%v_18,%v_20,
+		 5: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_16 %v_21[10.0,9.4,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_11 %v_16[11.0,7.4,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %v_11[12.0,5.3,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = event_note_target_path instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_event 
+		 6: 
+		 7: event->note? def_%v_3 event[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: event->commit_note? def_%v_4 event[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_3 %v_4[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->project def_%v_5 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_5->namespace def_%v_6 %v_5[5.1,] 	 SYMBOL:	 ARGS:
+		 3: event->project def_%v_7 event[5.1,2.5,] 	 SYMBOL:	 ARGS:
+		 4: event->note_target def_%v_8 event[5.1,5.3,2.5,] 	 SYMBOL:	 ARGS:
+		 5: event->target def_%v_9 event[5.1,5.3,5.4,2.5,] 	 SYMBOL:	 ARGS:
+		 6: %self->dom_id def_%v_10 %self[2.0,] %v_9[5.5,] 	 SYMBOL:	 ARGS:%v_9,
+		 7: HASH-anchor- def_%v_11 %v_10[5.6,] 
+		 8: %self->namespace_project_commit_path def_%v_12 %self[5.6,2.0,] %v_6[5.2,] %v_7[5.3,] %v_8[5.4,] %v_11[5.7,] 	 SYMBOL:	 ARGS:%v_6,%v_7,%v_8,%v_11,
+		 9: RETURN %v_12[5.8,] %self[5.6,5.8,2.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->project_snippet_note? def_%v_13 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_13[6.1,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->project def_%v_14 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_14->namespace def_%v_15 %v_14[7.1,] 	 SYMBOL:	 ARGS:
+		 3: event->project def_%v_16 event[7.1,2.5,] 	 SYMBOL:	 ARGS:
+		 4: event->note_target def_%v_17 event[7.1,7.3,2.5,] 	 SYMBOL:	 ARGS:
+		 5: event->target def_%v_18 event[7.1,7.3,7.4,2.5,] 	 SYMBOL:	 ARGS:
+		 6: %self->dom_id def_%v_19 %self[2.0,] %v_18[7.5,] 	 SYMBOL:	 ARGS:%v_18,
+		 7: HASH-anchor- def_%v_20 %v_19[7.6,] 
+		 8: %self->namespace_project_snippet_path def_%v_21 %self[7.6,2.0,] %v_15[7.2,] %v_16[7.3,] %v_17[7.4,] %v_20[7.7,] 	 SYMBOL:	 ARGS:%v_15,%v_16,%v_17,%v_20,
+		 9: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->project def_%v_22 event[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_22->namespace def_%v_23 %v_22[8.1,] 	 SYMBOL:	 ARGS:
+		 3: (Namespace) def_%v_24 
+		 4: %v_23->becomes def_%v_25 %v_23[8.2,] %v_24[8.3,] 	 SYMBOL:	 ARGS:%v_24,
+		 5: event->project def_%v_26 event[8.1,2.5,] 	 SYMBOL:	 ARGS:
+		 6: event->note_target def_%v_27 event[8.1,8.5,2.5,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_Array def_%v_28 %v_25[8.4,] %v_26[8.5,] %v_27[8.6,] 
+		 8: event->target def_%v_29 event[8.1,8.5,8.6,2.5,] 	 SYMBOL:	 ARGS:
+		 9: %self->dom_id def_%v_30 %self[2.0,] %v_29[8.8,] 	 SYMBOL:	 ARGS:%v_29,
+		 10: HASH-anchor- def_%v_31 %v_30[8.9,] 
+		 11: %self->polymorphic_path def_%v_32 %self[8.9,2.0,] %v_28[8.7,] %v_31[8.10,] 	 SYMBOL:	 ARGS:%v_28,%v_31,
+		 12: COPY TYPE_PASS def_%v_21 %v_32[8.11,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %v_21[8.12,7.8,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = event_note_title_html instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_event 
+		 6: 
+		 7: event->note_target def_%v_3 event[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->event_note_target_path def_%v_4 %self[2.0,] event[2.5,] 	 SYMBOL:	 ARGS:event,
+		 2: event->target_title def_%v_5 event[2.5,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "has-tooltip" def_%v_6 
+		 4: HASH-title-class- def_%v_7 %v_5[3.2,] %v_6[3.3,] 
+		 5: %self->link_to def_%v_8 %self[3.1,2.0,] %v_4[3.1,] %v_7[3.4,] %self[3.1,2.0,] 	 SYMBOL:	 ARGS:%v_4,%v_7,%self,
+CLOSURE BEGIN: event[3.2,2.5,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->note_target_type def_%cl_1_3 event[] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral " " def_%cl_1_4 
+		 3: event->note_target_reference def_%cl_1_5 event[3.1,] 	 SYMBOL:	 ARGS:
+		 4: BUILDSTRING def_%cl_1_6 %cl_1_3[3.1,] %cl_1_4[3.2,] %cl_1_5[3.3,] 
+		 5: RETURN %cl_1_6[3.4,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_7 
+		 1: def_%cl_1_8 %cl_1_7[4.0,] 
+		 2: RETURN %cl_1_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 6: RETURN %v_8[3.5,] %self[3.1,3.5,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "(deleted)" def_%v_9 
+		 2: %self->content_tag def_%v_10 %self[2.0,] %v_9[4.1,] 	 SYMBOL:strong,	 ARGS:Symbol,%v_9,
+		 3: RETURN %v_10[4.2,] %self[4.2,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = event_note instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_text 
+		 6: RECEIVECONSTARG def_options 
+		 7: options[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->first_line_in_markdown def_%v_4 %self[2.0,] text[2.5,] options[3.1,2.6,] 	 SYMBOL:	 ARGS:text,Fixnum,options,
+		 2: COPY TYPE_PASS def_text %v_4[4.1,] 
+		 3: 
+		 4: COPY TYPE_StringLiteral "a" def_%v_5 
+		 5: COPY TYPE_StringLiteral "img" def_%v_6 
+		 6: COPY TYPE_StringLiteral "b" def_%v_7 
+		 7: COPY TYPE_StringLiteral "pre" def_%v_8 
+		 8: COPY TYPE_StringLiteral "code" def_%v_9 
+		 9: COPY TYPE_StringLiteral "p" def_%v_10 
+		 10: COPY TYPE_StringLiteral "span" def_%v_11 
+		 11: COPY TYPE_Array def_%v_12 %v_5[4.4,] %v_6[4.5,] %v_7[4.6,] %v_8[4.7,] %v_9[4.8,] %v_10[4.9,] %v_11[4.10,] 
+		 12: HASH-tags- def_%v_13 %v_12[4.11,] 
+		 13: %self->sanitize def_%v_14 %self[4.1,2.0,] %v_4[4.1,] %v_13[4.12,] 	 SYMBOL:	 ARGS:text,%v_13,
+		 14: RETURN %v_14[4.13,] %self[4.1,4.13,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = event_commit_title instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_message 
+		 6: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: COPY TYPE_StringLiteral "
+" def_%v_6 
+		 3: message->split def_%v_7 message[2.5,] %v_6[4.2,] 	 SYMBOL:	 ARGS:%v_6,
+		 4: %v_7->first def_%v_8 %v_7[4.3,] 	 SYMBOL:	 ARGS:
+		 5: HASH-length- def_%v_9 
+		 6: %self->truncate def_%v_10 %self[2.0,] %v_8[4.4,] %v_9[4.5,] 	 SYMBOL:	 ARGS:%v_8,%v_9,
+		 7: %self->escape_once def_%v_11 %self[4.6,2.0,] %v_10[4.6,] 	 SYMBOL:	 ARGS:%v_10,
+		 8: COPY TYPE_PASS def_%v_5 %v_11[4.7,] 
+		 9: 
+		 10: %v_3[2.6,] 
+BB 5
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_12 
+		 2: def_%v_13 %v_12[6.1,] 
+		 3: BRANCH %v_13[6.2,] 
+BB 7
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: %v_12[6.1,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "--broken encoding" def_%v_14 
+		 2: COPY TYPE_PASS def_%v_5 %v_14[8.1,] 
+		 3: 
+		 4: %v_3[2.6,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: def_%v_15 
+		 1: def_%v_16 %v_15[10.0,] %v_3[2.6,] 
+		 2: %v_15[10.0,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[4.8,8.2,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = event_to_atom instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_xml 
+		 6: RECEIVEARG def_event 
+		 7: 
+		 8: %self->current_user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: event->visible_to_user? def_%v_4 event[2.6,] %v_3[2.8,] 	 SYMBOL:	 ARGS:%v_3,
+		 10: BRANCH %v_4[2.9,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: xml->entry def_%v_5 xml[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:xml,
+CLOSURE BEGIN: %self[2.0,] event[2.6,] xml[2.5,] event_link[] event_title[] event_summary[] x[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->event_feed_url def_%cl_1_3 %self[2.0,] event[] 	 SYMBOL:	 ARGS:event,
+		 2: COPY TYPE_PASS def_event_link %cl_1_3[3.1,] 
+		 3: 
+		 4: %self->event_feed_title def_%cl_1_4 %self[3.1,2.0,] event[] 	 SYMBOL:	 ARGS:event,
+		 5: COPY TYPE_PASS def_event_title %cl_1_4[3.4,] 
+		 6: 
+		 7: %self->event_feed_summary def_%cl_1_5 %self[3.1,3.4,2.0,] event[] 	 SYMBOL:	 ARGS:event,
+		 8: COPY TYPE_PASS def_event_summary %cl_1_5[3.7,] 
+		 9: 
+		 10: COPY TYPE_StringLiteral "tag:" def_%cl_1_6 
+		 11: %self->request def_%cl_1_7 %self[3.1,3.4,3.7,2.0,] 	 SYMBOL:	 ARGS:
+		 12: %cl_1_7->host def_%cl_1_8 %cl_1_7[3.11,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_StringLiteral "," def_%cl_1_9 
+		 14: event->created_at def_%cl_1_10 event[] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_StringLiteral "%Y-%m-%d" def_%cl_1_11 
+		 16: %cl_1_10->strftime def_%cl_1_12 %cl_1_10[3.14,] %cl_1_11[3.15,] 	 SYMBOL:	 ARGS:%cl_1_11,
+		 17: COPY TYPE_StringLiteral ":" def_%cl_1_13 
+		 18: event->id def_%cl_1_14 event[3.14,] 	 SYMBOL:	 ARGS:
+		 19: BUILDSTRING def_%cl_1_15 %cl_1_6[3.10,] %cl_1_8[3.12,] %cl_1_9[3.13,] %cl_1_12[3.16,] %cl_1_13[3.17,] %cl_1_14[3.18,] 
+		 20: xml->id def_%cl_1_16 xml[] %cl_1_15[3.19,] 	 SYMBOL:	 ARGS:%cl_1_15,
+		 21: 
+		 22: HASH-href- def_%cl_1_17 event_link[3.2,] 
+		 23: xml->link def_%cl_1_18 xml[3.20,] %cl_1_17[3.22,] 	 SYMBOL:	 ARGS:%cl_1_17,
+		 24: 
+		 25: HASH-length- def_%cl_1_19 
+		 26: %self->truncate def_%cl_1_20 %self[3.1,3.4,3.7,3.11,2.0,] event_title[3.5,] %cl_1_19[3.25,] 	 SYMBOL:	 ARGS:event_title,%cl_1_19,
+		 27: xml->title def_%cl_1_21 xml[3.20,3.23,] %cl_1_20[3.26,] 	 SYMBOL:	 ARGS:%cl_1_20,
+		 28: 
+		 29: event->created_at def_%cl_1_22 event[3.14,3.18,] 	 SYMBOL:	 ARGS:
+		 30: %cl_1_22->xmlschema def_%cl_1_23 %cl_1_22[3.29,] 	 SYMBOL:	 ARGS:
+		 31: xml->updated def_%cl_1_24 xml[3.20,3.23,3.27,] %cl_1_23[3.30,] 	 SYMBOL:	 ARGS:%cl_1_23,
+		 32: 
+		 33: COPY TYPE_StringLiteral "40" def_%cl_1_25 
+		 34: COPY TYPE_StringLiteral "40" def_%cl_1_26 
+		 35: event->author_email def_%cl_1_27 event[3.14,3.18,3.29,] 	 SYMBOL:	 ARGS:
+		 36: %self->avatar_icon def_%cl_1_28 %self[3.1,3.4,3.7,3.11,3.26,2.0,] %cl_1_27[3.35,] 	 SYMBOL:	 ARGS:%cl_1_27,
+		 37: %self->image_url def_%cl_1_29 %self[3.1,3.4,3.7,3.11,3.26,3.36,2.0,] %cl_1_28[3.36,] 	 SYMBOL:	 ARGS:%cl_1_28,
+		 38: HASH-width-height-url- def_%cl_1_30 %cl_1_25[3.33,] %cl_1_26[3.34,] %cl_1_29[3.37,] 
+		 39: xml->media def_%cl_1_31 xml[3.20,3.23,3.27,3.31,] %cl_1_30[3.38,] 	 SYMBOL:thumbnail,	 ARGS:Symbol,%cl_1_30,
+		 40: 
+		 41: xml->author def_%cl_1_32 xml[3.20,3.23,3.27,3.31,3.39,] %self[3.1,3.4,3.7,3.11,3.26,3.36,3.37,2.0,] 	 SYMBOL:	 ARGS:xml,
+CLOSURE BEGIN: event[3.14,3.18,3.29,3.35,] xml[3.20,3.23,3.27,3.31,3.39,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_author 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->author_name def_%cl_2_3 event[] 	 SYMBOL:	 ARGS:
+		 2: xml->name def_%cl_2_4 xml[] %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:%cl_2_3,
+		 3: 
+		 4: event->author_email def_%cl_2_5 event[3.1,] 	 SYMBOL:	 ARGS:
+		 5: xml->email def_%cl_2_6 xml[3.2,] %cl_2_5[3.4,] 	 SYMBOL:	 ARGS:%cl_2_5,
+		 6: RETURN %cl_2_6[3.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_7 
+		 1: def_%cl_2_8 %cl_2_7[4.0,] 
+		 2: RETURN %cl_2_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 42: 
+		 43: COPY TYPE_StringLiteral "xhtml" def_%cl_1_33 
+		 44: HASH-type- def_%cl_1_34 %cl_1_33[3.43,] 
+		 45: xml->summary def_%cl_1_35 xml[3.20,3.23,3.27,3.31,3.39,3.41,] %cl_1_34[3.44,] %self[3.1,3.4,3.7,3.11,3.26,3.36,3.37,2.0,] 	 SYMBOL:	 ARGS:%cl_1_34,xml,
+CLOSURE BEGIN: event_summary[3.8,] x[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_x 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event_summary->nil? def_%cl_3_3 event_summary[] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_3_3[3.1,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_3_4 
+		 1: RETURN %cl_3_4[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: x-><< def_%cl_3_5 x[2.2,] event_summary[] 	 SYMBOL:	 ARGS:event_summary,
+		 1: RETURN %cl_3_5[5.0,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_6 
+		 1: def_%cl_3_7 %cl_3_6[7.0,] 
+		 2: RETURN %cl_3_7[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 46: RETURN %cl_1_35[3.45,] %self[3.1,3.4,3.7,3.11,3.26,3.36,3.37,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_36 
+		 1: def_%cl_1_37 %cl_1_36[4.0,] 
+		 2: RETURN %cl_1_37[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: event_summary[3.8,] event_title[3.5,] 
+		 2: RETURN %v_5[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = event_row_class instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_event 
+		 6: 
+		 7: event->body? def_%v_3 event[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "event-block" def_%v_4 
+		 2: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "event-inline" def_%v_5 
+		 2: RETURN %v_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

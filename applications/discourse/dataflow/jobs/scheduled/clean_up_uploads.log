@@ -1,0 +1,64 @@
+SET IRMethod, name = execute instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_args 
+		 6: 
+		 7: (SiteSetting) def_%v_3 
+		 8: %v_3->clean_up_uploads? def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: (SiteSetting) def_%v_6 
+		 3: %v_6->clean_orphan_uploads_grace_period_hours def_%v_7 %v_6[3.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_Array def_%v_8 %v_7[3.3,] 
+		 5: %v_8->max def_%v_9 %v_8[3.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_PASS def_grace_period %v_9[3.5,] 
+		 7: 
+		 8: (Upload) def_%v_10 
+		 9: COPY TYPE_StringLiteral "created_at < ?" def_%v_11 
+		 10: %v_9->hour def_%v_12 %v_9[3.5,] 	 SYMBOL:	 ARGS:
+		 11: %v_12->ago def_%v_13 %v_12[3.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_10->where def_%v_14 %v_10[3.8,] %v_11[3.9,] %v_13[3.11,] 	 SYMBOL:	 ARGS:%v_11,%v_13,
+		 13: COPY TYPE_StringLiteral "retain_hours IS NULL OR created_at < current_timestamp - interval '1 hour' * retain_hours" def_%v_15 
+		 14: %v_14->where def_%v_16 %v_14[3.12,] %v_15[3.13,] 	 SYMBOL:	 ARGS:%v_15,
+		 15: COPY TYPE_StringLiteral "id NOT IN (SELECT upload_id FROM post_uploads)" def_%v_17 
+		 16: %v_16->where def_%v_18 %v_16[3.14,] %v_17[3.15,] 	 SYMBOL:	 ARGS:%v_17,
+		 17: COPY TYPE_StringLiteral "id NOT IN (SELECT uploaded_avatar_id FROM users)" def_%v_19 
+		 18: %v_18->where def_%v_20 %v_18[3.16,] %v_19[3.17,] 	 SYMBOL:	 ARGS:%v_19,
+		 19: COPY TYPE_StringLiteral "id NOT IN (SELECT gravatar_upload_id FROM user_avatars)" def_%v_21 
+		 20: %v_20->where def_%v_22 %v_20[3.18,] %v_21[3.19,] 	 SYMBOL:	 ARGS:%v_21,
+		 21: COPY TYPE_StringLiteral "url NOT IN (SELECT profile_background FROM user_profiles)" def_%v_23 
+		 22: %v_22->where def_%v_24 %v_22[3.20,] %v_23[3.21,] 	 SYMBOL:	 ARGS:%v_23,
+		 23: COPY TYPE_StringLiteral "url NOT IN (SELECT card_background FROM user_profiles)" def_%v_25 
+		 24: %v_24->where def_%v_26 %v_24[3.22,] %v_25[3.23,] 	 SYMBOL:	 ARGS:%v_25,
+		 25: COPY TYPE_StringLiteral "url NOT IN (SELECT logo_url FROM categories)" def_%v_27 
+		 26: %v_26->where def_%v_28 %v_26[3.24,] %v_27[3.25,] 	 SYMBOL:	 ARGS:%v_27,
+		 27: COPY TYPE_StringLiteral "url NOT IN (SELECT background_url FROM categories)" def_%v_29 
+		 28: %v_28->where def_%v_30 %v_28[3.26,] %v_29[3.27,] 	 SYMBOL:	 ARGS:%v_29,
+		 29: %v_30->destroy_all def_%v_31 %v_30[3.28,] 	 SYMBOL:	 ARGS:
+		 30: RETURN %v_31[3.29,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

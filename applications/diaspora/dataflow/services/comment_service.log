@@ -1,0 +1,193 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_user 
+		 6: user[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_user 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->user user[3.0,2.5,] 
+		 2: RETURN user[3.0,2.5,] %self[4.1,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post_id 
+		 6: RECEIVEARG def_text 
+		 7: 
+		 8: %self->post_service def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->find! def_%v_4 %v_3[2.8,] post_id[2.5,] 	 SYMBOL:	 ARGS:post_id,
+		 10: COPY TYPE_PASS def_post %v_4[2.9,] 
+		 11: 
+		 12: %self->user def_%v_5 %self[2.0,2.8,] 	 SYMBOL:	 ARGS:
+		 13: %v_5->comment! def_%v_6 %v_5[2.12,] post[2.10,] text[2.6,] 	 SYMBOL:	 ARGS:post,text,
+		 14: RETURN %v_6[2.13,] %self[2.0,2.8,2.12,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = destroy instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_comment_id 
+		 6: 
+		 7: (Comment) def_%v_3 
+		 8: %v_3->find def_%v_4 %v_3[2.7,] comment_id[2.5,] 	 SYMBOL:	 ARGS:comment_id,
+		 9: COPY TYPE_PASS def_comment %v_4[2.8,] 
+		 10: 
+		 11: %self->user def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 12: %v_5->owns? def_%v_6 %v_5[2.11,] comment[2.9,] 	 SYMBOL:	 ARGS:comment,
+		 13: BRANCH %v_6[2.12,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->user def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: comment->parent def_%v_8 comment[2.9,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->owns? def_%v_9 %v_7[3.0,] %v_8[3.1,] 	 SYMBOL:	 ARGS:%v_8,
+		 3: COPY TYPE_PASS def_%v_6 %v_9[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[3.3,2.12,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->user def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_10->retract def_%v_11 %v_10[5.1,] comment[2.9,] 	 SYMBOL:	 ARGS:comment,
+		 3: 
+		 4: COPY TYPE_Boolean def_%v_12 
+		 5: RETURN %self[5.1,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_for_post instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post_id 
+		 6: 
+		 7: %self->post_service def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->find! def_%v_4 %v_3[2.7,] post_id[2.5,] 	 SYMBOL:	 ARGS:post_id,
+		 9: %v_4->comments def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_5->for_a_stream def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: RETURN %v_6[2.10,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = post_service instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->post_service def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: (PostService) def_%v_6 
+		 1: %self->user def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->new def_%v_8 %v_6[5.0,] %v_7[5.1,] 	 SYMBOL:	 ARGS:%v_7,
+		 3: ATTRASSIGN %self->post_service %v_8[5.2,] 
+		 4: RETURN %v_8[5.2,] %self[5.1,5.3,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+

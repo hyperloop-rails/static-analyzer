@@ -1,0 +1,61 @@
+SET IRMethod, name = send_notification instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post_id 
+		 6: 
+		 7: %self->subscriber def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->present? def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SubscriptionMailer) def_%v_5 
+		 2: %self->subscriber def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_6->id def_%v_7 %v_6[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_5->topic_reply def_%v_8 %v_5[3.1,] post_id[2.5,] %v_7[3.3,] 	 SYMBOL:	 ARGS:post_id,%v_7,
+		 5: COPY TYPE_PASS def_mail %v_8[3.4,] 
+		 6: 
+		 7: %v_8->respond_to? def_%v_9 %v_8[3.4,] 	 SYMBOL:deliver_later,	 ARGS:Symbol,
+		 8: BRANCH %v_9[3.7,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: mail->deliver_later def_%v_10 mail[3.5,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: mail->deliver def_%v_11 mail[3.5,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_10 %v_11[5.1,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_10[5.2,4.1,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+

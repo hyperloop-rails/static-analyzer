@@ -1,0 +1,83 @@
+SET IRMethod, name = help_text instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "
+[Markdown](http://daringfireball.net/projects/markdown/) is a simple text-to-HTML converter that
+turns common text idioms into HTML.  The [full syntax](http://daringfireball.net/projects/markdown/syntax)
+is available from the author's site, but here's a short summary:
+
+* **Paragraphs**: Start a new paragraph by skipping a line.
+* **Italics**: Put text in *italics* by enclosing it in either * or _: `*italics*` turns into *italics*.
+* **Bold**: Put text in **bold** by enclosing it in two *s: `**bold**` turns into **bold**.
+* **Pre-formatted text**: Enclosing a short block of text in backquotes (&#96;) displays it in a monospaced font
+  and converts HTML metacharacters so they display correctly.  Example: &#96;`<img src="foo"/>`&#96; displays as `<img src="foo"/>`.
+  Also, any paragraph indented 4 or more spaces is treated as pre-formatted text.
+* **Block quotes**: Any paragraph (or line) that starts with a `>` is treated as a blockquote.
+* **Hyperlinks**: You can create links like this: `[amazon's web site](http://www.amazon.com)`.  That produces
+  "[amazon's web site](http://www.amazon.com)".
+* **Lists**: You can create numbered or bulleted lists by ending a paragraph with a colon (:), skipping a line, and then using
+  asterisks (*, for bullets) or numbers (for numbered lists).  See the
+  [Markdown syntax page](http://daringfireball.net/projects/markdown/syntax) for examples.
+* **Raw HTML**: Markdown will pass raw HTML through unchanged, so you can use HTML's syntax whenever Markdown doesn't provide
+  a reasonable alternative.
+
+        " def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = filtertext instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def__blog 
+		 6: RECEIVEARG def__content 
+		 7: RECEIVEARG def_text 
+		 8: RECEIVEARG def__params 
+		 9: 
+		 10: COPY TYPE_Regexp def_%v_3 
+		 11: COPY TYPE_StringLiteral "\1X" def_%v_4 
+		 12: text->gsub def_%v_5 text[2.7,] %v_4[2.11,] 	 SYMBOL:	 ARGS:%v_3,%v_4,
+		 13: COPY TYPE_PASS def_escaped_macros %v_5[2.12,] 
+		 14: 
+		 15: (BlueCloth) def_%v_6 
+		 16: %v_6->new def_%v_7 %v_6[2.15,] %v_5[2.12,] 	 SYMBOL:	 ARGS:escaped_macros,
+		 17: %v_7->to_html def_%v_8 %v_7[2.16,] 	 SYMBOL:	 ARGS:
+		 18: COPY TYPE_Regexp def_%v_9 
+		 19: COPY TYPE_StringLiteral "" def_%v_10 
+		 20: %v_8->gsub def_%v_11 %v_8[2.17,] %v_10[2.19,] 	 SYMBOL:	 ARGS:%v_9,%v_10,
+		 21: COPY TYPE_PASS def_html %v_11[2.20,] 
+		 22: 
+		 23: COPY TYPE_Regexp def_%v_12 
+		 24: COPY TYPE_StringLiteral "\1:" def_%v_13 
+		 25: %v_11->gsub def_%v_14 %v_11[2.20,] %v_13[2.24,] 	 SYMBOL:	 ARGS:%v_12,%v_13,
+		 26: RETURN %v_14[2.25,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

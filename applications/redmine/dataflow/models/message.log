@@ -1,0 +1,573 @@
+SET IRMethod, name = visible? instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_user 
+		 6: user[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (User) def_%v_3 
+		 1: %v_3->current def_%v_4 %v_3[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_user %v_4[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user->nil? def_%v_5 user[3.2,2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_5->! def_%v_6 %v_5[4.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_6[4.2,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->project def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: user->allowed_to? def_%v_8 user[3.2,2.5,] %v_7[5.0,] 	 SYMBOL:view_messages,	 ARGS:Symbol,%v_7,
+		 2: RETURN %v_8[5.1,] %self[5.0,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_6[4.2,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cannot_reply_to_locked_topic instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->root def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->locked? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->root def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %self->!= def_%v_6 %self[3.0,2.0,] %v_5[3.0,] 	 SYMBOL:	 ARGS:%v_5,
+		 2: COPY TYPE_PASS def_%v_4 %v_6[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[3.2,2.7,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->errors def_%v_7 %self[3.1,2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "Topic is locked" def_%v_8 
+		 2: %v_7->add def_%v_9 %v_7[5.0,] %v_8[5.1,] 	 SYMBOL:base,	 ARGS:Symbol,%v_8,
+		 3: RETURN %v_9[5.2,] %self[5.0,3.1,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[3.1,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_messages_board instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->board_id_changed? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Message) def_%v_4 
+		 2: COPY TYPE_StringLiteral "id = ? OR parent_id = ?" def_%v_5 
+		 3: %self->root def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_6->id def_%v_7 %v_6[3.3,] 	 SYMBOL:	 ARGS:
+		 5: %self->root def_%v_8 %self[3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %v_8->id def_%v_9 %v_8[3.5,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_Array def_%v_10 %v_5[3.2,] %v_7[3.4,] %v_9[3.6,] 
+		 8: %v_4->where def_%v_11 %v_4[3.1,] %v_10[3.7,] 	 SYMBOL:	 ARGS:%v_10,
+		 9: %self->board_id def_%v_12 %self[3.3,3.5,2.0,] 	 SYMBOL:	 ARGS:
+		 10: HASH-board_id- def_%v_13 %v_12[3.9,] 
+		 11: %v_11->update_all def_%v_14 %v_11[3.8,] %v_13[3.10,] 	 SYMBOL:	 ARGS:%v_13,
+		 12: 
+		 13: (Board) def_%v_15 
+		 14: %self->board_id_was def_%v_16 %self[3.3,3.5,3.9,2.0,] 	 SYMBOL:	 ARGS:
+		 15: %v_15->reset_counters! def_%v_17 %v_15[3.13,] %v_16[3.14,] 	 SYMBOL:	 ARGS:%v_16,
+		 16: 
+		 17: (Board) def_%v_18 
+		 18: %self->board_id def_%v_19 %self[3.3,3.5,3.9,3.14,2.0,] 	 SYMBOL:	 ARGS:
+		 19: %v_18->reset_counters! def_%v_20 %v_18[3.17,] %v_19[3.18,] 	 SYMBOL:	 ARGS:%v_19,
+		 20: RETURN %v_20[3.19,] %self[3.3,3.5,3.9,3.14,3.18,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = reset_counters! instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->parent def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->parent def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->id def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.2,2.6,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Message) def_%v_6 
+		 2: %self->parent def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_7->id def_%v_8 %v_7[5.2,] 	 SYMBOL:	 ARGS:
+		 4: HASH-id- def_%v_9 %v_8[5.3,] 
+		 5: %v_6->where def_%v_10 %v_6[5.1,] %v_9[5.4,] 	 SYMBOL:	 ARGS:%v_9,
+		 6: %self->parent def_%v_11 %self[5.2,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_11->children def_%v_12 %v_11[5.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_12->maximum def_%v_13 %v_12[5.7,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 9: HASH-last_reply_id- def_%v_14 %v_13[5.8,] 
+		 10: %v_10->update_all def_%v_15 %v_10[5.5,] %v_14[5.9,] 	 SYMBOL:	 ARGS:%v_14,
+		 11: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->board def_%v_16 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_16->reset_counters! def_%v_17 %v_16[7.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %v_17[7.2,] %self[7.1,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = sticky= instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_arg 
+		 6: 
+		 7: arg->== def_%v_3 arg[2.5,] 	 SYMBOL:	 ARGS:Boolean,
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: arg->to_s def_%v_4 arg[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "1" def_%v_5 
+		 2: %v_4->== def_%v_6 %v_4[3.0,] %v_5[3.1,] 	 SYMBOL:	 ARGS:%v_5,
+		 3: COPY TYPE_PASS def_%v_3 %v_6[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.3,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_%v_7 
+		 1: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_%v_7 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->write_attribute def_%v_8 %self[2.0,] %v_7[6.0,5.0,] 	 SYMBOL:sticky,	 ARGS:Symbol,%v_7,
+		 1: RETURN %v_8[7.0,] %self[7.0,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = sticky? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->sticky def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->== def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: RETURN %v_4[2.7,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = project instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->board def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->project def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = editable_by? instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_usr 
+		 6: 
+		 7: COPY TYPE_PASS def_%v_3 usr[2.5,] 
+		 8: BRANCH usr[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: usr->logged? def_%v_4 usr[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_3 %v_4[3.0,] 
+BB 4
+	outgoing: 5 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 6 9 
+	datadep: 
+	instructions:
+		 0: %self->project def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: usr->allowed_to? def_%v_6 usr[2.5,] %v_5[5.0,] 	 SYMBOL:edit_messages,	 ARGS:Symbol,%v_5,
+		 2: BRANCH %v_6[5.1,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: %self->author def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_7->== def_%v_8 %v_7[6.0,] usr[2.5,] 	 SYMBOL:	 ARGS:usr,
+		 2: BRANCH %v_8[6.1,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->project def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: usr->allowed_to? def_%v_10 usr[2.5,] %v_9[7.0,] 	 SYMBOL:edit_own_messages,	 ARGS:Symbol,%v_9,
+		 2: COPY TYPE_PASS def_%v_8 %v_10[7.1,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_6 %v_8[7.2,6.1,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %v_6[8.0,5.1,] %self[2.0,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[3.1,2.7,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = destroyable_by? instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_usr 
+		 6: 
+		 7: COPY TYPE_PASS def_%v_3 usr[2.5,] 
+		 8: BRANCH usr[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: usr->logged? def_%v_4 usr[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_3 %v_4[3.0,] 
+BB 4
+	outgoing: 5 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 6 9 
+	datadep: 
+	instructions:
+		 0: %self->project def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: usr->allowed_to? def_%v_6 usr[2.5,] %v_5[5.0,] 	 SYMBOL:delete_messages,	 ARGS:Symbol,%v_5,
+		 2: BRANCH %v_6[5.1,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: %self->author def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_7->== def_%v_8 %v_7[6.0,] usr[2.5,] 	 SYMBOL:	 ARGS:usr,
+		 2: BRANCH %v_8[6.1,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->project def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: usr->allowed_to? def_%v_10 usr[2.5,] %v_9[7.0,] 	 SYMBOL:delete_own_messages,	 ARGS:Symbol,%v_9,
+		 2: COPY TYPE_PASS def_%v_8 %v_10[7.1,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_6 %v_8[7.2,6.1,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %v_6[8.0,5.1,] %self[2.0,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[3.1,2.7,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = notified_users instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->project def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->notified_users def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->reject def_%v_5 %v_4[2.7,] %self[2.0,2.6,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: %self[2.0,2.6,] user[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_user 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->visible? def_%cl_1_3 %self[2.0,] user[2.2,] 	 SYMBOL:	 ARGS:user,
+		 2: %cl_1_3->! def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %cl_1_4[3.2,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: RETURN %v_5[2.8,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = add_author_as_watcher instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Watcher) def_%v_3 
+		 7: %self->root def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %self->author def_%v_5 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 9: HASH-watchable-user- def_%v_6 %v_4[2.7,] %v_5[2.8,] 
+		 10: %v_3->create def_%v_7 %v_3[2.6,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: RETURN %v_7[2.10,] %self[2.0,2.7,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = send_notification instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Setting) def_%v_3 
+		 7: %v_3->notified_events def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "message_posted" def_%v_5 
+		 9: %v_4->include? def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: BRANCH %v_6[2.9,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Mailer) def_%v_7 
+		 2: %v_7->message_posted def_%v_8 %v_7[3.1,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+		 3: %v_8->deliver def_%v_9 %v_8[3.2,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %v_9[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

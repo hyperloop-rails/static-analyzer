@@ -1,0 +1,109 @@
+SET IRMethod, name = send_notifications instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_community 
+		 6: 
+		 7: %self->listing def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->author def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->id def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %self->author def_%v_6 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 11: %v_6->id def_%v_7 %v_6[2.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_5->eql? def_%v_8 %v_5[2.9,] %v_7[2.11,] 	 SYMBOL:	 ARGS:%v_7,
+		 13: %v_8->! def_%v_9 %v_8[2.12,] 	 SYMBOL:	 ARGS:
+		 14: BRANCH %v_9[2.13,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->listing def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_10->author def_%v_11 %v_10[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "email_about_new_comments_to_own_listing" def_%v_12 
+		 4: %v_11->should_receive? def_%v_13 %v_11[3.2,] %v_12[3.3,] 	 SYMBOL:	 ARGS:%v_12,
+		 5: BRANCH %v_13[3.4,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PersonMailer) def_%v_14 
+		 2: %v_14->new_comment_to_own_listing_notification def_%v_15 %v_14[4.1,] %self[2.0,] community[2.5,] 	 SYMBOL:	 ARGS:%self,community,
+		 3: %v_15->deliver def_%v_16 %v_15[4.2,] 	 SYMBOL:	 ARGS:
+		 4: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->listing def_%v_17 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->author def_%v_18 %self[8.1,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_17->notify_followers def_%v_19 %v_17[8.1,] community[2.5,] %v_18[8.2,] 	 SYMBOL:	 ARGS:community,%v_18,Boolean,
+		 4: RETURN %v_19[8.3,] %self[8.1,8.2,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_follow_status instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->listing def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->author def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->listing def_%v_5 %self[3.1,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %self->author_follow_status def_%v_6 %self[3.1,3.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_4->update_follow_status def_%v_7 %v_4[3.1,] %v_5[3.2,] %v_6[3.3,] 	 SYMBOL:	 ARGS:%v_5,%v_6,
+		 5: RETURN %v_7[3.4,] %self[3.1,3.2,3.3,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,62 @@
+SET IRMethod, name = prepare instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RETURN %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = evaluate instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_scope 
+		 6: RECEIVEARG def_locals 
+		 7: def_%v_3 
+		 8: COPY TYPE_PASS def_block %v_3[2.7,] 
+		 9: 
+		 10: COPY TYPE_StringLiteral "eval(" def_%v_4 
+		 11: COPY TYPE_PASS def_code %v_4[2.10,] 
+		 12: 
+		 13: %self->data def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 14: %v_5->inspect def_%v_6 %v_5[2.13,] 	 SYMBOL:	 ARGS:
+		 15: code-><< def_%v_7 code[2.11,] %v_6[2.14,] 	 SYMBOL:	 ARGS:%v_6,
+		 16: 
+		 17: COPY TYPE_StringLiteral " + "\n//# sourceURL=" def_%v_8 
+		 18: scope->logical_path def_%v_9 scope[2.5,] 	 SYMBOL:	 ARGS:
+		 19: COPY TYPE_StringLiteral """ def_%v_10 
+		 20: BUILDSTRING def_%v_11 %v_8[2.17,] %v_9[2.18,] %v_10[2.19,] 
+		 21: code-><< def_%v_12 code[2.11,2.15,] %v_11[2.20,] 	 SYMBOL:	 ARGS:%v_11,
+		 22: 
+		 23: COPY TYPE_StringLiteral ");
+" def_%v_13 
+		 24: code-><< def_%v_14 code[2.11,2.15,2.21,] %v_13[2.23,] 	 SYMBOL:	 ARGS:%v_13,
+		 25: 
+		 26: RETURN code[2.11,2.15,2.21,2.24,] %self[2.0,2.13,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

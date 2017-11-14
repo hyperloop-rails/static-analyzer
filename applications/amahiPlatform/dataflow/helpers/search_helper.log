@@ -1,0 +1,169 @@
+SET IRMethod, name = file_type_to_icon instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_type 
+		 6: RECEIVEARG def_path 
+		 7: 
+		 8: COPY TYPE_StringLiteral "directory" def_%v_3 
+		 9: type->== def_%v_4 type[2.5,] %v_3[2.8,] 	 SYMBOL:	 ARGS:%v_3,
+		 10: BRANCH %v_4[2.9,] 
+BB 3
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: (File) def_%v_5 
+		 1: COPY TYPE_StringLiteral "icons" def_%v_6 
+		 2: COPY TYPE_StringLiteral "folder.png" def_%v_7 
+		 3: %v_5->join def_%v_8 %v_5[3.0,] %v_6[3.1,] %v_7[3.2,] 	 SYMBOL:	 ARGS:%v_6,%v_7,
+		 4: %self->theme_image_tag def_%v_9 %self[2.0,] %v_8[3.3,] 	 SYMBOL:	 ARGS:%v_8,
+		 5: RETURN %v_9[3.4,] %self[3.4,2.0,] 
+BB 4
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+		 2: (File) def_%v_11 
+		 3: COPY TYPE_StringLiteral "icons" def_%v_12 
+		 4: (File) def_%v_13 
+		 5: %v_13->extname def_%v_14 %v_13[4.4,] path[2.6,] 	 SYMBOL:	 ARGS:path,
+		 6: %self->extmatch def_%v_15 %self[2.0,] %v_14[4.5,] 	 SYMBOL:	 ARGS:%v_14,
+		 7: %v_11->join def_%v_16 %v_11[4.2,] %v_12[4.3,] %v_15[4.6,] 	 SYMBOL:	 ARGS:%v_12,%v_15,
+		 8: %self->theme_image_tag def_%v_17 %self[4.6,2.0,] %v_16[4.7,] 	 SYMBOL:	 ARGS:%v_16,
+		 9: RETURN %v_17[4.8,] %self[4.6,4.8,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = active instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_controller 
+		 6: 
+		 7: %self->action_name def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->== def_%v_4 %v_3[2.7,] controller[2.5,] 	 SYMBOL:	 ARGS:controller,
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "active" def_%v_5 
+		 1: RETURN %v_5[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_6 
+		 1: RETURN %v_6[4.0,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = extmatch instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_ext 
+		 6: 
+		 7: (EXT2ICON) def_%v_3 
+		 8: %v_3->each_pair def_%v_4 %v_3[2.7,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: regexp[] ext[2.5,] type[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_type 
+		 3: RECEIVEARG def_regexp 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "" def_%cl_1_3 
+		 2: COPY TYPE_StringLiteral "\.(" def_%cl_1_4 
+		 3: COPY TYPE_StringLiteral ")$" def_%cl_1_5 
+		 4: def_%cl_1_6 %cl_1_3[3.1,] %cl_1_4[3.2,] regexp[2.3,] %cl_1_5[3.3,] 
+		 5: ext->=~ def_%cl_1_7 ext[] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 6: BRANCH %cl_1_7[3.5,] 
+BB 4
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral ".png" def_%cl_1_8 
+		 1: BUILDSTRING def_%cl_1_9 type[2.2,] %cl_1_8[4.0,] 
+		 2: 
+		 3: RETURN %cl_1_9[4.1,] %self[2.0,] 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_11 
+		 1: def_%cl_1_12 %cl_1_11[7.0,] 
+		 2: RETURN %cl_1_12[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: regexp[2.3,] 
+		 9: 
+		 10: COPY TYPE_StringLiteral "text.png" def_%v_5 
+		 11: RETURN %v_5[2.10,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%v_6 
+		 1: def_%v_7 %v_6[4.0,] 
+		 2: RETURN %v_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

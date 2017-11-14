@@ -1,0 +1,654 @@
+SET IRMethod, name = pretend_read instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_topic_id 
+		 6: RECEIVEARG def_actual_read_post_number 
+		 7: RECEIVEARG def_pretend_read_post_number 
+		 8: 
+		 9: COPY TYPE_StringLiteral "INSERT INTO post_timings(topic_id, user_id, post_number, msecs)
+              SELECT :topic_id, user_id, :pretend_read_post_number, 1
+              FROM post_timings pt
+              WHERE topic_id = :topic_id AND
+                    post_number = :actual_read_post_number AND
+                    NOT EXISTS (
+                        SELECT 1 FROM post_timings pt1
+                        WHERE pt1.topic_id = pt.topic_id AND
+                              pt1.post_number = :pretend_read_post_number AND
+                              pt1.user_id = pt.user_id
+                    )
+             " def_%v_3 
+		 10: HASH-pretend_read_post_number-topic_id-actual_read_post_number- def_%v_4 pretend_read_post_number[2.7,] topic_id[2.5,] actual_read_post_number[2.6,] 
+		 11: %self->exec_sql def_%v_5 %self[2.0,] %v_3[2.9,] %v_4[2.10,] 	 SYMBOL:	 ARGS:%v_3,%v_4,
+		 12: 
+		 13: (TopicUser) def_%v_6 
+		 14: %v_6->ensure_consistency! def_%v_7 %v_6[2.13,] topic_id[2.5,] 	 SYMBOL:	 ARGS:topic_id,
+		 15: RETURN %v_7[2.14,] %self[2.0,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = record_new_timing instanceMethod = false
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_args 
+		 6: 
+		 7: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: COPY TYPE_StringLiteral "INSERT INTO post_timings (topic_id, user_id, post_number, msecs)
+                SELECT :topic_id, :user_id, :post_number, :msecs
+                WHERE NOT EXISTS(SELECT 1 FROM post_timings
+                                 WHERE topic_id = :topic_id
+                                  AND user_id = :user_id
+                                  AND post_number = :post_number)" def_%v_6 
+		 3: %self->exec_sql def_%v_7 %self[2.0,] %v_6[4.2,] args[2.5,] 	 SYMBOL:	 ARGS:%v_6,args,
+		 4: COPY TYPE_PASS def_%v_5 %v_7[4.3,] 
+		 5: %v_3[2.7,] 
+BB 5
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Post) def_%v_15 
+		 2: COPY TYPE_StringLiteral "topic_id = :topic_id and post_number = :post_number" def_%v_16 
+		 3: COPY TYPE_Array def_%v_17 %v_16[5.2,] args[2.5,] 
+		 4: %v_15->where def_%v_18 %v_15[5.1,] %v_17[5.3,] 	 SYMBOL:	 ARGS:%v_17,
+		 5: COPY TYPE_StringLiteral "reads = reads + 1" def_%v_19 
+		 6: %v_18->update_all def_%v_20 %v_18[5.4,] %v_19[5.5,] 	 SYMBOL:	 ARGS:%v_19,
+		 7: 
+		 8: (UserStat) def_%v_21 
+		 9: args->[] def_%v_22 args[2.5,] 	 SYMBOL:user_id,	 ARGS:Symbol,
+		 10: HASH-user_id- def_%v_23 %v_22[5.9,] 
+		 11: %v_21->where def_%v_24 %v_21[5.8,] %v_23[5.10,] 	 SYMBOL:	 ARGS:%v_23,
+		 12: COPY TYPE_StringLiteral "posts_read_count = posts_read_count + 1" def_%v_25 
+		 13: %v_24->update_all def_%v_26 %v_24[5.11,] %v_25[5.12,] 	 SYMBOL:	 ARGS:%v_25,
+		 14: RETURN %v_26[5.13,] %self[2.0,] 
+BB 6
+	outgoing: 7 8 12 
+	datadep: 
+	instructions:
+		 0: def_%v_8 
+		 1: (PG) def_%v_9 
+		 2: (inherit UniqueViolation) def_%v_10 %v_9[6.1,] 
+		 3: %v_10[6.2,] 
+BB 7
+	outgoing: 8 12 
+	datadep: 
+	instructions:
+		 0: %v_9->const_missing def_%v_10 %v_9[6.1,] 	 SYMBOL:UniqueViolation,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 10 12 
+	datadep: 
+	instructions:
+		 0: def_%v_11 %v_10[7.0,6.2,] %v_8[6.0,] 
+		 1: BRANCH %v_11[8.0,] 
+BB 9
+	outgoing: 12 14 
+	datadep: 
+	instructions:
+		 0: %v_8[6.0,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Nil def_%v_12 
+		 2: %v_3[2.7,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %v_12[10.1,] %self[2.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: def_%v_13 
+		 1: def_%v_14 %v_13[12.0,] %v_3[2.7,] 
+		 2: %v_13[12.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = record_timing instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_args 
+		 6: 
+		 7: COPY TYPE_StringLiteral "UPDATE post_timings
+                               SET msecs = msecs + :msecs
+                               WHERE topic_id = :topic_id
+                                AND user_id = :user_id
+                                AND post_number = :post_number" def_%v_3 
+		 8: %self->exec_sql_row_count def_%v_4 %self[2.0,] %v_3[2.7,] args[2.5,] 	 SYMBOL:	 ARGS:%v_3,args,
+		 9: COPY TYPE_PASS def_rows %v_4[2.8,] 
+		 10: 
+		 11: %v_4->== def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:Fixnum,
+		 12: BRANCH %v_5[2.11,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->record_new_timing def_%v_6 %self[2.0,] args[2.5,] 	 SYMBOL:	 ARGS:args,
+		 1: RETURN %v_6[3.0,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = destroy_for instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user_id 
+		 6: RECEIVEARG def_topic_ids 
+		 7: 
+		 8: (PostTiming) def_%v_3 
+		 9: %v_3->transaction def_%v_4 %v_3[2.8,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: user_id[2.5,] topic_ids[2.6,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PostTiming) def_%cl_1_3 
+		 2: COPY TYPE_StringLiteral "user_id = ? and topic_id in (?)" def_%cl_1_4 
+		 3: COPY TYPE_Array def_%cl_1_5 %cl_1_4[3.2,] user_id[] topic_ids[] 
+		 4: %cl_1_3->delete_all def_%cl_1_6 %cl_1_3[3.1,] %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:%cl_1_5,
+		 5: 
+		 6: (TopicUser) def_%cl_1_7 
+		 7: COPY TYPE_StringLiteral "user_id = ? and topic_id in (?)" def_%cl_1_8 
+		 8: COPY TYPE_Array def_%cl_1_9 %cl_1_8[3.7,] user_id[] topic_ids[] 
+		 9: %cl_1_7->delete_all def_%cl_1_10 %cl_1_7[3.6,] %cl_1_9[3.8,] 	 SYMBOL:	 ARGS:%cl_1_9,
+		 10: RETURN %cl_1_10[3.9,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_11 
+		 1: def_%cl_1_12 %cl_1_11[4.0,] 
+		 2: RETURN %cl_1_12[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: RETURN %v_4[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = process_timings instanceMethod = false
+BB 1
+	outgoing: 31 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_current_user 
+		 6: RECEIVEARG def_topic_id 
+		 7: RECEIVEARG def_topic_time 
+		 8: RECEIVEARG def_timings 
+		 9: RECEIVECONSTARG def_opts 
+		 10: opts[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: current_user->user_stat def_%v_4 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_4->update_time_read! def_%v_5 %v_4[4.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: (Time) def_%v_6 
+		 5: %v_6->now def_%v_7 %v_6[4.4,] 	 SYMBOL:	 ARGS:
+		 6: current_user->created_at def_%v_8 current_user[4.1,2.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_7->- def_%v_9 %v_7[4.5,] %v_8[4.6,] 	 SYMBOL:	 ARGS:%v_8,
+		 8: %v_9->* def_%v_10 %v_9[4.7,] 	 SYMBOL:	 ARGS:Float,
+		 9: COPY TYPE_PASS def_max_time_per_post %v_10[4.8,] 
+		 10: 
+		 11: (MAX_READ_TIME_PER_BATCH) def_%v_11 
+		 12: %v_10->> def_%v_12 %v_10[4.8,] %v_11[4.11,] 	 SYMBOL:	 ARGS:%v_11,
+		 13: BRANCH %v_12[4.12,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: (MAX_READ_TIME_PER_BATCH) def_%v_13 
+		 1: COPY TYPE_PASS def_max_time_per_post %v_13[5.0,] 
+		 2: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Fixnum def_highest_seen 
+		 2: 
+		 3: COPY TYPE_Array def_%v_14 
+		 4: COPY TYPE_PASS def_join_table %v_14[7.3,] 
+		 5: 
+		 6: timings->length def_%v_15 timings[2.8,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_PASS def_i %v_15[7.6,] 
+		 8: 
+BB 8
+	outgoing: 9 17 
+	datadep: 
+	instructions:
+		 0: i->> def_%v_17 i[7.7,9.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 1: BRANCH %v_17[8.0,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: i->- def_%v_18 i[7.7,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: COPY TYPE_PASS def_i %v_18[9.2,] 
+		 4: 
+		 5: timings->[] def_%v_19 timings[2.8,] %v_18[9.2,] 	 SYMBOL:	 ARGS:i,
+		 6: %v_19->[] def_%v_20 %v_19[9.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 7: %v_20->> def_%v_21 %v_20[9.6,] max_time_per_post[5.1,4.9,] 	 SYMBOL:	 ARGS:max_time_per_post,
+		 8: BRANCH %v_21[9.7,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: timings->[] def_%v_22 timings[2.8,] i[9.3,] 	 SYMBOL:	 ARGS:i,
+		 1: ATTRASSIGN %v_22->[] max_time_per_post[5.1,4.9,] 
+		 2: COPY TYPE_PASS def_%v_23 max_time_per_post[5.1,4.9,] 
+		 3: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_23 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: timings->[] def_%v_24 timings[2.8,] i[9.3,] 	 SYMBOL:	 ARGS:i,
+		 2: %v_24->[] def_%v_25 %v_24[12.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: %v_25->< def_%v_26 %v_25[12.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: BRANCH %v_26[12.3,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: timings->delete_at def_%v_27 timings[2.8,] i[9.3,] 	 SYMBOL:	 ARGS:i,
+		 1: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_27 
+BB 15
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 17
+	outgoing: 19 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+		 1: 
+		 2: timings->each_with_index def_%v_28 timings[2.8,] %self[2.0,] 	 SYMBOL:	 ARGS:timings,
+CLOSURE BEGIN: topic_id[2.6,] post_number[] current_user[2.5,] time[] index[] join_table[7.4,] highest_seen[7.1,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_%cl_1_1 
+		 3: def_%cl_1_2 %cl_1_1[2.2,] 
+		 4: def_post_number %cl_1_2[2.3,] 
+		 5: def_time %cl_1_2[2.3,] 
+		 6: RECEIVEARG def_index 
+		 7: COPY TYPE_CurrentScope def_%current_scope 
+		 8: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "SELECT " def_%cl_1_5 
+		 2: topic_id->to_i def_%cl_1_6 topic_id[] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral " topic_id, " def_%cl_1_7 
+		 4: post_number->to_i def_%cl_1_8 post_number[2.4,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral " post_number,
+                       " def_%cl_1_9 
+		 6: 
+		 7: current_user->id def_%cl_1_10 current_user[] 	 SYMBOL:	 ARGS:
+		 8: %cl_1_10->to_i def_%cl_1_11 %cl_1_10[3.7,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_StringLiteral " user_id, " def_%cl_1_12 
+		 10: time->to_i def_%cl_1_13 time[2.5,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_StringLiteral " msecs, " def_%cl_1_14 
+		 12: COPY TYPE_StringLiteral " idx" def_%cl_1_15 
+		 13: BUILDSTRING def_%cl_1_16 %cl_1_5[3.1,] %cl_1_6[3.2,] %cl_1_7[3.3,] %cl_1_8[3.4,] %cl_1_9[3.5,] %cl_1_11[3.8,] %cl_1_12[3.9,] %cl_1_13[3.10,] %cl_1_14[3.11,] index[2.6,] %cl_1_15[3.12,] 
+		 14: join_table-><< def_%cl_1_17 join_table[] %cl_1_16[3.13,] 	 SYMBOL:	 ARGS:%cl_1_16,
+		 15: 
+		 16: post_number->to_i def_%cl_1_18 post_number[3.4,2.4,] 	 SYMBOL:	 ARGS:
+		 17: %cl_1_18->> def_%cl_1_19 %cl_1_18[3.16,] highest_seen[] 	 SYMBOL:	 ARGS:highest_seen,
+		 18: BRANCH %cl_1_19[3.17,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: post_number->to_i def_%cl_1_20 post_number[2.4,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_1_20 highest_seen[] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_highest_seen %cl_1_20[5.0,4.0,] 
+		 1: RETURN %cl_1_20[5.0,4.0,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_21 
+		 1: def_%cl_1_22 %cl_1_21[7.0,] 
+		 2: RETURN %cl_1_22[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: index[2.6,] time[2.5,] highest_seen[6.0,] 
+		 3: 
+		 4: join_table->length def_%v_29 join_table[7.4,] 	 SYMBOL:	 ARGS:
+		 5: %v_29->> def_%v_30 %v_29[17.4,] 	 SYMBOL:	 ARGS:Fixnum,
+		 6: BRANCH %v_30[17.5,] 
+BB 19
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "
+      UPDATE post_timings t
+      SET msecs = t.msecs + x.msecs
+      FROM (" def_%v_31 
+		 2: 
+		 3: COPY TYPE_StringLiteral " UNION ALL " def_%v_32 
+		 4: join_table->join def_%v_33 join_table[7.4,] %v_32[19.3,] 	 SYMBOL:	 ARGS:%v_32,
+		 5: COPY TYPE_StringLiteral ") x
+      WHERE x.topic_id = t.topic_id AND
+            x.post_number = t.post_number AND
+            x.user_id = t.user_id
+      RETURNING x.idx
+" def_%v_34 
+		 6: BUILDSTRING def_%v_35 %v_31[19.1,] %v_33[19.4,] %v_34[19.5,] 
+		 7: COPY TYPE_PASS def_sql %v_35[19.6,] 
+		 8: 
+		 9: %self->exec_sql def_%v_36 %self[2.0,] %v_35[19.6,] 	 SYMBOL:	 ARGS:sql,
+		 10: COPY TYPE_PASS def_result %v_36[19.9,] 
+		 11: 
+		 12: (SqlBuilder) def_%v_37 
+		 13: %v_37->pg_type_map def_%v_38 %v_37[19.12,] 	 SYMBOL:	 ARGS:
+		 14: ATTRASSIGN result->type_map %v_38[19.13,] 
+		 15: 
+		 16: (Set) def_%v_39 
+		 17: result->column_values def_%v_40 result[19.10,19.14,] 	 SYMBOL:	 ARGS:Fixnum,
+		 18: %v_39->new def_%v_41 %v_39[19.16,] %v_40[19.17,] 	 SYMBOL:	 ARGS:%v_40,
+		 19: COPY TYPE_PASS def_existing %v_41[19.18,] 
+		 20: 
+		 21: timings->each_with_index def_%v_42 timings[2.8,] %self[19.9,2.0,] 	 SYMBOL:	 ARGS:timings,
+CLOSURE BEGIN: existing[19.19,] index[17.2,] current_user[2.5,] topic_id[2.6,] post_number[17.2,] time[17.2,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_%cl_2_1 
+		 3: def_%cl_2_2 %cl_2_1[2.2,] 
+		 4: def_post_number %cl_2_2[2.3,] 
+		 5: def_time %cl_2_2[2.3,] 
+		 6: RECEIVEARG def_index 
+		 7: COPY TYPE_CurrentScope def_%current_scope 
+		 8: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: existing->include? def_%cl_2_5 existing[] index[2.6,] 	 SYMBOL:	 ARGS:index,
+		 2: BRANCH %cl_2_5[3.1,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_2_6 
+		 1: RETURN %cl_2_6[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PostTiming) def_%cl_2_7 
+		 2: current_user->id def_%cl_2_8 current_user[] 	 SYMBOL:	 ARGS:
+		 3: HASH-topic_id-post_number-user_id-msecs- def_%cl_2_9 topic_id[] post_number[2.4,] %cl_2_8[5.2,] time[2.5,] 
+		 4: %cl_2_7->record_new_timing def_%cl_2_10 %cl_2_7[5.1,] %cl_2_9[5.3,] 	 SYMBOL:	 ARGS:%cl_2_9,
+		 5: RETURN %cl_2_10[5.4,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_11 
+		 1: def_%cl_2_12 %cl_2_11[7.0,] 
+		 2: RETURN %cl_2_12[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: index[2.6,] time[2.5,] 
+		 22: 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_42 
+BB 21
+	outgoing: 22 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Fixnum def_total_changed 
+		 2: 
+		 3: timings->length def_%v_43 timings[2.8,] 	 SYMBOL:	 ARGS:
+		 4: %v_43->> def_%v_44 %v_43[21.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: BRANCH %v_44[21.4,] 
+BB 22
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Notification) def_%v_45 
+		 2: timings->map def_%v_46 timings[2.8,] %self[2.0,] 	 SYMBOL:	 ARGS:timings,
+CLOSURE BEGIN: t[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_t 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: t->[] def_%cl_3_3 t[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: RETURN %cl_3_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_4 
+		 1: def_%cl_3_5 %cl_3_4[4.0,] 
+		 2: RETURN %cl_3_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: %v_45->mark_posts_read def_%v_47 %v_45[22.1,] current_user[2.5,] topic_id[2.6,] %v_46[22.2,] 	 SYMBOL:	 ARGS:current_user,topic_id,%v_46,
+		 4: COPY TYPE_PASS def_total_changed %v_47[22.3,] 
+		 5: 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_47 
+BB 24
+	outgoing: 25 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: topic_time->> def_%v_48 topic_time[2.7,] max_time_per_post[5.1,4.9,] 	 SYMBOL:	 ARGS:max_time_per_post,
+		 2: BRANCH %v_48[24.1,] 
+BB 25
+	outgoing: 27 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_topic_time max_time_per_post[5.1,4.9,] 
+		 1: COPY TYPE_PASS def_%v_49 max_time_per_post[5.1,4.9,] 
+		 2: 
+BB 26
+	outgoing: 27 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_49 
+BB 27
+	outgoing: 28 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TopicUser) def_%v_50 
+		 2: %v_50->update_last_read def_%v_51 %v_50[27.1,] current_user[2.5,] topic_id[2.6,] highest_seen[17.2,] topic_time[25.0,2.7,] opts[3.1,2.9,] 	 SYMBOL:	 ARGS:current_user,topic_id,highest_seen,topic_time,opts,
+		 3: 
+		 4: total_changed->> def_%v_52 total_changed[22.4,21.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: BRANCH %v_52[27.4,] 
+BB 28
+	outgoing: 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: current_user->reload def_%v_53 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: current_user->publish_notifications_state def_%v_54 current_user[28.1,2.5,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %v_54[28.3,] %self[2.0,] 
+BB 29
+	outgoing: 31 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 31
+	outgoing: 
+	datadep: 
+	instructions:
+

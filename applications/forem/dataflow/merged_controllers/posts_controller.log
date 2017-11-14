@@ -1,0 +1,2119 @@
+SET IRMethod, name = show instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->find_post def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: GETFIELD %self->topic def_%v_4 %self[2.0,2.6,] 
+		 9: %v_4->posts def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_5->count def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_6->to_f def_%v_7 %v_6[2.10,] 	 SYMBOL:	 ARGS:
+		 12: (Forem) def_%v_8 
+		 13: %v_8->per_page def_%v_9 %v_8[2.12,] 	 SYMBOL:	 ARGS:
+		 14: %v_9->to_f def_%v_10 %v_9[2.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_7->/ def_%v_11 %v_7[2.11,] %v_10[2.14,] 	 SYMBOL:	 ARGS:%v_10,
+		 16: %v_11->ceil def_%v_12 %v_11[2.15,] 	 SYMBOL:	 ARGS:
+		 17: COPY TYPE_PASS def_page %v_12[2.16,] 
+		 18: 
+		 19: GETFIELD %self->topic def_%v_13 %self[2.0,2.6,] 
+		 20: %v_13->forum def_%v_14 %v_13[2.19,] 	 SYMBOL:	 ARGS:
+		 21: GETFIELD %self->topic def_%v_15 %self[2.0,2.6,] 
+		 22: %self->pagination_param def_%v_16 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 23: COPY TYPE_StringLiteral "post-" def_%v_17 
+		 24: GETFIELD %self->post def_%v_18 %self[2.0,2.6,2.22,] 
+		 25: %v_18->id def_%v_19 %v_18[2.24,] 	 SYMBOL:	 ARGS:
+		 26: BUILDSTRING def_%v_20 %v_17[2.23,] %v_19[2.25,] 
+		 27: HASH-anchor- def_%v_21 %v_16[2.22,] page[2.17,] %v_20[2.26,] 
+		 28: %self->forum_topic_url def_%v_22 %self[2.0,2.6,2.22,] %v_14[2.20,] %v_15[2.21,] %v_21[2.27,] 	 SYMBOL:	 ARGS:%v_14,%v_15,%v_21,
+		 29: %self->redirect_to def_%v_23 %self[2.0,2.6,2.22,2.28,] %v_22[2.28,] 	 SYMBOL:	 ARGS:%v_22,
+		 30: RETURN %v_23[2.29,] %self[2.0,2.6,2.22,2.28,2.29,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = new instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->authorize_reply_for_topic! def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: %self->block_spammers def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: 
+		 10: GETFIELD %self->topic def_%v_5 %self[2.0,2.6,2.8,] 
+		 11: %v_5->posts def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_6->build def_%v_7 %v_6[2.11,] 	 SYMBOL:	 ARGS:
+		 13: ATTRASSIGN %self->post %v_7[2.12,] 
+		 14: 
+		 15: %self->find_reply_to_post def_%v_8 %self[2.0,2.6,2.8,2.13,] 	 SYMBOL:	 ARGS:
+		 16: 
+		 17: %self->params def_%v_9 %self[2.0,2.6,2.8,2.13,2.15,] 	 SYMBOL:	 ARGS:
+		 18: %v_9->[] def_%v_10 %v_9[2.17,] 	 SYMBOL:quote,	 ARGS:Symbol,
+		 19: BRANCH %v_10[2.18,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->reply_to_post def_%v_11 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_10 %v_11[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_10[3.1,2.18,] 
+BB 5
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->post def_%v_12 %self[2.0,2.13,] 
+		 2: %self->view_context def_%v_13 %self[2.0,2.13,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->reply_to_post def_%v_14 %self[5.2,2.0,] 
+		 4: %v_14->text def_%v_15 %v_14[5.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_13->forem_quote def_%v_16 %v_13[5.2,] %v_15[5.4,] 	 SYMBOL:	 ARGS:%v_15,
+		 6: ATTRASSIGN %v_12->text %v_16[5.5,] 
+		 7: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%v_17 %self[2.0,2.13,] 	 SYMBOL:	 ARGS:
+		 2: %v_17->[] def_%v_18 %v_17[6.1,] 	 SYMBOL:quote,	 ARGS:Symbol,
+		 3: BRANCH %v_18[6.2,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->reply_to_post def_%v_19 %self[2.0,] 
+		 2: %v_19->! def_%v_20 %v_19[7.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_18 %v_20[7.2,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_18[7.3,6.2,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %self->flash def_%v_21 %self[2.0,2.13,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "forem.post.cannot_quote_deleted_post" def_%v_22 
+		 2: %self->t def_%v_23 %self[9.0,2.0,2.13,] %v_22[9.1,] 	 SYMBOL:	 ARGS:%v_22,
+		 3: ATTRASSIGN %v_21->[] %v_23[9.2,] 
+		 4: 
+		 5: GETFIELD %self->topic def_%v_24 %self[9.0,9.2,2.0,] 
+		 6: %v_24->forum def_%v_25 %v_24[9.5,] 	 SYMBOL:	 ARGS:
+		 7: GETFIELD %self->topic def_%v_26 %self[9.0,9.2,2.0,] 
+		 8: COPY TYPE_Array def_%v_27 %v_25[9.6,] %v_26[9.7,] 
+		 9: %self->redirect_to def_%v_28 %self[9.0,9.2,2.0,2.13,] %v_27[9.8,] 	 SYMBOL:	 ARGS:%v_27,
+		 10: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_28 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_16 %v_28[10.0,9.9,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->ruby_code_from_view def_%v_29 %self[2.0,2.13,] 	 SYMBOL:	 ARGS:
+		 2: %v_29->ruby_code_from_view def_%v_30 %v_29[12.1,] %self[12.1,2.0,2.13,] 	 SYMBOL:	 ARGS:%v_29,
+CLOSURE BEGIN: %self[12.1,2.0,2.13,] v[] f[] 
+BB 1
+	outgoing: 24 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_rb_from_view 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem" def_%cl_1_3 
+		 2: COPY TYPE_StringLiteral "all" def_%cl_1_4 
+		 3: COPY TYPE_StringLiteral "data-turbolinks-track" def_%cl_1_5 
+		 4: HASH-media- def_%cl_1_6 %cl_1_4[3.2,] %cl_1_5[3.3,] 
+		 5: %self->stylesheet_link_tag def_%cl_1_7 %self[2.0,] %cl_1_3[3.1,] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_3,%cl_1_6,
+		 6: 
+		 7: COPY TYPE_StringLiteral "forem" def_%cl_1_8 
+		 8: COPY TYPE_StringLiteral "data-turbolinks-track" def_%cl_1_9 
+		 9: HASH- def_%cl_1_10 %cl_1_9[3.8,] 
+		 10: %self->javascript_include_tag def_%cl_1_11 %self[3.5,2.0,] %cl_1_8[3.7,] %cl_1_10[3.9,] 	 SYMBOL:	 ARGS:%cl_1_8,%cl_1_10,
+		 11: 
+		 12: %self->csrf_meta_tags def_%cl_1_12 %self[3.5,3.10,2.0,] 	 SYMBOL:	 ARGS:
+		 13: 
+		 14: %self->forem_atom_auto_discovery_link_tag def_%cl_1_13 %self[3.5,3.10,3.12,2.0,] 	 SYMBOL:	 ARGS:
+		 15: 
+		 16: %self->flash def_%cl_1_14 %self[3.5,3.10,3.12,3.14,2.0,] 	 SYMBOL:	 ARGS:
+		 17: %cl_1_14->each def_%cl_1_15 %cl_1_14[3.16,] %self[3.5,3.10,3.12,3.14,3.16,2.0,] 	 SYMBOL:	 ARGS:%cl_1_14,
+CLOSURE BEGIN: v[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_k 
+		 3: RECEIVEARG def_v 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+		 6: 
+		 7: 
+		 8: RETURN v[2.3,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: v[2.3,] 
+		 18: 
+		 19: COPY TYPE_StringLiteral "forem.forum.forums" def_%cl_1_16 
+		 20: %self->t def_%cl_1_17 %self[3.5,3.10,3.12,3.14,3.16,2.0,] %cl_1_16[3.19,] 	 SYMBOL:	 ARGS:%cl_1_16,
+		 21: %self->forem def_%cl_1_18 %self[3.5,3.10,3.12,3.14,3.16,3.20,2.0,] 	 SYMBOL:	 ARGS:
+		 22: %cl_1_18->root_path def_%cl_1_19 %cl_1_18[3.21,] 	 SYMBOL:	 ARGS:
+		 23: %self->link_to def_%cl_1_20 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,2.0,] %cl_1_17[3.20,] %cl_1_19[3.22,] 	 SYMBOL:	 ARGS:%cl_1_17,%cl_1_19,
+		 24: 
+		 25: %self->forum def_%cl_1_21 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,2.0,] 	 SYMBOL:	 ARGS:
+		 26: %cl_1_21->category def_%cl_1_22 %cl_1_21[3.25,] 	 SYMBOL:	 ARGS:
+		 27: %self->forem_emojify def_%cl_1_23 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,2.0,] %cl_1_22[3.26,] 	 SYMBOL:	 ARGS:%cl_1_22,
+		 28: %self->forem def_%cl_1_24 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,2.0,] 	 SYMBOL:	 ARGS:
+		 29: %self->forum def_%cl_1_25 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,2.0,] 	 SYMBOL:	 ARGS:
+		 30: %cl_1_25->category def_%cl_1_26 %cl_1_25[3.29,] 	 SYMBOL:	 ARGS:
+		 31: COPY TYPE_Array def_%cl_1_27 %cl_1_24[3.28,] %cl_1_26[3.30,] 
+		 32: %self->link_to def_%cl_1_28 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,2.0,] %cl_1_23[3.27,] %cl_1_27[3.31,] 	 SYMBOL:	 ARGS:%cl_1_23,%cl_1_27,
+		 33: 
+		 34: %self->forum def_%cl_1_29 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,2.0,] 	 SYMBOL:	 ARGS:
+		 35: %cl_1_29->title def_%cl_1_30 %cl_1_29[3.34,] 	 SYMBOL:	 ARGS:
+		 36: %self->forem_emojify def_%cl_1_31 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,2.0,] %cl_1_30[3.35,] 	 SYMBOL:	 ARGS:%cl_1_30,
+		 37: %self->forem def_%cl_1_32 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,2.0,] 	 SYMBOL:	 ARGS:
+		 38: %self->forum def_%cl_1_33 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,3.37,2.0,] 	 SYMBOL:	 ARGS:
+		 39: COPY TYPE_Array def_%cl_1_34 %cl_1_32[3.37,] %cl_1_33[3.38,] 
+		 40: %self->link_to def_%cl_1_35 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,3.37,3.38,2.0,] %cl_1_31[3.36,] %cl_1_34[3.39,] 	 SYMBOL:	 ARGS:%cl_1_31,%cl_1_34,
+		 41: 
+		 42: %self->forum def_%cl_1_36 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,3.37,3.38,3.40,2.0,] 	 SYMBOL:	 ARGS:
+		 43: %cl_1_36->description def_%cl_1_37 %cl_1_36[3.42,] 	 SYMBOL:	 ARGS:
+		 44: %self->forem_format def_%cl_1_38 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,3.37,3.38,3.40,3.42,2.0,] %cl_1_37[3.43,] 	 SYMBOL:	 ARGS:%cl_1_37,
+		 45: 
+		 46: GETFIELD %self->topic def_%cl_1_39 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,3.37,3.38,3.40,3.42,3.44,2.0,] 
+		 47: %cl_1_39->try def_%cl_1_40 %cl_1_39[3.46,] 	 SYMBOL:new_record?,	 ARGS:Symbol,
+		 48: BRANCH %cl_1_40[3.47,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_41 
+		 1: 
+BB 5
+	outgoing: 6 7 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->forum def_%cl_1_42 %self[2.0,] 
+		 2: %self->can? def_%cl_1_43 %self[2.0,] %cl_1_42[5.1,] 	 SYMBOL:create_topic,	 ARGS:Symbol,%cl_1_42,
+		 3: BRANCH %cl_1_43[5.2,] 
+BB 6
+	outgoing: 8 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem.topic.links.new" def_%cl_1_44 
+		 2: %self->t def_%cl_1_45 %self[2.0,] %cl_1_44[6.1,] 	 SYMBOL:	 ARGS:%cl_1_44,
+		 3: %self->forem def_%cl_1_46 %self[6.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %self->forum def_%cl_1_47 %self[6.2,6.3,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_46->new_forum_topic_path def_%cl_1_48 %cl_1_46[6.3,] %cl_1_47[6.4,] 	 SYMBOL:	 ARGS:%cl_1_47,
+		 6: COPY TYPE_StringLiteral "btn btn-primary" def_%cl_1_49 
+		 7: COPY TYPE_StringLiteral "new-topic" def_%cl_1_50 
+		 8: HASH-class-id- def_%cl_1_51 %cl_1_49[6.6,] %cl_1_50[6.7,] 
+		 9: %self->link_to def_%cl_1_52 %self[6.2,6.3,6.4,2.0,] %cl_1_45[6.2,] %cl_1_48[6.5,] %cl_1_51[6.8,] 	 SYMBOL:	 ARGS:%cl_1_45,%cl_1_48,%cl_1_51,
+		 10: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_52 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_1_41 %cl_1_52[7.0,6.9,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: GETFIELD %self->topic def_%cl_1_53 %self[2.0,] 
+		 3: BRANCH %cl_1_53[9.2,] 
+BB 10
+	outgoing: 12 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "forem.topic.links.back_to_topics" def_%cl_1_54 
+		 1: %self->t def_%cl_1_55 %self[2.0,] %cl_1_54[10.0,] 	 SYMBOL:	 ARGS:%cl_1_54,
+		 2: %self->forem def_%cl_1_56 %self[10.1,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %self->forum def_%cl_1_57 %self[10.1,10.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_56->forum_path def_%cl_1_58 %cl_1_56[10.2,] %cl_1_57[10.3,] 	 SYMBOL:	 ARGS:%cl_1_57,
+		 5: COPY TYPE_StringLiteral "btn" def_%cl_1_59 
+		 6: HASH-class- def_%cl_1_60 %cl_1_59[10.5,] 
+		 7: %self->link_to def_%cl_1_61 %self[10.1,10.2,10.3,2.0,] %cl_1_55[10.1,] %cl_1_58[10.4,] %cl_1_60[10.6,] 	 SYMBOL:	 ARGS:%cl_1_55,%cl_1_58,%cl_1_60,
+		 8: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_61 
+BB 12
+	outgoing: 13 14 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->forum def_%cl_1_62 %self[2.0,] 
+		 2: %self->can? def_%cl_1_63 %self[2.0,] %cl_1_62[12.1,] 	 SYMBOL:moderate,	 ARGS:Symbol,%cl_1_62,
+		 3: BRANCH %cl_1_63[12.2,] 
+BB 13
+	outgoing: 15 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem.forum.moderator_tools" def_%cl_1_64 
+		 2: %self->t def_%cl_1_65 %self[2.0,] %cl_1_64[13.1,] 	 SYMBOL:	 ARGS:%cl_1_64,
+		 3: %self->forem def_%cl_1_66 %self[13.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %self->forum def_%cl_1_67 %self[13.2,13.3,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_66->forum_moderator_tools_path def_%cl_1_68 %cl_1_66[13.3,] %cl_1_67[13.4,] 	 SYMBOL:	 ARGS:%cl_1_67,
+		 6: COPY TYPE_StringLiteral "btn btn-primary" def_%cl_1_69 
+		 7: HASH-class- def_%cl_1_70 %cl_1_69[13.6,] 
+		 8: %self->link_to def_%cl_1_71 %self[13.2,13.3,13.4,2.0,] %cl_1_65[13.2,] %cl_1_68[13.5,] %cl_1_70[13.7,] 	 SYMBOL:	 ARGS:%cl_1_65,%cl_1_68,%cl_1_70,
+		 9: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_71 
+BB 15
+	outgoing: 16 20 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem.post.new" def_%cl_1_72 
+		 2: %self->t def_%cl_1_73 %self[2.0,] %cl_1_72[15.1,] 	 SYMBOL:	 ARGS:%cl_1_72,
+		 3: 
+		 4: 
+		 5: GETFIELD %self->reply_to_post def_%cl_1_74 %self[15.2,2.0,] 
+		 6: BRANCH %cl_1_74[15.5,] 
+BB 16
+	outgoing: 17 18 22 
+	datadep: 
+	instructions:
+		 0: %self->post def_%cl_1_75 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %cl_1_75->id def_%cl_1_76 %cl_1_75[16.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: %self->post def_%cl_1_77 %self[16.0,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_77->id def_%cl_1_78 %cl_1_77[16.3,] 	 SYMBOL:	 ARGS:
+		 5: 
+		 6: COPY TYPE_StringLiteral "odd" def_%cl_1_79 
+		 7: COPY TYPE_StringLiteral "even" def_%cl_1_80 
+		 8: %self->cycle def_%cl_1_81 %self[16.0,16.3,2.0,] %cl_1_79[16.6,] %cl_1_80[16.7,] 	 SYMBOL:	 ARGS:%cl_1_79,%cl_1_80,
+		 9: 
+		 10: (Forem) def_%cl_1_82 
+		 11: %cl_1_82->user_profile_links def_%cl_1_83 %cl_1_82[16.10,] 	 SYMBOL:	 ARGS:
+		 12: %self->post def_%cl_1_84 %self[16.0,16.3,16.8,2.0,] 	 SYMBOL:	 ARGS:
+		 13: %cl_1_84->user def_%cl_1_85 %cl_1_84[16.12,] 	 SYMBOL:	 ARGS:
+		 14: %cl_1_85->forem_name def_%cl_1_86 %cl_1_85[16.13,] 	 SYMBOL:	 ARGS:
+		 15: %self->main_app def_%cl_1_87 %self[16.0,16.3,16.8,16.12,2.0,] 	 SYMBOL:	 ARGS:
+		 16: %self->post def_%cl_1_88 %self[16.0,16.3,16.8,16.12,16.15,2.0,] 	 SYMBOL:	 ARGS:
+		 17: %cl_1_88->user def_%cl_1_89 %cl_1_88[16.16,] 	 SYMBOL:	 ARGS:
+		 18: COPY TYPE_Array def_%cl_1_90 %cl_1_87[16.15,] %cl_1_89[16.17,] 
+		 19: %self->link_to_if def_%cl_1_91 %self[16.0,16.3,16.8,16.12,16.15,16.16,2.0,] %cl_1_83[16.11,] %cl_1_86[16.14,] %cl_1_90[16.18,] 	 SYMBOL:	 ARGS:%cl_1_83,%cl_1_86,%cl_1_90,
+		 20: 
+		 21: %self->post def_%cl_1_92 %self[16.0,16.3,16.8,16.12,16.15,16.16,16.19,2.0,] 	 SYMBOL:	 ARGS:
+		 22: %cl_1_92->user def_%cl_1_93 %cl_1_92[16.21,] 	 SYMBOL:	 ARGS:
+		 23: HASH-size- def_%cl_1_94 
+		 24: %self->forem_avatar def_%cl_1_95 %self[16.0,16.3,16.8,16.12,16.15,16.16,16.19,16.21,2.0,] %cl_1_93[16.22,] %cl_1_94[16.23,] 	 SYMBOL:	 ARGS:%cl_1_93,%cl_1_94,
+		 25: 
+		 26: %self->post def_%cl_1_96 %self[16.0,16.3,16.8,16.12,16.15,16.16,16.19,16.21,16.24,2.0,] 	 SYMBOL:	 ARGS:
+		 27: %cl_1_96->created_at def_%cl_1_97 %cl_1_96[16.26,] 	 SYMBOL:	 ARGS:
+		 28: %cl_1_97->to_s def_%cl_1_98 %cl_1_97[16.27,] 	 SYMBOL:db,	 ARGS:Symbol,
+		 29: 
+		 30: %self->post def_%cl_1_99 %self[16.0,16.3,16.8,16.12,16.15,16.16,16.19,16.21,16.24,16.26,2.0,] 	 SYMBOL:	 ARGS:
+		 31: %cl_1_99->created_at def_%cl_1_100 %cl_1_99[16.30,] 	 SYMBOL:	 ARGS:
+		 32: %self->time_ago_in_words def_%cl_1_101 %self[16.0,16.3,16.8,16.12,16.15,16.16,16.19,16.21,16.24,16.26,16.30,2.0,] %cl_1_100[16.31,] 	 SYMBOL:	 ARGS:%cl_1_100,
+		 33: COPY TYPE_StringLiteral " " def_%cl_1_102 
+		 34: COPY TYPE_StringLiteral "ago" def_%cl_1_103 
+		 35: %self->t def_%cl_1_104 %self[16.0,16.3,16.8,16.12,16.15,16.16,16.19,16.21,16.24,16.26,16.30,16.32,2.0,] %cl_1_103[16.34,] 	 SYMBOL:	 ARGS:%cl_1_103,
+		 36: BUILDSTRING def_%cl_1_105 %cl_1_101[16.32,] %cl_1_102[16.33,] %cl_1_104[16.35,] 
+		 37: 
+		 38: %self->post def_%cl_1_106 %self[16.0,16.3,16.8,16.12,16.15,16.16,16.19,16.21,16.24,16.26,16.30,16.32,16.35,2.0,] 	 SYMBOL:	 ARGS:
+		 39: %cl_1_106->text def_%cl_1_107 %cl_1_106[16.38,] 	 SYMBOL:	 ARGS:
+		 40: %self->forem_format def_%cl_1_108 %self[16.0,16.3,16.8,16.12,16.15,16.16,16.19,16.21,16.24,16.26,16.30,16.32,16.35,16.38,2.0,] %cl_1_107[16.39,] 	 SYMBOL:	 ARGS:%cl_1_107,
+		 41: 
+		 42: %self->post def_%cl_1_109 %self[16.0,16.3,16.8,16.12,16.15,16.16,16.19,16.21,16.24,16.26,16.30,16.32,16.35,16.38,16.40,2.0,] 	 SYMBOL:	 ARGS:
+		 43: %cl_1_109->reply_to def_%cl_1_110 %cl_1_109[16.42,] 	 SYMBOL:	 ARGS:
+		 44: BRANCH %cl_1_110[16.43,] 
+BB 17
+	outgoing: 19 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem.post.in_reply_to" def_%cl_1_111 
+		 2: %self->t def_%cl_1_112 %self[2.0,] %cl_1_111[17.1,] 	 SYMBOL:	 ARGS:%cl_1_111,
+		 3: COPY TYPE_StringLiteral " " def_%cl_1_113 
+		 4: %self->post def_%cl_1_114 %self[17.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_114->reply_to def_%cl_1_115 %cl_1_114[17.4,] 	 SYMBOL:	 ARGS:
+		 6: %cl_1_115->user def_%cl_1_116 %cl_1_115[17.5,] 	 SYMBOL:	 ARGS:
+		 7: %cl_1_116->forem_name def_%cl_1_117 %cl_1_116[17.6,] 	 SYMBOL:	 ARGS:
+		 8: BUILDSTRING def_%cl_1_118 %cl_1_112[17.2,] %cl_1_113[17.3,] %cl_1_117[17.7,] 
+		 9: COPY TYPE_StringLiteral "#post-" def_%cl_1_119 
+		 10: %self->post def_%cl_1_120 %self[17.2,17.4,2.0,] 	 SYMBOL:	 ARGS:
+		 11: %cl_1_120->reply_to def_%cl_1_121 %cl_1_120[17.10,] 	 SYMBOL:	 ARGS:
+		 12: %cl_1_121->id def_%cl_1_122 %cl_1_121[17.11,] 	 SYMBOL:	 ARGS:
+		 13: BUILDSTRING def_%cl_1_123 %cl_1_119[17.9,] %cl_1_122[17.12,] 
+		 14: %self->link_to def_%cl_1_124 %self[17.2,17.4,17.10,2.0,] %cl_1_118[17.8,] %cl_1_123[17.13,] 	 SYMBOL:	 ARGS:%cl_1_118,%cl_1_123,
+		 15: 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_124 
+BB 19
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+BB 20
+	outgoing: 21 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->topic def_%cl_1_125 %self[2.0,] 
+		 2: %cl_1_125->subject def_%cl_1_126 %cl_1_125[20.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%cl_1_124 %cl_1_126[20.2,] 
+BB 21
+	outgoing: 22 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->forem def_%cl_1_127 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->topic def_%cl_1_128 %self[21.1,2.0,] 
+		 3: %cl_1_128->forum def_%cl_1_129 %cl_1_128[21.2,] 	 SYMBOL:	 ARGS:
+		 4: GETFIELD %self->topic def_%cl_1_130 %self[21.1,2.0,] 
+		 5: GETFIELD %self->post def_%cl_1_131 %self[21.1,2.0,] 
+		 6: COPY TYPE_Array def_%cl_1_132 %cl_1_127[21.1,] %cl_1_129[21.3,] %cl_1_130[21.4,] %cl_1_131[21.5,] 
+		 7: %self->simple_form_for def_%cl_1_133 %self[21.1,2.0,] %cl_1_132[21.6,] %self[21.1,2.0,] 	 SYMBOL:	 ARGS:%cl_1_132,%self,
+CLOSURE BEGIN: f[] %self[21.1,2.0,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_f 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "field col-md-12" def_%cl_3_3 
+		 2: HASH-class- def_%cl_3_4 %cl_3_3[3.1,] 
+		 3: HASH-input_html- def_%cl_3_5 %cl_3_4[3.2,] 
+		 4: f->input def_%cl_3_6 f[2.2,] %cl_3_5[3.3,] 	 SYMBOL:text,	 ARGS:Symbol,%cl_3_5,
+		 5: 
+		 6: %self->params def_%cl_3_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %cl_3_7->[] def_%cl_3_8 %cl_3_7[3.6,] 	 SYMBOL:reply_to_id,	 ARGS:Symbol,
+		 8: BRANCH %cl_3_8[3.7,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%cl_3_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_3_9->[] def_%cl_3_10 %cl_3_9[4.1,] 	 SYMBOL:reply_to_id,	 ARGS:Symbol,
+		 3: HASH-value- def_%cl_3_11 %cl_3_10[4.2,] 
+		 4: f->hidden_field def_%cl_3_12 f[2.2,] %cl_3_11[4.3,] 	 SYMBOL:reply_to_id,	 ARGS:Symbol,%cl_3_11,
+		 5: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_3_12 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem.post.buttons.reply" def_%cl_3_13 
+		 2: %self->t def_%cl_3_14 %self[2.0,] %cl_3_13[6.1,] 	 SYMBOL:	 ARGS:%cl_3_13,
+		 3: COPY TYPE_StringLiteral "btn btn-primary" def_%cl_3_15 
+		 4: HASH-class- def_%cl_3_16 %cl_3_15[6.3,] 
+		 5: f->submit def_%cl_3_17 f[2.2,] %cl_3_14[6.2,] %cl_3_16[6.4,] 	 SYMBOL:	 ARGS:%cl_3_14,%cl_3_16,
+		 6: RETURN %cl_3_17[6.5,] %self[6.2,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_18 
+		 1: def_%cl_3_19 %cl_3_18[7.0,] 
+		 2: RETURN %cl_3_19[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: RETURN %cl_1_133[21.7,] %self[21.1,21.7,2.0,] 
+BB 22
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_134 
+		 1: def_%cl_1_135 %cl_1_134[22.0,] 
+		 2: RETURN %cl_1_135[22.1,] %self[2.0,] 
+BB 24
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: RETURN %v_30[12.2,] %self[12.1,2.0,2.13,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->authorize_reply_for_topic! def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: %self->block_spammers def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: 
+		 10: GETFIELD %self->topic def_%v_5 %self[2.0,2.6,2.8,] 
+		 11: %v_5->posts def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: %self->post_params def_%v_7 %self[2.0,2.6,2.8,] 	 SYMBOL:	 ARGS:
+		 13: %v_6->build def_%v_8 %v_6[2.11,] %v_7[2.12,] 	 SYMBOL:	 ARGS:%v_7,
+		 14: ATTRASSIGN %self->post %v_8[2.13,] 
+		 15: 
+		 16: GETFIELD %self->post def_%v_9 %self[2.0,2.6,2.8,2.12,2.14,] 
+		 17: %self->forem_user def_%v_10 %self[2.0,2.6,2.8,2.12,2.14,] 	 SYMBOL:	 ARGS:
+		 18: ATTRASSIGN %v_9->user %v_10[2.17,] 
+		 19: 
+		 20: GETFIELD %self->post def_%v_11 %self[2.0,2.6,2.8,2.12,2.14,2.17,] 
+		 21: %v_11->save def_%v_12 %v_11[2.20,] 	 SYMBOL:	 ARGS:
+		 22: BRANCH %v_12[2.21,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->create_successful def_%v_13 %self[2.0,2.14,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_13[3.1,] %self[3.1,2.0,2.14,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->create_failed def_%v_14 %self[2.0,2.14,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_14[4.1,] %self[4.1,2.0,2.14,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = edit instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->authorize_edit_post_for_forum! def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: %self->find_post def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: 
+		 10: %self->ruby_code_from_view def_%v_5 %self[2.0,2.6,2.8,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->ruby_code_from_view def_%v_6 %v_5[2.10,] %self[2.0,2.6,2.8,2.10,] 	 SYMBOL:	 ARGS:%v_5,
+CLOSURE BEGIN: %self[2.0,2.6,2.8,2.10,] v[] f[] 
+BB 1
+	outgoing: 18 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_rb_from_view 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem" def_%cl_1_3 
+		 2: COPY TYPE_StringLiteral "all" def_%cl_1_4 
+		 3: COPY TYPE_StringLiteral "data-turbolinks-track" def_%cl_1_5 
+		 4: HASH-media- def_%cl_1_6 %cl_1_4[3.2,] %cl_1_5[3.3,] 
+		 5: %self->stylesheet_link_tag def_%cl_1_7 %self[2.0,] %cl_1_3[3.1,] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_3,%cl_1_6,
+		 6: 
+		 7: COPY TYPE_StringLiteral "forem" def_%cl_1_8 
+		 8: COPY TYPE_StringLiteral "data-turbolinks-track" def_%cl_1_9 
+		 9: HASH- def_%cl_1_10 %cl_1_9[3.8,] 
+		 10: %self->javascript_include_tag def_%cl_1_11 %self[3.5,2.0,] %cl_1_8[3.7,] %cl_1_10[3.9,] 	 SYMBOL:	 ARGS:%cl_1_8,%cl_1_10,
+		 11: 
+		 12: %self->csrf_meta_tags def_%cl_1_12 %self[3.5,3.10,2.0,] 	 SYMBOL:	 ARGS:
+		 13: 
+		 14: %self->forem_atom_auto_discovery_link_tag def_%cl_1_13 %self[3.5,3.10,3.12,2.0,] 	 SYMBOL:	 ARGS:
+		 15: 
+		 16: %self->flash def_%cl_1_14 %self[3.5,3.10,3.12,3.14,2.0,] 	 SYMBOL:	 ARGS:
+		 17: %cl_1_14->each def_%cl_1_15 %cl_1_14[3.16,] %self[3.5,3.10,3.12,3.14,3.16,2.0,] 	 SYMBOL:	 ARGS:%cl_1_14,
+CLOSURE BEGIN: v[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_k 
+		 3: RECEIVEARG def_v 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+		 6: 
+		 7: 
+		 8: RETURN v[2.3,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: v[2.3,] 
+		 18: 
+		 19: COPY TYPE_StringLiteral "forem.forum.forums" def_%cl_1_16 
+		 20: %self->t def_%cl_1_17 %self[3.5,3.10,3.12,3.14,3.16,2.0,] %cl_1_16[3.19,] 	 SYMBOL:	 ARGS:%cl_1_16,
+		 21: %self->forem def_%cl_1_18 %self[3.5,3.10,3.12,3.14,3.16,3.20,2.0,] 	 SYMBOL:	 ARGS:
+		 22: %cl_1_18->root_path def_%cl_1_19 %cl_1_18[3.21,] 	 SYMBOL:	 ARGS:
+		 23: %self->link_to def_%cl_1_20 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,2.0,] %cl_1_17[3.20,] %cl_1_19[3.22,] 	 SYMBOL:	 ARGS:%cl_1_17,%cl_1_19,
+		 24: 
+		 25: %self->forum def_%cl_1_21 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,2.0,] 	 SYMBOL:	 ARGS:
+		 26: %cl_1_21->category def_%cl_1_22 %cl_1_21[3.25,] 	 SYMBOL:	 ARGS:
+		 27: %self->forem_emojify def_%cl_1_23 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,2.0,] %cl_1_22[3.26,] 	 SYMBOL:	 ARGS:%cl_1_22,
+		 28: %self->forem def_%cl_1_24 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,2.0,] 	 SYMBOL:	 ARGS:
+		 29: %self->forum def_%cl_1_25 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,2.0,] 	 SYMBOL:	 ARGS:
+		 30: %cl_1_25->category def_%cl_1_26 %cl_1_25[3.29,] 	 SYMBOL:	 ARGS:
+		 31: COPY TYPE_Array def_%cl_1_27 %cl_1_24[3.28,] %cl_1_26[3.30,] 
+		 32: %self->link_to def_%cl_1_28 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,2.0,] %cl_1_23[3.27,] %cl_1_27[3.31,] 	 SYMBOL:	 ARGS:%cl_1_23,%cl_1_27,
+		 33: 
+		 34: %self->forum def_%cl_1_29 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,2.0,] 	 SYMBOL:	 ARGS:
+		 35: %cl_1_29->title def_%cl_1_30 %cl_1_29[3.34,] 	 SYMBOL:	 ARGS:
+		 36: %self->forem_emojify def_%cl_1_31 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,2.0,] %cl_1_30[3.35,] 	 SYMBOL:	 ARGS:%cl_1_30,
+		 37: %self->forem def_%cl_1_32 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,2.0,] 	 SYMBOL:	 ARGS:
+		 38: %self->forum def_%cl_1_33 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,3.37,2.0,] 	 SYMBOL:	 ARGS:
+		 39: COPY TYPE_Array def_%cl_1_34 %cl_1_32[3.37,] %cl_1_33[3.38,] 
+		 40: %self->link_to def_%cl_1_35 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,3.37,3.38,2.0,] %cl_1_31[3.36,] %cl_1_34[3.39,] 	 SYMBOL:	 ARGS:%cl_1_31,%cl_1_34,
+		 41: 
+		 42: %self->forum def_%cl_1_36 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,3.37,3.38,3.40,2.0,] 	 SYMBOL:	 ARGS:
+		 43: %cl_1_36->description def_%cl_1_37 %cl_1_36[3.42,] 	 SYMBOL:	 ARGS:
+		 44: %self->forem_format def_%cl_1_38 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,3.37,3.38,3.40,3.42,2.0,] %cl_1_37[3.43,] 	 SYMBOL:	 ARGS:%cl_1_37,
+		 45: 
+		 46: GETFIELD %self->topic def_%cl_1_39 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,3.37,3.38,3.40,3.42,3.44,2.0,] 
+		 47: %cl_1_39->try def_%cl_1_40 %cl_1_39[3.46,] 	 SYMBOL:new_record?,	 ARGS:Symbol,
+		 48: BRANCH %cl_1_40[3.47,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_41 
+		 1: 
+BB 5
+	outgoing: 6 7 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->forum def_%cl_1_42 %self[2.0,] 
+		 2: %self->can? def_%cl_1_43 %self[2.0,] %cl_1_42[5.1,] 	 SYMBOL:create_topic,	 ARGS:Symbol,%cl_1_42,
+		 3: BRANCH %cl_1_43[5.2,] 
+BB 6
+	outgoing: 8 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem.topic.links.new" def_%cl_1_44 
+		 2: %self->t def_%cl_1_45 %self[2.0,] %cl_1_44[6.1,] 	 SYMBOL:	 ARGS:%cl_1_44,
+		 3: %self->forem def_%cl_1_46 %self[6.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %self->forum def_%cl_1_47 %self[6.2,6.3,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_46->new_forum_topic_path def_%cl_1_48 %cl_1_46[6.3,] %cl_1_47[6.4,] 	 SYMBOL:	 ARGS:%cl_1_47,
+		 6: COPY TYPE_StringLiteral "btn btn-primary" def_%cl_1_49 
+		 7: COPY TYPE_StringLiteral "new-topic" def_%cl_1_50 
+		 8: HASH-class-id- def_%cl_1_51 %cl_1_49[6.6,] %cl_1_50[6.7,] 
+		 9: %self->link_to def_%cl_1_52 %self[6.2,6.3,6.4,2.0,] %cl_1_45[6.2,] %cl_1_48[6.5,] %cl_1_51[6.8,] 	 SYMBOL:	 ARGS:%cl_1_45,%cl_1_48,%cl_1_51,
+		 10: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_52 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_1_41 %cl_1_52[7.0,6.9,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: GETFIELD %self->topic def_%cl_1_53 %self[2.0,] 
+		 3: BRANCH %cl_1_53[9.2,] 
+BB 10
+	outgoing: 12 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "forem.topic.links.back_to_topics" def_%cl_1_54 
+		 1: %self->t def_%cl_1_55 %self[2.0,] %cl_1_54[10.0,] 	 SYMBOL:	 ARGS:%cl_1_54,
+		 2: %self->forem def_%cl_1_56 %self[10.1,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %self->forum def_%cl_1_57 %self[10.1,10.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_56->forum_path def_%cl_1_58 %cl_1_56[10.2,] %cl_1_57[10.3,] 	 SYMBOL:	 ARGS:%cl_1_57,
+		 5: COPY TYPE_StringLiteral "btn" def_%cl_1_59 
+		 6: HASH-class- def_%cl_1_60 %cl_1_59[10.5,] 
+		 7: %self->link_to def_%cl_1_61 %self[10.1,10.2,10.3,2.0,] %cl_1_55[10.1,] %cl_1_58[10.4,] %cl_1_60[10.6,] 	 SYMBOL:	 ARGS:%cl_1_55,%cl_1_58,%cl_1_60,
+		 8: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_61 
+BB 12
+	outgoing: 13 14 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->forum def_%cl_1_62 %self[2.0,] 
+		 2: %self->can? def_%cl_1_63 %self[2.0,] %cl_1_62[12.1,] 	 SYMBOL:moderate,	 ARGS:Symbol,%cl_1_62,
+		 3: BRANCH %cl_1_63[12.2,] 
+BB 13
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem.forum.moderator_tools" def_%cl_1_64 
+		 2: %self->t def_%cl_1_65 %self[2.0,] %cl_1_64[13.1,] 	 SYMBOL:	 ARGS:%cl_1_64,
+		 3: %self->forem def_%cl_1_66 %self[13.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %self->forum def_%cl_1_67 %self[13.2,13.3,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_66->forum_moderator_tools_path def_%cl_1_68 %cl_1_66[13.3,] %cl_1_67[13.4,] 	 SYMBOL:	 ARGS:%cl_1_67,
+		 6: COPY TYPE_StringLiteral "btn btn-primary" def_%cl_1_69 
+		 7: HASH-class- def_%cl_1_70 %cl_1_69[13.6,] 
+		 8: %self->link_to def_%cl_1_71 %self[13.2,13.3,13.4,2.0,] %cl_1_65[13.2,] %cl_1_68[13.5,] %cl_1_70[13.7,] 	 SYMBOL:	 ARGS:%cl_1_65,%cl_1_68,%cl_1_70,
+		 9: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_71 
+BB 15
+	outgoing: 16 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem.post.edit" def_%cl_1_72 
+		 2: GETFIELD %self->post def_%cl_1_73 %self[2.0,] 
+		 3: HASH-post- def_%cl_1_74 %cl_1_73[15.2,] 
+		 4: %self->t def_%cl_1_75 %self[2.0,] %cl_1_72[15.1,] %cl_1_74[15.3,] 	 SYMBOL:	 ARGS:%cl_1_72,%cl_1_74,
+		 5: 
+		 6: %self->forem def_%cl_1_76 %self[15.4,2.0,] 	 SYMBOL:	 ARGS:
+		 7: GETFIELD %self->topic def_%cl_1_77 %self[15.4,15.6,2.0,] 
+		 8: %cl_1_77->forum def_%cl_1_78 %cl_1_77[15.7,] 	 SYMBOL:	 ARGS:
+		 9: GETFIELD %self->topic def_%cl_1_79 %self[15.4,15.6,2.0,] 
+		 10: GETFIELD %self->post def_%cl_1_80 %self[15.4,15.6,2.0,] 
+		 11: COPY TYPE_Array def_%cl_1_81 %cl_1_76[15.6,] %cl_1_78[15.8,] %cl_1_79[15.9,] %cl_1_80[15.10,] 
+		 12: %self->simple_form_for def_%cl_1_82 %self[15.4,15.6,2.0,] %cl_1_81[15.11,] %self[15.4,15.6,2.0,] 	 SYMBOL:	 ARGS:%cl_1_81,%self,
+CLOSURE BEGIN: f[] %self[15.4,15.6,2.0,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_f 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "field col-md-12" def_%cl_3_3 
+		 2: HASH-class- def_%cl_3_4 %cl_3_3[3.1,] 
+		 3: HASH-input_html- def_%cl_3_5 %cl_3_4[3.2,] 
+		 4: f->input def_%cl_3_6 f[2.2,] %cl_3_5[3.3,] 	 SYMBOL:text,	 ARGS:Symbol,%cl_3_5,
+		 5: 
+		 6: %self->params def_%cl_3_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %cl_3_7->[] def_%cl_3_8 %cl_3_7[3.6,] 	 SYMBOL:reply_to_id,	 ARGS:Symbol,
+		 8: BRANCH %cl_3_8[3.7,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%cl_3_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_3_9->[] def_%cl_3_10 %cl_3_9[4.1,] 	 SYMBOL:reply_to_id,	 ARGS:Symbol,
+		 3: HASH-value- def_%cl_3_11 %cl_3_10[4.2,] 
+		 4: f->hidden_field def_%cl_3_12 f[2.2,] %cl_3_11[4.3,] 	 SYMBOL:reply_to_id,	 ARGS:Symbol,%cl_3_11,
+		 5: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_3_12 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem.post.buttons.edit" def_%cl_3_13 
+		 2: %self->t def_%cl_3_14 %self[2.0,] %cl_3_13[6.1,] 	 SYMBOL:	 ARGS:%cl_3_13,
+		 3: COPY TYPE_StringLiteral "btn btn-primary" def_%cl_3_15 
+		 4: HASH-class- def_%cl_3_16 %cl_3_15[6.3,] 
+		 5: f->submit def_%cl_3_17 f[2.2,] %cl_3_14[6.2,] %cl_3_16[6.4,] 	 SYMBOL:	 ARGS:%cl_3_14,%cl_3_16,
+		 6: RETURN %cl_3_17[6.5,] %self[6.2,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_18 
+		 1: def_%cl_3_19 %cl_3_18[7.0,] 
+		 2: RETURN %cl_3_19[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 13: RETURN %cl_1_82[15.12,] %self[15.4,15.6,15.12,2.0,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_83 
+		 1: def_%cl_1_84 %cl_1_83[16.0,] 
+		 2: RETURN %cl_1_84[16.1,] %self[2.0,] 
+BB 18
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 12: RETURN %v_6[2.11,] %self[2.0,2.6,2.8,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->authorize_edit_post_for_forum! def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: %self->find_post def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: 
+		 10: GETFIELD %self->post def_%v_5 %self[2.0,2.6,2.8,] 
+		 11: %self->forem_user def_%v_6 %self[2.0,2.6,2.8,] 	 SYMBOL:	 ARGS:
+		 12: %v_5->owner_or_admin? def_%v_7 %v_5[2.10,] %v_6[2.11,] 	 SYMBOL:	 ARGS:%v_6,
+		 13: BRANCH %v_7[2.12,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->post def_%v_8 %self[2.0,] 
+		 1: %self->post_params def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_8->update_attributes def_%v_10 %v_8[3.0,] %v_9[3.1,] 	 SYMBOL:	 ARGS:%v_9,
+		 3: COPY TYPE_PASS def_%v_7 %v_10[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_7[3.3,2.12,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->update_successful def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_11[5.1,] %self[5.1,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->update_failed def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_12[6.1,] %self[6.1,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = destroy instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->authorize_destroy_post_for_forum! def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: %self->find_post def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: 
+		 10: GETFIELD %self->post def_%v_5 %self[2.0,2.6,2.8,] 
+		 11: %self->forem_user def_%v_6 %self[2.0,2.6,2.8,] 	 SYMBOL:	 ARGS:
+		 12: %v_5->owner_or_admin? def_%v_7 %v_5[2.10,] %v_6[2.11,] 	 SYMBOL:	 ARGS:%v_6,
+		 13: BRANCH %v_7[2.12,] 
+BB 3
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+BB 4
+	outgoing: 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "forem.post.cannot_delete" def_%v_10 
+		 3: %self->t def_%v_11 %self[4.1,2.0,] %v_10[4.2,] 	 SYMBOL:	 ARGS:%v_10,
+		 4: ATTRASSIGN %v_9->[] %v_11[4.3,] 
+		 5: 
+		 6: GETFIELD %self->topic def_%v_12 %self[4.1,4.3,2.0,] 
+		 7: %v_12->forum def_%v_13 %v_12[4.6,] 	 SYMBOL:	 ARGS:
+		 8: GETFIELD %self->topic def_%v_14 %self[4.1,4.3,2.0,] 
+		 9: COPY TYPE_Array def_%v_15 %v_13[4.7,] %v_14[4.8,] 
+		 10: %self->redirect_to def_%v_16 %self[4.1,4.3,2.0,] %v_15[4.9,] 	 SYMBOL:	 ARGS:%v_15,
+		 11: BRANCH %v_16[4.10,] 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_8 %v_16[4.10,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->post def_%v_17 %self[2.0,] 
+		 2: %v_17->destroy def_%v_18 %v_17[8.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: %self->destroy_successful def_%v_19 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: RETURN %v_19[8.4,] %self[8.4,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = post_params instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->require def_%v_4 %v_3[2.6,] 	 SYMBOL:post,	 ARGS:Symbol,
+		 8: %v_4->permit def_%v_5 %v_4[2.7,] 	 SYMBOL:text,reply_to_id,	 ARGS:Symbol,Symbol,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = authorize_reply_for_topic! instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->topic def_%v_3 %self[2.0,] 
+		 7: %self->authorize! def_%v_4 %self[2.0,] %v_3[2.6,] 	 SYMBOL:reply,	 ARGS:Symbol,%v_3,
+		 8: RETURN %v_4[2.7,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = authorize_edit_post_for_forum! instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->topic def_%v_3 %self[2.0,] 
+		 7: %v_3->forum def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->authorize! def_%v_5 %self[2.0,] %v_4[2.7,] 	 SYMBOL:edit_post,	 ARGS:Symbol,%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = authorize_destroy_post_for_forum! instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->topic def_%v_3 %self[2.0,] 
+		 7: %v_3->forum def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->authorize! def_%v_5 %self[2.0,] %v_4[2.7,] 	 SYMBOL:destroy_post,	 ARGS:Symbol,%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create_successful instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->flash def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "forem.post.created" def_%v_4 
+		 8: %self->t def_%v_5 %self[2.0,2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: ATTRASSIGN %v_3->[] %v_5[2.8,] 
+		 10: 
+		 11: GETFIELD %self->topic def_%v_6 %self[2.0,2.6,2.8,] 
+		 12: %v_6->forum def_%v_7 %v_6[2.11,] 	 SYMBOL:	 ARGS:
+		 13: GETFIELD %self->topic def_%v_8 %self[2.0,2.6,2.8,] 
+		 14: %self->pagination_param def_%v_9 %self[2.0,2.6,2.8,] 	 SYMBOL:	 ARGS:
+		 15: GETFIELD %self->topic def_%v_10 %self[2.0,2.6,2.8,2.14,] 
+		 16: %v_10->last_page def_%v_11 %v_10[2.15,] 	 SYMBOL:	 ARGS:
+		 17: HASH- def_%v_12 %v_9[2.14,] %v_11[2.16,] 
+		 18: %self->forum_topic_url def_%v_13 %self[2.0,2.6,2.8,2.14,] %v_7[2.12,] %v_8[2.13,] %v_12[2.17,] 	 SYMBOL:	 ARGS:%v_7,%v_8,%v_12,
+		 19: %self->redirect_to def_%v_14 %self[2.0,2.6,2.8,2.14,2.18,] %v_13[2.18,] 	 SYMBOL:	 ARGS:%v_13,
+		 20: RETURN %v_14[2.19,] %self[2.0,2.6,2.8,2.14,2.18,2.19,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create_failed instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->params def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->[] def_%v_5 %v_4[2.7,] 	 SYMBOL:post,	 ARGS:Symbol,
+		 9: %v_5->[] def_%v_6 %v_5[2.8,] 	 SYMBOL:reply_to_id,	 ARGS:Symbol,
+		 10: ATTRASSIGN %v_3->[] %v_6[2.9,] 
+		 11: 
+		 12: %self->flash def_%v_7 %self[2.0,2.6,2.7,] 	 SYMBOL:	 ARGS:
+		 13: %v_7->now def_%v_8 %v_7[2.12,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_StringLiteral "forem.post.not_created" def_%v_9 
+		 15: %self->t def_%v_10 %self[2.0,2.6,2.7,2.12,] %v_9[2.14,] 	 SYMBOL:	 ARGS:%v_9,
+		 16: ATTRASSIGN %v_8->alert %v_10[2.15,] 
+		 17: 
+		 18: %self->ruby_code_from_view def_%v_11 %self[2.0,2.6,2.7,2.12,2.15,] 	 SYMBOL:	 ARGS:
+		 19: %v_11->ruby_code_from_view def_%v_12 %v_11[2.18,] %self[2.0,2.6,2.7,2.12,2.15,2.18,] 	 SYMBOL:	 ARGS:%v_11,
+CLOSURE BEGIN: %self[2.0,2.6,2.7,2.12,2.15,2.18,] v[] f[] 
+BB 1
+	outgoing: 24 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_rb_from_view 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem" def_%cl_1_3 
+		 2: COPY TYPE_StringLiteral "all" def_%cl_1_4 
+		 3: COPY TYPE_StringLiteral "data-turbolinks-track" def_%cl_1_5 
+		 4: HASH-media- def_%cl_1_6 %cl_1_4[3.2,] %cl_1_5[3.3,] 
+		 5: %self->stylesheet_link_tag def_%cl_1_7 %self[2.0,] %cl_1_3[3.1,] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_3,%cl_1_6,
+		 6: 
+		 7: COPY TYPE_StringLiteral "forem" def_%cl_1_8 
+		 8: COPY TYPE_StringLiteral "data-turbolinks-track" def_%cl_1_9 
+		 9: HASH- def_%cl_1_10 %cl_1_9[3.8,] 
+		 10: %self->javascript_include_tag def_%cl_1_11 %self[3.5,2.0,] %cl_1_8[3.7,] %cl_1_10[3.9,] 	 SYMBOL:	 ARGS:%cl_1_8,%cl_1_10,
+		 11: 
+		 12: %self->csrf_meta_tags def_%cl_1_12 %self[3.5,3.10,2.0,] 	 SYMBOL:	 ARGS:
+		 13: 
+		 14: %self->forem_atom_auto_discovery_link_tag def_%cl_1_13 %self[3.5,3.10,3.12,2.0,] 	 SYMBOL:	 ARGS:
+		 15: 
+		 16: %self->flash def_%cl_1_14 %self[3.5,3.10,3.12,3.14,2.0,] 	 SYMBOL:	 ARGS:
+		 17: %cl_1_14->each def_%cl_1_15 %cl_1_14[3.16,] %self[3.5,3.10,3.12,3.14,3.16,2.0,] 	 SYMBOL:	 ARGS:%cl_1_14,
+CLOSURE BEGIN: v[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_k 
+		 3: RECEIVEARG def_v 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+		 6: 
+		 7: 
+		 8: RETURN v[2.3,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: v[2.3,] 
+		 18: 
+		 19: COPY TYPE_StringLiteral "forem.forum.forums" def_%cl_1_16 
+		 20: %self->t def_%cl_1_17 %self[3.5,3.10,3.12,3.14,3.16,2.0,] %cl_1_16[3.19,] 	 SYMBOL:	 ARGS:%cl_1_16,
+		 21: %self->forem def_%cl_1_18 %self[3.5,3.10,3.12,3.14,3.16,3.20,2.0,] 	 SYMBOL:	 ARGS:
+		 22: %cl_1_18->root_path def_%cl_1_19 %cl_1_18[3.21,] 	 SYMBOL:	 ARGS:
+		 23: %self->link_to def_%cl_1_20 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,2.0,] %cl_1_17[3.20,] %cl_1_19[3.22,] 	 SYMBOL:	 ARGS:%cl_1_17,%cl_1_19,
+		 24: 
+		 25: %self->forum def_%cl_1_21 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,2.0,] 	 SYMBOL:	 ARGS:
+		 26: %cl_1_21->category def_%cl_1_22 %cl_1_21[3.25,] 	 SYMBOL:	 ARGS:
+		 27: %self->forem_emojify def_%cl_1_23 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,2.0,] %cl_1_22[3.26,] 	 SYMBOL:	 ARGS:%cl_1_22,
+		 28: %self->forem def_%cl_1_24 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,2.0,] 	 SYMBOL:	 ARGS:
+		 29: %self->forum def_%cl_1_25 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,2.0,] 	 SYMBOL:	 ARGS:
+		 30: %cl_1_25->category def_%cl_1_26 %cl_1_25[3.29,] 	 SYMBOL:	 ARGS:
+		 31: COPY TYPE_Array def_%cl_1_27 %cl_1_24[3.28,] %cl_1_26[3.30,] 
+		 32: %self->link_to def_%cl_1_28 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,2.0,] %cl_1_23[3.27,] %cl_1_27[3.31,] 	 SYMBOL:	 ARGS:%cl_1_23,%cl_1_27,
+		 33: 
+		 34: %self->forum def_%cl_1_29 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,2.0,] 	 SYMBOL:	 ARGS:
+		 35: %cl_1_29->title def_%cl_1_30 %cl_1_29[3.34,] 	 SYMBOL:	 ARGS:
+		 36: %self->forem_emojify def_%cl_1_31 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,2.0,] %cl_1_30[3.35,] 	 SYMBOL:	 ARGS:%cl_1_30,
+		 37: %self->forem def_%cl_1_32 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,2.0,] 	 SYMBOL:	 ARGS:
+		 38: %self->forum def_%cl_1_33 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,3.37,2.0,] 	 SYMBOL:	 ARGS:
+		 39: COPY TYPE_Array def_%cl_1_34 %cl_1_32[3.37,] %cl_1_33[3.38,] 
+		 40: %self->link_to def_%cl_1_35 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,3.37,3.38,2.0,] %cl_1_31[3.36,] %cl_1_34[3.39,] 	 SYMBOL:	 ARGS:%cl_1_31,%cl_1_34,
+		 41: 
+		 42: %self->forum def_%cl_1_36 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,3.37,3.38,3.40,2.0,] 	 SYMBOL:	 ARGS:
+		 43: %cl_1_36->description def_%cl_1_37 %cl_1_36[3.42,] 	 SYMBOL:	 ARGS:
+		 44: %self->forem_format def_%cl_1_38 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,3.37,3.38,3.40,3.42,2.0,] %cl_1_37[3.43,] 	 SYMBOL:	 ARGS:%cl_1_37,
+		 45: 
+		 46: GETFIELD %self->topic def_%cl_1_39 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,3.37,3.38,3.40,3.42,3.44,2.0,] 
+		 47: %cl_1_39->try def_%cl_1_40 %cl_1_39[3.46,] 	 SYMBOL:new_record?,	 ARGS:Symbol,
+		 48: BRANCH %cl_1_40[3.47,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_41 
+		 1: 
+BB 5
+	outgoing: 6 7 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->forum def_%cl_1_42 %self[2.0,] 
+		 2: %self->can? def_%cl_1_43 %self[2.0,] %cl_1_42[5.1,] 	 SYMBOL:create_topic,	 ARGS:Symbol,%cl_1_42,
+		 3: BRANCH %cl_1_43[5.2,] 
+BB 6
+	outgoing: 8 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem.topic.links.new" def_%cl_1_44 
+		 2: %self->t def_%cl_1_45 %self[2.0,] %cl_1_44[6.1,] 	 SYMBOL:	 ARGS:%cl_1_44,
+		 3: %self->forem def_%cl_1_46 %self[6.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %self->forum def_%cl_1_47 %self[6.2,6.3,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_46->new_forum_topic_path def_%cl_1_48 %cl_1_46[6.3,] %cl_1_47[6.4,] 	 SYMBOL:	 ARGS:%cl_1_47,
+		 6: COPY TYPE_StringLiteral "btn btn-primary" def_%cl_1_49 
+		 7: COPY TYPE_StringLiteral "new-topic" def_%cl_1_50 
+		 8: HASH-class-id- def_%cl_1_51 %cl_1_49[6.6,] %cl_1_50[6.7,] 
+		 9: %self->link_to def_%cl_1_52 %self[6.2,6.3,6.4,2.0,] %cl_1_45[6.2,] %cl_1_48[6.5,] %cl_1_51[6.8,] 	 SYMBOL:	 ARGS:%cl_1_45,%cl_1_48,%cl_1_51,
+		 10: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_52 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_1_41 %cl_1_52[7.0,6.9,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: GETFIELD %self->topic def_%cl_1_53 %self[2.0,] 
+		 3: BRANCH %cl_1_53[9.2,] 
+BB 10
+	outgoing: 12 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "forem.topic.links.back_to_topics" def_%cl_1_54 
+		 1: %self->t def_%cl_1_55 %self[2.0,] %cl_1_54[10.0,] 	 SYMBOL:	 ARGS:%cl_1_54,
+		 2: %self->forem def_%cl_1_56 %self[10.1,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %self->forum def_%cl_1_57 %self[10.1,10.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_56->forum_path def_%cl_1_58 %cl_1_56[10.2,] %cl_1_57[10.3,] 	 SYMBOL:	 ARGS:%cl_1_57,
+		 5: COPY TYPE_StringLiteral "btn" def_%cl_1_59 
+		 6: HASH-class- def_%cl_1_60 %cl_1_59[10.5,] 
+		 7: %self->link_to def_%cl_1_61 %self[10.1,10.2,10.3,2.0,] %cl_1_55[10.1,] %cl_1_58[10.4,] %cl_1_60[10.6,] 	 SYMBOL:	 ARGS:%cl_1_55,%cl_1_58,%cl_1_60,
+		 8: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_61 
+BB 12
+	outgoing: 13 14 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->forum def_%cl_1_62 %self[2.0,] 
+		 2: %self->can? def_%cl_1_63 %self[2.0,] %cl_1_62[12.1,] 	 SYMBOL:moderate,	 ARGS:Symbol,%cl_1_62,
+		 3: BRANCH %cl_1_63[12.2,] 
+BB 13
+	outgoing: 15 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem.forum.moderator_tools" def_%cl_1_64 
+		 2: %self->t def_%cl_1_65 %self[2.0,] %cl_1_64[13.1,] 	 SYMBOL:	 ARGS:%cl_1_64,
+		 3: %self->forem def_%cl_1_66 %self[13.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %self->forum def_%cl_1_67 %self[13.2,13.3,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_66->forum_moderator_tools_path def_%cl_1_68 %cl_1_66[13.3,] %cl_1_67[13.4,] 	 SYMBOL:	 ARGS:%cl_1_67,
+		 6: COPY TYPE_StringLiteral "btn btn-primary" def_%cl_1_69 
+		 7: HASH-class- def_%cl_1_70 %cl_1_69[13.6,] 
+		 8: %self->link_to def_%cl_1_71 %self[13.2,13.3,13.4,2.0,] %cl_1_65[13.2,] %cl_1_68[13.5,] %cl_1_70[13.7,] 	 SYMBOL:	 ARGS:%cl_1_65,%cl_1_68,%cl_1_70,
+		 9: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_71 
+BB 15
+	outgoing: 16 20 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem.post.new" def_%cl_1_72 
+		 2: %self->t def_%cl_1_73 %self[2.0,] %cl_1_72[15.1,] 	 SYMBOL:	 ARGS:%cl_1_72,
+		 3: 
+		 4: 
+		 5: GETFIELD %self->reply_to_post def_%cl_1_74 %self[15.2,2.0,] 
+		 6: BRANCH %cl_1_74[15.5,] 
+BB 16
+	outgoing: 17 18 22 
+	datadep: 
+	instructions:
+		 0: %self->post def_%cl_1_75 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %cl_1_75->id def_%cl_1_76 %cl_1_75[16.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: %self->post def_%cl_1_77 %self[16.0,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_77->id def_%cl_1_78 %cl_1_77[16.3,] 	 SYMBOL:	 ARGS:
+		 5: 
+		 6: COPY TYPE_StringLiteral "odd" def_%cl_1_79 
+		 7: COPY TYPE_StringLiteral "even" def_%cl_1_80 
+		 8: %self->cycle def_%cl_1_81 %self[16.0,16.3,2.0,] %cl_1_79[16.6,] %cl_1_80[16.7,] 	 SYMBOL:	 ARGS:%cl_1_79,%cl_1_80,
+		 9: 
+		 10: (Forem) def_%cl_1_82 
+		 11: %cl_1_82->user_profile_links def_%cl_1_83 %cl_1_82[16.10,] 	 SYMBOL:	 ARGS:
+		 12: %self->post def_%cl_1_84 %self[16.0,16.3,16.8,2.0,] 	 SYMBOL:	 ARGS:
+		 13: %cl_1_84->user def_%cl_1_85 %cl_1_84[16.12,] 	 SYMBOL:	 ARGS:
+		 14: %cl_1_85->forem_name def_%cl_1_86 %cl_1_85[16.13,] 	 SYMBOL:	 ARGS:
+		 15: %self->main_app def_%cl_1_87 %self[16.0,16.3,16.8,16.12,2.0,] 	 SYMBOL:	 ARGS:
+		 16: %self->post def_%cl_1_88 %self[16.0,16.3,16.8,16.12,16.15,2.0,] 	 SYMBOL:	 ARGS:
+		 17: %cl_1_88->user def_%cl_1_89 %cl_1_88[16.16,] 	 SYMBOL:	 ARGS:
+		 18: COPY TYPE_Array def_%cl_1_90 %cl_1_87[16.15,] %cl_1_89[16.17,] 
+		 19: %self->link_to_if def_%cl_1_91 %self[16.0,16.3,16.8,16.12,16.15,16.16,2.0,] %cl_1_83[16.11,] %cl_1_86[16.14,] %cl_1_90[16.18,] 	 SYMBOL:	 ARGS:%cl_1_83,%cl_1_86,%cl_1_90,
+		 20: 
+		 21: %self->post def_%cl_1_92 %self[16.0,16.3,16.8,16.12,16.15,16.16,16.19,2.0,] 	 SYMBOL:	 ARGS:
+		 22: %cl_1_92->user def_%cl_1_93 %cl_1_92[16.21,] 	 SYMBOL:	 ARGS:
+		 23: HASH-size- def_%cl_1_94 
+		 24: %self->forem_avatar def_%cl_1_95 %self[16.0,16.3,16.8,16.12,16.15,16.16,16.19,16.21,2.0,] %cl_1_93[16.22,] %cl_1_94[16.23,] 	 SYMBOL:	 ARGS:%cl_1_93,%cl_1_94,
+		 25: 
+		 26: %self->post def_%cl_1_96 %self[16.0,16.3,16.8,16.12,16.15,16.16,16.19,16.21,16.24,2.0,] 	 SYMBOL:	 ARGS:
+		 27: %cl_1_96->created_at def_%cl_1_97 %cl_1_96[16.26,] 	 SYMBOL:	 ARGS:
+		 28: %cl_1_97->to_s def_%cl_1_98 %cl_1_97[16.27,] 	 SYMBOL:db,	 ARGS:Symbol,
+		 29: 
+		 30: %self->post def_%cl_1_99 %self[16.0,16.3,16.8,16.12,16.15,16.16,16.19,16.21,16.24,16.26,2.0,] 	 SYMBOL:	 ARGS:
+		 31: %cl_1_99->created_at def_%cl_1_100 %cl_1_99[16.30,] 	 SYMBOL:	 ARGS:
+		 32: %self->time_ago_in_words def_%cl_1_101 %self[16.0,16.3,16.8,16.12,16.15,16.16,16.19,16.21,16.24,16.26,16.30,2.0,] %cl_1_100[16.31,] 	 SYMBOL:	 ARGS:%cl_1_100,
+		 33: COPY TYPE_StringLiteral " " def_%cl_1_102 
+		 34: COPY TYPE_StringLiteral "ago" def_%cl_1_103 
+		 35: %self->t def_%cl_1_104 %self[16.0,16.3,16.8,16.12,16.15,16.16,16.19,16.21,16.24,16.26,16.30,16.32,2.0,] %cl_1_103[16.34,] 	 SYMBOL:	 ARGS:%cl_1_103,
+		 36: BUILDSTRING def_%cl_1_105 %cl_1_101[16.32,] %cl_1_102[16.33,] %cl_1_104[16.35,] 
+		 37: 
+		 38: %self->post def_%cl_1_106 %self[16.0,16.3,16.8,16.12,16.15,16.16,16.19,16.21,16.24,16.26,16.30,16.32,16.35,2.0,] 	 SYMBOL:	 ARGS:
+		 39: %cl_1_106->text def_%cl_1_107 %cl_1_106[16.38,] 	 SYMBOL:	 ARGS:
+		 40: %self->forem_format def_%cl_1_108 %self[16.0,16.3,16.8,16.12,16.15,16.16,16.19,16.21,16.24,16.26,16.30,16.32,16.35,16.38,2.0,] %cl_1_107[16.39,] 	 SYMBOL:	 ARGS:%cl_1_107,
+		 41: 
+		 42: %self->post def_%cl_1_109 %self[16.0,16.3,16.8,16.12,16.15,16.16,16.19,16.21,16.24,16.26,16.30,16.32,16.35,16.38,16.40,2.0,] 	 SYMBOL:	 ARGS:
+		 43: %cl_1_109->reply_to def_%cl_1_110 %cl_1_109[16.42,] 	 SYMBOL:	 ARGS:
+		 44: BRANCH %cl_1_110[16.43,] 
+BB 17
+	outgoing: 19 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem.post.in_reply_to" def_%cl_1_111 
+		 2: %self->t def_%cl_1_112 %self[2.0,] %cl_1_111[17.1,] 	 SYMBOL:	 ARGS:%cl_1_111,
+		 3: COPY TYPE_StringLiteral " " def_%cl_1_113 
+		 4: %self->post def_%cl_1_114 %self[17.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_114->reply_to def_%cl_1_115 %cl_1_114[17.4,] 	 SYMBOL:	 ARGS:
+		 6: %cl_1_115->user def_%cl_1_116 %cl_1_115[17.5,] 	 SYMBOL:	 ARGS:
+		 7: %cl_1_116->forem_name def_%cl_1_117 %cl_1_116[17.6,] 	 SYMBOL:	 ARGS:
+		 8: BUILDSTRING def_%cl_1_118 %cl_1_112[17.2,] %cl_1_113[17.3,] %cl_1_117[17.7,] 
+		 9: COPY TYPE_StringLiteral "#post-" def_%cl_1_119 
+		 10: %self->post def_%cl_1_120 %self[17.2,17.4,2.0,] 	 SYMBOL:	 ARGS:
+		 11: %cl_1_120->reply_to def_%cl_1_121 %cl_1_120[17.10,] 	 SYMBOL:	 ARGS:
+		 12: %cl_1_121->id def_%cl_1_122 %cl_1_121[17.11,] 	 SYMBOL:	 ARGS:
+		 13: BUILDSTRING def_%cl_1_123 %cl_1_119[17.9,] %cl_1_122[17.12,] 
+		 14: %self->link_to def_%cl_1_124 %self[17.2,17.4,17.10,2.0,] %cl_1_118[17.8,] %cl_1_123[17.13,] 	 SYMBOL:	 ARGS:%cl_1_118,%cl_1_123,
+		 15: 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_124 
+BB 19
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+BB 20
+	outgoing: 21 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->topic def_%cl_1_125 %self[2.0,] 
+		 2: %cl_1_125->subject def_%cl_1_126 %cl_1_125[20.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%cl_1_124 %cl_1_126[20.2,] 
+BB 21
+	outgoing: 22 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->forem def_%cl_1_127 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->topic def_%cl_1_128 %self[21.1,2.0,] 
+		 3: %cl_1_128->forum def_%cl_1_129 %cl_1_128[21.2,] 	 SYMBOL:	 ARGS:
+		 4: GETFIELD %self->topic def_%cl_1_130 %self[21.1,2.0,] 
+		 5: GETFIELD %self->post def_%cl_1_131 %self[21.1,2.0,] 
+		 6: COPY TYPE_Array def_%cl_1_132 %cl_1_127[21.1,] %cl_1_129[21.3,] %cl_1_130[21.4,] %cl_1_131[21.5,] 
+		 7: %self->simple_form_for def_%cl_1_133 %self[21.1,2.0,] %cl_1_132[21.6,] %self[21.1,2.0,] 	 SYMBOL:	 ARGS:%cl_1_132,%self,
+CLOSURE BEGIN: f[] %self[21.1,2.0,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_f 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "field col-md-12" def_%cl_3_3 
+		 2: HASH-class- def_%cl_3_4 %cl_3_3[3.1,] 
+		 3: HASH-input_html- def_%cl_3_5 %cl_3_4[3.2,] 
+		 4: f->input def_%cl_3_6 f[2.2,] %cl_3_5[3.3,] 	 SYMBOL:text,	 ARGS:Symbol,%cl_3_5,
+		 5: 
+		 6: %self->params def_%cl_3_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %cl_3_7->[] def_%cl_3_8 %cl_3_7[3.6,] 	 SYMBOL:reply_to_id,	 ARGS:Symbol,
+		 8: BRANCH %cl_3_8[3.7,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%cl_3_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_3_9->[] def_%cl_3_10 %cl_3_9[4.1,] 	 SYMBOL:reply_to_id,	 ARGS:Symbol,
+		 3: HASH-value- def_%cl_3_11 %cl_3_10[4.2,] 
+		 4: f->hidden_field def_%cl_3_12 f[2.2,] %cl_3_11[4.3,] 	 SYMBOL:reply_to_id,	 ARGS:Symbol,%cl_3_11,
+		 5: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_3_12 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem.post.buttons.reply" def_%cl_3_13 
+		 2: %self->t def_%cl_3_14 %self[2.0,] %cl_3_13[6.1,] 	 SYMBOL:	 ARGS:%cl_3_13,
+		 3: COPY TYPE_StringLiteral "btn btn-primary" def_%cl_3_15 
+		 4: HASH-class- def_%cl_3_16 %cl_3_15[6.3,] 
+		 5: f->submit def_%cl_3_17 f[2.2,] %cl_3_14[6.2,] %cl_3_16[6.4,] 	 SYMBOL:	 ARGS:%cl_3_14,%cl_3_16,
+		 6: RETURN %cl_3_17[6.5,] %self[6.2,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_18 
+		 1: def_%cl_3_19 %cl_3_18[7.0,] 
+		 2: RETURN %cl_3_19[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: RETURN %cl_1_133[21.7,] %self[21.1,21.7,2.0,] 
+BB 22
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_134 
+		 1: def_%cl_1_135 %cl_1_134[22.0,] 
+		 2: RETURN %cl_1_135[22.1,] %self[2.0,] 
+BB 24
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 20: RETURN %v_12[2.19,] %self[2.0,2.6,2.7,2.12,2.15,2.18,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = destroy_successful instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->post def_%v_3 %self[2.0,] 
+		 7: %v_3->topic def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->posts def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->count def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_6->== def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:Fixnum,
+		 11: BRANCH %v_7[2.10,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->post def_%v_8 %self[2.0,] 
+		 2: %v_8->topic def_%v_9 %v_8[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_9->destroy def_%v_10 %v_9[3.2,] 	 SYMBOL:	 ARGS:
+		 4: 
+		 5: %self->flash def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral "forem.post.deleted_with_topic" def_%v_12 
+		 7: %self->t def_%v_13 %self[3.5,2.0,] %v_12[3.6,] 	 SYMBOL:	 ARGS:%v_12,
+		 8: ATTRASSIGN %v_11->[] %v_13[3.7,] 
+		 9: 
+		 10: GETFIELD %self->topic def_%v_14 %self[3.5,3.7,2.0,] 
+		 11: %v_14->forum def_%v_15 %v_14[3.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_Array def_%v_16 %v_15[3.11,] 
+		 13: %self->redirect_to def_%v_17 %self[3.5,3.7,2.0,] %v_16[3.12,] 	 SYMBOL:	 ARGS:%v_16,
+		 14: RETURN %v_17[3.13,] %self[3.5,3.7,3.13,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_18 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "forem.post.deleted" def_%v_19 
+		 3: %self->t def_%v_20 %self[4.1,2.0,] %v_19[4.2,] 	 SYMBOL:	 ARGS:%v_19,
+		 4: ATTRASSIGN %v_18->[] %v_20[4.3,] 
+		 5: 
+		 6: GETFIELD %self->topic def_%v_21 %self[4.1,4.3,2.0,] 
+		 7: %v_21->forum def_%v_22 %v_21[4.6,] 	 SYMBOL:	 ARGS:
+		 8: GETFIELD %self->topic def_%v_23 %self[4.1,4.3,2.0,] 
+		 9: COPY TYPE_Array def_%v_24 %v_22[4.7,] %v_23[4.8,] 
+		 10: %self->redirect_to def_%v_25 %self[4.1,4.3,2.0,] %v_24[4.9,] 	 SYMBOL:	 ARGS:%v_24,
+		 11: RETURN %v_25[4.10,] %self[4.1,4.3,4.10,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_successful instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->topic def_%v_3 %self[2.0,] 
+		 7: %v_3->forum def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: GETFIELD %self->topic def_%v_5 %self[2.0,] 
+		 9: COPY TYPE_Array def_%v_6 %v_4[2.7,] %v_5[2.8,] 
+		 10: COPY TYPE_StringLiteral "edited" def_%v_7 
+		 11: COPY TYPE_StringLiteral "forem.post" def_%v_8 
+		 12: HASH-scope- def_%v_9 %v_8[2.11,] 
+		 13: %self->t def_%v_10 %self[2.0,] %v_7[2.10,] %v_9[2.12,] 	 SYMBOL:	 ARGS:%v_7,%v_9,
+		 14: HASH-notice- def_%v_11 %v_10[2.13,] 
+		 15: %self->redirect_to def_%v_12 %self[2.0,2.13,] %v_6[2.9,] %v_11[2.14,] 	 SYMBOL:	 ARGS:%v_6,%v_11,
+		 16: RETURN %v_12[2.15,] %self[2.0,2.13,2.15,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_failed instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->flash def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->now def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "forem.post.not_edited" def_%v_5 
+		 9: %self->t def_%v_6 %self[2.0,2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: ATTRASSIGN %v_4->alert %v_6[2.9,] 
+		 11: 
+		 12: %self->ruby_code_from_view def_%v_7 %self[2.0,2.6,2.9,] 	 SYMBOL:	 ARGS:
+		 13: %v_7->ruby_code_from_view def_%v_8 %v_7[2.12,] %self[2.0,2.6,2.9,2.12,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: %self[2.0,2.6,2.9,2.12,] v[] f[] 
+BB 1
+	outgoing: 18 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_rb_from_view 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem" def_%cl_1_3 
+		 2: COPY TYPE_StringLiteral "all" def_%cl_1_4 
+		 3: COPY TYPE_StringLiteral "data-turbolinks-track" def_%cl_1_5 
+		 4: HASH-media- def_%cl_1_6 %cl_1_4[3.2,] %cl_1_5[3.3,] 
+		 5: %self->stylesheet_link_tag def_%cl_1_7 %self[2.0,] %cl_1_3[3.1,] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_3,%cl_1_6,
+		 6: 
+		 7: COPY TYPE_StringLiteral "forem" def_%cl_1_8 
+		 8: COPY TYPE_StringLiteral "data-turbolinks-track" def_%cl_1_9 
+		 9: HASH- def_%cl_1_10 %cl_1_9[3.8,] 
+		 10: %self->javascript_include_tag def_%cl_1_11 %self[3.5,2.0,] %cl_1_8[3.7,] %cl_1_10[3.9,] 	 SYMBOL:	 ARGS:%cl_1_8,%cl_1_10,
+		 11: 
+		 12: %self->csrf_meta_tags def_%cl_1_12 %self[3.5,3.10,2.0,] 	 SYMBOL:	 ARGS:
+		 13: 
+		 14: %self->forem_atom_auto_discovery_link_tag def_%cl_1_13 %self[3.5,3.10,3.12,2.0,] 	 SYMBOL:	 ARGS:
+		 15: 
+		 16: %self->flash def_%cl_1_14 %self[3.5,3.10,3.12,3.14,2.0,] 	 SYMBOL:	 ARGS:
+		 17: %cl_1_14->each def_%cl_1_15 %cl_1_14[3.16,] %self[3.5,3.10,3.12,3.14,3.16,2.0,] 	 SYMBOL:	 ARGS:%cl_1_14,
+CLOSURE BEGIN: v[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_k 
+		 3: RECEIVEARG def_v 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+		 6: 
+		 7: 
+		 8: RETURN v[2.3,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: v[2.3,] 
+		 18: 
+		 19: COPY TYPE_StringLiteral "forem.forum.forums" def_%cl_1_16 
+		 20: %self->t def_%cl_1_17 %self[3.5,3.10,3.12,3.14,3.16,2.0,] %cl_1_16[3.19,] 	 SYMBOL:	 ARGS:%cl_1_16,
+		 21: %self->forem def_%cl_1_18 %self[3.5,3.10,3.12,3.14,3.16,3.20,2.0,] 	 SYMBOL:	 ARGS:
+		 22: %cl_1_18->root_path def_%cl_1_19 %cl_1_18[3.21,] 	 SYMBOL:	 ARGS:
+		 23: %self->link_to def_%cl_1_20 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,2.0,] %cl_1_17[3.20,] %cl_1_19[3.22,] 	 SYMBOL:	 ARGS:%cl_1_17,%cl_1_19,
+		 24: 
+		 25: %self->forum def_%cl_1_21 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,2.0,] 	 SYMBOL:	 ARGS:
+		 26: %cl_1_21->category def_%cl_1_22 %cl_1_21[3.25,] 	 SYMBOL:	 ARGS:
+		 27: %self->forem_emojify def_%cl_1_23 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,2.0,] %cl_1_22[3.26,] 	 SYMBOL:	 ARGS:%cl_1_22,
+		 28: %self->forem def_%cl_1_24 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,2.0,] 	 SYMBOL:	 ARGS:
+		 29: %self->forum def_%cl_1_25 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,2.0,] 	 SYMBOL:	 ARGS:
+		 30: %cl_1_25->category def_%cl_1_26 %cl_1_25[3.29,] 	 SYMBOL:	 ARGS:
+		 31: COPY TYPE_Array def_%cl_1_27 %cl_1_24[3.28,] %cl_1_26[3.30,] 
+		 32: %self->link_to def_%cl_1_28 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,2.0,] %cl_1_23[3.27,] %cl_1_27[3.31,] 	 SYMBOL:	 ARGS:%cl_1_23,%cl_1_27,
+		 33: 
+		 34: %self->forum def_%cl_1_29 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,2.0,] 	 SYMBOL:	 ARGS:
+		 35: %cl_1_29->title def_%cl_1_30 %cl_1_29[3.34,] 	 SYMBOL:	 ARGS:
+		 36: %self->forem_emojify def_%cl_1_31 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,2.0,] %cl_1_30[3.35,] 	 SYMBOL:	 ARGS:%cl_1_30,
+		 37: %self->forem def_%cl_1_32 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,2.0,] 	 SYMBOL:	 ARGS:
+		 38: %self->forum def_%cl_1_33 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,3.37,2.0,] 	 SYMBOL:	 ARGS:
+		 39: COPY TYPE_Array def_%cl_1_34 %cl_1_32[3.37,] %cl_1_33[3.38,] 
+		 40: %self->link_to def_%cl_1_35 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,3.37,3.38,2.0,] %cl_1_31[3.36,] %cl_1_34[3.39,] 	 SYMBOL:	 ARGS:%cl_1_31,%cl_1_34,
+		 41: 
+		 42: %self->forum def_%cl_1_36 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,3.37,3.38,3.40,2.0,] 	 SYMBOL:	 ARGS:
+		 43: %cl_1_36->description def_%cl_1_37 %cl_1_36[3.42,] 	 SYMBOL:	 ARGS:
+		 44: %self->forem_format def_%cl_1_38 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,3.37,3.38,3.40,3.42,2.0,] %cl_1_37[3.43,] 	 SYMBOL:	 ARGS:%cl_1_37,
+		 45: 
+		 46: GETFIELD %self->topic def_%cl_1_39 %self[3.5,3.10,3.12,3.14,3.16,3.20,3.21,3.23,3.25,3.27,3.28,3.29,3.32,3.34,3.36,3.37,3.38,3.40,3.42,3.44,2.0,] 
+		 47: %cl_1_39->try def_%cl_1_40 %cl_1_39[3.46,] 	 SYMBOL:new_record?,	 ARGS:Symbol,
+		 48: BRANCH %cl_1_40[3.47,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_41 
+		 1: 
+BB 5
+	outgoing: 6 7 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->forum def_%cl_1_42 %self[2.0,] 
+		 2: %self->can? def_%cl_1_43 %self[2.0,] %cl_1_42[5.1,] 	 SYMBOL:create_topic,	 ARGS:Symbol,%cl_1_42,
+		 3: BRANCH %cl_1_43[5.2,] 
+BB 6
+	outgoing: 8 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem.topic.links.new" def_%cl_1_44 
+		 2: %self->t def_%cl_1_45 %self[2.0,] %cl_1_44[6.1,] 	 SYMBOL:	 ARGS:%cl_1_44,
+		 3: %self->forem def_%cl_1_46 %self[6.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %self->forum def_%cl_1_47 %self[6.2,6.3,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_46->new_forum_topic_path def_%cl_1_48 %cl_1_46[6.3,] %cl_1_47[6.4,] 	 SYMBOL:	 ARGS:%cl_1_47,
+		 6: COPY TYPE_StringLiteral "btn btn-primary" def_%cl_1_49 
+		 7: COPY TYPE_StringLiteral "new-topic" def_%cl_1_50 
+		 8: HASH-class-id- def_%cl_1_51 %cl_1_49[6.6,] %cl_1_50[6.7,] 
+		 9: %self->link_to def_%cl_1_52 %self[6.2,6.3,6.4,2.0,] %cl_1_45[6.2,] %cl_1_48[6.5,] %cl_1_51[6.8,] 	 SYMBOL:	 ARGS:%cl_1_45,%cl_1_48,%cl_1_51,
+		 10: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_52 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_1_41 %cl_1_52[7.0,6.9,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: GETFIELD %self->topic def_%cl_1_53 %self[2.0,] 
+		 3: BRANCH %cl_1_53[9.2,] 
+BB 10
+	outgoing: 12 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "forem.topic.links.back_to_topics" def_%cl_1_54 
+		 1: %self->t def_%cl_1_55 %self[2.0,] %cl_1_54[10.0,] 	 SYMBOL:	 ARGS:%cl_1_54,
+		 2: %self->forem def_%cl_1_56 %self[10.1,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %self->forum def_%cl_1_57 %self[10.1,10.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_56->forum_path def_%cl_1_58 %cl_1_56[10.2,] %cl_1_57[10.3,] 	 SYMBOL:	 ARGS:%cl_1_57,
+		 5: COPY TYPE_StringLiteral "btn" def_%cl_1_59 
+		 6: HASH-class- def_%cl_1_60 %cl_1_59[10.5,] 
+		 7: %self->link_to def_%cl_1_61 %self[10.1,10.2,10.3,2.0,] %cl_1_55[10.1,] %cl_1_58[10.4,] %cl_1_60[10.6,] 	 SYMBOL:	 ARGS:%cl_1_55,%cl_1_58,%cl_1_60,
+		 8: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_61 
+BB 12
+	outgoing: 13 14 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->forum def_%cl_1_62 %self[2.0,] 
+		 2: %self->can? def_%cl_1_63 %self[2.0,] %cl_1_62[12.1,] 	 SYMBOL:moderate,	 ARGS:Symbol,%cl_1_62,
+		 3: BRANCH %cl_1_63[12.2,] 
+BB 13
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem.forum.moderator_tools" def_%cl_1_64 
+		 2: %self->t def_%cl_1_65 %self[2.0,] %cl_1_64[13.1,] 	 SYMBOL:	 ARGS:%cl_1_64,
+		 3: %self->forem def_%cl_1_66 %self[13.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %self->forum def_%cl_1_67 %self[13.2,13.3,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_66->forum_moderator_tools_path def_%cl_1_68 %cl_1_66[13.3,] %cl_1_67[13.4,] 	 SYMBOL:	 ARGS:%cl_1_67,
+		 6: COPY TYPE_StringLiteral "btn btn-primary" def_%cl_1_69 
+		 7: HASH-class- def_%cl_1_70 %cl_1_69[13.6,] 
+		 8: %self->link_to def_%cl_1_71 %self[13.2,13.3,13.4,2.0,] %cl_1_65[13.2,] %cl_1_68[13.5,] %cl_1_70[13.7,] 	 SYMBOL:	 ARGS:%cl_1_65,%cl_1_68,%cl_1_70,
+		 9: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_71 
+BB 15
+	outgoing: 16 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem.post.edit" def_%cl_1_72 
+		 2: GETFIELD %self->post def_%cl_1_73 %self[2.0,] 
+		 3: HASH-post- def_%cl_1_74 %cl_1_73[15.2,] 
+		 4: %self->t def_%cl_1_75 %self[2.0,] %cl_1_72[15.1,] %cl_1_74[15.3,] 	 SYMBOL:	 ARGS:%cl_1_72,%cl_1_74,
+		 5: 
+		 6: %self->forem def_%cl_1_76 %self[15.4,2.0,] 	 SYMBOL:	 ARGS:
+		 7: GETFIELD %self->topic def_%cl_1_77 %self[15.4,15.6,2.0,] 
+		 8: %cl_1_77->forum def_%cl_1_78 %cl_1_77[15.7,] 	 SYMBOL:	 ARGS:
+		 9: GETFIELD %self->topic def_%cl_1_79 %self[15.4,15.6,2.0,] 
+		 10: GETFIELD %self->post def_%cl_1_80 %self[15.4,15.6,2.0,] 
+		 11: COPY TYPE_Array def_%cl_1_81 %cl_1_76[15.6,] %cl_1_78[15.8,] %cl_1_79[15.9,] %cl_1_80[15.10,] 
+		 12: %self->simple_form_for def_%cl_1_82 %self[15.4,15.6,2.0,] %cl_1_81[15.11,] %self[15.4,15.6,2.0,] 	 SYMBOL:	 ARGS:%cl_1_81,%self,
+CLOSURE BEGIN: f[] %self[15.4,15.6,2.0,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_f 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "field col-md-12" def_%cl_3_3 
+		 2: HASH-class- def_%cl_3_4 %cl_3_3[3.1,] 
+		 3: HASH-input_html- def_%cl_3_5 %cl_3_4[3.2,] 
+		 4: f->input def_%cl_3_6 f[2.2,] %cl_3_5[3.3,] 	 SYMBOL:text,	 ARGS:Symbol,%cl_3_5,
+		 5: 
+		 6: %self->params def_%cl_3_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %cl_3_7->[] def_%cl_3_8 %cl_3_7[3.6,] 	 SYMBOL:reply_to_id,	 ARGS:Symbol,
+		 8: BRANCH %cl_3_8[3.7,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%cl_3_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_3_9->[] def_%cl_3_10 %cl_3_9[4.1,] 	 SYMBOL:reply_to_id,	 ARGS:Symbol,
+		 3: HASH-value- def_%cl_3_11 %cl_3_10[4.2,] 
+		 4: f->hidden_field def_%cl_3_12 f[2.2,] %cl_3_11[4.3,] 	 SYMBOL:reply_to_id,	 ARGS:Symbol,%cl_3_11,
+		 5: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_3_12 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "forem.post.buttons.edit" def_%cl_3_13 
+		 2: %self->t def_%cl_3_14 %self[2.0,] %cl_3_13[6.1,] 	 SYMBOL:	 ARGS:%cl_3_13,
+		 3: COPY TYPE_StringLiteral "btn btn-primary" def_%cl_3_15 
+		 4: HASH-class- def_%cl_3_16 %cl_3_15[6.3,] 
+		 5: f->submit def_%cl_3_17 f[2.2,] %cl_3_14[6.2,] %cl_3_16[6.4,] 	 SYMBOL:	 ARGS:%cl_3_14,%cl_3_16,
+		 6: RETURN %cl_3_17[6.5,] %self[6.2,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_18 
+		 1: def_%cl_3_19 %cl_3_18[7.0,] 
+		 2: RETURN %cl_3_19[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 13: RETURN %cl_1_82[15.12,] %self[15.4,15.6,15.12,2.0,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_83 
+		 1: def_%cl_1_84 %cl_1_83[16.0,] 
+		 2: RETURN %cl_1_84[16.1,] %self[2.0,] 
+BB 18
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 14: RETURN %v_8[2.13,] %self[2.0,2.6,2.9,2.12,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_topic instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Topic) def_%v_3 
+		 7: %v_3->friendly def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->params def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->[] def_%v_6 %v_5[2.8,] 	 SYMBOL:topic_id,	 ARGS:Symbol,
+		 10: %v_4->find def_%v_7 %v_4[2.7,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: ATTRASSIGN %self->topic %v_7[2.10,] 
+		 12: RETURN %v_7[2.10,] %self[2.0,2.8,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_post instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->topic def_%v_3 %self[2.0,] 
+		 7: %v_3->posts def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->params def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->[] def_%v_6 %v_5[2.8,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 10: %v_4->find def_%v_7 %v_4[2.7,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: ATTRASSIGN %self->post %v_7[2.10,] 
+		 12: RETURN %v_7[2.10,] %self[2.0,2.8,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = block_spammers instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->forem_user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->forem_spammer? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "forem.general.flagged_for_spam" def_%v_6 
+		 3: %self->t def_%v_7 %self[3.1,2.0,] %v_6[3.2,] 	 SYMBOL:	 ARGS:%v_6,
+		 4: COPY TYPE_StringLiteral " " def_%v_8 
+		 5: %v_7->+ def_%v_9 %v_7[3.3,] %v_8[3.4,] 	 SYMBOL:	 ARGS:%v_8,
+		 6: COPY TYPE_StringLiteral "forem.general.cannot_create_post" def_%v_10 
+		 7: %self->t def_%v_11 %self[3.1,3.3,2.0,] %v_10[3.6,] 	 SYMBOL:	 ARGS:%v_10,
+		 8: %v_9->+ def_%v_12 %v_9[3.5,] %v_11[3.7,] 	 SYMBOL:	 ARGS:%v_11,
+		 9: ATTRASSIGN %v_5->[] %v_12[3.8,] 
+		 10: 
+		 11: %self->redirect_to def_%v_13 %self[3.1,3.3,3.7,2.0,] 	 SYMBOL:back,	 ARGS:Symbol,
+		 12: RETURN %v_13[3.11,] %self[3.1,3.3,3.7,3.11,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = reject_locked_topic! instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->topic def_%v_3 %self[2.0,] 
+		 7: %v_3->locked? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "forem.post.not_created_topic_locked" def_%v_6 
+		 3: %self->t def_%v_7 %self[3.1,2.0,] %v_6[3.2,] 	 SYMBOL:	 ARGS:%v_6,
+		 4: ATTRASSIGN %v_5->alert %v_7[3.3,] 
+		 5: 
+		 6: GETFIELD %self->topic def_%v_8 %self[3.1,3.3,2.0,] 
+		 7: %v_8->forum def_%v_9 %v_8[3.6,] 	 SYMBOL:	 ARGS:
+		 8: GETFIELD %self->topic def_%v_10 %self[3.1,3.3,2.0,] 
+		 9: COPY TYPE_Array def_%v_11 %v_9[3.7,] %v_10[3.8,] 
+		 10: %self->redirect_to def_%v_12 %self[3.1,3.3,2.0,] %v_11[3.9,] 	 SYMBOL:	 ARGS:%v_11,
+		 11: BRANCH %v_12[3.10,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_12[3.10,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_reply_to_post instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->topic def_%v_3 %self[2.0,] 
+		 7: %v_3->posts def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->params def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->[] def_%v_6 %v_5[2.8,] 	 SYMBOL:reply_to_id,	 ARGS:Symbol,
+		 10: %v_4->find_by_id def_%v_7 %v_4[2.7,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: ATTRASSIGN %self->reply_to_post %v_7[2.10,] 
+		 12: RETURN %v_7[2.10,] %self[2.0,2.8,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

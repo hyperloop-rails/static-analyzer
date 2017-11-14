@@ -1,0 +1,124 @@
+SET IRMethod, name = show instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 9 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->repository def_%v_3 %self[2.0,] 
+		 7: COPY TYPE_StringLiteral "master" def_%v_4 
+		 8: GETFIELD %self->project def_%v_5 %self[2.0,] 
+		 9: %v_5->avatar_in_git def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_3->blob_at_branch def_%v_7 %v_3[2.6,] %v_4[2.7,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_4,%v_6,
+		 11: ATTRASSIGN %self->blob %v_7[2.10,] 
+		 12: 
+		 13: 
+		 14: GETFIELD %self->blob def_%v_8 %self[2.0,2.11,] 
+		 15: BRANCH %v_8[2.14,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: %self->headers def_%v_9 %self[2.0,2.11,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "X-Content-Type-Options" def_%v_10 
+		 2: COPY TYPE_StringLiteral "nosniff" def_%v_11 
+		 3: ATTRASSIGN %v_9->[] %v_10[3.1,] %v_11[3.2,] 
+		 4: 
+		 5: %self->cached_blob? def_%v_12 %self[3.0,2.0,2.11,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %v_12[3.5,] 
+BB 4
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,2.11,] 
+BB 5
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+		 1: 
+		 2: %self->headers def_%v_14 %self[2.0,2.11,] 	 SYMBOL:	 ARGS:
+		 3: (Gitlab) def_%v_16 
+		 4: (inherit Workhorse) def_%v_17 %v_16[5.3,] 
+		 5: %v_17[5.4,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_16->const_missing def_%v_17 %v_16[5.3,] 	 SYMBOL:Workhorse,	 ARGS:Symbol,
+BB 8
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->repository def_%v_18 %self[2.0,] 
+		 1: GETFIELD %self->blob def_%v_19 %self[2.0,2.11,] 
+		 2: %v_17->send_git_blob def_%v_20 %v_17[7.0,5.4,] %v_18[8.0,] %v_19[8.1,] 	 SYMBOL:	 ARGS:%v_18,%v_19,
+		 3: def_%v_15 %v_20[8.2,] 
+		 4: %v_14->store def_%v_21 %v_14[5.2,] %v_15[8.3,] 	 SYMBOL:	 ARGS:Splat,
+		 5: 
+		 6: %self->headers def_%v_22 %self[2.0,2.11,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "Content-Disposition" def_%v_23 
+		 8: COPY TYPE_StringLiteral "inline" def_%v_24 
+		 9: ATTRASSIGN %v_22->[] %v_23[8.7,] %v_24[8.8,] 
+		 10: 
+		 11: %self->headers def_%v_25 %self[8.6,2.0,2.11,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral "Content-Type" def_%v_26 
+		 13: GETFIELD %self->blob def_%v_27 %self[8.6,8.11,2.0,2.11,] 
+		 14: %self->safe_content_type def_%v_28 %self[8.6,8.11,2.0,2.11,] %v_27[8.13,] 	 SYMBOL:	 ARGS:%v_27,
+		 15: ATTRASSIGN %v_25->[] %v_26[8.12,] %v_28[8.14,] 
+		 16: 
+		 17: %self->head def_%v_29 %self[8.6,8.11,8.14,2.0,2.11,] 	 SYMBOL:ok,	 ARGS:Symbol,
+		 18: RETURN %v_29[8.17,] %self[8.6,8.11,8.14,8.17,2.0,2.11,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->render_404 def_%v_30 %self[2.0,2.11,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_30[9.1,] %self[9.1,2.0,2.11,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = destroy instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->project def_%v_3 %self[2.0,] 
+		 7: %v_3->remove_avatar! def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: 
+		 9: GETFIELD %self->project def_%v_5 %self[2.0,] 
+		 10: %v_5->save def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: 
+		 12: GETFIELD %self->project def_%v_7 %self[2.0,] 
+		 13: %v_7->reset_events_cache def_%v_8 %v_7[2.12,] 	 SYMBOL:	 ARGS:
+		 14: 
+		 15: GETFIELD %self->project def_%v_9 %self[2.0,] 
+		 16: %self->edit_project_path def_%v_10 %self[2.0,] %v_9[2.15,] 	 SYMBOL:	 ARGS:%v_9,
+		 17: %self->redirect_to def_%v_11 %self[2.0,2.16,] %v_10[2.16,] 	 SYMBOL:	 ARGS:%v_10,
+		 18: RETURN %v_11[2.17,] %self[2.0,2.16,2.17,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

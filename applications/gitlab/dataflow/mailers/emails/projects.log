@@ -1,0 +1,369 @@
+SET IRMethod, name = project_access_granted_email instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_project_member_id 
+		 6: 
+		 7: (ProjectMember) def_%v_3 
+		 8: %v_3->find def_%v_4 %v_3[2.7,] project_member_id[2.5,] 	 SYMBOL:	 ARGS:project_member_id,
+		 9: ATTRASSIGN %self->project_member %v_4[2.8,] 
+		 10: 
+		 11: GETFIELD %self->project_member def_%v_5 %self[2.0,2.9,] 
+		 12: %v_5->project def_%v_6 %v_5[2.11,] 	 SYMBOL:	 ARGS:
+		 13: ATTRASSIGN %self->project %v_6[2.12,] 
+		 14: 
+		 15: GETFIELD %self->project def_%v_7 %self[2.0,2.13,] 
+		 16: %v_7->namespace def_%v_8 %v_7[2.15,] 	 SYMBOL:	 ARGS:
+		 17: GETFIELD %self->project def_%v_9 %self[2.0,2.13,] 
+		 18: %self->namespace_project_url def_%v_10 %self[2.0,2.9,2.13,] %v_8[2.16,] %v_9[2.17,] 	 SYMBOL:	 ARGS:%v_8,%v_9,
+		 19: ATTRASSIGN %self->target_url %v_10[2.18,] 
+		 20: 
+		 21: GETFIELD %self->project_member def_%v_11 %self[2.0,2.9,2.18,] 
+		 22: %v_11->user def_%v_12 %v_11[2.21,] 	 SYMBOL:	 ARGS:
+		 23: ATTRASSIGN %self->current_user %v_12[2.22,] 
+		 24: 
+		 25: GETFIELD %self->project_member def_%v_13 %self[2.0,2.9,2.18,] 
+		 26: %v_13->user def_%v_14 %v_13[2.25,] 	 SYMBOL:	 ARGS:
+		 27: %v_14->notification_email def_%v_15 %v_14[2.26,] 	 SYMBOL:	 ARGS:
+		 28: COPY TYPE_StringLiteral "Access to project was granted" def_%v_16 
+		 29: %self->subject def_%v_17 %self[2.0,2.9,2.13,2.18,2.19,2.23,] %v_16[2.28,] 	 SYMBOL:	 ARGS:%v_16,
+		 30: HASH-to-subject- def_%v_18 %v_15[2.27,] %v_17[2.29,] 
+		 31: %self->mail def_%v_19 %self[2.0,2.9,2.13,2.18,2.19,2.23,2.29,] %v_18[2.30,] 	 SYMBOL:	 ARGS:%v_18,
+		 32: RETURN %v_19[2.31,] %self[2.0,2.9,2.13,2.18,2.19,2.23,2.29,2.31,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = project_member_invited_email instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_project_member_id 
+		 6: RECEIVEARG def_token 
+		 7: 
+		 8: (ProjectMember) def_%v_3 
+		 9: %v_3->find def_%v_4 %v_3[2.8,] project_member_id[2.5,] 	 SYMBOL:	 ARGS:project_member_id,
+		 10: ATTRASSIGN %self->project_member %v_4[2.9,] 
+		 11: 
+		 12: GETFIELD %self->project_member def_%v_5 %self[2.0,2.10,] 
+		 13: %v_5->project def_%v_6 %v_5[2.12,] 	 SYMBOL:	 ARGS:
+		 14: ATTRASSIGN %self->project %v_6[2.13,] 
+		 15: 
+		 16: ATTRASSIGN %self->token token[2.6,] 
+		 17: 
+		 18: GETFIELD %self->project def_%v_7 %self[2.0,2.14,] 
+		 19: %v_7->namespace def_%v_8 %v_7[2.18,] 	 SYMBOL:	 ARGS:
+		 20: GETFIELD %self->project def_%v_9 %self[2.0,2.14,] 
+		 21: %self->namespace_project_url def_%v_10 %self[2.0,2.10,2.14,2.16,] %v_8[2.19,] %v_9[2.20,] 	 SYMBOL:	 ARGS:%v_8,%v_9,
+		 22: ATTRASSIGN %self->target_url %v_10[2.21,] 
+		 23: 
+		 24: GETFIELD %self->project_member def_%v_11 %self[2.0,2.10,2.21,] 
+		 25: %v_11->user def_%v_12 %v_11[2.24,] 	 SYMBOL:	 ARGS:
+		 26: ATTRASSIGN %self->current_user %v_12[2.25,] 
+		 27: 
+		 28: GETFIELD %self->project_member def_%v_13 %self[2.0,2.10,2.21,] 
+		 29: %v_13->invite_email def_%v_14 %v_13[2.28,] 	 SYMBOL:	 ARGS:
+		 30: COPY TYPE_StringLiteral "Invitation to join project " def_%v_15 
+		 31: 
+		 32: GETFIELD %self->project def_%v_16 %self[2.0,2.14,2.21,] 
+		 33: %v_16->name_with_namespace def_%v_17 %v_16[2.32,] 	 SYMBOL:	 ARGS:
+		 34: BUILDSTRING def_%v_18 %v_15[2.30,] %v_17[2.33,] 
+		 35: HASH-to-subject- def_%v_19 %v_14[2.29,] %v_18[2.34,] 
+		 36: %self->mail def_%v_20 %self[2.0,2.10,2.14,2.16,2.21,2.22,2.26,] %v_19[2.35,] 	 SYMBOL:	 ARGS:%v_19,
+		 37: RETURN %v_20[2.36,] %self[2.0,2.10,2.14,2.16,2.21,2.22,2.26,2.36,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = project_invite_accepted_email instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_project_member_id 
+		 6: 
+		 7: (ProjectMember) def_%v_3 
+		 8: %v_3->find def_%v_4 %v_3[2.7,] project_member_id[2.5,] 	 SYMBOL:	 ARGS:project_member_id,
+		 9: ATTRASSIGN %self->project_member %v_4[2.8,] 
+		 10: 
+		 11: GETFIELD %self->project_member def_%v_5 %self[2.0,2.9,] 
+		 12: %v_5->created_by def_%v_6 %v_5[2.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_6->nil? def_%v_7 %v_6[2.12,] 	 SYMBOL:	 ARGS:
+		 14: BRANCH %v_7[2.13,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,2.9,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: GETFIELD %self->project_member def_%v_9 %self[2.0,2.9,] 
+		 3: %v_9->project def_%v_10 %v_9[4.2,] 	 SYMBOL:	 ARGS:
+		 4: ATTRASSIGN %self->project %v_10[4.3,] 
+		 5: 
+		 6: GETFIELD %self->project def_%v_11 %self[4.4,2.0,] 
+		 7: %v_11->namespace def_%v_12 %v_11[4.6,] 	 SYMBOL:	 ARGS:
+		 8: GETFIELD %self->project def_%v_13 %self[4.4,2.0,] 
+		 9: %self->namespace_project_url def_%v_14 %self[4.4,2.0,2.9,] %v_12[4.7,] %v_13[4.8,] 	 SYMBOL:	 ARGS:%v_12,%v_13,
+		 10: ATTRASSIGN %self->target_url %v_14[4.9,] 
+		 11: 
+		 12: GETFIELD %self->project_member def_%v_15 %self[4.9,2.0,2.9,] 
+		 13: %v_15->created_by def_%v_16 %v_15[4.12,] 	 SYMBOL:	 ARGS:
+		 14: ATTRASSIGN %self->current_user %v_16[4.13,] 
+		 15: 
+		 16: GETFIELD %self->project_member def_%v_17 %self[4.9,2.0,2.9,] 
+		 17: %v_17->created_by def_%v_18 %v_17[4.16,] 	 SYMBOL:	 ARGS:
+		 18: %v_18->notification_email def_%v_19 %v_18[4.17,] 	 SYMBOL:	 ARGS:
+		 19: COPY TYPE_StringLiteral "Invitation accepted" def_%v_20 
+		 20: %self->subject def_%v_21 %self[4.4,4.9,4.10,4.14,2.0,2.9,] %v_20[4.19,] 	 SYMBOL:	 ARGS:%v_20,
+		 21: HASH-to-subject- def_%v_22 %v_19[4.18,] %v_21[4.20,] 
+		 22: %self->mail def_%v_23 %self[4.4,4.9,4.10,4.14,4.20,2.0,2.9,] %v_22[4.21,] 	 SYMBOL:	 ARGS:%v_22,
+		 23: RETURN %v_23[4.22,] %self[4.4,4.9,4.10,4.14,4.20,4.22,2.0,2.9,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = project_invite_declined_email instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_project_id 
+		 6: RECEIVEARG def_invite_email 
+		 7: RECEIVEARG def_access_level 
+		 8: RECEIVEARG def_created_by_id 
+		 9: 
+		 10: created_by_id->nil? def_%v_3 created_by_id[2.8,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_3[2.10,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: (Project) def_%v_5 
+		 3: %v_5->find def_%v_6 %v_5[4.2,] project_id[2.5,] 	 SYMBOL:	 ARGS:project_id,
+		 4: ATTRASSIGN %self->project %v_6[4.3,] 
+		 5: 
+		 6: (User) def_%v_7 
+		 7: %v_7->find def_%v_8 %v_7[4.6,] created_by_id[2.8,] 	 SYMBOL:	 ARGS:created_by_id,
+		 8: ATTRASSIGN %self->created_by %v_8[4.7,] 
+		 9: ATTRASSIGN %self->current_user %v_8[4.7,] 
+		 10: 
+		 11: ATTRASSIGN %self->access_level access_level[2.7,] 
+		 12: 
+		 13: ATTRASSIGN %self->invite_email invite_email[2.6,] 
+		 14: 
+		 15: GETFIELD %self->project def_%v_9 %self[4.4,2.0,] 
+		 16: %v_9->namespace def_%v_10 %v_9[4.15,] 	 SYMBOL:	 ARGS:
+		 17: GETFIELD %self->project def_%v_11 %self[4.4,2.0,] 
+		 18: %self->namespace_project_url def_%v_12 %self[4.4,4.8,4.9,4.11,4.13,2.0,] %v_10[4.16,] %v_11[4.17,] 	 SYMBOL:	 ARGS:%v_10,%v_11,
+		 19: ATTRASSIGN %self->target_url %v_12[4.18,] 
+		 20: 
+		 21: GETFIELD %self->created_by def_%v_13 %self[4.8,4.18,2.0,] 
+		 22: %v_13->notification_email def_%v_14 %v_13[4.21,] 	 SYMBOL:	 ARGS:
+		 23: COPY TYPE_StringLiteral "Invitation declined" def_%v_15 
+		 24: %self->subject def_%v_16 %self[4.4,4.8,4.9,4.11,4.13,4.18,4.19,2.0,] %v_15[4.23,] 	 SYMBOL:	 ARGS:%v_15,
+		 25: HASH-to-subject- def_%v_17 %v_14[4.22,] %v_16[4.24,] 
+		 26: %self->mail def_%v_18 %self[4.4,4.8,4.9,4.11,4.13,4.18,4.19,4.24,2.0,] %v_17[4.25,] 	 SYMBOL:	 ARGS:%v_17,
+		 27: RETURN %v_18[4.26,] %self[4.4,4.8,4.9,4.11,4.13,4.18,4.19,4.24,4.26,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = project_was_moved_email instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_project_id 
+		 6: RECEIVEARG def_user_id 
+		 7: RECEIVEARG def_old_path_with_namespace 
+		 8: 
+		 9: (User) def_%v_3 
+		 10: %v_3->find def_%v_4 %v_3[2.9,] user_id[2.6,] 	 SYMBOL:	 ARGS:user_id,
+		 11: ATTRASSIGN %self->user %v_4[2.10,] 
+		 12: ATTRASSIGN %self->current_user %v_4[2.10,] 
+		 13: 
+		 14: (Project) def_%v_5 
+		 15: %v_5->find def_%v_6 %v_5[2.14,] project_id[2.5,] 	 SYMBOL:	 ARGS:project_id,
+		 16: ATTRASSIGN %self->project %v_6[2.15,] 
+		 17: 
+		 18: GETFIELD %self->project def_%v_7 %self[2.0,2.16,] 
+		 19: %v_7->namespace def_%v_8 %v_7[2.18,] 	 SYMBOL:	 ARGS:
+		 20: GETFIELD %self->project def_%v_9 %self[2.0,2.16,] 
+		 21: %self->namespace_project_url def_%v_10 %self[2.0,2.11,2.12,2.16,] %v_8[2.19,] %v_9[2.20,] 	 SYMBOL:	 ARGS:%v_8,%v_9,
+		 22: ATTRASSIGN %self->target_url %v_10[2.21,] 
+		 23: 
+		 24: ATTRASSIGN %self->old_path_with_namespace old_path_with_namespace[2.7,] 
+		 25: 
+		 26: GETFIELD %self->user def_%v_11 %self[2.0,2.11,2.21,] 
+		 27: %v_11->notification_email def_%v_12 %v_11[2.26,] 	 SYMBOL:	 ARGS:
+		 28: COPY TYPE_StringLiteral "Project was moved" def_%v_13 
+		 29: %self->subject def_%v_14 %self[2.0,2.11,2.12,2.16,2.21,2.22,2.24,] %v_13[2.28,] 	 SYMBOL:	 ARGS:%v_13,
+		 30: HASH-to-subject- def_%v_15 %v_12[2.27,] %v_14[2.29,] 
+		 31: %self->mail def_%v_16 %self[2.0,2.11,2.12,2.16,2.21,2.22,2.24,2.29,] %v_15[2.30,] 	 SYMBOL:	 ARGS:%v_15,
+		 32: RETURN %v_16[2.31,] %self[2.0,2.11,2.12,2.16,2.21,2.22,2.24,2.29,2.31,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = repository_push_email instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_project_id 
+		 6: RECEIVECONSTARG def_opts 
+		 7: opts[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Gitlab) def_%v_4 
+		 2: (inherit Email) def_%v_5 %v_4[4.1,] 
+		 3: %v_5[4.2,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[4.1,] 	 SYMBOL:Email,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: (inherit Message) def_%v_6 %v_5[5.0,4.2,] 
+		 1: %v_6[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_5->const_missing def_%v_6 %v_5[5.0,4.2,] 	 SYMBOL:Message,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: (inherit RepositoryPush) def_%v_7 %v_6[7.0,6.0,] 
+		 1: %v_7[8.0,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[7.0,6.0,] 	 SYMBOL:RepositoryPush,	 ARGS:Symbol,
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %v_7->new def_%v_8 %v_7[9.0,8.0,] %self[2.0,] project_id[2.5,] opts[3.1,2.6,] 	 SYMBOL:	 ARGS:%self,project_id,opts,
+		 1: ATTRASSIGN %self->message %v_8[10.0,] 
+		 2: 
+		 3: GETFIELD %self->message def_%v_9 %self[10.1,2.0,] 
+		 4: %v_9->target_url def_%v_10 %v_9[10.3,] 	 SYMBOL:	 ARGS:
+		 5: ATTRASSIGN %self->target_url %v_10[10.4,] 
+		 6: 
+		 7: (Project) def_%v_11 
+		 8: %v_11->find def_%v_12 %v_11[10.7,] project_id[2.5,] 	 SYMBOL:	 ARGS:project_id,
+		 9: ATTRASSIGN %self->project %v_12[10.8,] 
+		 10: 
+		 11: %self->add_project_headers def_%v_13 %self[10.1,10.5,10.9,2.0,] 	 SYMBOL:	 ARGS:
+		 12: 
+		 13: %self->headers def_%v_14 %self[10.1,10.5,10.9,10.11,2.0,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_StringLiteral "X-GitLab-Author" def_%v_15 
+		 15: GETFIELD %self->message def_%v_16 %self[10.1,10.11,10.13,2.0,] 
+		 16: %v_16->author_username def_%v_17 %v_16[10.15,] 	 SYMBOL:	 ARGS:
+		 17: ATTRASSIGN %v_14->[] %v_15[10.14,] %v_17[10.16,] 
+		 18: 
+		 19: GETFIELD %self->message def_%v_18 %self[10.1,10.11,10.13,2.0,] 
+		 20: %v_18->author_id def_%v_19 %v_18[10.19,] 	 SYMBOL:	 ARGS:
+		 21: GETFIELD %self->message def_%v_20 %self[10.1,10.11,10.13,2.0,] 
+		 22: %v_20->send_from_committer_email? def_%v_21 %v_20[10.21,] 	 SYMBOL:	 ARGS:
+		 23: %self->sender def_%v_22 %self[10.1,10.5,10.9,10.11,10.13,2.0,] %v_19[10.20,] %v_21[10.22,] 	 SYMBOL:	 ARGS:%v_19,%v_21,
+		 24: GETFIELD %self->message def_%v_23 %self[10.1,10.11,10.13,10.23,2.0,] 
+		 25: %v_23->reply_to def_%v_24 %v_23[10.24,] 	 SYMBOL:	 ARGS:
+		 26: GETFIELD %self->message def_%v_25 %self[10.1,10.11,10.13,10.23,2.0,] 
+		 27: %v_25->subject def_%v_26 %v_25[10.26,] 	 SYMBOL:	 ARGS:
+		 28: HASH-from-reply_to-subject- def_%v_27 %v_22[10.23,] %v_24[10.25,] %v_26[10.27,] 
+		 29: %self->mail def_%v_28 %self[10.1,10.5,10.9,10.11,10.13,10.23,2.0,] %v_27[10.28,] 	 SYMBOL:	 ARGS:%v_27,
+		 30: RETURN %v_28[10.29,] %self[10.1,10.5,10.9,10.11,10.13,10.23,10.29,2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+

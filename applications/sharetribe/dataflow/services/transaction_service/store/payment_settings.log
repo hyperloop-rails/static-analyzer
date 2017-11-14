@@ -1,0 +1,747 @@
+SET IRMethod, name = create instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_opts 
+		 6: 
+		 7: (HashUtils) def_%v_3 
+		 8: (PaymentSettingsUpdate) def_%v_4 
+		 9: %v_4->call def_%v_5 %v_4[2.8,] opts[2.5,] 	 SYMBOL:	 ARGS:opts,
+		 10: %v_3->compact def_%v_6 %v_3[2.7,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: COPY TYPE_PASS def_settings %v_6[2.10,] 
+		 12: 
+		 13: (PaymentSettingsModel) def_%v_7 
+		 14: %v_7->create! def_%v_8 %v_7[2.13,] %v_6[2.10,] 	 SYMBOL:	 ARGS:settings,
+		 15: COPY TYPE_PASS def_model %v_8[2.14,] 
+		 16: 
+		 17: %self->from_model def_%v_9 %self[2.0,] %v_8[2.14,] 	 SYMBOL:	 ARGS:model,
+		 18: RETURN %v_9[2.17,] %self[2.0,2.17,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_opts 
+		 6: 
+		 7: (HashUtils) def_%v_3 
+		 8: (PaymentSettingsUpdate) def_%v_4 
+		 9: %v_4->call def_%v_5 %v_4[2.8,] opts[2.5,] 	 SYMBOL:	 ARGS:opts,
+		 10: %v_3->compact def_%v_6 %v_3[2.7,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: %v_6->except def_%v_7 %v_6[2.10,] 	 SYMBOL:active,payment_process,payment_gateway,	 ARGS:Symbol,Symbol,Symbol,
+		 12: COPY TYPE_PASS def_settings %v_7[2.11,] 
+		 13: 
+		 14: opts->[] def_%v_8 opts[2.5,] 	 SYMBOL:community_id,	 ARGS:Symbol,
+		 15: opts->[] def_%v_9 opts[2.5,2.14,] 	 SYMBOL:payment_gateway,	 ARGS:Symbol,
+		 16: opts->[] def_%v_10 opts[2.5,2.14,2.15,] 	 SYMBOL:payment_process,	 ARGS:Symbol,
+		 17: %self->find def_%v_11 %self[2.0,] %v_8[2.14,] %v_9[2.15,] %v_10[2.16,] 	 SYMBOL:	 ARGS:%v_8,%v_9,%v_10,
+		 18: COPY TYPE_PASS def_model %v_11[2.17,] 
+		 19: 
+		 20: %v_11->nil? def_%v_12 %v_11[2.17,] 	 SYMBOL:	 ARGS:
+		 21: BRANCH %v_12[2.20,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (ArgumentError) def_%v_13 
+		 1: COPY TYPE_StringLiteral "Cannot find settings to update: cid: " def_%v_14 
+		 2: opts->[] def_%v_15 opts[2.5,] 	 SYMBOL:community_id,	 ARGS:Symbol,
+		 3: COPY TYPE_StringLiteral ", gateway: " def_%v_16 
+		 4: opts->[] def_%v_17 opts[3.2,2.5,] 	 SYMBOL:payment_gateway,	 ARGS:Symbol,
+		 5: COPY TYPE_StringLiteral ", process: " def_%v_18 
+		 6: opts->[] def_%v_19 opts[3.2,3.4,2.5,] 	 SYMBOL:payment_process,	 ARGS:Symbol,
+		 7: BUILDSTRING def_%v_20 %v_14[3.1,] %v_15[3.2,] %v_16[3.3,] %v_17[3.4,] %v_18[3.5,] %v_19[3.6,] 
+		 8: %v_13->new def_%v_21 %v_13[3.0,] %v_20[3.7,] 	 SYMBOL:	 ARGS:%v_20,
+		 9: %self->raise def_%v_22 %self[2.0,] %v_21[3.8,] 	 SYMBOL:	 ARGS:%v_21,
+		 10: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: model->update_attributes! def_%v_23 model[2.18,] settings[2.12,] 	 SYMBOL:	 ARGS:settings,
+		 2: 
+		 3: %self->from_model def_%v_24 %self[2.0,] model[5.1,2.18,] 	 SYMBOL:	 ARGS:model,
+		 4: RETURN %v_24[5.3,] %self[5.3,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_community_id 
+		 6: community_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_payment_gateway 
+		 1: payment_gateway[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: def_payment_process 
+		 1: payment_process[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->find def_%v_3 %self[2.0,] community_id[2.5,] payment_gateway[4.0,] payment_process[6.0,] 	 SYMBOL:	 ARGS:community_id,payment_gateway,payment_process,
+		 2: %self->Maybe def_%v_4 %self[8.1,2.0,] %v_3[8.1,] 	 SYMBOL:	 ARGS:%v_3,
+		 3: %v_4->map def_%v_5 %v_4[8.2,] %self[8.1,8.2,2.0,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: %self[8.1,8.2,2.0,] m[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_m 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->from_model def_%cl_1_3 %self[2.0,] m[2.2,] 	 SYMBOL:	 ARGS:m,
+		 2: RETURN %cl_1_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: %v_5->or_else def_%v_6 %v_5[8.3,] 	 SYMBOL:	 ARGS:Nil,
+		 5: RETURN %v_6[8.4,] %self[8.1,8.2,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_active instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_community_id 
+		 6: community_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PaymentSettingsModel) def_%v_3 
+		 2: HASH-community_id-active- def_%v_4 community_id[2.5,] 
+		 3: %v_3->where def_%v_5 %v_3[4.1,] %v_4[4.2,] 	 SYMBOL:	 ARGS:%v_4,
+		 4: %v_5->first def_%v_6 %v_5[4.3,] 	 SYMBOL:	 ARGS:
+		 5: %self->Maybe def_%v_7 %self[2.0,] %v_6[4.4,] 	 SYMBOL:	 ARGS:%v_6,
+		 6: %v_7->map def_%v_8 %v_7[4.5,] %self[4.5,2.0,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: %self[4.5,2.0,] m[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_m 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->from_model def_%cl_1_3 %self[2.0,] m[2.2,] 	 SYMBOL:	 ARGS:m,
+		 2: RETURN %cl_1_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 7: %v_8->or_else def_%v_9 %v_8[4.6,] 	 SYMBOL:	 ARGS:Nil,
+		 8: RETURN %v_9[4.7,] %self[4.5,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = activate instanceMethod = true
+BB 1
+	outgoing: 17 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_community_id 
+		 6: community_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_payment_gateway 
+		 1: payment_gateway[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: def_payment_process 
+		 1: payment_process[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->find def_%v_3 %self[2.0,] community_id[2.5,] payment_gateway[4.0,] payment_process[6.0,] 	 SYMBOL:	 ARGS:community_id,payment_gateway,payment_process,
+		 2: COPY TYPE_PASS def_model %v_3[8.1,] 
+		 3: 
+		 4: %v_3->nil? def_%v_4 %v_3[8.1,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %v_4[8.4,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: (ArgumentError) def_%v_5 
+		 1: COPY TYPE_StringLiteral "Cannot find settings to activate: cid: " def_%v_6 
+		 2: COPY TYPE_StringLiteral ", gateway: " def_%v_7 
+		 3: COPY TYPE_StringLiteral ", process: " def_%v_8 
+		 4: BUILDSTRING def_%v_9 %v_6[9.1,] community_id[2.5,] %v_7[9.2,] payment_gateway[4.0,] %v_8[9.3,] payment_process[6.0,] 
+		 5: %v_5->new def_%v_10 %v_5[9.0,] %v_9[9.4,] 	 SYMBOL:	 ARGS:%v_9,
+		 6: %self->raise def_%v_11 %self[2.0,] %v_10[9.5,] 	 SYMBOL:	 ARGS:%v_10,
+		 7: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: model->active def_%v_12 model[8.2,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_12[11.1,] 
+BB 12
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+		 1: 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ActiveRecord) def_%v_14 
+		 2: (inherit Base) def_%v_15 %v_14[13.1,] 
+		 3: %v_15[13.2,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: %v_14->const_missing def_%v_15 %v_14[13.1,] 	 SYMBOL:Base,	 ARGS:Symbol,
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: %v_15->transaction def_%v_16 %v_15[14.0,13.2,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_15,
+CLOSURE BEGIN: community_id[2.5,] %self[2.0,] m[] model[8.2,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PaymentSettingsModel) def_%cl_1_3 
+		 2: HASH-community_id-active- def_%cl_1_4 community_id[] 
+		 3: %cl_1_3->where def_%cl_1_5 %cl_1_3[3.1,] %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:%cl_1_4,
+		 4: %cl_1_5->each def_%cl_1_6 %cl_1_5[3.3,] %self[2.0,] 	 SYMBOL:	 ARGS:%cl_1_5,
+CLOSURE BEGIN: m[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_m 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-active- def_%cl_2_3 
+		 2: m->update_attributes! def_%cl_2_4 m[2.2,] %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:%cl_2_3,
+		 3: RETURN %cl_2_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_5 
+		 1: def_%cl_2_6 %cl_2_5[4.0,] 
+		 2: RETURN %cl_2_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 5: 
+		 6: HASH-active- def_%cl_1_7 
+		 7: model->update_attributes! def_%cl_1_8 model[] %cl_1_7[3.6,] 	 SYMBOL:	 ARGS:%cl_1_7,
+		 8: RETURN %cl_1_8[3.7,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_9 
+		 1: def_%cl_1_10 %cl_1_9[4.0,] 
+		 2: RETURN %cl_1_10[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 1: COPY TYPE_PASS def_%v_13 %v_16[15.0,] 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->from_model def_%v_17 %self[2.0,] model[8.2,] 	 SYMBOL:	 ARGS:model,
+		 2: RETURN %v_17[16.1,] %self[16.1,2.0,] 
+BB 17
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = disable instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_community_id 
+		 6: community_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_payment_gateway 
+		 1: payment_gateway[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: def_payment_process 
+		 1: payment_process[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->find def_%v_3 %self[2.0,] community_id[2.5,] payment_gateway[4.0,] payment_process[6.0,] 	 SYMBOL:	 ARGS:community_id,payment_gateway,payment_process,
+		 2: COPY TYPE_PASS def_model %v_3[8.1,] 
+		 3: 
+		 4: %v_3->nil? def_%v_4 %v_3[8.1,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %v_4[8.4,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: (ArgumentError) def_%v_5 
+		 1: COPY TYPE_StringLiteral "Cannot find settings to disable: cid: " def_%v_6 
+		 2: COPY TYPE_StringLiteral ", gateway: " def_%v_7 
+		 3: COPY TYPE_StringLiteral ", process: " def_%v_8 
+		 4: BUILDSTRING def_%v_9 %v_6[9.1,] community_id[2.5,] %v_7[9.2,] payment_gateway[4.0,] %v_8[9.3,] payment_process[6.0,] 
+		 5: %v_5->new def_%v_10 %v_5[9.0,] %v_9[9.4,] 	 SYMBOL:	 ARGS:%v_9,
+		 6: %self->raise def_%v_11 %self[2.0,] %v_10[9.5,] 	 SYMBOL:	 ARGS:%v_10,
+		 7: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-active- def_%v_12 
+		 2: model->update_attributes! def_%v_13 model[8.2,] %v_12[11.1,] 	 SYMBOL:	 ARGS:%v_12,
+		 3: 
+		 4: %self->from_model def_%v_14 %self[2.0,] model[11.2,8.2,] 	 SYMBOL:	 ARGS:model,
+		 5: RETURN %v_14[11.4,] %self[11.4,2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = from_model instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_model 
+		 6: 
+		 7: %self->Maybe def_%v_3 %self[2.0,] model[2.5,] 	 SYMBOL:	 ARGS:model,
+		 8: %v_3->map def_%v_4 %v_3[2.7,] %self[2.0,2.7,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: m[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_m 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (EntityUtils) def_%cl_1_3 
+		 2: %cl_1_3->model_to_hash def_%cl_1_4 %cl_1_3[3.1,] m[2.2,] 	 SYMBOL:	 ARGS:m,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: %v_4->map def_%v_5 %v_4[2.8,] %self[2.0,2.7,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: %self[2.0,2.7,] hash[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_hash 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PaymentSettings) def_%cl_2_3 
+		 2: %self->commission_type def_%cl_2_4 %self[2.0,] hash[2.2,] 	 SYMBOL:	 ARGS:hash,
+		 3: HASH-commission_type- def_%cl_2_5 %cl_2_4[3.2,] 
+		 4: hash->merge def_%cl_2_6 hash[2.2,] %cl_2_5[3.3,] 	 SYMBOL:	 ARGS:%cl_2_5,
+		 5: %cl_2_3->call def_%cl_2_7 %cl_2_3[3.1,] %cl_2_6[3.4,] 	 SYMBOL:	 ARGS:%cl_2_6,
+		 6: RETURN %cl_2_7[3.5,] %self[3.2,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_8 
+		 1: def_%cl_2_9 %cl_2_8[4.0,] 
+		 2: RETURN %cl_2_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: %v_5->or_else def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:Nil,
+		 11: RETURN %v_6[2.10,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = commission_type instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_settings 
+		 6: 
+		 7: %self->Maybe def_%v_3 %self[2.0,] settings[2.5,] 	 SYMBOL:	 ARGS:settings,
+		 8: COPY TYPE_PASS def_s %v_3[2.7,] 
+		 9: 
+		 10: %v_3->[] def_%v_4 %v_3[2.7,] 	 SYMBOL:commission_from_seller,	 ARGS:Symbol,
+		 11: %v_4->> def_%v_5 %v_4[2.10,] 	 SYMBOL:	 ARGS:Fixnum,
+		 12: %v_5->or_else def_%v_6 %v_5[2.11,] 	 SYMBOL:	 ARGS:Boolean,
+		 13: s->[] def_%v_7 s[2.8,] 	 SYMBOL:minimum_transaction_fee_cents,	 ARGS:Symbol,
+		 14: %v_7->> def_%v_8 %v_7[2.13,] 	 SYMBOL:	 ARGS:Fixnum,
+		 15: %v_8->or_else def_%v_9 %v_8[2.14,] 	 SYMBOL:	 ARGS:Boolean,
+		 16: COPY TYPE_Array def_%v_10 %v_6[2.12,] %v_9[2.15,] 
+		 17: COPY TYPE_Array def_%v_13 
+		 18: %v_10[2.16,] %v_13[2.17,] 
+BB 3
+	outgoing: 4 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_15 
+		 1: %v_10[2.16,] %v_15[3.0,] 
+BB 4
+	outgoing: 5 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_17 
+		 1: %v_10[2.16,] %v_17[4.0,] 
+BB 5
+	outgoing: 6 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_19 
+		 1: %v_10[2.16,] %v_19[5.0,] 
+BB 6
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+		 1: 
+BB 7
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: RETURN %self[2.0,] 
+BB 8
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: RETURN %self[2.0,] 
+BB 9
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: RETURN %self[2.0,] 
+BB 10
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: RETURN %self[2.0,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN %v_11[6.0,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_community_id 
+		 6: RECEIVEARG def_payment_gateway 
+		 7: RECEIVEARG def_payment_process 
+		 8: 
+		 9: (PaymentSettingsModel) def_%v_3 
+		 10: HASH-community_id-payment_process-payment_gateway- def_%v_4 community_id[2.5,] payment_process[2.7,] payment_gateway[2.6,] 
+		 11: %v_3->where def_%v_5 %v_3[2.9,] %v_4[2.10,] 	 SYMBOL:	 ARGS:%v_4,
+		 12: %v_5->first def_%v_6 %v_5[2.11,] 	 SYMBOL:	 ARGS:
+		 13: RETURN %v_6[2.12,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

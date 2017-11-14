@@ -1,0 +1,289 @@
+SET IRMethod, name = execute instanceMethod = true
+BB 1
+	outgoing: 18 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_args 
+		 6: 
+		 7: args->[] def_%v_3 args[2.5,] 	 SYMBOL:post_id,	 ARGS:Symbol,
+		 8: COPY TYPE_PASS def_post_id %v_3[2.7,] 
+		 9: 
+		 10: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (Post) def_%v_4 
+		 1: %v_4->with_deleted def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: HASH-id- def_%v_6 post_id[2.8,] 
+		 3: %v_5->find_by def_%v_7 %v_5[3.1,] %v_6[3.2,] 	 SYMBOL:	 ARGS:%v_6,
+		 4: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_post %v_7[4.0,3.3,] 
+		 1: 
+		 2: BRANCH %v_7[4.0,3.3,] 
+BB 6
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: (Discourse) def_%v_9 
+		 1: (inherit InvalidParameters) def_%v_10 %v_9[7.0,] 
+		 2: %v_10[7.1,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_9->const_missing def_%v_10 %v_9[7.0,] 	 SYMBOL:InvalidParameters,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_10->new def_%v_11 %v_10[8.0,7.1,] 	 SYMBOL:post_id,	 ARGS:Symbol,
+		 1: %self->raise def_%v_12 %self[2.0,] %v_11[9.0,] 	 SYMBOL:	 ARGS:%v_11,
+		 2: COPY TYPE_PASS def_%v_8 %v_12[9.1,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: post->trashed? def_%v_13 post[5.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_13[10.1,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: post->user_deleted? def_%v_14 post[5.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_13 %v_14[11.0,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_13[11.1,10.1,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: post->topic def_%v_15 post[5.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_15->! def_%v_16 %v_15[13.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_13 %v_16[13.1,] 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_13[13.2,11.1,10.1,] 
+BB 15
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+		 1: 
+		 2: (User) def_%v_18 
+		 3: %v_18->activated def_%v_19 %v_18[16.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_19->not_blocked def_%v_20 %v_19[16.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_20->not_suspended def_%v_21 %v_20[16.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_21->real def_%v_22 %v_21[16.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_22->joins def_%v_23 %v_22[16.6,] 	 SYMBOL:user_option,	 ARGS:Symbol,
+		 8: HASH-mailing_list_mode- def_%v_24 
+		 9: HASH-user_options- def_%v_25 %v_24[16.8,] 
+		 10: %v_23->where def_%v_26 %v_23[16.7,] %v_25[16.9,] 	 SYMBOL:	 ARGS:%v_25,
+		 11: COPY TYPE_StringLiteral "NOT EXISTS(
+                      SELECT 1
+                      FROM topic_users tu
+                      WHERE
+                        tu.topic_id = ? AND
+                        tu.user_id = users.id AND
+                        tu.notification_level = ?
+                  )" def_%v_27 
+		 12: post->topic_id def_%v_28 post[5.0,] 	 SYMBOL:	 ARGS:
+		 13: (TopicUser) def_%v_29 
+		 14: %v_29->notification_levels def_%v_30 %v_29[16.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_30->[] def_%v_31 %v_30[16.14,] 	 SYMBOL:muted,	 ARGS:Symbol,
+		 16: %v_26->where def_%v_32 %v_26[16.10,] %v_27[16.11,] %v_28[16.12,] %v_31[16.15,] 	 SYMBOL:	 ARGS:%v_27,%v_28,%v_31,
+		 17: COPY TYPE_StringLiteral "NOT EXISTS(
+                     SELECT 1
+                     FROM category_users cu
+                     WHERE
+                       cu.category_id = ? AND
+                       cu.user_id = users.id AND
+                       cu.notification_level = ?
+                  )" def_%v_33 
+		 18: post->topic def_%v_34 post[16.12,5.0,] 	 SYMBOL:	 ARGS:
+		 19: %v_34->category_id def_%v_35 %v_34[16.18,] 	 SYMBOL:	 ARGS:
+		 20: (CategoryUser) def_%v_36 
+		 21: %v_36->notification_levels def_%v_37 %v_36[16.20,] 	 SYMBOL:	 ARGS:
+		 22: %v_37->[] def_%v_38 %v_37[16.21,] 	 SYMBOL:muted,	 ARGS:Symbol,
+		 23: %v_32->where def_%v_39 %v_32[16.16,] %v_33[16.17,] %v_35[16.19,] %v_38[16.22,] 	 SYMBOL:	 ARGS:%v_33,%v_35,%v_38,
+		 24: COPY TYPE_PASS def_users %v_39[16.23,] 
+		 25: 
+		 26: %v_39->each def_%v_40 %v_39[16.23,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_39,
+CLOSURE BEGIN: user[] post[16.12,16.18,5.0,] message[] %self[2.0,] args[2.5,] e[] 
+BB 1
+	outgoing: 23 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_user 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 19 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Guardian) def_%cl_1_3 
+		 2: %cl_1_3->new def_%cl_1_4 %cl_1_3[3.1,] user[2.2,] 	 SYMBOL:	 ARGS:user,
+		 3: %cl_1_4->can_see? def_%cl_1_5 %cl_1_4[3.2,] post[] 	 SYMBOL:	 ARGS:post,
+		 4: BRANCH %cl_1_5[3.3,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%cl_1_6 
+BB 6
+	outgoing: 7 10 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (UserNotifications) def_%cl_1_9 
+		 3: %cl_1_9->mailing_list_notify def_%cl_1_10 %cl_1_9[6.2,] user[2.2,] post[] 	 SYMBOL:	 ARGS:user,post,
+		 4: COPY TYPE_PASS def_message %cl_1_10[6.3,] 
+		 5: 
+		 6: BRANCH %cl_1_10[6.3,] 
+BB 7
+	outgoing: 8 9 13 
+	datadep: 
+	instructions:
+		 0: (Email) def_%cl_1_11 
+		 1: (inherit Sender) def_%cl_1_12 %cl_1_11[7.0,] 
+		 2: %cl_1_12[7.1,] 
+BB 8
+	outgoing: 9 13 
+	datadep: 
+	instructions:
+		 0: %cl_1_11->const_missing def_%cl_1_12 %cl_1_11[7.0,] 	 SYMBOL:Sender,	 ARGS:Symbol,
+BB 9
+	outgoing: 11 13 
+	datadep: 
+	instructions:
+		 0: %cl_1_12->new def_%cl_1_13 %cl_1_12[8.0,7.1,] message[6.4,] user[2.2,] 	 SYMBOL:mailing_list,	 ARGS:message,Symbol,user,
+		 1: %cl_1_13->send def_%cl_1_14 %cl_1_13[9.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_14 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_1_8 %cl_1_14[10.0,9.1,] 
+		 1: %cl_1_6[4.1,] 
+BB 12
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+BB 13
+	outgoing: 14 15 17 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_15 
+		 1: def_%cl_1_16 %cl_1_15[13.0,] 
+		 2: BRANCH %cl_1_16[13.1,] 
+BB 14
+	outgoing: 17 23 
+	datadep: 
+	instructions:
+		 0: %cl_1_15[13.0,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%cl_1_17 
+		 1: COPY TYPE_PASS def_e %cl_1_17[15.0,] 
+		 2: 
+		 3: (Discourse) def_%cl_1_18 
+		 4: COPY TYPE_StringLiteral "Sending post to mailing list subscribers" def_%cl_1_19 
+		 5: user->id def_%cl_1_20 user[2.2,] 	 SYMBOL:	 ARGS:
+		 6: user->email def_%cl_1_21 user[15.5,2.2,] 	 SYMBOL:	 ARGS:
+		 7: HASH-user_id-user_email- def_%cl_1_22 %cl_1_20[15.5,] %cl_1_21[15.6,] 
+		 8: %self->error_context def_%cl_1_23 %self[2.0,] args[] %cl_1_19[15.4,] %cl_1_22[15.7,] 	 SYMBOL:	 ARGS:args,%cl_1_19,%cl_1_22,
+		 9: %cl_1_18->handle_job_exception def_%cl_1_24 %cl_1_18[15.3,] e[15.1,] %cl_1_23[15.8,] 	 SYMBOL:	 ARGS:e,%cl_1_23,
+		 10: COPY TYPE_PASS def_%cl_1_8 %cl_1_24[15.9,] 
+		 11: %cl_1_6[4.1,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+BB 17
+	outgoing: 21 23 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_25 
+		 1: def_%cl_1_26 %cl_1_25[17.0,] %cl_1_6[4.1,] 
+		 2: %cl_1_25[17.0,] 
+BB 18
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_8[11.0,15.10,] %self[2.0,] 
+BB 19
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 21
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_27 
+		 1: def_%cl_1_28 %cl_1_27[21.0,] 
+		 2: RETURN %cl_1_28[21.1,] %self[2.0,] 
+BB 23
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: e[15.1,] message[6.4,] 
+		 27: RETURN %v_40[16.26,] %self[2.0,] 
+BB 18
+	outgoing: 
+	datadep: 
+	instructions:
+

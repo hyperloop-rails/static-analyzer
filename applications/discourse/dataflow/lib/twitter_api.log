@@ -1,0 +1,775 @@
+SET IRMethod, name = prettify_tweet instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_tweet 
+		 6: 
+		 7: COPY TYPE_StringLiteral "text" def_%v_3 
+		 8: tweet->[] def_%v_4 tweet[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: %v_4->dup def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_PASS def_text %v_5[2.9,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "entities" def_%v_6 
+		 13: tweet->[] def_%v_7 tweet[2.5,2.8,] %v_6[2.12,] 	 SYMBOL:	 ARGS:%v_6,
+		 14: COPY TYPE_PASS def_entities %v_7[2.13,] 
+		 15: BRANCH %v_7[2.13,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "urls" def_%v_8 
+		 1: entities->[] def_%v_9 entities[2.14,] %v_8[3.0,] 	 SYMBOL:	 ARGS:%v_8,
+		 2: COPY TYPE_PASS def_urls %v_9[3.1,] 
+		 3: COPY TYPE_PASS def_%v_7 %v_9[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_7[3.3,2.13,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: urls->each def_%v_10 urls[3.2,] %self[2.0,] 	 SYMBOL:	 ARGS:urls,
+CLOSURE BEGIN: url[] text[2.10,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_url 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "url" def_%cl_1_3 
+		 2: url->[] def_%cl_1_4 url[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: COPY TYPE_StringLiteral "<a target='_blank' href='" def_%cl_1_5 
+		 4: COPY TYPE_StringLiteral "expanded_url" def_%cl_1_6 
+		 5: url->[] def_%cl_1_7 url[3.2,2.2,] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 6: COPY TYPE_StringLiteral "'>" def_%cl_1_8 
+		 7: COPY TYPE_StringLiteral "display_url" def_%cl_1_9 
+		 8: url->[] def_%cl_1_10 url[3.2,3.5,2.2,] %cl_1_9[3.7,] 	 SYMBOL:	 ARGS:%cl_1_9,
+		 9: COPY TYPE_StringLiteral "</a>" def_%cl_1_11 
+		 10: BUILDSTRING def_%cl_1_12 %cl_1_5[3.3,] %cl_1_7[3.5,] %cl_1_8[3.6,] %cl_1_10[3.8,] %cl_1_11[3.9,] 
+		 11: text->gsub! def_%cl_1_13 text[] %cl_1_4[3.2,] %cl_1_12[3.10,] 	 SYMBOL:	 ARGS:%cl_1_4,%cl_1_12,
+		 12: RETURN %cl_1_13[3.11,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_14 
+		 1: def_%cl_1_15 %cl_1_14[4.0,] 
+		 2: RETURN %cl_1_15[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->link_handles_in def_%v_11 %self[2.0,] text[2.10,] 	 SYMBOL:	 ARGS:text,
+		 2: %self->link_hashtags_in def_%v_12 %self[7.1,2.0,] %v_11[7.1,] 	 SYMBOL:	 ARGS:%v_11,
+		 3: COPY TYPE_PASS def_text %v_12[7.2,] 
+		 4: 
+		 5: (Rinku) def_%v_13 
+		 6: COPY TYPE_StringLiteral "target="_blank"" def_%v_14 
+		 7: %v_13->auto_link def_%v_15 %v_13[7.5,] %v_12[7.2,] %v_14[7.6,] 	 SYMBOL:all,	 ARGS:text,Symbol,%v_14,
+		 8: %v_15->to_s def_%v_16 %v_15[7.7,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %v_16[7.8,] %self[7.1,7.2,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = user_timeline instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_screen_name 
+		 6: 
+		 7: (JSON) def_%v_3 
+		 8: %self->user_timeline_uri_for def_%v_4 %self[2.0,] screen_name[2.5,] 	 SYMBOL:	 ARGS:screen_name,
+		 9: %self->twitter_get def_%v_5 %self[2.0,2.8,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: %v_3->parse def_%v_6 %v_3[2.7,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: RETURN %v_6[2.10,] %self[2.0,2.8,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = tweet_for instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_id 
+		 6: 
+		 7: (JSON) def_%v_3 
+		 8: %self->tweet_uri_for def_%v_4 %self[2.0,] id[2.5,] 	 SYMBOL:	 ARGS:id,
+		 9: %self->twitter_get def_%v_5 %self[2.0,2.8,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: %v_3->parse def_%v_6 %v_3[2.7,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: RETURN %v_6[2.10,] %self[2.0,2.8,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = raw_tweet_for instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_id 
+		 6: 
+		 7: %self->tweet_uri_for def_%v_3 %self[2.0,] id[2.5,] 	 SYMBOL:	 ARGS:id,
+		 8: %self->twitter_get def_%v_4 %self[2.0,2.7,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: RETURN %v_4[2.8,] %self[2.0,2.7,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = twitter_credentials_missing? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->consumer_key def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->blank? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->consumer_secret def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->blank? def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_6[3.1,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_4[2.7,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = link_handles_in instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_text 
+		 6: 
+		 7: COPY TYPE_Regexp def_%v_3 
+		 8: text->scan def_%v_4 text[2.5,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: %v_4->flatten def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_5->uniq def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_6->each def_%v_7 %v_6[2.10,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_6,
+CLOSURE BEGIN: handle[] text[2.5,2.8,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_handle 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "@" def_%cl_1_3 
+		 2: BUILDSTRING def_%cl_1_4 %cl_1_3[3.1,] handle[2.2,] 
+		 3: COPY TYPE_StringLiteral "<a href='https://twitter.com/" def_%cl_1_5 
+		 4: 
+		 5: COPY TYPE_StringLiteral "' target='_blank'>" def_%cl_1_6 
+		 6: BUILDSTRING def_%cl_1_7 %cl_1_5[3.3,] handle[2.2,] %cl_1_6[3.5,] 
+		 7: COPY TYPE_StringLiteral "@" def_%cl_1_8 
+		 8: 
+		 9: BUILDSTRING def_%cl_1_9 %cl_1_8[3.7,] handle[2.2,] 
+		 10: COPY TYPE_StringLiteral "</a>" def_%cl_1_10 
+		 11: COPY TYPE_Array def_%cl_1_11 %cl_1_7[3.6,] %cl_1_9[3.9,] %cl_1_10[3.10,] 
+		 12: %cl_1_11->join def_%cl_1_12 %cl_1_11[3.11,] 	 SYMBOL:	 ARGS:
+		 13: text->gsub! def_%cl_1_13 text[] %cl_1_4[3.2,] %cl_1_12[3.12,] 	 SYMBOL:	 ARGS:%cl_1_4,%cl_1_12,
+		 14: RETURN %cl_1_13[3.13,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_14 
+		 1: def_%cl_1_15 %cl_1_14[4.0,] 
+		 2: RETURN %cl_1_15[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 12: 
+		 13: RETURN text[2.5,2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = link_hashtags_in instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_text 
+		 6: 
+		 7: COPY TYPE_Regexp def_%v_3 
+		 8: text->scan def_%v_4 text[2.5,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: %v_4->flatten def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_5->uniq def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_6->each def_%v_7 %v_6[2.10,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_6,
+CLOSURE BEGIN: hashtag[] text[2.5,2.8,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_hashtag 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "#" def_%cl_1_3 
+		 2: BUILDSTRING def_%cl_1_4 %cl_1_3[3.1,] hashtag[2.2,] 
+		 3: COPY TYPE_StringLiteral "<a href='https://twitter.com/search?q=%23" def_%cl_1_5 
+		 4: 
+		 5: COPY TYPE_StringLiteral "' " def_%cl_1_6 
+		 6: BUILDSTRING def_%cl_1_7 %cl_1_5[3.3,] hashtag[2.2,] %cl_1_6[3.5,] 
+		 7: COPY TYPE_StringLiteral "target='_blank'>" def_%cl_1_8 
+		 8: COPY TYPE_StringLiteral "#" def_%cl_1_9 
+		 9: 
+		 10: BUILDSTRING def_%cl_1_10 %cl_1_9[3.8,] hashtag[2.2,] 
+		 11: COPY TYPE_StringLiteral "</a>" def_%cl_1_11 
+		 12: COPY TYPE_Array def_%cl_1_12 %cl_1_7[3.6,] %cl_1_8[3.7,] %cl_1_10[3.10,] %cl_1_11[3.11,] 
+		 13: %cl_1_12->join def_%cl_1_13 %cl_1_12[3.12,] 	 SYMBOL:	 ARGS:
+		 14: text->gsub! def_%cl_1_14 text[] %cl_1_4[3.2,] %cl_1_13[3.13,] 	 SYMBOL:	 ARGS:%cl_1_4,%cl_1_13,
+		 15: RETURN %cl_1_14[3.14,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_15 
+		 1: def_%cl_1_16 %cl_1_15[4.0,] 
+		 2: RETURN %cl_1_16[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 12: 
+		 13: RETURN text[2.5,2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = user_timeline_uri_for instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_screen_name 
+		 6: 
+		 7: (URI) def_%v_3 
+		 8: (BASE_URL) def_%v_4 
+		 9: COPY TYPE_StringLiteral "/1.1/statuses/user_timeline.json?screen_name=" def_%v_5 
+		 10: COPY TYPE_StringLiteral "&count=50&include_rts=false&exclude_replies=true" def_%v_6 
+		 11: BUILDSTRING def_%v_7 %v_4[2.8,] %v_5[2.9,] screen_name[2.5,] %v_6[2.10,] 
+		 12: %v_3->parse def_%v_8 %v_3[2.7,] %v_7[2.11,] 	 SYMBOL:	 ARGS:%v_7,
+		 13: RETURN %v_8[2.12,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = tweet_uri_for instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_id 
+		 6: 
+		 7: (URI) def_%v_3 
+		 8: (BASE_URL) def_%v_4 
+		 9: COPY TYPE_StringLiteral "/1.1/statuses/show.json?id=" def_%v_5 
+		 10: BUILDSTRING def_%v_6 %v_4[2.8,] %v_5[2.9,] id[2.5,] 
+		 11: %v_3->parse def_%v_7 %v_3[2.7,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_6,
+		 12: RETURN %v_7[2.11,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = twitter_get instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_uri 
+		 6: 
+		 7: (Net) def_%v_3 
+		 8: (inherit HTTP) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:HTTP,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit Get) def_%v_5 %v_4[3.0,2.8,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.8,] 	 SYMBOL:Get,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_5->new def_%v_6 %v_5[5.0,4.0,] uri[2.5,] 	 SYMBOL:	 ARGS:uri,
+		 1: COPY TYPE_PASS def_request %v_6[6.0,] 
+		 2: 
+		 3: COPY TYPE_StringLiteral "Authorization" def_%v_7 
+		 4: COPY TYPE_StringLiteral "Bearer " def_%v_8 
+		 5: %self->bearer_token def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 6: BUILDSTRING def_%v_10 %v_8[6.4,] %v_9[6.5,] 
+		 7: request->add_field def_%v_11 request[6.1,] %v_7[6.3,] %v_10[6.6,] 	 SYMBOL:	 ARGS:%v_7,%v_10,
+		 8: 
+		 9: %self->http def_%v_12 %self[6.5,2.0,] uri[2.5,] 	 SYMBOL:	 ARGS:uri,
+		 10: %v_12->request def_%v_13 %v_12[6.9,] request[6.1,6.7,] 	 SYMBOL:	 ARGS:request,
+		 11: %v_13->body def_%v_14 %v_13[6.10,] 	 SYMBOL:	 ARGS:
+		 12: RETURN %v_14[6.11,] %self[6.5,6.9,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = authorization instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Net) def_%v_3 
+		 7: (inherit HTTP) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:HTTP,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit Post) def_%v_5 %v_4[3.0,2.7,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:Post,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->auth_uri def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->new def_%v_7 %v_5[5.0,4.0,] %v_6[6.0,] 	 SYMBOL:	 ARGS:%v_6,
+		 2: COPY TYPE_PASS def_request %v_7[6.1,] 
+		 3: 
+		 4: COPY TYPE_StringLiteral "Authorization" def_%v_8 
+		 5: COPY TYPE_StringLiteral "Basic " def_%v_9 
+		 6: 
+		 7: %self->bearer_token_credentials def_%v_10 %self[6.0,2.0,] 	 SYMBOL:	 ARGS:
+		 8: BUILDSTRING def_%v_11 %v_9[6.5,] %v_10[6.7,] 
+		 9: request->add_field def_%v_12 request[6.2,] %v_8[6.4,] %v_11[6.8,] 	 SYMBOL:	 ARGS:%v_8,%v_11,
+		 10: 
+		 11: COPY TYPE_StringLiteral "Content-Type" def_%v_13 
+		 12: COPY TYPE_StringLiteral "application/x-www-form-urlencoded;charset=UTF-8" def_%v_14 
+		 13: request->add_field def_%v_15 request[6.2,6.9,] %v_13[6.11,] %v_14[6.12,] 	 SYMBOL:	 ARGS:%v_13,%v_14,
+		 14: 
+		 15: COPY TYPE_StringLiteral "grant_type" def_%v_16 
+		 16: COPY TYPE_StringLiteral "client_credentials" def_%v_17 
+		 17: HASH- def_%v_18 %v_16[6.15,] %v_17[6.16,] 
+		 18: request->set_form_data def_%v_19 request[6.2,6.9,6.13,] %v_18[6.17,] 	 SYMBOL:	 ARGS:%v_18,
+		 19: 
+		 20: %self->auth_uri def_%v_20 %self[6.0,6.7,2.0,] 	 SYMBOL:	 ARGS:
+		 21: %self->http def_%v_21 %self[6.0,6.7,6.20,2.0,] %v_20[6.20,] 	 SYMBOL:	 ARGS:%v_20,
+		 22: %v_21->request def_%v_22 %v_21[6.21,] request[6.2,6.9,6.13,6.18,] 	 SYMBOL:	 ARGS:request,
+		 23: %v_22->body def_%v_23 %v_22[6.22,] 	 SYMBOL:	 ARGS:
+		 24: RETURN %v_23[6.23,] %self[6.0,6.7,6.20,6.21,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = bearer_token instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->access_token def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: (JSON) def_%v_6 
+		 1: %self->authorization def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->parse def_%v_8 %v_6[5.0,] %v_7[5.1,] 	 SYMBOL:	 ARGS:%v_7,
+		 3: COPY TYPE_StringLiteral "access_token" def_%v_9 
+		 4: %v_8->fetch def_%v_10 %v_8[5.2,] %v_9[5.3,] 	 SYMBOL:	 ARGS:%v_9,
+		 5: ATTRASSIGN %self->access_token %v_10[5.4,] 
+		 6: RETURN %v_10[5.4,] %self[5.1,5.5,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = bearer_token_credentials instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Base64) def_%v_3 
+		 7: 
+		 8: (URI) def_%v_4 
+		 9: %self->consumer_key def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 10: %v_4->encode def_%v_6 %v_4[2.8,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: COPY TYPE_StringLiteral ":" def_%v_7 
+		 12: (URI) def_%v_8 
+		 13: %self->consumer_secret def_%v_9 %self[2.0,2.9,] 	 SYMBOL:	 ARGS:
+		 14: %v_8->encode def_%v_10 %v_8[2.12,] %v_9[2.13,] 	 SYMBOL:	 ARGS:%v_9,
+		 15: BUILDSTRING def_%v_11 %v_6[2.10,] %v_7[2.11,] %v_10[2.14,] 
+		 16: %v_3->strict_encode64 def_%v_12 %v_3[2.6,] %v_11[2.15,] 	 SYMBOL:	 ARGS:%v_11,
+		 17: RETURN %v_12[2.16,] %self[2.0,2.9,2.13,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = auth_uri instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (URI) def_%v_3 
+		 7: (BASE_URL) def_%v_4 
+		 8: COPY TYPE_StringLiteral "/oauth2/token" def_%v_5 
+		 9: BUILDSTRING def_%v_6 %v_4[2.7,] %v_5[2.8,] 
+		 10: %v_3->parse def_%v_7 %v_3[2.6,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: RETURN %v_7[2.10,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = http instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_uri 
+		 6: 
+		 7: (Net) def_%v_3 
+		 8: (inherit HTTP) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:HTTP,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: uri->host def_%v_5 uri[2.5,] 	 SYMBOL:	 ARGS:
+		 1: uri->port def_%v_6 uri[4.0,2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_4->new def_%v_7 %v_4[3.0,2.8,] %v_5[4.0,] %v_6[4.1,] 	 SYMBOL:	 ARGS:%v_5,%v_6,
+		 3: %v_7->tap def_%v_8 %v_7[4.2,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: http[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_http 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN http->use_ssl 
+		 2: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_3 
+		 1: def_%cl_1_4 %cl_1_3[4.0,] 
+		 2: RETURN %cl_1_4[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: RETURN %v_8[4.3,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = consumer_key instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SiteSetting) def_%v_3 
+		 7: %v_3->twitter_consumer_key def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = consumer_secret instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SiteSetting) def_%v_3 
+		 7: %v_3->twitter_consumer_secret def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,2563 @@
+SET IRMethod, name = expire_cache instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (ApplicationSerializer) def_%v_3 
+		 7: COPY TYPE_StringLiteral "group_names" def_%v_4 
+		 8: %v_3->expire_cache_fragment! def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = downcase_incoming_email instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->incoming_email def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_4 
+		 1: COPY TYPE_PASS def_%v_3 %v_4[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_3->strip def_%v_5 %v_3[3.1,2.6,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->downcase def_%v_6 %v_5[4.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->presence def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN %self->incoming_email %v_7[4.2,] 
+		 4: RETURN %v_7[4.2,] %self[4.3,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = incoming_email_validator instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->automatic def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->incoming_email def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->blank? def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.2,2.6,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: %self->incoming_email def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "|" def_%v_8 
+		 4: %v_7->split def_%v_9 %v_7[6.2,] %v_8[6.3,] 	 SYMBOL:	 ARGS:%v_8,
+		 5: %v_9->each def_%v_10 %v_9[6.4,] %self[6.2,2.0,] 	 SYMBOL:	 ARGS:%v_9,
+CLOSURE BEGIN: email[] %self[6.2,2.0,] group[] category[] 
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_email 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Email) def_%cl_1_3 
+		 2: %cl_1_3->is_valid? def_%cl_1_4 %cl_1_3[3.1,] email[2.2,] 	 SYMBOL:	 ARGS:email,
+		 3: %cl_1_4->! def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %cl_1_5[3.3,] 
+BB 4
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->errors def_%cl_1_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: (I18n) def_%cl_1_7 
+		 3: COPY TYPE_StringLiteral "groups.errors.invalid_incoming_email" def_%cl_1_8 
+		 4: HASH-email- def_%cl_1_9 email[2.2,] 
+		 5: %cl_1_7->t def_%cl_1_10 %cl_1_7[4.2,] %cl_1_8[4.3,] %cl_1_9[4.4,] 	 SYMBOL:	 ARGS:%cl_1_8,%cl_1_9,
+		 6: %cl_1_6->add def_%cl_1_11 %cl_1_6[4.1,] %cl_1_10[4.5,] 	 SYMBOL:base,	 ARGS:Symbol,%cl_1_10,
+		 7: 
+BB 5
+	outgoing: 6 7 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Group) def_%cl_1_12 
+		 2: %cl_1_12->where def_%cl_1_13 %cl_1_12[5.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->id def_%cl_1_14 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: HASH-id- def_%cl_1_15 %cl_1_14[5.3,] 
+		 5: %cl_1_13->not def_%cl_1_16 %cl_1_13[5.2,] %cl_1_15[5.4,] 	 SYMBOL:	 ARGS:%cl_1_15,
+		 6: %cl_1_16->find_by_email def_%cl_1_17 %cl_1_16[5.5,] email[2.2,] 	 SYMBOL:	 ARGS:email,
+		 7: COPY TYPE_PASS def_group %cl_1_17[5.6,] 
+		 8: BRANCH %cl_1_17[5.6,] 
+BB 6
+	outgoing: 11 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->errors def_%cl_1_18 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: (I18n) def_%cl_1_19 
+		 3: COPY TYPE_StringLiteral "groups.errors.email_already_used_in_group" def_%cl_1_20 
+		 4: group->name def_%cl_1_21 group[5.7,] 	 SYMBOL:	 ARGS:
+		 5: HASH-email-group_name- def_%cl_1_22 email[2.2,] %cl_1_21[6.4,] 
+		 6: %cl_1_19->t def_%cl_1_23 %cl_1_19[6.2,] %cl_1_20[6.3,] %cl_1_22[6.5,] 	 SYMBOL:	 ARGS:%cl_1_20,%cl_1_22,
+		 7: %cl_1_18->add def_%cl_1_24 %cl_1_18[6.1,] %cl_1_23[6.6,] 	 SYMBOL:base,	 ARGS:Symbol,%cl_1_23,
+		 8: 
+BB 7
+	outgoing: 8 9 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Category) def_%cl_1_25 
+		 2: %cl_1_25->find_by_email def_%cl_1_26 %cl_1_25[7.1,] email[2.2,] 	 SYMBOL:	 ARGS:email,
+		 3: COPY TYPE_PASS def_category %cl_1_26[7.2,] 
+		 4: BRANCH %cl_1_26[7.2,] 
+BB 8
+	outgoing: 10 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->errors def_%cl_1_27 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: (I18n) def_%cl_1_28 
+		 3: COPY TYPE_StringLiteral "groups.errors.email_already_used_in_category" def_%cl_1_29 
+		 4: category->name def_%cl_1_30 category[7.3,] 	 SYMBOL:	 ARGS:
+		 5: HASH-email-category_name- def_%cl_1_31 email[2.2,] %cl_1_30[8.4,] 
+		 6: %cl_1_28->t def_%cl_1_32 %cl_1_28[8.2,] %cl_1_29[8.3,] %cl_1_31[8.5,] 	 SYMBOL:	 ARGS:%cl_1_29,%cl_1_31,
+		 7: %cl_1_27->add def_%cl_1_33 %cl_1_27[8.1,] %cl_1_32[8.6,] 	 SYMBOL:base,	 ARGS:Symbol,%cl_1_32,
+		 8: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_33 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_1_24 %cl_1_33[9.0,8.7,] 
+BB 11
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_24[10.0,6.7,] %self[2.0,] 
+BB 12
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_11[4.6,] %self[2.0,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_34 
+		 1: def_%cl_1_35 %cl_1_34[13.0,] 
+		 2: RETURN %cl_1_35[13.1,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: category[7.3,] group[5.7,] 
+		 6: RETURN %v_10[6.5,] %self[6.2,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = posts_for instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_guardian 
+		 6: RECEIVECONSTARG def_before_post_id 
+		 7: before_post_id[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_before_post_id 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->group_users def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_3->map def_%v_4 %v_3[4.1,] %self[4.1,2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: gu[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_gu 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: gu->user_id def_%cl_1_3 gu[2.2,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: COPY TYPE_PASS def_user_ids %v_4[4.2,] 
+		 4: 
+		 5: (Post) def_%v_5 
+		 6: HASH-topic- def_%v_6 
+		 7: %v_5->includes def_%v_7 %v_5[4.5,] %v_6[4.6,] 	 SYMBOL:user,topic,	 ARGS:Symbol,Symbol,%v_6,
+		 8: %v_7->references def_%v_8 %v_7[4.7,] 	 SYMBOL:posts,topics,category,	 ARGS:Symbol,Symbol,Symbol,
+		 9: HASH-user_id- def_%v_9 user_ids[4.3,] 
+		 10: %v_8->where def_%v_10 %v_8[4.8,] %v_9[4.9,] 	 SYMBOL:	 ARGS:%v_9,
+		 11: COPY TYPE_StringLiteral "topics.archetype <> ?" def_%v_11 
+		 12: (Archetype) def_%v_12 
+		 13: %v_12->private_message def_%v_13 %v_12[4.12,] 	 SYMBOL:	 ARGS:
+		 14: %v_10->where def_%v_14 %v_10[4.10,] %v_11[4.11,] %v_13[4.13,] 	 SYMBOL:	 ARGS:%v_11,%v_13,
+		 15: (Post) def_%v_15 
+		 16: %v_15->types def_%v_16 %v_15[4.15,] 	 SYMBOL:	 ARGS:
+		 17: %v_16->[] def_%v_17 %v_16[4.16,] 	 SYMBOL:regular,	 ARGS:Symbol,
+		 18: HASH-post_type- def_%v_18 %v_17[4.17,] 
+		 19: %v_14->where def_%v_19 %v_14[4.14,] %v_18[4.18,] 	 SYMBOL:	 ARGS:%v_18,
+		 20: COPY TYPE_PASS def_result %v_19[4.19,] 
+		 21: 
+		 22: guardian->filter_allowed_categories def_%v_20 guardian[2.5,] %v_19[4.19,] 	 SYMBOL:	 ARGS:result,
+		 23: COPY TYPE_PASS def_result %v_20[4.22,] 
+		 24: 
+		 25: BRANCH before_post_id[3.0,2.6,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "posts.id < ?" def_%v_21 
+		 1: result->where def_%v_22 result[4.20,4.23,] %v_21[5.0,] before_post_id[3.0,2.6,] 	 SYMBOL:	 ARGS:%v_21,before_post_id,
+		 2: COPY TYPE_PASS def_result %v_22[5.1,] 
+		 3: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "posts.created_at desc" def_%v_23 
+		 2: result->order def_%v_24 result[5.2,4.20,4.23,] %v_23[7.1,] 	 SYMBOL:	 ARGS:%v_23,
+		 3: RETURN %v_24[7.2,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = messages_for instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_guardian 
+		 6: RECEIVECONSTARG def_before_post_id 
+		 7: before_post_id[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_before_post_id 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Post) def_%v_3 
+		 2: HASH-topic- def_%v_4 
+		 3: %v_3->includes def_%v_5 %v_3[4.1,] %v_4[4.2,] 	 SYMBOL:user,topic,	 ARGS:Symbol,Symbol,%v_4,
+		 4: %v_5->references def_%v_6 %v_5[4.3,] 	 SYMBOL:posts,topics,category,	 ARGS:Symbol,Symbol,Symbol,
+		 5: COPY TYPE_StringLiteral "topics.archetype = ?" def_%v_7 
+		 6: (Archetype) def_%v_8 
+		 7: %v_8->private_message def_%v_9 %v_8[4.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_6->where def_%v_10 %v_6[4.4,] %v_7[4.5,] %v_9[4.7,] 	 SYMBOL:	 ARGS:%v_7,%v_9,
+		 9: (Post) def_%v_11 
+		 10: %v_11->types def_%v_12 %v_11[4.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_12->[] def_%v_13 %v_12[4.10,] 	 SYMBOL:regular,	 ARGS:Symbol,
+		 12: HASH-post_type- def_%v_14 %v_13[4.11,] 
+		 13: %v_10->where def_%v_15 %v_10[4.8,] %v_14[4.12,] 	 SYMBOL:	 ARGS:%v_14,
+		 14: COPY TYPE_StringLiteral "topics.id IN (SELECT topic_id FROM topic_allowed_groups WHERE group_id = ?)" def_%v_16 
+		 15: %self->id def_%v_17 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 16: %v_15->where def_%v_18 %v_15[4.13,] %v_16[4.14,] %v_17[4.15,] 	 SYMBOL:	 ARGS:%v_16,%v_17,
+		 17: COPY TYPE_PASS def_result %v_18[4.16,] 
+		 18: 
+		 19: guardian->filter_allowed_categories def_%v_19 guardian[2.5,] %v_18[4.16,] 	 SYMBOL:	 ARGS:result,
+		 20: COPY TYPE_PASS def_result %v_19[4.19,] 
+		 21: 
+		 22: BRANCH before_post_id[3.0,2.6,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "posts.id < ?" def_%v_20 
+		 1: result->where def_%v_21 result[4.17,4.20,] %v_20[5.0,] before_post_id[3.0,2.6,] 	 SYMBOL:	 ARGS:%v_20,before_post_id,
+		 2: COPY TYPE_PASS def_result %v_21[5.1,] 
+		 3: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "posts.created_at desc" def_%v_22 
+		 2: result->order def_%v_23 result[5.2,4.17,4.20,] %v_22[7.1,] 	 SYMBOL:	 ARGS:%v_22,
+		 3: RETURN %v_23[7.2,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mentioned_posts_for instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_guardian 
+		 6: RECEIVECONSTARG def_before_post_id 
+		 7: before_post_id[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_before_post_id 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Post) def_%v_3 
+		 2: %v_3->joins def_%v_4 %v_3[4.1,] 	 SYMBOL:group_mentions,	 ARGS:Symbol,
+		 3: HASH-topic- def_%v_5 
+		 4: %v_4->includes def_%v_6 %v_4[4.2,] %v_5[4.3,] 	 SYMBOL:user,topic,	 ARGS:Symbol,Symbol,%v_5,
+		 5: %v_6->references def_%v_7 %v_6[4.4,] 	 SYMBOL:posts,topics,category,	 ARGS:Symbol,Symbol,Symbol,
+		 6: COPY TYPE_StringLiteral "topics.archetype <> ?" def_%v_8 
+		 7: (Archetype) def_%v_9 
+		 8: %v_9->private_message def_%v_10 %v_9[4.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_7->where def_%v_11 %v_7[4.5,] %v_8[4.6,] %v_10[4.8,] 	 SYMBOL:	 ARGS:%v_8,%v_10,
+		 10: (Post) def_%v_12 
+		 11: %v_12->types def_%v_13 %v_12[4.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_13->[] def_%v_14 %v_13[4.11,] 	 SYMBOL:regular,	 ARGS:Symbol,
+		 13: HASH-post_type- def_%v_15 %v_14[4.12,] 
+		 14: %v_11->where def_%v_16 %v_11[4.9,] %v_15[4.13,] 	 SYMBOL:	 ARGS:%v_15,
+		 15: COPY TYPE_StringLiteral "group_mentions.group_id = ?" def_%v_17 
+		 16: %self->id def_%v_18 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 17: %v_16->where def_%v_19 %v_16[4.14,] %v_17[4.15,] %v_18[4.16,] 	 SYMBOL:	 ARGS:%v_17,%v_18,
+		 18: COPY TYPE_PASS def_result %v_19[4.17,] 
+		 19: 
+		 20: guardian->filter_allowed_categories def_%v_20 guardian[2.5,] %v_19[4.17,] 	 SYMBOL:	 ARGS:result,
+		 21: COPY TYPE_PASS def_result %v_20[4.20,] 
+		 22: 
+		 23: BRANCH before_post_id[3.0,2.6,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "posts.id < ?" def_%v_21 
+		 1: result->where def_%v_22 result[4.18,4.21,] %v_21[5.0,] before_post_id[3.0,2.6,] 	 SYMBOL:	 ARGS:%v_21,before_post_id,
+		 2: COPY TYPE_PASS def_result %v_22[5.1,] 
+		 3: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "posts.created_at desc" def_%v_23 
+		 2: result->order def_%v_24 result[5.2,4.18,4.21,] %v_23[7.1,] 	 SYMBOL:	 ARGS:%v_23,
+		 3: RETURN %v_24[7.2,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = trust_group_ids instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: CONSTANT def_%v_3 
+		 7: %v_3->to_a def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = refresh_automatic_group! instanceMethod = false
+BB 1
+	outgoing: 54 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_name 
+		 6: 
+		 7: (AUTO_GROUPS) def_%v_3 
+		 8: %v_3->[] def_%v_4 %v_3[2.7,] name[2.5,] 	 SYMBOL:	 ARGS:name,
+		 9: COPY TYPE_PASS def_id %v_4[2.8,] 
+		 10: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: %self->lookup_group def_%v_6 %self[2.0,] name[2.5,] 	 SYMBOL:	 ARGS:name,
+		 3: COPY TYPE_PASS def_group %v_6[3.2,] 
+		 4: BRANCH %v_6[3.2,] 
+BB 4
+	outgoing: 54 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Group) def_%v_8 
+		 2: name->to_s def_%v_9 name[2.5,] 	 SYMBOL:	 ARGS:
+		 3: HASH-name-automatic- def_%v_10 %v_9[7.2,] 
+		 4: %v_8->new def_%v_11 %v_8[7.1,] %v_10[7.3,] 	 SYMBOL:	 ARGS:%v_10,
+		 5: COPY TYPE_PASS def_group %v_11[7.4,] 
+		 6: 
+		 7: ATTRASSIGN %v_11->id id[2.9,] 
+		 8: 
+		 9: group->save! def_%v_12 group[7.5,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_PASS def_%v_7 %v_12[7.9,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%v_13 
+		 2: COPY TYPE_StringLiteral "groups.default_names." def_%v_14 
+		 3: BUILDSTRING def_%v_15 %v_14[8.2,] name[2.5,] 
+		 4: %v_13->t def_%v_16 %v_13[8.1,] %v_15[8.3,] 	 SYMBOL:	 ARGS:%v_15,
+		 5: ATTRASSIGN group->name %v_16[8.4,] 
+		 6: 
+		 7: (UsernameValidator) def_%v_17 
+		 8: group->name def_%v_18 group[8.5,7.5,3.3,] 	 SYMBOL:	 ARGS:
+		 9: %v_17->new def_%v_19 %v_17[8.7,] %v_18[8.8,] 	 SYMBOL:	 ARGS:%v_18,
+		 10: COPY TYPE_PASS def_validator %v_19[8.9,] 
+		 11: 
+		 12: %v_19->valid_format? def_%v_20 %v_19[8.9,] 	 SYMBOL:	 ARGS:
+		 13: BRANCH %v_20[8.12,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+		 1: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN group->name name[2.5,] 
+		 2: COPY TYPE_PASS def_%v_21 name[2.5,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: name->== def_%v_22 name[2.5,] 	 SYMBOL:everyone,	 ARGS:Symbol,
+		 2: BRANCH %v_22[11.1,] 
+BB 12
+	outgoing: 54 
+	datadep: 
+	instructions:
+		 0: 
+		 1: group->save! def_%v_23 group[10.1,8.5,7.5,3.3,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: RETURN group[12.1,10.1,8.5,7.5,3.3,] %self[2.0,] 
+BB 13
+	outgoing: 15 23 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_24 
+		 1: 
+		 2: def_%v_26 name[2.5,] 
+		 3: BRANCH %v_26[13.2,] 
+BB 15
+	outgoing: 16 24 
+	datadep: 
+	instructions:
+		 0: def_%v_27 name[2.5,] 
+		 1: BRANCH %v_27[15.0,] 
+BB 16
+	outgoing: 17 25 
+	datadep: 
+	instructions:
+		 0: def_%v_28 name[2.5,] 
+		 1: BRANCH %v_28[16.0,] 
+BB 17
+	outgoing: 18 26 
+	datadep: 
+	instructions:
+		 0: def_%v_29 name[2.5,] 
+		 1: BRANCH %v_29[17.0,] 
+BB 18
+	outgoing: 19 27 
+	datadep: 
+	instructions:
+		 0: def_%v_30 name[2.5,] 
+		 1: BRANCH %v_30[18.0,] 
+BB 19
+	outgoing: 20 28 
+	datadep: 
+	instructions:
+		 0: def_%v_31 name[2.5,] 
+		 1: BRANCH %v_31[19.0,] 
+BB 20
+	outgoing: 21 29 
+	datadep: 
+	instructions:
+		 0: def_%v_32 name[2.5,] 
+		 1: BRANCH %v_32[20.0,] 
+BB 21
+	outgoing: 22 30 
+	datadep: 
+	instructions:
+		 0: def_%v_33 name[2.5,] 
+		 1: BRANCH %v_33[21.0,] 
+BB 22
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_25 
+		 1: 
+BB 23
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "SELECT u.id FROM users u WHERE NOT u.admin" def_%v_34 
+		 2: COPY TYPE_PASS def_%v_25 %v_34[23.1,] 
+		 3: 
+BB 24
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "SELECT u.id FROM users u WHERE NOT u.moderator" def_%v_35 
+		 2: COPY TYPE_PASS def_%v_25 %v_35[24.1,] 
+		 3: 
+BB 25
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "SELECT u.id FROM users u WHERE NOT u.admin AND NOT u.moderator" def_%v_36 
+		 2: COPY TYPE_PASS def_%v_25 %v_36[25.1,] 
+		 3: 
+BB 26
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "SELECT u.id FROM users u WHERE u.trust_level < " def_%v_37 
+		 2: id->- def_%v_38 id[2.9,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: BUILDSTRING def_%v_39 %v_37[26.1,] %v_38[26.2,] 
+		 4: COPY TYPE_PASS def_%v_25 %v_39[26.3,] 
+		 5: 
+BB 27
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "SELECT u.id FROM users u WHERE u.trust_level < " def_%v_40 
+		 1: id->- def_%v_41 id[2.9,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: BUILDSTRING def_%v_42 %v_40[27.0,] %v_41[27.1,] 
+		 3: COPY TYPE_PASS def_%v_25 %v_42[27.2,] 
+		 4: 
+BB 28
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "SELECT u.id FROM users u WHERE u.trust_level < " def_%v_43 
+		 1: id->- def_%v_44 id[2.9,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: BUILDSTRING def_%v_45 %v_43[28.0,] %v_44[28.1,] 
+		 3: COPY TYPE_PASS def_%v_25 %v_45[28.2,] 
+		 4: 
+BB 29
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "SELECT u.id FROM users u WHERE u.trust_level < " def_%v_46 
+		 1: id->- def_%v_47 id[2.9,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: BUILDSTRING def_%v_48 %v_46[29.0,] %v_47[29.1,] 
+		 3: COPY TYPE_PASS def_%v_25 %v_48[29.2,] 
+		 4: 
+BB 30
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "SELECT u.id FROM users u WHERE u.trust_level < " def_%v_49 
+		 1: id->- def_%v_50 id[2.9,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: BUILDSTRING def_%v_51 %v_49[30.0,] %v_50[30.1,] 
+		 3: COPY TYPE_PASS def_%v_25 %v_51[30.2,] 
+		 4: 
+BB 32
+	outgoing: 33 34 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_remove_user_subquery %v_25[23.2,24.2,25.2,26.4,27.3,28.3,29.3,30.3,22.0,] 
+		 1: 
+		 2: COPY TYPE_StringLiteral "SELECT gu.id id
+                             FROM group_users gu,
+                                  (" def_%v_52 
+		 3: 
+		 4: COPY TYPE_StringLiteral ") u
+                            WHERE gu.group_id = " def_%v_53 
+		 5: 
+		 6: group->id def_%v_54 group[10.1,8.5,7.5,3.3,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "
+                              AND gu.user_id = u.id" def_%v_55 
+		 8: BUILDSTRING def_%v_56 %v_52[32.2,] remove_user_subquery[32.0,] %v_53[32.4,] %v_54[32.6,] %v_55[32.7,] 
+		 9: %self->exec_sql def_%v_57 %self[2.0,] %v_56[32.8,] 	 SYMBOL:	 ARGS:%v_56,
+		 10: %v_57->map def_%v_58 %v_57[32.9,] %self[32.9,2.0,] 	 SYMBOL:	 ARGS:%v_57,
+CLOSURE BEGIN: x[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_x 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "id" def_%cl_1_3 
+		 2: x->[] def_%cl_1_4 x[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 11: COPY TYPE_PASS def_remove_ids %v_58[32.10,] 
+		 12: 
+		 13: %v_58->length def_%v_59 %v_58[32.10,] 	 SYMBOL:	 ARGS:
+		 14: %v_59->> def_%v_60 %v_59[32.13,] 	 SYMBOL:	 ARGS:Fixnum,
+		 15: BRANCH %v_60[32.14,] 
+BB 33
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: 
+		 1: remove_ids->each_slice def_%v_61 remove_ids[32.11,] %self[2.0,] 	 SYMBOL:	 ARGS:Fixnum,remove_ids,
+CLOSURE BEGIN: ids[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_ids 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (GroupUser) def_%cl_2_3 
+		 2: HASH-id- def_%cl_2_4 ids[2.2,] 
+		 3: %cl_2_3->where def_%cl_2_5 %cl_2_3[3.1,] %cl_2_4[3.2,] 	 SYMBOL:	 ARGS:%cl_2_4,
+		 4: %cl_2_5->delete_all def_%cl_2_6 %cl_2_5[3.3,] 	 SYMBOL:	 ARGS:
+		 5: RETURN %cl_2_6[3.4,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_7 
+		 1: def_%cl_2_8 %cl_2_7[4.0,] 
+		 2: RETURN %cl_2_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+BB 34
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_61 
+BB 35
+	outgoing: 36 44 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_63 name[2.5,] 
+		 2: BRANCH %v_63[35.1,] 
+BB 36
+	outgoing: 37 45 
+	datadep: 
+	instructions:
+		 0: def_%v_64 name[2.5,] 
+		 1: BRANCH %v_64[36.0,] 
+BB 37
+	outgoing: 38 46 
+	datadep: 
+	instructions:
+		 0: def_%v_65 name[2.5,] 
+		 1: BRANCH %v_65[37.0,] 
+BB 38
+	outgoing: 39 47 
+	datadep: 
+	instructions:
+		 0: def_%v_66 name[2.5,] 
+		 1: BRANCH %v_66[38.0,] 
+BB 39
+	outgoing: 40 48 
+	datadep: 
+	instructions:
+		 0: def_%v_67 name[2.5,] 
+		 1: BRANCH %v_67[39.0,] 
+BB 40
+	outgoing: 41 49 
+	datadep: 
+	instructions:
+		 0: def_%v_68 name[2.5,] 
+		 1: BRANCH %v_68[40.0,] 
+BB 41
+	outgoing: 42 50 
+	datadep: 
+	instructions:
+		 0: def_%v_69 name[2.5,] 
+		 1: BRANCH %v_69[41.0,] 
+BB 42
+	outgoing: 43 51 
+	datadep: 
+	instructions:
+		 0: def_%v_70 name[2.5,] 
+		 1: BRANCH %v_70[42.0,] 
+BB 43
+	outgoing: 53 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_62 
+		 1: 
+BB 44
+	outgoing: 53 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "SELECT u.id FROM users u WHERE u.admin" def_%v_71 
+		 2: COPY TYPE_PASS def_%v_62 %v_71[44.1,] 
+		 3: 
+BB 45
+	outgoing: 53 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "SELECT u.id FROM users u WHERE u.moderator" def_%v_72 
+		 2: COPY TYPE_PASS def_%v_62 %v_72[45.1,] 
+		 3: 
+BB 46
+	outgoing: 53 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "SELECT u.id FROM users u WHERE u.moderator OR u.admin" def_%v_73 
+		 2: COPY TYPE_PASS def_%v_62 %v_73[46.1,] 
+		 3: 
+BB 47
+	outgoing: 53 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "SELECT u.id FROM users u WHERE u.trust_level >= " def_%v_74 
+		 2: id->- def_%v_75 id[2.9,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: BUILDSTRING def_%v_76 %v_74[47.1,] %v_75[47.2,] 
+		 4: COPY TYPE_PASS def_%v_62 %v_76[47.3,] 
+		 5: 
+BB 48
+	outgoing: 53 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "SELECT u.id FROM users u WHERE u.trust_level >= " def_%v_77 
+		 1: id->- def_%v_78 id[2.9,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: BUILDSTRING def_%v_79 %v_77[48.0,] %v_78[48.1,] 
+		 3: COPY TYPE_PASS def_%v_62 %v_79[48.2,] 
+		 4: 
+BB 49
+	outgoing: 53 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "SELECT u.id FROM users u WHERE u.trust_level >= " def_%v_80 
+		 1: id->- def_%v_81 id[2.9,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: BUILDSTRING def_%v_82 %v_80[49.0,] %v_81[49.1,] 
+		 3: COPY TYPE_PASS def_%v_62 %v_82[49.2,] 
+		 4: 
+BB 50
+	outgoing: 53 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "SELECT u.id FROM users u WHERE u.trust_level >= " def_%v_83 
+		 1: id->- def_%v_84 id[2.9,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: BUILDSTRING def_%v_85 %v_83[50.0,] %v_84[50.1,] 
+		 3: COPY TYPE_PASS def_%v_62 %v_85[50.2,] 
+		 4: 
+BB 51
+	outgoing: 53 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "SELECT u.id FROM users u" def_%v_86 
+		 2: COPY TYPE_PASS def_%v_62 %v_86[51.1,] 
+		 3: 
+BB 53
+	outgoing: 54 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_real_ids %v_62[44.2,45.2,46.2,47.4,48.3,49.3,50.3,51.2,43.0,] 
+		 1: 
+		 2: (GroupUser) def_%v_87 
+		 3: COPY TYPE_StringLiteral "RIGHT JOIN (" def_%v_88 
+		 4: 
+		 5: COPY TYPE_StringLiteral ") X ON X.id = user_id AND group_id = " def_%v_89 
+		 6: group->id def_%v_90 group[10.1,8.5,7.5,3.3,] 	 SYMBOL:	 ARGS:
+		 7: BUILDSTRING def_%v_91 %v_88[53.3,] real_ids[53.0,] %v_89[53.5,] %v_90[53.6,] 
+		 8: %v_87->joins def_%v_92 %v_87[53.2,] %v_91[53.7,] 	 SYMBOL:	 ARGS:%v_91,
+		 9: COPY TYPE_StringLiteral "user_id IS NULL" def_%v_93 
+		 10: %v_92->where def_%v_94 %v_92[53.8,] %v_93[53.9,] 	 SYMBOL:	 ARGS:%v_93,
+		 11: COPY TYPE_StringLiteral "X.id" def_%v_95 
+		 12: %v_94->select def_%v_96 %v_94[53.10,] %v_95[53.11,] 	 SYMBOL:	 ARGS:%v_95,
+		 13: COPY TYPE_PASS def_missing_users %v_96[53.12,] 
+		 14: 
+		 15: %v_96->each def_%v_97 %v_96[53.12,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_96,
+CLOSURE BEGIN: group[53.6,10.1,8.5,7.5,3.3,] u[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_u 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: group->group_users def_%cl_3_3 group[] 	 SYMBOL:	 ARGS:
+		 2: u->id def_%cl_3_4 u[2.2,] 	 SYMBOL:	 ARGS:
+		 3: HASH-user_id- def_%cl_3_5 %cl_3_4[3.2,] 
+		 4: %cl_3_3->build def_%cl_3_6 %cl_3_3[3.1,] %cl_3_5[3.3,] 	 SYMBOL:	 ARGS:%cl_3_5,
+		 5: RETURN %cl_3_6[3.4,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_7 
+		 1: def_%cl_3_8 %cl_3_7[4.0,] 
+		 2: RETURN %cl_3_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 16: 
+		 17: group->save! def_%v_98 group[53.6,10.1,8.5,7.5,3.3,] 	 SYMBOL:	 ARGS:
+		 18: 
+		 19: (Group) def_%v_99 
+		 20: group->id def_%v_100 group[53.6,53.17,10.1,8.5,7.5,3.3,] 	 SYMBOL:	 ARGS:
+		 21: %v_99->reset_counters def_%v_101 %v_99[53.19,] %v_100[53.20,] 	 SYMBOL:group_users,	 ARGS:%v_100,Symbol,
+		 22: 
+		 23: RETURN group[53.6,53.17,53.20,10.1,8.5,7.5,3.3,] %self[2.0,] 
+BB 54
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = refresh_automatic_groups! instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_args 
+		 6: 
+		 7: args->length def_%v_3 args[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->== def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:Fixnum,
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (AUTO_GROUPS) def_%v_5 
+		 2: %v_5->keys def_%v_6 %v_5[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_args %v_6[3.2,] 
+		 4: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: args->each def_%v_7 args[3.3,2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:args,
+CLOSURE BEGIN: %self[2.0,] group[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_group 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->refresh_automatic_group! def_%cl_1_3 %self[2.0,] group[2.2,] 	 SYMBOL:	 ARGS:group,
+		 2: RETURN %cl_1_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: RETURN %v_7[5.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ensure_automatic_groups! instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (AUTO_GROUPS) def_%v_3 
+		 7: %v_3->each_key def_%v_4 %v_3[2.6,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: %self[2.0,] name[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_name 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->lookup_group def_%cl_1_3 %self[2.0,] name[2.2,] 	 SYMBOL:	 ARGS:name,
+		 2: BRANCH %cl_1_3[3.1,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_4 
+		 1: RETURN %cl_1_4[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: %self->refresh_automatic_group! def_%cl_1_5 %self[2.0,] name[2.2,] 	 SYMBOL:	 ARGS:name,
+		 1: RETURN %cl_1_5[5.0,] %self[5.0,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[7.0,] 
+		 2: RETURN %cl_1_7[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = [] instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_name 
+		 6: 
+		 7: %self->lookup_group def_%v_3 %self[2.0,] name[2.5,] 	 SYMBOL:	 ARGS:name,
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->refresh_automatic_group! def_%v_4 %self[2.0,] name[2.5,] 	 SYMBOL:	 ARGS:name,
+		 1: RETURN %v_4[3.0,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.7,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = search_group instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_name 
+		 6: 
+		 7: (Group) def_%v_3 
+		 8: HASH-visible- def_%v_4 
+		 9: %v_3->where def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: COPY TYPE_StringLiteral "name ILIKE :term_like" def_%v_6 
+		 11: COPY TYPE_StringLiteral "%" def_%v_7 
+		 12: BUILDSTRING def_%v_8 name[2.5,] %v_7[2.11,] 
+		 13: HASH-term_like- def_%v_9 %v_8[2.12,] 
+		 14: %v_5->where def_%v_10 %v_5[2.9,] %v_6[2.10,] %v_9[2.13,] 	 SYMBOL:	 ARGS:%v_6,%v_9,
+		 15: RETURN %v_10[2.14,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = lookup_group instanceMethod = false
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_name 
+		 6: 
+		 7: (AUTO_GROUPS) def_%v_3 
+		 8: %v_3->[] def_%v_4 %v_3[2.7,] name[2.5,] 	 SYMBOL:	 ARGS:name,
+		 9: COPY TYPE_PASS def_id %v_4[2.8,] 
+		 10: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Group) def_%v_5 
+		 2: HASH-id- def_%v_6 id[2.9,] 
+		 3: %v_5->find_by def_%v_7 %v_5[3.1,] %v_6[3.2,] 	 SYMBOL:	 ARGS:%v_6,
+		 4: RETURN %v_7[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Group) def_%v_8 
+		 2: HASH-name- def_%v_9 name[2.5,] 
+		 3: %v_8->find_by def_%v_10 %v_8[4.1,] %v_9[4.2,] 	 SYMBOL:	 ARGS:%v_9,
+		 4: COPY TYPE_PASS def_group %v_10[4.3,] 
+		 5: BRANCH %v_10[4.3,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+		 1: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ArgumentError) def_%v_12 
+		 2: COPY TYPE_StringLiteral "unknown group" def_%v_13 
+		 3: %self->raise def_%v_14 %self[2.0,] %v_12[6.1,] %v_13[6.2,] 	 SYMBOL:	 ARGS:%v_12,%v_13,
+		 4: COPY TYPE_PASS def_%v_11 %v_14[6.3,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN group[4.4,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = lookup_group_ids instanceMethod = false
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_opts 
+		 6: 
+		 7: opts->[] def_%v_3 opts[2.5,] 	 SYMBOL:group_ids,	 ARGS:Symbol,
+		 8: COPY TYPE_PASS def_group_ids %v_3[2.7,] 
+		 9: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "," def_%v_4 
+		 2: group_ids->split def_%v_5 group_ids[2.8,] %v_4[3.1,] 	 SYMBOL:	 ARGS:%v_4,
+		 3: %v_5->map def_%v_6 %v_5[3.2,] 	 SYMBOL:to_i,	 ARGS:
+		 4: COPY TYPE_PASS def_group_ids %v_6[3.3,] 
+		 5: 
+		 6: (Group) def_%v_7 
+		 7: HASH-id- def_%v_8 %v_6[3.3,] 
+		 8: %v_7->where def_%v_9 %v_7[3.6,] %v_8[3.7,] 	 SYMBOL:	 ARGS:%v_8,
+		 9: %v_9->pluck def_%v_10 %v_9[3.8,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 10: COPY TYPE_PASS def_group_ids %v_10[3.9,] 
+		 11: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_11 group_ids[3.4,3.10,2.8,] 
+		 2: COPY TYPE_PASS def_%v_12 group_ids[3.4,3.10,2.8,] 
+		 3: BRANCH group_ids[3.4,3.10,2.8,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_13 
+		 1: COPY TYPE_PASS def_group_ids %v_13[6.0,] 
+		 2: COPY TYPE_PASS def_%v_12 %v_13[6.0,] 
+BB 7
+	outgoing: 8 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_14 opts[2.5,] 	 SYMBOL:group_names,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_group_names %v_14[7.1,] 
+		 3: BRANCH %v_14[7.1,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "," def_%v_15 
+		 2: group_names->split def_%v_16 group_names[7.2,] %v_15[8.1,] 	 SYMBOL:	 ARGS:%v_15,
+		 3: COPY TYPE_PASS def_group_names %v_16[8.2,] 
+		 4: 
+		 5: %v_16->present? def_%v_17 %v_16[8.2,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %v_17[8.5,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Group) def_%v_18 
+		 2: HASH-name- def_%v_19 group_names[8.3,] 
+		 3: %v_18->where def_%v_20 %v_18[9.1,] %v_19[9.2,] 	 SYMBOL:	 ARGS:%v_19,
+		 4: %v_20->pluck def_%v_21 %v_20[9.3,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 5: group_ids->+ def_%v_22 group_ids[6.1,3.4,3.10,2.8,] %v_21[9.4,] 	 SYMBOL:	 ARGS:%v_21,
+		 6: COPY TYPE_PASS def_group_ids %v_22[9.5,] 
+		 7: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN group_ids[9.6,6.1,3.4,3.10,2.8,] %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = desired_trust_level_groups instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_trust_level 
+		 6: 
+		 7: %self->trust_group_ids def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->keep_if def_%v_4 %v_3[2.7,] %self[2.0,2.7,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: id[] trust_level[2.5,] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_id 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (AUTO_GROUPS) def_%cl_1_3 
+		 2: %cl_1_3->[] def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:trust_level_0,	 ARGS:Symbol,
+		 3: id->== def_%cl_1_5 id[2.2,] %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:%cl_1_4,
+		 4: BRANCH %cl_1_5[3.3,] 
+BB 4
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: trust_level->+ def_%cl_1_6 trust_level[] 	 SYMBOL:	 ARGS:Fixnum,
+		 1: %cl_1_6->>= def_%cl_1_7 %cl_1_6[4.0,] id[2.2,] 	 SYMBOL:	 ARGS:id,
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_5[3.3,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[6.0,] 
+		 2: RETURN %cl_1_9[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: RETURN %v_4[2.8,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = user_trust_level_change! instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user_id 
+		 6: RECEIVEARG def_trust_level 
+		 7: 
+		 8: %self->desired_trust_level_groups def_%v_3 %self[2.0,] trust_level[2.6,] 	 SYMBOL:	 ARGS:trust_level,
+		 9: COPY TYPE_PASS def_desired %v_3[2.8,] 
+		 10: 
+		 11: %self->trust_group_ids def_%v_4 %self[2.0,2.8,] 	 SYMBOL:	 ARGS:
+		 12: %v_4->- def_%v_5 %v_4[2.11,] desired[2.9,] 	 SYMBOL:	 ARGS:desired,
+		 13: COPY TYPE_PASS def_undesired %v_5[2.12,] 
+		 14: 
+		 15: (GroupUser) def_%v_6 
+		 16: HASH-group_id-user_id- def_%v_7 %v_5[2.12,] user_id[2.5,] 
+		 17: %v_6->where def_%v_8 %v_6[2.15,] %v_7[2.16,] 	 SYMBOL:	 ARGS:%v_7,
+		 18: %v_8->delete_all def_%v_9 %v_8[2.17,] 	 SYMBOL:	 ARGS:
+		 19: 
+		 20: desired->each def_%v_10 desired[2.9,] %self[2.0,2.8,2.11,] 	 SYMBOL:	 ARGS:desired,
+CLOSURE BEGIN: id[] %self[2.0,2.8,2.11,] user_id[2.5,] group[] trust_level[2.6,] 
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_id 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 8 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-id- def_%cl_1_3 id[2.2,] 
+		 2: %self->find_by def_%cl_1_4 %self[2.0,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: COPY TYPE_PASS def_group %cl_1_4[3.2,] 
+		 4: BRANCH %cl_1_4[3.2,] 
+BB 4
+	outgoing: 5 6 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (GroupUser) def_%cl_1_5 
+		 2: HASH-group_id-user_id- def_%cl_1_6 id[2.2,] user_id[] 
+		 3: %cl_1_5->where def_%cl_1_7 %cl_1_5[4.1,] %cl_1_6[4.2,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 4: %cl_1_7->exists? def_%cl_1_8 %cl_1_7[4.3,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %cl_1_8[4.4,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_9 
+		 1: 
+BB 6
+	outgoing: 7 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: group->group_users def_%cl_1_10 group[3.3,] 	 SYMBOL:	 ARGS:
+		 2: HASH-user_id- def_%cl_1_11 user_id[] 
+		 3: %cl_1_10->create! def_%cl_1_12 %cl_1_10[6.1,] %cl_1_11[6.2,] 	 SYMBOL:	 ARGS:%cl_1_11,
+		 4: COPY TYPE_PASS def_%cl_1_9 %cl_1_12[6.3,] 
+BB 7
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_9[6.4,5.0,] %self[2.0,] 
+BB 8
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (AUTO_GROUP_IDS) def_%cl_1_13 
+		 2: %cl_1_13->[] def_%cl_1_14 %cl_1_13[8.1,] trust_level[] 	 SYMBOL:	 ARGS:trust_level,
+		 3: COPY TYPE_PASS def_name %cl_1_14[8.2,] 
+		 4: 
+		 5: %self->refresh_automatic_group! def_%cl_1_15 %self[2.0,] %cl_1_14[8.2,] 	 SYMBOL:	 ARGS:name,
+		 6: RETURN %cl_1_15[8.5,] %self[8.5,2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_16 
+		 1: def_%cl_1_17 %cl_1_16[10.0,] 
+		 2: RETURN %cl_1_17[10.1,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: name[8.3,] group[3.3,] 
+		 21: RETURN %v_10[2.20,] %self[2.0,2.8,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = builtin instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Enum) def_%v_3 
+		 7: %v_3->new def_%v_4 %v_3[2.6,] 	 SYMBOL:moderators,admins,trust_level_1,trust_level_2,	 ARGS:Symbol,Symbol,Symbol,Symbol,
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = usernames= instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_val 
+		 6: 
+		 7: %self->usernames def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "," def_%v_4 
+		 9: %v_3->split def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: COPY TYPE_PASS def_current %v_5[2.9,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "," def_%v_6 
+		 13: val->split def_%v_7 val[2.5,] %v_6[2.12,] 	 SYMBOL:	 ARGS:%v_6,
+		 14: COPY TYPE_PASS def_expected %v_7[2.13,] 
+		 15: 
+		 16: %v_7->- def_%v_8 %v_7[2.13,] current[2.10,] 	 SYMBOL:	 ARGS:current,
+		 17: COPY TYPE_PASS def_additions %v_8[2.16,] 
+		 18: 
+		 19: current->- def_%v_9 current[2.10,] expected[2.14,] 	 SYMBOL:	 ARGS:expected,
+		 20: COPY TYPE_PASS def_deletions %v_9[2.19,] 
+		 21: 
+		 22: (Hash) def_%v_10 
+		 23: (User) def_%v_12 
+		 24: additions->+ def_%v_13 additions[2.17,] %v_9[2.19,] 	 SYMBOL:	 ARGS:deletions,
+		 25: HASH-username- def_%v_14 %v_13[2.24,] 
+		 26: %v_12->where def_%v_15 %v_12[2.23,] %v_14[2.25,] 	 SYMBOL:	 ARGS:%v_14,
+		 27: COPY TYPE_StringLiteral "id,username" def_%v_16 
+		 28: %v_15->select def_%v_17 %v_15[2.26,] %v_16[2.27,] 	 SYMBOL:	 ARGS:%v_16,
+		 29: %v_17->map def_%v_18 %v_17[2.28,] %self[2.0,2.7,] 	 SYMBOL:	 ARGS:%v_17,
+CLOSURE BEGIN: u[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_u 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: u->username def_%cl_1_3 u[2.2,] 	 SYMBOL:	 ARGS:
+		 2: u->id def_%cl_1_4 u[3.1,2.2,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_Array def_%cl_1_5 %cl_1_3[3.1,] %cl_1_4[3.2,] 
+		 4: RETURN %cl_1_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 30: %v_18->flatten def_%v_19 %v_18[2.29,] 	 SYMBOL:	 ARGS:
+		 31: def_%v_11 %v_19[2.30,] 
+		 32: %v_10->[] def_%v_20 %v_10[2.22,] %v_11[2.31,] 	 SYMBOL:	 ARGS:Splat,
+		 33: COPY TYPE_PASS def_map %v_20[2.32,] 
+		 34: 
+		 35: (Set) def_%v_21 
+		 36: deletions->map def_%v_22 deletions[2.20,] %self[2.0,2.7,] 	 SYMBOL:	 ARGS:deletions,
+CLOSURE BEGIN: map[2.33,] d[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_d 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: map->[] def_%cl_2_3 map[] d[2.2,] 	 SYMBOL:	 ARGS:d,
+		 2: RETURN %cl_2_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_4 
+		 1: def_%cl_2_5 %cl_2_4[4.0,] 
+		 2: RETURN %cl_2_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 37: %v_21->new def_%v_23 %v_21[2.35,] %v_22[2.36,] 	 SYMBOL:	 ARGS:%v_22,
+		 38: COPY TYPE_PASS def_deletions %v_23[2.37,] 
+		 39: 
+		 40: COPY TYPE_Array def_%v_24 
+		 41: ATTRASSIGN %self->deletions %v_24[2.40,] 
+		 42: 
+		 43: %self->group_users def_%v_25 %self[2.0,2.7,2.41,] 	 SYMBOL:	 ARGS:
+		 44: %v_25->each def_%v_26 %v_25[2.43,] %self[2.0,2.7,2.41,2.43,] 	 SYMBOL:	 ARGS:%v_25,
+CLOSURE BEGIN: gu[] deletions[2.20,2.36,2.38,] %self[2.0,2.7,2.41,2.43,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_gu 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: gu->user_id def_%cl_3_3 gu[2.2,] 	 SYMBOL:	 ARGS:
+		 2: deletions->include? def_%cl_3_4 deletions[] %cl_3_3[3.1,] 	 SYMBOL:	 ARGS:%cl_3_3,
+		 3: BRANCH %cl_3_4[3.2,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->deletions def_%cl_3_5 %self[2.0,] 
+		 1: %cl_3_5-><< def_%cl_3_6 %cl_3_5[4.0,] gu[2.2,] 	 SYMBOL:	 ARGS:gu,
+		 2: 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_3_6[4.1,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_7 
+		 1: def_%cl_3_8 %cl_3_7[7.0,] 
+		 2: RETURN %cl_3_8[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 45: 
+		 46: additions->each def_%v_27 additions[2.17,2.24,] %self[2.0,2.7,2.41,2.43,] 	 SYMBOL:	 ARGS:additions,
+CLOSURE BEGIN: %self[2.0,2.7,2.41,2.43,] map[2.33,] a[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: RECEIVEARG def_a 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->group_users def_%cl_4_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: map->[] def_%cl_4_4 map[] a[2.2,] 	 SYMBOL:	 ARGS:a,
+		 3: HASH-user_id- def_%cl_4_5 %cl_4_4[3.2,] 
+		 4: %cl_4_3->build def_%cl_4_6 %cl_4_3[3.1,] %cl_4_5[3.3,] 	 SYMBOL:	 ARGS:%cl_4_5,
+		 5: RETURN %cl_4_6[3.4,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_4_7 
+		 1: def_%cl_4_8 %cl_4_7[4.0,] 
+		 2: RETURN %cl_4_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 47: RETURN %v_27[2.46,] %self[2.0,2.7,2.41,2.43,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = usernames instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->users def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->pluck def_%v_4 %v_3[2.6,] 	 SYMBOL:username,	 ARGS:Symbol,
+		 8: COPY TYPE_StringLiteral "," def_%v_5 
+		 9: %v_4->join def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = add instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->users def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->push def_%v_4 %v_3[2.7,] user[2.5,] 	 SYMBOL:	 ARGS:user,
+		 9: RETURN %v_4[2.8,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = remove instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->group_users def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: HASH-user- def_%v_4 user[2.5,] 
+		 9: %v_3->where def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: %v_5->each def_%v_6 %v_5[2.9,] 	 SYMBOL:destroy,	 ARGS:
+		 11: 
+		 12: user->primary_group_id def_%v_7 user[2.5,] 	 SYMBOL:	 ARGS:
+		 13: %self->id def_%v_8 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 14: %v_7->== def_%v_9 %v_7[2.12,] %v_8[2.13,] 	 SYMBOL:	 ARGS:%v_8,
+		 15: BRANCH %v_9[2.14,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: HASH-primary_group_id- def_%v_10 
+		 1: user->update_columns def_%v_11 user[2.5,] %v_10[3.0,] 	 SYMBOL:	 ARGS:%v_10,
+		 2: RETURN %v_11[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = add_owner instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->group_users def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: user->id def_%v_4 user[2.5,] 	 SYMBOL:	 ARGS:
+		 9: HASH-user_id-owner- def_%v_5 %v_4[2.8,] 
+		 10: %v_3->create def_%v_6 %v_3[2.7,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: RETURN %v_6[2.10,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_by_email instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_email 
+		 6: 
+		 7: COPY TYPE_StringLiteral "string_to_array(incoming_email, '|') @> ARRAY[?]" def_%v_3 
+		 8: (Email) def_%v_4 
+		 9: %v_4->downcase def_%v_5 %v_4[2.8,] email[2.5,] 	 SYMBOL:	 ARGS:email,
+		 10: %self->where def_%v_6 %self[2.0,] %v_3[2.7,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_3,%v_5,
+		 11: %v_6->first def_%v_7 %v_6[2.10,] 	 SYMBOL:	 ARGS:
+		 12: RETURN %v_7[2.11,] %self[2.0,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = bulk_add instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 10 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user_ids 
+		 6: 
+		 7: user_ids->present? def_%v_3 user_ids[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Group) def_%v_4 
+		 2: COPY TYPE_StringLiteral "INSERT INTO group_users
+                                  (group_id, user_id, created_at, updated_at)
+                     SELECT " def_%v_5 
+		 3: 
+		 4: %self->id def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral ",
+                            u.id,
+                            CURRENT_TIMESTAMP,
+                            CURRENT_TIMESTAMP
+                     FROM users AS u
+                     WHERE u.id IN (" def_%v_7 
+		 6: 
+		 7: COPY TYPE_StringLiteral ", " def_%v_8 
+		 8: user_ids->join def_%v_9 user_ids[2.5,] %v_8[3.7,] 	 SYMBOL:	 ARGS:%v_8,
+		 9: COPY TYPE_StringLiteral ")
+                       AND NOT EXISTS(SELECT 1 FROM group_users AS gu
+                                      WHERE gu.user_id = u.id AND
+                                            gu.group_id = " def_%v_10 
+		 10: 
+		 11: %self->id def_%v_11 %self[3.4,2.0,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral ")" def_%v_12 
+		 13: BUILDSTRING def_%v_13 %v_5[3.2,] %v_6[3.4,] %v_7[3.5,] %v_9[3.8,] %v_10[3.9,] %v_11[3.11,] %v_12[3.12,] 
+		 14: %v_4->exec_sql def_%v_14 %v_4[3.1,] %v_13[3.13,] 	 SYMBOL:	 ARGS:%v_13,
+		 15: 
+		 16: %self->primary_group? def_%v_15 %self[3.4,3.11,2.0,] 	 SYMBOL:	 ARGS:
+		 17: BRANCH %v_15[3.16,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%v_16 
+		 2: HASH-id- def_%v_17 user_ids[2.5,] 
+		 3: %v_16->where def_%v_18 %v_16[4.1,] %v_17[4.2,] 	 SYMBOL:	 ARGS:%v_17,
+		 4: %self->id def_%v_19 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: HASH-primary_group_id- def_%v_20 %v_19[4.4,] 
+		 6: %v_18->update_all def_%v_21 %v_18[4.3,] %v_20[4.5,] 	 SYMBOL:	 ARGS:%v_20,
+		 7: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->title def_%v_22 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_22->present? def_%v_23 %v_22[6.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_23[6.2,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%v_24 
+		 2: HASH-id- def_%v_25 user_ids[2.5,] 
+		 3: %v_24->where def_%v_26 %v_24[7.1,] %v_25[7.2,] 	 SYMBOL:	 ARGS:%v_25,
+		 4: %self->title def_%v_27 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: HASH-title- def_%v_28 %v_27[7.4,] 
+		 6: %v_26->update_all def_%v_29 %v_26[7.3,] %v_28[7.5,] 	 SYMBOL:	 ARGS:%v_28,
+		 7: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_29 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_29 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mentionable? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_group_id 
+		 7: 
+		 8: (Group) def_%v_3 
+		 9: %v_3->mentionable def_%v_4 %v_3[2.8,] user[2.5,] 	 SYMBOL:	 ARGS:user,
+		 10: HASH-id- def_%v_5 group_id[2.6,] 
+		 11: %v_4->where def_%v_6 %v_4[2.9,] %v_5[2.10,] 	 SYMBOL:	 ARGS:%v_5,
+		 12: %v_6->exists? def_%v_7 %v_6[2.11,] 	 SYMBOL:	 ARGS:
+		 13: RETURN %v_7[2.12,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = name_format_validator instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (UsernameValidator) def_%v_3 
+		 7: COPY TYPE_StringLiteral "name" def_%v_4 
+		 8: %v_3->perform_validation def_%v_5 %v_3[2.6,] %self[2.0,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%self,%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = automatic_membership_email_domains_format_validator instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->automatic_membership_email_domains def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->blank? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: %self->automatic_membership_email_domains def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "|" def_%v_7 
+		 4: %v_6->split def_%v_8 %v_6[4.2,] %v_7[4.3,] 	 SYMBOL:	 ARGS:%v_7,
+		 5: COPY TYPE_PASS def_domains %v_8[4.4,] 
+		 6: 
+		 7: %v_8->each def_%v_9 %v_8[4.4,] %self[4.2,2.0,] 	 SYMBOL:	 ARGS:%v_8,
+CLOSURE BEGIN: domain[] %self[4.2,2.0,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_domain 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Regexp def_%cl_1_3 
+		 2: COPY TYPE_StringLiteral "" def_%cl_1_4 
+		 3: domain->sub! def_%cl_1_5 domain[2.2,] %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:%cl_1_3,%cl_1_4,
+		 4: 
+		 5: COPY TYPE_Regexp def_%cl_1_6 
+		 6: COPY TYPE_StringLiteral "" def_%cl_1_7 
+		 7: domain->sub! def_%cl_1_8 domain[3.3,2.2,] %cl_1_7[3.6,] 	 SYMBOL:	 ARGS:%cl_1_6,%cl_1_7,
+		 8: 
+		 9: COPY TYPE_Regexp def_%cl_1_9 
+		 10: domain->=~ def_%cl_1_10 domain[3.3,3.7,2.2,] 	 SYMBOL:	 ARGS:%cl_1_9,
+		 11: BRANCH %cl_1_10[3.10,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_11 
+		 1: RETURN %cl_1_11[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: %self->errors def_%cl_1_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: (I18n) def_%cl_1_13 
+		 2: COPY TYPE_StringLiteral "groups.errors.invalid_domain" def_%cl_1_14 
+		 3: HASH-domain- def_%cl_1_15 domain[2.2,] 
+		 4: %cl_1_13->t def_%cl_1_16 %cl_1_13[5.1,] %cl_1_14[5.2,] %cl_1_15[5.3,] 	 SYMBOL:	 ARGS:%cl_1_14,%cl_1_15,
+		 5: %cl_1_12->add def_%cl_1_17 %cl_1_12[5.0,] %cl_1_16[5.4,] 	 SYMBOL:base,	 ARGS:Symbol,%cl_1_16,
+		 6: RETURN %cl_1_17[5.5,] %self[5.0,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_18 
+		 1: def_%cl_1_19 %cl_1_18[7.0,] 
+		 2: RETURN %cl_1_19[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: 
+		 9: COPY TYPE_StringLiteral "|" def_%v_10 
+		 10: domains->join def_%v_11 domains[4.5,] %v_10[4.9,] 	 SYMBOL:	 ARGS:%v_10,
+		 11: ATTRASSIGN %self->automatic_membership_email_domains %v_11[4.10,] 
+		 12: RETURN %v_11[4.10,] %self[4.2,4.11,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = destroy_deletions instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: 
+		 7: GETFIELD %self->deletions def_%v_3 %self[2.0,] 
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->deletions def_%v_4 %self[2.0,] 
+		 1: %v_4->each def_%v_5 %v_4[3.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: gu[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_gu 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: gu->destroy def_%cl_1_3 gu[2.2,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: (User) def_%cl_1_4 
+		 4: COPY TYPE_StringLiteral "id = ? AND primary_group_id = ?" def_%cl_1_5 
+		 5: gu->user_id def_%cl_1_6 gu[3.1,2.2,] 	 SYMBOL:	 ARGS:
+		 6: gu->group_id def_%cl_1_7 gu[3.1,3.5,2.2,] 	 SYMBOL:	 ARGS:
+		 7: %cl_1_4->where def_%cl_1_8 %cl_1_4[3.3,] %cl_1_5[3.4,] %cl_1_6[3.5,] %cl_1_7[3.6,] 	 SYMBOL:	 ARGS:%cl_1_5,%cl_1_6,%cl_1_7,
+		 8: COPY TYPE_StringLiteral "primary_group_id = NULL" def_%cl_1_9 
+		 9: %cl_1_8->update_all def_%cl_1_10 %cl_1_8[3.7,] %cl_1_9[3.8,] 	 SYMBOL:	 ARGS:%cl_1_9,
+		 10: RETURN %cl_1_10[3.9,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_11 
+		 1: def_%cl_1_12 %cl_1_11[4.0,] 
+		 2: RETURN %cl_1_12[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->deletions 
+		 2: RETURN %self[5.1,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = automatic_group_membership instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->automatic_membership_retroactive def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Jobs) def_%v_4 
+		 2: %self->id def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: HASH-group_id- def_%v_6 %v_5[3.2,] 
+		 4: %v_4->enqueue def_%v_7 %v_4[3.1,] %v_6[3.3,] 	 SYMBOL:automatic_group_membership,	 ARGS:Symbol,%v_6,
+		 5: RETURN %v_7[3.4,] %self[3.2,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_title instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->new_record? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->title def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->present? def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_5->! def_%v_6 %v_5[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_3 %v_6[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.3,2.6,] 
+BB 5
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+		 2: %self->title_changed? def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_8[6.2,] 
+BB 8
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "        UPDATE users SET title = :title
+        WHERE (title = :title_was OR
+              title = '' OR
+              title IS NULL) AND
+              COALESCE(title,'') <> COALESCE(:title,'') AND
+              id IN (
+                SELECT user_id
+                FROM group_users
+                WHERE group_id = :id
+              )
+" def_%v_9 
+		 2: COPY TYPE_PASS def_sql %v_9[8.1,] 
+		 3: 
+		 4: %self->class def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: %self->title def_%v_11 %self[8.4,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %self->title_was def_%v_12 %self[8.4,8.5,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->id def_%v_13 %self[8.4,8.5,8.6,2.0,] 	 SYMBOL:	 ARGS:
+		 8: HASH-title-title_was-id- def_%v_14 %v_11[8.5,] %v_12[8.6,] %v_13[8.7,] 
+		 9: %v_10->exec_sql def_%v_15 %v_10[8.4,] sql[8.2,] %v_14[8.8,] 	 SYMBOL:	 ARGS:sql,%v_14,
+		 10: RETURN %v_15[8.9,] %self[8.4,8.5,8.6,8.7,2.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_primary_group instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->new_record? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->primary_group? def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->! def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.2,2.6,] 
+BB 5
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: %self->primary_group_changed? def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_7[6.2,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "        UPDATE users
+        /*set*/
+        /*where*/
+" def_%v_8 
+		 2: COPY TYPE_PASS def_sql %v_8[8.1,] 
+		 3: 
+		 4: (SqlBuilder) def_%v_9 
+		 5: %v_9->new def_%v_10 %v_9[8.4,] %v_8[8.1,] 	 SYMBOL:	 ARGS:sql,
+		 6: COPY TYPE_PASS def_builder %v_10[8.5,] 
+		 7: 
+		 8: COPY TYPE_StringLiteral "
+              id IN (
+                SELECT user_id
+                FROM group_users
+                WHERE group_id = :id
+              )" def_%v_11 
+		 9: %self->id def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 10: HASH-id- def_%v_13 %v_12[8.9,] 
+		 11: builder->where def_%v_14 builder[8.6,] %v_11[8.8,] %v_13[8.10,] 	 SYMBOL:	 ARGS:%v_11,%v_13,
+		 12: 
+		 13: %self->primary_group def_%v_15 %self[8.9,2.0,] 	 SYMBOL:	 ARGS:
+		 14: BRANCH %v_15[8.13,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "primary_group_id = :id" def_%v_16 
+		 2: builder->set def_%v_17 builder[8.6,] %v_16[9.1,] 	 SYMBOL:	 ARGS:%v_16,
+		 3: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "primary_group_id = NULL" def_%v_18 
+		 2: builder->set def_%v_19 builder[8.6,] %v_18[10.1,] 	 SYMBOL:	 ARGS:%v_18,
+		 3: 
+		 4: COPY TYPE_StringLiteral "primary_group_id = :id" def_%v_20 
+		 5: builder->where def_%v_21 builder[10.2,8.6,] %v_20[10.4,] 	 SYMBOL:	 ARGS:%v_20,
+		 6: COPY TYPE_PASS def_%v_17 %v_21[10.5,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: builder->exec def_%v_22 builder[8.6,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_22[11.1,] %self[2.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+

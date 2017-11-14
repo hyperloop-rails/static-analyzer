@@ -1,0 +1,174 @@
+SET IRMethod, name = due_styles instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: HASH-due_in_n_days-due_on- def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = hide_completed_actions? instanceMethod = true
+BB 1
+	outgoing: 4 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->show_number_completed def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->== def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: RETURN %v_4[2.7,] %self[2.0,2.6,] 
+BB 4
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = parse_date instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_s 
+		 6: 
+		 7: s->blank? def_%v_3 s[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: COPY TYPE_Nil def_date 
+		 3: 
+		 4: (Time) def_%v_5 
+		 5: s->is_a? def_%v_6 s[2.5,] %v_5[4.4,] 	 SYMBOL:	 ARGS:%v_5,
+		 6: BRANCH %v_6[4.5,] 
+BB 6
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: s->to_date def_%v_7 s[2.5,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_date %v_7[6.1,] 
+		 3: 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (String) def_%v_8 
+		 2: s->is_a? def_%v_9 s[2.5,] %v_8[7.1,] 	 SYMBOL:	 ARGS:%v_8,
+		 3: BRANCH %v_9[7.2,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Date) def_%v_10 
+		 2: %self->date_format def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_10->strptime def_%v_12 %v_10[8.1,] s[2.5,] %v_11[8.2,] 	 SYMBOL:	 ARGS:s,%v_11,
+		 4: COPY TYPE_PASS def_date %v_12[8.3,] 
+		 5: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ArgumentError) def_%v_13 
+		 2: COPY TYPE_StringLiteral "Bad argument type:" def_%v_14 
+		 3: s->class def_%v_15 s[2.5,] 	 SYMBOL:	 ARGS:
+		 4: BUILDSTRING def_%v_16 %v_14[9.2,] %v_15[9.3,] 
+		 5: %v_13->new def_%v_17 %v_13[9.1,] %v_16[9.4,] 	 SYMBOL:	 ARGS:%v_16,
+		 6: %self->raise def_%v_18 %self[2.0,] %v_17[9.5,] 	 SYMBOL:	 ARGS:%v_17,
+		 7: COPY TYPE_PASS def_%v_12 %v_18[9.6,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_7 %v_12[9.7,8.3,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->time_zone def_%v_19 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: date->in_time_zone def_%v_20 date[6.2,8.4,4.2,] %v_19[11.1,] 	 SYMBOL:	 ARGS:%v_19,
+		 3: %v_20->beginning_of_day def_%v_21 %v_20[11.2,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %v_21[11.3,] %self[11.1,2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = format_date instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_date 
+		 6: 
+		 7: BRANCH date[2.5,] 
+BB 3
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->time_zone def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: date->in_time_zone def_%v_4 date[2.5,] %v_3[3.0,] 	 SYMBOL:	 ARGS:%v_3,
+		 2: %self->date_format def_%v_5 %self[3.0,2.0,] 	 SYMBOL:	 ARGS:
+		 3: BUILDSTRING def_%v_6 %v_5[3.2,] 
+		 4: %v_4->strftime def_%v_7 %v_4[3.1,] %v_6[3.3,] 	 SYMBOL:	 ARGS:%v_6,
+		 5: RETURN %v_7[3.4,] %self[3.0,3.2,2.0,] 
+BB 4
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_8 
+		 1: RETURN %v_8[4.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,300 @@
+SET IRMethod, name = install instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_installer 
+		 6: RECEIVEARG def_source 
+		 7: 
+		 8: (HDA_TMP_DIR) def_%v_3 
+		 9: COPY TYPE_StringLiteral "/plugin" def_%v_4 
+		 10: BUILDSTRING def_%v_5 %v_3[2.8,] %v_4[2.9,] 
+		 11: COPY TYPE_PASS def_unpack_path %v_5[2.10,] 
+		 12: 
+		 13: installer->source_url def_%v_6 installer[2.5,] 	 SYMBOL:	 ARGS:
+		 14: %v_6->nil? def_%v_7 %v_6[2.13,] 	 SYMBOL:	 ARGS:
+		 15: BRANCH %v_7[2.14,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: installer->source_url def_%v_8 installer[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_8->blank? def_%v_9 %v_8[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_7 %v_9[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_7[3.2,2.14,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+		 2: COPY TYPE_Nil def_plugin 
+		 3: 
+		 4: (FileUtils) def_%v_11 
+		 5: %v_11->rm_rf def_%v_12 %v_11[6.4,] unpack_path[2.11,] 	 SYMBOL:	 ARGS:unpack_path,
+		 6: 
+		 7: (FileUtils) def_%v_13 
+		 8: %v_13->mkdir_p def_%v_14 %v_13[6.7,] unpack_path[2.11,] 	 SYMBOL:	 ARGS:unpack_path,
+		 9: 
+		 10: (Dir) def_%v_15 
+		 11: %v_15->chdir def_%v_16 %v_15[6.10,] unpack_path[2.11,] %self[2.0,] 	 SYMBOL:	 ARGS:unpack_path,%v_15,
+CLOSURE BEGIN: installer[2.5,] source[2.6,] files[] %self[2.0,] dir[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SystemUtils) def_%cl_1_3 
+		 2: installer->source_url def_%cl_1_4 installer[] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_3->unpack def_%cl_1_5 %cl_1_3[3.1,] %cl_1_4[3.2,] source[] 	 SYMBOL:	 ARGS:%cl_1_4,source,
+		 4: 
+		 5: (Dir) def_%cl_1_6 
+		 6: COPY TYPE_StringLiteral "*" def_%cl_1_7 
+		 7: %cl_1_6->glob def_%cl_1_8 %cl_1_6[3.5,] %cl_1_7[3.6,] 	 SYMBOL:	 ARGS:%cl_1_7,
+		 8: COPY TYPE_PASS def_files %cl_1_8[3.7,] 
+		 9: 
+		 10: %cl_1_8->size def_%cl_1_9 %cl_1_8[3.7,] 	 SYMBOL:	 ARGS:
+		 11: %cl_1_9->== def_%cl_1_10 %cl_1_9[3.10,] 	 SYMBOL:	 ARGS:Fixnum,
+		 12: BRANCH %cl_1_10[3.11,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: files->first def_%cl_1_11 files[3.8,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_dir %cl_1_11[4.1,] 
+		 3: 
+		 4: (YAML) def_%cl_1_12 
+		 5: (StringIO) def_%cl_1_13 
+		 6: (File) def_%cl_1_14 
+		 7: COPY TYPE_StringLiteral "/config/amahi-plugin.yml" def_%cl_1_15 
+		 8: BUILDSTRING def_%cl_1_16 %cl_1_11[4.1,] %cl_1_15[4.7,] 
+		 9: %cl_1_14->read def_%cl_1_17 %cl_1_14[4.6,] %cl_1_16[4.8,] 	 SYMBOL:	 ARGS:%cl_1_16,
+		 10: %cl_1_13->new def_%cl_1_18 %cl_1_13[4.5,] %cl_1_17[4.9,] 	 SYMBOL:	 ARGS:%cl_1_17,
+		 11: %cl_1_18->read def_%cl_1_19 %cl_1_18[4.10,] 	 SYMBOL:	 ARGS:
+		 12: %cl_1_12->load def_%cl_1_20 %cl_1_12[4.4,] %cl_1_19[4.11,] 	 SYMBOL:	 ARGS:%cl_1_19,
+		 13: COPY TYPE_PASS def_config %cl_1_20[4.12,] 
+		 14: 
+		 15: %self->dir2plugin def_%cl_1_21 %self[2.0,] dir[4.2,] %cl_1_20[4.12,] 	 SYMBOL:	 ARGS:dir,config,
+		 16: COPY TYPE_PASS def_plugin %cl_1_21[4.15,] 
+		 17: 
+BB 5
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "ERROR: this plugin unpacks into more than one file!" def_%cl_1_22 
+		 2: %self->raise def_%cl_1_23 %self[2.0,] %cl_1_22[5.1,] 	 SYMBOL:	 ARGS:%cl_1_22,
+		 3: RETURN %cl_1_23[5.2,] %self[5.2,2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_21[4.15,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_24 
+		 1: def_%cl_1_25 %cl_1_24[7.0,] 
+		 2: RETURN %cl_1_25[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: plugin[4.16,] dir[4.2,] config[4.13,] 
+		 12: 
+		 13: (FileUtils) def_%v_17 
+		 14: %v_17->rm_rf def_%v_18 %v_17[6.13,] unpack_path[2.11,] 	 SYMBOL:	 ARGS:unpack_path,
+		 15: 
+		 16: RETURN plugin[6.2,6.11,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = before_destroy instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (File) def_%v_3 
+		 7: %self->path def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->basename def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: COPY TYPE_PASS def_base %v_5[2.8,] 
+		 10: 
+		 11: (File) def_%v_6 
+		 12: (Rails) def_%v_7 
+		 13: %v_7->root def_%v_8 %v_7[2.12,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_StringLiteral "plugins" def_%v_9 
+		 15: %self->id def_%v_10 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 16: %v_10->+ def_%v_11 %v_10[2.15,] 	 SYMBOL:	 ARGS:%v_10,
+		 17: COPY TYPE_StringLiteral "-" def_%v_12 
+		 18: BUILDSTRING def_%v_13 %v_11[2.16,] %v_12[2.17,] base[2.9,] 
+		 19: %v_6->join def_%v_14 %v_6[2.11,] %v_8[2.13,] %v_9[2.14,] %v_13[2.18,] 	 SYMBOL:	 ARGS:%v_8,%v_9,%v_13,
+		 20: COPY TYPE_PASS def_location %v_14[2.19,] 
+		 21: 
+		 22: COPY TYPE_Array def_%v_15 
+		 23: COPY TYPE_PASS def_array %v_15[2.22,] 
+		 24: 
+		 25: COPY TYPE_StringLiteral "/db/migrate" def_%v_16 
+		 26: BUILDSTRING def_%v_17 %v_14[2.19,] %v_16[2.25,] 
+		 27: %v_15-><< def_%v_18 %v_15[2.22,] %v_17[2.26,] 	 SYMBOL:	 ARGS:%v_17,
+		 28: 
+		 29: COPY TYPE_StringLiteral "Reverting the changes to the database made by the plugin" def_%v_19 
+		 30: %self->puts def_%v_20 %self[2.0,2.7,2.15,] %v_19[2.29,] 	 SYMBOL:	 ARGS:%v_19,
+		 31: 
+		 32: (ActiveRecord) def_%v_21 
+		 33: (inherit Migrator) def_%v_22 %v_21[2.32,] 
+		 34: %v_22[2.33,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_21->const_missing def_%v_22 %v_21[2.32,] 	 SYMBOL:Migrator,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_22->down def_%v_23 %v_22[3.0,2.33,] array[2.23,] 	 SYMBOL:	 ARGS:array,Nil,
+		 1: 
+		 2: (FileUtils) def_%v_24 
+		 3: %v_24->rm_rf def_%v_25 %v_24[4.2,] location[2.20,] 	 SYMBOL:	 ARGS:location,
+		 4: 
+		 5: (Command) def_%v_26 
+		 6: COPY TYPE_StringLiteral "touch /var/hda/platform/html/tmp/restart.txt" def_%v_27 
+		 7: %v_26->new def_%v_28 %v_26[4.5,] %v_27[4.6,] 	 SYMBOL:	 ARGS:%v_27,
+		 8: COPY TYPE_PASS def_c %v_28[4.7,] 
+		 9: 
+		 10: %v_28->execute def_%v_29 %v_28[4.7,] 	 SYMBOL:	 ARGS:
+		 11: RETURN %v_29[4.10,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = dir2plugin instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_source 
+		 6: RECEIVEARG def_config 
+		 7: 
+		 8: COPY TYPE_StringLiteral "url" def_%v_3 
+		 9: config->[] def_%v_4 config[2.6,] %v_3[2.8,] 	 SYMBOL:	 ARGS:%v_3,
+		 10: COPY TYPE_PASS def_path %v_4[2.9,] 
+		 11: 
+		 12: (File) def_%v_5 
+		 13: %v_5->basename def_%v_6 %v_5[2.12,] %v_4[2.9,] 	 SYMBOL:	 ARGS:path,
+		 14: COPY TYPE_PASS def_base %v_6[2.13,] 
+		 15: 
+		 16: COPY TYPE_StringLiteral "name" def_%v_7 
+		 17: config->[] def_%v_8 config[2.6,2.9,] %v_7[2.16,] 	 SYMBOL:	 ARGS:%v_7,
+		 18: HASH-name-path- def_%v_9 %v_8[2.17,] path[2.10,] 
+		 19: %self->create def_%v_10 %self[2.0,] %v_9[2.18,] 	 SYMBOL:	 ARGS:%v_9,
+		 20: COPY TYPE_PASS def_plugin %v_10[2.19,] 
+		 21: 
+		 22: (File) def_%v_11 
+		 23: (Rails) def_%v_12 
+		 24: %v_12->root def_%v_13 %v_12[2.23,] 	 SYMBOL:	 ARGS:
+		 25: COPY TYPE_StringLiteral "plugins" def_%v_14 
+		 26: plugin->id def_%v_15 plugin[2.20,] 	 SYMBOL:	 ARGS:
+		 27: %v_15->+ def_%v_16 %v_15[2.26,] 	 SYMBOL:	 ARGS:%v_15,
+		 28: COPY TYPE_StringLiteral "-" def_%v_17 
+		 29: BUILDSTRING def_%v_18 %v_16[2.27,] %v_17[2.28,] base[2.14,] 
+		 30: %v_11->join def_%v_19 %v_11[2.22,] %v_13[2.24,] %v_14[2.25,] %v_18[2.29,] 	 SYMBOL:	 ARGS:%v_13,%v_14,%v_18,
+		 31: COPY TYPE_PASS def_destination %v_19[2.30,] 
+		 32: 
+		 33: (FileUtils) def_%v_20 
+		 34: %v_20->rm_rf def_%v_21 %v_20[2.33,] %v_19[2.30,] 	 SYMBOL:	 ARGS:destination,
+		 35: 
+		 36: (FileUtils) def_%v_22 
+		 37: %v_22->mv def_%v_23 %v_22[2.36,] source[2.5,] destination[2.31,] 	 SYMBOL:	 ARGS:source,destination,
+		 38: 
+		 39: COPY TYPE_Array def_%v_24 
+		 40: COPY TYPE_PASS def_array %v_24[2.39,] 
+		 41: 
+		 42: COPY TYPE_StringLiteral "/db/migrate" def_%v_25 
+		 43: BUILDSTRING def_%v_26 destination[2.31,] %v_25[2.42,] 
+		 44: %v_24-><< def_%v_27 %v_24[2.39,] %v_26[2.43,] 	 SYMBOL:	 ARGS:%v_26,
+		 45: 
+		 46: COPY TYPE_StringLiteral "Migrating database of the plugin, if applicable" def_%v_28 
+		 47: %self->puts def_%v_29 %self[2.0,2.19,] %v_28[2.46,] 	 SYMBOL:	 ARGS:%v_28,
+		 48: 
+		 49: (ActiveRecord) def_%v_30 
+		 50: (inherit Migrator) def_%v_31 %v_30[2.49,] 
+		 51: %v_31[2.50,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_30->const_missing def_%v_31 %v_30[2.49,] 	 SYMBOL:Migrator,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_31->up def_%v_32 %v_31[3.0,2.50,] array[2.40,] 	 SYMBOL:	 ARGS:array,Nil,
+		 1: 
+		 2: (Command) def_%v_33 
+		 3: COPY TYPE_StringLiteral "touch /var/hda/platform/html/tmp/restart.txt" def_%v_34 
+		 4: %v_33->new def_%v_35 %v_33[4.2,] %v_34[4.3,] 	 SYMBOL:	 ARGS:%v_34,
+		 5: COPY TYPE_PASS def_c %v_35[4.4,] 
+		 6: 
+		 7: %v_35->execute def_%v_36 %v_35[4.4,] 	 SYMBOL:	 ARGS:
+		 8: 
+		 9: RETURN plugin[2.20,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

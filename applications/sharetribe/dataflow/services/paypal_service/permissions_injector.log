@@ -1,0 +1,180 @@
+SET IRMethod, name = paypal_permissions instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->paypal_permissions def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->build_paypal_permissions def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: ATTRASSIGN %self->paypal_permissions %v_6[5.0,] 
+		 2: RETURN %v_6[5.0,] %self[5.0,5.1,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_paypal_permissions instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (DataTypes) def_%v_3 
+		 7: (APP_CONFIG) def_%v_4 
+		 8: %self->build_endpoint def_%v_5 %self[2.0,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: (APP_CONFIG) def_%v_6 
+		 10: %self->build_api_credentials def_%v_7 %self[2.0,2.8,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: HASH-endpoint-api_credentials- def_%v_8 %v_5[2.8,] %v_7[2.10,] 
+		 12: %v_3->create_config def_%v_9 %v_3[2.6,] %v_8[2.11,] 	 SYMBOL:	 ARGS:%v_8,
+		 13: COPY TYPE_PASS def_config %v_9[2.12,] 
+		 14: 
+		 15: (PaypalService) def_%v_10 
+		 16: (inherit Permissions) def_%v_11 %v_10[2.15,] 
+		 17: %v_11[2.16,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_10->const_missing def_%v_11 %v_10[2.15,] 	 SYMBOL:Permissions,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (PaypalService) def_%v_12 
+		 1: (inherit Logger) def_%v_13 %v_12[4.0,] 
+		 2: %v_13[4.1,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_12->const_missing def_%v_13 %v_12[4.0,] 	 SYMBOL:Logger,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_13->new def_%v_14 %v_13[5.0,4.1,] 	 SYMBOL:	 ARGS:
+		 1: %v_11->new def_%v_15 %v_11[3.0,2.16,] config[2.13,] %v_14[6.0,] 	 SYMBOL:	 ARGS:config,%v_14,
+		 2: RETURN %v_15[6.1,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_endpoint instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_config 
+		 6: 
+		 7: (PaypalService) def_%v_3 
+		 8: (inherit DataTypes) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:DataTypes,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: config->paypal_endpoint def_%v_5 config[2.5,] 	 SYMBOL:	 ARGS:
+		 1: HASH-endpoint_name- def_%v_6 %v_5[4.0,] 
+		 2: %v_4->create_endpoint def_%v_7 %v_4[3.0,2.8,] %v_6[4.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: RETURN %v_7[4.2,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_api_credentials instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_config 
+		 6: 
+		 7: (PaypalService) def_%v_3 
+		 8: (inherit DataTypes) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:DataTypes,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: config->paypal_username def_%v_5 config[2.5,] 	 SYMBOL:	 ARGS:
+		 1: config->paypal_password def_%v_6 config[4.0,2.5,] 	 SYMBOL:	 ARGS:
+		 2: config->paypal_signature def_%v_7 config[4.0,4.1,2.5,] 	 SYMBOL:	 ARGS:
+		 3: config->paypal_app_id def_%v_8 config[4.0,4.1,4.2,2.5,] 	 SYMBOL:	 ARGS:
+		 4: config->paypal_partner_id def_%v_9 config[4.0,4.1,4.2,4.3,2.5,] 	 SYMBOL:	 ARGS:
+		 5: HASH-username-password-signature-app_id-partner_id- def_%v_10 %v_5[4.0,] %v_6[4.1,] %v_7[4.2,] %v_8[4.3,] %v_9[4.4,] 
+		 6: %v_4->create_api_credentials def_%v_11 %v_4[3.0,2.8,] %v_10[4.5,] 	 SYMBOL:	 ARGS:%v_10,
+		 7: RETURN %v_11[4.6,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

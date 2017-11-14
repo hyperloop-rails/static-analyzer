@@ -1,0 +1,76 @@
+SET IRMethod, name = move_to_inbox! instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_group_id 
+		 6: RECEIVEARG def_topic_id 
+		 7: 
+		 8: (GroupArchivedMessage) def_%v_3 
+		 9: HASH-group_id-topic_id- def_%v_4 group_id[2.5,] topic_id[2.6,] 
+		 10: %v_3->where def_%v_5 %v_3[2.8,] %v_4[2.9,] 	 SYMBOL:	 ARGS:%v_4,
+		 11: %v_5->destroy_all def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: 
+		 13: (MessageBus) def_%v_7 
+		 14: COPY TYPE_StringLiteral "/topic/" def_%v_8 
+		 15: BUILDSTRING def_%v_9 %v_8[2.14,] topic_id[2.6,] 
+		 16: COPY TYPE_StringLiteral "move_to_inbox" def_%v_10 
+		 17: HASH-type- def_%v_11 %v_10[2.16,] 
+		 18: COPY TYPE_Array def_%v_12 group_id[2.5,] 
+		 19: HASH-group_ids- def_%v_13 %v_12[2.18,] 
+		 20: %v_7->publish def_%v_14 %v_7[2.13,] %v_9[2.15,] %v_11[2.17,] %v_13[2.19,] 	 SYMBOL:	 ARGS:%v_9,%v_11,%v_13,
+		 21: RETURN %v_14[2.20,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = archive! instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_group_id 
+		 6: RECEIVEARG def_topic_id 
+		 7: 
+		 8: (GroupArchivedMessage) def_%v_3 
+		 9: HASH-group_id-topic_id- def_%v_4 group_id[2.5,] topic_id[2.6,] 
+		 10: %v_3->where def_%v_5 %v_3[2.8,] %v_4[2.9,] 	 SYMBOL:	 ARGS:%v_4,
+		 11: %v_5->destroy_all def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: 
+		 13: (GroupArchivedMessage) def_%v_7 
+		 14: HASH-group_id-topic_id- def_%v_8 group_id[2.5,] topic_id[2.6,] 
+		 15: %v_7->create! def_%v_9 %v_7[2.13,] %v_8[2.14,] 	 SYMBOL:	 ARGS:%v_8,
+		 16: 
+		 17: (MessageBus) def_%v_10 
+		 18: COPY TYPE_StringLiteral "/topic/" def_%v_11 
+		 19: BUILDSTRING def_%v_12 %v_11[2.18,] topic_id[2.6,] 
+		 20: COPY TYPE_StringLiteral "archived" def_%v_13 
+		 21: HASH-type- def_%v_14 %v_13[2.20,] 
+		 22: COPY TYPE_Array def_%v_15 group_id[2.5,] 
+		 23: HASH-group_ids- def_%v_16 %v_15[2.22,] 
+		 24: %v_10->publish def_%v_17 %v_10[2.17,] %v_12[2.19,] %v_14[2.21,] %v_16[2.23,] 	 SYMBOL:	 ARGS:%v_12,%v_14,%v_16,
+		 25: RETURN %v_17[2.24,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

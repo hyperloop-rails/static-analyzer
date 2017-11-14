@@ -1,0 +1,340 @@
+SET IRMethod, name = new instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->render_form def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create instanceMethod = true
+BB 1
+	outgoing: 18 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 16 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (NewMarketplaceForm) def_%v_3 
+		 7: %self->params def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->new def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: COPY TYPE_PASS def_form %v_5[2.8,] 
+		 10: 
+		 11: %v_5->valid? def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_6[2.11,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: form->to_hash def_%v_7 form[2.9,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_form_hash %v_7[3.1,] 
+		 3: 
+		 4: (MarketplaceService) def_%v_8 
+		 5: (inherit API) def_%v_9 %v_8[3.4,] 
+		 6: %v_9[3.5,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_8->const_missing def_%v_9 %v_8[3.4,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (inherit Marketplaces) def_%v_10 %v_9[4.0,3.5,] 
+		 1: %v_10[5.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_9->const_missing def_%v_10 %v_9[4.0,3.5,] 	 SYMBOL:Marketplaces,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: form_hash->slice def_%v_11 form_hash[3.2,] 	 SYMBOL:marketplace_name,marketplace_type,marketplace_country,marketplace_language,	 ARGS:Symbol,Symbol,Symbol,Symbol,
+		 1: HASH-payment_process- def_%v_12 
+		 2: %v_11->merge def_%v_13 %v_11[7.0,] %v_12[7.1,] 	 SYMBOL:	 ARGS:%v_12,
+		 3: %v_10->create def_%v_14 %v_10[6.0,5.0,] %v_13[7.2,] 	 SYMBOL:	 ARGS:%v_13,
+		 4: COPY TYPE_PASS def_marketplace %v_14[7.3,] 
+		 5: 
+		 6: (UserService) def_%v_15 
+		 7: (inherit API) def_%v_16 %v_15[7.6,] 
+		 8: %v_16[7.7,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_15->const_missing def_%v_16 %v_15[7.6,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: (inherit Users) def_%v_17 %v_16[8.0,7.7,] 
+		 1: %v_17[9.0,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %v_16->const_missing def_%v_17 %v_16[8.0,7.7,] 	 SYMBOL:Users,	 ARGS:Symbol,
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: form_hash->[] def_%v_18 form_hash[3.2,] 	 SYMBOL:admin_first_name,	 ARGS:Symbol,
+		 1: form_hash->[] def_%v_19 form_hash[11.0,3.2,] 	 SYMBOL:admin_last_name,	 ARGS:Symbol,
+		 2: form_hash->[] def_%v_20 form_hash[11.0,11.1,3.2,] 	 SYMBOL:admin_email,	 ARGS:Symbol,
+		 3: form_hash->[] def_%v_21 form_hash[11.0,11.1,11.2,3.2,] 	 SYMBOL:admin_password,	 ARGS:Symbol,
+		 4: form_hash->[] def_%v_22 form_hash[11.0,11.1,11.2,11.3,3.2,] 	 SYMBOL:marketplace_language,	 ARGS:Symbol,
+		 5: HASH-given_name-family_name-email-password-locale- def_%v_23 %v_18[11.0,] %v_19[11.1,] %v_20[11.2,] %v_21[11.3,] %v_22[11.4,] 
+		 6: marketplace->[] def_%v_24 marketplace[7.4,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 7: %v_17->create_user_with_membership def_%v_25 %v_17[10.0,9.0,] %v_23[11.5,] %v_24[11.6,] 	 SYMBOL:	 ARGS:%v_23,%v_24,
+		 8: COPY TYPE_PASS def_user %v_25[11.7,] 
+		 9: 
+		 10: (UserService) def_%v_26 
+		 11: (inherit API) def_%v_27 %v_26[11.10,] 
+		 12: %v_27[11.11,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: %v_26->const_missing def_%v_27 %v_26[11.10,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: (inherit AuthTokens) def_%v_28 %v_27[12.0,11.11,] 
+		 1: %v_28[13.0,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: %v_27->const_missing def_%v_28 %v_27[12.0,11.11,] 	 SYMBOL:AuthTokens,	 ARGS:Symbol,
+BB 15
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: user->[] def_%v_29 user[11.8,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 1: %v_28->create_login_token def_%v_30 %v_28[14.0,13.0,] %v_29[15.0,] 	 SYMBOL:	 ARGS:%v_29,
+		 2: COPY TYPE_PASS def_auth_token %v_30[15.1,] 
+		 3: 
+		 4: (URLUtils) def_%v_31 
+		 5: marketplace->[] def_%v_32 marketplace[7.4,] 	 SYMBOL:url,	 ARGS:Symbol,
+		 6: COPY TYPE_StringLiteral "auth" def_%v_33 
+		 7: auth_token->[] def_%v_34 auth_token[15.2,] 	 SYMBOL:token,	 ARGS:Symbol,
+		 8: %v_31->append_query_param def_%v_35 %v_31[15.4,] %v_32[15.5,] %v_33[15.6,] %v_34[15.7,] 	 SYMBOL:	 ARGS:%v_32,%v_33,%v_34,
+		 9: COPY TYPE_PASS def_url %v_35[15.8,] 
+		 10: 
+		 11: %self->redirect_to def_%v_36 %self[2.0,] %v_35[15.8,] 	 SYMBOL:	 ARGS:url,
+		 12: RETURN %v_36[15.11,] %self[15.11,2.0,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: form->errors def_%v_37 form[2.9,] 	 SYMBOL:	 ARGS:
+		 2: %v_37->full_messages def_%v_38 %v_37[16.1,] 	 SYMBOL:	 ARGS:
+		 3: HASH-errors- def_%v_39 %v_38[16.2,] 
+		 4: %self->render_form def_%v_40 %self[2.0,] %v_39[16.3,] 	 SYMBOL:	 ARGS:%v_39,
+		 5: RETURN %v_40[16.4,] %self[16.4,2.0,] 
+BB 18
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = render_form instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_errors 
+		 6: errors[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_errors 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->ruby_code_from_view def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_3->ruby_code_from_view def_%v_4 %v_3[4.1,] %self[4.1,2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: %self[4.1,2.0,] favicon[] errors[3.0,2.5,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_rb_from_view 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->local_assigns def_%cl_1_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->locals def_%cl_1_4 %self[3.1,2.0,] %cl_1_3[3.1,] 	 SYMBOL:title,	 ARGS:%cl_1_3,Symbol,
+		 3: 
+		 4: GETFIELD %self->current_community def_%cl_1_5 %self[3.1,3.2,2.0,] 
+		 5: %self->Maybe def_%cl_1_6 %self[3.1,3.2,2.0,] %cl_1_5[3.4,] 	 SYMBOL:	 ARGS:%cl_1_5,
+		 6: %cl_1_6->favicon def_%cl_1_7 %cl_1_6[3.5,] 	 SYMBOL:	 ARGS:
+		 7: %cl_1_7->each def_%cl_1_8 %cl_1_7[3.6,] %self[3.1,3.2,3.5,2.0,] 	 SYMBOL:	 ARGS:%cl_1_7,
+CLOSURE BEGIN: favicon[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_favicon 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+		 5: 
+		 6: RETURN favicon[2.2,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: 
+		 9: errors->present? def_%cl_1_9 errors[] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %cl_1_9[3.9,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "<br />" def_%cl_1_10 
+		 2: errors->join def_%cl_1_11 errors[] %cl_1_10[4.1,] 	 SYMBOL:	 ARGS:%cl_1_10,
+		 3: %cl_1_11->html_safe def_%cl_1_12 %cl_1_11[4.2,] 	 SYMBOL:	 ARGS:
+		 4: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_12 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->form_action def_%cl_1_13 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_1_13[6.1,] %self[6.1,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_14 
+		 1: def_%cl_1_15 %cl_1_14[7.0,] 
+		 2: RETURN %cl_1_15[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: RETURN %v_4[4.2,] %self[4.1,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ensure_no_communities instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->communities_exist? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->root def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %self->redirect_to def_%v_5 %self[3.0,2.0,] %v_4[3.0,] 	 SYMBOL:	 ARGS:%v_4,
+		 2: RETURN %v_5[3.1,] %self[3.0,3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = communities_exist? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Community) def_%v_3 
+		 7: %v_3->count def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->> def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:Fixnum,
+		 9: RETURN %v_5[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

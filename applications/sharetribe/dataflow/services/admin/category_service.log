@@ -1,0 +1,197 @@
+SET IRMethod, name = move_custom_fields! instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_source_category 
+		 6: RECEIVEARG def_target_category 
+		 7: 
+		 8: (CategoryCustomField) def_%v_3 
+		 9: %v_3->find_by_category_and_subcategory def_%v_4 %v_3[2.8,] source_category[2.5,] 	 SYMBOL:	 ARGS:source_category,
+		 10: COPY TYPE_PASS def_custom_fields_to_move %v_4[2.9,] 
+		 11: 
+		 12: %v_4->each def_%v_5 %v_4[2.9,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: target_category[2.6,] category_custom_field[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_category_custom_field 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (CategoryCustomField) def_%cl_1_3 
+		 2: target_category->id def_%cl_1_4 target_category[] 	 SYMBOL:	 ARGS:
+		 3: category_custom_field->custom_field_id def_%cl_1_5 category_custom_field[2.2,] 	 SYMBOL:	 ARGS:
+		 4: HASH-category_id-custom_field_id- def_%cl_1_6 %cl_1_4[3.2,] %cl_1_5[3.3,] 
+		 5: %cl_1_3->where def_%cl_1_7 %cl_1_3[3.1,] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 6: %cl_1_7->first_or_create def_%cl_1_8 %cl_1_7[3.5,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %cl_1_8[3.6,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_9 
+		 1: def_%cl_1_10 %cl_1_9[4.0,] 
+		 2: RETURN %cl_1_10[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 13: 
+		 14: custom_fields_to_move->delete_all def_%v_6 custom_fields_to_move[2.10,] 	 SYMBOL:	 ARGS:
+		 15: RETURN %v_6[2.14,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = merge_targets_for instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_categories 
+		 6: RECEIVEARG def_category_to_be_merged 
+		 7: 
+		 8: categories->reject def_%v_3 categories[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:categories,
+CLOSURE BEGIN: c[] category_to_be_merged[2.6,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_c 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: c->== def_%cl_1_3 c[2.2,] category_to_be_merged[] 	 SYMBOL:	 ARGS:category_to_be_merged,
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: %v_3->reject def_%v_4 %v_3[2.8,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: category_to_be_merged[2.6,] c[2.8,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_c 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: category_to_be_merged->children def_%cl_2_3 category_to_be_merged[] 	 SYMBOL:	 ARGS:
+		 2: %cl_2_3->include? def_%cl_2_4 %cl_2_3[3.1,] c[2.2,] 	 SYMBOL:	 ARGS:c,
+		 3: RETURN %cl_2_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_5 
+		 1: def_%cl_2_6 %cl_2_5[4.0,] 
+		 2: RETURN %cl_2_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: %v_4->select def_%v_5 %v_4[2.9,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: c[2.8,2.9,] category_to_be_merged[2.6,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_c 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: c->children def_%cl_3_3 c[2.2,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_Array def_%cl_3_4 category_to_be_merged[] 
+		 3: %cl_3_3->- def_%cl_3_5 %cl_3_3[3.1,] %cl_3_4[3.2,] 	 SYMBOL:	 ARGS:%cl_3_4,
+		 4: %cl_3_5->empty? def_%cl_3_6 %cl_3_5[3.3,] 	 SYMBOL:	 ARGS:
+		 5: RETURN %cl_3_6[3.4,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_7 
+		 1: def_%cl_3_8 %cl_3_7[4.0,] 
+		 2: RETURN %cl_3_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 11: RETURN %v_5[2.10,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

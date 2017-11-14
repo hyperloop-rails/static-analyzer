@@ -1,0 +1,330 @@
+SET IRMethod, name = journal_thumbnail_attachments instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_journal 
+		 6: 
+		 7: journal->details def_%v_3 journal[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->select def_%v_4 %v_3[2.7,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: d[] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_d 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: d->property def_%cl_1_3 d[2.2,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "attachment" def_%cl_1_4 
+		 3: %cl_1_3->== def_%cl_1_5 %cl_1_3[3.1,] %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:%cl_1_4,
+		 4: BRANCH %cl_1_5[3.3,] 
+BB 4
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: d->value def_%cl_1_6 d[2.2,] 	 SYMBOL:	 ARGS:
+		 1: %cl_1_6->present? def_%cl_1_7 %cl_1_6[4.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_5[3.3,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[6.0,] 
+		 2: RETURN %cl_1_9[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: %v_4->map def_%v_5 %v_4[2.8,] 	 SYMBOL:prop_key,	 ARGS:
+		 10: COPY TYPE_PASS def_ids %v_5[2.9,] 
+		 11: 
+		 12: %v_5->any? def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 13: BRANCH %v_6[2.12,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: (Attachment) def_%v_7 
+		 1: HASH-id- def_%v_8 ids[2.10,] 
+		 2: %v_7->where def_%v_9 %v_7[3.0,] %v_8[3.1,] 	 SYMBOL:	 ARGS:%v_8,
+		 3: %v_9->select def_%v_10 %v_9[3.2,] 	 SYMBOL:thumbnailable?,	 ARGS:
+		 4: RETURN %v_10[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_11 
+		 1: RETURN %v_11[4.0,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = render_notes instanceMethod = true
+BB 1
+	outgoing: 17 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_issue 
+		 6: RECEIVEARG def_journal 
+		 7: RECEIVECONSTARG def_options 
+		 8: options[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "" def_%v_4 
+		 2: COPY TYPE_PASS def_content %v_4[4.1,] 
+		 3: 
+		 4: COPY TYPE_StringLiteral "wiki" def_%v_5 
+		 5: COPY TYPE_PASS def_css_classes %v_5[4.4,] 
+		 6: 
+		 7: COPY TYPE_Array def_%v_6 
+		 8: COPY TYPE_PASS def_links %v_6[4.7,] 
+		 9: 
+		 10: journal->notes def_%v_7 journal[2.6,] 	 SYMBOL:	 ARGS:
+		 11: %v_7->present? def_%v_8 %v_7[4.10,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_8[4.11,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_9 options[3.1,2.7,] 	 SYMBOL:reply_links,	 ARGS:Symbol,
+		 2: BRANCH %v_9[5.1,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->l def_%v_10 %self[2.0,] 	 SYMBOL:button_quote,	 ARGS:Symbol,
+		 1: HASH-journal_id- def_%v_11 journal[2.6,] 
+		 2: %self->quoted_issue_path def_%v_12 %self[6.0,2.0,] issue[2.5,] %v_11[6.1,] 	 SYMBOL:	 ARGS:issue,%v_11,
+		 3: COPY TYPE_StringLiteral "post" def_%v_13 
+		 4: %self->l def_%v_14 %self[6.0,6.2,2.0,] 	 SYMBOL:button_quote,	 ARGS:Symbol,
+		 5: COPY TYPE_StringLiteral "icon-only icon-comment" def_%v_15 
+		 6: HASH-remote-method-title-class- def_%v_16 %v_13[6.3,] %v_14[6.4,] %v_15[6.5,] 
+		 7: %self->link_to def_%v_17 %self[6.0,6.2,6.4,2.0,] %v_10[6.0,] %v_12[6.2,] %v_16[6.6,] 	 SYMBOL:	 ARGS:%v_10,%v_12,%v_16,
+		 8: links-><< def_%v_18 links[4.8,] %v_17[6.7,] 	 SYMBOL:	 ARGS:%v_17,
+		 9: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_18 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%v_19 
+		 2: %v_19->current def_%v_20 %v_19[8.1,] 	 SYMBOL:	 ARGS:
+		 3: journal->editable_by? def_%v_21 journal[2.6,] %v_20[8.2,] 	 SYMBOL:	 ARGS:%v_20,
+		 4: BRANCH %v_21[8.3,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->l def_%v_22 %self[2.0,] 	 SYMBOL:button_edit,	 ARGS:Symbol,
+		 2: %self->edit_journal_path def_%v_23 %self[9.1,2.0,] journal[2.6,] 	 SYMBOL:	 ARGS:journal,
+		 3: COPY TYPE_StringLiteral "get" def_%v_24 
+		 4: %self->l def_%v_25 %self[9.1,9.2,2.0,] 	 SYMBOL:button_edit,	 ARGS:Symbol,
+		 5: COPY TYPE_StringLiteral "icon-only icon-edit" def_%v_26 
+		 6: HASH-remote-method-title-class- def_%v_27 %v_24[9.3,] %v_25[9.4,] %v_26[9.5,] 
+		 7: %self->link_to def_%v_28 %self[9.1,9.2,9.4,2.0,] %v_22[9.1,] %v_23[9.2,] %v_27[9.6,] 	 SYMBOL:	 ARGS:%v_22,%v_23,%v_27,
+		 8: links-><< def_%v_29 links[4.8,] %v_28[9.7,] 	 SYMBOL:	 ARGS:%v_28,
+		 9: 
+		 10: %self->l def_%v_30 %self[9.1,9.2,9.4,9.7,2.0,] 	 SYMBOL:button_delete,	 ARGS:Symbol,
+		 11: COPY TYPE_StringLiteral "" def_%v_31 
+		 12: HASH-notes- def_%v_32 %v_31[9.11,] 
+		 13: HASH-journal- def_%v_33 %v_32[9.12,] 
+		 14: %self->journal_path def_%v_34 %self[9.1,9.2,9.4,9.7,9.10,2.0,] journal[2.6,] %v_33[9.13,] 	 SYMBOL:	 ARGS:journal,%v_33,
+		 15: COPY TYPE_StringLiteral "put" def_%v_35 
+		 16: %self->l def_%v_36 %self[9.1,9.2,9.4,9.7,9.10,9.14,2.0,] 	 SYMBOL:text_are_you_sure,	 ARGS:Symbol,
+		 17: HASH-confirm- def_%v_37 %v_36[9.16,] 
+		 18: %self->l def_%v_38 %self[9.1,9.2,9.4,9.7,9.10,9.14,9.16,2.0,] 	 SYMBOL:button_delete,	 ARGS:Symbol,
+		 19: COPY TYPE_StringLiteral "icon-only icon-del" def_%v_39 
+		 20: HASH-remote-method-data-title-class- def_%v_40 %v_35[9.15,] %v_37[9.17,] %v_38[9.18,] %v_39[9.19,] 
+		 21: %self->link_to def_%v_41 %self[9.1,9.2,9.4,9.7,9.10,9.14,9.16,9.18,2.0,] %v_30[9.10,] %v_34[9.14,] %v_40[9.20,] 	 SYMBOL:	 ARGS:%v_30,%v_34,%v_40,
+		 22: links-><< def_%v_42 links[9.8,4.8,] %v_41[9.21,] 	 SYMBOL:	 ARGS:%v_41,
+		 23: 
+		 24: COPY TYPE_StringLiteral " editable" def_%v_43 
+		 25: css_classes-><< def_%v_44 css_classes[4.5,] %v_43[9.24,] 	 SYMBOL:	 ARGS:%v_43,
+		 26: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_44 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_44 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: links->empty? def_%v_45 links[4.8,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_45[13.1,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_46 
+		 1: 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "div" def_%v_47 
+		 1: COPY TYPE_StringLiteral " " def_%v_48 
+		 2: links->join def_%v_49 links[4.8,] %v_48[15.1,] 	 SYMBOL:	 ARGS:%v_48,
+		 3: %v_49->html_safe def_%v_50 %v_49[15.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "contextual" def_%v_51 
+		 5: HASH-class- def_%v_52 %v_51[15.4,] 
+		 6: %self->content_tag def_%v_53 %self[2.0,] %v_47[15.0,] %v_50[15.3,] %v_52[15.5,] 	 SYMBOL:	 ARGS:%v_47,%v_50,%v_52,
+		 7: content-><< def_%v_54 content[4.2,] %v_53[15.6,] 	 SYMBOL:	 ARGS:%v_53,
+		 8: COPY TYPE_PASS def_%v_46 %v_54[15.7,] 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->textilizable def_%v_55 %self[2.0,] journal[2.6,] 	 SYMBOL:notes,	 ARGS:journal,Symbol,
+		 2: content-><< def_%v_56 content[4.2,] %v_55[16.1,] 	 SYMBOL:	 ARGS:%v_55,
+		 3: 
+		 4: COPY TYPE_StringLiteral "div" def_%v_57 
+		 5: content->html_safe def_%v_58 content[16.2,4.2,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral "journal-" def_%v_59 
+		 7: journal->id def_%v_60 journal[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "-notes" def_%v_61 
+		 9: BUILDSTRING def_%v_62 %v_59[16.6,] %v_60[16.7,] %v_61[16.8,] 
+		 10: HASH-id-class- def_%v_63 %v_62[16.9,] css_classes[4.5,] 
+		 11: %self->content_tag def_%v_64 %self[16.1,2.0,] %v_57[16.4,] %v_58[16.5,] %v_63[16.10,] 	 SYMBOL:	 ARGS:%v_57,%v_58,%v_63,
+		 12: RETURN %v_64[16.11,] %self[16.1,16.11,2.0,] 
+BB 17
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = render_private_notes_indicator instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_journal 
+		 6: 
+		 7: journal->private_notes? def_%v_3 journal[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->l def_%v_4 %self[2.0,] 	 SYMBOL:field_is_private,	 ARGS:Symbol,
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_5 
+		 1: COPY TYPE_PASS def_%v_4 %v_5[4.0,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_content %v_4[4.1,3.0,] 
+		 1: 
+		 2: journal->private_notes? def_%v_6 journal[2.5,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_6[5.2,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "private" def_%v_7 
+		 1: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_8 
+		 1: COPY TYPE_PASS def_%v_7 %v_8[7.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_css_classes %v_7[7.1,6.0,] 
+		 1: 
+		 2: COPY TYPE_StringLiteral "span" def_%v_9 
+		 3: content->html_safe def_%v_10 content[5.0,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "journal-" def_%v_11 
+		 5: journal->id def_%v_12 journal[2.5,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral "-private_notes" def_%v_13 
+		 7: BUILDSTRING def_%v_14 %v_11[8.4,] %v_12[8.5,] %v_13[8.6,] 
+		 8: HASH-id-class- def_%v_15 %v_14[8.7,] css_classes[8.0,] 
+		 9: %self->content_tag def_%v_16 %self[2.0,] %v_9[8.2,] %v_10[8.3,] %v_15[8.8,] 	 SYMBOL:	 ARGS:%v_9,%v_10,%v_15,
+		 10: RETURN %v_16[8.9,] %self[8.9,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+

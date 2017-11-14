@@ -1,0 +1,66 @@
+SET IRMethod, name = populate_video_owner_id_from_video instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Video) def_%v_3 
+		 7: %self->video_id def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->find_by_id def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: %v_5->user_id def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: ATTRASSIGN %self->video_owner_id %v_6[2.9,] 
+		 11: RETURN %v_6[2.9,] %self[2.0,2.7,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = set_video_delta_flag instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->video def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->blank? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: RETURN %v_5[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->video def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %v_6->delta 
+		 3: 
+		 4: %self->video def_%v_7 %self[4.1,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_7->save def_%v_8 %v_7[4.4,] 	 SYMBOL:	 ARGS:
+		 6: RETURN %v_8[4.5,] %self[4.1,4.4,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

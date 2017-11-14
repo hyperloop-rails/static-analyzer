@@ -1,0 +1,150 @@
+SET IRMethod, name = last_three_months instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->months def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: (Date) def_%v_7 
+		 1: %v_7->today def_%v_8 %v_7[5.0,] 	 SYMBOL:	 ARGS:
+		 2: CONSTANT def_%v_9 	 SYMBOL:	 ARGS:
+		 3: %v_8->- def_%v_10 %v_8[5.1,] %v_9[5.2,] 	 SYMBOL:	 ARGS:%v_9,
+		 4: (Date) def_%v_11 
+		 5: %v_11->tomorrow def_%v_12 %v_11[5.4,] 	 SYMBOL:	 ARGS:
+		 6: CONSTANT def_%v_6 %v_10[5.3,] %v_12[5.5,] 
+		 7: ATTRASSIGN %self->months %v_6[5.6,] 
+		 8: RETURN %v_6[5.6,] %self[5.7,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = top_authors instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_type 
+		 6: RECEIVEARG def_nb 
+		 7: RECEIVEARG def_on_three_months 
+		 8: 
+		 9: (Node) def_%v_3 
+		 10: HASH-content_type- def_%v_4 type[2.5,] 
+		 11: %v_3->where def_%v_5 %v_3[2.9,] %v_4[2.10,] 	 SYMBOL:	 ARGS:%v_4,
+		 12: COPY TYPE_PASS def_nodes %v_5[2.11,] 
+		 13: 
+		 14: BRANCH on_three_months[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->last_three_months def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: HASH-created_at- def_%v_7 %v_6[3.0,] 
+		 2: nodes->where def_%v_8 nodes[2.12,] %v_7[3.1,] 	 SYMBOL:	 ARGS:%v_7,
+		 3: COPY TYPE_PASS def_nodes %v_8[3.2,] 
+		 4: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-public- def_%v_9 
+		 2: nodes->where def_%v_10 nodes[3.3,2.12,] %v_9[5.1,] 	 SYMBOL:	 ARGS:%v_9,
+		 3: COPY TYPE_StringLiteral "user_id IS NOT NULL" def_%v_11 
+		 4: %v_10->where def_%v_12 %v_10[5.2,] %v_11[5.3,] 	 SYMBOL:	 ARGS:%v_11,
+		 5: COPY TYPE_StringLiteral "user_id != 1" def_%v_13 
+		 6: %v_12->where def_%v_14 %v_12[5.4,] %v_13[5.5,] 	 SYMBOL:	 ARGS:%v_13,
+		 7: COPY TYPE_StringLiteral "user_id" def_%v_15 
+		 8: %v_14->group def_%v_16 %v_14[5.6,] %v_15[5.7,] 	 SYMBOL:	 ARGS:%v_15,
+		 9: COPY TYPE_StringLiteral "COUNT(*) AS score, user_id" def_%v_17 
+		 10: %v_16->select def_%v_18 %v_16[5.8,] %v_17[5.9,] 	 SYMBOL:	 ARGS:%v_17,
+		 11: COPY TYPE_StringLiteral "score DESC" def_%v_19 
+		 12: %v_18->order def_%v_20 %v_18[5.10,] %v_19[5.11,] 	 SYMBOL:	 ARGS:%v_19,
+		 13: %v_20->limit def_%v_21 %v_20[5.12,] nb[2.6,] 	 SYMBOL:	 ARGS:nb,
+		 14: %v_21->map def_%v_22 %v_21[5.13,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_21,
+CLOSURE BEGIN: n[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_n 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: n->user def_%cl_1_3 n[2.2,] 	 SYMBOL:	 ARGS:
+		 2: n->score def_%cl_1_4 n[3.1,2.2,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_Array def_%cl_1_5 %cl_1_3[3.1,] %cl_1_4[3.2,] 
+		 4: RETURN %cl_1_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 15: RETURN %v_22[5.14,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

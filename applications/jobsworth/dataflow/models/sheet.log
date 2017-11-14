@@ -1,0 +1,152 @@
+SET IRMethod, name = paused? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->paused_at def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->!= def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:Nil,
+		 8: RETURN %v_4[2.7,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = duration instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Time) def_%v_3 
+		 7: %v_3->now def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->utc def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %self->created_at def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 10: %v_5->- def_%v_7 %v_5[2.8,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: %v_7->to_i def_%v_8 %v_7[2.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_PASS def_d %v_8[2.11,] 
+		 13: 
+		 14: %self->paused_at def_%v_9 %self[2.0,2.9,] 	 SYMBOL:	 ARGS:
+		 15: %v_9->nil? def_%v_10 %v_9[2.14,] 	 SYMBOL:	 ARGS:
+		 16: BRANCH %v_10[2.15,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (Time) def_%v_12 
+		 1: %v_12->now def_%v_13 %v_12[4.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_13->utc def_%v_14 %v_13[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->paused_at def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_14->- def_%v_16 %v_14[4.2,] %v_15[4.3,] 	 SYMBOL:	 ARGS:%v_15,
+		 5: %v_16->to_i def_%v_17 %v_16[4.4,] 	 SYMBOL:	 ARGS:
+		 6: d->- def_%v_18 d[2.12,] %v_17[4.5,] 	 SYMBOL:	 ARGS:%v_17,
+		 7: COPY TYPE_PASS def_d %v_18[4.6,] 
+		 8: COPY TYPE_PASS def_%v_11 %v_18[4.6,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->paused_duration def_%v_19 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: d->- def_%v_20 d[4.7,2.12,] %v_19[5.1,] 	 SYMBOL:	 ARGS:%v_19,
+		 3: COPY TYPE_PASS def_d %v_20[5.2,] 
+		 4: RETURN %v_20[5.2,] %self[5.1,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = start_pause instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->paused? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->resume def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_4[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Time) def_%v_5 
+		 2: %v_5->now def_%v_6 %v_5[4.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN %self->paused_at %v_6[4.2,] 
+		 4: RETURN %v_6[4.2,] %self[4.3,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = resume instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->paused_duration def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: (Time) def_%v_5 
+		 8: %v_5->now def_%v_6 %v_5[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_6->utc def_%v_7 %v_6[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %self->paused_at def_%v_8 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 11: %v_7->- def_%v_9 %v_7[2.9,] %v_8[2.10,] 	 SYMBOL:	 ARGS:%v_8,
+		 12: %v_9->to_i def_%v_10 %v_9[2.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_3->+ def_%v_11 %v_3[2.6,] %v_10[2.12,] 	 SYMBOL:	 ARGS:%v_10,
+		 14: %self->paused_duration= def_%v_4 %v_11[2.13,] 	 SYMBOL:	 ARGS:%v_11,
+		 15: 
+		 16: ATTRASSIGN %self->paused_at 
+		 17: RETURN %self[2.0,2.6,2.10,2.14,2.16,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

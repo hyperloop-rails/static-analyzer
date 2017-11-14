@@ -1,0 +1,180 @@
+SET IRMethod, name = force_approved_account instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->user_signed_in? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->current_user def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->is_admin? def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_5->! def_%v_6 %v_5[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_3 %v_6[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.3,2.6,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->current_user def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_7->registration_status def_%v_8 %v_7[5.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_8->waiting_approval? def_%v_9 %v_8[5.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_3 %v_9[5.2,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_redirect %v_3[5.3,3.3,2.6,] 
+		 1: 
+		 2: BRANCH %v_3[5.3,3.3,2.6,] 
+BB 7
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "Your account needs to be approved by an administrator before you can start using the Kandan app." def_%v_11 
+		 3: ATTRASSIGN %v_10->[] %v_11[7.2,] 
+		 4: 
+		 5: %self->current_user def_%v_12 %self[7.1,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %self->sign_out def_%v_13 %self[7.1,7.5,2.0,] %v_12[7.5,] 	 SYMBOL:	 ARGS:%v_12,
+		 7: 
+		 8: %self->new_user_session_path def_%v_14 %self[7.1,7.5,7.6,2.0,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %v_14[7.8,] %self[7.1,7.5,7.6,7.8,2.0,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = redirect_suspended_account instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->user_signed_in? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->current_user def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->registration_status def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_5->suspended? def_%v_6 %v_5[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_3 %v_6[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_redirect %v_3[3.3,2.6,] 
+		 1: 
+		 2: BRANCH %v_3[3.3,2.6,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "Sorry, the administrator of this site has suspended your account." def_%v_8 
+		 3: ATTRASSIGN %v_7->[] %v_8[5.2,] 
+		 4: 
+		 5: %self->current_user def_%v_9 %self[5.1,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %self->sign_out def_%v_10 %self[5.1,5.5,2.0,] %v_9[5.5,] 	 SYMBOL:	 ARGS:%v_9,
+		 7: 
+		 8: %self->new_user_session_path def_%v_11 %self[5.1,5.5,5.6,2.0,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %v_11[5.8,] %self[5.1,5.5,5.6,5.8,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = authenticate_user_from_token! instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:auth_token,	 ARGS:Symbol,
+		 8: %v_4->presence def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_PASS def_user_token %v_5[2.8,] 
+		 10: 
+		 11: COPY TYPE_PASS def_%v_6 %v_5[2.8,] 
+		 12: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (User) def_%v_7 
+		 1: user_token->to_s def_%v_8 user_token[2.9,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->find_by_authentication_token def_%v_9 %v_7[3.0,] %v_8[3.1,] 	 SYMBOL:	 ARGS:%v_8,
+		 3: COPY TYPE_PASS def_%v_6 %v_9[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_user %v_6[3.3,2.11,] 
+		 1: 
+		 2: BRANCH %v_6[3.3,2.11,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-store- def_%v_10 
+		 2: %self->sign_in def_%v_11 %self[2.0,] user[4.0,] %v_10[5.1,] 	 SYMBOL:	 ARGS:user,%v_10,
+		 3: RETURN %v_11[5.2,] %self[5.2,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+

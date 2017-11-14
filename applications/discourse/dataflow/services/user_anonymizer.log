@@ -1,0 +1,417 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVECONSTARG def_actor 
+		 7: actor[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_actor 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->user user[2.5,] 
+		 2: 
+		 3: ATTRASSIGN %self->actor actor[3.0,2.6,] 
+		 4: RETURN actor[3.0,2.6,] %self[4.1,4.3,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = make_anonymous instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVECONSTARG def_actor 
+		 7: actor[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_actor 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->new def_%v_3 %self[2.0,] user[2.5,] actor[3.0,2.6,] 	 SYMBOL:	 ARGS:user,actor,
+		 2: %v_3->make_anonymous def_%v_4 %v_3[4.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %v_4[4.2,] %self[4.1,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = make_anonymous instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (User) def_%v_3 
+		 7: %v_3->transaction def_%v_4 %v_3[2.6,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: %self[2.0,] options[] profile[] x[] prev_username[] prev_email[] 
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%cl_1_3 %self[2.0,] 
+		 2: %cl_1_3->email def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_prev_email %cl_1_4[3.2,] 
+		 4: 
+		 5: GETFIELD %self->user def_%cl_1_5 %self[2.0,] 
+		 6: %cl_1_5->username def_%cl_1_6 %cl_1_5[3.5,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_PASS def_prev_username %cl_1_6[3.6,] 
+		 8: 
+		 9: (UsernameChanger) def_%cl_1_7 
+		 10: GETFIELD %self->user def_%cl_1_8 %self[2.0,] 
+		 11: %self->make_anon_username def_%cl_1_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 12: %cl_1_7->change def_%cl_1_10 %cl_1_7[3.9,] %cl_1_8[3.10,] %cl_1_9[3.11,] 	 SYMBOL:	 ARGS:%cl_1_8,%cl_1_9,
+		 13: %cl_1_10->! def_%cl_1_11 %cl_1_10[3.12,] 	 SYMBOL:	 ARGS:
+		 14: BRANCH %cl_1_11[3.13,] 
+BB 4
+	outgoing: 6 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Failed to change username" def_%cl_1_12 
+		 2: %self->raise def_%cl_1_13 %self[2.0,] %cl_1_12[4.1,] 	 SYMBOL:	 ARGS:%cl_1_12,
+		 3: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_13 
+BB 6
+	outgoing: 7 8 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%cl_1_14 %self[2.0,] 
+		 2: %cl_1_14->reload def_%cl_1_15 %cl_1_14[6.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: GETFIELD %self->user def_%cl_1_16 %self[2.0,] 
+		 5: (SecureRandom) def_%cl_1_17 
+		 6: %cl_1_17->hex def_%cl_1_18 %cl_1_17[6.5,] 	 SYMBOL:	 ARGS:
+		 7: ATTRASSIGN %cl_1_16->password %cl_1_18[6.6,] 
+		 8: 
+		 9: GETFIELD %self->user def_%cl_1_19 %self[2.0,] 
+		 10: GETFIELD %self->user def_%cl_1_20 %self[2.0,] 
+		 11: %cl_1_20->username def_%cl_1_21 %cl_1_20[6.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral "@example.com" def_%cl_1_22 
+		 13: BUILDSTRING def_%cl_1_23 %cl_1_21[6.11,] %cl_1_22[6.12,] 
+		 14: ATTRASSIGN %cl_1_19->email %cl_1_23[6.13,] 
+		 15: 
+		 16: GETFIELD %self->user def_%cl_1_24 %self[2.0,] 
+		 17: ATTRASSIGN %cl_1_24->name 
+		 18: 
+		 19: GETFIELD %self->user def_%cl_1_25 %self[2.0,] 
+		 20: ATTRASSIGN %cl_1_25->date_of_birth 
+		 21: 
+		 22: GETFIELD %self->user def_%cl_1_26 %self[2.0,] 
+		 23: ATTRASSIGN %cl_1_26->title 
+		 24: 
+		 25: GETFIELD %self->user def_%cl_1_27 %self[2.0,] 
+		 26: ATTRASSIGN %cl_1_27->uploaded_avatar_id 
+		 27: 
+		 28: GETFIELD %self->user def_%cl_1_28 %self[2.0,] 
+		 29: %cl_1_28->save def_%cl_1_29 %cl_1_28[6.28,] 	 SYMBOL:	 ARGS:
+		 30: 
+		 31: GETFIELD %self->user def_%cl_1_30 %self[2.0,] 
+		 32: %cl_1_30->user_option def_%cl_1_31 %cl_1_30[6.31,] 	 SYMBOL:	 ARGS:
+		 33: COPY TYPE_PASS def_options %cl_1_31[6.32,] 
+		 34: 
+		 35: ATTRASSIGN %cl_1_31->email_always 
+		 36: 
+		 37: ATTRASSIGN options->mailing_list_mode 
+		 38: 
+		 39: ATTRASSIGN options->email_digests 
+		 40: 
+		 41: ATTRASSIGN options->email_private_messages 
+		 42: 
+		 43: ATTRASSIGN options->email_direct 
+		 44: 
+		 45: options->save def_%cl_1_32 options[6.33,6.37,6.39,6.41,6.43,] 	 SYMBOL:	 ARGS:
+		 46: 
+		 47: GETFIELD %self->user def_%cl_1_33 %self[2.0,] 
+		 48: %cl_1_33->user_profile def_%cl_1_34 %cl_1_33[6.47,] 	 SYMBOL:	 ARGS:
+		 49: COPY TYPE_PASS def_profile %cl_1_34[6.48,] 
+		 50: 
+		 51: BRANCH %cl_1_34[6.48,] 
+BB 7
+	outgoing: 9 13 
+	datadep: 
+	instructions:
+		 0: profile->destroy def_%cl_1_35 profile[6.49,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_35 
+BB 9
+	outgoing: 10 11 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%cl_1_36 %self[2.0,] 
+		 2: %cl_1_36->create_user_profile def_%cl_1_37 %cl_1_36[9.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: GETFIELD %self->user def_%cl_1_38 %self[2.0,] 
+		 5: %cl_1_38->user_avatar def_%cl_1_39 %cl_1_38[9.4,] 	 SYMBOL:	 ARGS:
+		 6: %cl_1_39->try def_%cl_1_40 %cl_1_39[9.5,] 	 SYMBOL:destroy,	 ARGS:Symbol,
+		 7: 
+		 8: GETFIELD %self->user def_%cl_1_41 %self[2.0,] 
+		 9: %cl_1_41->twitter_user_info def_%cl_1_42 %cl_1_41[9.8,] 	 SYMBOL:	 ARGS:
+		 10: %cl_1_42->try def_%cl_1_43 %cl_1_42[9.9,] 	 SYMBOL:destroy,	 ARGS:Symbol,
+		 11: 
+		 12: GETFIELD %self->user def_%cl_1_44 %self[2.0,] 
+		 13: %cl_1_44->google_user_info def_%cl_1_45 %cl_1_44[9.12,] 	 SYMBOL:	 ARGS:
+		 14: %cl_1_45->try def_%cl_1_46 %cl_1_45[9.13,] 	 SYMBOL:destroy,	 ARGS:Symbol,
+		 15: 
+		 16: GETFIELD %self->user def_%cl_1_47 %self[2.0,] 
+		 17: %cl_1_47->github_user_info def_%cl_1_48 %cl_1_47[9.16,] 	 SYMBOL:	 ARGS:
+		 18: %cl_1_48->try def_%cl_1_49 %cl_1_48[9.17,] 	 SYMBOL:destroy,	 ARGS:Symbol,
+		 19: 
+		 20: GETFIELD %self->user def_%cl_1_50 %self[2.0,] 
+		 21: %cl_1_50->facebook_user_info def_%cl_1_51 %cl_1_50[9.20,] 	 SYMBOL:	 ARGS:
+		 22: %cl_1_51->try def_%cl_1_52 %cl_1_51[9.21,] 	 SYMBOL:destroy,	 ARGS:Symbol,
+		 23: 
+		 24: GETFIELD %self->user def_%cl_1_53 %self[2.0,] 
+		 25: %cl_1_53->single_sign_on_record def_%cl_1_54 %cl_1_53[9.24,] 	 SYMBOL:	 ARGS:
+		 26: %cl_1_54->try def_%cl_1_55 %cl_1_54[9.25,] 	 SYMBOL:destroy,	 ARGS:Symbol,
+		 27: 
+		 28: GETFIELD %self->user def_%cl_1_56 %self[2.0,] 
+		 29: %cl_1_56->oauth2_user_info def_%cl_1_57 %cl_1_56[9.28,] 	 SYMBOL:	 ARGS:
+		 30: %cl_1_57->try def_%cl_1_58 %cl_1_57[9.29,] 	 SYMBOL:destroy,	 ARGS:Symbol,
+		 31: 
+		 32: GETFIELD %self->user def_%cl_1_59 %self[2.0,] 
+		 33: %cl_1_59->user_open_ids def_%cl_1_60 %cl_1_59[9.32,] 	 SYMBOL:	 ARGS:
+		 34: %cl_1_60->find_each def_%cl_1_61 %cl_1_60[9.33,] %self[2.0,] 	 SYMBOL:	 ARGS:%cl_1_60,
+CLOSURE BEGIN: x[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_x 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: x->destroy def_%cl_2_3 x[2.2,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_2_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_4 
+		 1: def_%cl_2_5 %cl_2_4[4.0,] 
+		 2: RETURN %cl_2_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 35: 
+		 36: GETFIELD %self->user def_%cl_1_62 %self[2.0,] 
+		 37: %cl_1_62->api_key def_%cl_1_63 %cl_1_62[9.36,] 	 SYMBOL:	 ARGS:
+		 38: %cl_1_63->try def_%cl_1_64 %cl_1_63[9.37,] 	 SYMBOL:destroy,	 ARGS:Symbol,
+		 39: 
+		 40: (UserHistory) def_%cl_1_65 
+		 41: (UserHistory) def_%cl_1_66 
+		 42: %cl_1_66->actions def_%cl_1_67 %cl_1_66[9.41,] 	 SYMBOL:	 ARGS:
+		 43: %cl_1_67->[] def_%cl_1_68 %cl_1_67[9.42,] 	 SYMBOL:anonymize_user,	 ARGS:Symbol,
+		 44: GETFIELD %self->user def_%cl_1_69 %self[2.0,] 
+		 45: %cl_1_69->id def_%cl_1_70 %cl_1_69[9.44,] 	 SYMBOL:	 ARGS:
+		 46: 
+		 47: GETFIELD %self->actor def_%cl_1_71 %self[2.0,] 
+		 48: BRANCH %cl_1_71[9.47,] 
+BB 10
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->actor def_%cl_1_72 %self[2.0,] 
+		 1: %cl_1_72->id def_%cl_1_73 %cl_1_72[10.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%cl_1_74 %self[2.0,] 
+		 1: %cl_1_74->id def_%cl_1_75 %cl_1_74[11.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%cl_1_73 %cl_1_75[11.1,] 
+BB 12
+	outgoing: 13 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "username: " def_%cl_1_76 
+		 1: 
+		 2: BUILDSTRING def_%cl_1_77 %cl_1_76[12.0,] prev_username[3.7,] 
+		 3: HASH-action-target_user_id-acting_user_id-email-details- def_%cl_1_78 %cl_1_68[9.43,] %cl_1_70[9.45,] %cl_1_73[11.2,10.1,] prev_email[3.3,] %cl_1_77[12.2,] 
+		 4: %cl_1_65->create def_%cl_1_79 %cl_1_65[9.40,] %cl_1_78[12.3,] 	 SYMBOL:	 ARGS:%cl_1_78,
+		 5: RETURN %cl_1_79[12.4,] %self[2.0,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_80 
+		 1: def_%cl_1_81 %cl_1_80[13.0,] 
+		 2: RETURN %cl_1_81[13.1,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: prev_username[3.7,] profile[6.49,] options[6.33,6.37,6.39,6.41,6.43,] 
+		 8: 
+		 9: GETFIELD %self->user def_%v_5 %self[2.0,] 
+		 10: RETURN %v_5[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = make_anon_username instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: CONSTANT def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+CLOSURE BEGIN: new_username[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "anon" def_%cl_1_3 
+		 2: (SecureRandom) def_%cl_1_4 
+		 3: %cl_1_4->random_number def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_5->* def_%cl_1_6 %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: %cl_1_6->to_i def_%cl_1_7 %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:
+		 6: BUILDSTRING def_%cl_1_8 %cl_1_3[3.1,] %cl_1_7[3.5,] 
+		 7: COPY TYPE_PASS def_new_username %cl_1_8[3.6,] 
+		 8: 
+		 9: (User) def_%cl_1_9 
+		 10: HASH-username_lower- def_%cl_1_10 %cl_1_8[3.6,] 
+		 11: %cl_1_9->where def_%cl_1_11 %cl_1_9[3.9,] %cl_1_10[3.10,] 	 SYMBOL:	 ARGS:%cl_1_10,
+		 12: %cl_1_11->exists? def_%cl_1_12 %cl_1_11[3.11,] 	 SYMBOL:	 ARGS:
+		 13: BRANCH %cl_1_12[3.12,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_13 
+		 1: RETURN %cl_1_13[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN new_username[3.7,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_14 
+		 1: def_%cl_1_15 %cl_1_14[7.0,] 
+		 2: RETURN %cl_1_15[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 7: 
+		 8: COPY TYPE_StringLiteral "Failed to generate an anon username" def_%v_4 
+		 9: %self->raise def_%v_5 %self[2.0,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: RETURN %v_5[2.9,] %self[2.0,2.9,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%v_6 
+		 1: def_%v_7 %v_6[4.0,] 
+		 2: RETURN %v_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

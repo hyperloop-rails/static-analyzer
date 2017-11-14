@@ -1,0 +1,133 @@
+SET IRMethod, name = perform! instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->receive! def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = author_does_not_match_xml_author? instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->author def_%v_3 %self[2.0,] 
+		 7: %v_3->diaspora_handle def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->xml_author def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->!= def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: BRANCH %v_6[2.9,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+		 2: %self->logger def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "event=receive status=abort reason='author in xml does not match retrieved person' " def_%v_9 
+		 4: COPY TYPE_StringLiteral "type=" def_%v_10 
+		 5: 
+		 6: GETFIELD %self->object def_%v_11 %self[3.2,2.0,] 
+		 7: %v_11->class def_%v_12 %v_11[3.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral " sender=" def_%v_13 
+		 9: GETFIELD %self->author def_%v_14 %self[3.2,2.0,] 
+		 10: %v_14->diaspora_handle def_%v_15 %v_14[3.9,] 	 SYMBOL:	 ARGS:
+		 11: BUILDSTRING def_%v_16 %v_10[3.4,] %v_12[3.7,] %v_13[3.8,] %v_15[3.10,] 
+		 12: BUILDSTRING def_%v_17 %v_9[3.3,] %v_16[3.11,] 
+		 13: %v_8->error def_%v_18 %v_8[3.2,] %v_17[3.12,] 	 SYMBOL:	 ARGS:%v_17,
+		 14: 
+		 15: RETURN %self[3.2,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = relayable_without_parent? instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->object def_%v_3 %self[2.0,] 
+		 7: %v_3->respond_to? def_%v_4 %v_3[2.6,] 	 SYMBOL:relayable?,	 ARGS:Symbol,
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->object def_%v_5 %self[2.0,] 
+		 1: %v_5->parent def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->nil? def_%v_7 %v_6[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_4 %v_7[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[3.3,2.7,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: %self->logger def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "event=receive status=abort reason='no corresponding post' type=" def_%v_10 
+		 4: GETFIELD %self->object def_%v_11 %self[5.2,2.0,] 
+		 5: %v_11->class def_%v_12 %v_11[5.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral " " def_%v_13 
+		 7: COPY TYPE_StringLiteral "sender=" def_%v_14 
+		 8: 
+		 9: GETFIELD %self->author def_%v_15 %self[5.2,2.0,] 
+		 10: %v_15->diaspora_handle def_%v_16 %v_15[5.9,] 	 SYMBOL:	 ARGS:
+		 11: BUILDSTRING def_%v_17 %v_14[5.7,] %v_16[5.10,] 
+		 12: BUILDSTRING def_%v_18 %v_10[5.3,] %v_12[5.5,] %v_13[5.6,] %v_17[5.11,] 
+		 13: %v_9->error def_%v_19 %v_9[5.2,] %v_18[5.12,] 	 SYMBOL:	 ARGS:%v_18,
+		 14: 
+		 15: RETURN %self[5.2,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+

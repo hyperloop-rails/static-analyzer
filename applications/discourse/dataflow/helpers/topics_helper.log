@@ -1,0 +1,123 @@
+SET IRMethod, name = render_topic_title instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_topic 
+		 6: 
+		 7: topic->title def_%v_3 topic[2.5,] 	 SYMBOL:	 ARGS:
+		 8: topic->relative_url def_%v_4 topic[2.5,2.7,] 	 SYMBOL:	 ARGS:
+		 9: %self->link_to def_%v_5 %self[2.0,] %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_3,%v_4,
+		 10: RETURN %v_5[2.9,] %self[2.0,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = categories_breadcrumb instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_topic 
+		 6: 
+		 7: COPY TYPE_Array def_%v_3 
+		 8: COPY TYPE_PASS def_breadcrumb %v_3[2.7,] 
+		 9: 
+		 10: topic->category def_%v_4 topic[2.5,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_PASS def_category %v_4[2.10,] 
+		 12: 
+		 13: COPY TYPE_PASS def_%v_5 %v_4[2.10,] 
+		 14: BRANCH %v_4[2.10,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: category->uncategorized? def_%v_6 category[2.11,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->! def_%v_7 %v_6[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_5 %v_7[3.1,] 
+BB 4
+	outgoing: 5 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[3.2,2.13,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: category->parent_category def_%v_8 category[2.11,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_parent %v_8[5.1,] 
+		 3: BRANCH %v_8[5.1,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: parent->url def_%v_9 parent[5.2,] 	 SYMBOL:	 ARGS:
+		 2: parent->name def_%v_10 parent[6.1,5.2,] 	 SYMBOL:	 ARGS:
+		 3: HASH-url-name- def_%v_11 %v_9[6.1,] %v_10[6.2,] 
+		 4: breadcrumb->push def_%v_12 breadcrumb[2.8,] %v_11[6.3,] 	 SYMBOL:	 ARGS:%v_11,
+		 5: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: category->url def_%v_13 category[2.11,] 	 SYMBOL:	 ARGS:
+		 2: category->name def_%v_14 category[8.1,2.11,] 	 SYMBOL:	 ARGS:
+		 3: HASH-url-name- def_%v_15 %v_13[8.1,] %v_14[8.2,] 
+		 4: breadcrumb->push def_%v_16 breadcrumb[2.8,] %v_15[8.3,] 	 SYMBOL:	 ARGS:%v_15,
+		 5: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Plugin) def_%v_17 
+		 2: (inherit Filter) def_%v_18 %v_17[10.1,] 
+		 3: %v_18[10.2,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %v_17->const_missing def_%v_18 %v_17[10.1,] 	 SYMBOL:Filter,	 ARGS:Symbol,
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: %v_18->apply def_%v_19 %v_18[11.0,10.2,] topic[2.5,] breadcrumb[2.8,] 	 SYMBOL:topic_categories_breadcrumb,	 ARGS:Symbol,topic,breadcrumb,
+		 1: RETURN %v_19[12.0,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+

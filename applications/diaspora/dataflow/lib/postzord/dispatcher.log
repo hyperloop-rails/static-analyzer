@@ -1,0 +1,1318 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_object 
+		 7: RECEIVECONSTARG def_opts 
+		 8: opts[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->sender user[2.5,] 
+		 2: 
+		 3: ATTRASSIGN %self->object object[2.6,] 
+		 4: 
+		 5: GETFIELD %self->object def_%v_4 %self[4.3,2.0,] 
+		 6: %v_4->to_diaspora_xml def_%v_5 %v_4[4.5,] 	 SYMBOL:	 ARGS:
+		 7: ATTRASSIGN %self->xml %v_5[4.6,] 
+		 8: 
+		 9: ATTRASSIGN %self->opts opts[3.1,2.7,] 
+		 10: 
+		 11: opts->[] def_%v_6 opts[3.1,2.7,] 	 SYMBOL:additional_subscribers,	 ARGS:Symbol,
+		 12: BRANCH %v_6[4.11,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_7 
+		 1: COPY TYPE_PASS def_%v_6 %v_7[5.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_additional_subscribers %v_6[5.1,4.11,] 
+		 1: 
+		 2: %self->subscribers_from_object def_%v_8 %self[4.1,4.3,4.7,4.9,2.0,] 	 SYMBOL:	 ARGS:
+		 3: def_%v_9 additional_subscribers[6.0,] 
+		 4: %v_8->| def_%v_10 %v_8[6.2,] %v_9[6.3,] 	 SYMBOL:	 ARGS:%v_9,
+		 5: ATTRASSIGN %self->subscribers %v_10[6.4,] 
+		 6: RETURN %v_10[6.4,] %self[6.2,6.5,4.1,4.3,4.7,4.9,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build instanceMethod = false
+BB 1
+	outgoing: 19 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_object 
+		 7: RECEIVECONSTARG def_opts 
+		 8: opts[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: object->respond_to? def_%v_4 object[2.6,] 	 SYMBOL:to_diaspora_xml,	 ARGS:Symbol,
+		 2: BRANCH %v_4[4.1,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "This object does not respond_to? to_diaspora xml.  Try including Diaspora::Federated::Base into your object" def_%v_6 
+		 2: %self->raise def_%v_7 %self[2.0,] %v_6[6.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: COPY TYPE_PASS def_%v_5 %v_7[6.2,] 
+BB 7
+	outgoing: 8 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->object_should_be_processed_as_public? def_%v_8 %self[2.0,] object[2.6,] 	 SYMBOL:	 ARGS:object,
+		 2: BRANCH %v_8[7.1,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Postzord) def_%v_9 
+		 2: (inherit Dispatcher) def_%v_10 %v_9[8.1,] 
+		 3: %v_10[8.2,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_9->const_missing def_%v_10 %v_9[8.1,] 	 SYMBOL:Dispatcher,	 ARGS:Symbol,
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: (inherit Public) def_%v_11 %v_10[9.0,8.2,] 
+		 1: %v_11[10.0,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %v_10->const_missing def_%v_11 %v_10[9.0,8.2,] 	 SYMBOL:Public,	 ARGS:Symbol,
+BB 12
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: %v_11->new def_%v_12 %v_11[11.0,10.0,] user[2.5,] object[2.6,] opts[3.1,2.7,] 	 SYMBOL:	 ARGS:user,object,opts,
+		 1: RETURN %v_12[12.0,] %self[2.0,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Postzord) def_%v_13 
+		 2: (inherit Dispatcher) def_%v_14 %v_13[13.1,] 
+		 3: %v_14[13.2,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: %v_13->const_missing def_%v_14 %v_13[13.1,] 	 SYMBOL:Dispatcher,	 ARGS:Symbol,
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: (inherit Private) def_%v_15 %v_14[14.0,13.2,] 
+		 1: %v_15[15.0,] 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: %v_14->const_missing def_%v_15 %v_14[14.0,13.2,] 	 SYMBOL:Private,	 ARGS:Symbol,
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: %v_15->new def_%v_16 %v_15[16.0,15.0,] user[2.5,] object[2.6,] opts[3.1,2.7,] 	 SYMBOL:	 ARGS:user,object,opts,
+		 1: RETURN %v_16[17.0,] %self[2.0,] 
+BB 19
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = defer_build_and_post instanceMethod = false
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_object 
+		 7: RECEIVECONSTARG def_opts 
+		 8: opts[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_4 opts[3.1,2.7,] 	 SYMBOL:additional_subscribers,	 ARGS:Symbol,
+		 2: BRANCH %v_4[4.1,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_5 
+		 1: opts->[]= def_%v_4 opts[3.1,2.7,] %v_5[5.0,] 	 SYMBOL:additional_subscribers,	 ARGS:Symbol,%v_5,
+		 2: COPY TYPE_PASS def_%v_4 %v_5[5.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_6 opts[5.1,3.1,2.7,] 	 SYMBOL:additional_subscribers,	 ARGS:Symbol,
+		 2: %v_6->present? def_%v_7 %v_6[6.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_7[6.2,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_9 opts[5.1,3.1,2.7,] 	 SYMBOL:additional_subscribers,	 ARGS:Symbol,
+		 2: def_%v_8 %v_9[7.1,] 
+		 3: %v_8->map def_%v_10 %v_8[7.2,] 	 SYMBOL:id,	 ARGS:
+		 4: ATTRASSIGN opts->[] %v_10[7.3,] 
+		 5: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_11 opts[7.4,5.1,3.1,2.7,] 	 SYMBOL:to,	 ARGS:Symbol,
+		 2: %v_11->present? def_%v_12 %v_11[9.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_12[9.2,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_14 opts[7.4,5.1,3.1,2.7,] 	 SYMBOL:to,	 ARGS:Symbol,
+		 2: def_%v_13 %v_14[10.1,] 
+		 3: %v_13->map def_%v_15 %v_13[10.2,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_13,
+CLOSURE BEGIN: e[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_e 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: e->respond_to? def_%cl_1_3 e[2.2,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 2: BRANCH %cl_1_3[3.1,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: e->id def_%cl_1_4 e[2.2,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN e[2.2,] %self[2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_4[4.0,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[7.0,] 
+		 2: RETURN %cl_1_6[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: ATTRASSIGN opts->[] %v_15[10.3,] 
+		 5: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Workers) def_%v_16 
+		 2: (inherit DeferredDispatch) def_%v_17 %v_16[12.1,] 
+		 3: %v_17[12.2,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: %v_16->const_missing def_%v_17 %v_16[12.1,] 	 SYMBOL:DeferredDispatch,	 ARGS:Symbol,
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: user->id def_%v_18 user[2.5,] 	 SYMBOL:	 ARGS:
+		 1: object->class def_%v_19 object[2.6,] 	 SYMBOL:	 ARGS:
+		 2: %v_19->to_s def_%v_20 %v_19[14.1,] 	 SYMBOL:	 ARGS:
+		 3: object->id def_%v_21 object[14.1,2.6,] 	 SYMBOL:	 ARGS:
+		 4: %v_17->perform_async def_%v_22 %v_17[13.0,12.2,] %v_18[14.0,] %v_20[14.2,] %v_21[14.3,] opts[10.4,7.4,5.1,3.1,2.7,] 	 SYMBOL:	 ARGS:%v_18,%v_20,%v_21,opts,
+		 5: RETURN %v_22[14.4,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = object_should_be_processed_as_public? instanceMethod = false
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_object 
+		 6: 
+		 7: object->respond_to? def_%v_3 object[2.5,] 	 SYMBOL:public?,	 ARGS:Symbol,
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: object->public? def_%v_4 object[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_3 %v_4[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Boolean def_%v_5 
+		 2: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = post instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->opts def_%v_3 %self[2.0,] 
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:url,	 ARGS:Symbol,
+		 8: GETFIELD %self->opts def_%v_5 %self[2.0,] 
+		 9: %v_5->[] def_%v_6 %v_5[2.8,] 	 SYMBOL:services,	 ARGS:Symbol,
+		 10: BRANCH %v_6[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_7 
+		 1: COPY TYPE_PASS def_%v_6 %v_7[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %self->deliver_to_services def_%v_8 %self[2.0,] %v_4[2.7,] %v_6[3.1,2.9,] 	 SYMBOL:	 ARGS:%v_4,%v_6,
+		 1: 
+		 2: GETFIELD %self->subscribers def_%v_9 %self[4.0,2.0,] 
+		 3: %v_9->present? def_%v_10 %v_9[4.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_10[4.3,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->post_to_subscribers def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->process_after_dispatch_hooks def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: GETFIELD %self->object def_%v_13 %self[7.1,2.0,] 
+		 4: RETURN %v_13[7.3,] %self[7.1,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = process_after_dispatch_hooks instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->object def_%v_3 %self[2.0,] 
+		 7: GETFIELD %self->sender def_%v_4 %self[2.0,] 
+		 8: %v_3->after_dispatch def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: 
+		 10: GETFIELD %self->object def_%v_6 %self[2.0,] 
+		 11: RETURN %v_6[2.10,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = post_to_subscribers instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->subscribers def_%v_3 %self[2.0,] 
+		 7: %v_3->partition def_%v_4 %v_3[2.6,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: person[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_person 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: person->owner_id def_%cl_1_3 person[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_3->nil? def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: def_%v_5 %v_4[2.7,] 
+		 9: def_%v_6 %v_5[2.8,] 
+		 10: def_%v_7 %v_5[2.8,] 
+		 11: COPY TYPE_PASS def_remote_people %v_6[2.9,] 
+		 12: COPY TYPE_PASS def_local_people %v_7[2.10,] 
+		 13: 
+		 14: GETFIELD %self->object def_%v_8 %self[2.0,] 
+		 15: %v_8->respond_to? def_%v_9 %v_8[2.14,] 	 SYMBOL:relayable?,	 ARGS:Symbol,
+		 16: BRANCH %v_9[2.15,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->sender def_%v_10 %self[2.0,] 
+		 1: GETFIELD %self->object def_%v_11 %self[2.0,] 
+		 2: %v_11->parent def_%v_12 %v_11[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_10->owns? def_%v_13 %v_10[3.0,] %v_12[3.2,] 	 SYMBOL:	 ARGS:%v_12,
+		 4: COPY TYPE_PASS def_%v_9 %v_13[3.3,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_9[3.4,2.15,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->notify_local_users def_%v_14 %self[2.0,] local_people[2.12,] 	 SYMBOL:	 ARGS:local_people,
+		 2: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->deliver_to_local def_%v_15 %self[2.0,] local_people[2.12,] 	 SYMBOL:	 ARGS:local_people,
+		 2: COPY TYPE_PASS def_%v_14 %v_15[6.1,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->deliver_to_remote def_%v_16 %self[2.0,] remote_people[2.11,] 	 SYMBOL:	 ARGS:remote_people,
+		 2: RETURN %v_16[7.1,] %self[7.1,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = subscribers_from_object instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->object def_%v_3 %self[2.0,] 
+		 7: GETFIELD %self->sender def_%v_4 %self[2.0,] 
+		 8: %v_3->subscribers def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = fetch_local_users instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_people 
+		 6: 
+		 7: people->blank? def_%v_3 people[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_4 
+		 1: RETURN %v_4[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: people->map def_%v_6 people[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:people,
+CLOSURE BEGIN: x[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_x 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: x->owner_id def_%cl_1_3 x[2.2,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: COPY TYPE_PASS def_user_ids %v_6[4.2,] 
+		 4: 
+		 5: (User) def_%v_7 
+		 6: HASH-id- def_%v_8 %v_6[4.2,] 
+		 7: %v_7->where def_%v_9 %v_7[4.5,] %v_8[4.6,] 	 SYMBOL:	 ARGS:%v_8,
+		 8: RETURN %v_9[4.7,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = deliver_to_remote instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_remote_people 
+		 6: 
+		 7: remote_people->blank? def_%v_3 remote_people[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: %self->queue_remote_delivery_job def_%v_5 %self[2.0,] remote_people[2.5,] 	 SYMBOL:	 ARGS:remote_people,
+		 3: RETURN %v_5[4.2,] %self[4.2,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = queue_remote_delivery_job instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_remote_people 
+		 6: 
+		 7: (Workers) def_%v_3 
+		 8: (inherit HttpMulti) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:HttpMulti,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->sender def_%v_5 %self[2.0,] 
+		 1: %v_5->id def_%v_6 %v_5[4.0,] 	 SYMBOL:	 ARGS:
+		 2: (Base64) def_%v_7 
+		 3: GETFIELD %self->object def_%v_8 %self[2.0,] 
+		 4: %v_8->to_diaspora_xml def_%v_9 %v_8[4.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_7->strict_encode64 def_%v_10 %v_7[4.2,] %v_9[4.4,] 	 SYMBOL:	 ARGS:%v_9,
+		 6: remote_people->map def_%v_11 remote_people[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:remote_people,
+CLOSURE BEGIN: p[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_p 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: p->id def_%cl_1_3 p[2.2,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 7: %self->class def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_12->to_s def_%v_13 %v_12[4.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->perform_async def_%v_14 %v_4[3.0,2.8,] %v_6[4.1,] %v_10[4.5,] %v_11[4.6,] %v_13[4.8,] 	 SYMBOL:	 ARGS:%v_6,%v_10,%v_11,%v_13,
+		 10: RETURN %v_14[4.9,] %self[4.7,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = deliver_to_local instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_people 
+		 6: 
+		 7: people->blank? def_%v_3 people[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->object def_%v_4 %self[2.0,] 
+		 1: (Profile) def_%v_5 
+		 2: %v_4->is_a? def_%v_6 %v_4[3.0,] %v_5[3.1,] 	 SYMBOL:	 ARGS:%v_5,
+		 3: COPY TYPE_PASS def_%v_3 %v_6[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.3,2.7,] 
+BB 5
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+		 2: GETFIELD %self->object def_%v_8 %self[2.0,] 
+		 3: %v_8->respond_to? def_%v_9 %v_8[6.2,] 	 SYMBOL:persisted?,	 ARGS:Symbol,
+		 4: BRANCH %v_9[6.3,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->object def_%v_10 %self[2.0,] 
+		 1: (Conversation) def_%v_11 
+		 2: %v_10->is_a? def_%v_12 %v_10[8.0,] %v_11[8.1,] 	 SYMBOL:	 ARGS:%v_11,
+		 3: %v_12->! def_%v_13 %v_12[8.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_%v_9 %v_13[8.3,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_9[8.4,6.3,] 
+BB 10
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->batch_deliver_to_local def_%v_14 %self[2.0,] people[2.5,] 	 SYMBOL:	 ARGS:people,
+		 2: RETURN %v_14[10.1,] %self[10.1,2.0,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: people->each def_%v_15 people[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:people,
+CLOSURE BEGIN: %self[2.0,] person[] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_person 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->logger def_%cl_1_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "event=push route=local sender=" def_%cl_1_4 
+		 3: GETFIELD %self->sender def_%cl_1_5 %self[3.1,2.0,] 
+		 4: %cl_1_5->diaspora_handle def_%cl_1_6 %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral " recipient=" def_%cl_1_7 
+		 6: person->diaspora_handle def_%cl_1_8 person[2.2,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral " " def_%cl_1_9 
+		 8: COPY TYPE_StringLiteral "payload_type=" def_%cl_1_10 
+		 9: 
+		 10: GETFIELD %self->object def_%cl_1_11 %self[3.1,2.0,] 
+		 11: %cl_1_11->class def_%cl_1_12 %cl_1_11[3.10,] 	 SYMBOL:	 ARGS:
+		 12: BUILDSTRING def_%cl_1_13 %cl_1_10[3.8,] %cl_1_12[3.11,] 
+		 13: BUILDSTRING def_%cl_1_14 %cl_1_4[3.2,] %cl_1_6[3.4,] %cl_1_7[3.5,] %cl_1_8[3.6,] %cl_1_9[3.7,] %cl_1_13[3.12,] 
+		 14: %cl_1_3->info def_%cl_1_15 %cl_1_3[3.1,] %cl_1_14[3.13,] 	 SYMBOL:	 ARGS:%cl_1_14,
+		 15: 
+		 16: (Workers) def_%cl_1_16 
+		 17: (inherit Receive) def_%cl_1_17 %cl_1_16[3.16,] 
+		 18: %cl_1_17[3.17,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %cl_1_16->const_missing def_%cl_1_17 %cl_1_16[3.16,] 	 SYMBOL:Receive,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: person->owner_id def_%cl_1_18 person[2.2,] 	 SYMBOL:	 ARGS:
+		 1: GETFIELD %self->xml def_%cl_1_19 %self[2.0,] 
+		 2: GETFIELD %self->sender def_%cl_1_20 %self[2.0,] 
+		 3: %cl_1_20->person_id def_%cl_1_21 %cl_1_20[5.2,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_17->perform_async def_%cl_1_22 %cl_1_17[4.0,3.17,] %cl_1_18[5.0,] %cl_1_19[5.1,] %cl_1_21[5.3,] 	 SYMBOL:	 ARGS:%cl_1_18,%cl_1_19,%cl_1_21,
+		 5: RETURN %cl_1_22[5.4,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_23 
+		 1: def_%cl_1_24 %cl_1_23[6.0,] 
+		 2: RETURN %cl_1_24[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: RETURN %v_15[11.1,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = batch_deliver_to_local instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_people 
+		 6: 
+		 7: people->map def_%v_3 people[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:people,
+CLOSURE BEGIN: p[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_p 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: p->owner_id def_%cl_1_3 p[2.2,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: COPY TYPE_PASS def_ids %v_3[2.7,] 
+		 9: 
+		 10: (Workers) def_%v_4 
+		 11: (inherit ReceiveLocalBatch) def_%v_5 %v_4[2.10,] 
+		 12: %v_5[2.11,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[2.10,] 	 SYMBOL:ReceiveLocalBatch,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->object def_%v_6 %self[2.0,] 
+		 1: %v_6->class def_%v_7 %v_6[4.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->to_s def_%v_8 %v_7[4.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->object def_%v_9 %self[2.0,] 
+		 4: %v_9->id def_%v_10 %v_9[4.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_5->perform_async def_%v_11 %v_5[3.0,2.11,] %v_8[4.2,] %v_10[4.4,] ids[2.8,] 	 SYMBOL:	 ARGS:%v_8,%v_10,ids,
+		 6: 
+		 7: %self->logger def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "event=push route=local sender=" def_%v_13 
+		 9: GETFIELD %self->sender def_%v_14 %self[4.7,2.0,] 
+		 10: %v_14->diaspora_handle def_%v_15 %v_14[4.9,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_StringLiteral " recipients=" def_%v_16 
+		 12: COPY TYPE_StringLiteral "," def_%v_17 
+		 13: ids->join def_%v_18 ids[2.8,] %v_17[4.12,] 	 SYMBOL:	 ARGS:%v_17,
+		 14: COPY TYPE_StringLiteral " " def_%v_19 
+		 15: COPY TYPE_StringLiteral "payload_type=" def_%v_20 
+		 16: 
+		 17: GETFIELD %self->object def_%v_21 %self[4.7,2.0,] 
+		 18: %v_21->class def_%v_22 %v_21[4.17,] 	 SYMBOL:	 ARGS:
+		 19: BUILDSTRING def_%v_23 %v_20[4.15,] %v_22[4.18,] 
+		 20: BUILDSTRING def_%v_24 %v_13[4.8,] %v_15[4.10,] %v_16[4.11,] %v_18[4.13,] %v_19[4.14,] %v_23[4.19,] 
+		 21: %v_12->info def_%v_25 %v_12[4.7,] %v_24[4.20,] 	 SYMBOL:	 ARGS:%v_24,
+		 22: RETURN %v_25[4.21,] %self[4.7,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = deliver_to_hub instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->logger def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "event=post_to_service type=pubsub sender_handle=" def_%v_4 
+		 8: GETFIELD %self->sender def_%v_5 %self[2.0,2.6,] 
+		 9: %v_5->diaspora_handle def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: BUILDSTRING def_%v_7 %v_4[2.7,] %v_6[2.9,] 
+		 11: %v_3->debug def_%v_8 %v_3[2.6,] %v_7[2.10,] 	 SYMBOL:	 ARGS:%v_7,
+		 12: 
+		 13: (Workers) def_%v_9 
+		 14: (inherit PublishToHub) def_%v_10 %v_9[2.13,] 
+		 15: %v_10[2.14,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_9->const_missing def_%v_10 %v_9[2.13,] 	 SYMBOL:PublishToHub,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->sender def_%v_11 %self[2.0,] 
+		 1: %v_11->atom_url def_%v_12 %v_11[4.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_10->perform_async def_%v_13 %v_10[3.0,2.14,] %v_12[4.1,] 	 SYMBOL:	 ARGS:%v_12,
+		 3: RETURN %v_13[4.2,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = deliver_to_services instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_url 
+		 6: RECEIVEARG def_services 
+		 7: 
+		 8: GETFIELD %self->object def_%v_3 %self[2.0,] 
+		 9: %v_3->respond_to? def_%v_4 %v_3[2.8,] 	 SYMBOL:public,	 ARGS:Symbol,
+		 10: BRANCH %v_4[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->object def_%v_5 %self[2.0,] 
+		 1: %v_5->public def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_4 %v_6[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[3.2,2.9,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->deliver_to_hub def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: services->each def_%v_8 services[2.6,] %self[2.0,] 	 SYMBOL:	 ARGS:services,
+CLOSURE BEGIN: %self[2.0,] service[] url[2.5,] 
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_service 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 7 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->object def_%cl_1_3 %self[2.0,] 
+		 2: (StatusMessage) def_%cl_1_4 
+		 3: %cl_1_3->instance_of? def_%cl_1_5 %cl_1_3[3.1,] %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:%cl_1_4,
+		 4: BRANCH %cl_1_5[3.3,] 
+BB 4
+	outgoing: 5 6 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Workers) def_%cl_1_6 
+		 2: (inherit PostToService) def_%cl_1_7 %cl_1_6[4.1,] 
+		 3: %cl_1_7[4.2,] 
+BB 5
+	outgoing: 6 14 
+	datadep: 
+	instructions:
+		 0: %cl_1_6->const_missing def_%cl_1_7 %cl_1_6[4.1,] 	 SYMBOL:PostToService,	 ARGS:Symbol,
+BB 6
+	outgoing: 8 14 
+	datadep: 
+	instructions:
+		 0: service->id def_%cl_1_8 service[2.2,] 	 SYMBOL:	 ARGS:
+		 1: GETFIELD %self->object def_%cl_1_9 %self[2.0,] 
+		 2: %cl_1_9->id def_%cl_1_10 %cl_1_9[6.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_7->perform_async def_%cl_1_11 %cl_1_7[5.0,4.2,] %cl_1_8[6.0,] %cl_1_10[6.2,] url[] 	 SYMBOL:	 ARGS:%cl_1_8,%cl_1_10,url,
+		 4: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_11 
+BB 8
+	outgoing: 9 12 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->object def_%cl_1_12 %self[2.0,] 
+		 2: (SignedRetraction) def_%cl_1_13 
+		 3: %cl_1_12->instance_of? def_%cl_1_14 %cl_1_12[8.1,] %cl_1_13[8.2,] 	 SYMBOL:	 ARGS:%cl_1_13,
+		 4: BRANCH %cl_1_14[8.3,] 
+BB 9
+	outgoing: 10 11 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Workers) def_%cl_1_15 
+		 2: (inherit DeletePostFromService) def_%cl_1_16 %cl_1_15[9.1,] 
+		 3: %cl_1_16[9.2,] 
+BB 10
+	outgoing: 11 14 
+	datadep: 
+	instructions:
+		 0: %cl_1_15->const_missing def_%cl_1_16 %cl_1_15[9.1,] 	 SYMBOL:DeletePostFromService,	 ARGS:Symbol,
+BB 11
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: service->id def_%cl_1_17 service[2.2,] 	 SYMBOL:	 ARGS:
+		 1: GETFIELD %self->object def_%cl_1_18 %self[2.0,] 
+		 2: %cl_1_18->target def_%cl_1_19 %cl_1_18[11.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_19->id def_%cl_1_20 %cl_1_19[11.2,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_16->perform_async def_%cl_1_21 %cl_1_16[10.0,9.2,] %cl_1_17[11.0,] %cl_1_20[11.3,] 	 SYMBOL:	 ARGS:%cl_1_17,%cl_1_20,
+		 5: 
+BB 12
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 13
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_21[11.4,] %self[2.0,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_22 
+		 1: def_%cl_1_23 %cl_1_22[14.0,] 
+		 2: RETURN %cl_1_23[14.1,] %self[2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: RETURN %v_8[7.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = notify_local_users instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_local_people 
+		 6: 
+		 7: %self->fetch_local_users def_%v_3 %self[2.0,] local_people[2.5,] 	 SYMBOL:	 ARGS:local_people,
+		 8: COPY TYPE_PASS def_local_users %v_3[2.7,] 
+		 9: 
+		 10: %self->notify_users def_%v_4 %self[2.0,2.7,] %v_3[2.7,] 	 SYMBOL:	 ARGS:local_users,
+		 11: RETURN %v_4[2.10,] %self[2.0,2.7,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = notify_users instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_users 
+		 6: 
+		 7: users->present? def_%v_3 users[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->object def_%v_4 %self[2.0,] 
+		 1: %v_4->respond_to? def_%v_5 %v_4[3.0,] 	 SYMBOL:persisted?,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.2,2.7,] 
+BB 5
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: (Workers) def_%v_7 
+		 3: (inherit NotifyLocalUsers) def_%v_8 %v_7[5.2,] 
+		 4: %v_8[5.3,] 
+BB 6
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_7->const_missing def_%v_8 %v_7[5.2,] 	 SYMBOL:NotifyLocalUsers,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: users->map def_%v_9 users[2.5,] 	 SYMBOL:id,	 ARGS:
+		 1: GETFIELD %self->object def_%v_10 %self[2.0,] 
+		 2: %v_10->class def_%v_11 %v_10[9.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_11->to_s def_%v_12 %v_11[9.2,] 	 SYMBOL:	 ARGS:
+		 4: GETFIELD %self->object def_%v_13 %self[2.0,] 
+		 5: %v_13->id def_%v_14 %v_13[9.4,] 	 SYMBOL:	 ARGS:
+		 6: GETFIELD %self->object def_%v_15 %self[2.0,] 
+		 7: %v_15->author def_%v_16 %v_15[9.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_16->id def_%v_17 %v_16[9.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_8->perform_async def_%v_18 %v_8[8.0,5.3,] %v_9[9.0,] %v_12[9.3,] %v_14[9.5,] %v_17[9.8,] 	 SYMBOL:	 ARGS:%v_9,%v_12,%v_14,%v_17,
+		 10: RETURN %v_18[9.9,] %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+

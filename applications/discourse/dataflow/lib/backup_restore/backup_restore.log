@@ -1,0 +1,1275 @@
+SET IRMethod, name = backup! instanceMethod = false
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user_id 
+		 6: RECEIVECONSTARG def_opts 
+		 7: opts[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (BackupRestore) def_%v_4 
+		 2: (inherit Backuper) def_%v_5 %v_4[4.1,] 
+		 3: %v_5[4.2,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[4.1,] 	 SYMBOL:Backuper,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_5->new def_%v_6 %v_5[5.0,4.2,] user_id[2.5,] opts[3.1,2.6,] 	 SYMBOL:	 ARGS:user_id,opts,
+		 1: %self->start! def_%v_7 %self[2.0,] %v_6[6.0,] 	 SYMBOL:	 ARGS:%v_6,
+		 2: RETURN %v_7[6.1,] %self[6.1,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = restore! instanceMethod = false
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user_id 
+		 6: RECEIVECONSTARG def_opts 
+		 7: opts[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (BackupRestore) def_%v_4 
+		 2: (inherit Restorer) def_%v_5 %v_4[4.1,] 
+		 3: %v_5[4.2,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[4.1,] 	 SYMBOL:Restorer,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_5->new def_%v_6 %v_5[5.0,4.2,] user_id[2.5,] opts[3.1,2.6,] 	 SYMBOL:	 ARGS:user_id,opts,
+		 1: %self->start! def_%v_7 %self[2.0,] %v_6[6.0,] 	 SYMBOL:	 ARGS:%v_6,
+		 2: RETURN %v_7[6.1,] %self[6.1,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = rollback! instanceMethod = false
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (BackupRestore) def_%v_3 
+		 7: %v_3->is_operation_running? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: (BackupRestore) def_%v_5 
+		 1: (inherit OperationRunningError) def_%v_6 %v_5[3.0,] 
+		 2: %v_6[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_5->const_missing def_%v_6 %v_5[3.0,] 	 SYMBOL:OperationRunningError,	 ARGS:Symbol,
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->raise def_%v_7 %self[2.0,] %v_6[4.0,3.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 1: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->can_rollback? def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_8[7.1,] 
+BB 8
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "backup" def_%v_9 
+		 2: COPY TYPE_StringLiteral "public" def_%v_10 
+		 3: %self->move_tables_between_schemas def_%v_11 %self[2.0,] %v_9[8.1,] %v_10[8.2,] 	 SYMBOL:	 ARGS:%v_9,%v_10,
+		 4: 
+		 5: %self->after_fork def_%v_12 %self[8.3,2.0,] 	 SYMBOL:	 ARGS:
+		 6: RETURN %v_12[8.5,] %self[8.3,8.5,2.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cancel! instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->set_shutdown_signal! def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: RETURN %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mark_as_running! instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GLOBALVAR $redis def_%v_3 
+		 7: %self->running_key def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "1" def_%v_5 
+		 9: %v_3->setex def_%v_6 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_4,Fixnum,%v_5,
+		 10: 
+		 11: %self->save_start_logs_message_id def_%v_7 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 12: 
+		 13: %self->keep_it_running def_%v_8 %self[2.0,2.7,2.11,] 	 SYMBOL:	 ARGS:
+		 14: RETURN %v_8[2.13,] %self[2.0,2.7,2.11,2.13,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = is_operation_running? instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GLOBALVAR $redis def_%v_3 
+		 7: %self->running_key def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->get def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: %v_5->! def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_6->! def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: RETURN %v_7[2.10,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mark_as_not_running! instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GLOBALVAR $redis def_%v_3 
+		 7: %self->running_key def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->del def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = should_shutdown? instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GLOBALVAR $redis def_%v_3 
+		 7: %self->shutdown_signal_key def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->get def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: %v_5->! def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_6->! def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: RETURN %v_7[2.10,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_rollback? instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->backup_tables_count def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->> def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: RETURN %v_4[2.7,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = operations_status instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->is_operation_running? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->can_rollback? def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 8: (Rails) def_%v_5 
+		 9: %v_5->env def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_6->development? def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_7[2.10,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%v_8 
+		 1: %v_8->allow_restore def_%v_9 %v_8[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_7 %v_9[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: HASH-is_operation_running-can_rollback-allow_restore- def_%v_10 %v_3[2.6,] %v_4[2.7,] %v_7[3.2,2.10,] 
+		 1: RETURN %v_10[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = logs instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->start_logs_message_id def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_PASS def_id %v_3[2.6,] 
+		 8: 
+		 9: (MessageBus) def_%v_4 
+		 10: (LOGS_CHANNEL) def_%v_5 
+		 11: %v_4->backlog def_%v_6 %v_4[2.9,] %v_5[2.10,] %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_5,id,
+		 12: %v_6->map def_%v_7 %v_6[2.11,] %self[2.0,2.6,] 	 SYMBOL:	 ARGS:%v_6,
+CLOSURE BEGIN: m[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_m 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: m->data def_%cl_1_3 m[2.2,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 13: RETURN %v_7[2.12,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = current_version instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (ActiveRecord) def_%v_3 
+		 7: (inherit Migrator) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Migrator,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_4->current_version def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_5[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = move_tables_between_schemas instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_source 
+		 6: RECEIVEARG def_destination 
+		 7: 
+		 8: (User) def_%v_3 
+		 9: %self->move_tables_between_schemas_sql def_%v_4 %self[2.0,] source[2.5,] destination[2.6,] 	 SYMBOL:	 ARGS:source,destination,
+		 10: %v_3->exec_sql def_%v_5 %v_3[2.8,] %v_4[2.9,] 	 SYMBOL:	 ARGS:%v_4,
+		 11: RETURN %v_5[2.10,] %self[2.0,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = move_tables_between_schemas_sql instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_source 
+		 6: RECEIVEARG def_destination 
+		 7: 
+		 8: COPY TYPE_StringLiteral "      DO $$DECLARE row record;
+      BEGIN
+        -- create <destination> schema if it does not exists already
+        -- NOTE: DROP & CREATE SCHEMA is easier, but we don't want to drop the public schema
+        -- ortherwise extensions (like hstore & pg_trgm) won't work anymore...
+        CREATE SCHEMA IF NOT EXISTS " def_%v_3 
+		 9: COPY TYPE_StringLiteral ";
+        -- move all <source> tables to <destination> schema
+        FOR row IN SELECT tablename FROM pg_tables WHERE schemaname = '" def_%v_4 
+		 10: 
+		 11: COPY TYPE_StringLiteral "'
+        LOOP
+          EXECUTE 'DROP TABLE IF EXISTS " def_%v_5 
+		 12: 
+		 13: COPY TYPE_StringLiteral ".' || quote_ident(row.tablename) || ' CASCADE;';
+          EXECUTE 'ALTER TABLE " def_%v_6 
+		 14: 
+		 15: COPY TYPE_StringLiteral ".' || quote_ident(row.tablename) || ' SET SCHEMA " def_%v_7 
+		 16: COPY TYPE_StringLiteral ";';
+        END LOOP;
+        -- move all <source> views to <destination> schema
+        FOR row IN SELECT viewname FROM pg_views WHERE schemaname = '" def_%v_8 
+		 17: 
+		 18: COPY TYPE_StringLiteral "'
+        LOOP
+          EXECUTE 'DROP VIEW IF EXISTS " def_%v_9 
+		 19: 
+		 20: COPY TYPE_StringLiteral ".' || quote_ident(row.viewname) || ' CASCADE;';
+          EXECUTE 'ALTER VIEW " def_%v_10 
+		 21: 
+		 22: COPY TYPE_StringLiteral ".' || quote_ident(row.viewname) || ' SET SCHEMA " def_%v_11 
+		 23: COPY TYPE_StringLiteral ";';
+        END LOOP;
+      END$$;
+" def_%v_12 
+		 24: BUILDSTRING def_%v_13 %v_3[2.8,] destination[2.6,] %v_4[2.9,] source[2.5,] %v_5[2.11,] destination[2.6,] %v_6[2.13,] source[2.5,] %v_7[2.15,] destination[2.6,] %v_8[2.16,] source[2.5,] %v_9[2.18,] destination[2.6,] %v_10[2.20,] source[2.5,] %v_11[2.22,] destination[2.6,] %v_12[2.23,] 
+		 25: RETURN %v_13[2.24,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = database_configuration instanceMethod = false
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (ActiveRecord) def_%v_3 
+		 7: (inherit Base) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Base,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %v_4->connection_pool def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->spec def_%v_6 %v_5[4.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->config def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_config %v_7[4.2,] 
+		 4: 
+		 5: %v_7->with_indifferent_access def_%v_8 %v_7[4.2,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_PASS def_config %v_8[4.5,] 
+		 7: 
+		 8: (DatabaseConfiguration) def_%v_9 
+		 9: COPY TYPE_StringLiteral "host" def_%v_10 
+		 10: %v_8->[] def_%v_11 %v_8[4.5,] %v_10[4.9,] 	 SYMBOL:	 ARGS:%v_10,
+		 11: COPY TYPE_StringLiteral "port" def_%v_12 
+		 12: config->[] def_%v_13 config[4.3,4.6,] %v_12[4.11,] 	 SYMBOL:	 ARGS:%v_12,
+		 13: COPY TYPE_StringLiteral "username" def_%v_14 
+		 14: config->[] def_%v_15 config[4.3,4.6,4.12,] %v_14[4.13,] 	 SYMBOL:	 ARGS:%v_14,
+		 15: BRANCH %v_15[4.14,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: (ENV) def_%v_16 
+		 1: COPY TYPE_StringLiteral "USER" def_%v_17 
+		 2: %v_16->[] def_%v_18 %v_16[5.0,] %v_17[5.1,] 	 SYMBOL:	 ARGS:%v_17,
+		 3: COPY TYPE_PASS def_%v_15 %v_18[5.2,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_15[5.3,4.14,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "postgres" def_%v_19 
+		 1: COPY TYPE_PASS def_%v_15 %v_19[7.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "password" def_%v_20 
+		 1: config->[] def_%v_21 config[4.3,4.6,] %v_20[8.0,] 	 SYMBOL:	 ARGS:%v_20,
+		 2: COPY TYPE_StringLiteral "database" def_%v_22 
+		 3: config->[] def_%v_23 config[8.1,4.3,4.6,] %v_22[8.2,] 	 SYMBOL:	 ARGS:%v_22,
+		 4: %v_9->new def_%v_24 %v_9[4.8,] %v_11[4.10,] %v_13[4.12,] %v_15[7.1,5.3,4.14,] %v_21[8.1,] %v_23[8.3,] 	 SYMBOL:	 ARGS:%v_11,%v_13,%v_15,%v_21,%v_23,
+		 5: RETURN %v_24[8.4,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = running_key instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "backup_restore_operation_is_running" def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = keep_it_running instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Thread) def_%v_3 
+		 7: %v_3->new def_%v_4 %v_3[2.6,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+BB 4
+	outgoing: 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH 
+BB 5
+	outgoing: 6 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $redis def_%cl_1_4 
+		 2: %self->running_key def_%cl_1_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: CONSTANT def_%cl_1_6 	 SYMBOL:	 ARGS:
+		 4: %cl_1_4->expire def_%cl_1_7 %cl_1_4[5.1,] %cl_1_5[5.2,] %cl_1_6[5.3,] 	 SYMBOL:	 ARGS:%cl_1_5,%cl_1_6,
+		 5: 
+		 6: CONSTANT def_%cl_1_8 	 SYMBOL:	 ARGS:
+		 7: %self->sleep def_%cl_1_9 %self[5.2,2.0,] %cl_1_8[5.6,] 	 SYMBOL:	 ARGS:%cl_1_8,
+BB 6
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 7
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_10 
+		 1: def_%cl_1_11 %cl_1_10[9.0,] 
+		 2: RETURN %cl_1_11[9.1,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = shutdown_signal_key instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "backup_restore_operation_should_shutdown" def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = set_shutdown_signal! instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GLOBALVAR $redis def_%v_3 
+		 7: %self->shutdown_signal_key def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "1" def_%v_5 
+		 9: %v_3->set def_%v_6 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_4,%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = clear_shutdown_signal! instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GLOBALVAR $redis def_%v_3 
+		 7: %self->shutdown_signal_key def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->del def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = save_start_logs_message_id instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (MessageBus) def_%v_3 
+		 7: (LOGS_CHANNEL) def_%v_4 
+		 8: %v_3->last_id def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: COPY TYPE_PASS def_id %v_5[2.8,] 
+		 10: 
+		 11: GLOBALVAR $redis def_%v_6 
+		 12: %self->start_logs_message_id_key def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 13: %v_6->set def_%v_8 %v_6[2.11,] %v_7[2.12,] id[2.9,] 	 SYMBOL:	 ARGS:%v_7,id,
+		 14: RETURN %v_8[2.13,] %self[2.0,2.12,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = start_logs_message_id instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GLOBALVAR $redis def_%v_3 
+		 7: %self->start_logs_message_id_key def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->get def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: %v_5->to_i def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: RETURN %v_6[2.9,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = start_logs_message_id_key instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "start_logs_message_id" def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = start! instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_runner 
+		 6: 
+		 7: %self->fork def_%v_3 %self[2.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: %self[2.0,] runner[2.5,] e[] 
+BB 1
+	outgoing: 46 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: GLOBALVAR $! def_%cl_1_3 
+BB 4
+	outgoing: 6 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->after_fork def_%cl_1_29 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: runner->run def_%cl_1_30 runner[] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_%cl_1_28 %cl_1_30[4.4,] 
+		 6: %cl_1_3[2.5,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%cl_1_4 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->clear_shutdown_signal! def_%cl_1_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%cl_1_7 %cl_1_8[8.2,] 
+		 4: %cl_1_4[6.1,] 
+BB 9
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->exit! def_%cl_1_5 %self[2.0,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: 
+BB 10
+	outgoing: 11 12 14 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_9 
+		 1: (Exception) def_%cl_1_10 
+		 2: def_%cl_1_11 %cl_1_10[10.1,] %cl_1_9[10.0,] 
+		 3: BRANCH %cl_1_11[10.2,] 
+BB 11
+	outgoing: 14 46 
+	datadep: 
+	instructions:
+		 0: %cl_1_9[10.0,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%cl_1_12 
+		 1: COPY TYPE_PASS def_e %cl_1_12[12.0,] 
+		 2: 
+		 3: COPY TYPE_StringLiteral "============================================" def_%cl_1_13 
+		 4: %self->puts def_%cl_1_14 %self[2.0,] %cl_1_13[12.3,] 	 SYMBOL:	 ARGS:%cl_1_13,
+		 5: 
+		 6: COPY TYPE_StringLiteral "================ EXCEPTION =================" def_%cl_1_15 
+		 7: %self->puts def_%cl_1_16 %self[12.4,2.0,] %cl_1_15[12.6,] 	 SYMBOL:	 ARGS:%cl_1_15,
+		 8: 
+		 9: e->message def_%cl_1_17 e[12.1,] 	 SYMBOL:	 ARGS:
+		 10: %self->puts def_%cl_1_18 %self[12.4,12.7,2.0,] %cl_1_17[12.9,] 	 SYMBOL:	 ARGS:%cl_1_17,
+		 11: 
+		 12: e->backtrace def_%cl_1_19 e[12.1,12.9,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_StringLiteral "
+" def_%cl_1_20 
+		 14: %cl_1_19->join def_%cl_1_21 %cl_1_19[12.12,] %cl_1_20[12.13,] 	 SYMBOL:	 ARGS:%cl_1_20,
+		 15: %self->puts def_%cl_1_22 %self[12.4,12.7,12.10,2.0,] %cl_1_21[12.14,] 	 SYMBOL:	 ARGS:%cl_1_21,
+		 16: 
+		 17: COPY TYPE_StringLiteral "============================================" def_%cl_1_23 
+		 18: %self->puts def_%cl_1_24 %self[12.4,12.7,12.10,12.15,2.0,] %cl_1_23[12.17,] 	 SYMBOL:	 ARGS:%cl_1_23,
+		 19: COPY TYPE_PASS def_%cl_1_7 %cl_1_24[12.18,] 
+		 20: %cl_1_4[6.1,] 
+BB 13
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->exit! def_%cl_1_5 %self[2.0,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: 
+BB 14
+	outgoing: 46 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_25 
+		 1: def_%cl_1_26 %cl_1_25[14.0,] %cl_1_4[6.1,] 
+		 2: 
+		 3: %self->exit! def_%cl_1_5 %self[2.0,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: %cl_1_25[14.0,] 
+BB 16
+	outgoing: 43 
+	datadep: 
+	instructions:
+		 0: 
+BB 17
+	outgoing: 18 19 31 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_31 
+		 1: (Exception) def_%cl_1_32 
+		 2: def_%cl_1_33 %cl_1_32[17.1,] %cl_1_31[17.0,] 
+		 3: BRANCH %cl_1_33[17.2,] 
+BB 18
+	outgoing: 31 46 
+	datadep: 
+	instructions:
+		 0: %cl_1_31[17.0,] 
+BB 19
+	outgoing: 20 31 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%cl_1_34 
+		 1: COPY TYPE_PASS def_e %cl_1_34[19.0,] 
+		 2: 
+		 3: COPY TYPE_StringLiteral "--------------------------------------------" def_%cl_1_35 
+		 4: %self->puts def_%cl_1_36 %self[2.0,] %cl_1_35[19.3,] 	 SYMBOL:	 ARGS:%cl_1_35,
+		 5: 
+		 6: COPY TYPE_StringLiteral "---------------- EXCEPTION -----------------" def_%cl_1_37 
+		 7: %self->puts def_%cl_1_38 %self[19.4,2.0,] %cl_1_37[19.6,] 	 SYMBOL:	 ARGS:%cl_1_37,
+		 8: 
+		 9: e->message def_%cl_1_39 e[19.1,] 	 SYMBOL:	 ARGS:
+		 10: %self->puts def_%cl_1_40 %self[19.4,19.7,2.0,] %cl_1_39[19.9,] 	 SYMBOL:	 ARGS:%cl_1_39,
+		 11: 
+		 12: e->backtrace def_%cl_1_41 e[19.1,19.9,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_StringLiteral "
+" def_%cl_1_42 
+		 14: %cl_1_41->join def_%cl_1_43 %cl_1_41[19.12,] %cl_1_42[19.13,] 	 SYMBOL:	 ARGS:%cl_1_42,
+		 15: %self->puts def_%cl_1_44 %self[19.4,19.7,19.10,2.0,] %cl_1_43[19.14,] 	 SYMBOL:	 ARGS:%cl_1_43,
+		 16: 
+		 17: COPY TYPE_StringLiteral "--------------------------------------------" def_%cl_1_45 
+		 18: %self->puts def_%cl_1_46 %self[19.4,19.7,19.10,19.15,2.0,] %cl_1_45[19.17,] 	 SYMBOL:	 ARGS:%cl_1_45,
+		 19: COPY TYPE_PASS def_%cl_1_28 %cl_1_46[19.18,] 
+		 20: %cl_1_3[2.5,] 
+BB 20
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%cl_1_4 
+BB 22
+	outgoing: 23 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->clear_shutdown_signal! def_%cl_1_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%cl_1_7 %cl_1_8[22.2,] 
+		 4: %cl_1_4[20.1,] 
+BB 23
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->exit! def_%cl_1_5 %self[2.0,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: 
+BB 24
+	outgoing: 25 26 28 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_9 
+		 1: (Exception) def_%cl_1_10 
+		 2: def_%cl_1_11 %cl_1_10[24.1,] %cl_1_9[24.0,] 
+		 3: BRANCH %cl_1_11[24.2,] 
+BB 25
+	outgoing: 28 46 
+	datadep: 
+	instructions:
+		 0: %cl_1_9[24.0,] 
+BB 26
+	outgoing: 27 28 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%cl_1_12 
+		 1: COPY TYPE_PASS def_e %cl_1_12[26.0,] 
+		 2: 
+		 3: COPY TYPE_StringLiteral "============================================" def_%cl_1_13 
+		 4: %self->puts def_%cl_1_14 %self[2.0,] %cl_1_13[26.3,] 	 SYMBOL:	 ARGS:%cl_1_13,
+		 5: 
+		 6: COPY TYPE_StringLiteral "================ EXCEPTION =================" def_%cl_1_15 
+		 7: %self->puts def_%cl_1_16 %self[26.4,2.0,] %cl_1_15[26.6,] 	 SYMBOL:	 ARGS:%cl_1_15,
+		 8: 
+		 9: e->message def_%cl_1_17 e[26.1,] 	 SYMBOL:	 ARGS:
+		 10: %self->puts def_%cl_1_18 %self[26.4,26.7,2.0,] %cl_1_17[26.9,] 	 SYMBOL:	 ARGS:%cl_1_17,
+		 11: 
+		 12: e->backtrace def_%cl_1_19 e[26.1,26.9,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_StringLiteral "
+" def_%cl_1_20 
+		 14: %cl_1_19->join def_%cl_1_21 %cl_1_19[26.12,] %cl_1_20[26.13,] 	 SYMBOL:	 ARGS:%cl_1_20,
+		 15: %self->puts def_%cl_1_22 %self[26.4,26.7,26.10,2.0,] %cl_1_21[26.14,] 	 SYMBOL:	 ARGS:%cl_1_21,
+		 16: 
+		 17: COPY TYPE_StringLiteral "============================================" def_%cl_1_23 
+		 18: %self->puts def_%cl_1_24 %self[26.4,26.7,26.10,26.15,2.0,] %cl_1_23[26.17,] 	 SYMBOL:	 ARGS:%cl_1_23,
+		 19: COPY TYPE_PASS def_%cl_1_7 %cl_1_24[26.18,] 
+		 20: %cl_1_4[20.1,] 
+BB 27
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->exit! def_%cl_1_5 %self[2.0,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: 
+BB 28
+	outgoing: 46 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_25 
+		 1: def_%cl_1_26 %cl_1_25[28.0,] %cl_1_4[20.1,] 
+		 2: 
+		 3: %self->exit! def_%cl_1_5 %self[2.0,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: %cl_1_25[28.0,] 
+BB 30
+	outgoing: 43 
+	datadep: 
+	instructions:
+		 0: 
+BB 31
+	outgoing: 32 44 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_47 
+		 1: def_%cl_1_48 %cl_1_47[31.0,] %cl_1_3[2.5,] 
+BB 32
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%cl_1_4 
+BB 34
+	outgoing: 35 36 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->clear_shutdown_signal! def_%cl_1_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%cl_1_7 %cl_1_8[34.2,] 
+		 4: %cl_1_4[32.1,] 
+BB 35
+	outgoing: 42 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->exit! def_%cl_1_5 %self[2.0,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: 
+BB 36
+	outgoing: 37 38 40 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_9 
+		 1: (Exception) def_%cl_1_10 
+		 2: def_%cl_1_11 %cl_1_10[36.1,] %cl_1_9[36.0,] 
+		 3: BRANCH %cl_1_11[36.2,] 
+BB 37
+	outgoing: 40 46 
+	datadep: 
+	instructions:
+		 0: %cl_1_9[36.0,] 
+BB 38
+	outgoing: 39 40 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%cl_1_12 
+		 1: COPY TYPE_PASS def_e %cl_1_12[38.0,] 
+		 2: 
+		 3: COPY TYPE_StringLiteral "============================================" def_%cl_1_13 
+		 4: %self->puts def_%cl_1_14 %self[2.0,] %cl_1_13[38.3,] 	 SYMBOL:	 ARGS:%cl_1_13,
+		 5: 
+		 6: COPY TYPE_StringLiteral "================ EXCEPTION =================" def_%cl_1_15 
+		 7: %self->puts def_%cl_1_16 %self[38.4,2.0,] %cl_1_15[38.6,] 	 SYMBOL:	 ARGS:%cl_1_15,
+		 8: 
+		 9: e->message def_%cl_1_17 e[38.1,] 	 SYMBOL:	 ARGS:
+		 10: %self->puts def_%cl_1_18 %self[38.4,38.7,2.0,] %cl_1_17[38.9,] 	 SYMBOL:	 ARGS:%cl_1_17,
+		 11: 
+		 12: e->backtrace def_%cl_1_19 e[38.1,38.9,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_StringLiteral "
+" def_%cl_1_20 
+		 14: %cl_1_19->join def_%cl_1_21 %cl_1_19[38.12,] %cl_1_20[38.13,] 	 SYMBOL:	 ARGS:%cl_1_20,
+		 15: %self->puts def_%cl_1_22 %self[38.4,38.7,38.10,2.0,] %cl_1_21[38.14,] 	 SYMBOL:	 ARGS:%cl_1_21,
+		 16: 
+		 17: COPY TYPE_StringLiteral "============================================" def_%cl_1_23 
+		 18: %self->puts def_%cl_1_24 %self[38.4,38.7,38.10,38.15,2.0,] %cl_1_23[38.17,] 	 SYMBOL:	 ARGS:%cl_1_23,
+		 19: COPY TYPE_PASS def_%cl_1_7 %cl_1_24[38.18,] 
+		 20: %cl_1_4[32.1,] 
+BB 39
+	outgoing: 42 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->exit! def_%cl_1_5 %self[2.0,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: 
+BB 40
+	outgoing: 41 44 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_25 
+		 1: def_%cl_1_26 %cl_1_25[40.0,] %cl_1_4[32.1,] 
+BB 41
+	outgoing: 44 46 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->exit! def_%cl_1_5 %self[2.0,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: %cl_1_25[40.0,] 
+BB 42
+	outgoing: 44 46 
+	datadep: 
+	instructions:
+		 0: %cl_1_47[31.0,] 
+BB 43
+	outgoing: 46 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_28[4.5,19.19,] %self[2.0,] 
+BB 44
+	outgoing: 46 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_49 
+		 1: def_%cl_1_50 %cl_1_49[44.0,] 
+		 2: RETURN %cl_1_50[44.1,] %self[2.0,] 
+BB 46
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: COPY TYPE_PASS def_child %v_3[2.7,] 
+		 9: 
+		 10: (Process) def_%v_4 
+		 11: %v_4->detach def_%v_5 %v_4[2.10,] %v_3[2.7,] 	 SYMBOL:	 ARGS:child,
+		 12: 
+		 13: RETURN %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = after_fork instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Discourse) def_%v_3 
+		 7: %v_3->after_fork def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = backup_tables_count instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (User) def_%v_3 
+		 7: COPY TYPE_StringLiteral "SELECT COUNT(*) AS count FROM information_schema.tables WHERE table_schema = 'backup'" def_%v_4 
+		 8: %v_3->exec_sql def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: %v_5->[] def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:Fixnum,
+		 10: COPY TYPE_StringLiteral "count" def_%v_7 
+		 11: %v_6->[] def_%v_8 %v_6[2.9,] %v_7[2.10,] 	 SYMBOL:	 ARGS:%v_7,
+		 12: %v_8->to_i def_%v_9 %v_8[2.11,] 	 SYMBOL:	 ARGS:
+		 13: RETURN %v_9[2.12,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

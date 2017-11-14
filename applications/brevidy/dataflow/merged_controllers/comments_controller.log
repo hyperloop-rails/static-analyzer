@@ -1,0 +1,220 @@
+SET IRMethod, name = create instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_PASS def_%v_3 comment[] 
+		 7: COPY TYPE_PASS def_%v_4 comment[] 
+		 8: BRANCH comment[] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->video def_%v_5 %self[2.0,] 
+		 1: %v_5->comments def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->params def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_7->[] def_%v_8 %v_7[3.2,] 	 SYMBOL:content,	 ARGS:Symbol,
+		 4: HASH-content- def_%v_9 %v_8[3.3,] 
+		 5: %v_6->new def_%v_10 %v_6[3.1,] %v_9[3.4,] 	 SYMBOL:	 ARGS:%v_9,
+		 6: COPY TYPE_PASS def_comment %v_10[3.5,] 
+		 7: COPY TYPE_PASS def_%v_4 %v_10[3.5,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->current_user def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_11->id def_%v_12 %v_11[4.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN comment->user_id %v_12[4.2,] 
+		 4: 
+		 5: %self->params def_%v_13 %self[4.1,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %v_13->[] def_%v_14 %v_13[4.5,] 	 SYMBOL:channel_token,	 ARGS:Symbol,
+		 7: GETFIELD %self->video def_%v_15 %self[4.1,4.5,2.0,] 
+		 8: %v_15->channel def_%v_16 %v_15[4.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_16->public_token def_%v_17 %v_16[4.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_14->== def_%v_18 %v_14[4.6,] %v_17[4.9,] 	 SYMBOL:	 ARGS:%v_17,
+		 11: ATTRASSIGN %self->viewing_via_token_access %v_18[4.10,] 
+		 12: 
+		 13: COPY TYPE_PASS def_%v_19 video_owner[] 
+		 14: COPY TYPE_PASS def_%v_20 video_owner[] 
+		 15: BRANCH video_owner[] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->video def_%v_21 %self[2.0,] 
+		 1: %self->get_object_owner def_%v_22 %self[4.11,2.0,] %v_21[5.0,] 	 SYMBOL:	 ARGS:%v_21,
+		 2: COPY TYPE_PASS def_video_owner %v_22[5.1,] 
+		 3: COPY TYPE_PASS def_%v_20 %v_22[5.1,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: comment->save def_%v_23 comment[4.3,3.6,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_23[6.1,] 
+BB 7
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "comments/comment.html" def_%v_24 
+		 2: GETFIELD %self->video def_%v_25 %self[2.0,] 
+		 3: HASH-video-comment-video_owner-hidden_comment- def_%v_26 %v_25[7.2,] comment[4.3,3.6,] video_owner[5.2,] 
+		 4: HASH-partial-locals- def_%v_27 %v_24[7.1,] %v_26[7.3,] 
+		 5: %self->render_to_string def_%v_28 %self[4.11,2.0,] %v_27[7.4,] 	 SYMBOL:	 ARGS:%v_27,
+		 6: GETFIELD %self->video def_%v_29 %self[7.5,2.0,] 
+		 7: %v_29->id def_%v_30 %v_29[7.6,] 	 SYMBOL:	 ARGS:
+		 8: GETFIELD %self->video def_%v_31 %self[7.5,2.0,] 
+		 9: %v_31->comments def_%v_32 %v_31[7.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_32->count def_%v_33 %v_32[7.9,] 	 SYMBOL:	 ARGS:
+		 11: HASH-html-video_id-comments_count- def_%v_34 %v_28[7.5,] %v_30[7.7,] %v_33[7.10,] 
+		 12: HASH-json-status- def_%v_35 %v_34[7.11,] 
+		 13: %self->render def_%v_36 %self[7.5,4.11,2.0,] %v_35[7.12,] 	 SYMBOL:	 ARGS:%v_35,
+		 14: 
+		 15: %self->current_user def_%v_37 %self[7.5,7.13,4.11,2.0,] 	 SYMBOL:	 ARGS:
+		 16: GETFIELD %self->video def_%v_38 %self[7.5,7.13,7.15,2.0,] 
+		 17: comment->notify_all_users_in_the_conversation def_%v_39 comment[4.3,3.6,] %v_37[7.15,] %v_38[7.16,] video_owner[5.2,] 	 SYMBOL:	 ARGS:%v_37,%v_38,video_owner,
+		 18: RETURN %v_39[7.17,] %self[7.5,7.13,7.15,4.11,2.0,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->get_errors_for_class def_%v_40 %self[4.11,2.0,] comment[4.3,3.6,] 	 SYMBOL:	 ARGS:comment,
+		 2: %v_40->to_sentence def_%v_41 %v_40[8.1,] 	 SYMBOL:	 ARGS:
+		 3: HASH-error- def_%v_42 %v_41[8.2,] 
+		 4: HASH-json-status- def_%v_43 %v_42[8.3,] 
+		 5: %self->render def_%v_44 %self[8.1,4.11,2.0,] %v_43[8.4,] 	 SYMBOL:	 ARGS:%v_43,
+		 6: RETURN %v_44[8.5,] %self[8.1,8.5,4.11,2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = destroy instanceMethod = true
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_PASS def_%v_3 comment[] 
+		 7: COPY TYPE_PASS def_%v_4 comment[] 
+		 8: BRANCH comment[] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->video def_%v_5 %self[2.0,] 
+		 1: %v_5->comments def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->params def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_7->[] def_%v_8 %v_7[3.2,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 4: %v_6->find_by_id def_%v_9 %v_6[3.1,] %v_8[3.3,] 	 SYMBOL:	 ARGS:%v_8,
+		 5: COPY TYPE_PASS def_comment %v_9[3.4,] 
+		 6: COPY TYPE_PASS def_%v_4 %v_9[3.4,] 
+BB 4
+	outgoing: 5 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH comment[3.5,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->current_user_owns? def_%v_10 %self[2.0,] comment[3.5,] 	 SYMBOL:	 ARGS:comment,
+		 2: BRANCH %v_10[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->video def_%v_11 %self[2.0,] 
+		 1: %self->current_user_owns? def_%v_12 %self[2.0,] %v_11[6.0,] 	 SYMBOL:	 ARGS:%v_11,
+		 2: COPY TYPE_PASS def_%v_10 %v_12[6.1,] 
+BB 7
+	outgoing: 8 12 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_10[6.2,5.1,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: comment->destroy def_%v_13 comment[3.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_13[8.1,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->video def_%v_14 %self[2.0,] 
+		 2: %v_14->comments def_%v_15 %v_14[9.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_15->count def_%v_16 %v_15[9.2,] 	 SYMBOL:	 ARGS:
+		 4: HASH-comments_count- def_%v_17 %v_16[9.3,] 
+		 5: HASH-json-status- def_%v_18 %v_17[9.4,] 
+		 6: %self->render def_%v_19 %self[2.0,] %v_18[9.5,] 	 SYMBOL:	 ARGS:%v_18,
+		 7: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "There was an error removing your comment." def_%v_20 
+		 2: HASH-error- def_%v_21 %v_20[10.1,] 
+		 3: HASH-json-status- def_%v_22 %v_21[10.2,] 
+		 4: %self->render def_%v_23 %self[2.0,] %v_22[10.3,] 	 SYMBOL:	 ARGS:%v_22,
+		 5: COPY TYPE_PASS def_%v_19 %v_23[10.4,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "You do not own that comment so you cannot delete it." def_%v_24 
+		 2: HASH-error- def_%v_25 %v_24[12.1,] 
+		 3: HASH-json-status- def_%v_26 %v_25[12.2,] 
+		 4: %self->render def_%v_27 %self[2.0,] %v_26[12.3,] 	 SYMBOL:	 ARGS:%v_26,
+		 5: COPY TYPE_PASS def_%v_19 %v_27[12.4,] 
+BB 13
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %v_19[12.5,10.5,9.6,] %self[2.0,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-nothing-status- def_%v_28 
+		 2: %self->render def_%v_29 %self[2.0,] %v_28[14.1,] 	 SYMBOL:	 ARGS:%v_28,
+		 3: RETURN %v_29[14.2,] %self[14.2,2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,1008 @@
+SET IRMethod, name = topics_per_period instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_period 
+		 6: 
+		 7: (DistributedMemoizer) def_%v_3 
+		 8: (Discourse) def_%v_4 
+		 9: %v_4->current_hostname def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral "_topics_per_period_" def_%v_6 
+		 11: BUILDSTRING def_%v_7 %v_5[2.9,] %v_6[2.10,] period[2.5,] 
+		 12: CONSTANT def_%v_8 	 SYMBOL:	 ARGS:
+		 13: %v_3->memoize def_%v_9 %v_3[2.7,] %v_7[2.11,] %v_8[2.12,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_7,%v_8,%v_3,
+CLOSURE BEGIN: period[2.5,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TopTopic) def_%cl_1_3 
+		 2: COPY TYPE_StringLiteral "_score > 0" def_%cl_1_4 
+		 3: BUILDSTRING def_%cl_1_5 period[] %cl_1_4[3.2,] 
+		 4: %cl_1_3->where def_%cl_1_6 %cl_1_3[3.1,] %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:%cl_1_5,
+		 5: %cl_1_6->count def_%cl_1_7 %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:
+		 6: RETURN %cl_1_7[3.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[4.0,] 
+		 2: RETURN %cl_1_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 14: %v_9->to_i def_%v_10 %v_9[2.13,] 	 SYMBOL:	 ARGS:
+		 15: RETURN %v_10[2.14,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = refresh_daily! instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->transaction def_%v_3 %self[2.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->remove_invisible_topics def_%cl_1_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: %self->add_new_visible_topics def_%cl_1_4 %self[3.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: 
+		 5: %self->update_counts_and_compute_scores_for def_%cl_1_5 %self[3.1,3.3,2.0,] 	 SYMBOL:daily,	 ARGS:Symbol,
+		 6: RETURN %cl_1_5[3.5,] %self[3.1,3.3,3.5,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = refresh_older! instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->periods def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_Array def_%v_4 
+		 8: %v_3->- def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: COPY TYPE_PASS def_older_periods %v_5[2.8,] 
+		 10: 
+		 11: %self->transaction def_%v_6 %self[2.0,2.6,] %self[2.0,2.6,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: older_periods[2.9,] %self[2.0,2.6,] period[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: older_periods->each def_%cl_1_3 older_periods[] %self[2.0,] 	 SYMBOL:	 ARGS:older_periods,
+CLOSURE BEGIN: %self[2.0,] period[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_period 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->update_counts_and_compute_scores_for def_%cl_2_3 %self[2.0,] period[2.2,] 	 SYMBOL:	 ARGS:period,
+		 2: RETURN %cl_2_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_4 
+		 1: def_%cl_2_5 %cl_2_4[4.0,] 
+		 2: RETURN %cl_2_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 12: 
+		 13: %self->compute_top_score_for def_%v_7 %self[2.0,2.6,2.11,] 	 SYMBOL:all,	 ARGS:Symbol,
+		 14: RETURN %v_7[2.13,] %self[2.0,2.6,2.11,2.13,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = refresh! instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->refresh_daily! def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: %self->refresh_older! def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %v_4[2.8,] %self[2.0,2.6,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = periods instanceMethod = false
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%v_5 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_6 
+		 1: %v_6->freeze def_%v_7 %v_6[5.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_7[5.1,] 
+		 3: RETURN %v_7[5.1,] %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = sorted_periods instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_PASS def_%v_3 ascending_periods[] 
+		 7: COPY TYPE_PASS def_%v_4 ascending_periods[] 
+		 8: BRANCH ascending_periods[] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (Enum) def_%v_5 
+		 1: HASH-daily-weekly-monthly-quarterly-yearly-all- def_%v_6 
+		 2: %v_5->new def_%v_7 %v_5[3.0,] %v_6[3.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: COPY TYPE_PASS def_ascending_periods %v_7[3.2,] 
+		 4: RETURN %v_7[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_4[2.7,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = sort_orders instanceMethod = false
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%v_5 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_6 
+		 1: %v_6->freeze def_%v_7 %v_6[5.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_7[5.1,] 
+		 3: RETURN %v_7[5.1,] %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_counts_and_compute_scores_for instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_period 
+		 6: 
+		 7: %self->sort_orders def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->each def_%v_4 %v_3[2.7,] %self[2.0,2.7,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: sort[] period[2.5,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_sort 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TopTopic) def_%cl_1_3 
+		 2: COPY TYPE_StringLiteral "update_" def_%cl_1_4 
+		 3: COPY TYPE_StringLiteral "_count_for" def_%cl_1_5 
+		 4: BUILDSTRING def_%cl_1_6 %cl_1_4[3.2,] sort[2.2,] %cl_1_5[3.3,] 
+		 5: %cl_1_3->send def_%cl_1_7 %cl_1_3[3.1,] %cl_1_6[3.4,] period[] 	 SYMBOL:	 ARGS:%cl_1_6,period,
+		 6: RETURN %cl_1_7[3.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[4.0,] 
+		 2: RETURN %cl_1_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: 
+		 10: %self->compute_top_score_for def_%v_5 %self[2.0,2.7,] period[2.5,] 	 SYMBOL:	 ARGS:period,
+		 11: RETURN %v_5[2.10,] %self[2.0,2.7,2.10,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%v_6 
+		 1: def_%v_7 %v_6[4.0,] 
+		 2: RETURN %v_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = remove_invisible_topics instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "WITH category_definition_topic_ids AS (
+                  SELECT COALESCE(topic_id, 0) AS id FROM categories
+                ), invisible_topic_ids AS (
+                  SELECT id
+                  FROM topics
+                  WHERE deleted_at IS NOT NULL
+                     OR NOT visible
+                     OR archetype = :private_message
+                     OR archived
+                     OR id IN (SELECT id FROM category_definition_topic_ids)
+                )
+                DELETE FROM top_topics
+                WHERE topic_id IN (SELECT id FROM invisible_topic_ids)" def_%v_3 
+		 7: (Archetype) def_%v_4 
+		 8: %v_4->private_message def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: HASH-private_message- def_%v_6 %v_5[2.8,] 
+		 10: %self->exec_sql def_%v_7 %self[2.0,] %v_3[2.6,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_3,%v_6,
+		 11: RETURN %v_7[2.10,] %self[2.0,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = add_new_visible_topics instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "WITH category_definition_topic_ids AS (
+                  SELECT COALESCE(topic_id, 0) AS id FROM categories
+                ), visible_topics AS (
+                SELECT t.id
+                FROM topics t
+                LEFT JOIN top_topics tt ON t.id = tt.topic_id
+                WHERE t.deleted_at IS NULL
+                  AND t.visible
+                  AND t.archetype <> :private_message
+                  AND NOT t.archived
+                  AND t.id NOT IN (SELECT id FROM category_definition_topic_ids)
+                  AND tt.topic_id IS NULL
+              )
+              INSERT INTO top_topics (topic_id)
+              SELECT id FROM visible_topics" def_%v_3 
+		 7: (Archetype) def_%v_4 
+		 8: %v_4->private_message def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: HASH-private_message- def_%v_6 %v_5[2.8,] 
+		 10: %self->exec_sql def_%v_7 %self[2.0,] %v_3[2.6,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_3,%v_6,
+		 11: RETURN %v_7[2.10,] %self[2.0,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_posts_count_for instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_period 
+		 6: 
+		 7: COPY TYPE_StringLiteral "SELECT topic_id, GREATEST(COUNT(*), 1) AS count
+             FROM posts
+             WHERE created_at >= :from
+               AND deleted_at IS NULL
+               AND NOT hidden
+               AND post_type = " def_%v_3 
+		 8: 
+		 9: (Post) def_%v_4 
+		 10: %v_4->types def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->[] def_%v_6 %v_5[2.10,] 	 SYMBOL:regular,	 ARGS:Symbol,
+		 12: COPY TYPE_StringLiteral "
+               AND user_id <> " def_%v_7 
+		 13: 
+		 14: (Discourse) def_%v_8 
+		 15: %v_8->system_user def_%v_9 %v_8[2.14,] 	 SYMBOL:	 ARGS:
+		 16: %v_9->id def_%v_10 %v_9[2.15,] 	 SYMBOL:	 ARGS:
+		 17: COPY TYPE_StringLiteral "
+             GROUP BY topic_id" def_%v_11 
+		 18: BUILDSTRING def_%v_12 %v_3[2.7,] %v_6[2.11,] %v_7[2.12,] %v_10[2.16,] %v_11[2.17,] 
+		 19: COPY TYPE_PASS def_sql %v_12[2.18,] 
+		 20: 
+		 21: COPY TYPE_StringLiteral "posts" def_%v_13 
+		 22: %self->update_top_topics def_%v_14 %self[2.0,] period[2.5,] %v_13[2.21,] %v_12[2.18,] 	 SYMBOL:	 ARGS:period,%v_13,sql,
+		 23: RETURN %v_14[2.22,] %self[2.0,2.22,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_views_count_for instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_period 
+		 6: 
+		 7: COPY TYPE_StringLiteral "SELECT topic_id, COUNT(*) AS count
+             FROM topic_views
+             WHERE viewed_at >= :from
+             GROUP BY topic_id" def_%v_3 
+		 8: COPY TYPE_PASS def_sql %v_3[2.7,] 
+		 9: 
+		 10: COPY TYPE_StringLiteral "views" def_%v_4 
+		 11: %self->update_top_topics def_%v_5 %self[2.0,] period[2.5,] %v_4[2.10,] %v_3[2.7,] 	 SYMBOL:	 ARGS:period,%v_4,sql,
+		 12: RETURN %v_5[2.11,] %self[2.0,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_likes_count_for instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_period 
+		 6: 
+		 7: COPY TYPE_StringLiteral "SELECT topic_id, SUM(like_count) AS count
+             FROM posts
+             WHERE created_at >= :from
+               AND deleted_at IS NULL
+               AND NOT hidden
+               AND post_type = " def_%v_3 
+		 8: 
+		 9: (Post) def_%v_4 
+		 10: %v_4->types def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->[] def_%v_6 %v_5[2.10,] 	 SYMBOL:regular,	 ARGS:Symbol,
+		 12: COPY TYPE_StringLiteral "
+             GROUP BY topic_id" def_%v_7 
+		 13: BUILDSTRING def_%v_8 %v_3[2.7,] %v_6[2.11,] %v_7[2.12,] 
+		 14: COPY TYPE_PASS def_sql %v_8[2.13,] 
+		 15: 
+		 16: COPY TYPE_StringLiteral "likes" def_%v_9 
+		 17: %self->update_top_topics def_%v_10 %self[2.0,] period[2.5,] %v_9[2.16,] %v_8[2.13,] 	 SYMBOL:	 ARGS:period,%v_9,sql,
+		 18: RETURN %v_10[2.17,] %self[2.0,2.17,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_op_likes_count_for instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_period 
+		 6: 
+		 7: COPY TYPE_StringLiteral "SELECT topic_id, like_count AS count
+             FROM posts
+             WHERE created_at >= :from
+               AND post_number = 1
+               AND deleted_at IS NULL
+               AND NOT hidden
+               AND post_type = " def_%v_3 
+		 8: 
+		 9: (Post) def_%v_4 
+		 10: %v_4->types def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->[] def_%v_6 %v_5[2.10,] 	 SYMBOL:regular,	 ARGS:Symbol,
+		 12: BUILDSTRING def_%v_7 %v_3[2.7,] %v_6[2.11,] 
+		 13: COPY TYPE_PASS def_sql %v_7[2.12,] 
+		 14: 
+		 15: COPY TYPE_StringLiteral "op_likes" def_%v_8 
+		 16: %self->update_top_topics def_%v_9 %self[2.0,] period[2.5,] %v_8[2.15,] %v_7[2.12,] 	 SYMBOL:	 ARGS:period,%v_8,sql,
+		 17: RETURN %v_9[2.16,] %self[2.0,2.16,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = compute_top_score_for instanceMethod = false
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_period 
+		 6: 
+		 7: (SiteSetting) def_%v_3 
+		 8: %v_3->top_topics_formula_log_views_multiplier def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->to_f def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_PASS def_log_views_multiplier %v_5[2.9,] 
+		 11: 
+		 12: %v_5->== def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:Fixnum,
+		 13: BRANCH %v_6[2.12,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_log_views_multiplier 
+		 1: COPY TYPE_Fixnum def_%v_7 
+		 2: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_8 
+		 2: %v_8->top_topics_formula_first_post_likes_multiplier def_%v_9 %v_8[5.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_9->to_f def_%v_10 %v_9[5.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_first_post_likes_multiplier %v_10[5.3,] 
+		 5: 
+		 6: %v_10->== def_%v_11 %v_10[5.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 7: BRANCH %v_11[5.6,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Float def_first_post_likes_multiplier 
+		 1: COPY TYPE_Float def_%v_12 
+		 2: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_13 
+		 2: %v_13->top_topics_formula_least_likes_per_post_multiplier def_%v_14 %v_13[8.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_14->to_f def_%v_15 %v_14[8.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_least_likes_per_post_multiplier %v_15[8.3,] 
+		 5: 
+		 6: %v_15->== def_%v_16 %v_15[8.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 7: BRANCH %v_16[8.6,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_least_likes_per_post_multiplier 
+		 1: COPY TYPE_Fixnum def_%v_17 
+		 2: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: period->== def_%v_18 period[2.5,] 	 SYMBOL:all,	 ARGS:Symbol,
+		 2: BRANCH %v_18[11.1,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "(
+        SELECT t.like_count all_likes_count,
+               t.id topic_id,
+               t.posts_count all_posts_count,
+               p.like_count all_op_likes_count,
+               t.views all_views_count
+        FROM topics t
+        JOIN posts p ON p.topic_id = t.id AND p.post_number = 1
+      ) as top_topics" def_%v_19 
+		 2: COPY TYPE_PASS def_top_topics %v_19[12.1,] 
+		 3: 
+		 4: COPY TYPE_StringLiteral "false" def_%v_20 
+		 5: COPY TYPE_PASS def_time_filter %v_20[12.4,] 
+		 6: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "top_topics" def_%v_21 
+		 2: COPY TYPE_PASS def_top_topics %v_21[13.1,] 
+		 3: 
+		 4: COPY TYPE_StringLiteral "topics.created_at < :from" def_%v_22 
+		 5: COPY TYPE_PASS def_time_filter %v_22[13.4,] 
+		 6: COPY TYPE_PASS def_%v_20 %v_22[13.4,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "        WITH top AS (
+          SELECT CASE
+                   WHEN " def_%v_23 
+		 2: 
+		 3: COPY TYPE_StringLiteral " THEN 0
+                   ELSE log(GREATEST(" def_%v_24 
+		 4: 
+		 5: COPY TYPE_StringLiteral "_views_count, 1)) * " def_%v_25 
+		 6: COPY TYPE_StringLiteral " +
+                        " def_%v_26 
+		 7: 
+		 8: COPY TYPE_StringLiteral "_op_likes_count * " def_%v_27 
+		 9: COPY TYPE_StringLiteral " +
+                        CASE WHEN " def_%v_28 
+		 10: 
+		 11: COPY TYPE_StringLiteral "_likes_count > 0 AND " def_%v_29 
+		 12: COPY TYPE_StringLiteral "_posts_count > 0
+                           THEN
+                            LEAST(" def_%v_30 
+		 13: 
+		 14: COPY TYPE_StringLiteral "_likes_count / " def_%v_31 
+		 15: COPY TYPE_StringLiteral "_posts_count, " def_%v_32 
+		 16: COPY TYPE_StringLiteral ")
+                           ELSE 0
+                        END +
+                        CASE WHEN topics.posts_count < 10 THEN
+                           0 - ((10 - topics.posts_count) / 20) * " def_%v_33 
+		 17: 
+		 18: COPY TYPE_StringLiteral "_op_likes_count
+                        ELSE
+                           10
+                        END +
+                        log(GREATEST(" def_%v_34 
+		 19: 
+		 20: COPY TYPE_StringLiteral "_posts_count, 1))
+                 END AS score,
+                 topic_id
+          FROM " def_%v_35 
+		 21: 
+		 22: COPY TYPE_StringLiteral "
+          LEFT JOIN topics ON topics.id = top_topics.topic_id AND
+                              topics.deleted_at IS NULL
+        )
+        UPDATE top_topics
+        SET " def_%v_36 
+		 23: 
+		 24: COPY TYPE_StringLiteral "_score = top.score
+        FROM top
+        WHERE top_topics.topic_id = top.topic_id
+          AND " def_%v_37 
+		 25: 
+		 26: COPY TYPE_StringLiteral "_score <> top.score
+" def_%v_38 
+		 27: BUILDSTRING def_%v_39 %v_23[14.1,] time_filter[13.5,12.5,] %v_24[14.3,] period[2.5,] %v_25[14.5,] log_views_multiplier[3.0,2.10,] %v_26[14.6,] period[2.5,] %v_27[14.8,] first_post_likes_multiplier[6.0,5.4,] %v_28[14.9,] period[2.5,] %v_29[14.11,] period[2.5,] %v_30[14.12,] period[2.5,] %v_31[14.14,] period[2.5,] %v_32[14.15,] least_likes_per_post_multiplier[9.0,8.4,] %v_33[14.16,] period[2.5,] %v_34[14.18,] period[2.5,] %v_35[14.20,] top_topics[13.2,12.2,] %v_36[14.22,] period[2.5,] %v_37[14.24,] period[2.5,] %v_38[14.26,] 
+		 28: COPY TYPE_PASS def_sql %v_39[14.27,] 
+		 29: 
+		 30: %self->start_of def_%v_40 %self[2.0,] period[2.5,] 	 SYMBOL:	 ARGS:period,
+		 31: HASH-from- def_%v_41 %v_40[14.30,] 
+		 32: %self->exec_sql def_%v_42 %self[14.30,2.0,] sql[14.28,] %v_41[14.31,] 	 SYMBOL:	 ARGS:sql,%v_41,
+		 33: RETURN %v_42[14.32,] %self[14.30,14.32,2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = start_of instanceMethod = false
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 8 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_period 
+		 6: 
+		 7: def_%v_4 period[2.5,] 
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 9 
+	datadep: 
+	instructions:
+		 0: def_%v_5 period[2.5,] 
+		 1: BRANCH %v_5[3.0,] 
+BB 4
+	outgoing: 5 10 
+	datadep: 
+	instructions:
+		 0: def_%v_6 period[2.5,] 
+		 1: BRANCH %v_6[4.0,] 
+BB 5
+	outgoing: 6 11 
+	datadep: 
+	instructions:
+		 0: def_%v_7 period[2.5,] 
+		 1: BRANCH %v_7[5.0,] 
+BB 6
+	outgoing: 7 12 
+	datadep: 
+	instructions:
+		 0: def_%v_8 period[2.5,] 
+		 1: BRANCH %v_8[6.0,] 
+BB 7
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_3 
+		 1: 
+BB 8
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: CONSTANT def_%v_9 	 SYMBOL:	 ARGS:
+		 2: %v_9->ago def_%v_10 %v_9[8.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_3 %v_10[8.2,] 
+		 4: RETURN %v_10[8.2,] %self[2.0,] 
+BB 9
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: CONSTANT def_%v_11 	 SYMBOL:	 ARGS:
+		 2: %v_11->ago def_%v_12 %v_11[9.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_3 %v_12[9.2,] 
+		 4: RETURN %v_12[9.2,] %self[2.0,] 
+BB 10
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: CONSTANT def_%v_13 	 SYMBOL:	 ARGS:
+		 2: %v_13->ago def_%v_14 %v_13[10.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_3 %v_14[10.2,] 
+		 4: RETURN %v_14[10.2,] %self[2.0,] 
+BB 11
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: CONSTANT def_%v_15 	 SYMBOL:	 ARGS:
+		 2: %v_15->ago def_%v_16 %v_15[11.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_3 %v_16[11.2,] 
+		 4: RETURN %v_16[11.2,] %self[2.0,] 
+BB 12
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: CONSTANT def_%v_17 	 SYMBOL:	 ARGS:
+		 2: %v_17->ago def_%v_18 %v_17[12.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_3 %v_18[12.2,] 
+		 4: RETURN %v_18[12.2,] %self[2.0,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[7.0,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_top_topics instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_period 
+		 6: RECEIVEARG def_sort 
+		 7: RECEIVEARG def_inner_join 
+		 8: 
+		 9: COPY TYPE_StringLiteral "UPDATE top_topics
+                SET " def_%v_3 
+		 10: 
+		 11: COPY TYPE_StringLiteral "_" def_%v_4 
+		 12: COPY TYPE_StringLiteral "_count = c.count
+                FROM top_topics tt
+                INNER JOIN (" def_%v_5 
+		 13: 
+		 14: COPY TYPE_StringLiteral ") c ON tt.topic_id = c.topic_id
+                WHERE tt.topic_id = top_topics.topic_id
+                  AND tt." def_%v_6 
+		 15: 
+		 16: COPY TYPE_StringLiteral "_" def_%v_7 
+		 17: COPY TYPE_StringLiteral "_count <> c.count" def_%v_8 
+		 18: BUILDSTRING def_%v_9 %v_3[2.9,] period[2.5,] %v_4[2.11,] sort[2.6,] %v_5[2.12,] inner_join[2.7,] %v_6[2.14,] period[2.5,] %v_7[2.16,] sort[2.6,] %v_8[2.17,] 
+		 19: %self->start_of def_%v_10 %self[2.0,] period[2.5,] 	 SYMBOL:	 ARGS:period,
+		 20: HASH-from- def_%v_11 %v_10[2.19,] 
+		 21: %self->exec_sql def_%v_12 %self[2.0,2.19,] %v_9[2.18,] %v_11[2.20,] 	 SYMBOL:	 ARGS:%v_9,%v_11,
+		 22: RETURN %v_12[2.21,] %self[2.0,2.19,2.21,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

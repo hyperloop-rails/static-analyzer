@@ -1,0 +1,690 @@
+SET IRMethod, name = on_statuses instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post_guids 
+		 6: 
+		 7: HASH-status_message_guid- def_%v_3 post_guids[2.5,] 
+		 8: %self->where def_%v_4 %self[2.0,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: RETURN %v_4[2.8,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = clear_empty_status_message instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->status_message def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->status_message def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->text_and_photos_blank? def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.2,2.6,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->status_message def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->destroy def_%v_7 %v_6[5.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %v_7[5.2,] %self[5.1,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ownership_of_status_message instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (StatusMessage) def_%v_3 
+		 7: %self->status_message_guid def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->find_by_guid def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: COPY TYPE_PASS def_message %v_5[2.8,] 
+		 10: 
+		 11: %self->status_message_guid def_%v_6 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_6[2.11,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_6 message[2.9,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[3.0,2.11,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->diaspora_handle def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: message->diaspora_handle def_%v_8 message[2.9,] 	 SYMBOL:	 ARGS:
+		 3: %v_7->== def_%v_9 %v_7[5.1,] %v_8[5.2,] 	 SYMBOL:	 ARGS:%v_8,
+		 4: RETURN %v_9[5.3,] %self[5.1,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = diaspora_initialize instanceMethod = false
+BB 1
+	outgoing: 20 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_params 
+		 6: params[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_params %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: params->to_hash def_%v_4 params[3.1,2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_4->slice def_%v_5 %v_4[4.1,] 	 SYMBOL:text,pending,	 ARGS:Symbol,Symbol,
+		 3: %self->new def_%v_6 %self[2.0,] %v_5[4.2,] 	 SYMBOL:	 ARGS:%v_5,
+		 4: COPY TYPE_PASS def_photo %v_6[4.3,] 
+		 5: 
+		 6: params->[] def_%v_7 params[4.1,3.1,2.5,] 	 SYMBOL:author,	 ARGS:Symbol,
+		 7: ATTRASSIGN photo->author %v_7[4.6,] 
+		 8: 
+		 9: params->[] def_%v_8 params[4.1,4.6,3.1,2.5,] 	 SYMBOL:public,	 ARGS:Symbol,
+		 10: BRANCH %v_8[4.9,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: params->[] def_%v_9 params[3.1,2.5,] 	 SYMBOL:public,	 ARGS:Symbol,
+		 1: ATTRASSIGN photo->public %v_9[5.0,] 
+		 2: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: params->[] def_%v_10 params[3.1,2.5,] 	 SYMBOL:pending,	 ARGS:Symbol,
+		 2: BRANCH %v_10[7.1,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: params->[] def_%v_11 params[3.1,2.5,] 	 SYMBOL:pending,	 ARGS:Symbol,
+		 1: ATTRASSIGN photo->pending %v_11[8.0,] 
+		 2: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SecureRandom) def_%v_12 
+		 2: %v_12->hex def_%v_13 %v_12[10.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: ATTRASSIGN photo->random_string %v_13[10.2,] 
+		 4: 
+		 5: photo->author def_%v_14 photo[10.3,8.1,5.1,4.4,4.7,] 	 SYMBOL:	 ARGS:
+		 6: %v_14->local? def_%v_15 %v_14[10.5,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_15[10.6,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: photo->unprocessed_image def_%v_16 photo[10.3,8.1,5.1,4.4,4.7,] 	 SYMBOL:	 ARGS:
+		 2: photo->author def_%v_17 photo[11.1,10.3,8.1,5.1,4.4,4.7,] 	 SYMBOL:	 ARGS:
+		 3: %v_17->owner def_%v_18 %v_17[11.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_18->strip_exif def_%v_19 %v_18[11.3,] 	 SYMBOL:	 ARGS:
+		 5: ATTRASSIGN %v_16->strip_exif %v_19[11.4,] 
+		 6: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_19 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: params->[] def_%v_20 params[3.1,2.5,] 	 SYMBOL:user_file,	 ARGS:Symbol,
+		 2: BRANCH %v_20[13.1,] 
+BB 14
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: params->delete def_%v_21 params[3.1,2.5,] 	 SYMBOL:user_file,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_image_file %v_21[14.1,] 
+		 3: 
+		 4: photo->unprocessed_image def_%v_22 photo[10.3,8.1,5.1,4.4,4.7,] 	 SYMBOL:	 ARGS:
+		 5: %v_22->store! def_%v_23 %v_22[14.4,] image_file[14.2,] 	 SYMBOL:	 ARGS:image_file,
+		 6: 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: params->[] def_%v_24 params[3.1,2.5,] 	 SYMBOL:image_url,	 ARGS:Symbol,
+		 2: BRANCH %v_24[15.1,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: params->[] def_%v_25 params[3.1,2.5,] 	 SYMBOL:image_url,	 ARGS:Symbol,
+		 2: ATTRASSIGN photo->remote_unprocessed_image_url %v_25[16.1,] 
+		 3: 
+		 4: photo->unprocessed_image def_%v_26 photo[16.2,10.3,8.1,5.1,4.4,4.7,] 	 SYMBOL:	 ARGS:
+		 5: %v_26->store! def_%v_27 %v_26[16.4,] 	 SYMBOL:	 ARGS:
+		 6: 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_27 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_23 %v_27[17.0,16.5,] 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: photo->update_remote_path def_%v_28 photo[16.2,10.3,8.1,5.1,4.4,4.7,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: RETURN photo[19.1,16.2,10.3,8.1,5.1,4.4,4.7,] %self[2.0,] 
+BB 20
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = processed? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->processed_image def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->path def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->present? def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %v_5[2.8,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_remote_path instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->unprocessed_image def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->url def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_Regexp def_%v_5 
+		 9: %v_4->match def_%v_6 %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: BRANCH %v_6[2.9,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->unprocessed_image def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->url def_%v_8 %v_7[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_remote_path %v_8[3.2,] 
+		 4: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (AppConfig) def_%v_9 
+		 2: %v_9->pod_uri def_%v_10 %v_9[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_10->to_s def_%v_11 %v_10[4.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "/" def_%v_12 
+		 5: %v_11->chomp def_%v_13 %v_11[4.3,] %v_12[4.4,] 	 SYMBOL:	 ARGS:%v_12,
+		 6: %self->unprocessed_image def_%v_14 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_14->url def_%v_15 %v_14[4.6,] 	 SYMBOL:	 ARGS:
+		 8: BUILDSTRING def_%v_16 %v_13[4.5,] %v_15[4.7,] 
+		 9: COPY TYPE_PASS def_remote_path %v_16[4.8,] 
+		 10: COPY TYPE_PASS def_%v_8 %v_16[4.8,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "/" def_%v_17 
+		 2: remote_path->rindex def_%v_18 remote_path[4.9,3.3,] %v_17[5.1,] 	 SYMBOL:	 ARGS:%v_17,
+		 3: COPY TYPE_PASS def_name_start %v_18[5.2,] 
+		 4: 
+		 5: remote_path->slice def_%v_19 remote_path[5.2,4.9,3.3,] %v_18[5.2,] 	 SYMBOL:	 ARGS:Fixnum,name_start,
+		 6: COPY TYPE_StringLiteral "/" def_%v_20 
+		 7: BUILDSTRING def_%v_21 %v_19[5.5,] %v_20[5.6,] 
+		 8: ATTRASSIGN %self->remote_photo_path %v_21[5.7,] 
+		 9: 
+		 10: name_start->+ def_%v_22 name_start[5.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 11: remote_path->length def_%v_23 remote_path[5.2,5.5,4.9,3.3,] 	 SYMBOL:	 ARGS:
+		 12: remote_path->slice def_%v_24 remote_path[5.2,5.5,5.11,4.9,3.3,] %v_22[5.10,] %v_23[5.11,] 	 SYMBOL:	 ARGS:%v_22,%v_23,
+		 13: ATTRASSIGN %self->remote_photo_name %v_24[5.12,] 
+		 14: RETURN %v_24[5.12,] %self[5.8,5.13,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = url instanceMethod = true
+BB 1
+	outgoing: 19 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_name 
+		 6: name[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_name 
+BB 4
+	outgoing: 5 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->remote_photo_path def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_3[4.1,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH name[3.0,2.5,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: name->to_s def_%v_4 name[3.0,2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "_" def_%v_5 
+		 2: %v_4->+ def_%v_6 %v_4[6.0,] %v_5[6.1,] 	 SYMBOL:	 ARGS:%v_5,
+		 3: COPY TYPE_PASS def_name %v_6[6.2,] 
+		 4: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+BB 8
+	outgoing: 9 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->remote_photo_path def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: name->to_s def_%v_8 name[6.3,3.0,2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_7->+ def_%v_9 %v_7[8.1,] %v_8[8.2,] 	 SYMBOL:	 ARGS:%v_8,
+		 4: %self->remote_photo_name def_%v_10 %self[8.1,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_9->+ def_%v_11 %v_9[8.3,] %v_10[8.4,] 	 SYMBOL:	 ARGS:%v_10,
+		 6: COPY TYPE_PASS def_image_url %v_11[8.5,] 
+		 7: 
+		 8: (AppConfig) def_%v_12 
+		 9: %v_12->privacy def_%v_13 %v_12[8.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_13->camo def_%v_14 %v_13[8.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_14->proxy_remote_pod_images? def_%v_15 %v_14[8.10,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_15[8.11,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Diaspora) def_%v_16 
+		 2: (inherit Camo) def_%v_17 %v_16[9.1,] 
+		 3: %v_17[9.2,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %v_16->const_missing def_%v_17 %v_16[9.1,] 	 SYMBOL:Camo,	 ARGS:Symbol,
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: %v_17->image_url def_%v_18 %v_17[10.0,9.2,] image_url[8.6,] 	 SYMBOL:	 ARGS:image_url,
+		 1: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_18 image_url[8.6,] 
+BB 13
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: RETURN %v_18[12.1,11.0,] %self[2.0,] 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->processed? def_%v_19 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_19[14.1,] 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->processed_image def_%v_20 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_20->url def_%v_21 %v_20[15.1,] name[3.0,2.5,] 	 SYMBOL:	 ARGS:name,
+		 3: 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->unprocessed_image def_%v_22 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_22->url def_%v_23 %v_22[16.1,] name[3.0,2.5,] 	 SYMBOL:	 ARGS:name,
+		 3: COPY TYPE_PASS def_%v_21 %v_23[16.2,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: RETURN %v_21[16.3,15.2,] %self[2.0,] 
+BB 19
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ensure_user_picture instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Profile) def_%v_3 
+		 7: %self->url def_%v_4 %self[2.0,] 	 SYMBOL:thumb_large,	 ARGS:Symbol,
+		 8: HASH-image_url- def_%v_5 %v_4[2.7,] 
+		 9: %v_3->where def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: COPY TYPE_PASS def_profiles %v_6[2.9,] 
+		 11: 
+		 12: %v_6->each def_%v_7 %v_6[2.9,] %self[2.0,2.7,] 	 SYMBOL:	 ARGS:%v_6,
+CLOSURE BEGIN: profile[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_profile 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN profile->image_url 
+		 2: 
+		 3: profile->save def_%cl_1_3 profile[3.1,2.2,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %cl_1_3[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 13: RETURN %v_7[2.12,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = queue_processing_job instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Workers) def_%v_3 
+		 7: (inherit ProcessPhoto) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:ProcessPhoto,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->id def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->perform_async def_%v_6 %v_4[3.0,2.7,] %v_5[4.0,] 	 SYMBOL:	 ARGS:%v_5,
+		 2: RETURN %v_6[4.1,] %self[4.0,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mutable? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: RETURN %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = visible instanceMethod = false
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_current_user 
+		 6: RECEIVEARG def_person 
+		 7: RECEIVECONSTARG def_limit 
+		 8: limit[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_limit 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_max_time 
+		 1: max_time[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_max_time 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH current_user[2.5,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-limit-max_time- def_%v_3 limit[3.0,2.7,] max_time[5.0,4.0,] 
+		 2: current_user->photos_from def_%v_4 current_user[2.5,] person[2.6,] %v_3[7.1,] 	 SYMBOL:	 ARGS:person,%v_3,
+		 3: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Photo) def_%v_5 
+		 2: person->id def_%v_6 person[2.6,] 	 SYMBOL:	 ARGS:
+		 3: HASH-author_id-public- def_%v_7 %v_6[8.2,] 
+		 4: %v_5->where def_%v_8 %v_5[8.1,] %v_7[8.3,] 	 SYMBOL:	 ARGS:%v_7,
+		 5: COPY TYPE_PASS def_%v_4 %v_8[8.4,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_photos %v_4[8.5,7.2,] 
+		 1: 
+		 2: COPY TYPE_StringLiteral "created_at desc" def_%v_9 
+		 3: %v_4->order def_%v_10 %v_4[8.5,7.2,] %v_9[9.2,] 	 SYMBOL:	 ARGS:%v_9,
+		 4: RETURN %v_10[9.3,] %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+

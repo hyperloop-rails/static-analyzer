@@ -1,0 +1,910 @@
+SET IRMethod, name = link_to_gfm instanceMethod = true
+BB 1
+	outgoing: 26 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_body 
+		 6: RECEIVEARG def_url 
+		 7: RECEIVECONSTARG def_html_options 
+		 8: html_options[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_html_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: body->blank? def_%v_4 body[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_4[4.1,] 
+BB 5
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_5 
+		 1: RETURN %v_5[5.0,] %self[2.0,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: COPY TYPE_Regexp def_%v_7 
+		 3: body->=~ def_%v_8 body[2.5,] 	 SYMBOL:	 ARGS:%v_7,
+		 4: BRANCH %v_8[6.3,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_9 body[2.5,] 
+		 2: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->escape_once def_%v_10 %self[2.0,] body[2.5,] 	 SYMBOL:	 ARGS:body,
+		 2: COPY TYPE_PASS def_%v_9 %v_10[9.1,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_escaped_body %v_9[9.2,8.1,] 
+		 1: 
+		 2: def_%v_11 %self[2.0,] 
+		 3: BRANCH %v_11[10.2,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: %self->current_user def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_user %v_12[11.0,] 
+		 2: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Banzai) def_%v_13 
+		 2: GETFIELD %self->project def_%v_14 %self[2.0,] 
+		 3: HASH-project-current_user-pipeline- def_%v_15 %v_14[13.2,] user[11.1,] 
+		 4: %v_13->render def_%v_16 %v_13[13.1,] escaped_body[10.0,] %v_15[13.3,] 	 SYMBOL:	 ARGS:escaped_body,%v_15,
+		 5: COPY TYPE_PASS def_gfm_body %v_16[13.4,] 
+		 6: 
+		 7: (Nokogiri) def_%v_17 
+		 8: (inherit HTML) def_%v_18 %v_17[13.7,] 
+		 9: %v_18[13.8,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: %v_17->const_missing def_%v_18 %v_17[13.7,] 	 SYMBOL:HTML,	 ARGS:Symbol,
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: (inherit DocumentFragment) def_%v_19 %v_18[14.0,13.8,] 
+		 1: %v_19[15.0,] 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: %v_18->const_missing def_%v_19 %v_18[14.0,13.8,] 	 SYMBOL:DocumentFragment,	 ARGS:Symbol,
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: %v_19->parse def_%v_20 %v_19[16.0,15.0,] gfm_body[13.5,] 	 SYMBOL:	 ARGS:gfm_body,
+		 1: COPY TYPE_PASS def_fragment %v_20[17.0,] 
+		 2: 
+		 3: %v_20->children def_%v_21 %v_20[17.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_21->size def_%v_22 %v_21[17.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_22->== def_%v_23 %v_22[17.4,] 	 SYMBOL:	 ARGS:Fixnum,
+		 6: BRANCH %v_23[17.5,] 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: fragment->children def_%v_24 fragment[17.1,] 	 SYMBOL:	 ARGS:
+		 1: %v_24->[] def_%v_25 %v_24[18.0,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: %v_25->name def_%v_26 %v_25[18.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "a" def_%v_27 
+		 4: %v_26->== def_%v_28 %v_26[18.2,] %v_27[18.3,] 	 SYMBOL:	 ARGS:%v_27,
+		 5: COPY TYPE_PASS def_%v_23 %v_28[18.4,] 
+BB 19
+	outgoing: 20 21 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_23[18.5,17.5,] 
+BB 20
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: fragment->children def_%v_29 fragment[17.1,] 	 SYMBOL:	 ARGS:
+		 2: %v_29->[] def_%v_30 %v_29[20.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: %v_30->text def_%v_31 %v_30[20.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_text %v_31[20.3,] 
+		 5: 
+		 6: fragment->children def_%v_32 fragment[20.1,17.1,] 	 SYMBOL:	 ARGS:
+		 7: %v_32->[] def_%v_33 %v_32[20.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: %self->link_to def_%v_34 %self[2.0,] text[20.4,] url[2.6,] html_options[3.1,2.7,] 	 SYMBOL:	 ARGS:text,url,html_options,
+		 9: %v_33->replace def_%v_35 %v_33[20.7,] %v_34[20.8,] 	 SYMBOL:	 ARGS:%v_34,
+		 10: 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: fragment->children def_%v_36 fragment[17.1,] 	 SYMBOL:	 ARGS:
+		 2: %v_36->each def_%v_37 %v_36[21.1,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_36,
+CLOSURE BEGIN: node[] %self[2.0,] url[2.6,] html_options[3.1,2.7,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_node 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: node->text? def_%cl_1_3 node[2.2,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_3[3.1,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_4 
+		 1: 
+BB 5
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: node->text def_%cl_1_5 node[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %self->link_to def_%cl_1_6 %self[2.0,] %cl_1_5[6.1,] url[] html_options[] 	 SYMBOL:	 ARGS:%cl_1_5,url,html_options,
+		 3: node->replace def_%cl_1_7 node[6.1,2.2,] %cl_1_6[6.2,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 4: RETURN %cl_1_7[6.3,] %self[6.2,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[7.0,] 
+		 2: RETURN %cl_1_9[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: COPY TYPE_PASS def_%v_35 %v_37[21.2,] 
+BB 22
+	outgoing: 23 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: html_options->[] def_%v_38 html_options[3.1,2.7,] 	 SYMBOL:class,	 ARGS:Symbol,
+		 2: BRANCH %v_38[22.1,] 
+BB 23
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "a.gfm" def_%v_39 
+		 2: fragment->css def_%v_40 fragment[17.1,] %v_39[23.1,] 	 SYMBOL:	 ARGS:%v_39,
+		 3: html_options->[] def_%v_41 html_options[3.1,2.7,] 	 SYMBOL:class,	 ARGS:Symbol,
+		 4: %v_40->add_class def_%v_42 %v_40[23.2,] %v_41[23.3,] 	 SYMBOL:	 ARGS:%v_41,
+		 5: 
+BB 24
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_42 
+BB 25
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: fragment->to_html def_%v_43 fragment[17.1,] 	 SYMBOL:	 ARGS:
+		 2: %v_43->html_safe def_%v_44 %v_43[25.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %v_44[25.2,] %self[2.0,] 
+BB 26
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = markdown instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_text 
+		 6: RECEIVECONSTARG def_context 
+		 7: context[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_context %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: text->present? def_%v_4 text[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_4[4.1,] 
+BB 5
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: context->[] def_%v_7 context[3.1,2.6,] 	 SYMBOL:project,	 ARGS:Symbol,
+		 3: BRANCH %v_7[5.2,] 
+BB 6
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_6 
+		 1: RETURN %v_6[6.0,] %self[2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->project def_%v_8 %self[2.0,] 
+		 1: context->[]= def_%v_7 context[3.1,2.6,] %v_8[8.0,] 	 SYMBOL:project,	 ARGS:Symbol,%v_8,
+		 2: COPY TYPE_PASS def_%v_7 %v_8[8.0,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Banzai) def_%v_9 
+		 2: %v_9->pre_process def_%v_10 %v_9[9.1,] text[2.5,] context[8.1,3.1,2.6,] 	 SYMBOL:	 ARGS:text,context,
+		 3: COPY TYPE_PASS def_text %v_10[9.2,] 
+		 4: 
+		 5: (Banzai) def_%v_11 
+		 6: %v_11->render def_%v_12 %v_11[9.5,] %v_10[9.2,] context[8.1,3.1,2.6,] 	 SYMBOL:	 ARGS:text,context,
+		 7: COPY TYPE_PASS def_html %v_12[9.6,] 
+		 8: 
+		 9: 
+		 10: def_%v_13 %self[2.0,] 
+		 11: BRANCH %v_13[9.10,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %self->current_user def_%v_14 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->path def_%v_15 %self[2.0,] 
+		 1: GETFIELD %self->project_wiki def_%v_16 %self[2.0,] 
+		 2: GETFIELD %self->ref def_%v_17 %self[2.0,] 
+		 3: HASH-current_user-requested_path-project_wiki-ref- def_%v_18 %v_14[11.0,10.0,] %v_15[12.0,] %v_16[12.1,] %v_17[12.2,] 
+		 4: context->merge! def_%v_19 context[8.1,3.1,2.6,] %v_18[12.3,] 	 SYMBOL:	 ARGS:%v_18,
+		 5: 
+		 6: (Banzai) def_%v_20 
+		 7: %v_20->post_process def_%v_21 %v_20[12.6,] html[9.7,] context[12.4,8.1,3.1,2.6,] 	 SYMBOL:	 ARGS:html,context,
+		 8: RETURN %v_21[12.7,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = asciidoc instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_text 
+		 6: 
+		 7: (Gitlab) def_%v_3 
+		 8: (inherit Asciidoc) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:Asciidoc,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->project def_%v_5 %self[2.0,] 
+		 1: 
+		 2: def_%v_6 %self[2.0,] 
+		 3: BRANCH %v_6[4.2,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->current_user def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->project_wiki def_%v_8 %self[2.0,] 
+		 1: GETFIELD %self->path def_%v_9 %self[2.0,] 
+		 2: GETFIELD %self->ref def_%v_10 %self[2.0,] 
+		 3: GETFIELD %self->commit def_%v_11 %self[2.0,] 
+		 4: HASH-project-current_user-project_wiki-requested_path-ref-commit- def_%v_12 %v_5[4.0,] %v_7[6.0,5.0,] %v_8[7.0,] %v_9[7.1,] %v_10[7.2,] %v_11[7.3,] 
+		 5: %v_4->render def_%v_13 %v_4[3.0,2.8,] text[2.5,] %v_12[7.4,] 	 SYMBOL:	 ARGS:text,%v_12,
+		 6: RETURN %v_13[7.5,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = other_markup instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_file_name 
+		 6: RECEIVEARG def_text 
+		 7: 
+		 8: (Gitlab) def_%v_3 
+		 9: (inherit OtherMarkup) def_%v_4 %v_3[2.8,] 
+		 10: %v_4[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.8,] 	 SYMBOL:OtherMarkup,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->project def_%v_5 %self[2.0,] 
+		 1: 
+		 2: def_%v_6 %self[2.0,] 
+		 3: BRANCH %v_6[4.2,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->current_user def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->project_wiki def_%v_8 %self[2.0,] 
+		 1: GETFIELD %self->path def_%v_9 %self[2.0,] 
+		 2: GETFIELD %self->ref def_%v_10 %self[2.0,] 
+		 3: GETFIELD %self->commit def_%v_11 %self[2.0,] 
+		 4: HASH-project-current_user-project_wiki-requested_path-ref-commit- def_%v_12 %v_5[4.0,] %v_7[6.0,5.0,] %v_8[7.0,] %v_9[7.1,] %v_10[7.2,] %v_11[7.3,] 
+		 5: %v_4->render def_%v_13 %v_4[3.0,2.9,] file_name[2.5,] text[2.6,] %v_12[7.4,] 	 SYMBOL:	 ARGS:file_name,text,%v_12,
+		 6: RETURN %v_13[7.5,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = first_line_in_markdown instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_text 
+		 6: RECEIVECONSTARG def_max_chars 
+		 7: max_chars[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_max_chars 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_options 
+		 1: options[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[5.0,] 
+BB 6
+	outgoing: 7 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->markdown def_%v_4 %self[2.0,] text[2.5,] options[5.1,4.0,] 	 SYMBOL:	 ARGS:text,options,
+		 2: %v_4->strip def_%v_5 %v_4[6.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_md %v_5[6.2,] 
+		 4: 
+		 5: %v_5->present? def_%v_6 %v_5[6.2,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %v_6[6.5,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_7 max_chars[3.0,2.6,] 
+		 1: BRANCH max_chars[3.0,2.6,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: md->length def_%v_8 md[6.3,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_7 %v_8[8.0,] 
+BB 9
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %self->truncate_visible def_%v_9 %self[2.0,] md[6.3,] %v_7[8.1,7.0,] 	 SYMBOL:	 ARGS:md,%v_7,
+		 1: RETURN %v_9[9.0,] %self[9.0,2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = render_wiki_content instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 5 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_wiki_page 
+		 6: 
+		 7: wiki_page->format def_%v_3 wiki_page[2.5,] 	 SYMBOL:	 ARGS:
+		 8: def_%v_5 %v_3[2.7,] 
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: def_%v_6 %v_3[2.7,] 
+		 1: BRANCH %v_6[3.0,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: wiki_page->formatted_content def_%v_13 wiki_page[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_13->html_safe def_%v_14 %v_13[4.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_4 %v_14[4.2,] 
+		 4: RETURN %v_14[4.2,] %self[2.0,] 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: wiki_page->content def_%v_7 wiki_page[2.5,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->project_wiki def_%v_8 %self[2.0,] 
+		 3: HASH-pipeline-project_wiki- def_%v_9 %v_8[5.2,] 
+		 4: %self->markdown def_%v_10 %self[2.0,] %v_7[5.1,] %v_9[5.3,] 	 SYMBOL:	 ARGS:%v_7,%v_9,
+		 5: COPY TYPE_PASS def_%v_4 %v_10[5.4,] 
+		 6: RETURN %v_10[5.4,] %self[5.4,2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: wiki_page->content def_%v_11 wiki_page[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %self->asciidoc def_%v_12 %self[2.0,] %v_11[6.1,] 	 SYMBOL:	 ARGS:%v_11,
+		 3: COPY TYPE_PASS def_%v_4 %v_12[6.2,] 
+		 4: RETURN %v_12[6.2,] %self[6.2,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = truncate_visible instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_text 
+		 6: RECEIVEARG def_max_chars 
+		 7: 
+		 8: (Nokogiri) def_%v_3 
+		 9: (inherit HTML) def_%v_4 %v_3[2.8,] 
+		 10: %v_4[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.8,] 	 SYMBOL:HTML,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_4->fragment def_%v_5 %v_4[3.0,2.9,] text[2.5,] 	 SYMBOL:	 ARGS:text,
+		 1: COPY TYPE_PASS def_doc %v_5[4.0,] 
+		 2: 
+		 3: COPY TYPE_Fixnum def_content_length 
+		 4: 
+		 5: COPY TYPE_Boolean def_truncated 
+		 6: 
+		 7: %v_5->traverse def_%v_6 %v_5[4.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_5,
+CLOSURE BEGIN: node[] truncated[4.5,] max_chars[2.6,] content_length[4.3,] num_remaining[] %self[2.0,] 
+BB 1
+	outgoing: 20 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_node 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: node->text? def_%cl_1_3 node[2.2,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_3[3.1,] 
+BB 4
+	outgoing: 5 18 
+	datadep: 
+	instructions:
+		 0: node->content def_%cl_1_4 node[2.2,] 	 SYMBOL:	 ARGS:
+		 1: %cl_1_4->empty? def_%cl_1_5 %cl_1_4[4.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%cl_1_3 %cl_1_5[4.1,] 
+BB 5
+	outgoing: 6 16 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_3[4.2,3.1,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH truncated[] 
+BB 7
+	outgoing: 18 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: node->remove def_%cl_1_6 node[2.2,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: 
+		 4: RETURN %self[2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_7 
+BB 9
+	outgoing: 10 11 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: node->content def_%cl_1_8 node[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_8->strip def_%cl_1_9 %cl_1_8[9.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_9->lines def_%cl_1_10 %cl_1_9[9.2,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_10->length def_%cl_1_11 %cl_1_10[9.3,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_11->> def_%cl_1_12 %cl_1_11[9.4,] 	 SYMBOL:	 ARGS:Fixnum,
+		 6: BRANCH %cl_1_12[9.5,] 
+BB 10
+	outgoing: 12 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: node->content def_%cl_1_13 node[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_13->lines def_%cl_1_14 %cl_1_13[10.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_14->first def_%cl_1_15 %cl_1_14[10.2,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_15->chomp def_%cl_1_16 %cl_1_15[10.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "..." def_%cl_1_17 
+		 6: BUILDSTRING def_%cl_1_18 %cl_1_16[10.4,] %cl_1_17[10.5,] 
+		 7: ATTRASSIGN node->content %cl_1_18[10.6,] 
+		 8: 
+		 9: COPY TYPE_Boolean def_truncated 
+		 10: COPY TYPE_Boolean def_%cl_1_19 
+		 11: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_19 
+BB 12
+	outgoing: 13 14 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: max_chars->- def_%cl_1_20 max_chars[] content_length[] 	 SYMBOL:	 ARGS:content_length,
+		 2: COPY TYPE_PASS def_num_remaining %cl_1_20[12.1,] 
+		 3: 
+		 4: node->content def_%cl_1_21 node[10.7,2.2,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_21->length def_%cl_1_22 %cl_1_21[12.4,] 	 SYMBOL:	 ARGS:
+		 6: %cl_1_22->> def_%cl_1_23 %cl_1_22[12.5,] num_remaining[12.2,] 	 SYMBOL:	 ARGS:num_remaining,
+		 7: BRANCH %cl_1_23[12.6,] 
+BB 13
+	outgoing: 15 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: node->content def_%cl_1_24 node[10.7,2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_24->truncate def_%cl_1_25 %cl_1_24[13.1,] num_remaining[12.2,] 	 SYMBOL:	 ARGS:num_remaining,
+		 3: ATTRASSIGN node->content %cl_1_25[13.2,] 
+		 4: 
+		 5: COPY TYPE_Boolean def_truncated 
+		 6: COPY TYPE_Boolean def_%cl_1_26 
+		 7: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_26 
+BB 15
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: node->content def_%cl_1_27 node[13.3,10.7,2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_27->length def_%cl_1_28 %cl_1_27[15.1,] 	 SYMBOL:	 ARGS:
+		 3: content_length->+ def_%cl_1_29 content_length[] %cl_1_28[15.2,] 	 SYMBOL:	 ARGS:%cl_1_28,
+		 4: COPY TYPE_PASS def_content_length %cl_1_29[15.3,] 
+		 5: 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_29 
+BB 17
+	outgoing: 18 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->truncate_if_block def_%cl_1_30 %self[2.0,] node[13.3,2.2,10.7,] truncated[13.5,10.9,] 	 SYMBOL:	 ARGS:node,truncated,
+		 2: COPY TYPE_PASS def_truncated %cl_1_30[17.1,] 
+		 3: RETURN %cl_1_30[17.1,] %self[17.1,2.0,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_31 
+		 1: def_%cl_1_32 %cl_1_31[18.0,] 
+		 2: RETURN %cl_1_32[18.1,] %self[2.0,] 
+BB 20
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: truncated[17.2,10.9,13.5,] num_remaining[12.2,] content_length[15.4,] 
+		 8: 
+		 9: doc->to_html def_%v_7 doc[4.1,] 	 SYMBOL:	 ARGS:
+		 10: RETURN %v_7[4.9,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = truncate_if_block instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_node 
+		 6: RECEIVEARG def_truncated 
+		 7: 
+		 8: node->element? def_%v_3 node[2.5,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_3[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: node->description def_%v_4 node[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->block? def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.2,2.8,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: truncated->! def_%v_6 truncated[2.6,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_3 %v_6[5.0,] 
+BB 6
+	outgoing: 7 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[5.1,3.2,2.8,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: node->next_sibling def_%v_7 node[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_7[7.1,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: node->inner_html def_%v_8 node[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "..." def_%v_9 
+		 2: BUILDSTRING def_%v_10 %v_8[8.0,] %v_9[8.1,] 
+		 3: ATTRASSIGN node->inner_html %v_10[8.2,] 
+		 4: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+BB 10
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Boolean def_%v_11 
+		 2: RETURN %self[2.0,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN truncated[2.6,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cross_project_reference instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_project 
+		 6: RECEIVEARG def_entity 
+		 7: 
+		 8: entity->respond_to? def_%v_3 entity[2.6,] 	 SYMBOL:to_reference,	 ARGS:Symbol,
+		 9: BRANCH %v_3[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: project->to_reference def_%v_4 project[2.5,] 	 SYMBOL:	 ARGS:
+		 2: entity->to_reference def_%v_5 entity[2.6,] 	 SYMBOL:	 ARGS:
+		 3: BUILDSTRING def_%v_6 %v_4[3.1,] %v_5[3.2,] 
+		 4: RETURN %v_6[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "" def_%v_7 
+		 2: RETURN %v_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

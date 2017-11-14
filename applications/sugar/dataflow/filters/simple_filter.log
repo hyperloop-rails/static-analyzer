@@ -1,0 +1,257 @@
+SET IRMethod, name = process instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: %self->strip def_%v_3 %self[2.0,] post[2.5,] 	 SYMBOL:	 ARGS:post,
+		 8: %self->escape_angle_brackets def_%v_4 %self[2.0,2.7,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: %self->convert_line_breaks def_%v_5 %self[2.0,2.7,2.8,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: RETURN %v_5[2.9,] %self[2.0,2.7,2.8,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = convert_line_breaks instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_str 
+		 6: 
+		 7: COPY TYPE_Regexp def_%v_3 
+		 8: COPY TYPE_StringLiteral "<br>
+" def_%v_4 
+		 9: str->gsub def_%v_5 str[2.5,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_3,%v_4,
+		 10: RETURN %v_5[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = escape_angle_brackets instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_str 
+		 6: 
+		 7: (Regexp) def_%v_3 
+		 8: COPY TYPE_StringLiteral "<(?!/|" def_%v_4 
+		 9: %self->html_tags def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral "|" def_%v_6 
+		 11: %v_5->join def_%v_7 %v_5[2.9,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_6,
+		 12: %v_4->+ def_%v_8 %v_4[2.8,] %v_7[2.11,] 	 SYMBOL:	 ARGS:%v_7,
+		 13: COPY TYPE_StringLiteral ")" def_%v_9 
+		 14: %v_8->+ def_%v_10 %v_8[2.12,] %v_9[2.13,] 	 SYMBOL:	 ARGS:%v_9,
+		 15: %v_3->new def_%v_11 %v_3[2.7,] %v_10[2.14,] 	 SYMBOL:	 ARGS:%v_10,
+		 16: COPY TYPE_StringLiteral "&lt;" def_%v_12 
+		 17: str->gsub def_%v_13 str[2.5,] %v_11[2.15,] %v_12[2.16,] 	 SYMBOL:	 ARGS:%v_11,%v_12,
+		 18: (Regexp) def_%v_14 
+		 19: COPY TYPE_StringLiteral "(?<!"|'|" def_%v_15 
+		 20: %self->html_tags def_%v_16 %self[2.0,2.9,] 	 SYMBOL:	 ARGS:
+		 21: COPY TYPE_StringLiteral "|" def_%v_17 
+		 22: %v_16->join def_%v_18 %v_16[2.20,] %v_17[2.21,] 	 SYMBOL:	 ARGS:%v_17,
+		 23: %v_15->+ def_%v_19 %v_15[2.19,] %v_18[2.22,] 	 SYMBOL:	 ARGS:%v_18,
+		 24: COPY TYPE_StringLiteral ")>" def_%v_20 
+		 25: %v_19->+ def_%v_21 %v_19[2.23,] %v_20[2.24,] 	 SYMBOL:	 ARGS:%v_20,
+		 26: %v_14->new def_%v_22 %v_14[2.18,] %v_21[2.25,] 	 SYMBOL:	 ARGS:%v_21,
+		 27: COPY TYPE_StringLiteral "&gt;" def_%v_23 
+		 28: %v_13->gsub def_%v_24 %v_13[2.17,] %v_22[2.26,] %v_23[2.27,] 	 SYMBOL:	 ARGS:%v_22,%v_23,
+		 29: RETURN %v_24[2.28,] %self[2.0,2.9,2.20,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = strip instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: COPY TYPE_Regexp def_%v_3 
+		 8: COPY TYPE_StringLiteral "" def_%v_4 
+		 9: post->gsub def_%v_5 post[2.5,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_3,%v_4,
+		 10: COPY TYPE_Regexp def_%v_6 
+		 11: COPY TYPE_StringLiteral "" def_%v_7 
+		 12: %v_5->gsub def_%v_8 %v_5[2.9,] %v_7[2.11,] 	 SYMBOL:	 ARGS:%v_6,%v_7,
+		 13: RETURN %v_8[2.12,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = html_tags instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "a" def_%v_3 
+		 7: COPY TYPE_StringLiteral "abbr" def_%v_4 
+		 8: COPY TYPE_StringLiteral "address" def_%v_5 
+		 9: COPY TYPE_StringLiteral "area" def_%v_6 
+		 10: COPY TYPE_StringLiteral "article" def_%v_7 
+		 11: COPY TYPE_StringLiteral "aside" def_%v_8 
+		 12: COPY TYPE_StringLiteral "audio" def_%v_9 
+		 13: COPY TYPE_StringLiteral "b" def_%v_10 
+		 14: COPY TYPE_StringLiteral "base" def_%v_11 
+		 15: COPY TYPE_StringLiteral "bdi" def_%v_12 
+		 16: COPY TYPE_StringLiteral "bdo" def_%v_13 
+		 17: COPY TYPE_StringLiteral "blockquote" def_%v_14 
+		 18: COPY TYPE_StringLiteral "body" def_%v_15 
+		 19: COPY TYPE_StringLiteral "br" def_%v_16 
+		 20: COPY TYPE_StringLiteral "button" def_%v_17 
+		 21: COPY TYPE_StringLiteral "canvas" def_%v_18 
+		 22: COPY TYPE_StringLiteral "caption" def_%v_19 
+		 23: COPY TYPE_StringLiteral "cite" def_%v_20 
+		 24: COPY TYPE_StringLiteral "code" def_%v_21 
+		 25: COPY TYPE_StringLiteral "col" def_%v_22 
+		 26: COPY TYPE_StringLiteral "colgroup" def_%v_23 
+		 27: COPY TYPE_StringLiteral "data" def_%v_24 
+		 28: COPY TYPE_StringLiteral "datalist" def_%v_25 
+		 29: COPY TYPE_StringLiteral "dd" def_%v_26 
+		 30: COPY TYPE_StringLiteral "del" def_%v_27 
+		 31: COPY TYPE_StringLiteral "details" def_%v_28 
+		 32: COPY TYPE_StringLiteral "dfn" def_%v_29 
+		 33: COPY TYPE_StringLiteral "div" def_%v_30 
+		 34: COPY TYPE_StringLiteral "dl" def_%v_31 
+		 35: COPY TYPE_StringLiteral "dt" def_%v_32 
+		 36: COPY TYPE_StringLiteral "em" def_%v_33 
+		 37: COPY TYPE_StringLiteral "embed" def_%v_34 
+		 38: COPY TYPE_StringLiteral "fieldset" def_%v_35 
+		 39: COPY TYPE_StringLiteral "figcaption" def_%v_36 
+		 40: COPY TYPE_StringLiteral "figure" def_%v_37 
+		 41: COPY TYPE_StringLiteral "footer" def_%v_38 
+		 42: COPY TYPE_StringLiteral "form" def_%v_39 
+		 43: COPY TYPE_StringLiteral "h1" def_%v_40 
+		 44: COPY TYPE_StringLiteral "h2" def_%v_41 
+		 45: COPY TYPE_StringLiteral "h3" def_%v_42 
+		 46: COPY TYPE_StringLiteral "h4" def_%v_43 
+		 47: COPY TYPE_StringLiteral "h5" def_%v_44 
+		 48: COPY TYPE_StringLiteral "h6" def_%v_45 
+		 49: COPY TYPE_StringLiteral "head" def_%v_46 
+		 50: COPY TYPE_StringLiteral "header" def_%v_47 
+		 51: COPY TYPE_StringLiteral "hr" def_%v_48 
+		 52: COPY TYPE_StringLiteral "html" def_%v_49 
+		 53: COPY TYPE_StringLiteral "i" def_%v_50 
+		 54: COPY TYPE_StringLiteral "iframe" def_%v_51 
+		 55: COPY TYPE_StringLiteral "img" def_%v_52 
+		 56: COPY TYPE_StringLiteral "input" def_%v_53 
+		 57: COPY TYPE_StringLiteral "ins" def_%v_54 
+		 58: COPY TYPE_StringLiteral "kbd" def_%v_55 
+		 59: COPY TYPE_StringLiteral "keygen" def_%v_56 
+		 60: COPY TYPE_StringLiteral "label" def_%v_57 
+		 61: COPY TYPE_StringLiteral "legend" def_%v_58 
+		 62: COPY TYPE_StringLiteral "li" def_%v_59 
+		 63: COPY TYPE_StringLiteral "link" def_%v_60 
+		 64: COPY TYPE_StringLiteral "main" def_%v_61 
+		 65: COPY TYPE_StringLiteral "map" def_%v_62 
+		 66: COPY TYPE_StringLiteral "mark" def_%v_63 
+		 67: COPY TYPE_StringLiteral "math" def_%v_64 
+		 68: COPY TYPE_StringLiteral "menu" def_%v_65 
+		 69: COPY TYPE_StringLiteral "menuitem" def_%v_66 
+		 70: COPY TYPE_StringLiteral "meta" def_%v_67 
+		 71: COPY TYPE_StringLiteral "meter" def_%v_68 
+		 72: COPY TYPE_StringLiteral "nav" def_%v_69 
+		 73: COPY TYPE_StringLiteral "noscript" def_%v_70 
+		 74: COPY TYPE_StringLiteral "object" def_%v_71 
+		 75: COPY TYPE_StringLiteral "ol" def_%v_72 
+		 76: COPY TYPE_StringLiteral "optgroup" def_%v_73 
+		 77: COPY TYPE_StringLiteral "option" def_%v_74 
+		 78: COPY TYPE_StringLiteral "output" def_%v_75 
+		 79: COPY TYPE_StringLiteral "p" def_%v_76 
+		 80: COPY TYPE_StringLiteral "param" def_%v_77 
+		 81: COPY TYPE_StringLiteral "pre" def_%v_78 
+		 82: COPY TYPE_StringLiteral "progress" def_%v_79 
+		 83: COPY TYPE_StringLiteral "q" def_%v_80 
+		 84: COPY TYPE_StringLiteral "rp" def_%v_81 
+		 85: COPY TYPE_StringLiteral "rt" def_%v_82 
+		 86: COPY TYPE_StringLiteral "ruby" def_%v_83 
+		 87: COPY TYPE_StringLiteral "s" def_%v_84 
+		 88: COPY TYPE_StringLiteral "samp" def_%v_85 
+		 89: COPY TYPE_StringLiteral "script" def_%v_86 
+		 90: COPY TYPE_StringLiteral "section" def_%v_87 
+		 91: COPY TYPE_StringLiteral "select" def_%v_88 
+		 92: COPY TYPE_StringLiteral "small" def_%v_89 
+		 93: COPY TYPE_StringLiteral "source" def_%v_90 
+		 94: COPY TYPE_StringLiteral "span" def_%v_91 
+		 95: COPY TYPE_StringLiteral "strong" def_%v_92 
+		 96: COPY TYPE_StringLiteral "style" def_%v_93 
+		 97: COPY TYPE_StringLiteral "sub" def_%v_94 
+		 98: COPY TYPE_StringLiteral "summary" def_%v_95 
+		 99: COPY TYPE_StringLiteral "svg" def_%v_96 
+		 100: COPY TYPE_StringLiteral "table" def_%v_97 
+		 101: COPY TYPE_StringLiteral "tbody" def_%v_98 
+		 102: COPY TYPE_StringLiteral "td" def_%v_99 
+		 103: COPY TYPE_StringLiteral "textarea" def_%v_100 
+		 104: COPY TYPE_StringLiteral "tfoot" def_%v_101 
+		 105: COPY TYPE_StringLiteral "th" def_%v_102 
+		 106: COPY TYPE_StringLiteral "thead" def_%v_103 
+		 107: COPY TYPE_StringLiteral "time" def_%v_104 
+		 108: COPY TYPE_StringLiteral "title" def_%v_105 
+		 109: COPY TYPE_StringLiteral "tr" def_%v_106 
+		 110: COPY TYPE_StringLiteral "track" def_%v_107 
+		 111: COPY TYPE_StringLiteral "u" def_%v_108 
+		 112: COPY TYPE_StringLiteral "ul" def_%v_109 
+		 113: COPY TYPE_StringLiteral "var" def_%v_110 
+		 114: COPY TYPE_StringLiteral "video" def_%v_111 
+		 115: COPY TYPE_StringLiteral "wbr" def_%v_112 
+		 116: COPY TYPE_StringLiteral "allowfullscreen" def_%v_113 
+		 117: COPY TYPE_StringLiteral "base64serialized" def_%v_114 
+		 118: COPY TYPE_Array def_%v_115 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] %v_6[2.9,] %v_7[2.10,] %v_8[2.11,] %v_9[2.12,] %v_10[2.13,] %v_11[2.14,] %v_12[2.15,] %v_13[2.16,] %v_14[2.17,] %v_15[2.18,] %v_16[2.19,] %v_17[2.20,] %v_18[2.21,] %v_19[2.22,] %v_20[2.23,] %v_21[2.24,] %v_22[2.25,] %v_23[2.26,] %v_24[2.27,] %v_25[2.28,] %v_26[2.29,] %v_27[2.30,] %v_28[2.31,] %v_29[2.32,] %v_30[2.33,] %v_31[2.34,] %v_32[2.35,] %v_33[2.36,] %v_34[2.37,] %v_35[2.38,] %v_36[2.39,] %v_37[2.40,] %v_38[2.41,] %v_39[2.42,] %v_40[2.43,] %v_41[2.44,] %v_42[2.45,] %v_43[2.46,] %v_44[2.47,] %v_45[2.48,] %v_46[2.49,] %v_47[2.50,] %v_48[2.51,] %v_49[2.52,] %v_50[2.53,] %v_51[2.54,] %v_52[2.55,] %v_53[2.56,] %v_54[2.57,] %v_55[2.58,] %v_56[2.59,] %v_57[2.60,] %v_58[2.61,] %v_59[2.62,] %v_60[2.63,] %v_61[2.64,] %v_62[2.65,] %v_63[2.66,] %v_64[2.67,] %v_65[2.68,] %v_66[2.69,] %v_67[2.70,] %v_68[2.71,] %v_69[2.72,] %v_70[2.73,] %v_71[2.74,] %v_72[2.75,] %v_73[2.76,] %v_74[2.77,] %v_75[2.78,] %v_76[2.79,] %v_77[2.80,] %v_78[2.81,] %v_79[2.82,] %v_80[2.83,] %v_81[2.84,] %v_82[2.85,] %v_83[2.86,] %v_84[2.87,] %v_85[2.88,] %v_86[2.89,] %v_87[2.90,] %v_88[2.91,] %v_89[2.92,] %v_90[2.93,] %v_91[2.94,] %v_92[2.95,] %v_93[2.96,] %v_94[2.97,] %v_95[2.98,] %v_96[2.99,] %v_97[2.100,] %v_98[2.101,] %v_99[2.102,] %v_100[2.103,] %v_101[2.104,] %v_102[2.105,] %v_103[2.106,] %v_104[2.107,] %v_105[2.108,] %v_106[2.109,] %v_107[2.110,] %v_108[2.111,] %v_109[2.112,] %v_110[2.113,] %v_111[2.114,] %v_112[2.115,] %v_113[2.116,] %v_114[2.117,] 
+		 119: RETURN %v_115[2.118,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

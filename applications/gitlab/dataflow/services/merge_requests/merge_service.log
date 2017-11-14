@@ -1,0 +1,267 @@
+SET IRMethod, name = execute instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_merge_request 
+		 6: 
+		 7: ATTRASSIGN %self->merge_request merge_request[2.5,] 
+		 8: 
+		 9: GETFIELD %self->merge_request def_%v_3 %self[2.0,2.7,] 
+		 10: %v_3->mergeable? def_%v_4 %v_3[2.9,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_4[2.10,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: merge_request->in_locked_state def_%v_8 merge_request[2.5,] %self[2.0,2.7,] 	 SYMBOL:	 ARGS:merge_request,
+CLOSURE BEGIN: %self[2.0,2.7,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->commit def_%cl_1_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_3[3.1,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->after_merge def_%cl_1_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: %self->success def_%cl_1_5 %self[4.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: 
+BB 5
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Can not merge changes" def_%cl_1_6 
+		 2: %self->error def_%cl_1_7 %self[2.0,] %cl_1_6[5.1,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 3: RETURN %cl_1_7[5.2,] %self[5.2,2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_5[4.3,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[7.0,] 
+		 2: RETURN %cl_1_9[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: RETURN %v_8[3.2,] %self[2.0,2.7,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Merge request is not mergeable" def_%v_6 
+		 1: %self->error def_%v_7 %self[2.0,2.7,] %v_6[4.0,] 	 SYMBOL:	 ARGS:%v_6,
+		 2: RETURN %v_7[4.1,] %self[4.1,2.0,2.7,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = commit instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->repository def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %self->current_user def_%v_7 %self[4.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_6->user_to_committer def_%v_8 %v_6[4.2,] %v_7[4.3,] 	 SYMBOL:	 ARGS:%v_7,
+		 5: COPY TYPE_PASS def_committer %v_8[4.4,] 
+		 6: 
+		 7: %self->params def_%v_9 %self[4.2,4.3,2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_9->[] def_%v_10 %v_9[4.7,] 	 SYMBOL:commit_message,	 ARGS:Symbol,
+		 9: BRANCH %v_10[4.8,] 
+BB 5
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: %self->merge_request def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_11->merge_commit_message def_%v_12 %v_11[5.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_10 %v_12[5.1,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: HASH-message-author-committer- def_%v_13 %v_10[5.2,4.8,] committer[4.5,] committer[4.5,] 
+		 1: COPY TYPE_PASS def_options %v_13[6.0,] 
+		 2: 
+		 3: %self->repository def_%v_14 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %self->current_user def_%v_15 %self[6.3,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %self->merge_request def_%v_16 %self[6.3,6.4,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %v_16->source_sha def_%v_17 %v_16[6.5,] 	 SYMBOL:	 ARGS:
+		 7: %self->merge_request def_%v_18 %self[6.3,6.4,6.5,2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_18->target_branch def_%v_19 %v_18[6.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_14->merge def_%v_20 %v_14[6.3,] %v_15[6.4,] %v_17[6.6,] %v_19[6.8,] options[6.1,] 	 SYMBOL:	 ARGS:%v_15,%v_17,%v_19,options,
+		 10: COPY TYPE_PASS def_commit_id %v_20[6.9,] 
+		 11: 
+		 12: %self->merge_request def_%v_21 %self[6.3,6.4,6.5,6.7,2.0,] 	 SYMBOL:	 ARGS:
+		 13: HASH-merge_commit_sha- def_%v_22 commit_id[6.10,] 
+		 14: %v_21->update def_%v_23 %v_21[6.12,] %v_22[6.13,] 	 SYMBOL:	 ARGS:%v_22,
+		 15: COPY TYPE_PASS def_%v_5 %v_23[6.14,] 
+		 16: %v_3[2.5,] 
+BB 7
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[6.15,] %self[2.0,] 
+BB 8
+	outgoing: 9 10 12 
+	datadep: 
+	instructions:
+		 0: def_%v_24 
+		 1: (StandardError) def_%v_25 
+		 2: def_%v_26 %v_25[8.1,] %v_24[8.0,] 
+		 3: BRANCH %v_26[8.2,] 
+BB 9
+	outgoing: 12 14 
+	datadep: 
+	instructions:
+		 0: %v_24[8.0,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_27 
+		 1: COPY TYPE_PASS def_e %v_27[10.0,] 
+		 2: 
+		 3: %self->merge_request def_%v_28 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "Something went wrong during merge" def_%v_29 
+		 5: HASH-merge_error- def_%v_30 %v_29[10.4,] 
+		 6: %v_28->update def_%v_31 %v_28[10.3,] %v_30[10.5,] 	 SYMBOL:	 ARGS:%v_30,
+		 7: 
+		 8: (Rails) def_%v_32 
+		 9: %v_32->logger def_%v_33 %v_32[10.8,] 	 SYMBOL:	 ARGS:
+		 10: e->message def_%v_34 e[10.1,] 	 SYMBOL:	 ARGS:
+		 11: %v_33->error def_%v_35 %v_33[10.9,] %v_34[10.10,] 	 SYMBOL:	 ARGS:%v_34,
+		 12: 
+		 13: COPY TYPE_Boolean def_%v_36 
+		 14: %v_3[2.5,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %v_36[10.13,] %self[2.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: def_%v_37 
+		 1: def_%v_38 %v_37[12.0,] %v_3[2.5,] 
+		 2: %v_37[12.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = after_merge instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (MergeRequests) def_%v_3 
+		 7: (inherit PostMergeService) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:PostMergeService,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %self->project def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %self->current_user def_%v_6 %self[4.0,2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_4->new def_%v_7 %v_4[3.0,2.7,] %v_5[4.0,] %v_6[4.1,] 	 SYMBOL:	 ARGS:%v_5,%v_6,
+		 3: %self->merge_request def_%v_8 %self[4.0,4.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_7->execute def_%v_9 %v_7[4.2,] %v_8[4.3,] 	 SYMBOL:	 ARGS:%v_8,
+		 5: 
+		 6: %self->params def_%v_10 %self[4.0,4.1,4.3,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_10->[] def_%v_11 %v_10[4.6,] 	 SYMBOL:should_remove_source_branch,	 ARGS:Symbol,
+		 8: %v_11->present? def_%v_12 %v_11[4.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_12[4.8,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (DeleteBranchService) def_%v_13 
+		 2: GETFIELD %self->merge_request def_%v_14 %self[2.0,] 
+		 3: %v_14->source_project def_%v_15 %v_14[5.2,] 	 SYMBOL:	 ARGS:
+		 4: %self->current_user def_%v_16 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_13->new def_%v_17 %v_13[5.1,] %v_15[5.3,] %v_16[5.4,] 	 SYMBOL:	 ARGS:%v_15,%v_16,
+		 6: %self->merge_request def_%v_18 %self[5.4,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_18->source_branch def_%v_19 %v_18[5.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_17->execute def_%v_20 %v_17[5.5,] %v_19[5.7,] 	 SYMBOL:	 ARGS:%v_19,
+		 9: RETURN %v_20[5.8,] %self[5.4,5.6,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,1183 @@
+SET IRMethod, name = execute instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_args 
+		 6: 
+		 7: ATTRASSIGN %self->args args[2.5,] 
+		 8: 
+		 9: %self->should_poll? def_%v_3 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_3[2.9,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->poll_pop3 def_%v_4 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_4[3.0,] %self[3.0,2.0,2.7,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,2.7,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = should_poll? instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Rails) def_%v_3 
+		 7: %v_3->env def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->development? def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (ENV) def_%v_6 
+		 1: COPY TYPE_StringLiteral "POLL_MAILBOX" def_%v_7 
+		 2: %v_6->[] def_%v_8 %v_6[3.0,] %v_7[3.1,] 	 SYMBOL:	 ARGS:%v_7,
+		 3: %v_8->nil? def_%v_9 %v_8[3.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_%v_5 %v_9[3.3,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[3.4,2.8,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+		 2: (SiteSetting) def_%v_11 
+		 3: %v_11->pop3_polling_enabled? def_%v_12 %v_11[6.2,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %v_12[6.3,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = process_popmail instanceMethod = true
+BB 1
+	outgoing: 21 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_popmail 
+		 6: 
+		 7: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: popmail->pop def_%v_6 popmail[2.5,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_mail_string %v_6[4.2,] 
+		 4: 
+		 5: (Email) def_%v_7 
+		 6: (inherit Receiver) def_%v_8 %v_7[4.5,] 
+		 7: %v_8[4.6,] 
+BB 5
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: %v_7->const_missing def_%v_8 %v_7[4.5,] 	 SYMBOL:Receiver,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: %v_8->new def_%v_9 %v_8[5.0,4.6,] mail_string[4.3,] 	 SYMBOL:	 ARGS:mail_string,
+		 1: COPY TYPE_PASS def_receiver %v_9[6.0,] 
+		 2: 
+		 3: %v_9->process! def_%v_10 %v_9[6.0,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_%v_5 %v_10[6.3,] 
+		 5: %v_3[2.7,] 
+BB 7
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 10 19 
+	datadep: 
+	instructions:
+		 0: def_%v_11 
+		 1: def_%v_12 %v_11[8.0,] 
+		 2: BRANCH %v_12[8.1,] 
+BB 9
+	outgoing: 19 21 
+	datadep: 
+	instructions:
+		 0: %v_11[8.0,] 
+BB 10
+	outgoing: 11 12 19 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_13 
+		 1: COPY TYPE_PASS def_e %v_13[10.0,] 
+		 2: 
+		 3: %self->handle_failure def_%v_14 %self[2.0,] mail_string[4.3,] %v_13[10.0,] 	 SYMBOL:	 ARGS:mail_string,e,
+		 4: COPY TYPE_PASS def_rejection_message %v_14[10.3,] 
+		 5: 
+		 6: %v_14->present? def_%v_15 %v_14[10.3,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_15[10.6,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_15 receiver[6.1,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_15[11.0,10.6,] 
+BB 13
+	outgoing: 14 19 
+	datadep: 
+	instructions:
+		 0: receiver->incoming_email def_%v_16 receiver[6.1,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_15 %v_16[13.0,] 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_15[13.1,11.0,10.6,] 
+BB 15
+	outgoing: 17 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: receiver->incoming_email def_%v_17 receiver[6.1,] 	 SYMBOL:	 ARGS:
+		 2: rejection_message->body def_%v_18 rejection_message[10.4,] 	 SYMBOL:	 ARGS:
+		 3: %v_18->to_s def_%v_19 %v_18[15.2,] 	 SYMBOL:	 ARGS:
+		 4: ATTRASSIGN %v_17->rejection_message %v_19[15.3,] 
+		 5: 
+		 6: receiver->incoming_email def_%v_20 receiver[15.1,6.1,] 	 SYMBOL:	 ARGS:
+		 7: %v_20->save def_%v_21 %v_20[15.6,] 	 SYMBOL:	 ARGS:
+		 8: 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_5 %v_21[16.0,15.7,] 
+		 1: %v_3[2.7,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+BB 19
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: def_%v_22 
+		 1: def_%v_23 %v_22[19.0,] %v_3[2.7,] 
+		 2: %v_22[19.0,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[6.4,17.0,] %self[2.0,] 
+BB 21
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = handle_failure instanceMethod = true
+BB 1
+	outgoing: 119 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_mail_string 
+		 6: RECEIVEARG def_e 
+		 7: 
+		 8: (SiteSetting) def_%v_3 
+		 9: %v_3->log_mail_processing_failures def_%v_4 %v_3[2.8,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_4[2.9,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (Rails) def_%v_5 
+		 1: %v_5->logger def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "Email can not be processed: " def_%v_7 
+		 3: COPY TYPE_StringLiteral "
+
+" def_%v_8 
+		 4: BUILDSTRING def_%v_9 %v_7[3.2,] e[2.6,] %v_8[3.3,] mail_string[2.5,] 
+		 5: %v_6->warn def_%v_10 %v_6[3.1,] %v_9[3.4,] 	 SYMBOL:	 ARGS:%v_9,
+		 6: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Email) def_%v_13 
+		 2: (inherit Receiver) def_%v_14 %v_13[5.1,] 
+		 3: %v_14[5.2,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_13->const_missing def_%v_14 %v_13[5.1,] 	 SYMBOL:Receiver,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: (inherit EmptyEmailError) def_%v_15 %v_14[6.0,5.2,] 
+		 1: %v_15[7.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_14->const_missing def_%v_15 %v_14[6.0,5.2,] 	 SYMBOL:EmptyEmailError,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 85 
+	datadep: 
+	instructions:
+		 0: def_%v_12 %v_15[8.0,7.0,] e[2.6,] 
+		 1: BRANCH %v_12[9.0,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: (Email) def_%v_17 
+		 1: (inherit Receiver) def_%v_18 %v_17[10.0,] 
+		 2: %v_18[10.1,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %v_17->const_missing def_%v_18 %v_17[10.0,] 	 SYMBOL:Receiver,	 ARGS:Symbol,
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: (inherit NoBodyDetectedError) def_%v_19 %v_18[11.0,10.1,] 
+		 1: %v_19[12.0,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: %v_18->const_missing def_%v_19 %v_18[11.0,10.1,] 	 SYMBOL:NoBodyDetectedError,	 ARGS:Symbol,
+BB 14
+	outgoing: 15 86 
+	datadep: 
+	instructions:
+		 0: def_%v_16 %v_19[13.0,12.0,] e[2.6,] 
+		 1: BRANCH %v_16[14.0,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: (Email) def_%v_21 
+		 1: (inherit Receiver) def_%v_22 %v_21[15.0,] 
+		 2: %v_22[15.1,] 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: %v_21->const_missing def_%v_22 %v_21[15.0,] 	 SYMBOL:Receiver,	 ARGS:Symbol,
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: (inherit NoMessageIdError) def_%v_23 %v_22[16.0,15.1,] 
+		 1: %v_23[17.0,] 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: %v_22->const_missing def_%v_23 %v_22[16.0,15.1,] 	 SYMBOL:NoMessageIdError,	 ARGS:Symbol,
+BB 19
+	outgoing: 20 87 
+	datadep: 
+	instructions:
+		 0: def_%v_20 %v_23[18.0,17.0,] e[2.6,] 
+		 1: BRANCH %v_20[19.0,] 
+BB 20
+	outgoing: 21 22 
+	datadep: 
+	instructions:
+		 0: (Email) def_%v_25 
+		 1: (inherit Receiver) def_%v_26 %v_25[20.0,] 
+		 2: %v_26[20.1,] 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: %v_25->const_missing def_%v_26 %v_25[20.0,] 	 SYMBOL:Receiver,	 ARGS:Symbol,
+BB 22
+	outgoing: 23 24 
+	datadep: 
+	instructions:
+		 0: (inherit AutoGeneratedEmailError) def_%v_27 %v_26[21.0,20.1,] 
+		 1: %v_27[22.0,] 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: %v_26->const_missing def_%v_27 %v_26[21.0,20.1,] 	 SYMBOL:AutoGeneratedEmailError,	 ARGS:Symbol,
+BB 24
+	outgoing: 25 88 
+	datadep: 
+	instructions:
+		 0: def_%v_24 %v_27[23.0,22.0,] e[2.6,] 
+		 1: BRANCH %v_24[24.0,] 
+BB 25
+	outgoing: 26 27 
+	datadep: 
+	instructions:
+		 0: (Email) def_%v_29 
+		 1: (inherit Receiver) def_%v_30 %v_29[25.0,] 
+		 2: %v_30[25.1,] 
+BB 26
+	outgoing: 27 
+	datadep: 
+	instructions:
+		 0: %v_29->const_missing def_%v_30 %v_29[25.0,] 	 SYMBOL:Receiver,	 ARGS:Symbol,
+BB 27
+	outgoing: 28 29 
+	datadep: 
+	instructions:
+		 0: (inherit InactiveUserError) def_%v_31 %v_30[26.0,25.1,] 
+		 1: %v_31[27.0,] 
+BB 28
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: %v_30->const_missing def_%v_31 %v_30[26.0,25.1,] 	 SYMBOL:InactiveUserError,	 ARGS:Symbol,
+BB 29
+	outgoing: 30 89 
+	datadep: 
+	instructions:
+		 0: def_%v_28 %v_31[28.0,27.0,] e[2.6,] 
+		 1: BRANCH %v_28[29.0,] 
+BB 30
+	outgoing: 31 32 
+	datadep: 
+	instructions:
+		 0: (Email) def_%v_33 
+		 1: (inherit Receiver) def_%v_34 %v_33[30.0,] 
+		 2: %v_34[30.1,] 
+BB 31
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: %v_33->const_missing def_%v_34 %v_33[30.0,] 	 SYMBOL:Receiver,	 ARGS:Symbol,
+BB 32
+	outgoing: 33 34 
+	datadep: 
+	instructions:
+		 0: (inherit BlockedUserError) def_%v_35 %v_34[31.0,30.1,] 
+		 1: %v_35[32.0,] 
+BB 33
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: %v_34->const_missing def_%v_35 %v_34[31.0,30.1,] 	 SYMBOL:BlockedUserError,	 ARGS:Symbol,
+BB 34
+	outgoing: 35 90 
+	datadep: 
+	instructions:
+		 0: def_%v_32 %v_35[33.0,32.0,] e[2.6,] 
+		 1: BRANCH %v_32[34.0,] 
+BB 35
+	outgoing: 36 37 
+	datadep: 
+	instructions:
+		 0: (Email) def_%v_37 
+		 1: (inherit Receiver) def_%v_38 %v_37[35.0,] 
+		 2: %v_38[35.1,] 
+BB 36
+	outgoing: 37 
+	datadep: 
+	instructions:
+		 0: %v_37->const_missing def_%v_38 %v_37[35.0,] 	 SYMBOL:Receiver,	 ARGS:Symbol,
+BB 37
+	outgoing: 38 39 
+	datadep: 
+	instructions:
+		 0: (inherit BadDestinationAddress) def_%v_39 %v_38[36.0,35.1,] 
+		 1: %v_39[37.0,] 
+BB 38
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: %v_38->const_missing def_%v_39 %v_38[36.0,35.1,] 	 SYMBOL:BadDestinationAddress,	 ARGS:Symbol,
+BB 39
+	outgoing: 40 91 
+	datadep: 
+	instructions:
+		 0: def_%v_36 %v_39[38.0,37.0,] e[2.6,] 
+		 1: BRANCH %v_36[39.0,] 
+BB 40
+	outgoing: 41 42 
+	datadep: 
+	instructions:
+		 0: (Email) def_%v_41 
+		 1: (inherit Receiver) def_%v_42 %v_41[40.0,] 
+		 2: %v_42[40.1,] 
+BB 41
+	outgoing: 42 
+	datadep: 
+	instructions:
+		 0: %v_41->const_missing def_%v_42 %v_41[40.0,] 	 SYMBOL:Receiver,	 ARGS:Symbol,
+BB 42
+	outgoing: 43 44 
+	datadep: 
+	instructions:
+		 0: (inherit StrangersNotAllowedError) def_%v_43 %v_42[41.0,40.1,] 
+		 1: %v_43[42.0,] 
+BB 43
+	outgoing: 44 
+	datadep: 
+	instructions:
+		 0: %v_42->const_missing def_%v_43 %v_42[41.0,40.1,] 	 SYMBOL:StrangersNotAllowedError,	 ARGS:Symbol,
+BB 44
+	outgoing: 45 92 
+	datadep: 
+	instructions:
+		 0: def_%v_40 %v_43[43.0,42.0,] e[2.6,] 
+		 1: BRANCH %v_40[44.0,] 
+BB 45
+	outgoing: 46 47 
+	datadep: 
+	instructions:
+		 0: (Email) def_%v_45 
+		 1: (inherit Receiver) def_%v_46 %v_45[45.0,] 
+		 2: %v_46[45.1,] 
+BB 46
+	outgoing: 47 
+	datadep: 
+	instructions:
+		 0: %v_45->const_missing def_%v_46 %v_45[45.0,] 	 SYMBOL:Receiver,	 ARGS:Symbol,
+BB 47
+	outgoing: 48 49 
+	datadep: 
+	instructions:
+		 0: (inherit InsufficientTrustLevelError) def_%v_47 %v_46[46.0,45.1,] 
+		 1: %v_47[47.0,] 
+BB 48
+	outgoing: 49 
+	datadep: 
+	instructions:
+		 0: %v_46->const_missing def_%v_47 %v_46[46.0,45.1,] 	 SYMBOL:InsufficientTrustLevelError,	 ARGS:Symbol,
+BB 49
+	outgoing: 50 93 
+	datadep: 
+	instructions:
+		 0: def_%v_44 %v_47[48.0,47.0,] e[2.6,] 
+		 1: BRANCH %v_44[49.0,] 
+BB 50
+	outgoing: 51 52 
+	datadep: 
+	instructions:
+		 0: (Email) def_%v_49 
+		 1: (inherit Receiver) def_%v_50 %v_49[50.0,] 
+		 2: %v_50[50.1,] 
+BB 51
+	outgoing: 52 
+	datadep: 
+	instructions:
+		 0: %v_49->const_missing def_%v_50 %v_49[50.0,] 	 SYMBOL:Receiver,	 ARGS:Symbol,
+BB 52
+	outgoing: 53 54 
+	datadep: 
+	instructions:
+		 0: (inherit ReplyUserNotMatchingError) def_%v_51 %v_50[51.0,50.1,] 
+		 1: %v_51[52.0,] 
+BB 53
+	outgoing: 54 
+	datadep: 
+	instructions:
+		 0: %v_50->const_missing def_%v_51 %v_50[51.0,50.1,] 	 SYMBOL:ReplyUserNotMatchingError,	 ARGS:Symbol,
+BB 54
+	outgoing: 55 94 
+	datadep: 
+	instructions:
+		 0: def_%v_48 %v_51[53.0,52.0,] e[2.6,] 
+		 1: BRANCH %v_48[54.0,] 
+BB 55
+	outgoing: 56 57 
+	datadep: 
+	instructions:
+		 0: (Email) def_%v_53 
+		 1: (inherit Receiver) def_%v_54 %v_53[55.0,] 
+		 2: %v_54[55.1,] 
+BB 56
+	outgoing: 57 
+	datadep: 
+	instructions:
+		 0: %v_53->const_missing def_%v_54 %v_53[55.0,] 	 SYMBOL:Receiver,	 ARGS:Symbol,
+BB 57
+	outgoing: 58 59 
+	datadep: 
+	instructions:
+		 0: (inherit TopicNotFoundError) def_%v_55 %v_54[56.0,55.1,] 
+		 1: %v_55[57.0,] 
+BB 58
+	outgoing: 59 
+	datadep: 
+	instructions:
+		 0: %v_54->const_missing def_%v_55 %v_54[56.0,55.1,] 	 SYMBOL:TopicNotFoundError,	 ARGS:Symbol,
+BB 59
+	outgoing: 60 95 
+	datadep: 
+	instructions:
+		 0: def_%v_52 %v_55[58.0,57.0,] e[2.6,] 
+		 1: BRANCH %v_52[59.0,] 
+BB 60
+	outgoing: 61 62 
+	datadep: 
+	instructions:
+		 0: (Email) def_%v_57 
+		 1: (inherit Receiver) def_%v_58 %v_57[60.0,] 
+		 2: %v_58[60.1,] 
+BB 61
+	outgoing: 62 
+	datadep: 
+	instructions:
+		 0: %v_57->const_missing def_%v_58 %v_57[60.0,] 	 SYMBOL:Receiver,	 ARGS:Symbol,
+BB 62
+	outgoing: 63 64 
+	datadep: 
+	instructions:
+		 0: (inherit TopicClosedError) def_%v_59 %v_58[61.0,60.1,] 
+		 1: %v_59[62.0,] 
+BB 63
+	outgoing: 64 
+	datadep: 
+	instructions:
+		 0: %v_58->const_missing def_%v_59 %v_58[61.0,60.1,] 	 SYMBOL:TopicClosedError,	 ARGS:Symbol,
+BB 64
+	outgoing: 65 96 
+	datadep: 
+	instructions:
+		 0: def_%v_56 %v_59[63.0,62.0,] e[2.6,] 
+		 1: BRANCH %v_56[64.0,] 
+BB 65
+	outgoing: 66 67 
+	datadep: 
+	instructions:
+		 0: (Email) def_%v_61 
+		 1: (inherit Receiver) def_%v_62 %v_61[65.0,] 
+		 2: %v_62[65.1,] 
+BB 66
+	outgoing: 67 
+	datadep: 
+	instructions:
+		 0: %v_61->const_missing def_%v_62 %v_61[65.0,] 	 SYMBOL:Receiver,	 ARGS:Symbol,
+BB 67
+	outgoing: 68 69 
+	datadep: 
+	instructions:
+		 0: (inherit InvalidPost) def_%v_63 %v_62[66.0,65.1,] 
+		 1: %v_63[67.0,] 
+BB 68
+	outgoing: 69 
+	datadep: 
+	instructions:
+		 0: %v_62->const_missing def_%v_63 %v_62[66.0,65.1,] 	 SYMBOL:InvalidPost,	 ARGS:Symbol,
+BB 69
+	outgoing: 70 97 
+	datadep: 
+	instructions:
+		 0: def_%v_60 %v_63[68.0,67.0,] e[2.6,] 
+		 1: BRANCH %v_60[69.0,] 
+BB 70
+	outgoing: 71 72 
+	datadep: 
+	instructions:
+		 0: (ActiveRecord) def_%v_65 
+		 1: (inherit Rollback) def_%v_66 %v_65[70.0,] 
+		 2: %v_66[70.1,] 
+BB 71
+	outgoing: 72 
+	datadep: 
+	instructions:
+		 0: %v_65->const_missing def_%v_66 %v_65[70.0,] 	 SYMBOL:Rollback,	 ARGS:Symbol,
+BB 72
+	outgoing: 73 98 
+	datadep: 
+	instructions:
+		 0: def_%v_64 %v_66[71.0,70.1,] e[2.6,] 
+		 1: BRANCH %v_64[72.0,] 
+BB 73
+	outgoing: 74 75 
+	datadep: 
+	instructions:
+		 0: (Email) def_%v_68 
+		 1: (inherit Receiver) def_%v_69 %v_68[73.0,] 
+		 2: %v_69[73.1,] 
+BB 74
+	outgoing: 75 
+	datadep: 
+	instructions:
+		 0: %v_68->const_missing def_%v_69 %v_68[73.0,] 	 SYMBOL:Receiver,	 ARGS:Symbol,
+BB 75
+	outgoing: 76 77 
+	datadep: 
+	instructions:
+		 0: (inherit InvalidPostAction) def_%v_70 %v_69[74.0,73.1,] 
+		 1: %v_70[75.0,] 
+BB 76
+	outgoing: 77 
+	datadep: 
+	instructions:
+		 0: %v_69->const_missing def_%v_70 %v_69[74.0,73.1,] 	 SYMBOL:InvalidPostAction,	 ARGS:Symbol,
+BB 77
+	outgoing: 78 99 
+	datadep: 
+	instructions:
+		 0: def_%v_67 %v_70[76.0,75.0,] e[2.6,] 
+		 1: BRANCH %v_67[77.0,] 
+BB 78
+	outgoing: 79 80 
+	datadep: 
+	instructions:
+		 0: (Discourse) def_%v_72 
+		 1: (inherit InvalidAccess) def_%v_73 %v_72[78.0,] 
+		 2: %v_73[78.1,] 
+BB 79
+	outgoing: 80 
+	datadep: 
+	instructions:
+		 0: %v_72->const_missing def_%v_73 %v_72[78.0,] 	 SYMBOL:InvalidAccess,	 ARGS:Symbol,
+BB 80
+	outgoing: 81 100 
+	datadep: 
+	instructions:
+		 0: def_%v_71 %v_73[79.0,78.1,] e[2.6,] 
+		 1: BRANCH %v_71[80.0,] 
+BB 81
+	outgoing: 82 83 
+	datadep: 
+	instructions:
+		 0: (RateLimiter) def_%v_75 
+		 1: (inherit LimitExceeded) def_%v_76 %v_75[81.0,] 
+		 2: %v_76[81.1,] 
+BB 82
+	outgoing: 83 
+	datadep: 
+	instructions:
+		 0: %v_75->const_missing def_%v_76 %v_75[81.0,] 	 SYMBOL:LimitExceeded,	 ARGS:Symbol,
+BB 83
+	outgoing: 84 101 
+	datadep: 
+	instructions:
+		 0: def_%v_74 %v_76[82.0,81.1,] e[2.6,] 
+		 1: BRANCH %v_74[83.0,] 
+BB 84
+	outgoing: 103 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+		 1: 
+BB 85
+	outgoing: 103 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: 
+BB 86
+	outgoing: 103 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: 
+BB 87
+	outgoing: 103 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: 
+BB 88
+	outgoing: 103 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: 
+BB 89
+	outgoing: 103 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: 
+BB 90
+	outgoing: 103 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: 
+BB 91
+	outgoing: 103 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: 
+BB 92
+	outgoing: 103 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: 
+BB 93
+	outgoing: 103 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: 
+BB 94
+	outgoing: 103 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: 
+BB 95
+	outgoing: 103 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: 
+BB 96
+	outgoing: 103 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: 
+BB 97
+	outgoing: 103 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: 
+BB 98
+	outgoing: 103 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: 
+BB 99
+	outgoing: 103 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: 
+BB 100
+	outgoing: 103 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: 
+BB 101
+	outgoing: 103 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_11 
+		 2: 
+BB 103
+	outgoing: 104 105 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_message_template %v_11[85.1,86.1,87.1,88.1,89.1,90.1,91.1,92.1,93.1,94.1,95.1,96.1,97.1,98.1,99.1,100.1,101.1,84.0,] 
+		 1: 
+		 2: HASH- def_%v_77 
+		 3: COPY TYPE_PASS def_template_args %v_77[103.2,] 
+		 4: 
+		 5: %v_11->== def_%v_78 %v_11[85.1,86.1,87.1,88.1,89.1,90.1,91.1,92.1,93.1,94.1,95.1,96.1,97.1,98.1,99.1,100.1,101.1,84.0,] 	 SYMBOL:email_reject_invalid_post,	 ARGS:Symbol,
+		 6: BRANCH %v_78[103.5,] 
+BB 104
+	outgoing: 105 
+	datadep: 
+	instructions:
+		 0: e->message def_%v_79 e[2.6,] 	 SYMBOL:	 ARGS:
+		 1: %v_79->size def_%v_80 %v_79[104.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_80->> def_%v_81 %v_80[104.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: COPY TYPE_PASS def_%v_78 %v_81[104.2,] 
+BB 105
+	outgoing: 106 107 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_78[104.3,103.5,] 
+BB 106
+	outgoing: 108 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_message_template 
+		 2: 
+		 3: e->message def_%v_82 e[2.6,] 	 SYMBOL:	 ARGS:
+		 4: ATTRASSIGN template_args->[] %v_82[106.3,] 
+		 5: 
+BB 107
+	outgoing: 108 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_82 
+BB 108
+	outgoing: 109 110 
+	datadep: 
+	instructions:
+		 0: 
+		 1: message_template->== def_%v_83 message_template[106.1,103.0,] 	 SYMBOL:email_reject_rate_limit_specified,	 ARGS:Symbol,
+		 2: BRANCH %v_83[108.1,] 
+BB 109
+	outgoing: 111 
+	datadep: 
+	instructions:
+		 0: 
+		 1: e->description def_%v_84 e[2.6,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN template_args->[] %v_84[109.1,] 
+		 3: 
+BB 110
+	outgoing: 111 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_84 
+BB 111
+	outgoing: 112 117 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH message_template[106.1,103.0,] 
+BB 112
+	outgoing: 113 114 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Mail) def_%v_85 
+		 2: (inherit Message) def_%v_86 %v_85[112.1,] 
+		 3: %v_86[112.2,] 
+BB 113
+	outgoing: 114 
+	datadep: 
+	instructions:
+		 0: %v_85->const_missing def_%v_86 %v_85[112.1,] 	 SYMBOL:Message,	 ARGS:Symbol,
+BB 114
+	outgoing: 115 116 
+	datadep: 
+	instructions:
+		 0: %v_86->new def_%v_87 %v_86[113.0,112.2,] mail_string[2.5,] 	 SYMBOL:	 ARGS:mail_string,
+		 1: COPY TYPE_PASS def_message %v_87[114.0,] 
+		 2: 
+		 3: %v_87->subject def_%v_88 %v_87[114.0,] 	 SYMBOL:	 ARGS:
+		 4: ATTRASSIGN template_args->[] %v_88[114.3,] 
+		 5: 
+		 6: message->to def_%v_89 message[114.1,] 	 SYMBOL:	 ARGS:
+		 7: ATTRASSIGN template_args->[] %v_89[114.6,] 
+		 8: 
+		 9: (SiteSetting) def_%v_90 
+		 10: %v_90->title def_%v_91 %v_90[114.9,] 	 SYMBOL:	 ARGS:
+		 11: ATTRASSIGN template_args->[] %v_91[114.10,] 
+		 12: 
+		 13: (RejectionMailer) def_%v_92 
+		 14: message->from def_%v_93 message[114.1,114.6,] 	 SYMBOL:	 ARGS:
+		 15: %v_92->send_rejection def_%v_94 %v_92[114.13,] message_template[106.1,103.0,] %v_93[114.14,] template_args[114.4,114.7,114.11,109.2,106.4,103.3,] 	 SYMBOL:	 ARGS:message_template,%v_93,template_args,
+		 16: COPY TYPE_PASS def_client_message %v_94[114.15,] 
+		 17: 
+		 18: (Email) def_%v_95 
+		 19: (inherit Sender) def_%v_96 %v_95[114.18,] 
+		 20: %v_96[114.19,] 
+BB 115
+	outgoing: 116 
+	datadep: 
+	instructions:
+		 0: %v_95->const_missing def_%v_96 %v_95[114.18,] 	 SYMBOL:Sender,	 ARGS:Symbol,
+BB 116
+	outgoing: 119 
+	datadep: 
+	instructions:
+		 0: %v_96->new def_%v_97 %v_96[115.0,114.19,] client_message[114.16,] message_template[106.1,103.0,] 	 SYMBOL:	 ARGS:client_message,message_template,
+		 1: %v_97->send def_%v_98 %v_97[116.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: COPY TYPE_PASS def_%v_99 client_message[114.16,] 
+		 4: RETURN client_message[114.16,] %self[2.0,] 
+BB 117
+	outgoing: 119 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Discourse) def_%v_100 
+		 2: GETFIELD %self->args def_%v_101 %self[2.0,] 
+		 3: COPY TYPE_StringLiteral "Unrecognized error type when processing incoming email" def_%v_102 
+		 4: HASH-mail- def_%v_103 mail_string[2.5,] 
+		 5: %self->error_context def_%v_104 %self[2.0,] %v_101[117.2,] %v_102[117.3,] %v_103[117.4,] 	 SYMBOL:	 ARGS:%v_101,%v_102,%v_103,
+		 6: %v_100->handle_job_exception def_%v_105 %v_100[117.1,] e[2.6,] %v_104[117.5,] 	 SYMBOL:	 ARGS:e,%v_104,
+		 7: RETURN %v_105[117.6,] %self[117.5,2.0,] 
+BB 119
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = poll_pop3 instanceMethod = true
+BB 1
+	outgoing: 19 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (Net) def_%v_6 
+		 3: (inherit POP3) def_%v_7 %v_6[4.2,] 
+		 4: %v_7[4.3,] 
+BB 5
+	outgoing: 6 11 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[4.2,] 	 SYMBOL:POP3,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 11 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%v_8 
+		 1: %v_8->pop3_polling_host def_%v_9 %v_8[6.0,] 	 SYMBOL:	 ARGS:
+		 2: (SiteSetting) def_%v_10 
+		 3: %v_10->pop3_polling_port def_%v_11 %v_10[6.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_7->new def_%v_12 %v_7[5.0,4.3,] %v_9[6.1,] %v_11[6.3,] 	 SYMBOL:	 ARGS:%v_9,%v_11,
+		 5: COPY TYPE_PASS def_pop3 %v_12[6.4,] 
+		 6: 
+		 7: (SiteSetting) def_%v_13 
+		 8: %v_13->pop3_polling_ssl def_%v_14 %v_13[6.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_14[6.8,] 
+BB 7
+	outgoing: 9 11 
+	datadep: 
+	instructions:
+		 0: pop3->enable_ssl def_%v_15 pop3[6.5,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_16 
+		 2: %v_16->pop3_polling_username def_%v_17 %v_16[9.1,] 	 SYMBOL:	 ARGS:
+		 3: (SiteSetting) def_%v_18 
+		 4: %v_18->pop3_polling_password def_%v_19 %v_18[9.3,] 	 SYMBOL:	 ARGS:
+		 5: pop3->start def_%v_20 pop3[6.5,] %v_17[9.2,] %v_19[9.4,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_17,%v_19,pop3,
+CLOSURE BEGIN: pop[] %self[2.0,] p[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_pop 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: pop->delete_all def_%cl_1_3 pop[2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:pop,
+CLOSURE BEGIN: %self[2.0,] p[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_p 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->process_popmail def_%cl_2_3 %self[2.0,] p[2.2,] 	 SYMBOL:	 ARGS:p,
+		 2: RETURN %cl_2_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_4 
+		 1: def_%cl_2_5 %cl_2_4[4.0,] 
+		 2: RETURN %cl_2_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 6: COPY TYPE_PASS def_%v_5 %v_20[9.5,] 
+		 7: %v_3[2.5,] 
+BB 10
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+BB 11
+	outgoing: 12 13 17 
+	datadep: 
+	instructions:
+		 0: def_%v_21 
+		 1: (Net) def_%v_22 
+		 2: (inherit POPAuthenticationError) def_%v_23 %v_22[11.1,] 
+		 3: %v_23[11.2,] 
+BB 12
+	outgoing: 13 17 
+	datadep: 
+	instructions:
+		 0: %v_22->const_missing def_%v_23 %v_22[11.1,] 	 SYMBOL:POPAuthenticationError,	 ARGS:Symbol,
+BB 13
+	outgoing: 14 15 17 
+	datadep: 
+	instructions:
+		 0: def_%v_24 %v_23[12.0,11.2,] %v_21[11.0,] 
+		 1: BRANCH %v_24[13.0,] 
+BB 14
+	outgoing: 17 19 
+	datadep: 
+	instructions:
+		 0: %v_21[11.0,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_25 
+		 1: COPY TYPE_PASS def_e %v_25[15.0,] 
+		 2: 
+		 3: (Discourse) def_%v_26 
+		 4: GETFIELD %self->args def_%v_27 %self[2.0,] 
+		 5: COPY TYPE_StringLiteral "Signing in to poll incoming email" def_%v_28 
+		 6: %self->error_context def_%v_29 %self[2.0,] %v_27[15.4,] %v_28[15.5,] 	 SYMBOL:	 ARGS:%v_27,%v_28,
+		 7: %v_26->handle_job_exception def_%v_30 %v_26[15.3,] e[15.1,] %v_29[15.6,] 	 SYMBOL:	 ARGS:e,%v_29,
+		 8: COPY TYPE_PASS def_%v_5 %v_30[15.7,] 
+		 9: %v_3[2.5,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: def_%v_31 
+		 1: def_%v_32 %v_31[17.0,] %v_3[2.5,] 
+		 2: %v_31[17.0,] 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[9.6,15.8,] %self[2.0,] 
+BB 19
+	outgoing: 
+	datadep: 
+	instructions:
+

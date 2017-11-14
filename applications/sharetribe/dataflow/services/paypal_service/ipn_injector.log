@@ -1,0 +1,128 @@
+SET IRMethod, name = ipn_service instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->ipn def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->build_ipn_handler def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: ATTRASSIGN %self->ipn %v_6[5.0,] 
+		 2: RETURN %v_6[5.0,] %self[5.0,5.1,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_ipn_handler instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Events) def_%v_3 
+		 7: def_%v_4 %self[2.0,] 
+CLOSURE BEGIN: flow[] payment[] 
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 5 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: RECEIVEARG def_flow 
+		 5: RECEIVEARG def_payment 
+		 6: 
+		 7: (TransactionService) def_%cl_1_3 
+		 8: (inherit PaypalEvents) def_%cl_1_4 %cl_1_3[2.7,] 
+		 9: %cl_1_4[2.8,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: %cl_1_3->const_missing def_%cl_1_4 %cl_1_3[2.7,] 	 SYMBOL:PaypalEvents,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 7 
+	datadep: 
+	instructions:
+		 0: %cl_1_4->payment_updated def_%cl_1_5 %cl_1_4[3.0,2.8,] flow[2.4,] payment[2.5,] 	 SYMBOL:	 ARGS:flow,payment,
+		 1: RETURN %cl_1_5[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[5.0,] 
+		 2: RETURN %cl_1_7[5.1,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: payment[2.5,] 
+		 8: HASH-payment_updated- def_%v_5 %v_4[2.7,] 
+		 9: %v_3->new def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: COPY TYPE_PASS def_events %v_6[2.9,] 
+		 11: 
+		 12: (PaypalService) def_%v_7 
+		 13: (inherit IPN) def_%v_8 %v_7[2.12,] 
+		 14: %v_8[2.13,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_7->const_missing def_%v_8 %v_7[2.12,] 	 SYMBOL:IPN,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_8->new def_%v_9 %v_8[3.0,2.13,] events[2.10,] 	 SYMBOL:	 ARGS:events,
+		 1: RETURN %v_9[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

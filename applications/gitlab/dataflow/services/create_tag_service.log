@@ -1,0 +1,224 @@
+SET IRMethod, name = execute instanceMethod = true
+BB 1
+	outgoing: 35 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_tag_name 
+		 6: RECEIVEARG def_target 
+		 7: RECEIVEARG def_message 
+		 8: RECEIVECONSTARG def_release_description 
+		 9: release_description[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_release_description 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Gitlab) def_%v_3 
+		 2: (inherit GitRefValidator) def_%v_4 %v_3[4.1,] 
+		 3: %v_4[4.2,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[4.1,] 	 SYMBOL:GitRefValidator,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: %v_4->validate def_%v_5 %v_4[5.0,4.2,] tag_name[2.5,] 	 SYMBOL:	 ARGS:tag_name,
+		 1: COPY TYPE_PASS def_valid_tag %v_5[6.0,] 
+		 2: 
+		 3: BRANCH %v_5[6.0,] 
+BB 7
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: %self->project def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_9->repository def_%v_10 %v_9[7.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_repository %v_10[7.3,] 
+		 5: 
+		 6: BRANCH message[2.7,] 
+BB 8
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Tag name invalid" def_%v_7 
+		 1: %self->error def_%v_8 %self[2.0,] %v_7[8.0,] 	 SYMBOL:	 ARGS:%v_7,
+		 2: RETURN %v_8[8.1,] %self[8.1,2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: message->strip! def_%v_11 message[2.7,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Nil def_new_tag 
+		 2: 
+		 3: GLOBALVAR $! def_%v_12 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->current_user def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: repository->add_tag def_%v_16 repository[7.4,] %v_15[14.2,] tag_name[2.5,] target[2.6,] message[2.7,] 	 SYMBOL:	 ARGS:%v_15,tag_name,target,message,
+		 4: COPY TYPE_PASS def_new_tag %v_16[14.3,] 
+		 5: COPY TYPE_PASS def_%v_14 %v_16[14.3,] 
+		 6: %v_12[12.3,] 
+BB 15
+	outgoing: 29 33 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH new_tag[14.4,] 
+BB 16
+	outgoing: 17 18 27 
+	datadep: 
+	instructions:
+		 0: def_%v_17 
+		 1: (Rugged) def_%v_18 
+		 2: (inherit TagError) def_%v_19 %v_18[16.1,] 
+		 3: %v_19[16.2,] 
+BB 17
+	outgoing: 18 27 
+	datadep: 
+	instructions:
+		 0: %v_18->const_missing def_%v_19 %v_18[16.1,] 	 SYMBOL:TagError,	 ARGS:Symbol,
+BB 18
+	outgoing: 19 25 27 
+	datadep: 
+	instructions:
+		 0: def_%v_20 %v_19[17.0,16.2,] %v_17[16.0,] 
+		 1: BRANCH %v_20[18.0,] 
+BB 19
+	outgoing: 20 21 27 
+	datadep: 
+	instructions:
+		 0: (GitHooksService) def_%v_21 
+		 1: (inherit PreReceiveError) def_%v_22 %v_21[19.0,] 
+		 2: %v_22[19.1,] 
+BB 20
+	outgoing: 21 27 
+	datadep: 
+	instructions:
+		 0: %v_21->const_missing def_%v_22 %v_21[19.0,] 	 SYMBOL:PreReceiveError,	 ARGS:Symbol,
+BB 21
+	outgoing: 22 23 27 
+	datadep: 
+	instructions:
+		 0: def_%v_23 %v_22[20.0,19.1,] %v_17[16.0,] 
+		 1: BRANCH %v_23[21.0,] 
+BB 22
+	outgoing: 27 35 
+	datadep: 
+	instructions:
+		 0: %v_17[16.0,] 
+BB 23
+	outgoing: 24 27 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Tag creation was rejected by Git hook" def_%v_24 
+		 2: %self->error def_%v_25 %self[2.0,] %v_24[23.1,] 	 SYMBOL:	 ARGS:%v_24,
+		 3: COPY TYPE_PASS def_%v_26 %v_25[23.2,] 
+		 4: %v_12[12.3,] 
+BB 24
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: RETURN %v_26[23.3,] %self[2.0,] 
+BB 25
+	outgoing: 26 27 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Tag " def_%v_27 
+		 2: COPY TYPE_StringLiteral " already exists" def_%v_28 
+		 3: BUILDSTRING def_%v_29 %v_27[25.1,] tag_name[2.5,] %v_28[25.2,] 
+		 4: %self->error def_%v_30 %self[2.0,] %v_29[25.3,] 	 SYMBOL:	 ARGS:%v_29,
+		 5: COPY TYPE_PASS def_%v_31 %v_30[25.4,] 
+		 6: %v_12[12.3,] 
+BB 26
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: RETURN %v_31[25.5,] %self[2.0,] 
+BB 27
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: def_%v_32 
+		 1: def_%v_33 %v_32[27.0,] %v_12[12.3,] 
+		 2: %v_32[27.0,] 
+BB 29
+	outgoing: 30 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH release_description[3.0,2.8,] 
+BB 30
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (CreateReleaseService) def_%v_34 
+		 2: GETFIELD %self->project def_%v_35 %self[2.0,] 
+		 3: GETFIELD %self->current_user def_%v_36 %self[2.0,] 
+		 4: %v_34->new def_%v_37 %v_34[30.1,] %v_35[30.2,] %v_36[30.3,] 	 SYMBOL:	 ARGS:%v_35,%v_36,
+		 5: %v_37->execute def_%v_38 %v_37[30.4,] tag_name[2.5,] release_description[3.0,2.8,] 	 SYMBOL:	 ARGS:tag_name,release_description,
+		 6: 
+BB 31
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_38 
+BB 32
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->success def_%v_39 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: HASH-tag- def_%v_40 new_tag[14.4,] 
+		 3: %v_39->merge def_%v_41 %v_39[32.1,] %v_40[32.2,] 	 SYMBOL:	 ARGS:%v_40,
+		 4: RETURN %v_41[32.3,] %self[32.1,2.0,] 
+BB 33
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Target " def_%v_42 
+		 2: COPY TYPE_StringLiteral " is invalid" def_%v_43 
+		 3: BUILDSTRING def_%v_44 %v_42[33.1,] target[2.6,] %v_43[33.2,] 
+		 4: %self->error def_%v_45 %self[2.0,] %v_44[33.3,] 	 SYMBOL:	 ARGS:%v_44,
+		 5: RETURN %v_45[33.4,] %self[33.4,2.0,] 
+BB 35
+	outgoing: 
+	datadep: 
+	instructions:
+

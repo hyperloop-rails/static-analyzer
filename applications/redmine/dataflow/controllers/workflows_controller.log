@@ -1,0 +1,1308 @@
+SET IRMethod, name = index instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Role) def_%v_3 
+		 7: %v_3->sorted def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->select def_%v_5 %v_4[2.7,] 	 SYMBOL:consider_workflow?,	 ARGS:
+		 9: ATTRASSIGN %self->roles %v_5[2.8,] 
+		 10: 
+		 11: (Tracker) def_%v_6 
+		 12: %v_6->sorted def_%v_7 %v_6[2.11,] 	 SYMBOL:	 ARGS:
+		 13: ATTRASSIGN %self->trackers %v_7[2.12,] 
+		 14: 
+		 15: (WorkflowTransition) def_%v_8 
+		 16: %v_8->group def_%v_9 %v_8[2.15,] 	 SYMBOL:tracker_id,role_id,	 ARGS:Symbol,Symbol,
+		 17: %v_9->count def_%v_10 %v_9[2.16,] 	 SYMBOL:	 ARGS:
+		 18: ATTRASSIGN %self->workflow_counts %v_10[2.17,] 
+		 19: RETURN %v_10[2.17,] %self[2.0,2.9,2.13,2.18,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = edit instanceMethod = true
+BB 1
+	outgoing: 19 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->find_trackers_roles_and_statuses_for_edit def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: %self->request def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->post? def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_5[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->roles def_%v_6 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_5 %v_6[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[3.1,2.9,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->trackers def_%v_7 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_5 %v_7[5.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[5.1,3.1,2.9,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_8->[] def_%v_9 %v_8[7.0,] 	 SYMBOL:transitions,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%v_5 %v_9[7.1,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[7.2,5.1,3.1,2.9,] 
+BB 9
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_10->[] def_%v_11 %v_10[9.1,] 	 SYMBOL:transitions,	 ARGS:Symbol,
+		 3: %v_11->deep_dup def_%v_12 %v_11[9.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_transitions %v_12[9.3,] 
+		 5: 
+		 6: %v_12->each def_%v_13 %v_12[9.3,] %self[9.1,2.0,] 	 SYMBOL:	 ARGS:%v_12,
+CLOSURE BEGIN: transitions_by_new_status[] %self[9.1,2.0,] transition_by_rule[] transition[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_old_status_id 
+		 3: RECEIVEARG def_transitions_by_new_status 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: transitions_by_new_status->each def_%cl_1_3 transitions_by_new_status[2.3,] %self[2.0,] 	 SYMBOL:	 ARGS:transitions_by_new_status,
+CLOSURE BEGIN: transition_by_rule[] %self[2.0,] transition[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_new_status_id 
+		 3: RECEIVEARG def_transition_by_rule 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: transition_by_rule->reject! def_%cl_2_3 transition_by_rule[2.3,] %self[2.0,] 	 SYMBOL:	 ARGS:transition_by_rule,
+CLOSURE BEGIN: transition[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_rule 
+		 3: RECEIVEARG def_transition 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "no_change" def_%cl_3_3 
+		 2: transition->== def_%cl_3_4 transition[2.3,] %cl_3_3[3.1,] 	 SYMBOL:	 ARGS:%cl_3_3,
+		 3: RETURN %cl_3_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_5 
+		 1: def_%cl_3_6 %cl_3_5[4.0,] 
+		 2: RETURN %cl_3_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: transition[2.3,] 
+		 2: RETURN %cl_2_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_4 
+		 1: def_%cl_2_5 %cl_2_4[4.0,] 
+		 2: RETURN %cl_2_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: transition_by_rule[2.3,] 
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: transitions_by_new_status[2.3,] 
+		 7: 
+		 8: (WorkflowTransition) def_%v_14 
+		 9: GETFIELD %self->trackers def_%v_15 %self[9.1,2.0,] 
+		 10: GETFIELD %self->roles def_%v_16 %self[9.1,2.0,] 
+		 11: %v_14->replace_transitions def_%v_17 %v_14[9.8,] %v_15[9.9,] %v_16[9.10,] transitions[9.4,] 	 SYMBOL:	 ARGS:%v_15,%v_16,transitions,
+		 12: 
+		 13: %self->flash def_%v_18 %self[9.1,2.0,] 	 SYMBOL:	 ARGS:
+		 14: %self->l def_%v_19 %self[9.1,9.13,2.0,] 	 SYMBOL:notice_successful_update,	 ARGS:Symbol,
+		 15: ATTRASSIGN %v_18->[] %v_19[9.14,] 
+		 16: 
+		 17: %self->workflows_edit_path def_%v_20 %self[9.1,9.13,9.14,2.0,] 	 SYMBOL:	 ARGS:
+		 18: %self->redirect_to_referer_or def_%v_21 %self[9.1,9.13,9.14,9.17,2.0,] %v_20[9.17,] 	 SYMBOL:	 ARGS:%v_20,
+		 19: 
+		 20: RETURN %self[9.1,9.13,9.14,9.17,9.18,2.0,] 
+BB 10
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+		 1: 
+		 2: GETFIELD %self->trackers def_%v_23 %self[2.0,] 
+		 3: BRANCH %v_23[10.2,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->roles def_%v_24 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_23 %v_24[12.0,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_23[12.1,10.2,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->statuses def_%v_25 %self[2.0,] 
+		 1: %v_25->any? def_%v_26 %v_25[14.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_23 %v_26[14.1,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_23[14.2,12.1,10.2,] 
+BB 16
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (WorkflowTransition) def_%v_27 
+		 2: GETFIELD %self->roles def_%v_28 %self[2.0,] 
+		 3: %v_28->map def_%v_29 %v_28[16.2,] 	 SYMBOL:id,	 ARGS:
+		 4: GETFIELD %self->trackers def_%v_30 %self[2.0,] 
+		 5: %v_30->map def_%v_31 %v_30[16.4,] 	 SYMBOL:id,	 ARGS:
+		 6: HASH-role_id-tracker_id- def_%v_32 %v_29[16.3,] %v_31[16.5,] 
+		 7: %v_27->where def_%v_33 %v_27[16.1,] %v_32[16.6,] 	 SYMBOL:	 ARGS:%v_32,
+		 8: %v_33->preload def_%v_34 %v_33[16.7,] 	 SYMBOL:old_status,new_status,	 ARGS:Symbol,Symbol,
+		 9: COPY TYPE_PASS def_workflows %v_34[16.8,] 
+		 10: 
+		 11: HASH- def_%v_35 
+		 12: ATTRASSIGN %self->workflows %v_35[16.11,] 
+		 13: 
+		 14: GETFIELD %self->workflows def_%v_36 %self[16.12,2.0,] 
+		 15: COPY TYPE_StringLiteral "always" def_%v_37 
+		 16: %v_34->select def_%v_38 %v_34[16.8,] %self[16.12,2.0,] 	 SYMBOL:	 ARGS:%v_34,
+CLOSURE BEGIN: w[] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: RECEIVEARG def_w 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: w->author def_%cl_4_3 w[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_4_3->! def_%cl_4_4 %cl_4_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_4_4[3.2,] 
+BB 4
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: w->assignee def_%cl_4_5 w[2.2,] 	 SYMBOL:	 ARGS:
+		 1: %cl_4_5->! def_%cl_4_6 %cl_4_5[4.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_4_6[4.1,] %self[2.0,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_4_4[3.2,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_4_7 
+		 1: def_%cl_4_8 %cl_4_7[6.0,] 
+		 2: RETURN %cl_4_8[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 17: ATTRASSIGN %v_36->[] %v_37[16.15,] %v_38[16.16,] 
+		 18: 
+		 19: GETFIELD %self->workflows def_%v_39 %self[16.12,2.0,] 
+		 20: COPY TYPE_StringLiteral "author" def_%v_40 
+		 21: workflows->select def_%v_41 workflows[16.9,] %self[16.12,2.0,] 	 SYMBOL:	 ARGS:workflows,
+CLOSURE BEGIN: w[16.16,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_5_0 
+		 2: RECEIVEARG def_w 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: w->author def_%cl_5_3 w[2.2,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_5_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_5_4 
+		 1: def_%cl_5_5 %cl_5_4[4.0,] 
+		 2: RETURN %cl_5_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 22: ATTRASSIGN %v_39->[] %v_40[16.20,] %v_41[16.21,] 
+		 23: 
+		 24: GETFIELD %self->workflows def_%v_42 %self[16.12,2.0,] 
+		 25: COPY TYPE_StringLiteral "assignee" def_%v_43 
+		 26: workflows->select def_%v_44 workflows[16.9,16.21,] %self[16.12,2.0,] 	 SYMBOL:	 ARGS:workflows,
+CLOSURE BEGIN: w[16.16,16.21,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_6_0 
+		 2: RECEIVEARG def_w 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: w->assignee def_%cl_6_3 w[2.2,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_6_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_6_4 
+		 1: def_%cl_6_5 %cl_6_4[4.0,] 
+		 2: RETURN %cl_6_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 27: ATTRASSIGN %v_42->[] %v_43[16.25,] %v_44[16.26,] 
+		 28: RETURN %v_44[16.26,] %self[16.12,2.0,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 19
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = permissions instanceMethod = true
+BB 1
+	outgoing: 19 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->find_trackers_roles_and_statuses_for_edit def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: %self->request def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->post? def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_5[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->roles def_%v_6 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_5 %v_6[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[3.1,2.9,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->trackers def_%v_7 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_5 %v_7[5.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[5.1,3.1,2.9,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_8->[] def_%v_9 %v_8[7.0,] 	 SYMBOL:permissions,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%v_5 %v_9[7.1,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[7.2,5.1,3.1,2.9,] 
+BB 9
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_10->[] def_%v_11 %v_10[9.1,] 	 SYMBOL:permissions,	 ARGS:Symbol,
+		 3: %v_11->deep_dup def_%v_12 %v_11[9.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_permissions %v_12[9.3,] 
+		 5: 
+		 6: %v_12->each def_%v_13 %v_12[9.3,] %self[9.1,2.0,] 	 SYMBOL:	 ARGS:%v_12,
+CLOSURE BEGIN: rule_by_status_id[] %self[9.1,2.0,] rule[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_field 
+		 3: RECEIVEARG def_rule_by_status_id 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: rule_by_status_id->reject! def_%cl_1_3 rule_by_status_id[2.3,] %self[2.0,] 	 SYMBOL:	 ARGS:rule_by_status_id,
+CLOSURE BEGIN: rule[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_status_id 
+		 3: RECEIVEARG def_rule 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "no_change" def_%cl_2_3 
+		 2: rule->== def_%cl_2_4 rule[2.3,] %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:%cl_2_3,
+		 3: RETURN %cl_2_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_5 
+		 1: def_%cl_2_6 %cl_2_5[4.0,] 
+		 2: RETURN %cl_2_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: rule[2.3,] 
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: rule_by_status_id[2.3,] 
+		 7: 
+		 8: (WorkflowPermission) def_%v_14 
+		 9: GETFIELD %self->trackers def_%v_15 %self[9.1,2.0,] 
+		 10: GETFIELD %self->roles def_%v_16 %self[9.1,2.0,] 
+		 11: %v_14->replace_permissions def_%v_17 %v_14[9.8,] %v_15[9.9,] %v_16[9.10,] permissions[9.4,] 	 SYMBOL:	 ARGS:%v_15,%v_16,permissions,
+		 12: 
+		 13: %self->flash def_%v_18 %self[9.1,2.0,] 	 SYMBOL:	 ARGS:
+		 14: %self->l def_%v_19 %self[9.1,9.13,2.0,] 	 SYMBOL:notice_successful_update,	 ARGS:Symbol,
+		 15: ATTRASSIGN %v_18->[] %v_19[9.14,] 
+		 16: 
+		 17: %self->workflows_permissions_path def_%v_20 %self[9.1,9.13,9.14,2.0,] 	 SYMBOL:	 ARGS:
+		 18: %self->redirect_to_referer_or def_%v_21 %self[9.1,9.13,9.14,9.17,2.0,] %v_20[9.17,] 	 SYMBOL:	 ARGS:%v_20,
+		 19: 
+		 20: RETURN %self[9.1,9.13,9.14,9.17,9.18,2.0,] 
+BB 10
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+		 1: 
+		 2: GETFIELD %self->roles def_%v_23 %self[2.0,] 
+		 3: BRANCH %v_23[10.2,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->trackers def_%v_24 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_23 %v_24[12.0,] 
+BB 13
+	outgoing: 14 17 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_23[12.1,10.2,] 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Tracker) def_%v_25 
+		 2: (inherit CORE_FIELDS_ALL) def_%v_26 %v_25[14.1,] 
+		 3: %v_26[14.2,] 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: %v_25->const_missing def_%v_26 %v_25[14.1,] 	 SYMBOL:CORE_FIELDS_ALL,	 ARGS:Symbol,
+BB 16
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->trackers def_%v_27 %self[2.0,] 
+		 1: %v_27->map def_%v_28 %v_27[16.0,] 	 SYMBOL:disabled_core_fields,	 ARGS:
+		 2: %v_28->reduce def_%v_29 %v_28[16.1,] 	 SYMBOL:&,	 ARGS:Symbol,
+		 3: %v_26->- def_%v_30 %v_26[15.0,14.2,] %v_29[16.2,] 	 SYMBOL:	 ARGS:%v_29,
+		 4: %v_30->map def_%v_31 %v_30[16.3,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_30,
+CLOSURE BEGIN: field[] %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_field 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "field_" def_%cl_3_3 
+		 2: COPY TYPE_Regexp def_%cl_3_4 
+		 3: COPY TYPE_StringLiteral "" def_%cl_3_5 
+		 4: field->sub def_%cl_3_6 field[2.2,] %cl_3_5[3.3,] 	 SYMBOL:	 ARGS:%cl_3_4,%cl_3_5,
+		 5: %cl_3_3->+ def_%cl_3_7 %cl_3_3[3.1,] %cl_3_6[3.4,] 	 SYMBOL:	 ARGS:%cl_3_6,
+		 6: %self->l def_%cl_3_8 %self[2.0,] %cl_3_7[3.5,] 	 SYMBOL:	 ARGS:%cl_3_7,
+		 7: COPY TYPE_Array def_%cl_3_9 field[3.4,2.2,] %cl_3_8[3.6,] 
+		 8: RETURN %cl_3_9[3.7,] %self[3.6,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_10 
+		 1: def_%cl_3_11 %cl_3_10[4.0,] 
+		 2: RETURN %cl_3_11[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 5: ATTRASSIGN %self->fields %v_31[16.4,] 
+		 6: 
+		 7: GETFIELD %self->trackers def_%v_32 %self[2.0,] 
+		 8: %v_32->map def_%v_33 %v_32[16.7,] 	 SYMBOL:custom_fields,	 ARGS:
+		 9: %v_33->flatten def_%v_34 %v_33[16.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_34->uniq def_%v_35 %v_34[16.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_35->sort def_%v_36 %v_35[16.10,] 	 SYMBOL:	 ARGS:
+		 12: ATTRASSIGN %self->custom_fields %v_36[16.11,] 
+		 13: 
+		 14: (WorkflowPermission) def_%v_37 
+		 15: GETFIELD %self->trackers def_%v_38 %self[2.0,] 
+		 16: GETFIELD %self->roles def_%v_39 %self[2.0,] 
+		 17: %v_37->rules_by_status_id def_%v_40 %v_37[16.14,] %v_38[16.15,] %v_39[16.16,] 	 SYMBOL:	 ARGS:%v_38,%v_39,
+		 18: ATTRASSIGN %self->permissions %v_40[16.17,] 
+		 19: 
+		 20: GETFIELD %self->statuses def_%v_41 %self[2.0,] 
+		 21: %v_41->each def_%v_42 %v_41[16.20,] %self[16.5,16.12,16.18,2.0,] 	 SYMBOL:	 ARGS:%v_41,
+CLOSURE BEGIN: %self[16.5,16.12,16.18,2.0,] status[] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: RECEIVEARG def_status 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->permissions def_%cl_4_3 %self[2.0,] 
+		 2: status->id def_%cl_4_5 status[2.2,] 	 SYMBOL:	 ARGS:
+		 3: %cl_4_3->[] def_%cl_4_4 %cl_4_3[3.1,] %cl_4_5[3.2,] 	 SYMBOL:	 ARGS:%cl_4_5,
+		 4: BRANCH %cl_4_4[3.3,] 
+BB 4
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: HASH- def_%cl_4_6 
+		 1: %cl_4_3->[]= def_%cl_4_4 %cl_4_3[3.1,] %cl_4_5[3.2,] %cl_4_6[4.0,] 	 SYMBOL:	 ARGS:%cl_4_5,%cl_4_6,
+		 2: RETURN %cl_4_6[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_4_4[3.3,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_4_7 
+		 1: def_%cl_4_8 %cl_4_7[6.0,] 
+		 2: RETURN %cl_4_8[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 22: RETURN %v_42[16.21,] %self[16.5,16.12,16.18,2.0,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 19
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = copy instanceMethod = true
+BB 1
+	outgoing: 36 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Role) def_%v_3 
+		 7: %v_3->sorted def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->select def_%v_5 %v_4[2.7,] 	 SYMBOL:consider_workflow?,	 ARGS:
+		 9: ATTRASSIGN %self->roles %v_5[2.8,] 
+		 10: 
+		 11: (Tracker) def_%v_6 
+		 12: %v_6->sorted def_%v_7 %v_6[2.11,] 	 SYMBOL:	 ARGS:
+		 13: ATTRASSIGN %self->trackers %v_7[2.12,] 
+		 14: 
+		 15: %self->params def_%v_8 %self[2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 16: %v_8->[] def_%v_9 %v_8[2.15,] 	 SYMBOL:source_tracker_id,	 ARGS:Symbol,
+		 17: %v_9->blank? def_%v_10 %v_9[2.16,] 	 SYMBOL:	 ARGS:
+		 18: BRANCH %v_10[2.17,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_11 %self[2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 1: %v_11->[] def_%v_12 %v_11[3.0,] 	 SYMBOL:source_tracker_id,	 ARGS:Symbol,
+		 2: COPY TYPE_StringLiteral "any" def_%v_13 
+		 3: %v_12->== def_%v_14 %v_12[3.1,] %v_13[3.2,] 	 SYMBOL:	 ARGS:%v_13,
+		 4: COPY TYPE_PASS def_%v_10 %v_14[3.3,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_10[3.4,2.17,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->source_tracker 
+		 2: COPY TYPE_Nil def_%v_15 
+		 3: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Tracker) def_%v_16 
+		 2: %self->params def_%v_17 %self[2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 3: %v_17->[] def_%v_18 %v_17[6.2,] 	 SYMBOL:source_tracker_id,	 ARGS:Symbol,
+		 4: %v_18->to_i def_%v_19 %v_18[6.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_16->find_by_id def_%v_20 %v_16[6.1,] %v_19[6.4,] 	 SYMBOL:	 ARGS:%v_19,
+		 6: ATTRASSIGN %self->source_tracker %v_20[6.5,] 
+		 7: COPY TYPE_PASS def_%v_15 %v_20[6.5,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%v_21 %self[6.6,5.1,2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 2: %v_21->[] def_%v_22 %v_21[7.1,] 	 SYMBOL:source_role_id,	 ARGS:Symbol,
+		 3: %v_22->blank? def_%v_23 %v_22[7.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_23[7.3,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_24 %self[6.6,5.1,2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 1: %v_24->[] def_%v_25 %v_24[8.0,] 	 SYMBOL:source_role_id,	 ARGS:Symbol,
+		 2: COPY TYPE_StringLiteral "any" def_%v_26 
+		 3: %v_25->== def_%v_27 %v_25[8.1,] %v_26[8.2,] 	 SYMBOL:	 ARGS:%v_26,
+		 4: COPY TYPE_PASS def_%v_23 %v_27[8.3,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_23[8.4,7.3,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->source_role 
+		 2: COPY TYPE_Nil def_%v_28 
+		 3: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Role) def_%v_29 
+		 2: %self->params def_%v_30 %self[6.6,5.1,2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 3: %v_30->[] def_%v_31 %v_30[11.2,] 	 SYMBOL:source_role_id,	 ARGS:Symbol,
+		 4: %v_31->to_i def_%v_32 %v_31[11.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_29->find_by_id def_%v_33 %v_29[11.1,] %v_32[11.4,] 	 SYMBOL:	 ARGS:%v_32,
+		 6: ATTRASSIGN %self->source_role %v_33[11.5,] 
+		 7: COPY TYPE_PASS def_%v_28 %v_33[11.5,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%v_34 %self[11.6,10.1,6.6,5.1,2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 2: %v_34->[] def_%v_35 %v_34[12.1,] 	 SYMBOL:target_tracker_ids,	 ARGS:Symbol,
+		 3: %v_35->blank? def_%v_36 %v_35[12.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_36[12.3,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_37 
+		 1: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: (Tracker) def_%v_38 
+		 1: %self->params def_%v_39 %self[11.6,10.1,6.6,5.1,2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 2: %v_39->[] def_%v_40 %v_39[14.1,] 	 SYMBOL:target_tracker_ids,	 ARGS:Symbol,
+		 3: HASH-id- def_%v_41 %v_40[14.2,] 
+		 4: %v_38->where def_%v_42 %v_38[14.0,] %v_41[14.3,] 	 SYMBOL:	 ARGS:%v_41,
+		 5: %v_42->to_a def_%v_43 %v_42[14.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_PASS def_%v_37 %v_43[14.5,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->target_trackers %v_37[14.6,13.0,] 
+		 1: 
+		 2: %self->params def_%v_44 %self[15.0,11.6,10.1,6.6,5.1,2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 3: %v_44->[] def_%v_45 %v_44[15.2,] 	 SYMBOL:target_role_ids,	 ARGS:Symbol,
+		 4: %v_45->blank? def_%v_46 %v_45[15.3,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %v_46[15.4,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_47 
+		 1: 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: (Role) def_%v_48 
+		 1: %self->params def_%v_49 %self[15.0,11.6,10.1,6.6,5.1,2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 2: %v_49->[] def_%v_50 %v_49[17.1,] 	 SYMBOL:target_role_ids,	 ARGS:Symbol,
+		 3: HASH-id- def_%v_51 %v_50[17.2,] 
+		 4: %v_48->where def_%v_52 %v_48[17.0,] %v_51[17.3,] 	 SYMBOL:	 ARGS:%v_51,
+		 5: %v_52->to_a def_%v_53 %v_52[17.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_PASS def_%v_47 %v_53[17.5,] 
+BB 18
+	outgoing: 19 34 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->target_roles %v_47[17.6,16.0,] 
+		 1: 
+		 2: %self->request def_%v_54 %self[18.0,15.0,11.6,10.1,6.6,5.1,2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 3: %v_54->post? def_%v_55 %v_54[18.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_55[18.3,] 
+BB 19
+	outgoing: 20 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%v_56 %self[18.0,15.0,11.6,10.1,6.6,5.1,2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 2: %v_56->[] def_%v_57 %v_56[19.1,] 	 SYMBOL:source_tracker_id,	 ARGS:Symbol,
+		 3: %v_57->blank? def_%v_58 %v_57[19.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_58[19.3,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_59 %self[18.0,15.0,11.6,10.1,6.6,5.1,2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 1: %v_59->[] def_%v_60 %v_59[20.0,] 	 SYMBOL:source_role_id,	 ARGS:Symbol,
+		 2: %v_60->blank? def_%v_61 %v_60[20.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_58 %v_61[20.2,] 
+BB 21
+	outgoing: 22 25 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_58[20.3,19.3,] 
+BB 22
+	outgoing: 23 24 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->source_tracker def_%v_62 %self[6.6,5.1,2.0,] 
+		 1: %v_62->nil? def_%v_63 %v_62[22.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_63[22.1,] 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->source_role def_%v_64 %self[11.6,10.1,2.0,] 
+		 1: %v_64->nil? def_%v_65 %v_64[23.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_63 %v_65[23.1,] 
+BB 24
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_58 %v_63[23.2,22.1,] 
+BB 25
+	outgoing: 26 27 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_58[24.0,20.3,19.3,] 
+BB 26
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_66 %self[18.0,15.0,11.6,10.1,6.6,5.1,2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 2: %v_66->now def_%v_67 %v_66[26.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->l def_%v_68 %self[26.1,18.0,15.0,11.6,10.1,6.6,5.1,2.0,2.9,2.13,] 	 SYMBOL:error_workflow_copy_source,	 ARGS:Symbol,
+		 4: ATTRASSIGN %v_67->[] %v_68[26.3,] 
+		 5: 
+BB 27
+	outgoing: 28 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->target_trackers def_%v_69 %self[15.0,2.0,] 
+		 2: %v_69->blank? def_%v_70 %v_69[27.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_70[27.2,] 
+BB 28
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->target_roles def_%v_71 %self[18.0,2.0,] 
+		 1: %v_71->blank? def_%v_72 %v_71[28.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_70 %v_72[28.1,] 
+BB 29
+	outgoing: 30 31 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_70[28.2,27.2,] 
+BB 30
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_73 %self[18.0,15.0,11.6,10.1,6.6,5.1,2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 2: %v_73->now def_%v_74 %v_73[30.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->l def_%v_75 %self[30.1,18.0,15.0,11.6,10.1,6.6,5.1,2.0,2.9,2.13,] 	 SYMBOL:error_workflow_copy_target,	 ARGS:Symbol,
+		 4: ATTRASSIGN %v_74->[] %v_75[30.3,] 
+		 5: 
+BB 31
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (WorkflowRule) def_%v_76 
+		 2: GETFIELD %self->source_tracker def_%v_77 %self[6.6,5.1,2.0,] 
+		 3: GETFIELD %self->source_role def_%v_78 %self[11.6,10.1,2.0,] 
+		 4: GETFIELD %self->target_trackers def_%v_79 %self[15.0,2.0,] 
+		 5: GETFIELD %self->target_roles def_%v_80 %self[18.0,2.0,] 
+		 6: %v_76->copy def_%v_81 %v_76[31.1,] %v_77[31.2,] %v_78[31.3,] %v_79[31.4,] %v_80[31.5,] 	 SYMBOL:	 ARGS:%v_77,%v_78,%v_79,%v_80,
+		 7: 
+		 8: %self->flash def_%v_82 %self[18.0,15.0,11.6,10.1,6.6,5.1,2.0,2.9,2.13,] 	 SYMBOL:	 ARGS:
+		 9: %self->l def_%v_83 %self[31.8,18.0,15.0,11.6,10.1,6.6,5.1,2.0,2.9,2.13,] 	 SYMBOL:notice_successful_update,	 ARGS:Symbol,
+		 10: ATTRASSIGN %v_82->[] %v_83[31.9,] 
+		 11: 
+		 12: GETFIELD %self->source_tracker def_%v_84 %self[31.8,31.9,6.6,5.1,2.0,] 
+		 13: GETFIELD %self->source_role def_%v_85 %self[31.8,31.9,11.6,10.1,2.0,] 
+		 14: HASH-source_tracker_id-source_role_id- def_%v_86 %v_84[31.12,] %v_85[31.13,] 
+		 15: %self->workflows_copy_path def_%v_87 %self[31.8,31.9,18.0,15.0,11.6,10.1,6.6,5.1,2.0,2.9,2.13,] %v_86[31.14,] 	 SYMBOL:	 ARGS:%v_86,
+		 16: %self->redirect_to def_%v_88 %self[31.8,31.9,31.15,18.0,15.0,11.6,10.1,6.6,5.1,2.0,2.9,2.13,] %v_87[31.15,] 	 SYMBOL:	 ARGS:%v_87,
+		 17: COPY TYPE_PASS def_%v_75 %v_88[31.16,] 
+BB 32
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_68 %v_75[31.17,30.3,] 
+BB 33
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: RETURN %v_68[32.0,26.3,] %self[18.0,15.0,11.6,10.1,6.6,5.1,2.0,2.9,2.13,] 
+BB 34
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: RETURN %self[18.0,15.0,11.6,10.1,6.6,5.1,2.0,2.9,2.13,] 
+BB 36
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_trackers_roles_and_statuses_for_edit instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->find_roles def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: %self->find_trackers def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: 
+		 10: %self->find_statuses def_%v_5 %self[2.0,2.6,2.8,] 	 SYMBOL:	 ARGS:
+		 11: RETURN %v_5[2.10,] %self[2.0,2.6,2.8,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_roles instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Array) def_%v_3 
+		 7: %self->params def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->[] def_%v_5 %v_4[2.7,] 	 SYMBOL:role_id,	 ARGS:Symbol,
+		 9: %v_3->wrap def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: COPY TYPE_PASS def_ids %v_6[2.9,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "all" def_%v_7 
+		 13: COPY TYPE_Array def_%v_8 %v_7[2.12,] 
+		 14: %v_6->== def_%v_9 %v_6[2.9,] %v_8[2.13,] 	 SYMBOL:	 ARGS:%v_8,
+		 15: BRANCH %v_9[2.14,] 
+BB 3
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Role) def_%v_10 
+		 2: %v_10->sorted def_%v_11 %v_10[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_11->to_a def_%v_12 %v_11[3.2,] 	 SYMBOL:	 ARGS:
+		 4: ATTRASSIGN %self->roles %v_12[3.3,] 
+		 5: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ids->present? def_%v_13 ids[2.10,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_13[4.1,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Role) def_%v_14 
+		 2: HASH-id- def_%v_15 ids[2.10,] 
+		 3: %v_14->where def_%v_16 %v_14[5.1,] %v_15[5.2,] 	 SYMBOL:	 ARGS:%v_15,
+		 4: %v_16->to_a def_%v_17 %v_16[5.3,] 	 SYMBOL:	 ARGS:
+		 5: ATTRASSIGN %self->roles %v_17[5.4,] 
+		 6: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_12 %v_17[6.0,5.4,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->roles def_%v_18 %self[3.4,5.5,2.0,] 
+		 2: %v_18->blank? def_%v_19 %v_18[8.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_19[8.2,] 
+BB 9
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->roles 
+		 1: COPY TYPE_Nil def_%v_20 
+		 2: RETURN %self[9.0,3.4,5.5,2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %self[3.4,5.5,2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_trackers instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Array) def_%v_3 
+		 7: %self->params def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->[] def_%v_5 %v_4[2.7,] 	 SYMBOL:tracker_id,	 ARGS:Symbol,
+		 9: %v_3->wrap def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: COPY TYPE_PASS def_ids %v_6[2.9,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "all" def_%v_7 
+		 13: COPY TYPE_Array def_%v_8 %v_7[2.12,] 
+		 14: %v_6->== def_%v_9 %v_6[2.9,] %v_8[2.13,] 	 SYMBOL:	 ARGS:%v_8,
+		 15: BRANCH %v_9[2.14,] 
+BB 3
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Tracker) def_%v_10 
+		 2: %v_10->sorted def_%v_11 %v_10[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_11->to_a def_%v_12 %v_11[3.2,] 	 SYMBOL:	 ARGS:
+		 4: ATTRASSIGN %self->trackers %v_12[3.3,] 
+		 5: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ids->present? def_%v_13 ids[2.10,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_13[4.1,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Tracker) def_%v_14 
+		 2: HASH-id- def_%v_15 ids[2.10,] 
+		 3: %v_14->where def_%v_16 %v_14[5.1,] %v_15[5.2,] 	 SYMBOL:	 ARGS:%v_15,
+		 4: %v_16->to_a def_%v_17 %v_16[5.3,] 	 SYMBOL:	 ARGS:
+		 5: ATTRASSIGN %self->trackers %v_17[5.4,] 
+		 6: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_12 %v_17[6.0,5.4,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->trackers def_%v_18 %self[3.4,5.5,2.0,] 
+		 2: %v_18->blank? def_%v_19 %v_18[8.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_19[8.2,] 
+BB 9
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->trackers 
+		 1: COPY TYPE_Nil def_%v_20 
+		 2: RETURN %self[9.0,3.4,5.5,2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %self[3.4,5.5,2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_statuses instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:used_statuses_only,	 ARGS:Symbol,
+		 8: COPY TYPE_StringLiteral "0" def_%v_5 
+		 9: %v_4->== def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: BRANCH %v_6[2.9,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Boolean def_%v_7 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Boolean def_%v_7 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->used_statuses_only %v_7[4.0,3.0,] 
+		 1: 
+		 2: GETFIELD %self->trackers def_%v_8 %self[2.0,] 
+		 3: BRANCH %v_8[5.2,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->used_statuses_only def_%v_9 %self[5.0,2.0,] 
+		 1: COPY TYPE_PASS def_%v_8 %v_9[6.0,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_8[6.1,5.2,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->trackers def_%v_10 %self[2.0,] 
+		 2: %v_10->map def_%v_11 %v_10[8.1,] 	 SYMBOL:issue_statuses,	 ARGS:
+		 3: %v_11->flatten def_%v_12 %v_11[8.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_12->uniq def_%v_13 %v_12[8.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_13->sort def_%v_14 %v_13[8.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_14->presence def_%v_15 %v_14[8.5,] 	 SYMBOL:	 ARGS:
+		 7: ATTRASSIGN %self->statuses %v_15[8.6,] 
+		 8: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_17 %self[8.7,5.0,2.0,] 
+		 2: COPY TYPE_PASS def_%v_16 %v_17[10.1,] 
+		 3: %v_17[10.1,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->statuses def_%v_18 %self[8.7,2.0,] 
+		 1: COPY TYPE_PASS def_%v_16 %v_18[11.0,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_16[11.1,10.2,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: (IssueStatus) def_%v_19 
+		 1: %v_19->sorted def_%v_20 %v_19[13.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_20->to_a def_%v_21 %v_20[13.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN %self->statuses %v_21[13.2,] 
+		 4: RETURN %v_21[13.2,] %self[13.3,8.7,5.0,2.0,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %v_18[11.0,] %self[8.7,5.0,2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+

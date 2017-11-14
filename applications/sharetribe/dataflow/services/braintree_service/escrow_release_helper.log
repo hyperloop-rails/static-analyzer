@@ -1,0 +1,319 @@
+SET IRMethod, name = next_escrow_release_time instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_now 
+		 6: now[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (Time) def_%v_3 
+		 1: %v_3->now def_%v_4 %v_3[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_now %v_4[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_buffer_hours 
+		 1: buffer_hours[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_buffer_hours 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: buffer_hours->hours def_%v_5 buffer_hours[5.0,4.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_time_buffer %v_5[6.1,] 
+		 3: 
+		 4: %self->next_settlement_batch_time def_%v_6 %self[2.0,] now[3.2,2.5,] 	 SYMBOL:	 ARGS:now,
+		 5: %v_6->+ def_%v_7 %v_6[6.4,] time_buffer[6.2,] 	 SYMBOL:	 ARGS:time_buffer,
+		 6: RETURN %v_7[6.5,] %self[6.4,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = release_from_escrow instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 8 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_community 
+		 6: RECEIVEARG def_transaction_id 
+		 7: 
+		 8: (BraintreeApi) def_%v_3 
+		 9: %v_3->find_transaction def_%v_4 %v_3[2.8,] community[2.5,] transaction_id[2.6,] 	 SYMBOL:	 ARGS:community,transaction_id,
+		 10: COPY TYPE_PASS def_txn %v_4[2.9,] 
+		 11: 
+		 12: %v_4->escrow_status def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 13: (HoldPending) def_%v_8 
+		 14: def_%v_7 %v_8[2.13,] %v_5[2.12,] 
+		 15: BRANCH %v_7[2.14,] 
+BB 3
+	outgoing: 4 9 
+	datadep: 
+	instructions:
+		 0: (Held) def_%v_10 
+		 1: def_%v_9 %v_10[3.0,] %v_5[2.12,] 
+		 2: BRANCH %v_9[3.1,] 
+BB 4
+	outgoing: 5 10 
+	datadep: 
+	instructions:
+		 0: (ReleasePending) def_%v_12 
+		 1: def_%v_11 %v_12[4.0,] %v_5[2.12,] 
+		 2: BRANCH %v_11[4.1,] 
+BB 5
+	outgoing: 6 11 
+	datadep: 
+	instructions:
+		 0: (Released) def_%v_14 
+		 1: def_%v_13 %v_14[5.0,] %v_5[2.12,] 
+		 2: BRANCH %v_13[5.1,] 
+BB 6
+	outgoing: 7 12 
+	datadep: 
+	instructions:
+		 0: (Refunded) def_%v_16 
+		 1: def_%v_15 %v_16[6.0,] %v_5[2.12,] 
+		 2: BRANCH %v_15[6.1,] 
+BB 7
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (BTLog) def_%v_63 
+		 2: COPY TYPE_StringLiteral "Transaction '" def_%v_64 
+		 3: COPY TYPE_StringLiteral "' cannot be release from escrow: unknown status '" def_%v_65 
+		 4: txn->escrow_status def_%v_66 txn[2.10,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "'" def_%v_67 
+		 6: BUILDSTRING def_%v_68 %v_64[7.2,] transaction_id[2.6,] %v_65[7.3,] %v_66[7.4,] %v_67[7.5,] 
+		 7: %v_63->error def_%v_69 %v_63[7.1,] %v_68[7.6,] 	 SYMBOL:	 ARGS:%v_68,
+		 8: COPY TYPE_PASS def_%v_6 %v_69[7.7,] 
+		 9: RETURN %v_69[7.7,] %self[2.0,] 
+BB 8
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: community->id def_%v_17 community[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %self->release_from_escrow_after_next_batch def_%v_18 %self[2.0,] %v_17[8.1,] transaction_id[2.6,] 	 SYMBOL:	 ARGS:%v_17,transaction_id,
+		 3: 
+		 4: (BTLog) def_%v_19 
+		 5: COPY TYPE_StringLiteral "Setting release from escrow job for transaction '" def_%v_20 
+		 6: COPY TYPE_StringLiteral ", status: '" def_%v_21 
+		 7: txn->escrow_status def_%v_22 txn[2.10,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "'" def_%v_23 
+		 9: BUILDSTRING def_%v_24 %v_20[8.5,] transaction_id[2.6,] %v_21[8.6,] %v_22[8.7,] %v_23[8.8,] 
+		 10: %v_19->info def_%v_25 %v_19[8.4,] %v_24[8.9,] 	 SYMBOL:	 ARGS:%v_24,
+		 11: COPY TYPE_PASS def_%v_6 %v_25[8.10,] 
+		 12: RETURN %v_25[8.10,] %self[8.2,2.0,] 
+BB 9
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (BTLog) def_%v_26 
+		 2: COPY TYPE_StringLiteral "Releasing transaction '" def_%v_27 
+		 3: COPY TYPE_StringLiteral "' from escrow, status: '" def_%v_28 
+		 4: txn->escrow_status def_%v_29 txn[2.10,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "' ..." def_%v_30 
+		 6: BUILDSTRING def_%v_31 %v_27[9.2,] transaction_id[2.6,] %v_28[9.3,] %v_29[9.4,] %v_30[9.5,] 
+		 7: %v_26->info def_%v_32 %v_26[9.1,] %v_31[9.6,] 	 SYMBOL:	 ARGS:%v_31,
+		 8: 
+		 9: (BraintreeApi) def_%v_33 
+		 10: %v_33->release_from_escrow def_%v_34 %v_33[9.9,] community[2.5,] transaction_id[2.6,] 	 SYMBOL:	 ARGS:community,transaction_id,
+		 11: COPY TYPE_PASS def_response %v_34[9.10,] 
+		 12: 
+		 13: (BTLog) def_%v_35 
+		 14: COPY TYPE_StringLiteral "Released transaction '" def_%v_36 
+		 15: COPY TYPE_StringLiteral " from escrow, status: '" def_%v_37 
+		 16: txn->escrow_status def_%v_38 txn[9.4,2.10,] 	 SYMBOL:	 ARGS:
+		 17: COPY TYPE_StringLiteral "'" def_%v_39 
+		 18: BUILDSTRING def_%v_40 %v_36[9.14,] transaction_id[2.6,] %v_37[9.15,] %v_38[9.16,] %v_39[9.17,] 
+		 19: %v_35->info def_%v_41 %v_35[9.13,] %v_40[9.18,] 	 SYMBOL:	 ARGS:%v_40,
+		 20: COPY TYPE_PASS def_%v_6 %v_41[9.19,] 
+		 21: RETURN %v_41[9.19,] %self[2.0,] 
+BB 10
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (BTLog) def_%v_42 
+		 2: COPY TYPE_StringLiteral "Transaction '" def_%v_43 
+		 3: COPY TYPE_StringLiteral "' cannot be release from escrow: already released/refunded. Status: '" def_%v_44 
+		 4: txn->escrow_status def_%v_45 txn[2.10,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "'" def_%v_46 
+		 6: BUILDSTRING def_%v_47 %v_43[10.2,] transaction_id[2.6,] %v_44[10.3,] %v_45[10.4,] %v_46[10.5,] 
+		 7: %v_42->error def_%v_48 %v_42[10.1,] %v_47[10.6,] 	 SYMBOL:	 ARGS:%v_47,
+		 8: COPY TYPE_PASS def_%v_6 %v_48[10.7,] 
+		 9: RETURN %v_48[10.7,] %self[2.0,] 
+BB 11
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: (BTLog) def_%v_49 
+		 1: COPY TYPE_StringLiteral "Transaction '" def_%v_50 
+		 2: COPY TYPE_StringLiteral "' cannot be release from escrow: already released/refunded. Status: '" def_%v_51 
+		 3: txn->escrow_status def_%v_52 txn[2.10,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "'" def_%v_53 
+		 5: BUILDSTRING def_%v_54 %v_50[11.1,] transaction_id[2.6,] %v_51[11.2,] %v_52[11.3,] %v_53[11.4,] 
+		 6: %v_49->error def_%v_55 %v_49[11.0,] %v_54[11.5,] 	 SYMBOL:	 ARGS:%v_54,
+		 7: COPY TYPE_PASS def_%v_6 %v_55[11.6,] 
+		 8: RETURN %v_55[11.6,] %self[2.0,] 
+BB 12
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: (BTLog) def_%v_56 
+		 1: COPY TYPE_StringLiteral "Transaction '" def_%v_57 
+		 2: COPY TYPE_StringLiteral "' cannot be release from escrow: already released/refunded. Status: '" def_%v_58 
+		 3: txn->escrow_status def_%v_59 txn[2.10,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "'" def_%v_60 
+		 5: BUILDSTRING def_%v_61 %v_57[12.1,] transaction_id[2.6,] %v_58[12.2,] %v_59[12.3,] %v_60[12.4,] 
+		 6: %v_56->error def_%v_62 %v_56[12.0,] %v_61[12.5,] 	 SYMBOL:	 ARGS:%v_61,
+		 7: COPY TYPE_PASS def_%v_6 %v_62[12.6,] 
+		 8: RETURN %v_62[12.6,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = release_from_escrow_by_community_id instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_community_id 
+		 6: RECEIVEARG def_transaction_id 
+		 7: 
+		 8: (Community) def_%v_3 
+		 9: %v_3->find_by_id def_%v_4 %v_3[2.8,] community_id[2.5,] 	 SYMBOL:	 ARGS:community_id,
+		 10: %self->release_from_escrow def_%v_5 %self[2.0,] %v_4[2.9,] transaction_id[2.6,] 	 SYMBOL:	 ARGS:%v_4,transaction_id,
+		 11: RETURN %v_5[2.10,] %self[2.0,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = release_from_escrow_after_next_batch instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_community_id 
+		 6: RECEIVEARG def_transaction_id 
+		 7: 
+		 8: %self->next_escrow_release_time def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: HASH-run_at-priority- def_%v_4 %v_3[2.8,] 
+		 10: %self->delay def_%v_5 %self[2.0,2.8,] %v_4[2.9,] 	 SYMBOL:	 ARGS:%v_4,
+		 11: %v_5->release_from_escrow_by_community_id def_%v_6 %v_5[2.10,] community_id[2.5,] transaction_id[2.6,] 	 SYMBOL:	 ARGS:community_id,transaction_id,
+		 12: RETURN %v_6[2.11,] %self[2.0,2.8,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = next_settlement_batch_time instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_now 
+		 6: now[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (Time) def_%v_3 
+		 1: %v_3->now def_%v_4 %v_3[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_now %v_4[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (BATCH_TIMEZONE) def_%v_5 
+		 2: now->in_time_zone def_%v_6 now[3.2,2.5,] %v_5[4.1,] 	 SYMBOL:	 ARGS:%v_5,
+		 3: (BATCH_HOUR) def_%v_7 
+		 4: HASH-hour-min-sec- def_%v_8 %v_7[4.3,] 
+		 5: %v_6->change def_%v_9 %v_6[4.2,] %v_8[4.4,] 	 SYMBOL:	 ARGS:%v_8,
+		 6: COPY TYPE_PASS def_next_batch_time %v_9[4.5,] 
+		 7: 
+		 8: %v_9->< def_%v_10 %v_9[4.5,] now[4.2,3.2,2.5,] 	 SYMBOL:	 ARGS:now,
+		 9: BRANCH %v_10[4.8,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: CONSTANT def_%v_11 	 SYMBOL:	 ARGS:
+		 1: next_batch_time->+ def_%v_12 next_batch_time[4.6,] %v_11[5.0,] 	 SYMBOL:	 ARGS:%v_11,
+		 2: COPY TYPE_PASS def_next_batch_time %v_12[5.1,] 
+		 3: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN next_batch_time[5.2,4.6,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+

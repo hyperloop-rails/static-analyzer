@@ -1,0 +1,200 @@
+SET IRMethod, name = group_settings_tabs instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_group 
+		 6: 
+		 7: COPY TYPE_Array def_%v_3 
+		 8: COPY TYPE_PASS def_tabs %v_3[2.7,] 
+		 9: 
+		 10: COPY TYPE_StringLiteral "general" def_%v_4 
+		 11: COPY TYPE_StringLiteral "groups/general" def_%v_5 
+		 12: HASH-name-partial-label- def_%v_6 %v_4[2.10,] %v_5[2.11,] 
+		 13: %v_3-><< def_%v_7 %v_3[2.7,] %v_6[2.12,] 	 SYMBOL:	 ARGS:%v_6,
+		 14: 
+		 15: group->givable? def_%v_8 group[2.5,] 	 SYMBOL:	 ARGS:
+		 16: BRANCH %v_8[2.15,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "users" def_%v_9 
+		 1: COPY TYPE_StringLiteral "groups/users" def_%v_10 
+		 2: HASH-name-partial-label- def_%v_11 %v_9[3.0,] %v_10[3.1,] 
+		 3: tabs-><< def_%v_12 tabs[2.8,] %v_11[3.2,] 	 SYMBOL:	 ARGS:%v_11,
+		 4: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "memberships" def_%v_13 
+		 2: COPY TYPE_StringLiteral "groups/memberships" def_%v_14 
+		 3: HASH-name-partial-label- def_%v_15 %v_13[5.1,] %v_14[5.2,] 
+		 4: tabs-><< def_%v_16 tabs[2.8,] %v_15[5.3,] 	 SYMBOL:	 ARGS:%v_15,
+		 5: 
+		 6: RETURN tabs[5.4,2.8,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = render_principals_for_new_group_users instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_group 
+		 6: RECEIVECONSTARG def_limit 
+		 7: limit[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_limit 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%v_3 
+		 2: %v_3->active def_%v_4 %v_3[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_4->sorted def_%v_5 %v_4[4.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_5->not_in_group def_%v_6 %v_5[4.3,] group[2.5,] 	 SYMBOL:	 ARGS:group,
+		 5: %self->params def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 6: %v_7->[] def_%v_8 %v_7[4.5,] 	 SYMBOL:q,	 ARGS:Symbol,
+		 7: %v_6->like def_%v_9 %v_6[4.4,] %v_8[4.6,] 	 SYMBOL:	 ARGS:%v_8,
+		 8: COPY TYPE_PASS def_scope %v_9[4.7,] 
+		 9: 
+		 10: %v_9->count def_%v_10 %v_9[4.7,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_PASS def_principal_count %v_10[4.10,] 
+		 12: 
+		 13: (Redmine) def_%v_11 
+		 14: (inherit Pagination) def_%v_12 %v_11[4.13,] 
+		 15: %v_12[4.14,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_11->const_missing def_%v_12 %v_11[4.13,] 	 SYMBOL:Pagination,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: (inherit Paginator) def_%v_13 %v_12[5.0,4.14,] 
+		 1: %v_13[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_12->const_missing def_%v_13 %v_12[5.0,4.14,] 	 SYMBOL:Paginator,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_14 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "page" def_%v_15 
+		 2: %v_14->[] def_%v_16 %v_14[8.0,] %v_15[8.1,] 	 SYMBOL:	 ARGS:%v_15,
+		 3: %v_13->new def_%v_17 %v_13[7.0,6.0,] principal_count[4.11,] limit[3.0,2.6,] %v_16[8.2,] 	 SYMBOL:	 ARGS:principal_count,limit,%v_16,
+		 4: COPY TYPE_PASS def_principal_pages %v_17[8.3,] 
+		 5: 
+		 6: %v_17->offset def_%v_18 %v_17[8.3,] 	 SYMBOL:	 ARGS:
+		 7: scope->offset def_%v_19 scope[4.8,] %v_18[8.6,] 	 SYMBOL:	 ARGS:%v_18,
+		 8: principal_pages->per_page def_%v_20 principal_pages[8.4,] 	 SYMBOL:	 ARGS:
+		 9: %v_19->limit def_%v_21 %v_19[8.7,] %v_20[8.8,] 	 SYMBOL:	 ARGS:%v_20,
+		 10: %v_21->to_a def_%v_22 %v_21[8.9,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_PASS def_principals %v_22[8.10,] 
+		 12: 
+		 13: COPY TYPE_StringLiteral "div" def_%v_23 
+		 14: COPY TYPE_StringLiteral "div" def_%v_24 
+		 15: COPY TYPE_StringLiteral "user_ids[]" def_%v_25 
+		 16: %self->principals_check_box_tags def_%v_26 %self[8.0,2.0,] %v_25[8.15,] %v_22[8.10,] 	 SYMBOL:	 ARGS:%v_25,principals,
+		 17: COPY TYPE_StringLiteral "principals" def_%v_27 
+		 18: HASH-id- def_%v_28 %v_27[8.17,] 
+		 19: %self->content_tag def_%v_29 %self[8.0,8.16,2.0,] %v_24[8.14,] %v_26[8.16,] %v_28[8.18,] 	 SYMBOL:	 ARGS:%v_24,%v_26,%v_28,
+		 20: COPY TYPE_StringLiteral "objects-selection" def_%v_30 
+		 21: HASH-class- def_%v_31 %v_30[8.20,] 
+		 22: %self->content_tag def_%v_32 %self[8.0,8.16,8.19,2.0,] %v_23[8.13,] %v_29[8.19,] %v_31[8.21,] 	 SYMBOL:	 ARGS:%v_23,%v_29,%v_31,
+		 23: COPY TYPE_PASS def_s %v_32[8.22,] 
+		 24: 
+		 25: HASH-per_page_links- def_%v_33 
+		 26: %self->pagination_links_full def_%v_34 %self[8.0,8.16,8.19,8.22,2.0,] principal_pages[8.4,8.8,] principal_count[4.11,] %v_33[8.25,] %self[8.0,8.16,8.19,8.22,2.0,] 	 SYMBOL:	 ARGS:principal_pages,principal_count,%v_33,%self,
+CLOSURE BEGIN: %self[8.0,8.16,8.19,8.22,2.0,] parameters[] group[2.5,] text[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_text 
+		 3: RECEIVEARG def_parameters 
+		 4: RECEIVEARG def_options 
+		 5: COPY TYPE_CurrentScope def_%current_scope 
+		 6: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%cl_1_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_3->[] def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:q,	 ARGS:Symbol,
+		 3: COPY TYPE_StringLiteral "js" def_%cl_1_5 
+		 4: HASH-q-format- def_%cl_1_6 %cl_1_4[3.2,] %cl_1_5[3.3,] 
+		 5: parameters->merge def_%cl_1_7 parameters[2.3,] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 6: %self->autocomplete_for_user_group_path def_%cl_1_8 %self[3.1,2.0,] group[] %cl_1_7[3.5,] 	 SYMBOL:	 ARGS:group,%cl_1_7,
+		 7: HASH-remote- def_%cl_1_9 
+		 8: %self->link_to def_%cl_1_10 %self[3.1,3.6,2.0,] text[2.2,] %cl_1_8[3.6,] %cl_1_9[3.7,] 	 SYMBOL:	 ARGS:text,%cl_1_8,%cl_1_9,
+		 9: RETURN %cl_1_10[3.8,] %self[3.1,3.6,3.8,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_11 
+		 1: def_%cl_1_12 %cl_1_11[4.0,] 
+		 2: RETURN %cl_1_12[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: options[2.4,] parameters[2.3,] 
+		 27: COPY TYPE_PASS def_links %v_34[8.26,] 
+		 28: 
+		 29: COPY TYPE_StringLiteral "span" def_%v_35 
+		 30: COPY TYPE_StringLiteral "pagination" def_%v_36 
+		 31: HASH-class- def_%v_37 %v_36[8.30,] 
+		 32: %self->content_tag def_%v_38 %self[8.0,8.16,8.19,8.22,8.26,2.0,] %v_35[8.29,] %v_34[8.26,] %v_37[8.31,] 	 SYMBOL:	 ARGS:%v_35,links,%v_37,
+		 33: s->+ def_%v_39 s[8.23,] %v_38[8.32,] 	 SYMBOL:	 ARGS:%v_38,
+		 34: RETURN %v_39[8.33,] %self[8.0,8.16,8.19,8.22,8.26,8.32,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+

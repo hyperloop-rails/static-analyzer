@@ -1,0 +1,153 @@
+SET IRMethod, name = execute instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_project 
+		 6: RECEIVEARG def_opts 
+		 7: 
+		 8: opts->[] def_%v_3 opts[2.6,] 	 SYMBOL:sha,	 ARGS:Symbol,
+		 9: BRANCH %v_3[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: opts->[] def_%v_4 opts[2.6,] 	 SYMBOL:ref,	 ARGS:Symbol,
+		 1: %self->ref_sha def_%v_5 %self[2.0,] project[2.5,] %v_4[3.0,] 	 SYMBOL:	 ARGS:project,%v_4,
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_sha %v_3[3.2,2.8,] 
+		 1: 
+		 2: project->ci_commits def_%v_6 project[2.5,] 	 SYMBOL:	 ARGS:
+		 3: HASH-sha- def_%v_7 sha[4.0,] 
+		 4: %v_6->where def_%v_8 %v_6[4.2,] %v_7[4.3,] 	 SYMBOL:	 ARGS:%v_7,
+		 5: COPY TYPE_PASS def_ci_commits %v_8[4.4,] 
+		 6: 
+		 7: opts->[] def_%v_9 opts[2.6,] 	 SYMBOL:ref,	 ARGS:Symbol,
+		 8: BRANCH %v_9[4.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: opts->[] def_%v_10 opts[2.6,] 	 SYMBOL:ref,	 ARGS:Symbol,
+		 1: HASH-ref- def_%v_11 %v_10[5.0,] 
+		 2: ci_commits->where def_%v_12 ci_commits[4.5,] %v_11[5.1,] 	 SYMBOL:	 ARGS:%v_11,
+		 3: COPY TYPE_PASS def_ci_commits %v_12[5.2,] 
+		 4: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ci_commits->status def_%v_13 ci_commits[5.3,4.5,] 	 SYMBOL:	 ARGS:
+		 2: %self->image_for_status def_%v_14 %self[2.0,] %v_13[7.1,] 	 SYMBOL:	 ARGS:%v_13,
+		 3: COPY TYPE_PASS def_image_name %v_14[7.2,] 
+		 4: 
+		 5: (Rails) def_%v_15 
+		 6: %v_15->root def_%v_16 %v_15[7.5,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "public/ci" def_%v_17 
+		 8: %v_16->join def_%v_18 %v_16[7.6,] %v_17[7.7,] image_name[7.3,] 	 SYMBOL:	 ARGS:%v_17,image_name,
+		 9: COPY TYPE_PASS def_image_path %v_18[7.8,] 
+		 10: 
+		 11: (OpenStruct) def_%v_19 
+		 12: HASH-path-name- def_%v_20 %v_18[7.8,] image_name[7.3,] 
+		 13: %v_19->new def_%v_21 %v_19[7.11,] %v_20[7.12,] 	 SYMBOL:	 ARGS:%v_20,
+		 14: RETURN %v_21[7.13,] %self[7.2,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ref_sha instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_project 
+		 6: RECEIVEARG def_ref 
+		 7: 
+		 8: BRANCH ref[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: project->commit def_%v_3 project[2.5,] ref[2.6,] 	 SYMBOL:	 ARGS:ref,
+		 1: %v_3->try def_%v_4 %v_3[3.0,] 	 SYMBOL:sha,	 ARGS:Symbol,
+		 2: RETURN %v_4[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = image_for_status instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_status 
+		 6: 
+		 7: COPY TYPE_PASS def_%v_3 status[2.5,] 
+		 8: COPY TYPE_PASS def_%v_4 status[2.5,] 
+		 9: BRANCH status[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "unknown" def_%v_5 
+		 1: COPY TYPE_PASS def_status %v_5[3.0,] 
+		 2: COPY TYPE_PASS def_%v_4 %v_5[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "build-" def_%v_6 
+		 2: %v_6->+ def_%v_7 %v_6[4.1,] status[3.1,2.5,] 	 SYMBOL:	 ARGS:status,
+		 3: COPY TYPE_StringLiteral ".svg" def_%v_8 
+		 4: %v_7->+ def_%v_9 %v_7[4.2,] %v_8[4.3,] 	 SYMBOL:	 ARGS:%v_8,
+		 5: RETURN %v_9[4.4,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,283 @@
+SET IRMethod, name = with_success instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_cid 
+		 6: RECEIVEARG def_txid 
+		 7: RECEIVEARG def_request 
+		 8: RECEIVECONSTARG def_opts 
+		 9: opts[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: HASH-error_policy- def_%v_4 %v_3[3.0,] 
+		 2: COPY TYPE_PASS def_opts %v_4[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_%v_5 
+		 1: def_block %v_5[4.0,] 
+		 2: 
+		 3: opts->[] def_%v_6 opts[3.2,2.8,] 	 SYMBOL:error_policy,	 ARGS:Symbol,
+		 4: %self->parse_policy def_%v_7 %self[2.0,] %v_6[4.3,] 	 SYMBOL:	 ARGS:%v_6,
+		 5: def_%v_8 %v_7[4.4,] 
+		 6: def_%v_9 %v_8[4.5,] 
+		 7: def_%v_10 %v_8[4.5,] 
+		 8: def_%v_11 %v_8[4.5,] 
+		 9: COPY TYPE_PASS def_retry_codes %v_9[4.6,] 
+		 10: COPY TYPE_PASS def_try_max %v_10[4.7,] 
+		 11: COPY TYPE_PASS def_finally %v_11[4.8,] 
+		 12: 
+		 13: %self->try_operation def_%v_12 %self[4.4,2.0,] %v_9[4.6,] %v_10[4.7,] %self[4.4,2.0,] 	 SYMBOL:	 ARGS:retry_codes,try_max,%self,
+CLOSURE BEGIN: %self[4.4,2.0,] request[2.7,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->paypal_merchant def_%cl_1_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_3->do_request def_%cl_1_4 %cl_1_3[3.1,] request[] 	 SYMBOL:	 ARGS:request,
+		 3: RETURN %cl_1_4[3.2,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 14: COPY TYPE_PASS def_response %v_12[4.13,] 
+		 15: 
+		 16: %v_12->[] def_%v_13 %v_12[4.13,] 	 SYMBOL:success,	 ARGS:Symbol,
+		 17: BRANCH %v_13[4.16,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: block->call def_%v_14 block[4.1,] response[4.14,] 	 SYMBOL:	 ARGS:response,
+		 2: RETURN %v_14[5.1,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: finally->call def_%v_15 finally[4.11,] cid[2.5,] txid[2.6,] request[2.7,] response[4.14,] 	 SYMBOL:	 ARGS:cid,txid,request,response,
+		 2: RETURN %v_15[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = parse_policy instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_policy 
+		 6: 
+		 7: policy->[] def_%v_3 policy[2.5,] 	 SYMBOL:codes_to_retry,	 ARGS:Symbol,
+		 8: %self->Maybe def_%v_4 %self[2.0,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: COPY TYPE_Array def_%v_5 
+		 10: %v_4->or_else def_%v_6 %v_4[2.8,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: policy->[] def_%v_7 policy[2.5,2.7,] 	 SYMBOL:try_max,	 ARGS:Symbol,
+		 12: %self->Maybe def_%v_8 %self[2.0,2.8,] %v_7[2.11,] 	 SYMBOL:	 ARGS:%v_7,
+		 13: %v_8->or_else def_%v_9 %v_8[2.12,] 	 SYMBOL:	 ARGS:Fixnum,
+		 14: policy->[] def_%v_10 policy[2.5,2.7,2.11,] 	 SYMBOL:finally,	 ARGS:Symbol,
+		 15: %self->Maybe def_%v_11 %self[2.0,2.8,2.12,] %v_10[2.14,] 	 SYMBOL:	 ARGS:%v_10,
+		 16: %self->method def_%v_12 %self[2.0,2.8,2.12,2.15,] 	 SYMBOL:log_and_return,	 ARGS:Symbol,
+		 17: %v_11->or_else def_%v_13 %v_11[2.15,] %v_12[2.16,] 	 SYMBOL:	 ARGS:%v_12,
+		 18: COPY TYPE_Array def_%v_14 %v_6[2.10,] %v_9[2.13,] %v_13[2.17,] 
+		 19: RETURN %v_14[2.18,] %self[2.0,2.8,2.12,2.15,2.16,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = try_operation instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_retry_codes 
+		 6: RECEIVEARG def_try_max 
+		 7: def_%v_3 
+		 8: def_op %v_3[2.7,] 
+		 9: 
+		 10: op->call def_%v_4 op[2.8,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_PASS def_result %v_4[2.10,] 
+		 12: 
+		 13: COPY TYPE_Fixnum def_attempts 
+		 14: 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: result->[] def_%v_6 result[2.11,8.3,] 	 SYMBOL:success,	 ARGS:Symbol,
+		 1: %v_6->! def_%v_7 %v_6[3.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_7[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: attempts->< def_%v_8 attempts[2.13,8.6,] try_max[2.6,] 	 SYMBOL:	 ARGS:try_max,
+		 1: COPY TYPE_PASS def_%v_7 %v_8[4.0,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_7[4.1,3.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: result->[] def_%v_9 result[2.11,8.3,] 	 SYMBOL:error_code,	 ARGS:Symbol,
+		 1: retry_codes->include? def_%v_10 retry_codes[2.5,] %v_9[6.0,] 	 SYMBOL:	 ARGS:%v_9,
+		 2: COPY TYPE_PASS def_%v_7 %v_10[6.1,] 
+BB 7
+	outgoing: 8 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_7[6.2,4.1,3.1,] 
+BB 8
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: op->call def_%v_11 op[2.8,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_result %v_11[8.2,] 
+		 4: 
+		 5: attempts->+ def_%v_12 attempts[2.13,] 	 SYMBOL:	 ARGS:Fixnum,
+		 6: COPY TYPE_PASS def_attempts %v_12[8.5,] 
+		 7: 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: RETURN result[2.11,8.3,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = log_and_return instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_cid 
+		 6: RECEIVEARG def_txid 
+		 7: RECEIVEARG def_request 
+		 8: RECEIVEARG def_err_response 
+		 9: RECEIVECONSTARG def_data 
+		 10: data[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_data %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->logger def_%v_4 %self[2.0,] 
+		 2: COPY TYPE_StringLiteral "PayPal operation " def_%v_5 
+		 3: request->[] def_%v_6 request[2.7,] 	 SYMBOL:method,	 ARGS:Symbol,
+		 4: COPY TYPE_StringLiteral " failed. Community: " def_%v_7 
+		 5: COPY TYPE_StringLiteral ", transaction: " def_%v_8 
+		 6: COPY TYPE_StringLiteral ", error code: " def_%v_9 
+		 7: err_response->[] def_%v_10 err_response[2.8,] 	 SYMBOL:error_code,	 ARGS:Symbol,
+		 8: COPY TYPE_StringLiteral ", msg: " def_%v_11 
+		 9: err_response->[] def_%v_12 err_response[4.7,2.8,] 	 SYMBOL:error_msg,	 ARGS:Symbol,
+		 10: BUILDSTRING def_%v_13 %v_5[4.2,] %v_6[4.3,] %v_7[4.4,] cid[2.5,] %v_8[4.5,] txid[2.6,] %v_9[4.6,] %v_10[4.7,] %v_11[4.8,] %v_12[4.9,] 
+		 11: %v_4->warn def_%v_14 %v_4[4.1,] %v_13[4.10,] 	 SYMBOL:	 ARGS:%v_13,
+		 12: 
+		 13: (Result) def_%v_15 
+		 14: (inherit Error) def_%v_16 %v_15[4.13,] 
+		 15: %v_16[4.14,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_15->const_missing def_%v_16 %v_15[4.13,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Failed response from Paypal. Error code: " def_%v_17 
+		 1: 
+		 2: err_response->[] def_%v_18 err_response[2.8,] 	 SYMBOL:error_code,	 ARGS:Symbol,
+		 3: COPY TYPE_StringLiteral ", msg: " def_%v_19 
+		 4: err_response->[] def_%v_20 err_response[6.2,2.8,] 	 SYMBOL:error_msg,	 ARGS:Symbol,
+		 5: BUILDSTRING def_%v_21 %v_17[6.0,] %v_18[6.2,] %v_19[6.3,] %v_20[6.4,] 
+		 6: err_response->[] def_%v_22 err_response[6.2,6.4,2.8,] 	 SYMBOL:error_code,	 ARGS:Symbol,
+		 7: HASH-community_id-transaction_id-paypal_error_code- def_%v_23 cid[2.5,] txid[2.6,] %v_22[6.6,] 
+		 8: %v_23->merge def_%v_24 %v_23[6.7,] data[3.1,2.9,] 	 SYMBOL:	 ARGS:data,
+		 9: %v_16->new def_%v_25 %v_16[5.0,4.14,] %v_21[6.5,] %v_24[6.8,] 	 SYMBOL:	 ARGS:%v_21,%v_24,
+		 10: RETURN %v_25[6.9,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+

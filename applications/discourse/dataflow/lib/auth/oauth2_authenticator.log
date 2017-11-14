@@ -1,0 +1,209 @@
+SET IRMethod, name = name instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->name def_%v_3 %self[2.0,] 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_name 
+		 6: RECEIVECONSTARG def_opts 
+		 7: opts[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->name name[2.5,] 
+		 2: 
+		 3: ATTRASSIGN %self->opts opts[3.1,2.6,] 
+		 4: RETURN opts[3.1,2.6,] %self[4.1,4.3,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = after_authenticate instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_auth_token 
+		 6: 
+		 7: (Auth) def_%v_3 
+		 8: (inherit Result) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:Result,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %v_4->new def_%v_5 %v_4[3.0,2.8,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_result %v_5[4.0,] 
+		 2: 
+		 3: auth_token->[] def_%v_6 auth_token[2.5,] 	 SYMBOL:provider,	 ARGS:Symbol,
+		 4: COPY TYPE_PASS def_oauth2_provider %v_6[4.3,] 
+		 5: 
+		 6: auth_token->[] def_%v_7 auth_token[4.3,2.5,] 	 SYMBOL:uid,	 ARGS:Symbol,
+		 7: COPY TYPE_PASS def_oauth2_uid %v_7[4.6,] 
+		 8: 
+		 9: auth_token->[] def_%v_8 auth_token[4.3,4.6,2.5,] 	 SYMBOL:info,	 ARGS:Symbol,
+		 10: COPY TYPE_PASS def_data %v_8[4.9,] 
+		 11: 
+		 12: %v_8->[] def_%v_9 %v_8[4.9,] 	 SYMBOL:email,	 ARGS:Symbol,
+		 13: COPY TYPE_PASS def_email %v_9[4.12,] 
+		 14: ATTRASSIGN result->email %v_9[4.12,] 
+		 15: 
+		 16: data->[] def_%v_10 data[4.10,] 	 SYMBOL:name,	 ARGS:Symbol,
+		 17: COPY TYPE_PASS def_name %v_10[4.16,] 
+		 18: ATTRASSIGN result->name %v_10[4.16,] 
+		 19: 
+		 20: (Oauth2UserInfo) def_%v_11 
+		 21: HASH-uid-provider- def_%v_12 oauth2_uid[4.7,] oauth2_provider[4.4,] 
+		 22: %v_11->find_by def_%v_13 %v_11[4.20,] %v_12[4.21,] 	 SYMBOL:	 ARGS:%v_12,
+		 23: COPY TYPE_PASS def_oauth2_user_info %v_13[4.22,] 
+		 24: 
+		 25: %v_13->! def_%v_14 %v_13[4.22,] 	 SYMBOL:	 ARGS:
+		 26: BRANCH %v_14[4.25,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->opts def_%v_15 %self[2.0,] 
+		 1: %v_15->[] def_%v_16 %v_15[5.0,] 	 SYMBOL:trusted,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%v_14 %v_16[5.1,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_14[5.2,4.25,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: (User) def_%v_17 
+		 1: %v_17->find_by_email def_%v_18 %v_17[7.0,] email[4.13,] 	 SYMBOL:	 ARGS:email,
+		 2: COPY TYPE_PASS def_user %v_18[7.1,] 
+		 3: COPY TYPE_PASS def_%v_14 %v_18[7.1,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_14[7.3,5.2,4.25,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Oauth2UserInfo) def_%v_19 
+		 2: HASH-uid-provider-name-email-user- def_%v_20 oauth2_uid[4.7,] oauth2_provider[4.4,] name[4.17,] email[4.13,] user[7.2,] 
+		 3: %v_19->create def_%v_21 %v_19[9.1,] %v_20[9.2,] 	 SYMBOL:	 ARGS:%v_20,
+		 4: COPY TYPE_PASS def_oauth2_user_info %v_21[9.3,] 
+		 5: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: oauth2_user_info->try def_%v_22 oauth2_user_info[9.4,4.23,] 	 SYMBOL:user,	 ARGS:Symbol,
+		 2: ATTRASSIGN result->user %v_22[11.1,] 
+		 3: 
+		 4: GETFIELD %self->opts def_%v_23 %self[2.0,] 
+		 5: %v_23->[] def_%v_24 %v_23[11.4,] 	 SYMBOL:trusted,	 ARGS:Symbol,
+		 6: ATTRASSIGN result->email_valid %v_24[11.5,] 
+		 7: 
+		 8: HASH-uid-provider- def_%v_25 oauth2_uid[4.7,] oauth2_provider[4.4,] 
+		 9: ATTRASSIGN result->extra_data %v_25[11.8,] 
+		 10: 
+		 11: RETURN result[11.2,11.6,11.9,4.1,4.14,4.18,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = after_create_account instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_auth 
+		 7: 
+		 8: auth->[] def_%v_3 auth[2.6,] 	 SYMBOL:extra_data,	 ARGS:Symbol,
+		 9: COPY TYPE_PASS def_data %v_3[2.8,] 
+		 10: 
+		 11: (Oauth2UserInfo) def_%v_4 
+		 12: %v_3->[] def_%v_5 %v_3[2.8,] 	 SYMBOL:uid,	 ARGS:Symbol,
+		 13: data->[] def_%v_6 data[2.9,] 	 SYMBOL:provider,	 ARGS:Symbol,
+		 14: auth->[] def_%v_7 auth[2.6,2.8,] 	 SYMBOL:name,	 ARGS:Symbol,
+		 15: auth->[] def_%v_8 auth[2.6,2.8,2.14,] 	 SYMBOL:email,	 ARGS:Symbol,
+		 16: user->id def_%v_9 user[2.5,] 	 SYMBOL:	 ARGS:
+		 17: HASH-uid-provider-name-email-user_id- def_%v_10 %v_5[2.12,] %v_6[2.13,] %v_7[2.14,] %v_8[2.15,] %v_9[2.16,] 
+		 18: %v_4->create def_%v_11 %v_4[2.11,] %v_10[2.17,] 	 SYMBOL:	 ARGS:%v_10,
+		 19: RETURN %v_11[2.18,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

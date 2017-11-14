@@ -1,0 +1,92 @@
+SET IRMethod, name = process instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: %self->markdown_code_blocks def_%v_3 %self[2.0,] post[2.5,] 	 SYMBOL:	 ARGS:post,
+		 8: RETURN %v_3[2.7,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = markdown_code_blocks instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_str 
+		 6: 
+		 7: COPY TYPE_Regexp def_%v_3 
+		 8: str->gsub def_%v_4 str[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,str,
+CLOSURE BEGIN: code_block[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_code_block 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (MarkdownFilter) def_%cl_1_3 
+		 2: %cl_1_3->new def_%cl_1_4 %cl_1_3[3.1,] code_block[2.2,] 	 SYMBOL:	 ARGS:code_block,
+		 3: %cl_1_4->to_html def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_5->strip def_%cl_1_6 %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_html %cl_1_6[3.4,] 
+		 6: 
+		 7: (Base64) def_%cl_1_7 
+		 8: %cl_1_7->strict_encode64 def_%cl_1_8 %cl_1_7[3.7,] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:html,
+		 9: COPY TYPE_PASS def_serialized %cl_1_8[3.8,] 
+		 10: 
+		 11: COPY TYPE_StringLiteral "<base64serialized>" def_%cl_1_9 
+		 12: COPY TYPE_StringLiteral "</base64serialized>" def_%cl_1_10 
+		 13: BUILDSTRING def_%cl_1_11 %cl_1_9[3.11,] %cl_1_8[3.8,] %cl_1_10[3.12,] 
+		 14: RETURN %cl_1_11[3.13,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_12 
+		 1: def_%cl_1_13 %cl_1_12[4.0,] 
+		 2: RETURN %cl_1_13[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: html[3.5,] serialized[3.9,] 
+		 9: RETURN %v_4[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

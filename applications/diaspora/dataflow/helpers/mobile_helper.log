@@ -1,0 +1,606 @@
+SET IRMethod, name = mobile_reshare_icon instanceMethod = true
+BB 1
+	outgoing: 23 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: post->public? def_%v_3 post[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->reshare? def_%v_4 %self[2.0,] post[2.5,] 	 SYMBOL:	 ARGS:post,
+		 1: COPY TYPE_PASS def_%v_3 %v_4[3.0,] 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: %self->user_signed_in? def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: BRANCH %v_5[5.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: post->author def_%v_6 post[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %self->current_user def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->person def_%v_8 %v_7[6.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_6->!= def_%v_9 %v_6[6.0,] %v_8[6.2,] 	 SYMBOL:	 ARGS:%v_8,
+		 4: COPY TYPE_PASS def_%v_5 %v_9[6.3,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_3 %v_5[6.4,5.0,] 
+BB 8
+	outgoing: 9 21 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[7.0,3.1,2.7,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->reshare? def_%v_10 %self[2.0,] post[2.5,] 	 SYMBOL:	 ARGS:post,
+		 2: BRANCH %v_10[9.1,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: post->absolute_root def_%v_11 post[2.5,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_11 post[2.5,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_absolute_root %v_11[11.0,10.0,] 
+		 1: 
+		 2: COPY TYPE_PASS def_%v_12 %v_11[11.0,10.0,] 
+		 3: BRANCH %v_11[11.0,10.0,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: absolute_root->author def_%v_13 absolute_root[12.0,] 	 SYMBOL:	 ARGS:
+		 1: %self->current_user def_%v_14 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_14->person def_%v_15 %v_14[13.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_13->!= def_%v_16 %v_13[13.0,] %v_15[13.2,] 	 SYMBOL:	 ARGS:%v_15,
+		 4: COPY TYPE_PASS def_%v_12 %v_16[13.3,] 
+BB 14
+	outgoing: 15 19 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_12[13.4,12.2,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Reshare) def_%v_17 
+		 2: %self->current_user def_%v_18 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_18->person_id def_%v_19 %v_18[15.2,] 	 SYMBOL:	 ARGS:
+		 4: absolute_root->guid def_%v_20 absolute_root[12.0,] 	 SYMBOL:	 ARGS:
+		 5: HASH-author_id-root_guid- def_%v_21 %v_19[15.3,] %v_20[15.4,] 
+		 6: %v_17->where def_%v_22 %v_17[15.1,] %v_21[15.5,] 	 SYMBOL:	 ARGS:%v_21,
+		 7: %v_22->first def_%v_23 %v_22[15.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_reshare %v_23[15.7,] 
+		 9: 
+		 10: %v_23->present? def_%v_24 %v_23[15.7,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_24[15.10,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "active" def_%v_25 
+		 1: 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "inactive" def_%v_26 
+		 1: COPY TYPE_PASS def_%v_25 %v_26[17.0,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_klass %v_25[17.1,16.0,] 
+		 1: 
+		 2: COPY TYPE_StringLiteral "" def_%v_27 
+		 3: absolute_root->guid def_%v_28 absolute_root[12.0,] 	 SYMBOL:	 ARGS:
+		 4: HASH-root_guid- def_%v_29 %v_28[18.3,] 
+		 5: %self->reshares_path def_%v_30 %self[2.0,] %v_29[18.4,] 	 SYMBOL:	 ARGS:%v_29,
+		 6: COPY TYPE_StringLiteral "reshares.reshare.reshare_confirmation" def_%v_31 
+		 7: absolute_root->author_name def_%v_32 absolute_root[18.3,12.0,] 	 SYMBOL:	 ARGS:
+		 8: HASH-author- def_%v_33 %v_32[18.7,] 
+		 9: %self->t def_%v_34 %self[18.5,2.0,] %v_31[18.6,] %v_33[18.8,] 	 SYMBOL:	 ARGS:%v_31,%v_33,
+		 10: COPY TYPE_StringLiteral "entypo-reshare reshare-action " def_%v_35 
+		 11: 
+		 12: BUILDSTRING def_%v_36 %v_35[18.10,] klass[18.0,] 
+		 13: HASH-title-class- def_%v_37 %v_34[18.9,] %v_36[18.12,] 
+		 14: %self->link_to def_%v_38 %self[18.5,18.9,2.0,] %v_27[18.2,] %v_30[18.5,] %v_37[18.13,] 	 SYMBOL:	 ARGS:%v_27,%v_30,%v_37,
+		 15: 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "entypo-reshare reshare-action disabled" def_%v_39 
+		 2: HASH-class- def_%v_40 %v_39[19.1,] 
+		 3: %self->content_tag def_%v_41 %self[2.0,] %v_40[19.2,] 	 SYMBOL:div,	 ARGS:Symbol,Nil,%v_40,
+		 4: COPY TYPE_PASS def_%v_38 %v_41[19.3,] 
+BB 20
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: RETURN %v_38[19.4,18.14,] %self[2.0,] 
+BB 21
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "entypo-reshare reshare-action disabled" def_%v_42 
+		 2: HASH-class- def_%v_43 %v_42[21.1,] 
+		 3: %self->content_tag def_%v_44 %self[2.0,] %v_43[21.2,] 	 SYMBOL:div,	 ARGS:Symbol,Nil,%v_43,
+		 4: RETURN %v_44[21.3,] %self[21.3,2.0,] 
+BB 23
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mobile_like_icon instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: %self->current_user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->current_user def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->liked? def_%v_5 %v_4[3.0,] post[2.5,] 	 SYMBOL:	 ARGS:post,
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.2,2.7,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "" def_%v_6 
+		 2: COPY TYPE_StringLiteral "#" def_%v_7 
+		 3: post->id def_%v_8 post[2.5,] 	 SYMBOL:	 ARGS:
+		 4: %self->current_user def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_9->like_for def_%v_10 %v_9[5.4,] post[5.3,2.5,] 	 SYMBOL:	 ARGS:post,
+		 6: %v_10->id def_%v_11 %v_10[5.5,] 	 SYMBOL:	 ARGS:
+		 7: %self->post_like_path def_%v_12 %self[5.4,2.0,] %v_8[5.3,] %v_11[5.6,] 	 SYMBOL:	 ARGS:%v_8,%v_11,
+		 8: HASH-url- def_%v_13 %v_12[5.7,] 
+		 9: COPY TYPE_StringLiteral "entypo-heart like-action active" def_%v_14 
+		 10: HASH-data-class- def_%v_15 %v_13[5.8,] %v_14[5.9,] 
+		 11: %self->link_to def_%v_16 %self[5.4,5.7,2.0,] %v_6[5.1,] %v_7[5.2,] %v_15[5.10,] 	 SYMBOL:	 ARGS:%v_6,%v_7,%v_15,
+		 12: RETURN %v_16[5.11,] %self[5.4,5.7,5.11,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "" def_%v_17 
+		 2: COPY TYPE_StringLiteral "#" def_%v_18 
+		 3: post->id def_%v_19 post[2.5,] 	 SYMBOL:	 ARGS:
+		 4: %self->post_likes_path def_%v_20 %self[2.0,] %v_19[6.3,] 	 SYMBOL:	 ARGS:%v_19,
+		 5: HASH-url- def_%v_21 %v_20[6.4,] 
+		 6: COPY TYPE_StringLiteral "entypo-heart like-action inactive" def_%v_22 
+		 7: HASH-data-class- def_%v_23 %v_21[6.5,] %v_22[6.6,] 
+		 8: %self->link_to def_%v_24 %self[6.4,2.0,] %v_17[6.1,] %v_18[6.2,] %v_23[6.7,] 	 SYMBOL:	 ARGS:%v_17,%v_18,%v_23,
+		 9: RETURN %v_24[6.8,] %self[6.4,6.8,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mobile_comment_icon instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: COPY TYPE_StringLiteral "" def_%v_3 
+		 8: %self->new_post_comment_path def_%v_4 %self[2.0,] post[2.5,] 	 SYMBOL:	 ARGS:post,
+		 9: COPY TYPE_StringLiteral "entypo-comment comment-action inactive" def_%v_5 
+		 10: HASH-class- def_%v_6 %v_5[2.9,] 
+		 11: %self->link_to def_%v_7 %self[2.0,2.8,] %v_3[2.7,] %v_4[2.8,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_3,%v_4,%v_6,
+		 12: RETURN %v_7[2.11,] %self[2.0,2.8,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = reactions_link instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: RECEIVECONSTARG def_klass 
+		 7: klass[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_3 
+		 1: COPY TYPE_PASS def_klass %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: post->comments_count def_%v_4 post[2.5,] 	 SYMBOL:	 ARGS:
+		 2: post->likes_count def_%v_5 post[4.1,2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_4->+ def_%v_6 %v_4[4.1,] %v_5[4.2,] 	 SYMBOL:	 ARGS:%v_5,
+		 4: COPY TYPE_PASS def_reactions_count %v_6[4.3,] 
+		 5: 
+		 6: COPY TYPE_StringLiteral "active" def_%v_7 
+		 7: klass->== def_%v_8 klass[3.1,2.6,] %v_7[4.6,] 	 SYMBOL:	 ARGS:%v_7,
+		 8: BRANCH %v_8[4.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "entypo-chevron-up" def_%v_9 
+		 2: COPY TYPE_PASS def_entypo_class %v_9[5.1,] 
+		 3: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "entypo-chevron-down" def_%v_10 
+		 2: COPY TYPE_PASS def_entypo_class %v_10[6.1,] 
+		 3: COPY TYPE_PASS def_%v_9 %v_10[6.1,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: reactions_count->> def_%v_11 reactions_count[4.4,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: BRANCH %v_11[7.1,] 
+BB 8
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "reactions" def_%v_12 
+		 2: HASH-count- def_%v_13 reactions_count[4.4,] 
+		 3: %self->t def_%v_14 %self[2.0,] %v_12[8.1,] %v_13[8.2,] 	 SYMBOL:	 ARGS:%v_12,%v_13,
+		 4: COPY TYPE_StringLiteral "<i class='" def_%v_15 
+		 5: COPY TYPE_StringLiteral "'></i>" def_%v_16 
+		 6: BUILDSTRING def_%v_17 %v_14[8.3,] %v_15[8.4,] entypo_class[6.2,5.2,] %v_16[8.5,] 
+		 7: %v_17->html_safe def_%v_18 %v_17[8.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "mobile" def_%v_19 
+		 9: HASH-format- def_%v_20 %v_19[8.8,] 
+		 10: %self->post_comments_path def_%v_21 %self[8.3,2.0,] post[2.5,] %v_20[8.9,] 	 SYMBOL:	 ARGS:post,%v_20,
+		 11: COPY TYPE_StringLiteral "show-comments " def_%v_22 
+		 12: 
+		 13: BUILDSTRING def_%v_23 %v_22[8.11,] klass[3.1,2.6,] 
+		 14: HASH-class- def_%v_24 %v_23[8.13,] 
+		 15: %self->link_to def_%v_25 %self[8.3,8.10,2.0,] %v_18[8.7,] %v_21[8.10,] %v_24[8.14,] 	 SYMBOL:	 ARGS:%v_18,%v_21,%v_24,
+		 16: RETURN %v_25[8.15,] %self[8.3,8.10,8.15,2.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "<span class='show-comments'>" def_%v_26 
+		 2: COPY TYPE_PASS def_html %v_26[9.1,] 
+		 3: 
+		 4: COPY TYPE_StringLiteral "reactions" def_%v_27 
+		 5: HASH-count- def_%v_28 reactions_count[4.4,] 
+		 6: %self->t def_%v_29 %self[2.0,] %v_27[9.4,] %v_28[9.5,] 	 SYMBOL:	 ARGS:%v_27,%v_28,
+		 7: BUILDSTRING def_%v_30 %v_29[9.6,] 
+		 8: html-><< def_%v_31 html[9.2,] %v_30[9.7,] 	 SYMBOL:	 ARGS:%v_30,
+		 9: 
+		 10: COPY TYPE_StringLiteral "</span>" def_%v_32 
+		 11: html-><< def_%v_33 html[9.2,9.8,] %v_32[9.10,] 	 SYMBOL:	 ARGS:%v_32,
+		 12: RETURN %v_33[9.11,] %self[9.6,2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = additional_photos instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 8 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->photo def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->status_message_guid? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_6 %self[2.0,] 
+		 2: COPY TYPE_PASS def_%v_5 %v_6[3.1,] 
+		 3: %v_6[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->additional_photos def_%v_7 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_5 %v_7[4.0,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[4.1,3.2,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->photo def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_8->status_message def_%v_9 %v_8[6.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_9->photos def_%v_10 %v_9[6.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_10->order def_%v_11 %v_10[6.2,] 	 SYMBOL:created_at,	 ARGS:Symbol,
+		 4: ATTRASSIGN %self->additional_photos %v_11[6.3,] 
+		 5: COPY TYPE_PASS def_%v_7 %v_11[6.3,] 
+BB 7
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: RETURN %v_7[6.5,4.0,] %self[6.4,2.0,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = next_photo instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->next_photo def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->additional_photos def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %self->additional_photos def_%v_7 %self[5.0,2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->photo def_%v_8 %self[5.0,5.1,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_7->index def_%v_9 %v_7[5.1,] %v_8[5.2,] 	 SYMBOL:	 ARGS:%v_8,
+		 4: %v_9->+ def_%v_10 %v_9[5.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: %v_6->[] def_%v_11 %v_6[5.0,] %v_10[5.4,] 	 SYMBOL:	 ARGS:%v_10,
+		 6: ATTRASSIGN %self->next_photo %v_11[5.5,] 
+		 7: COPY TYPE_PASS def_%v_5 %v_11[5.5,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_13 %self[5.6,2.0,] 
+		 2: COPY TYPE_PASS def_%v_12 %v_13[6.1,] 
+		 3: %v_13[6.1,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->next_photo def_%v_14 %self[5.6,2.0,] 
+		 1: COPY TYPE_PASS def_%v_12 %v_14[7.0,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_12[7.1,6.2,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %self->additional_photos def_%v_15 %self[5.6,2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_15->first def_%v_16 %v_15[9.0,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %self->next_photo %v_16[9.1,] 
+		 3: RETURN %v_16[9.1,] %self[9.0,9.2,5.6,2.0,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %v_14[7.0,] %self[5.6,2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = previous_photo instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->previous_photo def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->additional_photos def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %self->additional_photos def_%v_7 %self[5.0,2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->photo def_%v_8 %self[5.0,5.1,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_7->index def_%v_9 %v_7[5.1,] %v_8[5.2,] 	 SYMBOL:	 ARGS:%v_8,
+		 4: %v_9->- def_%v_10 %v_9[5.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: %v_6->[] def_%v_11 %v_6[5.0,] %v_10[5.4,] 	 SYMBOL:	 ARGS:%v_10,
+		 6: ATTRASSIGN %self->previous_photo %v_11[5.5,] 
+		 7: RETURN %v_11[5.5,] %self[5.0,5.1,5.2,5.6,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = photo instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->photo def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->current_user def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: (Photo) def_%v_7 
+		 2: %self->params def_%v_8 %self[5.0,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_8->[] def_%v_9 %v_8[5.2,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 4: %v_6->find_visible_shareable_by_id def_%v_10 %v_6[5.0,] %v_7[5.1,] %v_9[5.3,] 	 SYMBOL:	 ARGS:%v_7,%v_9,
+		 5: ATTRASSIGN %self->photo %v_10[5.4,] 
+		 6: RETURN %v_10[5.4,] %self[5.0,5.2,5.5,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+

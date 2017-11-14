@@ -1,0 +1,268 @@
+SET IRMethod, name = link_to_latest_post instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_topic 
+		 6: 
+		 7: %self->relevant_posts def_%v_3 %self[2.0,] topic[2.5,] 	 SYMBOL:	 ARGS:topic,
+		 8: %v_3->last def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_PASS def_post %v_4[2.8,] 
+		 10: 
+		 11: %v_4->created_at def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 12: %self->time_ago_in_words def_%v_6 %self[2.0,2.7,] %v_5[2.11,] 	 SYMBOL:	 ARGS:%v_5,
+		 13: COPY TYPE_StringLiteral " " def_%v_7 
+		 14: COPY TYPE_StringLiteral "ago_by" def_%v_8 
+		 15: %self->t def_%v_9 %self[2.0,2.7,2.12,] %v_8[2.14,] 	 SYMBOL:	 ARGS:%v_8,
+		 16: COPY TYPE_StringLiteral " " def_%v_10 
+		 17: post->user def_%v_11 post[2.9,] 	 SYMBOL:	 ARGS:
+		 18: %v_11->forem_name def_%v_12 %v_11[2.17,] 	 SYMBOL:	 ARGS:
+		 19: BUILDSTRING def_%v_13 %v_6[2.12,] %v_7[2.13,] %v_9[2.15,] %v_10[2.16,] %v_12[2.18,] 
+		 20: COPY TYPE_PASS def_text %v_13[2.19,] 
+		 21: 
+		 22: %self->forem def_%v_14 %self[2.0,2.7,2.12,2.15,] 	 SYMBOL:	 ARGS:
+		 23: post->topic def_%v_15 post[2.9,2.17,] 	 SYMBOL:	 ARGS:
+		 24: %v_15->forum def_%v_16 %v_15[2.23,] 	 SYMBOL:	 ARGS:
+		 25: post->topic def_%v_17 post[2.9,2.17,2.23,] 	 SYMBOL:	 ARGS:
+		 26: COPY TYPE_StringLiteral "post-" def_%v_18 
+		 27: post->id def_%v_19 post[2.9,2.17,2.23,2.25,] 	 SYMBOL:	 ARGS:
+		 28: BUILDSTRING def_%v_20 %v_18[2.26,] %v_19[2.27,] 
+		 29: %self->pagination_param def_%v_21 %self[2.0,2.7,2.12,2.15,2.22,] 	 SYMBOL:	 ARGS:
+		 30: topic->last_page def_%v_22 topic[2.5,] 	 SYMBOL:	 ARGS:
+		 31: HASH-anchor- def_%v_23 %v_20[2.28,] %v_21[2.29,] %v_22[2.30,] 
+		 32: %v_14->forum_topic_path def_%v_24 %v_14[2.22,] %v_16[2.24,] %v_17[2.25,] %v_23[2.31,] 	 SYMBOL:	 ARGS:%v_16,%v_17,%v_23,
+		 33: %self->link_to def_%v_25 %self[2.0,2.7,2.12,2.15,2.22,2.29,] text[2.20,] %v_24[2.32,] 	 SYMBOL:	 ARGS:text,%v_24,
+		 34: RETURN %v_25[2.33,] %self[2.0,2.7,2.12,2.15,2.22,2.29,2.33,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = new_since_last_view_text instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 12 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_topic 
+		 6: 
+		 7: %self->forem_user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->forem_user def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: topic->view_for def_%v_5 topic[2.5,] %v_4[3.1,] 	 SYMBOL:	 ARGS:%v_4,
+		 3: COPY TYPE_PASS def_topic_view %v_5[3.2,] 
+		 4: 
+		 5: topic->forum def_%v_6 topic[3.2,2.5,] 	 SYMBOL:	 ARGS:
+		 6: %self->forem_user def_%v_7 %self[3.1,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_6->view_for def_%v_8 %v_6[3.5,] %v_7[3.6,] 	 SYMBOL:	 ARGS:%v_7,
+		 8: COPY TYPE_PASS def_forum_view %v_8[3.7,] 
+		 9: 
+		 10: BRANCH %v_8[3.7,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: topic_view->nil? def_%v_9 topic_view[3.3,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_9[4.1,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: topic->created_at def_%v_10 topic[2.5,] 	 SYMBOL:	 ARGS:
+		 1: forum_view->past_viewed_at def_%v_11 forum_view[3.8,] 	 SYMBOL:	 ARGS:
+		 2: %v_10->> def_%v_12 %v_10[5.0,] %v_11[5.1,] 	 SYMBOL:	 ARGS:%v_11,
+		 3: COPY TYPE_PASS def_%v_9 %v_12[5.2,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_9[5.3,4.1,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "New" def_%v_13 
+		 2: %self->content_tag def_%v_14 %self[2.0,] %v_13[7.1,] 	 SYMBOL:super,	 ARGS:Symbol,%v_13,
+		 3: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %v_14[10.0,8.0,7.2,] %self[2.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = relevant_posts instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_topic 
+		 6: 
+		 7: topic->posts def_%v_3 topic[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->by_created_at def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_PASS def_posts %v_4[2.8,] 
+		 10: 
+		 11: topic->forum def_%v_5 topic[2.5,2.7,] 	 SYMBOL:	 ARGS:
+		 12: %self->forem_admin_or_moderator? def_%v_6 %self[2.0,] %v_5[2.11,] 	 SYMBOL:	 ARGS:%v_5,
+		 13: BRANCH %v_6[2.12,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_7 posts[2.9,] 
+		 2: RETURN posts[2.9,] %self[2.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: topic->user def_%v_8 topic[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %self->forem_user def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_8->== def_%v_10 %v_8[4.1,] %v_9[4.2,] 	 SYMBOL:	 ARGS:%v_9,
+		 4: BRANCH %v_10[4.3,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: posts->visible def_%v_11 posts[2.9,] 	 SYMBOL:	 ARGS:
+		 2: topic->user def_%v_12 topic[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_11->approved_or_pending_review_for def_%v_13 %v_11[5.1,] %v_12[5.2,] 	 SYMBOL:	 ARGS:%v_12,
+		 4: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: posts->approved def_%v_14 posts[2.9,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_13 %v_14[6.1,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_13[6.2,5.3,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = post_time_tag instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: COPY TYPE_StringLiteral "time" def_%v_3 
+		 8: post->created_at def_%v_4 post[2.5,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->to_s def_%v_5 %v_4[2.8,] 	 SYMBOL:db,	 ARGS:Symbol,
+		 10: HASH-datetime- def_%v_6 %v_5[2.9,] 
+		 11: %self->content_tag def_%v_7 %self[2.0,] %v_3[2.7,] %v_6[2.10,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,%v_6,%self,
+CLOSURE BEGIN: post[2.5,2.8,] %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: post->created_at def_%cl_1_3 post[] 	 SYMBOL:	 ARGS:
+		 2: %self->time_ago_in_words def_%cl_1_4 %self[2.0,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: COPY TYPE_StringLiteral " " def_%cl_1_5 
+		 4: %self->t def_%cl_1_6 %self[3.2,2.0,] 	 SYMBOL:ago,	 ARGS:Symbol,
+		 5: BUILDSTRING def_%cl_1_7 %cl_1_4[3.2,] %cl_1_5[3.3,] %cl_1_6[3.4,] 
+		 6: RETURN %cl_1_7[3.5,] %self[3.2,3.4,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[4.0,] 
+		 2: RETURN %cl_1_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 12: RETURN %v_7[2.11,] %self[2.0,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

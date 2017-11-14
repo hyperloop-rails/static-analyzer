@@ -1,0 +1,133 @@
+SET IRMethod, name = from_model instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_paypal_refund 
+		 6: 
+		 7: (HashUtils) def_%v_3 
+		 8: (EntityUtils) def_%v_4 
+		 9: %v_4->model_to_hash def_%v_5 %v_4[2.8,] paypal_refund[2.5,] 	 SYMBOL:	 ARGS:paypal_refund,
+		 10: (MoneyUtil) def_%v_6 
+		 11: paypal_refund->payment_total_cents def_%v_7 paypal_refund[2.5,] 	 SYMBOL:	 ARGS:
+		 12: paypal_refund->currency def_%v_8 paypal_refund[2.5,2.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_6->to_money def_%v_9 %v_6[2.10,] %v_7[2.11,] %v_8[2.12,] 	 SYMBOL:	 ARGS:%v_7,%v_8,
+		 14: (MoneyUtil) def_%v_10 
+		 15: paypal_refund->fee_total_cents def_%v_11 paypal_refund[2.5,2.11,2.12,] 	 SYMBOL:	 ARGS:
+		 16: paypal_refund->currency def_%v_12 paypal_refund[2.5,2.11,2.12,2.15,] 	 SYMBOL:	 ARGS:
+		 17: %v_10->to_money def_%v_13 %v_10[2.14,] %v_11[2.15,] %v_12[2.16,] 	 SYMBOL:	 ARGS:%v_11,%v_12,
+		 18: HASH-payment_total-payment_fee- def_%v_14 %v_9[2.13,] %v_13[2.17,] 
+		 19: %v_5->merge def_%v_15 %v_5[2.9,] %v_14[2.18,] 	 SYMBOL:	 ARGS:%v_14,
+		 20: %v_3->compact def_%v_16 %v_3[2.7,] %v_15[2.19,] 	 SYMBOL:	 ARGS:%v_15,
+		 21: COPY TYPE_PASS def_hash %v_16[2.20,] 
+		 22: 
+		 23: (PaypalRefund) def_%v_17 
+		 24: %v_17->call def_%v_18 %v_17[2.23,] %v_16[2.20,] 	 SYMBOL:	 ARGS:hash,
+		 25: RETURN %v_18[2.24,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_refund 
+		 6: 
+		 7: refund->[] def_%v_3 refund[2.5,] 	 SYMBOL:payment_id,	 ARGS:Symbol,
+		 8: %self->paypal_payment_id def_%v_4 %self[2.0,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: COPY TYPE_PASS def_payment_id %v_4[2.8,] 
+		 10: 
+		 11: %v_4->nil? def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_5[2.11,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ArgumentError) def_%v_6 
+		 2: COPY TYPE_StringLiteral "No corresponding payment found for payment or commission id: " def_%v_7 
+		 3: refund->[] def_%v_8 refund[2.5,] 	 SYMBOL:payment_id,	 ARGS:Symbol,
+		 4: BUILDSTRING def_%v_9 %v_7[3.2,] %v_8[3.3,] 
+		 5: %v_6->new def_%v_10 %v_6[3.1,] %v_9[3.4,] 	 SYMBOL:	 ARGS:%v_9,
+		 6: %self->raise def_%v_11 %self[2.0,] %v_10[3.5,] 	 SYMBOL:	 ARGS:%v_10,
+		 7: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: refund->[] def_%v_12 refund[2.5,] 	 SYMBOL:payment_total,	 ARGS:Symbol,
+		 2: %v_12->currency def_%v_13 %v_12[5.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_13->iso_code def_%v_14 %v_13[5.2,] 	 SYMBOL:	 ARGS:
+		 4: refund->[] def_%v_15 refund[5.1,2.5,] 	 SYMBOL:payment_total,	 ARGS:Symbol,
+		 5: %v_15->fractional def_%v_16 %v_15[5.4,] 	 SYMBOL:	 ARGS:
+		 6: refund->[] def_%v_17 refund[5.1,5.4,2.5,] 	 SYMBOL:fee_total,	 ARGS:Symbol,
+		 7: %v_17->fractional def_%v_18 %v_17[5.6,] 	 SYMBOL:	 ARGS:
+		 8: refund->[] def_%v_19 refund[5.1,5.4,5.6,2.5,] 	 SYMBOL:refunding_id,	 ARGS:Symbol,
+		 9: HASH-paypal_payment_id-currency-payment_total_cents-fee_total_cents-refunding_id- def_%v_20 payment_id[2.9,] %v_14[5.3,] %v_16[5.5,] %v_18[5.7,] %v_19[5.8,] 
+		 10: COPY TYPE_PASS def_init_data %v_20[5.9,] 
+		 11: 
+		 12: (PaypalRefundModel) def_%v_21 
+		 13: %v_21->create! def_%v_22 %v_21[5.12,] %v_20[5.9,] 	 SYMBOL:	 ARGS:init_data,
+		 14: COPY TYPE_PASS def_model %v_22[5.13,] 
+		 15: 
+		 16: %self->from_model def_%v_23 %self[2.0,] %v_22[5.13,] 	 SYMBOL:	 ARGS:model,
+		 17: RETURN %v_23[5.16,] %self[5.16,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = paypal_payment_id instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_payment_id 
+		 6: 
+		 7: (PaypalPaymentModel) def_%v_3 
+		 8: COPY TYPE_StringLiteral "payment_id = ? or commission_payment_id = ?" def_%v_4 
+		 9: %v_3->where def_%v_5 %v_3[2.7,] %v_4[2.8,] payment_id[2.5,] payment_id[2.5,] 	 SYMBOL:	 ARGS:%v_4,payment_id,payment_id,
+		 10: %v_5->pluck def_%v_6 %v_5[2.9,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 11: %v_6->first def_%v_7 %v_6[2.10,] 	 SYMBOL:	 ARGS:
+		 12: RETURN %v_7[2.11,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

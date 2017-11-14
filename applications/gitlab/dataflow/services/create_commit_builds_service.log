@@ -1,0 +1,223 @@
+SET IRMethod, name = execute instanceMethod = true
+BB 1
+	outgoing: 35 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_project 
+		 6: RECEIVEARG def_user 
+		 7: RECEIVEARG def_params 
+		 8: 
+		 9: project->builds_enabled? def_%v_3 project[2.5,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_3[2.9,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: params->[] def_%v_5 params[2.7,] 	 SYMBOL:checkout_sha,	 ARGS:Symbol,
+		 3: BRANCH %v_5[3.2,] 
+BB 4
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: params->[] def_%v_6 params[2.7,] 	 SYMBOL:before,	 ARGS:Symbol,
+		 1: COPY TYPE_PASS def_%v_5 %v_6[6.0,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_before_sha %v_5[6.1,3.2,] 
+		 1: 
+		 2: params->[] def_%v_7 params[2.7,] 	 SYMBOL:checkout_sha,	 ARGS:Symbol,
+		 3: BRANCH %v_7[7.2,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: params->[] def_%v_8 params[2.7,] 	 SYMBOL:after,	 ARGS:Symbol,
+		 1: COPY TYPE_PASS def_%v_7 %v_8[8.0,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_sha %v_7[8.1,7.2,] 
+		 1: 
+		 2: params->[] def_%v_9 params[2.7,] 	 SYMBOL:ref,	 ARGS:Symbol,
+		 3: COPY TYPE_PASS def_origin_ref %v_9[9.2,] 
+		 4: 
+		 5: COPY TYPE_PASS def_%v_10 %v_9[9.2,] 
+		 6: BRANCH %v_9[9.2,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: sha->present? def_%v_11 sha[9.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_10 %v_11[10.0,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_10[10.1,9.5,] 
+BB 12
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+		 1: 
+		 2: (Gitlab) def_%v_13 
+		 3: (inherit Git) def_%v_14 %v_13[12.2,] 
+		 4: %v_14[12.3,] 
+BB 13
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: %v_13->const_missing def_%v_14 %v_13[12.2,] 	 SYMBOL:Git,	 ARGS:Symbol,
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: %v_14->ref_name def_%v_15 %v_14[15.0,12.3,] origin_ref[9.3,] 	 SYMBOL:	 ARGS:origin_ref,
+		 1: COPY TYPE_PASS def_ref %v_15[16.0,] 
+		 2: 
+		 3: (Gitlab) def_%v_16 
+		 4: (inherit Git) def_%v_17 %v_16[16.3,] 
+		 5: %v_17[16.4,] 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: %v_16->const_missing def_%v_17 %v_16[16.3,] 	 SYMBOL:Git,	 ARGS:Symbol,
+BB 18
+	outgoing: 19 20 
+	datadep: 
+	instructions:
+		 0: %v_17->tag_ref? def_%v_18 %v_17[17.0,16.4,] origin_ref[9.3,] 	 SYMBOL:	 ARGS:origin_ref,
+		 1: COPY TYPE_PASS def_tag %v_18[18.0,] 
+		 2: 
+		 3: (Gitlab) def_%v_19 
+		 4: (inherit Git) def_%v_20 %v_19[18.3,] 
+		 5: %v_20[18.4,] 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: %v_19->const_missing def_%v_20 %v_19[18.3,] 	 SYMBOL:Git,	 ARGS:Symbol,
+BB 20
+	outgoing: 21 22 
+	datadep: 
+	instructions:
+		 0: (inherit BLANK_SHA) def_%v_21 %v_20[19.0,18.4,] 
+		 1: %v_21[20.0,] 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: %v_20->const_missing def_%v_21 %v_20[19.0,18.4,] 	 SYMBOL:BLANK_SHA,	 ARGS:Symbol,
+BB 22
+	outgoing: 23 24 
+	datadep: 
+	instructions:
+		 0: sha->== def_%v_22 sha[9.0,] %v_21[21.0,20.0,] 	 SYMBOL:	 ARGS:%v_21,
+		 1: BRANCH %v_22[22.0,] 
+BB 23
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 24
+	outgoing: 26 27 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_23 
+		 1: 
+		 2: project->ci_commit def_%v_24 project[2.5,] sha[9.0,] ref[16.1,] 	 SYMBOL:	 ARGS:sha,ref,
+		 3: COPY TYPE_PASS def_commit %v_24[24.2,] 
+		 4: 
+		 5: BRANCH %v_24[24.2,] 
+BB 26
+	outgoing: 31 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_25 
+		 1: 
+BB 27
+	outgoing: 28 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: project->ci_commits def_%v_26 project[2.5,] 	 SYMBOL:	 ARGS:
+		 2: HASH-sha-ref-before_sha-tag- def_%v_27 sha[9.0,] ref[16.1,] before_sha[7.0,] tag[18.1,] 
+		 3: %v_26->new def_%v_28 %v_26[27.1,] %v_27[27.2,] 	 SYMBOL:	 ARGS:%v_27,
+		 4: COPY TYPE_PASS def_commit %v_28[27.3,] 
+		 5: 
+		 6: %v_28->ci_yaml_file def_%v_29 %v_28[27.3,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_29[27.6,] 
+BB 28
+	outgoing: 31 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_30 
+		 1: 
+		 2: commit->save! def_%v_31 commit[27.4,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_25 %v_31[28.2,] 
+BB 29
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 31
+	outgoing: 32 33 
+	datadep: 
+	instructions:
+		 0: 
+		 1: commit->skip_ci? def_%v_32 commit[24.3,27.4,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_32[31.1,] 
+BB 32
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_33 
+		 1: 
+BB 33
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: 
+		 1: commit->create_builds def_%v_34 commit[24.3,27.4,] user[2.6,] 	 SYMBOL:	 ARGS:user,
+		 2: COPY TYPE_PASS def_%v_33 %v_34[33.1,] 
+BB 34
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: 
+		 1: commit->touch def_%v_35 commit[24.3,27.4,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: RETURN commit[34.1,24.3,27.4,] %self[2.0,] 
+BB 35
+	outgoing: 
+	datadep: 
+	instructions:
+

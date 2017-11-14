@@ -1,0 +1,236 @@
+SET IRMethod, name = url_regexp instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_Regexp def_%v_3 
+		 7: RETURN %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_raw 
+		 6: 
+		 7: ATTRASSIGN %self->raw raw[2.5,] 
+		 8: RETURN raw[2.5,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cook instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "" def_%v_3 
+		 7: COPY TYPE_PASS def_result %v_3[2.6,] 
+		 8: 
+		 9: COPY TYPE_Boolean def_in_quote 
+		 10: 
+		 11: COPY TYPE_StringLiteral "" def_%v_4 
+		 12: COPY TYPE_PASS def_quote_buffer %v_4[2.11,] 
+		 13: 
+		 14: GETFIELD %self->raw def_%v_5 %self[2.0,] 
+		 15: %v_5->each_line def_%v_6 %v_5[2.14,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_5,
+CLOSURE BEGIN: l[] quote_buffer[2.12,] in_quote[2.9,] result[2.7,] %self[2.0,] m[] 
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_l 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Regexp def_%cl_1_3 
+		 2: l->=~ def_%cl_1_4 l[2.2,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: BRANCH %cl_1_4[3.2,] 
+BB 4
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Boolean def_in_quote 
+		 2: 
+		 3: COPY TYPE_Regexp def_%cl_1_5 
+		 4: COPY TYPE_StringLiteral "" def_%cl_1_6 
+		 5: l->sub def_%cl_1_7 l[2.2,] %cl_1_6[4.4,] 	 SYMBOL:	 ARGS:%cl_1_5,%cl_1_6,
+		 6: quote_buffer-><< def_%cl_1_8 quote_buffer[] %cl_1_7[4.5,] 	 SYMBOL:	 ARGS:%cl_1_7,
+		 7: COPY TYPE_StringLiteral "<br>" def_%cl_1_9 
+		 8: %cl_1_8-><< def_%cl_1_10 %cl_1_8[4.6,] %cl_1_9[4.7,] 	 SYMBOL:	 ARGS:%cl_1_9,
+		 9: 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH in_quote[] 
+BB 6
+	outgoing: 8 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "<blockquote>" def_%cl_1_11 
+		 2: COPY TYPE_StringLiteral "</blockquote>" def_%cl_1_12 
+		 3: BUILDSTRING def_%cl_1_13 %cl_1_11[6.1,] quote_buffer[] %cl_1_12[6.2,] 
+		 4: result-><< def_%cl_1_14 result[] %cl_1_13[6.3,] 	 SYMBOL:	 ARGS:%cl_1_13,
+		 5: 
+		 6: COPY TYPE_StringLiteral "" def_%cl_1_15 
+		 7: COPY TYPE_PASS def_quote_buffer %cl_1_15[6.6,] 
+		 8: 
+		 9: COPY TYPE_Boolean def_in_quote 
+		 10: COPY TYPE_Boolean def_%cl_1_16 
+		 11: 
+BB 7
+	outgoing: 8 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (EmailCook) def_%cl_1_17 
+		 2: %cl_1_17->url_regexp def_%cl_1_18 %cl_1_17[7.1,] 	 SYMBOL:	 ARGS:
+		 3: l->scan def_%cl_1_19 l[2.2,] %cl_1_18[7.2,] 	 SYMBOL:	 ARGS:%cl_1_18,
+		 4: %cl_1_19->each def_%cl_1_20 %cl_1_19[7.3,] %self[2.0,] 	 SYMBOL:	 ARGS:%cl_1_19,
+CLOSURE BEGIN: m[] l[7.3,2.2,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_m 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: m->[] def_%cl_2_3 m[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: COPY TYPE_PASS def_url %cl_2_3[3.1,] 
+		 3: 
+		 4: COPY TYPE_StringLiteral "<a href='" def_%cl_2_4 
+		 5: COPY TYPE_StringLiteral "'>" def_%cl_2_5 
+		 6: COPY TYPE_StringLiteral "</a>" def_%cl_2_6 
+		 7: BUILDSTRING def_%cl_2_7 %cl_2_4[3.4,] %cl_2_3[3.1,] %cl_2_5[3.5,] %cl_2_3[3.1,] %cl_2_6[3.6,] 
+		 8: l->gsub! def_%cl_2_8 l[] %cl_2_3[3.1,] %cl_2_7[3.7,] 	 SYMBOL:	 ARGS:url,%cl_2_7,
+		 9: RETURN %cl_2_8[3.8,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_9 
+		 1: def_%cl_2_10 %cl_2_9[4.0,] 
+		 2: RETURN %cl_2_10[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: url[3.2,] 
+		 5: 
+		 6: result-><< def_%cl_1_21 result[] l[7.3,2.2,] 	 SYMBOL:	 ARGS:l,
+		 7: COPY TYPE_StringLiteral "<br>" def_%cl_1_22 
+		 8: %cl_1_21-><< def_%cl_1_23 %cl_1_21[7.6,] %cl_1_22[7.7,] 	 SYMBOL:	 ARGS:%cl_1_22,
+		 9: COPY TYPE_PASS def_%cl_1_16 %cl_1_23[7.8,] 
+BB 8
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_16[7.9,6.10,] %self[2.0,] 
+BB 9
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_10[4.8,] %self[2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_24 
+		 1: def_%cl_1_25 %cl_1_24[10.0,] 
+		 2: RETURN %cl_1_25[10.1,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: in_quote[4.1,6.9,] quote_buffer[6.7,] 
+		 16: 
+		 17: BRANCH in_quote[2.9,2.15,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "<blockquote>" def_%v_7 
+		 2: COPY TYPE_StringLiteral "</blockquote>" def_%v_8 
+		 3: BUILDSTRING def_%v_9 %v_7[3.1,] quote_buffer[2.12,2.15,] %v_8[3.2,] 
+		 4: result-><< def_%v_10 result[2.7,] %v_9[3.3,] 	 SYMBOL:	 ARGS:%v_9,
+		 5: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Regexp def_%v_11 
+		 2: COPY TYPE_StringLiteral "<br><br>" def_%v_12 
+		 3: result->gsub! def_%v_13 result[2.7,] %v_12[5.2,] 	 SYMBOL:	 ARGS:%v_11,%v_12,
+		 4: 
+		 5: RETURN result[5.3,2.7,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

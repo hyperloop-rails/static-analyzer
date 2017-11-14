@@ -1,0 +1,970 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SiteSetting) def_%v_3 
+		 7: %v_3->max_image_size_kb def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->kilobytes def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: ATTRASSIGN %self->max_size %v_5[2.8,] 
+		 10: RETURN %v_5[2.8,] %self[2.0,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = execute instanceMethod = true
+BB 1
+	outgoing: 19 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_args 
+		 6: 
+		 7: (SiteSetting) def_%v_3 
+		 8: %v_3->download_remote_images_to_local? def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: args->[] def_%v_6 args[2.5,] 	 SYMBOL:post_id,	 ARGS:Symbol,
+		 3: COPY TYPE_PASS def_post_id %v_6[3.2,] 
+		 4: 
+		 5: %v_6->present? def_%v_7 %v_6[3.2,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %v_7[3.5,] 
+BB 4
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: (Discourse) def_%v_9 
+		 1: (inherit InvalidParameters) def_%v_10 %v_9[7.0,] 
+		 2: %v_10[7.1,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_9->const_missing def_%v_10 %v_9[7.0,] 	 SYMBOL:InvalidParameters,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_10->new def_%v_11 %v_10[8.0,7.1,] 	 SYMBOL:post_id,	 ARGS:Symbol,
+		 1: %self->raise def_%v_12 %self[2.0,] %v_11[9.0,] 	 SYMBOL:	 ARGS:%v_11,
+		 2: COPY TYPE_PASS def_%v_8 %v_12[9.1,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Post) def_%v_13 
+		 2: HASH-id- def_%v_14 post_id[3.3,] 
+		 3: %v_13->find_by def_%v_15 %v_13[10.1,] %v_14[10.2,] 	 SYMBOL:	 ARGS:%v_14,
+		 4: COPY TYPE_PASS def_post %v_15[10.3,] 
+		 5: 
+		 6: %v_15->present? def_%v_16 %v_15[10.3,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_16[10.6,] 
+BB 11
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+		 1: 
+		 2: post->raw def_%v_18 post[10.4,] 	 SYMBOL:	 ARGS:
+		 3: %v_18->dup def_%v_19 %v_18[11.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_raw %v_19[11.3,] 
+		 5: 
+		 6: %v_19->dup def_%v_20 %v_19[11.3,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_PASS def_start_raw %v_20[11.6,] 
+		 8: 
+		 9: HASH- def_%v_21 
+		 10: COPY TYPE_PASS def_downloaded_urls %v_21[11.9,] 
+		 11: 
+		 12: post->cooked def_%v_22 post[11.2,10.4,] 	 SYMBOL:	 ARGS:
+		 13: %self->extract_images_from def_%v_23 %self[2.0,] %v_22[11.12,] 	 SYMBOL:	 ARGS:%v_22,
+		 14: %v_23->each def_%v_24 %v_23[11.13,] %self[11.13,2.0,] 	 SYMBOL:	 ARGS:%v_23,
+CLOSURE BEGIN: image[] src[] %self[11.13,2.0,] downloaded_urls[11.10,] hotlinked[] post[11.2,11.12,10.4,] filename[] post_id[3.3,] url[] raw[11.4,] escaped_src[] e[] 
+BB 1
+	outgoing: 51 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_image 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 49 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "src" def_%cl_1_3 
+		 2: image->[] def_%cl_1_4 image[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: COPY TYPE_PASS def_src %cl_1_4[3.2,] 
+		 4: 
+		 5: COPY TYPE_StringLiteral "//" def_%cl_1_5 
+		 6: %cl_1_4->start_with? def_%cl_1_6 %cl_1_4[3.2,] %cl_1_5[3.5,] 	 SYMBOL:	 ARGS:%cl_1_5,
+		 7: BRANCH %cl_1_6[3.6,] 
+BB 4
+	outgoing: 6 49 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "http:" def_%cl_1_7 
+		 1: %cl_1_7->+ def_%cl_1_8 %cl_1_7[4.0,] src[3.3,] 	 SYMBOL:	 ARGS:src,
+		 2: COPY TYPE_PASS def_src %cl_1_8[4.1,] 
+		 3: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_8 
+BB 6
+	outgoing: 7 47 49 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->is_valid_image_url def_%cl_1_9 %self[2.0,] src[4.2,3.3,] 	 SYMBOL:	 ARGS:src,
+		 2: BRANCH %cl_1_9[6.1,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Nil def_hotlinked 
+		 2: 
+		 3: GLOBALVAR $! def_%cl_1_10 
+BB 9
+	outgoing: 10 11 36 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: downloaded_urls->include? def_%cl_1_15 downloaded_urls[] src[4.2,3.3,] 	 SYMBOL:	 ARGS:src,
+		 3: BRANCH %cl_1_15[9.2,] 
+BB 10
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_16 
+		 1: 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%cl_1_17 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (FileHelper) def_%cl_1_20 
+		 3: GETFIELD %self->max_size def_%cl_1_21 %self[2.0,] 
+		 4: COPY TYPE_StringLiteral "discourse-hotlinked" def_%cl_1_22 
+		 5: %cl_1_20->download def_%cl_1_23 %cl_1_20[13.2,] src[4.2,3.3,] %cl_1_21[13.3,] %cl_1_22[13.4,] 	 SYMBOL:	 ARGS:src,%cl_1_21,%cl_1_22,Boolean,
+		 6: COPY TYPE_PASS def_hotlinked %cl_1_23[13.5,] 
+		 7: COPY TYPE_PASS def_%cl_1_19 %cl_1_23[13.5,] 
+		 8: 
+		 9: %cl_1_17[11.1,] 
+BB 14
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: 
+BB 15
+	outgoing: 16 17 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%cl_1_24 
+		 2: (Discourse) def_%cl_1_25 
+		 3: (inherit InvalidParameters) def_%cl_1_26 %cl_1_25[15.2,] 
+		 4: %cl_1_26[15.3,] 
+BB 16
+	outgoing: 17 21 
+	datadep: 
+	instructions:
+		 0: %cl_1_25->const_missing def_%cl_1_26 %cl_1_25[15.2,] 	 SYMBOL:InvalidParameters,	 ARGS:Symbol,
+BB 17
+	outgoing: 18 19 21 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_27 %cl_1_26[16.0,15.3,] %cl_1_24[15.1,] 
+		 1: BRANCH %cl_1_27[17.0,] 
+BB 18
+	outgoing: 21 51 
+	datadep: 
+	instructions:
+		 0: %cl_1_24[15.1,] 
+BB 19
+	outgoing: 20 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_19 
+		 1: 
+		 2: %cl_1_17[11.1,] 
+BB 20
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: 
+BB 21
+	outgoing: 36 51 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_28 
+		 1: def_%cl_1_29 %cl_1_28[21.0,] %cl_1_17[11.1,] 
+		 2: %cl_1_28[21.0,] 
+BB 22
+	outgoing: 23 27 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH hotlinked[13.6,] 
+BB 23
+	outgoing: 24 25 36 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (File) def_%cl_1_30 
+		 2: hotlinked->path def_%cl_1_31 hotlinked[13.6,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_30->size def_%cl_1_32 %cl_1_30[23.1,] %cl_1_31[23.2,] 	 SYMBOL:	 ARGS:%cl_1_31,
+		 4: GETFIELD %self->max_size def_%cl_1_33 %self[2.0,] 
+		 5: %cl_1_32-><= def_%cl_1_34 %cl_1_32[23.3,] %cl_1_33[23.4,] 	 SYMBOL:	 ARGS:%cl_1_33,
+		 6: BRANCH %cl_1_34[23.5,] 
+BB 24
+	outgoing: 26 36 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (File) def_%cl_1_35 
+		 2: (URI) def_%cl_1_36 
+		 3: %cl_1_36->parse def_%cl_1_37 %cl_1_36[24.2,] src[4.2,3.3,] 	 SYMBOL:	 ARGS:src,
+		 4: %cl_1_37->path def_%cl_1_38 %cl_1_37[24.3,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_35->basename def_%cl_1_39 %cl_1_35[24.1,] %cl_1_38[24.4,] 	 SYMBOL:	 ARGS:%cl_1_38,
+		 6: COPY TYPE_PASS def_filename %cl_1_39[24.5,] 
+		 7: 
+		 8: (Upload) def_%cl_1_40 
+		 9: post->user_id def_%cl_1_41 post[] 	 SYMBOL:	 ARGS:
+		 10: (File) def_%cl_1_42 
+		 11: hotlinked->path def_%cl_1_43 hotlinked[13.6,] 	 SYMBOL:	 ARGS:
+		 12: %cl_1_42->size def_%cl_1_44 %cl_1_42[24.10,] %cl_1_43[24.11,] 	 SYMBOL:	 ARGS:%cl_1_43,
+		 13: HASH-origin- def_%cl_1_45 src[4.2,3.3,] 
+		 14: %cl_1_40->create_for def_%cl_1_46 %cl_1_40[24.8,] %cl_1_41[24.9,] hotlinked[24.11,13.6,] filename[24.6,] %cl_1_44[24.12,] %cl_1_45[24.13,] 	 SYMBOL:	 ARGS:%cl_1_41,hotlinked,filename,%cl_1_44,%cl_1_45,
+		 15: COPY TYPE_PASS def_upload %cl_1_46[24.14,] 
+		 16: 
+		 17: %cl_1_46->url def_%cl_1_47 %cl_1_46[24.14,] 	 SYMBOL:	 ARGS:
+		 18: ATTRASSIGN downloaded_urls->[] src[4.2,3.3,] %cl_1_47[24.17,] 
+		 19: 
+BB 25
+	outgoing: 26 36 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Rails) def_%cl_1_48 
+		 2: %cl_1_48->logger def_%cl_1_49 %cl_1_48[25.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "Failed to pull hotlinked image for post: " def_%cl_1_50 
+		 4: COPY TYPE_StringLiteral ": " def_%cl_1_51 
+		 5: COPY TYPE_StringLiteral " - Image is bigger than " def_%cl_1_52 
+		 6: GETFIELD %self->max_size def_%cl_1_53 %self[2.0,] 
+		 7: BUILDSTRING def_%cl_1_54 %cl_1_50[25.3,] post_id[] %cl_1_51[25.4,] src[4.2,3.3,] %cl_1_52[25.5,] %cl_1_53[25.6,] 
+		 8: %cl_1_49->info def_%cl_1_55 %cl_1_49[25.2,] %cl_1_54[25.7,] 	 SYMBOL:	 ARGS:%cl_1_54,
+		 9: COPY TYPE_PASS def_%cl_1_47 %cl_1_55[25.8,] 
+BB 26
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: 
+BB 27
+	outgoing: 28 36 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Rails) def_%cl_1_56 
+		 2: %cl_1_56->logger def_%cl_1_57 %cl_1_56[27.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "There was an error while downloading '" def_%cl_1_58 
+		 4: COPY TYPE_StringLiteral "' locally for post: " def_%cl_1_59 
+		 5: BUILDSTRING def_%cl_1_60 %cl_1_58[27.3,] src[4.2,3.3,] %cl_1_59[27.4,] post_id[] 
+		 6: %cl_1_57->error def_%cl_1_61 %cl_1_57[27.2,] %cl_1_60[27.5,] 	 SYMBOL:	 ARGS:%cl_1_60,
+		 7: COPY TYPE_PASS def_%cl_1_47 %cl_1_61[27.6,] 
+BB 28
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_1_16 %cl_1_47[27.7,25.9,24.17,] 
+BB 29
+	outgoing: 30 31 36 
+	datadep: 
+	instructions:
+		 0: 
+		 1: downloaded_urls->[] def_%cl_1_62 downloaded_urls[24.18,] src[4.2,3.3,] 	 SYMBOL:	 ARGS:src,
+		 2: %cl_1_62->present? def_%cl_1_63 %cl_1_62[29.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_1_63[29.2,] 
+BB 30
+	outgoing: 32 36 
+	datadep: 
+	instructions:
+		 0: 
+		 1: downloaded_urls->[] def_%cl_1_64 downloaded_urls[24.18,] src[4.2,3.3,] 	 SYMBOL:	 ARGS:src,
+		 2: COPY TYPE_PASS def_url %cl_1_64[30.1,] 
+		 3: 
+		 4: (Regexp) def_%cl_1_65 
+		 5: %cl_1_65->escape def_%cl_1_66 %cl_1_65[30.4,] src[4.2,3.3,] 	 SYMBOL:	 ARGS:src,
+		 6: COPY TYPE_PASS def_escaped_src %cl_1_66[30.5,] 
+		 7: 
+		 8: COPY TYPE_StringLiteral "" def_%cl_1_67 
+		 9: COPY TYPE_StringLiteral "src=["']" def_%cl_1_68 
+		 10: COPY TYPE_StringLiteral "["']" def_%cl_1_69 
+		 11: def_%cl_1_70 %cl_1_67[30.8,] %cl_1_68[30.9,] %cl_1_66[30.5,] %cl_1_69[30.10,] 
+		 12: COPY TYPE_StringLiteral "src='" def_%cl_1_71 
+		 13: COPY TYPE_StringLiteral "'" def_%cl_1_72 
+		 14: BUILDSTRING def_%cl_1_73 %cl_1_71[30.12,] url[30.2,] %cl_1_72[30.13,] 
+		 15: raw->gsub! def_%cl_1_74 raw[] %cl_1_70[30.11,] %cl_1_73[30.14,] 	 SYMBOL:	 ARGS:%cl_1_70,%cl_1_73,
+		 16: 
+		 17: COPY TYPE_StringLiteral "" def_%cl_1_75 
+		 18: COPY TYPE_StringLiteral "\[img\]" def_%cl_1_76 
+		 19: COPY TYPE_StringLiteral "\[\/img\]" def_%cl_1_77 
+		 20: def_%cl_1_78 %cl_1_75[30.17,] %cl_1_76[30.18,] escaped_src[30.6,] %cl_1_77[30.19,] 
+		 21: COPY TYPE_StringLiteral "[img]" def_%cl_1_79 
+		 22: COPY TYPE_StringLiteral "[/img]" def_%cl_1_80 
+		 23: BUILDSTRING def_%cl_1_81 %cl_1_79[30.21,] url[30.2,] %cl_1_80[30.22,] 
+		 24: raw->gsub! def_%cl_1_82 raw[30.15,] %cl_1_78[30.20,] %cl_1_81[30.23,] 	 SYMBOL:	 ARGS:%cl_1_78,%cl_1_81,
+		 25: 
+		 26: COPY TYPE_StringLiteral "" def_%cl_1_83 
+		 27: COPY TYPE_StringLiteral "\[!\[([^\]]*)\]\(" def_%cl_1_84 
+		 28: COPY TYPE_StringLiteral "\)\]" def_%cl_1_85 
+		 29: def_%cl_1_86 %cl_1_83[30.26,] %cl_1_84[30.27,] escaped_src[30.6,] %cl_1_85[30.28,] 
+		 30: raw->gsub! def_%cl_1_87 raw[30.15,30.24,] %cl_1_86[30.29,] %self[2.0,] 	 SYMBOL:	 ARGS:%cl_1_86,raw,
+CLOSURE BEGIN: url[30.2,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "[<img src='" def_%cl_2_3 
+		 2: COPY TYPE_StringLiteral "' alt='" def_%cl_2_4 
+		 3: COPY TYPE_NthRef def_%cl_2_5 
+		 4: COPY TYPE_StringLiteral "'>]" def_%cl_2_6 
+		 5: BUILDSTRING def_%cl_2_7 %cl_2_3[3.1,] url[] %cl_2_4[3.2,] %cl_2_5[3.3,] %cl_2_6[3.4,] 
+		 6: RETURN %cl_2_7[3.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_8 
+		 1: def_%cl_2_9 %cl_2_8[4.0,] 
+		 2: RETURN %cl_2_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 31: 
+		 32: COPY TYPE_StringLiteral "" def_%cl_1_88 
+		 33: COPY TYPE_StringLiteral "!\[([^\]]*)\]\(" def_%cl_1_89 
+		 34: COPY TYPE_StringLiteral "\)" def_%cl_1_90 
+		 35: def_%cl_1_91 %cl_1_88[30.32,] %cl_1_89[30.33,] escaped_src[30.6,] %cl_1_90[30.34,] 
+		 36: raw->gsub! def_%cl_1_92 raw[30.15,30.24,30.30,] %cl_1_91[30.35,] %self[2.0,] 	 SYMBOL:	 ARGS:%cl_1_91,raw,
+CLOSURE BEGIN: url[30.2,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "![" def_%cl_3_3 
+		 2: COPY TYPE_NthRef def_%cl_3_4 
+		 3: COPY TYPE_StringLiteral "](" def_%cl_3_5 
+		 4: COPY TYPE_StringLiteral ")" def_%cl_3_6 
+		 5: BUILDSTRING def_%cl_3_7 %cl_3_3[3.1,] %cl_3_4[3.2,] %cl_3_5[3.3,] url[] %cl_3_6[3.4,] 
+		 6: RETURN %cl_3_7[3.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_8 
+		 1: def_%cl_3_9 %cl_3_8[4.0,] 
+		 2: RETURN %cl_3_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 37: 
+		 38: COPY TYPE_StringLiteral "" def_%cl_1_93 
+		 39: COPY TYPE_StringLiteral "\[([^\]]+)\]:\s?" def_%cl_1_94 
+		 40: def_%cl_1_95 %cl_1_93[30.38,] %cl_1_94[30.39,] escaped_src[30.6,] 
+		 41: raw->gsub! def_%cl_1_96 raw[30.15,30.24,30.30,30.36,] %cl_1_95[30.40,] %self[2.0,] 	 SYMBOL:	 ARGS:%cl_1_95,raw,
+CLOSURE BEGIN: url[30.2,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "[" def_%cl_4_3 
+		 2: COPY TYPE_NthRef def_%cl_4_4 
+		 3: COPY TYPE_StringLiteral "]: " def_%cl_4_5 
+		 4: BUILDSTRING def_%cl_4_6 %cl_4_3[3.1,] %cl_4_4[3.2,] %cl_4_5[3.3,] url[] 
+		 5: RETURN %cl_4_6[3.4,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_4_7 
+		 1: def_%cl_4_8 %cl_4_7[4.0,] 
+		 2: RETURN %cl_4_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 42: 
+		 43: COPY TYPE_StringLiteral "" def_%cl_1_97 
+		 44: COPY TYPE_StringLiteral "^" def_%cl_1_98 
+		 45: COPY TYPE_StringLiteral "(\s?)$" def_%cl_1_99 
+		 46: def_%cl_1_100 %cl_1_97[30.43,] %cl_1_98[30.44,] escaped_src[30.6,] %cl_1_99[30.45,] 
+		 47: raw->gsub! def_%cl_1_101 raw[30.15,30.24,30.30,30.36,30.41,] %cl_1_100[30.46,] %self[2.0,] 	 SYMBOL:	 ARGS:%cl_1_100,raw,
+CLOSURE BEGIN: url[30.2,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_5_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "<img src='" def_%cl_5_3 
+		 2: COPY TYPE_StringLiteral "'>" def_%cl_5_4 
+		 3: COPY TYPE_NthRef def_%cl_5_5 
+		 4: BUILDSTRING def_%cl_5_6 %cl_5_3[3.1,] url[] %cl_5_4[3.2,] %cl_5_5[3.3,] 
+		 5: RETURN %cl_5_6[3.4,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_5_7 
+		 1: def_%cl_5_8 %cl_5_7[4.0,] 
+		 2: RETURN %cl_5_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 48: 
+BB 31
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_101 
+BB 32
+	outgoing: 33 36 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_1_14 %cl_1_101[31.0,30.47,] 
+		 1: %cl_1_10[7.3,] 
+BB 33
+	outgoing: 34 35 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%cl_1_11 hotlinked[7.1,13.6,] 
+		 2: BRANCH hotlinked[7.1,13.6,] 
+BB 34
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: hotlinked->close! def_%cl_1_12 hotlinked[7.1,13.6,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%cl_1_11 %cl_1_12[34.0,] 
+BB 35
+	outgoing: 46 
+	datadep: 
+	instructions:
+		 0: 
+BB 36
+	outgoing: 37 38 42 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_102 
+		 1: def_%cl_1_103 %cl_1_102[36.0,] 
+		 2: BRANCH %cl_1_103[36.1,] 
+BB 37
+	outgoing: 42 51 
+	datadep: 
+	instructions:
+		 0: %cl_1_102[36.0,] 
+BB 38
+	outgoing: 39 42 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%cl_1_104 
+		 1: COPY TYPE_PASS def_e %cl_1_104[38.0,] 
+		 2: 
+		 3: (Rails) def_%cl_1_105 
+		 4: %cl_1_105->logger def_%cl_1_106 %cl_1_105[38.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "Failed to pull hotlinked image: " def_%cl_1_107 
+		 6: COPY TYPE_StringLiteral " post:" def_%cl_1_108 
+		 7: COPY TYPE_StringLiteral "
+" def_%cl_1_109 
+		 8: BUILDSTRING def_%cl_1_110 %cl_1_107[38.5,] src[4.2,3.3,] %cl_1_108[38.6,] post_id[] %cl_1_109[38.7,] 
+		 9: e->message def_%cl_1_111 e[38.1,] 	 SYMBOL:	 ARGS:
+		 10: %cl_1_110->+ def_%cl_1_112 %cl_1_110[38.8,] %cl_1_111[38.9,] 	 SYMBOL:	 ARGS:%cl_1_111,
+		 11: COPY TYPE_StringLiteral "
+" def_%cl_1_113 
+		 12: %cl_1_112->+ def_%cl_1_114 %cl_1_112[38.10,] %cl_1_113[38.11,] 	 SYMBOL:	 ARGS:%cl_1_113,
+		 13: e->backtrace def_%cl_1_115 e[38.1,38.9,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_StringLiteral "
+" def_%cl_1_116 
+		 15: %cl_1_115->join def_%cl_1_117 %cl_1_115[38.13,] %cl_1_116[38.14,] 	 SYMBOL:	 ARGS:%cl_1_116,
+		 16: %cl_1_114->+ def_%cl_1_118 %cl_1_114[38.12,] %cl_1_117[38.15,] 	 SYMBOL:	 ARGS:%cl_1_117,
+		 17: %cl_1_106->info def_%cl_1_119 %cl_1_106[38.4,] %cl_1_118[38.16,] 	 SYMBOL:	 ARGS:%cl_1_118,
+		 18: COPY TYPE_PASS def_%cl_1_14 %cl_1_119[38.17,] 
+		 19: %cl_1_10[7.3,] 
+BB 39
+	outgoing: 40 41 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%cl_1_11 hotlinked[7.1,13.6,] 
+		 2: BRANCH hotlinked[7.1,13.6,] 
+BB 40
+	outgoing: 41 
+	datadep: 
+	instructions:
+		 0: hotlinked->close! def_%cl_1_12 hotlinked[7.1,13.6,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%cl_1_11 %cl_1_12[40.0,] 
+BB 41
+	outgoing: 46 
+	datadep: 
+	instructions:
+		 0: 
+BB 42
+	outgoing: 43 49 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_120 
+		 1: def_%cl_1_121 %cl_1_120[42.0,] %cl_1_10[7.3,] 
+BB 43
+	outgoing: 44 45 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%cl_1_11 hotlinked[7.1,13.6,] 
+		 2: BRANCH hotlinked[7.1,13.6,] 
+BB 44
+	outgoing: 45 49 
+	datadep: 
+	instructions:
+		 0: hotlinked->close! def_%cl_1_12 hotlinked[7.1,13.6,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%cl_1_11 %cl_1_12[44.0,] 
+BB 45
+	outgoing: 49 51 
+	datadep: 
+	instructions:
+		 0: %cl_1_120[42.0,] 
+BB 46
+	outgoing: 51 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_14[32.0,38.18,] %self[2.0,] 
+BB 47
+	outgoing: 51 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 49
+	outgoing: 51 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_122 
+		 1: def_%cl_1_123 %cl_1_122[49.0,] 
+		 2: RETURN %cl_1_123[49.1,] %self[2.0,] 
+BB 51
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: filename[24.6,] src[3.3,4.2,] upload[24.15,] e[38.1,] escaped_src[30.6,] url[30.2,] hotlinked[13.6,7.1,] 
+		 15: 
+		 16: post->reload def_%v_25 post[11.2,11.12,10.4,] 	 SYMBOL:	 ARGS:
+		 17: 
+		 18: post->raw def_%v_26 post[11.2,11.12,11.16,10.4,] 	 SYMBOL:	 ARGS:
+		 19: start_raw->== def_%v_27 start_raw[11.7,] %v_26[11.18,] 	 SYMBOL:	 ARGS:%v_26,
+		 20: BRANCH %v_27[11.19,] 
+BB 12
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: post->raw def_%v_28 post[10.4,] 	 SYMBOL:	 ARGS:
+		 1: raw->!= def_%v_29 raw[11.4,] %v_28[14.0,] 	 SYMBOL:	 ARGS:%v_28,
+		 2: COPY TYPE_PASS def_%v_27 %v_29[14.1,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_27[14.2,11.19,] 
+BB 16
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%v_30 
+		 2: COPY TYPE_StringLiteral "upload.edit_reason" def_%v_31 
+		 3: %v_30->t def_%v_32 %v_30[16.1,] %v_31[16.2,] 	 SYMBOL:	 ARGS:%v_31,
+		 4: HASH-raw-edit_reason- def_%v_33 raw[14.1,11.4,] %v_32[16.3,] 
+		 5: COPY TYPE_PASS def_changes %v_33[16.4,] 
+		 6: 
+		 7: HASH-bypass_bump- def_%v_34 
+		 8: COPY TYPE_PASS def_options %v_34[16.7,] 
+		 9: 
+		 10: (Discourse) def_%v_35 
+		 11: %v_35->system_user def_%v_36 %v_35[16.10,] 	 SYMBOL:	 ARGS:
+		 12: post->revise def_%v_37 post[10.4,] %v_36[16.11,] changes[16.5,] options[16.8,] 	 SYMBOL:	 ARGS:%v_36,changes,options,
+		 13: RETURN %v_37[16.12,] %self[2.0,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 19
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = extract_images_from instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_html 
+		 6: 
+		 7: (Nokogiri) def_%v_3 
+		 8: (inherit HTML) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:HTML,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_4->fragment def_%v_5 %v_4[3.0,2.8,] html[2.5,] 	 SYMBOL:	 ARGS:html,
+		 1: COPY TYPE_PASS def_doc %v_5[4.0,] 
+		 2: 
+		 3: COPY TYPE_StringLiteral "img[src]" def_%v_6 
+		 4: %v_5->css def_%v_7 %v_5[4.0,] %v_6[4.3,] 	 SYMBOL:	 ARGS:%v_6,
+		 5: COPY TYPE_StringLiteral ".onebox-result img" def_%v_8 
+		 6: doc->css def_%v_9 doc[4.1,] %v_8[4.5,] 	 SYMBOL:	 ARGS:%v_8,
+		 7: %v_7->- def_%v_10 %v_7[4.4,] %v_9[4.6,] 	 SYMBOL:	 ARGS:%v_9,
+		 8: COPY TYPE_StringLiteral "img.avatar" def_%v_11 
+		 9: doc->css def_%v_12 doc[4.1,4.6,] %v_11[4.8,] 	 SYMBOL:	 ARGS:%v_11,
+		 10: %v_10->- def_%v_13 %v_10[4.7,] %v_12[4.9,] 	 SYMBOL:	 ARGS:%v_12,
+		 11: RETURN %v_13[4.10,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = is_valid_image_url instanceMethod = true
+BB 1
+	outgoing: 36 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_src 
+		 6: 
+		 7: src->present? def_%v_3 src[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: (Discourse) def_%v_5 
+		 3: %v_5->store def_%v_6 %v_5[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_6->has_been_uploaded? def_%v_7 %v_6[3.3,] src[2.5,] 	 SYMBOL:	 ARGS:src,
+		 5: BRANCH %v_7[3.4,] 
+BB 4
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 7
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: COPY TYPE_Regexp def_%v_9 
+		 3: src->=~ def_%v_10 src[2.5,] 	 SYMBOL:	 ARGS:%v_9,
+		 4: BRANCH %v_10[7.3,] 
+BB 9
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+		 1: 
+		 2: GLOBALVAR $! def_%v_12 
+BB 12
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (URI) def_%v_15 
+		 3: %v_15->parse def_%v_16 %v_15[12.2,] src[2.5,] 	 SYMBOL:	 ARGS:src,
+		 4: COPY TYPE_PASS def_uri %v_16[12.3,] 
+		 5: COPY TYPE_PASS def_%v_14 %v_16[12.3,] 
+		 6: %v_12[10.2,] 
+BB 14
+	outgoing: 23 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Discourse) def_%v_24 
+		 2: %v_24->asset_host def_%v_25 %v_24[14.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_25->present? def_%v_26 %v_25[14.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_26[14.3,] 
+BB 15
+	outgoing: 16 17 21 
+	datadep: 
+	instructions:
+		 0: def_%v_17 
+		 1: (URI) def_%v_18 
+		 2: (inherit InvalidURIError) def_%v_19 %v_18[15.1,] 
+		 3: %v_19[15.2,] 
+BB 16
+	outgoing: 17 21 
+	datadep: 
+	instructions:
+		 0: %v_18->const_missing def_%v_19 %v_18[15.1,] 	 SYMBOL:InvalidURIError,	 ARGS:Symbol,
+BB 17
+	outgoing: 18 19 21 
+	datadep: 
+	instructions:
+		 0: def_%v_20 %v_19[16.0,15.2,] %v_17[15.0,] 
+		 1: BRANCH %v_20[17.0,] 
+BB 18
+	outgoing: 21 36 
+	datadep: 
+	instructions:
+		 0: %v_17[15.0,] 
+BB 19
+	outgoing: 20 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Boolean def_%v_21 
+		 2: %v_12[10.2,] 
+BB 20
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: RETURN %v_21[19.1,] %self[2.0,] 
+BB 21
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: def_%v_22 
+		 1: def_%v_23 %v_22[21.0,] %v_12[10.2,] 
+		 2: %v_22[21.0,] 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: (URI) def_%v_27 
+		 1: (Discourse) def_%v_28 
+		 2: %v_28->asset_host def_%v_29 %v_28[23.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_27->parse def_%v_30 %v_27[23.0,] %v_29[23.2,] 	 SYMBOL:	 ARGS:%v_29,
+		 4: %v_30->hostname def_%v_31 %v_30[23.3,] 	 SYMBOL:	 ARGS:
+		 5: uri->hostname def_%v_32 uri[12.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_31->== def_%v_33 %v_31[23.4,] %v_32[23.5,] 	 SYMBOL:	 ARGS:%v_32,
+		 7: COPY TYPE_PASS def_%v_26 %v_33[23.6,] 
+BB 24
+	outgoing: 25 26 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_26[23.7,14.3,] 
+BB 25
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 26
+	outgoing: 28 29 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_34 
+		 1: 
+		 2: (SiteSetting) def_%v_35 
+		 3: %v_35->s3_cdn_url def_%v_36 %v_35[26.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_36->present? def_%v_37 %v_36[26.3,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %v_37[26.4,] 
+BB 28
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: (URI) def_%v_38 
+		 1: (SiteSetting) def_%v_39 
+		 2: %v_39->s3_cdn_url def_%v_40 %v_39[28.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_38->parse def_%v_41 %v_38[28.0,] %v_40[28.2,] 	 SYMBOL:	 ARGS:%v_40,
+		 4: %v_41->hostname def_%v_42 %v_41[28.3,] 	 SYMBOL:	 ARGS:
+		 5: uri->hostname def_%v_43 uri[12.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_42->== def_%v_44 %v_42[28.4,] %v_43[28.5,] 	 SYMBOL:	 ARGS:%v_43,
+		 7: COPY TYPE_PASS def_%v_37 %v_44[28.6,] 
+BB 29
+	outgoing: 30 31 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_37[28.7,26.4,] 
+BB 30
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 31
+	outgoing: 33 34 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_45 
+		 1: 
+		 2: (URI) def_%v_46 
+		 3: (Discourse) def_%v_47 
+		 4: %v_47->base_url_no_prefix def_%v_48 %v_47[31.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_46->parse def_%v_49 %v_46[31.2,] %v_48[31.4,] 	 SYMBOL:	 ARGS:%v_48,
+		 6: %v_49->hostname def_%v_50 %v_49[31.5,] 	 SYMBOL:	 ARGS:
+		 7: uri->hostname def_%v_51 uri[12.4,] 	 SYMBOL:	 ARGS:
+		 8: %v_50->== def_%v_52 %v_50[31.6,] %v_51[31.7,] 	 SYMBOL:	 ARGS:%v_51,
+		 9: BRANCH %v_52[31.8,] 
+BB 33
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 34
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_53 
+		 1: 
+		 2: (SiteSetting) def_%v_54 
+		 3: %v_54->should_download_images? def_%v_55 %v_54[34.2,] src[2.5,] 	 SYMBOL:	 ARGS:src,
+		 4: RETURN %v_55[34.3,] %self[2.0,] 
+BB 36
+	outgoing: 
+	datadep: 
+	instructions:
+

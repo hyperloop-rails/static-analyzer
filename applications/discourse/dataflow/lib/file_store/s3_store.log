@@ -1,0 +1,710 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_s3_helper 
+		 6: s3_helper[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_s3_helper 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_3 s3_helper[3.0,2.5,] 
+		 2: BRANCH s3_helper[3.0,2.5,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: (S3Helper) def_%v_4 
+		 1: %self->s3_bucket def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: (TOMBSTONE_PREFIX) def_%v_6 
+		 3: %v_4->new def_%v_7 %v_4[5.0,] %v_5[5.1,] %v_6[5.2,] 	 SYMBOL:	 ARGS:%v_5,%v_6,
+		 4: COPY TYPE_PASS def_%v_3 %v_7[5.3,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->s3_helper %v_3[5.4,4.1,] 
+		 1: RETURN %v_3[5.4,4.1,] %self[6.0,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = store_upload instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_file 
+		 6: RECEIVEARG def_upload 
+		 7: RECEIVECONSTARG def_content_type 
+		 8: content_type[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_content_type 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->get_path_for_upload def_%v_3 %self[2.0,] upload[2.6,] 	 SYMBOL:	 ARGS:upload,
+		 2: COPY TYPE_PASS def_path %v_3[4.1,] 
+		 3: 
+		 4: upload->original_filename def_%v_4 upload[2.6,] 	 SYMBOL:	 ARGS:
+		 5: HASH-filename-content_type-cache_locally- def_%v_5 %v_4[4.4,] content_type[3.0,2.7,] 
+		 6: %self->store_file def_%v_6 %self[4.1,2.0,] file[2.5,] path[4.2,] %v_5[4.5,] 	 SYMBOL:	 ARGS:file,path,%v_5,
+		 7: RETURN %v_6[4.6,] %self[4.1,4.6,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = store_file instanceMethod = true
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_file 
+		 6: RECEIVEARG def_path 
+		 7: RECEIVECONSTARG def_opts 
+		 8: opts[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_4 opts[3.1,2.7,] 	 SYMBOL:filename,	 ARGS:Symbol,
+		 2: %v_4->presence def_%v_5 %v_4[4.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_filename %v_5[4.2,] 
+		 4: 
+		 5: opts->[] def_%v_6 opts[4.1,3.1,2.7,] 	 SYMBOL:content_type,	 ARGS:Symbol,
+		 6: %v_6->presence def_%v_7 %v_6[4.5,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_PASS def_content_type %v_7[4.6,] 
+		 8: 
+		 9: opts->[] def_%v_8 opts[4.1,4.5,3.1,2.7,] 	 SYMBOL:cache_locally,	 ARGS:Symbol,
+		 10: BRANCH %v_8[4.9,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: (File) def_%v_9 
+		 1: %v_9->basename def_%v_10 %v_9[5.0,] path[2.6,] 	 SYMBOL:	 ARGS:path,
+		 2: %self->cache_file def_%v_11 %self[2.0,] file[2.5,] %v_10[5.1,] 	 SYMBOL:	 ARGS:file,%v_10,
+		 3: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "public-read" def_%v_12 
+		 2: HASH-acl- def_%v_13 %v_12[7.1,] 
+		 3: COPY TYPE_PASS def_options %v_13[7.2,] 
+		 4: 
+		 5: COPY TYPE_PASS def_%v_14 filename[4.3,] 
+		 6: BRANCH filename[4.3,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: (FileHelper) def_%v_15 
+		 1: %v_15->is_image? def_%v_16 %v_15[8.0,] filename[4.3,] 	 SYMBOL:	 ARGS:filename,
+		 2: %v_16->! def_%v_17 %v_16[8.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_14 %v_17[8.2,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_14[8.3,7.5,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "attachment; filename="" def_%v_18 
+		 1: COPY TYPE_StringLiteral """ def_%v_19 
+		 2: BUILDSTRING def_%v_20 %v_18[10.0,] filename[4.3,] %v_19[10.1,] 
+		 3: ATTRASSIGN options->[] %v_20[10.2,] 
+		 4: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_20 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH content_type[4.7,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN options->[] content_type[4.7,] 
+		 1: COPY TYPE_PASS def_%v_21 content_type[4.7,] 
+		 2: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->s3_helper def_%v_22 %self[2.0,] 
+		 2: %v_22->upload def_%v_23 %v_22[15.1,] file[2.5,] path[2.6,] options[13.0,10.3,7.3,] 	 SYMBOL:	 ARGS:file,path,options,
+		 3: 
+		 4: %self->absolute_base_url def_%v_24 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "/" def_%v_25 
+		 6: BUILDSTRING def_%v_26 %v_24[15.4,] %v_25[15.5,] path[2.6,] 
+		 7: RETURN %v_26[15.6,] %self[15.4,2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = remove_file instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_url 
+		 6: 
+		 7: %self->has_been_uploaded? def_%v_3 %self[2.0,] url[2.5,] 	 SYMBOL:	 ARGS:url,
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: (File) def_%v_5 
+		 3: %v_5->basename def_%v_6 %v_5[3.2,] url[2.5,] 	 SYMBOL:	 ARGS:url,
+		 4: COPY TYPE_PASS def_filename %v_6[3.3,] 
+		 5: 
+		 6: GETFIELD %self->s3_helper def_%v_7 %self[2.0,] 
+		 7: %v_7->remove def_%v_8 %v_7[3.6,] %v_6[3.3,] 	 SYMBOL:	 ARGS:filename,Boolean,
+		 8: RETURN %v_8[3.7,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = has_been_uploaded? instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_url 
+		 6: 
+		 7: url->blank? def_%v_3 url[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: %self->absolute_base_url def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: url->start_with? def_%v_6 url[2.5,] %v_5[4.2,] 	 SYMBOL:	 ARGS:%v_5,
+		 4: BRANCH %v_6[4.3,] 
+BB 6
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 7
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+		 2: (SiteSetting) def_%v_8 
+		 3: %v_8->s3_cdn_url def_%v_9 %v_8[7.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_9->present? def_%v_10 %v_9[7.3,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %v_10[7.4,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%v_11 
+		 1: %v_11->s3_cdn_url def_%v_12 %v_11[9.0,] 	 SYMBOL:	 ARGS:
+		 2: url->start_with? def_%v_13 url[2.5,] %v_12[9.1,] 	 SYMBOL:	 ARGS:%v_12,
+		 3: COPY TYPE_PASS def_%v_10 %v_13[9.2,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_10[9.3,7.4,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+		 1: 
+		 2: RETURN %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = absolute_base_url instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->absolute_base_url def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%v_6 
+		 1: %v_6->s3_region def_%v_7 %v_6[5.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "us-east-1" def_%v_8 
+		 3: %v_7->== def_%v_9 %v_7[5.1,] %v_8[5.2,] 	 SYMBOL:	 ARGS:%v_8,
+		 4: BRANCH %v_9[5.3,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "//" def_%v_10 
+		 2: %self->s3_bucket def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral ".s3.amazonaws.com" def_%v_12 
+		 4: BUILDSTRING def_%v_13 %v_10[6.1,] %v_11[6.2,] %v_12[6.3,] 
+		 5: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "//" def_%v_14 
+		 2: %self->s3_bucket def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral ".s3-" def_%v_16 
+		 4: (SiteSetting) def_%v_17 
+		 5: %v_17->s3_region def_%v_18 %v_17[7.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral ".amazonaws.com" def_%v_19 
+		 7: BUILDSTRING def_%v_20 %v_14[7.1,] %v_15[7.2,] %v_16[7.3,] %v_18[7.5,] %v_19[7.6,] 
+		 8: COPY TYPE_PASS def_%v_13 %v_20[7.7,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->absolute_base_url %v_13[7.8,6.4,] 
+		 1: RETURN %v_13[7.8,6.4,] %self[8.0,2.0,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = external? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: RETURN %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = purge_tombstone instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_grace_period 
+		 6: 
+		 7: GETFIELD %self->s3_helper def_%v_3 %self[2.0,] 
+		 8: %v_3->update_tombstone_lifecycle def_%v_4 %v_3[2.7,] grace_period[2.5,] 	 SYMBOL:	 ARGS:grace_period,
+		 9: RETURN %v_4[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = path_for instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_upload 
+		 6: 
+		 7: upload->try def_%v_3 upload[2.5,] 	 SYMBOL:url,	 ARGS:Symbol,
+		 8: COPY TYPE_PASS def_url %v_3[2.7,] 
+		 9: 
+		 10: COPY TYPE_PASS def_%v_4 %v_3[2.7,] 
+		 11: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: url->[] def_%v_5 url[2.8,] 	 SYMBOL:	 ARGS:Fixnum,
+		 1: COPY TYPE_StringLiteral "/" def_%v_6 
+		 2: %v_5->== def_%v_7 %v_5[3.0,] %v_6[3.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: COPY TYPE_PASS def_%v_4 %v_7[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[3.3,2.10,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: url->[] def_%v_8 url[2.8,] 	 SYMBOL:	 ARGS:Fixnum,
+		 1: COPY TYPE_StringLiteral "/" def_%v_9 
+		 2: %v_8->!= def_%v_10 %v_8[5.0,] %v_9[5.1,] 	 SYMBOL:	 ARGS:%v_9,
+		 3: COPY TYPE_PASS def_%v_4 %v_10[5.2,] 
+BB 6
+	outgoing: 7 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[5.3,3.3,2.10,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: (FileStore) def_%v_11 
+		 1: (inherit LocalStore) def_%v_12 %v_11[7.0,] 
+		 2: %v_12[7.1,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_11->const_missing def_%v_12 %v_11[7.0,] 	 SYMBOL:LocalStore,	 ARGS:Symbol,
+BB 9
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %v_12->new def_%v_13 %v_12[8.0,7.1,] 	 SYMBOL:	 ARGS:
+		 1: %v_13->path_for def_%v_14 %v_13[9.0,] upload[2.5,] 	 SYMBOL:	 ARGS:upload,
+		 2: RETURN %v_14[9.1,] %self[2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cdn_url instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_url 
+		 6: 
+		 7: (SiteSetting) def_%v_3 
+		 8: %v_3->s3_cdn_url def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->blank? def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_5[2.9,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN url[2.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: %self->absolute_base_url def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: (SiteSetting) def_%v_8 
+		 4: %v_8->s3_cdn_url def_%v_9 %v_8[4.3,] 	 SYMBOL:	 ARGS:
+		 5: url->sub def_%v_10 url[2.5,] %v_7[4.2,] %v_9[4.4,] 	 SYMBOL:	 ARGS:%v_7,%v_9,
+		 6: RETURN %v_10[4.5,] %self[4.2,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cache_avatar instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_avatar 
+		 6: RECEIVEARG def_user_id 
+		 7: 
+		 8: avatar->url def_%v_3 avatar[2.5,] 	 SYMBOL:	 ARGS:
+		 9: %self->absolute_base_url def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral "/" def_%v_5 
+		 11: %v_4->+ def_%v_6 %v_4[2.9,] %v_5[2.10,] 	 SYMBOL:	 ARGS:%v_5,
+		 12: COPY TYPE_StringLiteral "" def_%v_7 
+		 13: %v_3->sub def_%v_8 %v_3[2.8,] %v_6[2.11,] %v_7[2.12,] 	 SYMBOL:	 ARGS:%v_6,%v_7,
+		 14: COPY TYPE_PASS def_source %v_8[2.13,] 
+		 15: 
+		 16: %self->avatar_template def_%v_9 %self[2.0,2.9,] avatar[2.5,2.8,] user_id[2.6,] 	 SYMBOL:	 ARGS:avatar,user_id,
+		 17: %self->absolute_base_url def_%v_10 %self[2.0,2.9,2.16,] 	 SYMBOL:	 ARGS:
+		 18: COPY TYPE_StringLiteral "/" def_%v_11 
+		 19: %v_10->+ def_%v_12 %v_10[2.17,] %v_11[2.18,] 	 SYMBOL:	 ARGS:%v_11,
+		 20: COPY TYPE_StringLiteral "" def_%v_13 
+		 21: %v_9->sub def_%v_14 %v_9[2.16,] %v_12[2.19,] %v_13[2.20,] 	 SYMBOL:	 ARGS:%v_12,%v_13,
+		 22: COPY TYPE_PASS def_destination %v_14[2.21,] 
+		 23: 
+		 24: GETFIELD %self->s3_helper def_%v_15 %self[2.0,2.9,2.16,2.17,] 
+		 25: %v_15->copy def_%v_16 %v_15[2.24,] source[2.14,] %v_14[2.21,] 	 SYMBOL:	 ARGS:source,destination,
+		 26: RETURN %v_16[2.25,] %self[2.0,2.9,2.16,2.17,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = avatar_template instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_avatar 
+		 6: RECEIVEARG def_user_id 
+		 7: 
+		 8: (UserAvatar) def_%v_3 
+		 9: avatar->upload_id def_%v_4 avatar[2.5,] 	 SYMBOL:	 ARGS:
+		 10: avatar->width def_%v_5 avatar[2.5,2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_3->external_avatar_url def_%v_6 %v_3[2.8,] user_id[2.6,] %v_4[2.9,] %v_5[2.10,] 	 SYMBOL:	 ARGS:user_id,%v_4,%v_5,
+		 12: RETURN %v_6[2.11,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = s3_bucket instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->s3_bucket def_%v_3 %self[2.0,] 
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->s3_bucket def_%v_4 %self[2.0,] 
+		 1: RETURN %v_4[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: (SiteSetting) def_%v_6 
+		 2: %v_6->s3_upload_bucket def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_7->blank? def_%v_8 %v_7[4.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_8[4.3,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: (Discourse) def_%v_9 
+		 1: (inherit SiteSettingMissing) def_%v_10 %v_9[6.0,] 
+		 2: %v_10[6.1,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_9->const_missing def_%v_10 %v_9[6.0,] 	 SYMBOL:SiteSettingMissing,	 ARGS:Symbol,
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "s3_upload_bucket" def_%v_11 
+		 1: %v_10->new def_%v_12 %v_10[7.0,6.1,] %v_11[8.0,] 	 SYMBOL:	 ARGS:%v_11,
+		 2: %self->raise def_%v_13 %self[2.0,] %v_12[8.1,] 	 SYMBOL:	 ARGS:%v_12,
+		 3: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_14 
+		 2: %v_14->s3_upload_bucket def_%v_15 %v_14[10.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_15->downcase def_%v_16 %v_15[10.2,] 	 SYMBOL:	 ARGS:
+		 4: ATTRASSIGN %self->s3_bucket %v_16[10.3,] 
+		 5: RETURN %v_16[10.3,] %self[10.4,2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,96 @@
+SET IRMethod, name = perform instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Rails) def_%v_3 
+		 7: %v_3->logger def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "Cleaning stuck builds" def_%v_5 
+		 9: %v_4->info def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: 
+		 11: (Ci) def_%v_7 
+		 12: (inherit Build) def_%v_8 %v_7[2.11,] 
+		 13: %v_8[2.12,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_7->const_missing def_%v_8 %v_7[2.11,] 	 SYMBOL:Build,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_8->running_or_pending def_%v_9 %v_8[3.0,2.12,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "updated_at < ?" def_%v_10 
+		 2: (BUILD_STUCK_TIMEOUT) def_%v_11 
+		 3: %v_11->ago def_%v_12 %v_11[4.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_9->where def_%v_13 %v_9[4.0,] %v_10[4.1,] %v_12[4.3,] 	 SYMBOL:	 ARGS:%v_10,%v_12,
+		 5: COPY TYPE_PASS def_builds %v_13[4.4,] 
+		 6: 
+		 7: HASH-batch_size- def_%v_14 
+		 8: %v_13->find_each def_%v_15 %v_13[4.4,] %v_14[4.7,] 	 SYMBOL:	 ARGS:%v_14,
+		 9: %v_15->each def_%v_16 %v_15[4.8,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_15,
+CLOSURE BEGIN: build[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_build 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Rails) def_%cl_1_3 
+		 2: %cl_1_3->logger def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "Dropping stuck " def_%cl_1_5 
+		 4: build->status def_%cl_1_6 build[2.2,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral " build " def_%cl_1_7 
+		 6: build->id def_%cl_1_8 build[3.4,2.2,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral " for runner " def_%cl_1_9 
+		 8: build->runner_id def_%cl_1_10 build[3.4,3.6,2.2,] 	 SYMBOL:	 ARGS:
+		 9: BUILDSTRING def_%cl_1_11 %cl_1_5[3.3,] %cl_1_6[3.4,] %cl_1_7[3.5,] %cl_1_8[3.6,] %cl_1_9[3.7,] %cl_1_10[3.8,] 
+		 10: %cl_1_4->debug def_%cl_1_12 %cl_1_4[3.2,] %cl_1_11[3.9,] 	 SYMBOL:	 ARGS:%cl_1_11,
+		 11: 
+		 12: build->drop def_%cl_1_13 build[3.4,3.6,3.8,2.2,] 	 SYMBOL:	 ARGS:
+		 13: RETURN %cl_1_13[3.12,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_14 
+		 1: def_%cl_1_15 %cl_1_14[4.0,] 
+		 2: RETURN %cl_1_15[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: 
+		 11: COPY TYPE_StringLiteral "failed" def_%v_17 
+		 12: HASH-status- def_%v_18 %v_17[4.11,] 
+		 13: builds->update_all def_%v_19 builds[4.5,] %v_18[4.12,] 	 SYMBOL:	 ARGS:%v_18,
+		 14: RETURN %v_19[4.13,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

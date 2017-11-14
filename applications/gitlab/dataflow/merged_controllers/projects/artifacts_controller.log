@@ -1,0 +1,289 @@
+SET IRMethod, name = download instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->artifacts_file def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->file_storage? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: %self->artifacts_file def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_9->exists? def_%v_10 %v_9[3.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_10[3.3,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->artifacts_file def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->url def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->redirect_to def_%v_8 %self[4.1,2.0,] %v_7[4.2,] 	 SYMBOL:	 ARGS:%v_7,
+		 4: RETURN %v_8[4.3,] %self[4.1,4.3,2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+		 1: 
+		 2: %self->artifacts_file def_%v_13 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_13->path def_%v_14 %v_13[6.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "attachment" def_%v_15 
+		 5: HASH-disposition- def_%v_16 %v_15[6.4,] 
+		 6: %self->send_file def_%v_17 %self[6.2,2.0,] %v_14[6.3,] %v_16[6.5,] 	 SYMBOL:	 ARGS:%v_14,%v_16,
+		 7: RETURN %v_17[6.6,] %self[6.2,6.6,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->render_404 def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_12[7.1,] %self[7.1,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = browse instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->build def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->artifacts? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: %self->params def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_7->[] def_%v_8 %v_7[3.2,] 	 SYMBOL:path,	 ARGS:Symbol,
+		 4: BRANCH %v_8[3.3,] 
+BB 4
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %self->render_404 def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_6[4.0,] %self[4.0,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_9->[] def_%v_10 %v_9[6.0,] 	 SYMBOL:path,	 ARGS:Symbol,
+		 2: COPY TYPE_StringLiteral "/" def_%v_11 
+		 3: BUILDSTRING def_%v_12 %v_10[6.1,] %v_11[6.2,] 
+		 4: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_13 
+		 1: COPY TYPE_PASS def_%v_12 %v_13[7.0,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_directory %v_12[7.1,6.3,] 
+		 1: 
+		 2: %self->build def_%v_14 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_14->artifacts_metadata_entry def_%v_15 %v_14[8.2,] directory[8.0,] 	 SYMBOL:	 ARGS:directory,
+		 4: ATTRASSIGN %self->entry %v_15[8.3,] 
+		 5: 
+		 6: GETFIELD %self->entry def_%v_16 %self[8.2,8.4,2.0,] 
+		 7: %v_16->exists? def_%v_17 %v_16[8.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_17[8.7,] 
+BB 9
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_18 
+		 1: RETURN %v_18[9.0,] %self[8.4,2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %self->render_404 def_%v_19 %self[8.4,2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_19[10.0,] %self[10.0,8.4,2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = file instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->build def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->params def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->[] def_%v_5 %v_4[2.7,] 	 SYMBOL:path,	 ARGS:Symbol,
+		 9: %v_3->artifacts_metadata_entry def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: COPY TYPE_PASS def_entry %v_6[2.9,] 
+		 11: 
+		 12: %v_6->exists? def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 13: BRANCH %v_7[2.12,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->build def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_8->artifacts_file def_%v_9 %v_8[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_9->path def_%v_10 %v_9[3.2,] 	 SYMBOL:	 ARGS:
+		 4: (Base64) def_%v_11 
+		 5: entry->path def_%v_12 entry[2.10,] 	 SYMBOL:	 ARGS:
+		 6: %v_11->encode64 def_%v_13 %v_11[3.4,] %v_12[3.5,] 	 SYMBOL:	 ARGS:%v_12,
+		 7: HASH-archive-entry- def_%v_14 %v_10[3.3,] %v_13[3.6,] 
+		 8: HASH-json- def_%v_15 %v_14[3.7,] 
+		 9: %self->render def_%v_16 %self[3.1,2.0,] %v_15[3.8,] 	 SYMBOL:	 ARGS:%v_15,
+		 10: RETURN %v_16[3.9,] %self[3.1,3.9,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH- def_%v_17 
+		 2: HASH-json-status- def_%v_18 %v_17[4.1,] 
+		 3: %self->render def_%v_19 %self[2.0,] %v_18[4.2,] 	 SYMBOL:	 ARGS:%v_18,
+		 4: RETURN %v_19[4.3,] %self[4.3,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->build def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->project def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->builds def_%v_7 %v_6[5.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->unscoped def_%v_8 %v_7[5.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->params def_%v_9 %self[5.0,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_9->[] def_%v_10 %v_9[5.3,] 	 SYMBOL:build_id,	 ARGS:Symbol,
+		 5: HASH-id- def_%v_11 %v_10[5.4,] 
+		 6: %v_8->find_by! def_%v_12 %v_8[5.2,] %v_11[5.5,] 	 SYMBOL:	 ARGS:%v_11,
+		 7: ATTRASSIGN %self->build %v_12[5.6,] 
+		 8: RETURN %v_12[5.6,] %self[5.0,5.3,5.7,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = artifacts_file instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->artifacts_file def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->build def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->artifacts_file def_%v_7 %v_6[5.0,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %self->artifacts_file %v_7[5.1,] 
+		 3: RETURN %v_7[5.1,] %self[5.0,5.2,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+

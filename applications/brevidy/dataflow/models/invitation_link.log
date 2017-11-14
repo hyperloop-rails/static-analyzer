@@ -1,0 +1,674 @@
+SET IRMethod, name = handle_invite_token instanceMethod = true
+BB 1
+	outgoing: 21 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 13 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_token 
+		 6: 
+		 7: COPY TYPE_PASS def_%v_3 invitation_token[] 
+		 8: COPY TYPE_PASS def_%v_4 invitation_token[] 
+		 9: BRANCH invitation_token[] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_5 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: token->strip def_%v_8 token[2.5,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_7 %v_8[5.1,] 
+		 3: 
+		 4: %v_5[3.0,] 
+BB 6
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+BB 7
+	outgoing: 8 9 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_9 
+		 2: def_%v_10 %v_9[7.1,] 
+		 3: BRANCH %v_10[7.2,] 
+BB 8
+	outgoing: 11 21 
+	datadep: 
+	instructions:
+		 0: %v_9[7.1,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+		 2: %v_5[3.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+BB 11
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: def_%v_11 
+		 1: def_%v_12 %v_11[11.0,] %v_5[3.0,] 
+		 2: %v_11[11.0,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_invitation_token %v_7[5.2,9.0,] 
+		 1: COPY TYPE_PASS def_%v_4 %v_7[5.2,9.0,] 
+BB 13
+	outgoing: 14 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH invitation_token[12.0,] 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (InvitationLink) def_%v_13 
+		 2: HASH-token- def_%v_14 invitation_token[12.0,] 
+		 3: %v_13->where def_%v_15 %v_13[14.1,] %v_14[14.2,] 	 SYMBOL:	 ARGS:%v_14,
+		 4: %v_15->first def_%v_16 %v_15[14.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_invitation %v_16[14.4,] 
+		 6: 
+		 7: BRANCH %v_16[14.4,] 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: invitation->increment_click_count! def_%v_17 invitation[14.5,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+BB 19
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN invitation[14.5,] %self[2.0,] 
+BB 21
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = invite_new_users! instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_recipient_emails 
+		 6: RECEIVEARG def_invite_owner 
+		 7: RECEIVEARG def_personal_message 
+		 8: 
+		 9: COPY TYPE_Array def_%v_3 
+		 10: COPY TYPE_PASS def_invite_errors %v_3[2.9,] 
+		 11: 
+		 12: COPY TYPE_Fixnum def_blank_email_count 
+		 13: 
+		 14: %self->strip_quotes def_%v_4 %self[2.0,] recipient_emails[2.5,] 	 SYMBOL:	 ARGS:recipient_emails,
+		 15: COPY TYPE_PASS def_recipient_emails %v_4[2.14,] 
+		 16: 
+		 17: COPY TYPE_StringLiteral "," def_%v_5 
+		 18: %v_4->split def_%v_6 %v_4[2.14,] %v_5[2.17,] 	 SYMBOL:	 ARGS:%v_5,
+		 19: COPY TYPE_PASS def_recipient_emails %v_6[2.18,] 
+		 20: 
+		 21: %v_6->each def_%v_7 %v_6[2.18,] %self[2.0,2.14,] 	 SYMBOL:	 ARGS:%v_6,
+CLOSURE BEGIN: recipient_email[] %self[2.0,2.14,] invite_errors[2.10,] invite_owner[2.6,] personal_message[2.7,] blank_email_count[2.12,] 
+BB 1
+	outgoing: 21 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_recipient_email 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 17 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: recipient_email->strip def_%cl_1_3 recipient_email[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_3->downcase def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_recipient_email %cl_1_4[3.2,] 
+		 4: 
+		 5: %cl_1_4->blank? def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 6: %cl_1_5->! def_%cl_1_6 %cl_1_5[3.5,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %cl_1_6[3.6,] 
+BB 4
+	outgoing: 5 15 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->extract_email_address def_%cl_1_7 %self[2.0,] recipient_email[3.3,] 	 SYMBOL:	 ARGS:recipient_email,
+		 2: COPY TYPE_PASS def_recipient_email %cl_1_7[4.1,] 
+		 3: 
+		 4: %self->this_is_a_valid_email? def_%cl_1_8 %self[4.1,2.0,] %cl_1_7[4.1,] 	 SYMBOL:	 ARGS:recipient_email,
+		 5: BRANCH %cl_1_8[4.4,] 
+BB 5
+	outgoing: 6 7 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%cl_1_9 
+		 2: HASH-email- def_%cl_1_10 recipient_email[4.2,] 
+		 3: %cl_1_9->where def_%cl_1_11 %cl_1_9[5.1,] %cl_1_10[5.2,] 	 SYMBOL:	 ARGS:%cl_1_10,
+		 4: %cl_1_11->exists? def_%cl_1_12 %cl_1_11[5.3,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %cl_1_12[5.4,] 
+BB 6
+	outgoing: 14 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral " is already a member of Brevidy" def_%cl_1_13 
+		 2: BUILDSTRING def_%cl_1_14 recipient_email[4.2,] %cl_1_13[6.1,] 
+		 3: invite_errors-><< def_%cl_1_15 invite_errors[] %cl_1_14[6.2,] 	 SYMBOL:	 ARGS:%cl_1_14,
+		 4: 
+BB 7
+	outgoing: 8 12 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: invite_owner->blank? def_%cl_1_16 invite_owner[] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_16[7.1,] 
+BB 8
+	outgoing: 9 10 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (InvitationLink) def_%cl_1_17 
+		 2: HASH-email_asking_for_invite- def_%cl_1_18 recipient_email[4.2,] 
+		 3: %cl_1_17->new def_%cl_1_19 %cl_1_17[8.1,] %cl_1_18[8.2,] 	 SYMBOL:	 ARGS:%cl_1_18,
+		 4: ATTRASSIGN %self->invitation_link %cl_1_19[8.3,] 
+		 5: 
+		 6: GETFIELD %self->invitation_link def_%cl_1_20 %self[8.4,2.0,] 
+		 7: %cl_1_20->save def_%cl_1_21 %cl_1_20[8.6,] 	 SYMBOL:	 ARGS:
+		 8: %cl_1_21->! def_%cl_1_22 %cl_1_21[8.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %cl_1_22[8.8,] 
+BB 9
+	outgoing: 11 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->invitation_link def_%cl_1_23 %self[8.4,2.0,] 
+		 2: %cl_1_23->errors def_%cl_1_24 %cl_1_23[9.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_24->full_messages def_%cl_1_25 %cl_1_24[9.2,] 	 SYMBOL:	 ARGS:
+		 4: invite_errors-><< def_%cl_1_26 invite_errors[] %cl_1_25[9.3,] 	 SYMBOL:	 ARGS:%cl_1_25,
+		 5: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_26 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+BB 12
+	outgoing: 13 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: invite_owner->invitation_link def_%cl_1_27 invite_owner[] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %self->invitation_link %cl_1_27[12.1,] 
+		 3: 
+		 4: (UserMailer) def_%cl_1_28 
+		 5: HASH-priority- def_%cl_1_29 
+		 6: %cl_1_28->delay def_%cl_1_30 %cl_1_28[12.4,] %cl_1_29[12.5,] 	 SYMBOL:	 ARGS:%cl_1_29,
+		 7: GETFIELD %self->invitation_link def_%cl_1_31 %self[12.2,2.0,] 
+		 8: %cl_1_30->invitation def_%cl_1_32 %cl_1_30[12.6,] %cl_1_31[12.7,] recipient_email[4.2,] personal_message[] 	 SYMBOL:	 ARGS:%cl_1_31,recipient_email,personal_message,
+		 9: COPY TYPE_PASS def_%cl_1_26 %cl_1_32[12.8,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_1_15 %cl_1_26[12.9,10.0,9.4,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+BB 15
+	outgoing: 16 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral " is an invalid email address" def_%cl_1_33 
+		 2: BUILDSTRING def_%cl_1_34 recipient_email[4.2,] %cl_1_33[15.1,] 
+		 3: invite_errors-><< def_%cl_1_35 invite_errors[] %cl_1_34[15.2,] 	 SYMBOL:	 ARGS:%cl_1_34,
+		 4: COPY TYPE_PASS def_%cl_1_15 %cl_1_35[15.3,] 
+BB 16
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_15[15.4,13.0,6.3,] %self[12.2,2.0,8.4,] 
+BB 17
+	outgoing: 19 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: blank_email_count->+ def_%cl_1_36 blank_email_count[] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: COPY TYPE_PASS def_blank_email_count %cl_1_36[17.1,] 
+		 3: RETURN %cl_1_36[17.1,] %self[2.0,] 
+BB 19
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_37 
+		 1: def_%cl_1_38 %cl_1_37[19.0,] 
+		 2: RETURN %cl_1_38[19.1,] %self[8.4,12.2,2.0,] 
+BB 21
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: blank_email_count[17.2,] 
+		 22: 
+		 23: recipient_emails->size def_%v_8 recipient_emails[2.5,2.15,2.19,] 	 SYMBOL:	 ARGS:
+		 24: blank_email_count->== def_%v_9 blank_email_count[2.12,2.21,] %v_8[2.23,] 	 SYMBOL:	 ARGS:%v_8,
+		 25: BRANCH %v_9[2.24,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "You have not specified any email addresses to invite" def_%v_10 
+		 2: invite_errors-><< def_%v_11 invite_errors[2.10,] %v_10[3.1,] 	 SYMBOL:	 ARGS:%v_10,
+		 3: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: invite_errors->empty? def_%v_12 invite_errors[2.10,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_12[5.1,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+		 1: RETURN %v_13[6.0,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: invite_errors->flatten def_%v_14 invite_errors[2.10,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_14[7.0,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = increment_click_count! instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->increment! def_%v_3 %self[2.0,] 	 SYMBOL:click_count,	 ARGS:Symbol,
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = recipient_has_not_already_been_invited instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->email_asking_for_invite def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->strip def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->downcase def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_PASS def_email %v_5[2.8,] 
+		 10: 
+		 11: (InvitationLink) def_%v_6 
+		 12: HASH-email_asking_for_invite- def_%v_7 %v_5[2.8,] 
+		 13: %v_6->where def_%v_8 %v_6[2.11,] %v_7[2.12,] 	 SYMBOL:	 ARGS:%v_7,
+		 14: %v_8->exists? def_%v_9 %v_8[2.13,] 	 SYMBOL:	 ARGS:
+		 15: BRANCH %v_9[2.14,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->errors def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "^" def_%v_11 
+		 2: %self->email_asking_for_invite def_%v_12 %self[3.0,2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral " has already been added to the invitation list" def_%v_13 
+		 4: BUILDSTRING def_%v_14 %v_11[3.1,] %v_12[3.2,] %v_13[3.3,] 
+		 5: %v_10->add def_%v_15 %v_10[3.0,] %v_14[3.4,] 	 SYMBOL:email_asking_for_invite,	 ARGS:Symbol,%v_14,
+		 6: RETURN %v_15[3.5,] %self[3.0,3.2,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = this_is_a_valid_email? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_email 
+		 6: 
+		 7: (User) def_%v_3 
+		 8: (inherit EMAIL_REGEX) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:EMAIL_REGEX,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: email->match def_%v_5 email[2.5,] %v_4[3.0,2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 1: RETURN %v_5[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = strip_quotes instanceMethod = true
+BB 1
+	outgoing: 4 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_emails 
+		 6: 
+		 7: COPY TYPE_Regexp def_%v_3 
+		 8: COPY TYPE_StringLiteral "" def_%v_4 
+		 9: emails->gsub def_%v_5 emails[2.5,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_3,%v_4,
+		 10: RETURN %v_5[2.9,] %self[2.0,] 
+BB 4
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = extract_email_address instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_email 
+		 6: 
+		 7: COPY TYPE_Regexp def_%v_3 
+		 8: email->[] def_%v_4 email[2.5,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: COPY TYPE_PASS def_result %v_4[2.8,] 
+		 10: 
+		 11: %v_4->nil? def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_5[2.11,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN email[2.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Regexp def_%v_7 
+		 2: COPY TYPE_StringLiteral "<" def_%v_8 
+		 3: COPY TYPE_StringLiteral "" def_%v_9 
+		 4: COPY TYPE_StringLiteral ">" def_%v_10 
+		 5: COPY TYPE_StringLiteral "" def_%v_11 
+		 6: HASH- def_%v_12 %v_8[4.2,] %v_9[4.3,] %v_10[4.4,] %v_11[4.5,] 
+		 7: result->gsub def_%v_13 result[2.9,] %v_12[4.6,] 	 SYMBOL:	 ARGS:%v_7,%v_12,
+		 8: %v_13->strip def_%v_14 %v_13[4.7,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %v_14[4.8,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = set_invitation_defaults instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->email_asking_for_invite def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->invitation_limit 
+		 2: 
+		 3: ATTRASSIGN %self->has_been_invited 
+		 4: 
+		 5: %self->save def_%v_4 %self[3.1,3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 6: RETURN %v_4[3.5,] %self[3.1,3.3,3.5,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->has_been_invited 
+		 2: 
+		 3: %self->save def_%v_5 %self[4.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %v_5[4.3,] %self[4.1,4.3,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = generate_token instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+BB 3
+	outgoing: 5 4 
+	datadep: 
+	instructions:
+		 0: %self->loop def_%v_3 %self[2.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: %self[2.0,] new_token[] 
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Digest) def_%cl_1_3 
+		 2: (inherit SHA1) def_%cl_1_4 %cl_1_3[3.1,] 
+		 3: %cl_1_4[3.2,] 
+BB 4
+	outgoing: 5 9 
+	datadep: 
+	instructions:
+		 0: %cl_1_3->const_missing def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:SHA1,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 7 9 
+	datadep: 
+	instructions:
+		 0: (Time) def_%cl_1_5 
+		 1: %cl_1_5->now def_%cl_1_6 %cl_1_5[5.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->rand def_%cl_1_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_Array def_%cl_1_8 %cl_1_6[5.1,] %cl_1_7[5.2,] 
+		 4: %cl_1_8->join def_%cl_1_9 %cl_1_8[5.3,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_4->hexdigest def_%cl_1_10 %cl_1_4[4.0,3.2,] %cl_1_9[5.4,] 	 SYMBOL:	 ARGS:%cl_1_9,
+		 6: %cl_1_10->first def_%cl_1_11 %cl_1_10[5.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 7: COPY TYPE_PASS def_new_token %cl_1_11[5.6,] 
+		 8: 
+		 9: (InvitationLink) def_%cl_1_12 
+		 10: HASH-token- def_%cl_1_13 %cl_1_11[5.6,] 
+		 11: %cl_1_12->where def_%cl_1_14 %cl_1_12[5.9,] %cl_1_13[5.10,] 	 SYMBOL:	 ARGS:%cl_1_13,
+		 12: %cl_1_14->exists? def_%cl_1_15 %cl_1_14[5.11,] 	 SYMBOL:	 ARGS:
+		 13: BRANCH %cl_1_15[5.12,] 
+BB 6
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_16 
+		 1: RETURN %cl_1_16[6.0,] %self[2.0,] 
+BB 7
+	outgoing: 9 11 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->token new_token[5.7,] 
+		 1: new_token[5.7,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_17 
+		 1: def_%cl_1_18 %cl_1_17[9.0,] 
+		 2: RETURN %cl_1_18[9.1,] %self[7.0,2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: def_%v_4 
+		 1: def_%v_3 %v_4[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[4.1,3.0,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

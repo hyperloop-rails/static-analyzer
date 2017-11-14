@@ -1,0 +1,626 @@
+SET IRMethod, name = valid_context_types instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "user" def_%v_3 
+		 7: COPY TYPE_StringLiteral "topic" def_%v_4 
+		 8: COPY TYPE_StringLiteral "category" def_%v_5 
+		 9: COPY TYPE_StringLiteral "private_messages" def_%v_6 
+		 10: COPY TYPE_Array def_%v_7 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] %v_6[2.9,] 
+		 11: RETURN %v_7[2.10,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = show instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "topic" def_%v_3 
+		 7: %self->guardian def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: HASH-type_filter-guardian-include_blurbs-blurb_length- def_%v_5 %v_3[2.6,] %v_4[2.7,] 
+		 9: COPY TYPE_PASS def_search_args %v_5[2.8,] 
+		 10: 
+		 11: %self->lookup_search_context def_%v_6 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 12: def_%v_7 %v_6[2.11,] 
+		 13: def_%v_8 %v_7[2.12,] 
+		 14: def_%v_9 %v_7[2.12,] 
+		 15: COPY TYPE_PASS def_context %v_8[2.13,] 
+		 16: COPY TYPE_PASS def_type %v_9[2.14,] 
+		 17: 
+		 18: BRANCH %v_8[2.13,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN search_args->[] context[2.15,] 
+		 2: 
+		 3: BRANCH type[2.16,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN search_args->[] type[2.16,] 
+		 1: COPY TYPE_PASS def_%v_10 type[2.16,] 
+		 2: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Search) def_%v_11 
+		 2: %self->params def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_12->[] def_%v_13 %v_12[8.2,] 	 SYMBOL:q,	 ARGS:Symbol,
+		 4: %v_11->new def_%v_14 %v_11[8.1,] %v_13[8.3,] search_args[2.9,4.0,3.1,] 	 SYMBOL:	 ARGS:%v_13,search_args,
+		 5: COPY TYPE_PASS def_search %v_14[8.4,] 
+		 6: 
+		 7: %v_14->execute def_%v_15 %v_14[8.4,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_result %v_15[8.7,] 
+		 9: 
+		 10: (GroupedSearchResultSerializer) def_%v_16 
+		 11: HASH-result- def_%v_17 %v_15[8.7,] 
+		 12: %self->serialize_data def_%v_18 %self[8.2,2.0,] %v_15[8.7,] %v_16[8.10,] %v_17[8.11,] 	 SYMBOL:	 ARGS:result,%v_16,%v_17,
+		 13: COPY TYPE_PASS def_serializer %v_18[8.12,] 
+		 14: 
+		 15: %self->respond_to def_%v_19 %self[8.2,8.12,2.0,] %self[8.2,8.12,2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: format[] %self[8.2,8.12,2.0,] serializer[8.13,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_format 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: format->html def_%cl_1_3 format[2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:format,
+CLOSURE BEGIN: serializer[] %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "search" def_%cl_2_3 
+		 2: (MultiJson) def_%cl_2_4 
+		 3: %cl_2_4->dump def_%cl_2_5 %cl_2_4[3.2,] serializer[] 	 SYMBOL:	 ARGS:serializer,
+		 4: %self->store_preloaded def_%cl_2_6 %self[2.0,] %cl_2_3[3.1,] %cl_2_5[3.3,] 	 SYMBOL:	 ARGS:%cl_2_3,%cl_2_5,
+		 5: RETURN %cl_2_6[3.4,] %self[3.4,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_7 
+		 1: def_%cl_2_8 %cl_2_7[4.0,] 
+		 2: RETURN %cl_2_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: format->json def_%cl_1_4 format[3.1,2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:format,
+CLOSURE BEGIN: %self[2.0,] serializer[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->render_json_dump def_%cl_3_3 %self[2.0,] serializer[] 	 SYMBOL:	 ARGS:serializer,
+		 2: RETURN %cl_3_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_4 
+		 1: def_%cl_3_5 %cl_3_4[4.0,] 
+		 2: RETURN %cl_3_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: RETURN %cl_1_4[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 16: 
+		 17: %self->ruby_code_from_view def_%v_20 %self[8.2,8.12,8.15,2.0,] 	 SYMBOL:	 ARGS:
+		 18: %v_20->ruby_code_from_view def_%v_21 %v_20[8.17,] %self[8.2,8.12,8.15,8.17,2.0,] 	 SYMBOL:	 ARGS:%v_20,
+CLOSURE BEGIN: 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: RECEIVEARG def_rb_from_view 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+		 5: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 19: RETURN %v_21[8.18,] %self[8.2,8.12,8.15,8.17,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = query instanceMethod = true
+BB 1
+	outgoing: 18 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->require def_%v_4 %v_3[2.6,] 	 SYMBOL:term,	 ARGS:Symbol,
+		 8: 
+		 9: %self->guardian def_%v_5 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 10: HASH-guardian- def_%v_6 %v_5[2.9,] 
+		 11: COPY TYPE_PASS def_search_args %v_6[2.10,] 
+		 12: 
+		 13: %self->params def_%v_7 %self[2.0,2.6,2.9,] 	 SYMBOL:	 ARGS:
+		 14: %v_7->[] def_%v_8 %v_7[2.13,] 	 SYMBOL:type_filter,	 ARGS:Symbol,
+		 15: %v_8->present? def_%v_9 %v_8[2.14,] 	 SYMBOL:	 ARGS:
+		 16: BRANCH %v_9[2.15,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_10->[] def_%v_11 %v_10[3.0,] 	 SYMBOL:type_filter,	 ARGS:Symbol,
+		 2: ATTRASSIGN search_args->[] %v_11[3.1,] 
+		 3: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_12->[] def_%v_13 %v_12[5.1,] 	 SYMBOL:include_blurbs,	 ARGS:Symbol,
+		 3: %v_13->present? def_%v_14 %v_13[5.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_14[5.3,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_15->[] def_%v_16 %v_15[6.0,] 	 SYMBOL:include_blurbs,	 ARGS:Symbol,
+		 2: COPY TYPE_StringLiteral "true" def_%v_17 
+		 3: %v_16->== def_%v_18 %v_16[6.1,] %v_17[6.2,] 	 SYMBOL:	 ARGS:%v_17,
+		 4: ATTRASSIGN search_args->[] %v_18[6.3,] 
+		 5: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_18 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%v_19 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_19->[] def_%v_20 %v_19[8.1,] 	 SYMBOL:search_for_id,	 ARGS:Symbol,
+		 3: %v_20->present? def_%v_21 %v_20[8.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_21[8.3,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN search_args->[] 
+		 1: COPY TYPE_Boolean def_%v_22 
+		 2: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+BB 11
+	outgoing: 12 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->lookup_search_context def_%v_23 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: def_%v_24 %v_23[11.1,] 
+		 3: def_%v_25 %v_24[11.2,] 
+		 4: def_%v_26 %v_24[11.2,] 
+		 5: COPY TYPE_PASS def_context %v_25[11.3,] 
+		 6: COPY TYPE_PASS def_type %v_26[11.4,] 
+		 7: 
+		 8: BRANCH %v_25[11.3,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN search_args->[] context[11.5,] 
+		 2: 
+		 3: BRANCH type[11.6,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN search_args->[] type[11.6,] 
+		 1: COPY TYPE_PASS def_%v_27 type[11.6,] 
+		 2: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_27 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_27 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Search) def_%v_28 
+		 2: %self->params def_%v_29 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_29->[] def_%v_30 %v_29[17.2,] 	 SYMBOL:term,	 ARGS:Symbol,
+		 4: search_args->symbolize_keys def_%v_31 search_args[13.0,9.0,12.1,6.4,3.2,2.11,] 	 SYMBOL:	 ARGS:
+		 5: %v_28->new def_%v_32 %v_28[17.1,] %v_30[17.3,] %v_31[17.4,] 	 SYMBOL:	 ARGS:%v_30,%v_31,
+		 6: COPY TYPE_PASS def_search %v_32[17.5,] 
+		 7: 
+		 8: %v_32->execute def_%v_33 %v_32[17.5,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_PASS def_result %v_33[17.8,] 
+		 10: 
+		 11: (GroupedSearchResultSerializer) def_%v_34 
+		 12: HASH-result- def_%v_35 %v_33[17.8,] 
+		 13: %self->render_serialized def_%v_36 %self[17.2,2.0,] %v_33[17.8,] %v_34[17.11,] %v_35[17.12,] 	 SYMBOL:	 ARGS:result,%v_34,%v_35,
+		 14: RETURN %v_36[17.13,] %self[17.2,17.13,2.0,] 
+BB 18
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = lookup_search_context instanceMethod = true
+BB 1
+	outgoing: 33 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:skip_context,	 ARGS:Symbol,
+		 8: COPY TYPE_StringLiteral "true" def_%v_5 
+		 9: %v_4->== def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: BRANCH %v_6[2.9,] 
+BB 3
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+		 2: %self->params def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_8->[] def_%v_9 %v_8[4.2,] 	 SYMBOL:search_context,	 ARGS:Symbol,
+		 4: COPY TYPE_PASS def_search_context %v_9[4.3,] 
+		 5: 
+		 6: BRANCH %v_9[4.3,] 
+BB 6
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_11->[] def_%v_12 %v_11[7.1,] 	 SYMBOL:context,	 ARGS:Symbol,
+		 3: COPY TYPE_PASS def_context %v_12[7.2,] 
+		 4: BRANCH %v_12[7.2,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_13 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_13->[] def_%v_14 %v_13[8.0,] 	 SYMBOL:context_id,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_id %v_14[8.1,] 
+		 3: COPY TYPE_PASS def_%v_12 %v_14[8.1,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_12[8.3,7.2,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-type-id- def_%v_15 context[7.3,] id[8.2,] 
+		 2: COPY TYPE_PASS def_search_context %v_15[10.1,] 
+		 3: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_10 %v_15[11.0,10.1,] 
+BB 13
+	outgoing: 14 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: search_context->present? def_%v_16 search_context[10.2,4.4,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_16[13.1,] 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SearchController) def_%v_17 
+		 2: %v_17->valid_context_types def_%v_18 %v_17[14.1,] 	 SYMBOL:	 ARGS:
+		 3: search_context->[] def_%v_19 search_context[10.2,4.4,] 	 SYMBOL:type,	 ARGS:Symbol,
+		 4: %v_18->include? def_%v_20 %v_18[14.2,] %v_19[14.3,] 	 SYMBOL:	 ARGS:%v_19,
+		 5: BRANCH %v_20[14.4,] 
+BB 15
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+		 1: 
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: (Discourse) def_%v_22 
+		 1: (inherit InvalidParameters) def_%v_23 %v_22[16.0,] 
+		 2: %v_23[16.1,] 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: %v_22->const_missing def_%v_23 %v_22[16.0,] 	 SYMBOL:InvalidParameters,	 ARGS:Symbol,
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: %v_23->new def_%v_24 %v_23[17.0,16.1,] 	 SYMBOL:search_context,	 ARGS:Symbol,
+		 1: %self->raise def_%v_25 %self[2.0,] %v_24[18.0,] 	 SYMBOL:	 ARGS:%v_24,
+		 2: COPY TYPE_PASS def_%v_21 %v_25[18.1,] 
+BB 19
+	outgoing: 20 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: search_context->[] def_%v_26 search_context[10.2,4.4,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 2: %v_26->blank? def_%v_27 %v_26[19.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_27[19.2,] 
+BB 20
+	outgoing: 21 22 
+	datadep: 
+	instructions:
+		 0: (Discourse) def_%v_28 
+		 1: (inherit InvalidParameters) def_%v_29 %v_28[20.0,] 
+		 2: %v_29[20.1,] 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: %v_28->const_missing def_%v_29 %v_28[20.0,] 	 SYMBOL:InvalidParameters,	 ARGS:Symbol,
+BB 22
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: %v_29->new def_%v_30 %v_29[21.0,20.1,] 	 SYMBOL:search_context,	 ARGS:Symbol,
+		 1: %self->raise def_%v_31 %self[2.0,] %v_30[22.0,] 	 SYMBOL:	 ARGS:%v_30,
+		 2: 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_31 
+BB 24
+	outgoing: 25 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Nil def_context_obj 
+		 2: 
+		 3: COPY TYPE_StringLiteral "user" def_%v_32 
+		 4: COPY TYPE_StringLiteral "private_messages" def_%v_33 
+		 5: COPY TYPE_Array def_%v_34 %v_32[24.3,] %v_33[24.4,] 
+		 6: search_context->[] def_%v_35 search_context[10.2,4.4,] 	 SYMBOL:type,	 ARGS:Symbol,
+		 7: %v_34->include? def_%v_36 %v_34[24.5,] %v_35[24.6,] 	 SYMBOL:	 ARGS:%v_35,
+		 8: BRANCH %v_36[24.7,] 
+BB 25
+	outgoing: 27 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%v_37 
+		 2: search_context->[] def_%v_38 search_context[10.2,4.4,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 3: %v_38->downcase def_%v_39 %v_38[25.2,] 	 SYMBOL:	 ARGS:
+		 4: HASH-username_lower- def_%v_40 %v_39[25.3,] 
+		 5: %v_37->find_by def_%v_41 %v_37[25.1,] %v_40[25.4,] 	 SYMBOL:	 ARGS:%v_40,
+		 6: COPY TYPE_PASS def_context_obj %v_41[25.5,] 
+		 7: 
+BB 26
+	outgoing: 27 
+	datadep: 
+	instructions:
+		 0: 
+		 1: search_context->[] def_%v_42 search_context[10.2,4.4,] 	 SYMBOL:type,	 ARGS:Symbol,
+		 2: %v_42->classify def_%v_43 %v_42[26.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_43->constantize def_%v_44 %v_43[26.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_klass %v_44[26.3,] 
+		 5: 
+		 6: search_context->[] def_%v_45 search_context[26.1,10.2,4.4,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 7: HASH-id- def_%v_46 %v_45[26.6,] 
+		 8: klass->find_by def_%v_47 klass[26.4,] %v_46[26.7,] 	 SYMBOL:	 ARGS:%v_46,
+		 9: COPY TYPE_PASS def_context_obj %v_47[26.8,] 
+		 10: COPY TYPE_PASS def_%v_41 %v_47[26.8,] 
+BB 27
+	outgoing: 28 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Nil def_type_filter 
+		 2: 
+		 3: search_context->[] def_%v_48 search_context[10.2,4.4,] 	 SYMBOL:type,	 ARGS:Symbol,
+		 4: COPY TYPE_StringLiteral "private_messages" def_%v_49 
+		 5: %v_48->== def_%v_50 %v_48[27.3,] %v_49[27.4,] 	 SYMBOL:	 ARGS:%v_49,
+		 6: BRANCH %v_50[27.5,] 
+BB 28
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "private_messages" def_%v_51 
+		 2: COPY TYPE_PASS def_type_filter %v_51[28.1,] 
+		 3: 
+BB 29
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_51 
+BB 30
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->guardian def_%v_52 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_52->ensure_can_see! def_%v_53 %v_52[30.1,] context_obj[26.9,25.6,] 	 SYMBOL:	 ARGS:context_obj,
+		 3: 
+		 4: COPY TYPE_Array def_%v_54 context_obj[26.9,25.6,] type_filter[28.2,27.1,] 
+		 5: RETURN context_obj[26.9,25.6,] type_filter[28.2,27.1,] %self[30.1,2.0,] 
+BB 31
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 33
+	outgoing: 
+	datadep: 
+	instructions:
+

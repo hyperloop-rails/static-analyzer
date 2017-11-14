@@ -1,0 +1,2720 @@
+SET IRMethod, name = to_param instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->id def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "-" def_%v_4 
+		 8: %self->title def_%v_5 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->parameterize def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: BUILDSTRING def_%v_7 %v_3[2.6,] %v_4[2.7,] %v_6[2.9,] 
+		 11: RETURN %v_7[2.10,] %self[2.0,2.6,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_attributes instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 9 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_attributes 
+		 6: 
+		 7: (User) def_%v_3 
+		 8: %self->user_id def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->find_by_id def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: COPY TYPE_PASS def_video_owner %v_5[2.9,] 
+		 11: 
+		 12: attributes->[] def_%v_6 attributes[2.5,] 	 SYMBOL:channel_id,	 ARGS:Symbol,
+		 13: COPY TYPE_PASS def_channel_id %v_6[2.12,] 
+		 14: 
+		 15: COPY TYPE_StringLiteral "add_to_new_channel" def_%v_7 
+		 16: %v_6->== def_%v_8 %v_6[2.12,] %v_7[2.15,] 	 SYMBOL:	 ARGS:%v_7,
+		 17: BRANCH %v_8[2.16,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_9 new_channel[] 
+		 2: COPY TYPE_PASS def_%v_10 new_channel[] 
+		 3: BRANCH new_channel[] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: video_owner->channels def_%v_11 video_owner[2.10,] 	 SYMBOL:	 ARGS:
+		 1: attributes->[] def_%v_12 attributes[2.5,] 	 SYMBOL:channel_name,	 ARGS:Symbol,
+		 2: HASH-title- def_%v_13 %v_12[4.1,] 
+		 3: %v_11->new def_%v_14 %v_11[4.0,] %v_13[4.2,] 	 SYMBOL:	 ARGS:%v_13,
+		 4: COPY TYPE_PASS def_new_channel %v_14[4.3,] 
+		 5: COPY TYPE_PASS def_%v_10 %v_14[4.3,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: attributes->[] def_%v_15 attributes[2.5,] 	 SYMBOL:channel_is_private,	 ARGS:Symbol,
+		 2: %v_15->blank? def_%v_16 %v_15[5.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_16->! def_%v_17 %v_16[5.2,] 	 SYMBOL:	 ARGS:
+		 4: ATTRASSIGN new_channel->private %v_17[5.3,] 
+		 5: 
+		 6: new_channel->save def_%v_18 new_channel[5.4,4.4,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_18[5.6,] 
+BB 6
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: new_channel->id def_%v_19 new_channel[5.4,4.4,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_channel_id %v_19[6.1,] 
+		 3: 
+BB 7
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->errors def_%v_20 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "^" def_%v_21 
+		 3: new_channel->errors def_%v_22 new_channel[5.4,4.4,] 	 SYMBOL:	 ARGS:
+		 4: %v_22->full_messages def_%v_23 %v_22[7.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_23->to_sentence def_%v_24 %v_23[7.4,] 	 SYMBOL:	 ARGS:
+		 6: BUILDSTRING def_%v_25 %v_21[7.2,] %v_24[7.5,] 
+		 7: %v_20->add def_%v_26 %v_20[7.1,] %v_25[7.6,] 	 SYMBOL:channel_id,	 ARGS:Symbol,%v_25,
+		 8: 
+		 9: RETURN %self[7.1,2.0,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_19 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: video_owner->channels def_%v_27 video_owner[2.10,] 	 SYMBOL:	 ARGS:
+		 2: channel_id->to_i def_%v_28 channel_id[6.2,2.13,] 	 SYMBOL:	 ARGS:
+		 3: HASH-id- def_%v_29 %v_28[10.2,] 
+		 4: %v_27->where def_%v_30 %v_27[10.1,] %v_29[10.3,] 	 SYMBOL:	 ARGS:%v_29,
+		 5: %v_30->exists? def_%v_31 %v_30[10.4,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %v_31[10.5,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->channel_id channel_id[6.2,2.13,] 
+		 2: COPY TYPE_PASS def_%v_32 channel_id[6.2,2.13,] 
+		 3: 
+		 4: COPY TYPE_StringLiteral "channel_id" def_%v_36 
+		 5: attributes->delete def_%v_37 attributes[2.5,] %v_36[11.4,] 	 SYMBOL:	 ARGS:%v_36,
+		 6: 
+		 7: COPY TYPE_StringLiteral "channel_name" def_%v_38 
+		 8: attributes->delete def_%v_39 attributes[11.5,2.5,] %v_38[11.7,] 	 SYMBOL:	 ARGS:%v_38,
+		 9: 
+		 10: COPY TYPE_StringLiteral "channel_is_private" def_%v_40 
+		 11: attributes->delete def_%v_41 attributes[11.5,11.8,2.5,] %v_40[11.10,] 	 SYMBOL:	 ARGS:%v_40,
+		 12: 
+		 13: %self->super def_%v_42 %current_module[2.3,] attributes[11.5,11.8,11.11,2.5,] %v_0[2.1,] 	 SYMBOL:	 ARGS:attributes,
+		 14: RETURN %v_42[11.13,] %self[11.1,2.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->errors def_%v_33 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "^The channel you selected was invalid.  Please select one of your channels." def_%v_34 
+		 3: %v_33->add def_%v_35 %v_33[12.1,] %v_34[12.2,] 	 SYMBOL:channel_id,	 ARGS:Symbol,%v_34,
+		 4: 
+		 5: RETURN %self[12.1,2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = add_video_to_channel! instanceMethod = true
+BB 1
+	outgoing: 32 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 10 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_current_user 
+		 6: RECEIVEARG def_video_id 
+		 7: RECEIVEARG def_channel_id 
+		 8: RECEIVEARG def_channel_name 
+		 9: RECEIVEARG def_is_private 
+		 10: 
+		 11: current_user->videos def_%v_3 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 12: %v_3->new def_%v_4 %v_3[2.11,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_PASS def_new_video %v_4[2.12,] 
+		 14: 
+		 15: (Video) def_%v_5 
+		 16: %v_5->find_by_id def_%v_6 %v_5[2.15,] video_id[2.6,] 	 SYMBOL:	 ARGS:video_id,
+		 17: COPY TYPE_PASS def_video_to_share %v_6[2.16,] 
+		 18: 
+		 19: BRANCH %v_6[2.16,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: video_to_share->channel def_%v_7 video_to_share[2.17,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_owning_channel %v_7[3.1,] 
+		 3: 
+		 4: %v_7->is_accessible_by def_%v_8 %v_7[3.1,] current_user[2.5,] 	 SYMBOL:	 ARGS:current_user,
+		 5: BRANCH %v_8[3.4,] 
+BB 4
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: new_video->errors def_%v_10 new_video[2.13,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "^You do not have permission to share this video." def_%v_11 
+		 3: %v_10->add def_%v_12 %v_10[5.1,] %v_11[5.2,] 	 SYMBOL:id,	 ARGS:Symbol,%v_11,
+		 4: 
+		 5: (Rails) def_%v_13 
+		 6: %v_13->env def_%v_14 %v_13[5.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_14->production? def_%v_15 %v_14[5.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_15[5.7,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: (Airbrake) def_%v_16 
+		 1: COPY TYPE_StringLiteral "Logged Error" def_%v_17 
+		 2: COPY TYPE_StringLiteral "ADD TO CHANNEL: User #" def_%v_18 
+		 3: current_user->id def_%v_19 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral " tried sharing a video (" def_%v_20 
+		 5: video_to_share->id def_%v_21 video_to_share[2.17,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral ") that they did not have access to." def_%v_22 
+		 7: BUILDSTRING def_%v_23 %v_18[6.2,] %v_19[6.3,] %v_20[6.4,] %v_21[6.5,] %v_22[6.6,] 
+		 8: HASH-error_class-error_message- def_%v_24 %v_17[6.1,] %v_23[6.7,] 
+		 9: %v_16->notify def_%v_25 %v_16[6.0,] %v_24[6.8,] 	 SYMBOL:	 ARGS:%v_24,
+		 10: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_25 
+BB 8
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN new_video[2.13,] %self[2.0,] 
+BB 10
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: 
+		 1: new_video->errors def_%v_26 new_video[2.13,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "^This video either could not be found or it might have been removed by the owner." def_%v_27 
+		 3: %v_26->add def_%v_28 %v_26[10.1,] %v_27[10.2,] 	 SYMBOL:id,	 ARGS:Symbol,%v_27,
+		 4: 
+		 5: RETURN new_video[10.1,2.13,] %self[2.0,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: video_to_share->channel def_%v_29 video_to_share[2.17,] 	 SYMBOL:	 ARGS:
+		 2: %v_29->private? def_%v_30 %v_29[11.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_30[11.2,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: video_to_share->channel def_%v_31 video_to_share[2.17,] 	 SYMBOL:	 ARGS:
+		 1: %v_31->user_id def_%v_32 %v_31[12.0,] 	 SYMBOL:	 ARGS:
+		 2: current_user->id def_%v_33 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_32->!= def_%v_34 %v_32[12.1,] %v_33[12.2,] 	 SYMBOL:	 ARGS:%v_33,
+		 4: COPY TYPE_PASS def_%v_30 %v_34[12.3,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_30[12.4,11.2,] 
+BB 14
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: 
+		 1: new_video->errors def_%v_35 new_video[2.13,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "^This video is in a private channel so it cannot be shared." def_%v_36 
+		 3: %v_35->add def_%v_37 %v_35[14.1,] %v_36[14.2,] 	 SYMBOL:id,	 ARGS:Symbol,%v_36,
+		 4: 
+		 5: RETURN new_video[14.1,2.13,] %self[2.0,] 
+BB 15
+	outgoing: 17 23 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_38 
+		 1: 
+		 2: COPY TYPE_StringLiteral "add_to_new_channel" def_%v_39 
+		 3: channel_id->== def_%v_40 channel_id[2.7,] %v_39[15.2,] 	 SYMBOL:	 ARGS:%v_39,
+		 4: BRANCH %v_40[15.3,] 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_41 new_channel[] 
+		 2: COPY TYPE_PASS def_%v_42 new_channel[] 
+		 3: BRANCH new_channel[] 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: current_user->channels def_%v_43 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 1: HASH-title- def_%v_44 channel_name[2.8,] 
+		 2: %v_43->new def_%v_45 %v_43[18.0,] %v_44[18.1,] 	 SYMBOL:	 ARGS:%v_44,
+		 3: COPY TYPE_PASS def_new_channel %v_45[18.2,] 
+		 4: COPY TYPE_PASS def_%v_42 %v_45[18.2,] 
+BB 19
+	outgoing: 20 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: is_private->blank? def_%v_46 is_private[2.9,] 	 SYMBOL:	 ARGS:
+		 2: %v_46->! def_%v_47 %v_46[19.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN new_channel->private %v_47[19.2,] 
+		 4: 
+		 5: new_channel->save def_%v_48 new_channel[19.3,18.3,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %v_48[19.5,] 
+BB 20
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: new_channel->id def_%v_49 new_channel[19.3,18.3,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_channel_id %v_49[20.1,] 
+		 3: 
+BB 21
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: 
+		 1: new_video->errors def_%v_50 new_video[2.13,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "^" def_%v_51 
+		 3: new_channel->errors def_%v_52 new_channel[19.3,18.3,] 	 SYMBOL:	 ARGS:
+		 4: %v_52->full_messages def_%v_53 %v_52[21.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_53->to_sentence def_%v_54 %v_53[21.4,] 	 SYMBOL:	 ARGS:
+		 6: BUILDSTRING def_%v_55 %v_51[21.2,] %v_54[21.5,] 
+		 7: %v_50->add def_%v_56 %v_50[21.1,] %v_55[21.6,] 	 SYMBOL:channel_id,	 ARGS:Symbol,%v_55,
+		 8: 
+		 9: RETURN new_video[21.1,2.13,] %self[2.0,] 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_49 
+BB 24
+	outgoing: 25 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: current_user->channels def_%v_57 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 2: channel_id->to_i def_%v_58 channel_id[20.2,2.7,] 	 SYMBOL:	 ARGS:
+		 3: HASH-id- def_%v_59 %v_58[24.2,] 
+		 4: %v_57->where def_%v_60 %v_57[24.1,] %v_59[24.3,] 	 SYMBOL:	 ARGS:%v_59,
+		 5: %v_60->exists? def_%v_61 %v_60[24.4,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %v_61[24.5,] 
+BB 25
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: 
+		 1: video_to_share->title def_%v_62 video_to_share[2.17,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN new_video->title %v_62[25.1,] 
+		 3: 
+		 4: video_to_share->description def_%v_63 video_to_share[25.1,2.17,] 	 SYMBOL:	 ARGS:
+		 5: ATTRASSIGN new_video->description %v_63[25.4,] 
+		 6: 
+		 7: video_to_share->video_graph_id def_%v_64 video_to_share[25.1,25.4,2.17,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN new_video->video_graph_id %v_64[25.7,] 
+		 9: 
+		 10: ATTRASSIGN new_video->channel_id channel_id[20.2,2.7,] 
+		 11: 
+		 12: new_video->save def_%v_65 new_video[25.2,25.5,25.8,25.10,2.13,] 	 SYMBOL:	 ARGS:
+		 13: 
+BB 26
+	outgoing: 27 28 
+	datadep: 
+	instructions:
+		 0: 
+		 1: new_video->errors def_%v_66 new_video[2.13,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "^The channel you selected was invalid.  Please select one of your channels." def_%v_67 
+		 3: %v_66->add def_%v_68 %v_66[26.1,] %v_67[26.2,] 	 SYMBOL:channel_id,	 ARGS:Symbol,%v_67,
+		 4: 
+		 5: (Rails) def_%v_69 
+		 6: %v_69->env def_%v_70 %v_69[26.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_70->production? def_%v_71 %v_70[26.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_71[26.7,] 
+BB 27
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: (Airbrake) def_%v_72 
+		 1: COPY TYPE_StringLiteral "Logged Error" def_%v_73 
+		 2: COPY TYPE_StringLiteral "SHARE A LINK: User #" def_%v_74 
+		 3: current_user->id def_%v_75 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral " tried sharing a video into an invalid channel (#" def_%v_76 
+		 5: COPY TYPE_StringLiteral ")" def_%v_77 
+		 6: BUILDSTRING def_%v_78 %v_74[27.2,] %v_75[27.3,] %v_76[27.4,] channel_id[20.2,2.7,] %v_77[27.5,] 
+		 7: HASH-error_class-error_message- def_%v_79 %v_73[27.1,] %v_78[27.6,] 
+		 8: %v_72->notify def_%v_80 %v_72[27.0,] %v_79[27.7,] 	 SYMBOL:	 ARGS:%v_79,
+		 9: 
+BB 28
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_80 
+BB 29
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_65 %v_80[28.0,27.8,] 
+BB 30
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN new_video[25.2,25.5,25.8,25.10,2.13,] %self[2.0,] 
+BB 32
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create_shared_video! instanceMethod = true
+BB 1
+	outgoing: 37 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_current_user 
+		 6: RECEIVEARG def_remote_link 
+		 7: RECEIVEARG def_channel_id 
+		 8: RECEIVEARG def_channel_name 
+		 9: RECEIVEARG def_is_private 
+		 10: 
+		 11: current_user->videos def_%v_3 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 12: %v_3->new def_%v_4 %v_3[2.11,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_PASS def_new_video %v_4[2.12,] 
+		 14: 
+		 15: COPY TYPE_PASS def_%v_5 remote_link_params[] 
+		 16: COPY TYPE_PASS def_%v_6 remote_link_params[] 
+		 17: BRANCH remote_link_params[] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (RemoteVideoLinks) def_%v_7 
+		 1: %v_7->get_video_information_from_link def_%v_8 %v_7[3.0,] remote_link[2.6,] 	 SYMBOL:	 ARGS:remote_link,
+		 2: COPY TYPE_PASS def_remote_link_params %v_8[3.1,] 
+		 3: COPY TYPE_PASS def_%v_6 %v_8[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: remote_link_params->[] def_%v_9 remote_link_params[3.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: COPY TYPE_PASS def_remote_video_id %v_9[4.1,] 
+		 3: 
+		 4: remote_link_params->[] def_%v_10 remote_link_params[4.1,3.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: COPY TYPE_PASS def_remote_host %v_10[4.4,] 
+		 6: 
+		 7: remote_link_params->[] def_%v_11 remote_link_params[4.1,4.4,3.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: COPY TYPE_PASS def_remote_video_title %v_11[4.7,] 
+		 9: 
+		 10: remote_link_params->[] def_%v_12 remote_link_params[4.1,4.4,4.7,3.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 11: COPY TYPE_PASS def_remote_video_description %v_12[4.10,] 
+		 12: 
+		 13: remote_link_params->[] def_%v_13 remote_link_params[4.1,4.4,4.7,4.10,3.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 14: COPY TYPE_PASS def_remote_video_thumbnail %v_13[4.13,] 
+		 15: 
+		 16: remote_video_id->blank? def_%v_14 remote_video_id[4.2,] 	 SYMBOL:	 ARGS:
+		 17: BRANCH %v_14[4.16,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: remote_host->blank? def_%v_15 remote_host[4.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_14 %v_15[5.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_14[5.1,4.16,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: remote_video_thumbnail->blank? def_%v_16 remote_video_thumbnail[4.14,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_14 %v_16[7.0,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_14[7.1,5.1,4.16,] 
+BB 9
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: 
+		 1: new_video->errors def_%v_17 new_video[2.13,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "^Error getting the video information.  Please verify the link is correct." def_%v_18 
+		 3: %v_17->add def_%v_19 %v_17[9.1,] %v_18[9.2,] 	 SYMBOL:id,	 ARGS:Symbol,%v_18,
+		 4: 
+BB 10
+	outgoing: 11 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "add_to_new_channel" def_%v_20 
+		 2: channel_id->== def_%v_21 channel_id[2.7,] %v_20[10.1,] 	 SYMBOL:	 ARGS:%v_20,
+		 3: BRANCH %v_21[10.2,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_22 new_channel[] 
+		 2: COPY TYPE_PASS def_%v_23 new_channel[] 
+		 3: BRANCH new_channel[] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: current_user->channels def_%v_24 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 1: HASH-title- def_%v_25 channel_name[2.8,] 
+		 2: %v_24->new def_%v_26 %v_24[12.0,] %v_25[12.1,] 	 SYMBOL:	 ARGS:%v_25,
+		 3: COPY TYPE_PASS def_new_channel %v_26[12.2,] 
+		 4: COPY TYPE_PASS def_%v_23 %v_26[12.2,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: is_private->blank? def_%v_27 is_private[2.9,] 	 SYMBOL:	 ARGS:
+		 2: %v_27->! def_%v_28 %v_27[13.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN new_channel->private %v_28[13.2,] 
+		 4: 
+		 5: new_channel->save def_%v_29 new_channel[13.3,12.3,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %v_29[13.5,] 
+BB 14
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: new_channel->id def_%v_30 new_channel[13.3,12.3,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_channel_id %v_30[14.1,] 
+		 3: 
+BB 15
+	outgoing: 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: new_video->errors def_%v_31 new_video[2.13,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "^" def_%v_32 
+		 3: new_channel->errors def_%v_33 new_channel[13.3,12.3,] 	 SYMBOL:	 ARGS:
+		 4: %v_33->full_messages def_%v_34 %v_33[15.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_34->to_sentence def_%v_35 %v_34[15.4,] 	 SYMBOL:	 ARGS:
+		 6: BUILDSTRING def_%v_36 %v_32[15.2,] %v_35[15.5,] 
+		 7: %v_31->add def_%v_37 %v_31[15.1,] %v_36[15.6,] 	 SYMBOL:channel_id,	 ARGS:Symbol,%v_36,
+		 8: 
+		 9: RETURN new_video[15.1,2.13,] %self[2.0,] 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_30 
+BB 18
+	outgoing: 19 30 
+	datadep: 
+	instructions:
+		 0: 
+		 1: current_user->channels def_%v_38 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 2: channel_id->to_i def_%v_39 channel_id[14.2,2.7,] 	 SYMBOL:	 ARGS:
+		 3: HASH-id- def_%v_40 %v_39[18.2,] 
+		 4: %v_38->where def_%v_41 %v_38[18.1,] %v_40[18.3,] 	 SYMBOL:	 ARGS:%v_40,
+		 5: %v_41->exists? def_%v_42 %v_41[18.4,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %v_42[18.5,] 
+BB 19
+	outgoing: 20 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_43 video_graph[] 
+		 2: COPY TYPE_PASS def_%v_44 video_graph[] 
+		 3: BRANCH video_graph[] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: (VideoGraph) def_%v_45 
+		 1: HASH-remote_host-remote_video_id-deleted- def_%v_46 remote_host[4.5,] remote_video_id[4.2,] 
+		 2: %v_45->where def_%v_47 %v_45[20.0,] %v_46[20.1,] 	 SYMBOL:	 ARGS:%v_46,
+		 3: %v_47->first def_%v_48 %v_47[20.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_video_graph %v_48[20.3,] 
+		 5: COPY TYPE_PASS def_%v_44 %v_48[20.3,] 
+BB 21
+	outgoing: 22 25 
+	datadep: 
+	instructions:
+		 0: 
+		 1: video_graph->blank? def_%v_49 video_graph[20.4,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_49[21.1,] 
+BB 22
+	outgoing: 23 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: current_user->video_graphs def_%v_50 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_50->create def_%v_51 %v_50[22.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_video_graph %v_51[22.2,] 
+		 4: 
+		 5: %v_51->upload_remote_thumbnail def_%v_52 %v_51[22.2,] remote_video_thumbnail[4.14,] 	 SYMBOL:	 ARGS:remote_video_thumbnail,
+		 6: 
+		 7: (VideoGraph) def_%v_53 
+		 8: (inherit READY) def_%v_54 %v_53[22.7,] 
+		 9: %v_54[22.8,] 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: %v_53->const_missing def_%v_54 %v_53[22.7,] 	 SYMBOL:READY,	 ARGS:Symbol,
+BB 24
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: video_graph->set_status def_%v_55 video_graph[22.3,] %v_54[23.0,22.8,] 	 SYMBOL:	 ARGS:%v_54,
+		 1: 
+		 2: remote_host->downcase def_%v_56 remote_host[4.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_56->strip def_%v_57 %v_56[24.2,] 	 SYMBOL:	 ARGS:
+		 4: ATTRASSIGN video_graph->remote_host %v_57[24.3,] 
+		 5: 
+		 6: remote_video_id->strip def_%v_58 remote_video_id[4.2,] 	 SYMBOL:	 ARGS:
+		 7: ATTRASSIGN video_graph->remote_video_id %v_58[24.6,] 
+		 8: 
+		 9: video_graph->save def_%v_59 video_graph[24.0,24.4,24.7,22.3,] 	 SYMBOL:	 ARGS:
+		 10: 
+BB 25
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_59 
+BB 26
+	outgoing: 27 28 
+	datadep: 
+	instructions:
+		 0: 
+		 1: remote_video_title->blank? def_%v_60 remote_video_title[4.8,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_60[26.1,] 
+BB 27
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Untitled" def_%v_61 
+		 1: ATTRASSIGN new_video->title %v_61[27.0,] 
+		 2: 
+BB 28
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN new_video->title remote_video_title[4.8,] 
+		 1: COPY TYPE_PASS def_%v_61 remote_video_title[4.8,] 
+BB 29
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN new_video->description remote_video_description[4.11,] 
+		 2: 
+		 3: video_graph->id def_%v_62 video_graph[24.4,24.7,22.3,20.4,] 	 SYMBOL:	 ARGS:
+		 4: ATTRASSIGN new_video->video_graph_id %v_62[29.3,] 
+		 5: 
+		 6: ATTRASSIGN new_video->channel_id channel_id[14.2,2.7,] 
+		 7: 
+		 8: new_video->save def_%v_63 new_video[29.1,29.4,29.6,28.0,27.1,2.13,] 	 SYMBOL:	 ARGS:
+		 9: 
+BB 30
+	outgoing: 31 32 
+	datadep: 
+	instructions:
+		 0: 
+		 1: new_video->errors def_%v_64 new_video[2.13,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "^The channel you selected was invalid.  Please select one of your channels." def_%v_65 
+		 3: %v_64->add def_%v_66 %v_64[30.1,] %v_65[30.2,] 	 SYMBOL:channel_id,	 ARGS:Symbol,%v_65,
+		 4: 
+		 5: (Rails) def_%v_67 
+		 6: %v_67->env def_%v_68 %v_67[30.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_68->production? def_%v_69 %v_68[30.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_69[30.7,] 
+BB 31
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: (Airbrake) def_%v_70 
+		 1: COPY TYPE_StringLiteral "Logged Error" def_%v_71 
+		 2: COPY TYPE_StringLiteral "SHARE A LINK: User #" def_%v_72 
+		 3: current_user->id def_%v_73 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral " tried sharing a video into an invalid channel (#" def_%v_74 
+		 5: COPY TYPE_StringLiteral ")" def_%v_75 
+		 6: BUILDSTRING def_%v_76 %v_72[31.2,] %v_73[31.3,] %v_74[31.4,] channel_id[14.2,2.7,] %v_75[31.5,] 
+		 7: HASH-error_class-error_message- def_%v_77 %v_71[31.1,] %v_76[31.6,] 
+		 8: %v_70->notify def_%v_78 %v_70[31.0,] %v_77[31.7,] 	 SYMBOL:	 ARGS:%v_77,
+		 9: 
+BB 32
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_78 
+BB 33
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_63 %v_78[32.0,31.8,] 
+BB 34
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_19 %v_63[33.0,29.8,] 
+BB 35
+	outgoing: 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN new_video[29.1,29.4,29.6,28.0,27.1,2.13,] %self[2.0,] 
+BB 37
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = statuses_to_show_to_current_user instanceMethod = true
+BB 1
+	outgoing: 4 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (VideoGraph) def_%v_3 
+		 7: %v_3->get_status_number def_%v_4 %v_3[2.6,] 	 SYMBOL:submitting,	 ARGS:Symbol,
+		 8: (VideoGraph) def_%v_5 
+		 9: %v_5->get_status_number def_%v_6 %v_5[2.8,] 	 SYMBOL:submitting_error,	 ARGS:Symbol,
+		 10: (VideoGraph) def_%v_7 
+		 11: %v_7->get_status_number def_%v_8 %v_7[2.10,] 	 SYMBOL:transcoding,	 ARGS:Symbol,
+		 12: (VideoGraph) def_%v_9 
+		 13: %v_9->get_status_number def_%v_10 %v_9[2.12,] 	 SYMBOL:transcoding_error,	 ARGS:Symbol,
+		 14: (VideoGraph) def_%v_11 
+		 15: %v_11->get_status_number def_%v_12 %v_11[2.14,] 	 SYMBOL:ready,	 ARGS:Symbol,
+		 16: COPY TYPE_Array def_%v_13 %v_4[2.7,] %v_6[2.9,] %v_8[2.11,] %v_10[2.13,] %v_12[2.15,] 
+		 17: RETURN %v_13[2.16,] %self[2.0,] 
+BB 4
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_all_flags instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Flag) def_%v_3 
+		 7: %v_3->all def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = is_status? instanceMethod = true
+BB 1
+	outgoing: 26 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 13 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_status 
+		 6: 
+		 7: def_%v_4 status[2.5,] 
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 14 
+	datadep: 
+	instructions:
+		 0: def_%v_5 status[2.5,] 
+		 1: BRANCH %v_5[3.0,] 
+BB 4
+	outgoing: 5 15 
+	datadep: 
+	instructions:
+		 0: def_%v_6 status[2.5,] 
+		 1: BRANCH %v_6[4.0,] 
+BB 5
+	outgoing: 6 16 
+	datadep: 
+	instructions:
+		 0: def_%v_7 status[2.5,] 
+		 1: BRANCH %v_7[5.0,] 
+BB 6
+	outgoing: 7 17 
+	datadep: 
+	instructions:
+		 0: def_%v_8 status[2.5,] 
+		 1: BRANCH %v_8[6.0,] 
+BB 7
+	outgoing: 8 18 
+	datadep: 
+	instructions:
+		 0: def_%v_9 status[2.5,] 
+		 1: BRANCH %v_9[7.0,] 
+BB 8
+	outgoing: 9 19 
+	datadep: 
+	instructions:
+		 0: def_%v_10 status[2.5,] 
+		 1: BRANCH %v_10[8.0,] 
+BB 9
+	outgoing: 10 20 
+	datadep: 
+	instructions:
+		 0: def_%v_11 status[2.5,] 
+		 1: BRANCH %v_11[9.0,] 
+BB 10
+	outgoing: 11 21 
+	datadep: 
+	instructions:
+		 0: def_%v_12 status[2.5,] 
+		 1: BRANCH %v_12[10.0,] 
+BB 11
+	outgoing: 12 22 
+	datadep: 
+	instructions:
+		 0: def_%v_13 status[2.5,] 
+		 1: BRANCH %v_13[11.0,] 
+BB 12
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Boolean def_%v_3 
+		 2: RETURN %self[2.0,] 
+BB 13
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->status def_%v_14 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: (VideoGraph) def_%v_15 
+		 3: %v_15->get_status_number def_%v_16 %v_15[13.2,] 	 SYMBOL:uploading,	 ARGS:Symbol,
+		 4: %v_14->== def_%v_17 %v_14[13.1,] %v_16[13.3,] 	 SYMBOL:	 ARGS:%v_16,
+		 5: COPY TYPE_PASS def_%v_3 %v_17[13.4,] 
+		 6: RETURN %v_17[13.4,] %self[13.1,2.0,] 
+BB 14
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->status def_%v_18 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: (VideoGraph) def_%v_19 
+		 3: %v_19->get_status_number def_%v_20 %v_19[14.2,] 	 SYMBOL:uploading_error,	 ARGS:Symbol,
+		 4: %v_18->== def_%v_21 %v_18[14.1,] %v_20[14.3,] 	 SYMBOL:	 ARGS:%v_20,
+		 5: COPY TYPE_PASS def_%v_3 %v_21[14.4,] 
+		 6: RETURN %v_21[14.4,] %self[14.1,2.0,] 
+BB 15
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->status def_%v_22 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: (VideoGraph) def_%v_23 
+		 3: %v_23->get_status_number def_%v_24 %v_23[15.2,] 	 SYMBOL:submitting,	 ARGS:Symbol,
+		 4: %v_22->== def_%v_25 %v_22[15.1,] %v_24[15.3,] 	 SYMBOL:	 ARGS:%v_24,
+		 5: COPY TYPE_PASS def_%v_3 %v_25[15.4,] 
+		 6: RETURN %v_25[15.4,] %self[15.1,2.0,] 
+BB 16
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->status def_%v_26 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: (VideoGraph) def_%v_27 
+		 3: %v_27->get_status_number def_%v_28 %v_27[16.2,] 	 SYMBOL:submitting_error,	 ARGS:Symbol,
+		 4: %v_26->== def_%v_29 %v_26[16.1,] %v_28[16.3,] 	 SYMBOL:	 ARGS:%v_28,
+		 5: COPY TYPE_PASS def_%v_3 %v_29[16.4,] 
+		 6: RETURN %v_29[16.4,] %self[16.1,2.0,] 
+BB 17
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->status def_%v_30 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: (VideoGraph) def_%v_31 
+		 3: %v_31->get_status_number def_%v_32 %v_31[17.2,] 	 SYMBOL:transcoding,	 ARGS:Symbol,
+		 4: %v_30->== def_%v_33 %v_30[17.1,] %v_32[17.3,] 	 SYMBOL:	 ARGS:%v_32,
+		 5: COPY TYPE_PASS def_%v_3 %v_33[17.4,] 
+		 6: RETURN %v_33[17.4,] %self[17.1,2.0,] 
+BB 18
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->status def_%v_34 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: (VideoGraph) def_%v_35 
+		 3: %v_35->get_status_number def_%v_36 %v_35[18.2,] 	 SYMBOL:transcoding_error,	 ARGS:Symbol,
+		 4: %v_34->== def_%v_37 %v_34[18.1,] %v_36[18.3,] 	 SYMBOL:	 ARGS:%v_36,
+		 5: COPY TYPE_PASS def_%v_3 %v_37[18.4,] 
+		 6: RETURN %v_37[18.4,] %self[18.1,2.0,] 
+BB 19
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->status def_%v_38 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: (VideoGraph) def_%v_39 
+		 3: %v_39->get_status_number def_%v_40 %v_39[19.2,] 	 SYMBOL:ready,	 ARGS:Symbol,
+		 4: %v_38->== def_%v_41 %v_38[19.1,] %v_40[19.3,] 	 SYMBOL:	 ARGS:%v_40,
+		 5: COPY TYPE_PASS def_%v_3 %v_41[19.4,] 
+		 6: RETURN %v_41[19.4,] %self[19.1,2.0,] 
+BB 20
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->status def_%v_42 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: (VideoGraph) def_%v_43 
+		 3: %v_43->get_status_number def_%v_44 %v_43[20.2,] 	 SYMBOL:fatal_error,	 ARGS:Symbol,
+		 4: %v_42->== def_%v_45 %v_42[20.1,] %v_44[20.3,] 	 SYMBOL:	 ARGS:%v_44,
+		 5: COPY TYPE_PASS def_%v_3 %v_45[20.4,] 
+		 6: RETURN %v_45[20.4,] %self[20.1,2.0,] 
+BB 21
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->status def_%v_46 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: (VideoGraph) def_%v_47 
+		 3: %v_47->get_status_number def_%v_48 %v_47[21.2,] 	 SYMBOL:deleting,	 ARGS:Symbol,
+		 4: %v_46->== def_%v_49 %v_46[21.1,] %v_48[21.3,] 	 SYMBOL:	 ARGS:%v_48,
+		 5: COPY TYPE_PASS def_%v_3 %v_49[21.4,] 
+		 6: RETURN %v_49[21.4,] %self[21.1,2.0,] 
+BB 22
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->status def_%v_50 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: (VideoGraph) def_%v_51 
+		 3: %v_51->get_status_number def_%v_52 %v_51[22.2,] 	 SYMBOL:deleting_error,	 ARGS:Symbol,
+		 4: %v_50->== def_%v_53 %v_50[22.1,] %v_52[22.3,] 	 SYMBOL:	 ARGS:%v_52,
+		 5: COPY TYPE_PASS def_%v_3 %v_53[22.4,] 
+		 6: RETURN %v_53[22.4,] %self[22.1,2.0,] 
+BB 26
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = send_to_facebook_or_twitter instanceMethod = true
+BB 1
+	outgoing: 36 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_social_network 
+		 6: RECEIVEARG def_social_settings 
+		 7: 
+		 8: social_settings->token def_%v_3 social_settings[2.6,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_PASS def_token %v_3[2.8,] 
+		 10: 
+		 11: GLOBALVAR $! def_%v_4 
+BB 4
+	outgoing: 5 7 27 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: COPY TYPE_StringLiteral "facebook" def_%v_9 
+		 3: def_%v_8 %v_9[4.2,] social_network[2.5,] 
+		 4: BRANCH %v_8[4.3,] 
+BB 5
+	outgoing: 6 15 27 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "twitter" def_%v_11 
+		 1: def_%v_10 %v_11[5.0,] social_network[2.5,] 
+		 2: BRANCH %v_10[5.1,] 
+BB 6
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+BB 7
+	outgoing: 8 9 27 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Koala) def_%v_12 
+		 2: (inherit Facebook) def_%v_13 %v_12[7.1,] 
+		 3: %v_13[7.2,] 
+BB 8
+	outgoing: 9 27 
+	datadep: 
+	instructions:
+		 0: %v_12->const_missing def_%v_13 %v_12[7.1,] 	 SYMBOL:Facebook,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 11 27 
+	datadep: 
+	instructions:
+		 0: (inherit API) def_%v_14 %v_13[8.0,7.2,] 
+		 1: %v_14[9.0,] 
+BB 10
+	outgoing: 11 27 
+	datadep: 
+	instructions:
+		 0: %v_13->const_missing def_%v_14 %v_13[8.0,7.2,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 11
+	outgoing: 12 13 27 
+	datadep: 
+	instructions:
+		 0: %v_14->new def_%v_15 %v_14[10.0,9.0,] token[2.9,] 	 SYMBOL:	 ARGS:token,
+		 1: COPY TYPE_PASS def_graph %v_15[11.0,] 
+		 2: 
+		 3: COPY TYPE_StringLiteral "me" def_%v_16 
+		 4: COPY TYPE_StringLiteral "feed" def_%v_17 
+		 5: COPY TYPE_StringLiteral "" def_%v_18 
+		 6: 
+		 7: %self->selected_thumbnail def_%v_19 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %self->get_thumbnail_url def_%v_20 %self[11.7,2.0,] %v_19[11.7,] 	 SYMBOL:	 ARGS:%v_19,
+		 9: BUILDSTRING def_%v_21 %v_20[11.8,] 
+		 10: 
+		 11: (Rails) def_%v_22 
+		 12: %v_22->application def_%v_23 %v_22[11.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_23->routes def_%v_24 %v_23[11.12,] 	 SYMBOL:	 ARGS:
+		 14: %v_24->url_helpers def_%v_25 %v_24[11.13,] 	 SYMBOL:	 ARGS:
+		 15: %self->public_token def_%v_26 %self[11.7,11.8,2.0,] 	 SYMBOL:	 ARGS:
+		 16: COPY TYPE_StringLiteral "brevidy.heroku.com" def_%v_27 
+		 17: HASH-public_token-host- def_%v_28 %v_26[11.15,] %v_27[11.16,] 
+		 18: %v_25->public_video_url def_%v_29 %v_25[11.14,] %v_28[11.17,] 	 SYMBOL:	 ARGS:%v_28,
+		 19: BUILDSTRING def_%v_30 %v_29[11.18,] 
+		 20: 
+		 21: %self->title def_%v_31 %self[11.7,11.8,11.15,2.0,] 	 SYMBOL:	 ARGS:
+		 22: %v_31->blank? def_%v_32 %v_31[11.21,] 	 SYMBOL:	 ARGS:
+		 23: BRANCH %v_32[11.22,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_33 
+		 1: 
+BB 13
+	outgoing: 14 27 
+	datadep: 
+	instructions:
+		 0: %self->title def_%v_34 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_33 %v_34[13.0,] 
+BB 14
+	outgoing: 25 27 
+	datadep: 
+	instructions:
+		 0: BUILDSTRING def_%v_35 %v_33[13.1,12.0,] 
+		 1: COPY TYPE_StringLiteral "brevidy.com" def_%v_36 
+		 2: 
+		 3: %self->description def_%v_37 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: BUILDSTRING def_%v_38 %v_37[14.3,] 
+		 5: HASH-message-picture-link-name-caption-description- def_%v_39 %v_18[11.5,] %v_21[11.9,] %v_30[11.19,] %v_35[14.0,] %v_36[14.1,] %v_38[14.4,] 
+		 6: graph->put_object def_%v_40 graph[11.1,] %v_16[11.3,] %v_17[11.4,] %v_39[14.5,] 	 SYMBOL:	 ARGS:%v_16,%v_17,%v_39,
+		 7: COPY TYPE_PASS def_%v_7 %v_40[14.6,] 
+		 8: 
+BB 15
+	outgoing: 16 17 27 
+	datadep: 
+	instructions:
+		 0: 
+		 1: social_settings->token_secret def_%v_41 social_settings[2.6,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_token_secret %v_41[15.1,] 
+		 3: 
+		 4: (Twitter) def_%v_42 
+		 5: (Brevidy) def_%v_43 
+		 6: (inherit Application) def_%v_44 %v_43[15.5,] 
+		 7: %v_44[15.6,] 
+BB 16
+	outgoing: 17 27 
+	datadep: 
+	instructions:
+		 0: %v_43->const_missing def_%v_44 %v_43[15.5,] 	 SYMBOL:Application,	 ARGS:Symbol,
+BB 17
+	outgoing: 18 19 27 
+	datadep: 
+	instructions:
+		 0: (inherit TWITTER_CONSUMER_KEY) def_%v_45 %v_44[16.0,15.6,] 
+		 1: %v_45[17.0,] 
+BB 18
+	outgoing: 19 27 
+	datadep: 
+	instructions:
+		 0: %v_44->const_missing def_%v_45 %v_44[16.0,15.6,] 	 SYMBOL:TWITTER_CONSUMER_KEY,	 ARGS:Symbol,
+BB 19
+	outgoing: 20 21 27 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %v_42->consumer_key %v_45[18.0,17.0,] 
+		 1: 
+		 2: (Twitter) def_%v_46 
+		 3: (Brevidy) def_%v_47 
+		 4: (inherit Application) def_%v_48 %v_47[19.3,] 
+		 5: %v_48[19.4,] 
+BB 20
+	outgoing: 21 27 
+	datadep: 
+	instructions:
+		 0: %v_47->const_missing def_%v_48 %v_47[19.3,] 	 SYMBOL:Application,	 ARGS:Symbol,
+BB 21
+	outgoing: 22 23 27 
+	datadep: 
+	instructions:
+		 0: (inherit TWITTER_CONSUMER_SECRET) def_%v_49 %v_48[20.0,19.4,] 
+		 1: %v_49[21.0,] 
+BB 22
+	outgoing: 23 27 
+	datadep: 
+	instructions:
+		 0: %v_48->const_missing def_%v_49 %v_48[20.0,19.4,] 	 SYMBOL:TWITTER_CONSUMER_SECRET,	 ARGS:Symbol,
+BB 23
+	outgoing: 25 27 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %v_46->consumer_secret %v_49[22.0,21.0,] 
+		 1: 
+		 2: (Twitter) def_%v_50 
+		 3: ATTRASSIGN %v_50->oauth_token token[2.9,] 
+		 4: 
+		 5: (Twitter) def_%v_51 
+		 6: ATTRASSIGN %v_51->oauth_token_secret token_secret[15.2,] 
+		 7: 
+		 8: %self->description def_%v_52 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_StringLiteral "..." def_%v_53 
+		 10: HASH-length-omission- def_%v_54 %v_53[23.9,] 
+		 11: %self->truncate def_%v_55 %self[23.8,2.0,] %v_52[23.8,] %v_54[23.10,] 	 SYMBOL:	 ARGS:%v_52,%v_54,
+		 12: COPY TYPE_PASS def_description %v_55[23.11,] 
+		 13: 
+		 14: COPY TYPE_StringLiteral "Check out this video! " def_%v_56 
+		 15: COPY TYPE_StringLiteral " " def_%v_57 
+		 16: (Rails) def_%v_58 
+		 17: %v_58->application def_%v_59 %v_58[23.16,] 	 SYMBOL:	 ARGS:
+		 18: %v_59->routes def_%v_60 %v_59[23.17,] 	 SYMBOL:	 ARGS:
+		 19: %v_60->url_helpers def_%v_61 %v_60[23.18,] 	 SYMBOL:	 ARGS:
+		 20: %self->public_token def_%v_62 %self[23.8,23.11,2.0,] 	 SYMBOL:	 ARGS:
+		 21: COPY TYPE_StringLiteral "brevidy.heroku.com" def_%v_63 
+		 22: HASH-public_token-host- def_%v_64 %v_62[23.20,] %v_63[23.21,] 
+		 23: %v_61->public_video_url def_%v_65 %v_61[23.19,] %v_64[23.22,] 	 SYMBOL:	 ARGS:%v_64,
+		 24: COPY TYPE_StringLiteral " (via @brevidy)" def_%v_66 
+		 25: BUILDSTRING def_%v_67 %v_56[23.14,] description[23.12,] %v_57[23.15,] %v_65[23.23,] %v_66[23.24,] 
+		 26: COPY TYPE_PASS def_tweet %v_67[23.25,] 
+		 27: 
+		 28: (Twitter) def_%v_68 
+		 29: %v_68->update def_%v_69 %v_68[23.28,] %v_67[23.25,] 	 SYMBOL:	 ARGS:tweet,
+		 30: COPY TYPE_PASS def_%v_7 %v_69[23.29,] 
+		 31: 
+BB 25
+	outgoing: 26 27 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_6 %v_7[14.7,23.30,6.0,] 
+		 1: %v_4[2.11,] 
+BB 26
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: 
+BB 27
+	outgoing: 28 29 34 
+	datadep: 
+	instructions:
+		 0: def_%v_70 
+		 1: (Exception) def_%v_71 
+		 2: def_%v_72 %v_71[27.1,] %v_70[27.0,] 
+		 3: BRANCH %v_72[27.2,] 
+BB 28
+	outgoing: 34 36 
+	datadep: 
+	instructions:
+		 0: %v_70[27.0,] 
+BB 29
+	outgoing: 30 31 34 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_73 
+		 1: COPY TYPE_PASS def_e %v_73[29.0,] 
+		 2: 
+		 3: (Rails) def_%v_74 
+		 4: %v_74->env def_%v_75 %v_74[29.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_75->production? def_%v_76 %v_75[29.4,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %v_76[29.5,] 
+BB 30
+	outgoing: 32 34 
+	datadep: 
+	instructions:
+		 0: (Airbrake) def_%v_77 
+		 1: COPY TYPE_StringLiteral "Logged Error" def_%v_78 
+		 2: COPY TYPE_StringLiteral "POST TO SOCIAL NETWORK: Error posting video ID " def_%v_79 
+		 3: %self->id def_%v_80 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral " to " def_%v_81 
+		 5: COPY TYPE_StringLiteral " ... error was: " def_%v_82 
+		 6: BUILDSTRING def_%v_83 %v_79[30.2,] %v_80[30.3,] %v_81[30.4,] social_network[2.5,] %v_82[30.5,] e[29.1,] 
+		 7: HASH-error_class-error_message- def_%v_84 %v_78[30.1,] %v_83[30.6,] 
+		 8: %v_77->notify def_%v_85 %v_77[30.0,] %v_84[30.7,] 	 SYMBOL:	 ARGS:%v_84,
+		 9: 
+BB 31
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_85 
+BB 32
+	outgoing: 33 34 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_6 %v_85[31.0,30.8,] 
+		 1: %v_4[2.11,] 
+BB 33
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: 
+BB 34
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: def_%v_86 
+		 1: def_%v_87 %v_86[34.0,] %v_4[2.11,] 
+		 2: %v_86[34.0,] 
+BB 35
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: RETURN %v_6[25.0,32.0,] %self[2.0,] 
+BB 36
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = badge_it instanceMethod = true
+BB 1
+	outgoing: 18 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_badge_from 
+		 6: RECEIVEARG def_badge_type 
+		 7: 
+		 8: %self->badges def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: HASH-badge_type- def_%v_4 badge_type[2.6,] 
+		 10: %v_3->new def_%v_5 %v_3[2.8,] %v_4[2.9,] 	 SYMBOL:	 ARGS:%v_4,
+		 11: COPY TYPE_PASS def_new_badge %v_5[2.10,] 
+		 12: 
+		 13: %self->badges def_%v_6 %self[2.0,2.8,] 	 SYMBOL:	 ARGS:
+		 14: badge_from->id def_%v_7 badge_from[2.5,] 	 SYMBOL:	 ARGS:
+		 15: HASH-badge_from-badge_type- def_%v_8 %v_7[2.14,] badge_type[2.6,] 
+		 16: %v_6->where def_%v_9 %v_6[2.13,] %v_8[2.15,] 	 SYMBOL:	 ARGS:%v_8,
+		 17: %v_9->first def_%v_10 %v_9[2.16,] 	 SYMBOL:	 ARGS:
+		 18: BRANCH %v_10[2.17,] 
+BB 3
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: new_badge->errors def_%v_11 new_badge[2.11,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "^You have already badged this video using the " def_%v_12 
+		 3: (Icon) def_%v_13 
+		 4: %v_13->find def_%v_14 %v_13[3.3,] badge_type[2.6,] 	 SYMBOL:	 ARGS:badge_type,
+		 5: %v_14->name def_%v_15 %v_14[3.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral " badge" def_%v_16 
+		 7: BUILDSTRING def_%v_17 %v_12[3.2,] %v_15[3.5,] %v_16[3.6,] 
+		 8: %v_11->add def_%v_18 %v_11[3.1,] %v_17[3.7,] 	 SYMBOL:badge_from,	 ARGS:Symbol,%v_17,
+		 9: 
+BB 4
+	outgoing: 5 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: badge_from->id def_%v_19 badge_from[2.5,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN new_badge->badge_from %v_19[4.1,] 
+		 3: 
+		 4: new_badge->save def_%v_20 new_badge[4.2,2.11,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %v_20[4.4,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_21 video_owner[] 
+		 2: COPY TYPE_PASS def_%v_22 video_owner[] 
+		 3: BRANCH video_owner[] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: (User) def_%v_23 
+		 1: %self->user_id def_%v_24 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_23->find_by_id def_%v_25 %v_23[6.0,] %v_24[6.1,] 	 SYMBOL:	 ARGS:%v_24,
+		 3: COPY TYPE_PASS def_video_owner %v_25[6.2,] 
+		 4: COPY TYPE_PASS def_%v_22 %v_25[6.2,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: new_badge->badge_from def_%v_26 new_badge[4.2,2.11,] 	 SYMBOL:	 ARGS:
+		 2: video_owner->id def_%v_27 video_owner[6.3,] 	 SYMBOL:	 ARGS:
+		 3: %v_26->== def_%v_28 %v_26[7.1,] %v_27[7.2,] 	 SYMBOL:	 ARGS:%v_27,
+		 4: BRANCH %v_28[7.3,] 
+BB 8
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_29 
+		 1: 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: video_owner->send_email_for_new_badges def_%v_30 video_owner[6.3,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_30[9.1,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: (UserMailer) def_%v_31 
+		 1: HASH-priority- def_%v_32 
+		 2: %v_31->delay def_%v_33 %v_31[10.0,] %v_32[10.1,] 	 SYMBOL:	 ARGS:%v_32,
+		 3: %v_33->new_badge def_%v_34 %v_33[10.2,] new_badge[4.2,2.11,] 	 SYMBOL:	 ARGS:new_badge,
+		 4: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_34 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (UserEvent) def_%v_35 
+		 2: HASH-priority- def_%v_36 
+		 3: %v_35->delay def_%v_37 %v_35[12.1,] %v_36[12.2,] 	 SYMBOL:	 ARGS:%v_36,
+		 4: (UserEvent) def_%v_38 
+		 5: %v_38->event_type_value def_%v_39 %v_38[12.4,] 	 SYMBOL:badge,	 ARGS:Symbol,
+		 6: new_badge->id def_%v_40 new_badge[4.2,2.11,] 	 SYMBOL:	 ARGS:
+		 7: video_owner->id def_%v_41 video_owner[6.3,] 	 SYMBOL:	 ARGS:
+		 8: badge_from->id def_%v_42 badge_from[2.5,] 	 SYMBOL:	 ARGS:
+		 9: HASH-event_type-event_object_id-user_id-event_creator_id- def_%v_43 %v_39[12.5,] %v_40[12.6,] %v_41[12.7,] %v_42[12.8,] 
+		 10: %v_37->create def_%v_44 %v_37[12.3,] %v_43[12.9,] 	 SYMBOL:	 ARGS:%v_43,
+		 11: COPY TYPE_PASS def_%v_29 %v_44[12.10,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_29 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_18 %v_29[14.0,12.11,8.0,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN new_badge[2.11,4.2,] %self[2.0,] 
+BB 18
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = has_been_badged_with? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_badge 
+		 6: RECEIVEARG def_user 
+		 7: 
+		 8: %self->badges def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: HASH-badge_from-badge_type- def_%v_4 user[2.6,] badge[2.5,] 
+		 10: %v_3->where def_%v_5 %v_3[2.8,] %v_4[2.9,] 	 SYMBOL:	 ARGS:%v_4,
+		 11: %v_5->first def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: RETURN %v_6[2.11,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = unique_badge_types_and_counts instanceMethod = true
+BB 1
+	outgoing: 4 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_Array def_%v_3 
+		 7: COPY TYPE_PASS def_unique_badges %v_3[2.6,] 
+		 8: 
+		 9: COPY TYPE_Array def_%v_4 
+		 10: COPY TYPE_PASS def_all_badge_types %v_4[2.9,] 
+		 11: 
+		 12: %self->badges def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 13: %v_5->group_by def_%v_6 %v_5[2.12,] 	 SYMBOL:badge_type,	 ARGS:
+		 14: %v_6->each def_%v_7 %v_6[2.13,] %self[2.0,2.12,] 	 SYMBOL:	 ARGS:%v_6,
+CLOSURE BEGIN: badge_type[] array_of_badges[] unique_badges[2.7,] all_badge_types[2.10,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_badge_type 
+		 3: RECEIVEARG def_array_of_badges 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Icon) def_%cl_1_3 
+		 2: %cl_1_3->badges def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "id = ?" def_%cl_1_5 
+		 4: %cl_1_4->where def_%cl_1_6 %cl_1_4[3.2,] %cl_1_5[3.3,] badge_type[2.2,] 	 SYMBOL:	 ARGS:%cl_1_5,badge_type,
+		 5: %cl_1_6->first def_%cl_1_7 %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:
+		 6: array_of_badges->size def_%cl_1_8 array_of_badges[2.3,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_Array def_%cl_1_9 %cl_1_7[3.5,] %cl_1_8[3.6,] 
+		 8: unique_badges-><< def_%cl_1_10 unique_badges[] %cl_1_9[3.7,] 	 SYMBOL:	 ARGS:%cl_1_9,
+		 9: 
+		 10: all_badge_types-><< def_%cl_1_11 all_badge_types[] badge_type[2.2,] 	 SYMBOL:	 ARGS:badge_type,
+		 11: RETURN %cl_1_11[3.10,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_12 
+		 1: def_%cl_1_13 %cl_1_12[4.0,] 
+		 2: RETURN %cl_1_13[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: array_of_badges[2.3,] 
+		 15: 
+		 16: unique_badges->sort_by def_%v_8 unique_badges[2.7,] %self[2.0,2.12,] 	 SYMBOL:	 ARGS:unique_badges,
+CLOSURE BEGIN: bdgs[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_bdgs 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: bdgs->[] def_%cl_2_3 bdgs[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: RETURN %cl_2_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_4 
+		 1: def_%cl_2_5 %cl_2_4[4.0,] 
+		 2: RETURN %cl_2_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 17: %v_8->reverse def_%v_9 %v_8[2.16,] 	 SYMBOL:	 ARGS:
+		 18: HASH-badge_sets-all_badge_types- def_%v_10 %v_9[2.17,] all_badge_types[2.10,] 
+		 19: RETURN %v_10[2.18,] %self[2.0,2.12,] 
+BB 4
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = badges_count_for_type instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_badge_type 
+		 6: 
+		 7: %self->badges def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: HASH-badge_type- def_%v_4 badge_type[2.5,] 
+		 9: %v_3->where def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: %v_5->count def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: RETURN %v_6[2.10,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create_taggings instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_video_tag_string 
+		 6: 
+		 7: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "," def_%v_6 
+		 2: video_tag_string->split def_%v_7 video_tag_string[2.5,] %v_6[4.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: COPY TYPE_PASS def_%v_5 %v_7[4.2,] 
+		 4: 
+		 5: %v_3[2.7,] 
+BB 5
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_8 
+		 2: def_%v_9 %v_8[6.1,] 
+		 3: BRANCH %v_9[6.2,] 
+BB 7
+	outgoing: 10 15 
+	datadep: 
+	instructions:
+		 0: %v_8[6.1,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: %v_3[2.7,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: def_%v_10 
+		 1: def_%v_11 %v_10[10.0,] %v_3[2.7,] 
+		 2: %v_10[10.0,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_video_tags %v_5[4.3,8.0,] 
+		 1: 
+		 2: %v_5->blank? def_%v_12 %v_5[4.3,8.0,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_12[11.2,] 
+BB 12
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+		 1: RETURN %v_13[12.0,] %self[2.0,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: video_tags->each def_%v_14 video_tags[11.0,] %self[2.0,] 	 SYMBOL:	 ARGS:video_tags,
+CLOSURE BEGIN: video_tag[] %self[2.0,] tag[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_video_tag 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Tag) def_%cl_1_3 
+		 2: video_tag->downcase def_%cl_1_4 video_tag[2.2,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_4->strip def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_3->find_or_create_by_content def_%cl_1_6 %cl_1_3[3.1,] %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:%cl_1_5,
+		 5: COPY TYPE_PASS def_tag %cl_1_6[3.4,] 
+		 6: 
+		 7: %self->taggings def_%cl_1_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: tag->id def_%cl_1_8 tag[3.5,] 	 SYMBOL:	 ARGS:
+		 9: %cl_1_7->find_or_create_by_tag_id def_%cl_1_9 %cl_1_7[3.7,] %cl_1_8[3.8,] 	 SYMBOL:	 ARGS:%cl_1_8,
+		 10: RETURN %cl_1_9[3.9,] %self[3.7,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_10 
+		 1: def_%cl_1_11 %cl_1_10[4.0,] 
+		 2: RETURN %cl_1_11[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: tag[3.5,] 
+		 2: RETURN %v_14[13.1,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_thumbnail_url instanceMethod = true
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_thumbnail_number 
+		 6: 
+		 7: (Brevidy) def_%v_3 
+		 8: (inherit Application) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:Application,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit S3_BASE_URL) def_%v_5 %v_4[3.0,2.8,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.8,] 	 SYMBOL:S3_BASE_URL,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "/" def_%v_6 
+		 1: %self->thumbnail_path def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "/" def_%v_8 
+		 3: %self->thumbnail_type def_%v_9 %self[6.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "_" def_%v_10 
+		 5: %self->base_filename def_%v_11 %self[6.1,6.3,2.0,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral "_000" def_%v_12 
+		 7: COPY TYPE_StringLiteral ".png" def_%v_13 
+		 8: BUILDSTRING def_%v_14 %v_5[5.0,4.0,] %v_6[6.0,] %v_7[6.1,] %v_8[6.2,] %v_9[6.3,] %v_10[6.4,] %v_11[6.5,] %v_12[6.6,] thumbnail_number[2.5,] %v_13[6.7,] 
+		 9: COPY TYPE_PASS def_thumbnail_url %v_14[6.8,] 
+		 10: 
+		 11: %self->remote_video_id def_%v_15 %self[6.1,6.3,6.5,2.0,] 	 SYMBOL:	 ARGS:
+		 12: %v_15->blank? def_%v_16 %v_15[6.11,] 	 SYMBOL:	 ARGS:
+		 13: BRANCH %v_16[6.12,] 
+BB 7
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN thumbnail_url[6.9,] %self[2.0,] 
+BB 8
+	outgoing: 9 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->remote_thumbnail def_%v_18 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_18->blank? def_%v_19 %v_18[8.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_19[8.2,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Brevidy) def_%v_20 
+		 2: (inherit Application) def_%v_21 %v_20[9.1,] 
+		 3: %v_21[9.2,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %v_20->const_missing def_%v_21 %v_20[9.1,] 	 SYMBOL:Application,	 ARGS:Symbol,
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: (inherit S3_BASE_URL) def_%v_22 %v_21[10.0,9.2,] 
+		 1: %v_22[11.0,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: %v_21->const_missing def_%v_22 %v_21[10.0,9.2,] 	 SYMBOL:S3_BASE_URL,	 ARGS:Symbol,
+BB 13
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "/images/shared_processing.png" def_%v_23 
+		 1: BUILDSTRING def_%v_24 %v_22[12.0,11.0,] %v_23[13.0,] 
+		 2: RETURN %v_24[13.1,] %self[2.0,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN thumbnail_url[6.9,] %self[2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = generate_secure_s3_url instanceMethod = true
+BB 1
+	outgoing: 26 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->path def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "/" def_%v_4 
+		 8: %self->encoding_type def_%v_5 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_StringLiteral "_" def_%v_6 
+		 10: %self->base_filename def_%v_7 %self[2.0,2.6,2.8,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_StringLiteral ".mp4" def_%v_8 
+		 12: BUILDSTRING def_%v_9 %v_4[2.7,] %v_5[2.8,] %v_6[2.9,] %v_7[2.10,] %v_8[2.11,] 
+		 13: %v_3->+ def_%v_10 %v_3[2.6,] %v_9[2.12,] 	 SYMBOL:	 ARGS:%v_9,
+		 14: COPY TYPE_PASS def_s3_video_key %v_10[2.13,] 
+		 15: 
+		 16: (Brevidy) def_%v_11 
+		 17: (inherit Application) def_%v_12 %v_11[2.16,] 
+		 18: %v_12[2.17,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_11->const_missing def_%v_12 %v_11[2.16,] 	 SYMBOL:Application,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit S3_BASE_URL) def_%v_13 %v_12[3.0,2.17,] 
+		 1: %v_13[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_12->const_missing def_%v_13 %v_12[3.0,2.17,] 	 SYMBOL:S3_BASE_URL,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_s3_base_url %v_13[5.0,4.0,] 
+		 1: 
+		 2: (Brevidy) def_%v_14 
+		 3: (inherit Application) def_%v_15 %v_14[6.2,] 
+		 4: %v_15[6.3,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_14->const_missing def_%v_15 %v_14[6.2,] 	 SYMBOL:Application,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: (inherit S3_BUCKET) def_%v_16 %v_15[7.0,6.3,] 
+		 1: %v_16[8.0,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_15->const_missing def_%v_16 %v_15[7.0,6.3,] 	 SYMBOL:S3_BUCKET,	 ARGS:Symbol,
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_bucket %v_16[9.0,8.0,] 
+		 1: 
+		 2: (Brevidy) def_%v_17 
+		 3: (inherit Application) def_%v_18 %v_17[10.2,] 
+		 4: %v_18[10.3,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %v_17->const_missing def_%v_18 %v_17[10.2,] 	 SYMBOL:Application,	 ARGS:Symbol,
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: (inherit S3_ACCESS_KEY_ID) def_%v_19 %v_18[11.0,10.3,] 
+		 1: %v_19[12.0,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: %v_18->const_missing def_%v_19 %v_18[11.0,10.3,] 	 SYMBOL:S3_ACCESS_KEY_ID,	 ARGS:Symbol,
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_access_key_id %v_19[13.0,12.0,] 
+		 1: 
+		 2: (Brevidy) def_%v_20 
+		 3: (inherit Application) def_%v_21 %v_20[14.2,] 
+		 4: %v_21[14.3,] 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: %v_20->const_missing def_%v_21 %v_20[14.2,] 	 SYMBOL:Application,	 ARGS:Symbol,
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: (inherit S3_SECRET_ACCESS_KEY) def_%v_22 %v_21[15.0,14.3,] 
+		 1: %v_22[16.0,] 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: %v_21->const_missing def_%v_22 %v_21[15.0,14.3,] 	 SYMBOL:S3_SECRET_ACCESS_KEY,	 ARGS:Symbol,
+BB 18
+	outgoing: 19 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_secret_access_key %v_22[17.0,16.0,] 
+		 1: 
+		 2: CONSTANT def_%v_23 	 SYMBOL:	 ARGS:
+		 3: %v_23->from_now def_%v_24 %v_23[18.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_24->utc def_%v_25 %v_24[18.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_25->to_i def_%v_26 %v_25[18.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_PASS def_expiration_date %v_26[18.5,] 
+		 7: 
+		 8: COPY TYPE_StringLiteral "GET
+
+
+" def_%v_27 
+		 9: COPY TYPE_StringLiteral "
+/" def_%v_28 
+		 10: COPY TYPE_StringLiteral "/" def_%v_29 
+		 11: BUILDSTRING def_%v_30 %v_27[18.8,] %v_26[18.5,] %v_28[18.9,] bucket[10.0,] %v_29[18.10,] s3_video_key[2.14,] 
+		 12: COPY TYPE_StringLiteral "UTF-8" def_%v_31 
+		 13: %v_30->encode def_%v_32 %v_30[18.11,] %v_31[18.12,] 	 SYMBOL:	 ARGS:%v_31,
+		 14: COPY TYPE_PASS def_string_to_sign %v_32[18.13,] 
+		 15: 
+		 16: (CGI) def_%v_33 
+		 17: (Base64) def_%v_34 
+		 18: (OpenSSL) def_%v_35 
+		 19: (inherit HMAC) def_%v_36 %v_35[18.18,] 
+		 20: %v_36[18.19,] 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: %v_35->const_missing def_%v_36 %v_35[18.18,] 	 SYMBOL:HMAC,	 ARGS:Symbol,
+BB 20
+	outgoing: 21 22 
+	datadep: 
+	instructions:
+		 0: (OpenSSL) def_%v_37 
+		 1: (inherit Digest) def_%v_38 %v_37[20.0,] 
+		 2: %v_38[20.1,] 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: %v_37->const_missing def_%v_38 %v_37[20.0,] 	 SYMBOL:Digest,	 ARGS:Symbol,
+BB 22
+	outgoing: 23 24 
+	datadep: 
+	instructions:
+		 0: (inherit Digest) def_%v_39 %v_38[21.0,20.1,] 
+		 1: %v_39[22.0,] 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: %v_38->const_missing def_%v_39 %v_38[21.0,20.1,] 	 SYMBOL:Digest,	 ARGS:Symbol,
+BB 24
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "sha1" def_%v_40 
+		 1: %v_39->new def_%v_41 %v_39[23.0,22.0,] %v_40[24.0,] 	 SYMBOL:	 ARGS:%v_40,
+		 2: %v_36->digest def_%v_42 %v_36[19.0,18.19,] %v_41[24.1,] secret_access_key[18.0,] string_to_sign[18.14,] 	 SYMBOL:	 ARGS:%v_41,secret_access_key,string_to_sign,
+		 3: %v_34->encode64 def_%v_43 %v_34[18.17,] %v_42[24.2,] 	 SYMBOL:	 ARGS:%v_42,
+		 4: COPY TYPE_StringLiteral "
+" def_%v_44 
+		 5: COPY TYPE_StringLiteral "" def_%v_45 
+		 6: %v_43->gsub def_%v_46 %v_43[24.3,] %v_44[24.4,] %v_45[24.5,] 	 SYMBOL:	 ARGS:%v_44,%v_45,
+		 7: %v_33->escape def_%v_47 %v_33[18.16,] %v_46[24.6,] 	 SYMBOL:	 ARGS:%v_46,
+		 8: COPY TYPE_PASS def_signature %v_47[24.7,] 
+		 9: 
+		 10: COPY TYPE_StringLiteral "/" def_%v_48 
+		 11: COPY TYPE_StringLiteral "?AWSAccessKeyId=" def_%v_49 
+		 12: BUILDSTRING def_%v_50 s3_base_url[6.0,] %v_48[24.10,] s3_video_key[2.14,] %v_49[24.11,] access_key_id[14.0,] 
+		 13: COPY TYPE_StringLiteral "&Expires=" def_%v_51 
+		 14: 
+		 15: BUILDSTRING def_%v_52 %v_51[24.13,] expiration_date[18.6,] 
+		 16: %v_50->+ def_%v_53 %v_50[24.12,] %v_52[24.15,] 	 SYMBOL:	 ARGS:%v_52,
+		 17: COPY TYPE_StringLiteral "&Signature=" def_%v_54 
+		 18: 
+		 19: BUILDSTRING def_%v_55 %v_54[24.17,] signature[24.8,] 
+		 20: %v_53->+ def_%v_56 %v_53[24.16,] %v_55[24.19,] 	 SYMBOL:	 ARGS:%v_55,
+		 21: RETURN %v_56[24.20,] %self[2.0,] 
+BB 26
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = generate_secure_cf_url instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Brevidy) def_%v_3 
+		 7: (inherit Application) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Application,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit CLOUDFRONT_BASE_URL) def_%v_5 %v_4[3.0,2.7,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:CLOUDFRONT_BASE_URL,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_cf_base_url %v_5[5.0,4.0,] 
+		 1: 
+		 2: %self->path def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "/" def_%v_7 
+		 4: %self->encoding_type def_%v_8 %self[6.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "_" def_%v_9 
+		 6: %self->base_filename def_%v_10 %self[6.2,6.4,2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral ".mp4" def_%v_11 
+		 8: BUILDSTRING def_%v_12 %v_7[6.3,] %v_8[6.4,] %v_9[6.5,] %v_10[6.6,] %v_11[6.7,] 
+		 9: %v_6->+ def_%v_13 %v_6[6.2,] %v_12[6.8,] 	 SYMBOL:	 ARGS:%v_12,
+		 10: COPY TYPE_PASS def_video_key %v_13[6.9,] 
+		 11: 
+		 12: (AwsCfSigner) def_%v_14 
+		 13: (Rails) def_%v_15 
+		 14: %v_15->root def_%v_16 %v_15[6.13,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_StringLiteral "/config/amazon/pk-APKAIISGSMRX2LN43Q6A.pem" def_%v_17 
+		 16: BUILDSTRING def_%v_18 %v_16[6.14,] %v_17[6.15,] 
+		 17: %v_14->new def_%v_19 %v_14[6.12,] %v_18[6.16,] 	 SYMBOL:	 ARGS:%v_18,
+		 18: COPY TYPE_PASS def_signer %v_19[6.17,] 
+		 19: 
+		 20: COPY TYPE_StringLiteral "/" def_%v_20 
+		 21: BUILDSTRING def_%v_21 cf_base_url[6.0,] %v_20[6.20,] video_key[6.10,] 
+		 22: CONSTANT def_%v_22 	 SYMBOL:	 ARGS:
+		 23: %v_22->from_now def_%v_23 %v_22[6.22,] 	 SYMBOL:	 ARGS:
+		 24: %v_23->utc def_%v_24 %v_23[6.23,] 	 SYMBOL:	 ARGS:
+		 25: %v_24->to_i def_%v_25 %v_24[6.24,] 	 SYMBOL:	 ARGS:
+		 26: HASH-ending- def_%v_26 %v_25[6.25,] 
+		 27: signer->sign def_%v_27 signer[6.18,] %v_21[6.21,] %v_26[6.26,] 	 SYMBOL:	 ARGS:%v_21,%v_26,
+		 28: COPY TYPE_PASS def_url %v_27[6.27,] 
+		 29: RETURN %v_27[6.27,] %self[6.2,6.4,6.6,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_html5_iframe_code instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_page_type 
+		 6: page_type[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "individual" def_%v_3 
+		 1: COPY TYPE_PASS def_page_type %v_3[3.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (RemoteVideoLinks) def_%v_4 
+		 2: %self->remote_host def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %self->remote_video_id def_%v_6 %self[4.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %self->id def_%v_7 %self[4.2,4.3,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_4->embed_html5_video_link def_%v_8 %v_4[4.1,] %v_5[4.2,] %v_6[4.3,] page_type[3.1,2.5,] %v_7[4.4,] 	 SYMBOL:	 ARGS:%v_5,%v_6,page_type,%v_7,
+		 6: COPY TYPE_StringLiteral "
+" def_%v_9 
+		 7: COPY TYPE_StringLiteral "" def_%v_10 
+		 8: %v_8->gsub def_%v_11 %v_8[4.5,] %v_9[4.6,] %v_10[4.7,] 	 SYMBOL:	 ARGS:%v_9,%v_10,
+		 9: RETURN %v_11[4.8,] %self[4.2,4.3,4.4,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = share_via_email instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_current_user 
+		 6: RECEIVEARG def_recipient_emails 
+		 7: RECEIVEARG def_personal_message 
+		 8: 
+		 9: COPY TYPE_Array def_%v_3 
+		 10: COPY TYPE_PASS def_share_errors %v_3[2.9,] 
+		 11: 
+		 12: COPY TYPE_Fixnum def_blank_email_count 
+		 13: 
+		 14: (Video) def_%v_4 
+		 15: %v_4->strip_quotes def_%v_5 %v_4[2.14,] recipient_emails[2.6,] 	 SYMBOL:	 ARGS:recipient_emails,
+		 16: COPY TYPE_PASS def_recipient_emails %v_5[2.15,] 
+		 17: 
+		 18: COPY TYPE_StringLiteral "," def_%v_6 
+		 19: %v_5->split def_%v_7 %v_5[2.15,] %v_6[2.18,] 	 SYMBOL:	 ARGS:%v_6,
+		 20: COPY TYPE_PASS def_recipient_emails %v_7[2.19,] 
+		 21: 
+		 22: %v_7->each def_%v_8 %v_7[2.19,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: recipient_email[] current_user[2.5,] %self[2.0,] personal_message[2.7,] share_errors[2.10,] blank_email_count[2.12,] 
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_recipient_email 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 8 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: recipient_email->strip def_%cl_1_3 recipient_email[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_3->downcase def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_recipient_email %cl_1_4[3.2,] 
+		 4: 
+		 5: %cl_1_4->blank? def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 6: %cl_1_5->! def_%cl_1_6 %cl_1_5[3.5,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %cl_1_6[3.6,] 
+BB 4
+	outgoing: 5 6 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Video) def_%cl_1_7 
+		 2: %cl_1_7->extract_email_address def_%cl_1_8 %cl_1_7[4.1,] recipient_email[3.3,] 	 SYMBOL:	 ARGS:recipient_email,
+		 3: COPY TYPE_PASS def_recipient_email %cl_1_8[4.2,] 
+		 4: 
+		 5: (Video) def_%cl_1_9 
+		 6: %cl_1_9->this_is_a_valid_email? def_%cl_1_10 %cl_1_9[4.5,] %cl_1_8[4.2,] 	 SYMBOL:	 ARGS:recipient_email,
+		 7: BRANCH %cl_1_10[4.6,] 
+BB 5
+	outgoing: 7 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (UserMailer) def_%cl_1_11 
+		 2: HASH-priority- def_%cl_1_12 
+		 3: %cl_1_11->delay def_%cl_1_13 %cl_1_11[5.1,] %cl_1_12[5.2,] 	 SYMBOL:	 ARGS:%cl_1_12,
+		 4: %cl_1_13->share_video def_%cl_1_14 %cl_1_13[5.3,] current_user[] %self[2.0,] recipient_email[4.3,] personal_message[] 	 SYMBOL:	 ARGS:current_user,%self,recipient_email,personal_message,
+		 5: 
+BB 6
+	outgoing: 7 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral " is an invalid email address" def_%cl_1_15 
+		 2: BUILDSTRING def_%cl_1_16 recipient_email[4.3,] %cl_1_15[6.1,] 
+		 3: share_errors-><< def_%cl_1_17 share_errors[] %cl_1_16[6.2,] 	 SYMBOL:	 ARGS:%cl_1_16,
+		 4: COPY TYPE_PASS def_%cl_1_14 %cl_1_17[6.3,] 
+BB 7
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_14[6.4,5.4,] %self[2.0,] 
+BB 8
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: blank_email_count->+ def_%cl_1_18 blank_email_count[] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: COPY TYPE_PASS def_blank_email_count %cl_1_18[8.1,] 
+		 3: RETURN %cl_1_18[8.1,] %self[2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_19 
+		 1: def_%cl_1_20 %cl_1_19[10.0,] 
+		 2: RETURN %cl_1_20[10.1,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: blank_email_count[8.2,] 
+		 23: 
+		 24: recipient_emails->size def_%v_9 recipient_emails[2.6,2.16,2.20,] 	 SYMBOL:	 ARGS:
+		 25: blank_email_count->== def_%v_10 blank_email_count[2.12,2.22,] %v_9[2.24,] 	 SYMBOL:	 ARGS:%v_9,
+		 26: BRANCH %v_10[2.25,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "You have not specified any email addresses to send this video to" def_%v_11 
+		 2: share_errors-><< def_%v_12 share_errors[2.10,] %v_11[3.1,] 	 SYMBOL:	 ARGS:%v_11,
+		 3: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: share_errors->empty? def_%v_13 share_errors[2.10,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_13[5.1,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+		 1: RETURN %v_14[6.0,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: share_errors->flatten def_%v_15 share_errors[2.10,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_15[7.0,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = set_featured_at instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Time) def_%v_3 
+		 7: %v_3->now def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN %self->featured_at %v_4[2.7,] 
+		 9: RETURN %v_4[2.7,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = clean_up_if_necessary instanceMethod = true
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Video) def_%v_3 
+		 7: COPY TYPE_StringLiteral "id != ? AND video_graph_id = ?" def_%v_4 
+		 8: %self->id def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %self->video_graph_id def_%v_6 %self[2.0,2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_3->where def_%v_7 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_4,%v_5,%v_6,
+		 11: %v_7->exists? def_%v_8 %v_7[2.10,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_8[2.11,] 
+BB 3
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: RETURN %v_9[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->video_graph def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_vg %v_10[4.1,] 
+		 3: 
+		 4: ATTRASSIGN %v_10->deleted 
+		 5: 
+		 6: vg->save def_%v_11 vg[4.2,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: COPY TYPE_PASS def_%v_12 cached_attributes[] 
+		 9: COPY TYPE_PASS def_%v_13 cached_attributes[] 
+		 10: BRANCH cached_attributes[] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: vg->get_attributes_needed_for_deleting def_%v_14 vg[4.2,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_cached_attributes %v_14[5.0,] 
+		 2: COPY TYPE_PASS def_%v_13 %v_14[5.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (VideoGraph) def_%v_15 
+		 2: (inherit TRANSCODING) def_%v_16 %v_15[6.1,] 
+		 3: %v_16[6.2,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_15->const_missing def_%v_16 %v_15[6.1,] 	 SYMBOL:TRANSCODING,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: %self->is_status? def_%v_17 %self[2.0,] %v_16[7.0,6.2,] 	 SYMBOL:	 ARGS:%v_16,
+		 1: BRANCH %v_17[8.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Boolean def_orphaned 
+		 1: COPY TYPE_Boolean def_%v_18 
+		 2: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Boolean def_orphaned 
+		 1: COPY TYPE_Boolean def_%v_18 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH orphaned[10.0,9.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (VideoGraph) def_%v_19 
+		 2: %v_19->clean_up_on_S3_after_12_hours def_%v_20 %v_19[12.1,] cached_attributes[5.1,] 	 SYMBOL:	 ARGS:cached_attributes,
+		 3: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (VideoGraph) def_%v_21 
+		 2: %v_21->clean_up_on_S3 def_%v_22 %v_21[13.1,] cached_attributes[5.1,] 	 SYMBOL:	 ARGS:cached_attributes,
+		 3: COPY TYPE_PASS def_%v_20 %v_22[13.2,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %v_20[13.3,12.2,] %self[2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = trim_newlines_from_fields instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->title def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->blank? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: RETURN %v_5[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->title def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_Regexp def_%v_7 
+		 2: COPY TYPE_StringLiteral "" def_%v_8 
+		 3: %v_6->gsub def_%v_9 %v_6[4.0,] %v_8[4.2,] 	 SYMBOL:	 ARGS:%v_7,%v_8,
+		 4: ATTRASSIGN %self->title %v_9[4.3,] 
+		 5: RETURN %v_9[4.3,] %self[4.0,4.4,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = generate_public_token! instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+BB 3
+	outgoing: 5 4 
+	datadep: 
+	instructions:
+		 0: %self->loop def_%v_3 %self[2.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: %self[2.0,] new_token[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SecureRandom) def_%cl_1_3 
+		 2: %cl_1_3->base64 def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: COPY TYPE_StringLiteral "+/=" def_%cl_1_5 
+		 4: COPY TYPE_StringLiteral "xyz" def_%cl_1_6 
+		 5: %cl_1_4->tr def_%cl_1_7 %cl_1_4[3.2,] %cl_1_5[3.3,] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_5,%cl_1_6,
+		 6: %cl_1_7->first def_%cl_1_8 %cl_1_7[3.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 7: COPY TYPE_PASS def_new_token %cl_1_8[3.6,] 
+		 8: 
+		 9: (Video) def_%cl_1_9 
+		 10: HASH-public_token- def_%cl_1_10 %cl_1_8[3.6,] 
+		 11: %cl_1_9->where def_%cl_1_11 %cl_1_9[3.9,] %cl_1_10[3.10,] 	 SYMBOL:	 ARGS:%cl_1_10,
+		 12: %cl_1_11->exists? def_%cl_1_12 %cl_1_11[3.11,] 	 SYMBOL:	 ARGS:
+		 13: BRANCH %cl_1_12[3.12,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_13 
+		 1: RETURN %cl_1_13[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->public_token new_token[3.7,] 
+		 1: new_token[3.7,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_14 
+		 1: def_%cl_1_15 %cl_1_14[7.0,] 
+		 2: RETURN %cl_1_15[7.1,] %self[5.0,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: def_%v_4 
+		 1: def_%v_3 %v_4[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->save def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_5[5.1,] %self[5.1,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = touch_channel! instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->channel def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->blank? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: RETURN %v_5[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->channel def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: (Time) def_%v_7 
+		 2: %v_7->now def_%v_8 %v_7[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_6->update_attribute def_%v_9 %v_6[4.0,] %v_8[4.2,] 	 SYMBOL:updated_at,	 ARGS:Symbol,%v_8,
+		 4: RETURN %v_9[4.3,] %self[4.0,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = this_is_a_valid_email? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_email 
+		 6: 
+		 7: (User) def_%v_3 
+		 8: (inherit EMAIL_REGEX) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:EMAIL_REGEX,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: email->match def_%v_5 email[2.5,] %v_4[3.0,2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 1: RETURN %v_5[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = strip_quotes instanceMethod = true
+BB 1
+	outgoing: 4 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_emails 
+		 6: 
+		 7: COPY TYPE_Regexp def_%v_3 
+		 8: COPY TYPE_StringLiteral "" def_%v_4 
+		 9: emails->gsub def_%v_5 emails[2.5,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_3,%v_4,
+		 10: RETURN %v_5[2.9,] %self[2.0,] 
+BB 4
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = extract_email_address instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_email 
+		 6: 
+		 7: COPY TYPE_Regexp def_%v_3 
+		 8: email->[] def_%v_4 email[2.5,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: COPY TYPE_PASS def_result %v_4[2.8,] 
+		 10: 
+		 11: %v_4->nil? def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_5[2.11,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN email[2.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Regexp def_%v_7 
+		 2: COPY TYPE_StringLiteral "<" def_%v_8 
+		 3: COPY TYPE_StringLiteral "" def_%v_9 
+		 4: COPY TYPE_StringLiteral ">" def_%v_10 
+		 5: COPY TYPE_StringLiteral "" def_%v_11 
+		 6: HASH- def_%v_12 %v_8[4.2,] %v_9[4.3,] %v_10[4.4,] %v_11[4.5,] 
+		 7: result->gsub def_%v_13 result[2.9,] %v_12[4.6,] 	 SYMBOL:	 ARGS:%v_7,%v_12,
+		 8: %v_13->strip def_%v_14 %v_13[4.7,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %v_14[4.8,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

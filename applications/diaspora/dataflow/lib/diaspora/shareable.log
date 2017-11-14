@@ -1,0 +1,489 @@
+SET IRMethod, name = included instanceMethod = false
+SET IRMethod, name = owned_or_visible_by_user instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->with_visibility def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %self->visible_by_user def_%v_4 %self[2.0,2.7,] user[2.5,] 	 SYMBOL:	 ARGS:user,
+		 9: %self->arel_table def_%v_5 %self[2.0,2.7,2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_5->[] def_%v_6 %v_5[2.9,] 	 SYMBOL:public,	 ARGS:Symbol,
+		 11: %v_6->eq def_%v_7 %v_6[2.10,] 	 SYMBOL:	 ARGS:Boolean,
+		 12: %self->arel_table def_%v_8 %self[2.0,2.7,2.8,2.9,] 	 SYMBOL:	 ARGS:
+		 13: %v_8->[] def_%v_9 %v_8[2.12,] 	 SYMBOL:author_id,	 ARGS:Symbol,
+		 14: user->person_id def_%v_10 user[2.5,] 	 SYMBOL:	 ARGS:
+		 15: %v_9->eq def_%v_11 %v_9[2.13,] %v_10[2.14,] 	 SYMBOL:	 ARGS:%v_10,
+		 16: %v_7->or def_%v_12 %v_7[2.11,] %v_11[2.15,] 	 SYMBOL:	 ARGS:%v_11,
+		 17: %v_4->or def_%v_13 %v_4[2.8,] %v_12[2.16,] 	 SYMBOL:	 ARGS:%v_12,
+		 18: %v_3->where def_%v_14 %v_3[2.7,] %v_13[2.17,] 	 SYMBOL:	 ARGS:%v_13,
+		 19: COPY TYPE_StringLiteral "DISTINCT " def_%v_15 
+		 20: 
+		 21: %self->table_name def_%v_16 %self[2.0,2.7,2.8,2.9,2.12,] 	 SYMBOL:	 ARGS:
+		 22: COPY TYPE_StringLiteral ".*" def_%v_17 
+		 23: BUILDSTRING def_%v_18 %v_15[2.19,] %v_16[2.21,] %v_17[2.22,] 
+		 24: %v_14->select def_%v_19 %v_14[2.18,] %v_18[2.23,] 	 SYMBOL:	 ARGS:%v_18,
+		 25: RETURN %v_19[2.24,] %self[2.0,2.7,2.8,2.9,2.12,2.21,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = from_person_visible_by_user instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_person 
+		 7: 
+		 8: user->person def_%v_3 user[2.5,] 	 SYMBOL:	 ARGS:
+		 9: person->== def_%v_4 person[2.6,] %v_3[2.8,] 	 SYMBOL:	 ARGS:%v_3,
+		 10: BRANCH %v_4[2.9,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->owned_by_user def_%v_5 %self[2.0,] user[2.5,] 	 SYMBOL:	 ARGS:user,
+		 1: RETURN %v_5[3.0,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: %self->with_visibility def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: person->id def_%v_8 person[2.6,] 	 SYMBOL:	 ARGS:
+		 4: HASH-author_id- def_%v_9 %v_8[4.3,] 
+		 5: %v_7->where def_%v_10 %v_7[4.2,] %v_9[4.4,] 	 SYMBOL:	 ARGS:%v_9,
+		 6: %self->visible_by_user def_%v_11 %self[4.2,2.0,] user[2.5,] 	 SYMBOL:	 ARGS:user,
+		 7: %self->arel_table def_%v_12 %self[4.2,4.6,2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_12->[] def_%v_13 %v_12[4.7,] 	 SYMBOL:public,	 ARGS:Symbol,
+		 9: %v_13->eq def_%v_14 %v_13[4.8,] 	 SYMBOL:	 ARGS:Boolean,
+		 10: %v_11->or def_%v_15 %v_11[4.6,] %v_14[4.9,] 	 SYMBOL:	 ARGS:%v_14,
+		 11: %v_10->where def_%v_16 %v_10[4.5,] %v_15[4.10,] 	 SYMBOL:	 ARGS:%v_15,
+		 12: COPY TYPE_StringLiteral "DISTINCT " def_%v_17 
+		 13: 
+		 14: %self->table_name def_%v_18 %self[4.2,4.6,4.7,2.0,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_StringLiteral ".*" def_%v_19 
+		 16: BUILDSTRING def_%v_20 %v_17[4.12,] %v_18[4.14,] %v_19[4.15,] 
+		 17: %v_16->select def_%v_21 %v_16[4.11,] %v_20[4.16,] 	 SYMBOL:	 ARGS:%v_20,
+		 18: RETURN %v_21[4.17,] %self[4.2,4.6,4.7,4.14,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = for_visible_shareable_sql instanceMethod = false
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_max_time 
+		 6: RECEIVEARG def_order 
+		 7: RECEIVECONSTARG def_limit 
+		 8: limit[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_limit 
+BB 4
+	outgoing: 5 10 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_types 
+		 1: types[4.0,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (Stream) def_%v_3 
+		 1: (inherit Base) def_%v_4 %v_3[5.0,] 
+		 2: %v_4[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[5.0,] 	 SYMBOL:Base,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: (inherit TYPES_OF_POST_IN_STREAM) def_%v_5 %v_4[6.0,5.1,] 
+		 1: %v_5[7.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[6.0,5.1,] 	 SYMBOL:TYPES_OF_POST_IN_STREAM,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_types %v_5[8.0,7.0,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->by_max_time def_%v_6 %self[2.0,] max_time[2.5,] order[2.6,] 	 SYMBOL:	 ARGS:max_time,order,
+		 2: %self->table_name def_%v_7 %self[10.1,2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral ".id DESC" def_%v_8 
+		 4: %v_7->+ def_%v_9 %v_7[10.2,] %v_8[10.3,] 	 SYMBOL:	 ARGS:%v_8,
+		 5: %v_6->order def_%v_10 %v_6[10.1,] %v_9[10.4,] 	 SYMBOL:	 ARGS:%v_9,
+		 6: HASH-type- def_%v_11 types[9.0,4.0,] 
+		 7: %v_10->where def_%v_12 %v_10[10.5,] %v_11[10.6,] 	 SYMBOL:	 ARGS:%v_11,
+		 8: %v_12->limit def_%v_13 %v_12[10.7,] limit[3.0,2.7,] 	 SYMBOL:	 ARGS:limit,
+		 9: RETURN %v_13[10.8,] %self[10.1,10.2,2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = by_max_time instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_max_time 
+		 6: RECEIVECONSTARG def_order 
+		 7: order[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "created_at" def_%v_3 
+		 1: COPY TYPE_PASS def_order %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->table_name def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "." def_%v_5 
+		 3: COPY TYPE_StringLiteral " < ?" def_%v_6 
+		 4: BUILDSTRING def_%v_7 %v_4[4.1,] %v_5[4.2,] order[3.1,2.6,] %v_6[4.3,] 
+		 5: %self->where def_%v_8 %self[4.1,2.0,] %v_7[4.4,] max_time[2.5,] 	 SYMBOL:	 ARGS:%v_7,max_time,
+		 6: %self->table_name def_%v_9 %self[4.1,4.5,2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "." def_%v_10 
+		 8: COPY TYPE_StringLiteral " DESC" def_%v_11 
+		 9: BUILDSTRING def_%v_12 %v_9[4.6,] %v_10[4.7,] order[3.1,2.6,] %v_11[4.8,] 
+		 10: %v_8->order def_%v_13 %v_8[4.5,] %v_12[4.9,] 	 SYMBOL:	 ARGS:%v_12,
+		 11: RETURN %v_13[4.10,] %self[4.1,4.5,4.6,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = owned_by_user instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: user->person def_%v_3 user[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %self->table_name def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->send def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: HASH-pending- def_%v_6 
+		 11: %v_5->where def_%v_7 %v_5[2.9,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_6,
+		 12: RETURN %v_7[2.11,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = visible_by_user instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: (ShareVisibility) def_%v_3 
+		 8: %v_3->arel_table def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->[] def_%v_5 %v_4[2.8,] 	 SYMBOL:user_id,	 ARGS:Symbol,
+		 10: user->id def_%v_6 user[2.5,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->eq def_%v_7 %v_5[2.9,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_6,
+		 12: (ShareVisibility) def_%v_8 
+		 13: %v_8->arel_table def_%v_9 %v_8[2.12,] 	 SYMBOL:	 ARGS:
+		 14: %v_9->[] def_%v_10 %v_9[2.13,] 	 SYMBOL:shareable_type,	 ARGS:Symbol,
+		 15: %self->base_class def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 16: %v_11->to_s def_%v_12 %v_11[2.15,] 	 SYMBOL:	 ARGS:
+		 17: %v_10->eq def_%v_13 %v_10[2.14,] %v_12[2.16,] 	 SYMBOL:	 ARGS:%v_12,
+		 18: %v_7->and def_%v_14 %v_7[2.11,] %v_13[2.17,] 	 SYMBOL:	 ARGS:%v_13,
+		 19: RETURN %v_14[2.18,] %self[2.0,2.15,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_model 
+		 6: 
+		 7: model->instance_eval def_%v_3 model[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:model,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-as-validate-dependent- def_%cl_1_3 
+		 2: %self->has_many def_%cl_1_4 %self[2.0,] %cl_1_3[3.1,] 	 SYMBOL:aspect_visibilities,	 ARGS:Symbol,%cl_1_3,
+		 3: 
+		 4: HASH-through- def_%cl_1_5 
+		 5: %self->has_many def_%cl_1_6 %self[3.2,2.0,] %cl_1_5[3.4,] 	 SYMBOL:aspects,	 ARGS:Symbol,%cl_1_5,
+		 6: 
+		 7: HASH-as-dependent- def_%cl_1_7 
+		 8: %self->has_many def_%cl_1_8 %self[3.2,3.5,2.0,] %cl_1_7[3.7,] 	 SYMBOL:share_visibilities,	 ARGS:Symbol,%cl_1_7,
+		 9: 
+		 10: COPY TYPE_StringLiteral "Person" def_%cl_1_9 
+		 11: HASH-class_name- def_%cl_1_10 %cl_1_9[3.10,] 
+		 12: %self->belongs_to def_%cl_1_11 %self[3.2,3.5,3.8,2.0,] %cl_1_10[3.11,] 	 SYMBOL:author,	 ARGS:Symbol,%cl_1_10,
+		 13: 
+		 14: HASH-to-prefix- def_%cl_1_12 
+		 15: %self->delegate def_%cl_1_13 %self[3.2,3.5,3.8,3.12,2.0,] %cl_1_12[3.14,] 	 SYMBOL:id,name,first_name,	 ARGS:Symbol,Symbol,Symbol,%cl_1_12,
+		 16: 
+		 17: def_%cl_1_14 %self[3.2,3.5,3.8,3.12,3.15,2.0,] 
+CLOSURE BEGIN: %self[3.2,3.5,3.8,3.12,3.15,2.0,] 
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 5 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: HASH-public-pending- def_%cl_2_3 
+		 6: %self->where def_%cl_2_4 %self[2.0,] %cl_2_3[2.5,] 	 SYMBOL:	 ARGS:%cl_2_3,
+		 7: RETURN %cl_2_4[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_5 
+		 1: def_%cl_2_6 %cl_2_5[3.0,] 
+		 2: RETURN %cl_2_6[3.1,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 18: %self->scope def_%cl_1_15 %self[3.2,3.5,3.8,3.12,3.15,2.0,] %cl_1_14[3.17,] 	 SYMBOL:all_public,	 ARGS:Symbol,%cl_1_14,
+		 19: 
+		 20: def_%cl_1_16 %self[3.2,3.5,3.8,3.12,3.15,3.18,2.0,] 
+CLOSURE BEGIN: %self[3.2,3.5,3.8,3.12,3.15,3.18,2.0,] 
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 5 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: COPY TYPE_StringLiteral "LEFT OUTER JOIN share_visibilities ON share_visibilities.shareable_id = " def_%cl_3_3 
+		 6: %self->table_name def_%cl_3_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral ".id" def_%cl_3_5 
+		 8: BUILDSTRING def_%cl_3_6 %cl_3_3[2.5,] %cl_3_4[2.6,] %cl_3_5[2.7,] 
+		 9: %self->joins def_%cl_3_7 %self[2.0,2.6,] %cl_3_6[2.8,] 	 SYMBOL:	 ARGS:%cl_3_6,
+		 10: RETURN %cl_3_7[2.9,] %self[2.0,2.6,2.9,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_8 
+		 1: def_%cl_3_9 %cl_3_8[3.0,] 
+		 2: RETURN %cl_3_9[3.1,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 21: %self->scope def_%cl_1_17 %self[3.2,3.5,3.8,3.12,3.15,3.18,2.0,] %cl_1_16[3.20,] 	 SYMBOL:with_visibility,	 ARGS:Symbol,%cl_1_16,
+		 22: 
+		 23: def_%cl_1_18 %self[3.2,3.5,3.8,3.12,3.15,3.18,3.21,2.0,] 
+CLOSURE BEGIN: %self[3.2,3.5,3.8,3.12,3.15,3.18,3.21,2.0,] 
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 5 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: COPY TYPE_StringLiteral "LEFT OUTER JOIN aspect_visibilities ON aspect_visibilities.shareable_id = " def_%cl_4_3 
+		 6: %self->table_name def_%cl_4_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral ".id" def_%cl_4_5 
+		 8: BUILDSTRING def_%cl_4_6 %cl_4_3[2.5,] %cl_4_4[2.6,] %cl_4_5[2.7,] 
+		 9: %self->joins def_%cl_4_7 %self[2.0,2.6,] %cl_4_6[2.8,] 	 SYMBOL:	 ARGS:%cl_4_6,
+		 10: RETURN %cl_4_7[2.9,] %self[2.0,2.6,2.9,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: def_%cl_4_8 
+		 1: def_%cl_4_9 %cl_4_8[3.0,] 
+		 2: RETURN %cl_4_9[3.1,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 24: %self->scope def_%cl_1_19 %self[3.2,3.5,3.8,3.12,3.15,3.18,3.21,2.0,] %cl_1_18[3.23,] 	 SYMBOL:with_aspects,	 ARGS:Symbol,%cl_1_18,
+		 25: 
+		 26: %self[3.2,3.5,3.8,3.12,3.15,3.18,3.21,3.24,2.0,] 
+		 27: 
+		 28: %self[3.2,3.5,3.8,3.12,3.15,3.18,3.21,3.24,2.0,] 
+		 29: 
+		 30: %self[3.2,3.5,3.8,3.12,3.15,3.18,3.21,3.24,2.0,] 
+		 31: 
+		 32: %self[3.2,3.5,3.8,3.12,3.15,3.18,3.21,3.24,2.0,] 
+		 33: 
+		 34: %self[3.2,3.5,3.8,3.12,3.15,3.18,3.21,3.24,2.0,] 
+		 35: 
+		 36: %self[3.2,3.5,3.8,3.12,3.15,3.18,3.21,3.24,2.0,] 
+		 37: 
+		 38: %self->private_class_method def_%cl_1_20 %self[3.2,3.5,3.8,3.12,3.15,3.18,3.21,3.24,2.0,] 	 SYMBOL:visible_by_user,	 ARGS:Symbol,
+		 39: RETURN %cl_1_20[3.38,] %self[3.2,3.5,3.8,3.12,3.15,3.18,3.21,3.24,3.38,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_21 
+		 1: def_%cl_1_22 %cl_1_21[4.0,] 
+		 2: RETURN %cl_1_22[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: RETURN %v_3[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_reshares_counter instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->class def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->id def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-id- def_%v_5 %v_4[2.7,] 
+		 9: %v_3->where def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: %self->reshares def_%v_7 %self[2.0,2.6,2.7,] 	 SYMBOL:	 ARGS:
+		 11: %v_7->count def_%v_8 %v_7[2.10,] 	 SYMBOL:	 ARGS:
+		 12: HASH-reshares_count- def_%v_9 %v_8[2.11,] 
+		 13: %v_6->update_all def_%v_10 %v_6[2.9,] %v_9[2.12,] 	 SYMBOL:	 ARGS:%v_9,
+		 14: RETURN %v_10[2.13,] %self[2.0,2.6,2.7,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

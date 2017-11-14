@@ -1,0 +1,1123 @@
+SET IRMethod, name = create instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_opts 
+		 6: 
+		 7: (HashUtils) def_%v_3 
+		 8: (NewTransaction) def_%v_4 
+		 9: %v_4->call def_%v_5 %v_4[2.8,] opts[2.5,] 	 SYMBOL:	 ARGS:opts,
+		 10: %v_3->compact def_%v_6 %v_3[2.7,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: COPY TYPE_PASS def_tx_data %v_6[2.10,] 
+		 12: 
+		 13: (TransactionModel) def_%v_7 
+		 14: %v_6->except def_%v_8 %v_6[2.10,] 	 SYMBOL:content,booking_fields,	 ARGS:Symbol,Symbol,
+		 15: %v_7->new def_%v_9 %v_7[2.13,] %v_8[2.14,] 	 SYMBOL:	 ARGS:%v_8,
+		 16: COPY TYPE_PASS def_tx_model %v_9[2.15,] 
+		 17: 
+		 18: %self->build_conversation def_%v_10 %self[2.0,] %v_9[2.15,] tx_data[2.11,] 	 SYMBOL:	 ARGS:tx_model,tx_data,
+		 19: 
+		 20: %self->build_booking def_%v_11 %self[2.0,2.18,] tx_model[2.16,] tx_data[2.11,] 	 SYMBOL:	 ARGS:tx_model,tx_data,
+		 21: 
+		 22: tx_model->save! def_%v_12 tx_model[2.16,] 	 SYMBOL:	 ARGS:
+		 23: 
+		 24: %self->from_model def_%v_13 %self[2.0,2.18,2.20,] tx_model[2.16,2.22,] 	 SYMBOL:	 ARGS:tx_model,
+		 25: RETURN %v_13[2.24,] %self[2.0,2.18,2.20,2.24,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = add_message instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_community_id 
+		 6: community_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_transaction_id 
+		 1: transaction_id[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: def_sender_id 
+		 1: sender_id[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: def_message 
+		 1: message[8.0,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TransactionModel) def_%v_3 
+		 2: HASH-community_id-id- def_%v_4 community_id[2.5,] transaction_id[4.0,] 
+		 3: %v_3->where def_%v_5 %v_3[10.1,] %v_4[10.2,] 	 SYMBOL:	 ARGS:%v_4,
+		 4: %v_5->first def_%v_6 %v_5[10.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_tx_model %v_6[10.4,] 
+		 6: 
+		 7: BRANCH %v_6[10.4,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: tx_model->conversation def_%v_7 tx_model[10.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->messages def_%v_8 %v_7[11.1,] 	 SYMBOL:	 ARGS:
+		 3: HASH-content-sender_id- def_%v_9 message[8.0,] sender_id[6.0,] 
+		 4: %v_8->create def_%v_10 %v_8[11.2,] %v_9[11.3,] 	 SYMBOL:	 ARGS:%v_9,
+		 5: 
+		 6: %self->do_mark_as_unseen_by_other def_%v_11 %self[2.0,] tx_model[11.1,10.5,] sender_id[6.0,] 	 SYMBOL:	 ARGS:tx_model,sender_id,
+		 7: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mark_as_unseen_by_other instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_community_id 
+		 6: community_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_transaction_id 
+		 1: transaction_id[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: def_person_id 
+		 1: person_id[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TransactionModel) def_%v_3 
+		 2: HASH-community_id-id- def_%v_4 community_id[2.5,] transaction_id[4.0,] 
+		 3: %v_3->where def_%v_5 %v_3[8.1,] %v_4[8.2,] 	 SYMBOL:	 ARGS:%v_4,
+		 4: %v_5->first def_%v_6 %v_5[8.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_tx_model %v_6[8.4,] 
+		 6: 
+		 7: BRANCH %v_6[8.4,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %self->do_mark_as_unseen_by_other def_%v_7 %self[2.0,] tx_model[8.5,] person_id[6.0,] 	 SYMBOL:	 ARGS:tx_model,person_id,
+		 1: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_transaction_id 
+		 6: 
+		 7: (TransactionModel) def_%v_3 
+		 8: HASH-id-deleted- def_%v_4 transaction_id[2.5,] 
+		 9: %v_3->where def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: %v_5->first def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %self->Maybe def_%v_7 %self[2.0,] %v_6[2.10,] 	 SYMBOL:	 ARGS:%v_6,
+		 12: %v_7->map def_%v_8 %v_7[2.11,] %self[2.0,2.11,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: %self[2.0,2.11,] m[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_m 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->from_model def_%cl_1_3 %self[2.0,] m[2.2,] 	 SYMBOL:	 ARGS:m,
+		 2: RETURN %cl_1_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 13: %v_8->or_else def_%v_9 %v_8[2.12,] 	 SYMBOL:	 ARGS:Nil,
+		 14: RETURN %v_9[2.13,] %self[2.0,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_in_community instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_community_id 
+		 6: community_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_transaction_id 
+		 1: transaction_id[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TransactionModel) def_%v_3 
+		 2: HASH-id-community_id-deleted- def_%v_4 transaction_id[4.0,] community_id[2.5,] 
+		 3: %v_3->where def_%v_5 %v_3[6.1,] %v_4[6.2,] 	 SYMBOL:	 ARGS:%v_4,
+		 4: %v_5->first def_%v_6 %v_5[6.3,] 	 SYMBOL:	 ARGS:
+		 5: %self->Maybe def_%v_7 %self[2.0,] %v_6[6.4,] 	 SYMBOL:	 ARGS:%v_6,
+		 6: %v_7->map def_%v_8 %v_7[6.5,] %self[6.5,2.0,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: %self[6.5,2.0,] m[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_m 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->from_model def_%cl_1_3 %self[2.0,] m[2.2,] 	 SYMBOL:	 ARGS:m,
+		 2: RETURN %cl_1_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 7: %v_8->or_else def_%v_9 %v_8[6.6,] 	 SYMBOL:	 ARGS:Nil,
+		 8: RETURN %v_9[6.7,] %self[6.5,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = unfinished_tx_count instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_person_id 
+		 6: 
+		 7: (TransactionModel) def_%v_3 
+		 8: COPY TYPE_StringLiteral "starter_id = ? OR listing_author_id = ?" def_%v_4 
+		 9: %v_3->where def_%v_5 %v_3[2.7,] %v_4[2.8,] person_id[2.5,] person_id[2.5,] 	 SYMBOL:	 ARGS:%v_4,person_id,person_id,
+		 10: COPY TYPE_StringLiteral "current_state NOT IN (" def_%v_6 
+		 11: 
+		 12: (FINISHED_TX_STATES) def_%v_7 
+		 13: COPY TYPE_StringLiteral ")" def_%v_8 
+		 14: BUILDSTRING def_%v_9 %v_6[2.10,] %v_7[2.12,] %v_8[2.13,] 
+		 15: %v_5->where def_%v_10 %v_5[2.9,] %v_9[2.14,] 	 SYMBOL:	 ARGS:%v_9,
+		 16: %v_10->count def_%v_11 %v_10[2.15,] 	 SYMBOL:	 ARGS:
+		 17: RETURN %v_11[2.16,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = upsert_shipping_address instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_community_id 
+		 6: community_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_transaction_id 
+		 1: transaction_id[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: def_addr 
+		 1: addr[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TransactionModel) def_%v_3 
+		 2: HASH-id-community_id- def_%v_4 transaction_id[4.0,] community_id[2.5,] 
+		 3: %v_3->where def_%v_5 %v_3[8.1,] %v_4[8.2,] 	 SYMBOL:	 ARGS:%v_4,
+		 4: %v_5->first def_%v_6 %v_5[8.3,] 	 SYMBOL:	 ARGS:
+		 5: %self->Maybe def_%v_7 %self[2.0,] %v_6[8.4,] 	 SYMBOL:	 ARGS:%v_6,
+		 6: %v_7->map def_%v_8 %v_7[8.5,] %self[8.5,2.0,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: m[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_m 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ShippingAddressModel) def_%cl_1_3 
+		 2: m->id def_%cl_1_4 m[2.2,] 	 SYMBOL:	 ARGS:
+		 3: HASH-transaction_id- def_%cl_1_5 %cl_1_4[3.2,] 
+		 4: %cl_1_3->where def_%cl_1_6 %cl_1_3[3.1,] %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:%cl_1_5,
+		 5: m->id def_%cl_1_7 m[3.2,2.2,] 	 SYMBOL:	 ARGS:
+		 6: HASH-transaction_id- def_%cl_1_8 %cl_1_7[3.5,] 
+		 7: %cl_1_6->first_or_create! def_%cl_1_9 %cl_1_6[3.4,] %cl_1_8[3.6,] 	 SYMBOL:	 ARGS:%cl_1_8,
+		 8: RETURN %cl_1_9[3.7,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_10 
+		 1: def_%cl_1_11 %cl_1_10[4.0,] 
+		 2: RETURN %cl_1_11[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 7: %v_8->map def_%v_9 %v_8[8.6,] %self[8.5,2.0,] 	 SYMBOL:	 ARGS:%v_8,
+CLOSURE BEGIN: %self[8.5,2.0,] addr[6.0,] a[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_a 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->addr_fields def_%cl_2_3 %self[2.0,] addr[] 	 SYMBOL:	 ARGS:addr,
+		 2: a->update_attributes! def_%cl_2_4 a[2.2,] %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:%cl_2_3,
+		 3: RETURN %cl_2_4[3.2,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_5 
+		 1: def_%cl_2_6 %cl_2_5[4.0,] 
+		 2: RETURN %cl_2_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: %v_9->or_else def_%v_10 %v_9[8.7,] %self[8.5,2.0,] 	 SYMBOL:	 ARGS:%v_9,
+CLOSURE BEGIN: 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: RETURN %v_10[8.8,] %self[8.5,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = delete instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_community_id 
+		 6: community_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_transaction_id 
+		 1: transaction_id[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TransactionModel) def_%v_3 
+		 2: HASH-id-community_id- def_%v_4 transaction_id[4.0,] community_id[2.5,] 
+		 3: %v_3->where def_%v_5 %v_3[6.1,] %v_4[6.2,] 	 SYMBOL:	 ARGS:%v_4,
+		 4: %v_5->first def_%v_6 %v_5[6.3,] 	 SYMBOL:	 ARGS:
+		 5: %self->Maybe def_%v_7 %self[2.0,] %v_6[6.4,] 	 SYMBOL:	 ARGS:%v_6,
+		 6: %v_7->each def_%v_8 %v_7[6.5,] %self[6.5,2.0,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: m[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_m 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: m->update_attribute def_%cl_1_3 m[2.2,] 	 SYMBOL:deleted,	 ARGS:Symbol,Boolean,
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 7: %v_8->map def_%v_9 %v_8[6.6,] %self[6.5,2.0,] 	 SYMBOL:	 ARGS:%v_8,
+CLOSURE BEGIN: m[6.6,] %self[6.5,2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_m 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: m->reload def_%cl_2_3 m[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %self->from_model def_%cl_2_4 %self[2.0,] %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:%cl_2_3,
+		 3: RETURN %cl_2_4[3.2,] %self[3.2,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_5 
+		 1: def_%cl_2_6 %cl_2_5[4.0,] 
+		 2: RETURN %cl_2_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: %v_9->or_else def_%v_10 %v_9[6.7,] 	 SYMBOL:	 ARGS:Nil,
+		 9: RETURN %v_10[6.8,] %self[6.5,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = from_model instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_model 
+		 6: 
+		 7: %self->Maybe def_%v_3 %self[2.0,] model[2.5,] 	 SYMBOL:	 ARGS:model,
+		 8: %v_3->map def_%v_4 %v_3[2.7,] %self[2.0,2.7,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: m[] %self[2.0,2.7,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_m 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (EntityUtils) def_%cl_1_3 
+		 2: %cl_1_3->model_to_hash def_%cl_1_4 %cl_1_3[3.1,] m[2.2,] 	 SYMBOL:	 ARGS:m,
+		 3: m->unit_price def_%cl_1_5 m[2.2,] 	 SYMBOL:	 ARGS:
+		 4: m->minimum_commission def_%cl_1_6 m[3.3,2.2,] 	 SYMBOL:	 ARGS:
+		 5: m->shipping_price def_%cl_1_7 m[3.3,3.4,2.2,] 	 SYMBOL:	 ARGS:
+		 6: HASH-unit_price-minimum_commission-shipping_price- def_%cl_1_8 %cl_1_5[3.3,] %cl_1_6[3.4,] %cl_1_7[3.5,] 
+		 7: %cl_1_4->merge def_%cl_1_9 %cl_1_4[3.2,] %cl_1_8[3.6,] 	 SYMBOL:	 ARGS:%cl_1_8,
+		 8: COPY TYPE_PASS def_hash %cl_1_9[3.7,] 
+		 9: 
+		 10: %self->add_opt_shipping_address def_%cl_1_10 %self[2.0,] %cl_1_9[3.7,] m[3.3,3.4,3.5,2.2,] 	 SYMBOL:	 ARGS:hash,m,
+		 11: COPY TYPE_PASS def_hash %cl_1_10[3.10,] 
+		 12: 
+		 13: %self->add_opt_booking def_%cl_1_11 %self[3.10,2.0,] %cl_1_10[3.10,] m[3.3,3.4,3.5,2.2,] 	 SYMBOL:	 ARGS:hash,m,
+		 14: COPY TYPE_PASS def_hash %cl_1_11[3.13,] 
+		 15: RETURN %cl_1_11[3.13,] %self[3.10,3.13,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_12 
+		 1: def_%cl_1_13 %cl_1_12[4.0,] 
+		 2: RETURN %cl_1_13[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: hash[3.8,3.11,3.14,] 
+		 9: %v_4->map def_%v_5 %v_4[2.8,] %self[2.0,2.7,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: hash[2.8,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_hash 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Transaction) def_%cl_2_3 
+		 2: %cl_2_3->call def_%cl_2_4 %cl_2_3[3.1,] hash[2.2,] 	 SYMBOL:	 ARGS:hash,
+		 3: RETURN %cl_2_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_5 
+		 1: def_%cl_2_6 %cl_2_5[4.0,] 
+		 2: RETURN %cl_2_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: %v_5->or_else def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:Nil,
+		 11: RETURN %v_6[2.10,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = add_opt_shipping_address instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_hash 
+		 6: RECEIVEARG def_m 
+		 7: 
+		 8: m->shipping_address def_%v_3 m[2.6,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_3[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ShippingAddress) def_%v_4 
+		 2: (EntityUtils) def_%v_5 
+		 3: m->shipping_address def_%v_6 m[2.6,] 	 SYMBOL:	 ARGS:
+		 4: %v_5->model_to_hash def_%v_7 %v_5[3.2,] %v_6[3.3,] 	 SYMBOL:	 ARGS:%v_6,
+		 5: %v_4->call def_%v_8 %v_4[3.1,] %v_7[3.4,] 	 SYMBOL:	 ARGS:%v_7,
+		 6: HASH-shipping_address- def_%v_9 %v_8[3.5,] 
+		 7: hash->merge def_%v_10 hash[2.5,] %v_9[3.6,] 	 SYMBOL:	 ARGS:%v_9,
+		 8: RETURN %v_10[3.7,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN hash[2.5,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = add_opt_booking instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_hash 
+		 6: RECEIVEARG def_m 
+		 7: 
+		 8: m->booking def_%v_3 m[2.6,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_3[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (EntityUtils) def_%v_4 
+		 2: m->booking def_%v_5 m[2.6,] 	 SYMBOL:	 ARGS:
+		 3: %v_4->model_to_hash def_%v_6 %v_4[3.1,] %v_5[3.2,] 	 SYMBOL:	 ARGS:%v_5,
+		 4: COPY TYPE_PASS def_booking_data %v_6[3.3,] 
+		 5: 
+		 6: (Booking) def_%v_7 
+		 7: %self->booking_duration def_%v_8 %self[2.0,] %v_6[3.3,] 	 SYMBOL:	 ARGS:booking_data,
+		 8: HASH-duration- def_%v_9 %v_8[3.7,] 
+		 9: booking_data->merge def_%v_10 booking_data[3.4,] %v_9[3.8,] 	 SYMBOL:	 ARGS:%v_9,
+		 10: %v_7->call def_%v_11 %v_7[3.6,] %v_10[3.9,] 	 SYMBOL:	 ARGS:%v_10,
+		 11: HASH-booking- def_%v_12 %v_11[3.10,] 
+		 12: hash->merge def_%v_13 hash[2.5,] %v_12[3.11,] 	 SYMBOL:	 ARGS:%v_12,
+		 13: RETURN %v_13[3.12,] %self[3.7,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN hash[2.5,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = addr_fields instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_addr 
+		 6: 
+		 7: (HashUtils) def_%v_3 
+		 8: (ShippingAddress) def_%v_4 
+		 9: %v_4->call def_%v_5 %v_4[2.8,] addr[2.5,] 	 SYMBOL:	 ARGS:addr,
+		 10: %v_3->compact def_%v_6 %v_3[2.7,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: RETURN %v_6[2.10,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_conversation instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_tx_model 
+		 6: RECEIVEARG def_tx_data 
+		 7: 
+		 8: tx_data->slice def_%v_3 tx_data[2.6,] 	 SYMBOL:community_id,listing_id,	 ARGS:Symbol,Symbol,
+		 9: tx_model->build_conversation def_%v_4 tx_model[2.5,] %v_3[2.8,] 	 SYMBOL:	 ARGS:%v_3,
+		 10: COPY TYPE_PASS def_conversation %v_4[2.9,] 
+		 11: 
+		 12: %v_4->participations def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 13: tx_data->[] def_%v_6 tx_data[2.6,2.8,] 	 SYMBOL:listing_author_id,	 ARGS:Symbol,
+		 14: HASH-person_id-is_starter-is_read- def_%v_7 %v_6[2.13,] 
+		 15: %v_5->build def_%v_8 %v_5[2.12,] %v_7[2.14,] 	 SYMBOL:	 ARGS:%v_7,
+		 16: 
+		 17: conversation->participations def_%v_9 conversation[2.10,] 	 SYMBOL:	 ARGS:
+		 18: tx_data->[] def_%v_10 tx_data[2.6,2.8,2.13,] 	 SYMBOL:starter_id,	 ARGS:Symbol,
+		 19: HASH-person_id-is_starter-is_read- def_%v_11 %v_10[2.18,] 
+		 20: %v_9->build def_%v_12 %v_9[2.17,] %v_11[2.19,] 	 SYMBOL:	 ARGS:%v_11,
+		 21: 
+		 22: tx_data->[] def_%v_13 tx_data[2.6,2.8,2.13,2.18,] 	 SYMBOL:content,	 ARGS:Symbol,
+		 23: %v_13->present? def_%v_14 %v_13[2.22,] 	 SYMBOL:	 ARGS:
+		 24: BRANCH %v_14[2.23,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: conversation->messages def_%v_15 conversation[2.10,] 	 SYMBOL:	 ARGS:
+		 2: tx_data->[] def_%v_16 tx_data[2.6,] 	 SYMBOL:content,	 ARGS:Symbol,
+		 3: tx_data->[] def_%v_17 tx_data[3.2,2.6,] 	 SYMBOL:starter_id,	 ARGS:Symbol,
+		 4: HASH-content-sender_id- def_%v_18 %v_16[3.2,] %v_17[3.3,] 
+		 5: %v_15->build def_%v_19 %v_15[3.1,] %v_18[3.4,] 	 SYMBOL:	 ARGS:%v_18,
+		 6: RETURN %v_19[3.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_booking instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_tx_model 
+		 6: RECEIVEARG def_tx_data 
+		 7: 
+		 8: %self->is_booking? def_%v_3 %self[2.0,] tx_data[2.6,] 	 SYMBOL:	 ARGS:tx_data,
+		 9: BRANCH %v_3[2.8,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: tx_data->[] def_%v_4 tx_data[2.6,] 	 SYMBOL:booking_fields,	 ARGS:Symbol,
+		 2: %self->booking_duration def_%v_5 %self[2.0,] %v_4[3.1,] 	 SYMBOL:	 ARGS:%v_4,
+		 3: tx_model->listing_quantity def_%v_6 tx_model[2.5,] 	 SYMBOL:	 ARGS:
+		 4: %v_5->!= def_%v_7 %v_5[3.2,] %v_6[3.3,] 	 SYMBOL:	 ARGS:%v_6,
+		 5: BRANCH %v_7[3.4,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ArgumentException) def_%v_8 
+		 2: COPY TYPE_StringLiteral "Listing quantity (" def_%v_9 
+		 3: %self->tx_listing_quantity def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral ") must be equal to booking duration in days (" def_%v_11 
+		 5: %self->booking_duration def_%v_12 %self[4.3,2.0,] tx_data[2.6,] 	 SYMBOL:	 ARGS:tx_data,
+		 6: COPY TYPE_StringLiteral ")" def_%v_13 
+		 7: BUILDSTRING def_%v_14 %v_9[4.2,] %v_10[4.3,] %v_11[4.4,] %v_12[4.5,] %v_13[4.6,] 
+		 8: %v_8->new def_%v_15 %v_8[4.1,] %v_14[4.7,] 	 SYMBOL:	 ARGS:%v_14,
+		 9: %self->raise def_%v_16 %self[4.3,4.5,2.0,] %v_15[4.8,] 	 SYMBOL:	 ARGS:%v_15,
+		 10: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: tx_data->[] def_%v_17 tx_data[2.6,] 	 SYMBOL:booking_fields,	 ARGS:Symbol,
+		 2: %v_17->[] def_%v_18 %v_17[6.1,] 	 SYMBOL:start_on,	 ARGS:Symbol,
+		 3: COPY TYPE_PASS def_start_on %v_18[6.2,] 
+		 4: 
+		 5: tx_data->[] def_%v_19 tx_data[6.1,2.6,] 	 SYMBOL:booking_fields,	 ARGS:Symbol,
+		 6: %v_19->[] def_%v_20 %v_19[6.5,] 	 SYMBOL:end_on,	 ARGS:Symbol,
+		 7: COPY TYPE_PASS def_end_on %v_20[6.6,] 
+		 8: 
+		 9: HASH-start_on-end_on- def_%v_21 start_on[6.3,] %v_20[6.6,] 
+		 10: tx_model->build_booking def_%v_22 tx_model[2.5,] %v_21[6.9,] 	 SYMBOL:	 ARGS:%v_21,
+		 11: RETURN %v_22[6.10,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = is_booking? instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_tx_data 
+		 6: 
+		 7: tx_data->[] def_%v_3 tx_data[2.5,] 	 SYMBOL:booking_fields,	 ARGS:Symbol,
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: tx_data->[] def_%v_4 tx_data[2.5,] 	 SYMBOL:booking_fields,	 ARGS:Symbol,
+		 1: %v_4->[] def_%v_5 %v_4[3.0,] 	 SYMBOL:start_on,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.2,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: tx_data->[] def_%v_6 tx_data[2.5,] 	 SYMBOL:booking_fields,	 ARGS:Symbol,
+		 1: %v_6->[] def_%v_7 %v_6[5.0,] 	 SYMBOL:end_on,	 ARGS:Symbol,
+		 2: RETURN %v_7[5.1,] %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[3.2,2.7,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = booking_duration instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_booking_data 
+		 6: 
+		 7: booking_data->[] def_%v_3 booking_data[2.5,] 	 SYMBOL:start_on,	 ARGS:Symbol,
+		 8: COPY TYPE_PASS def_start_on %v_3[2.7,] 
+		 9: 
+		 10: booking_data->[] def_%v_4 booking_data[2.5,2.7,] 	 SYMBOL:end_on,	 ARGS:Symbol,
+		 11: COPY TYPE_PASS def_end_on %v_4[2.10,] 
+		 12: 
+		 13: (DateUtils) def_%v_5 
+		 14: %v_5->duration_days def_%v_6 %v_5[2.13,] start_on[2.8,] %v_4[2.10,] 	 SYMBOL:	 ARGS:start_on,end_on,
+		 15: RETURN %v_6[2.14,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = do_mark_as_unseen_by_other instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_tx_model 
+		 6: RECEIVEARG def_person_id 
+		 7: 
+		 8: tx_model->conversation def_%v_3 tx_model[2.5,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->participations def_%v_4 %v_3[2.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral "person_id != '" def_%v_5 
+		 11: 
+		 12: COPY TYPE_StringLiteral "'" def_%v_6 
+		 13: BUILDSTRING def_%v_7 %v_5[2.10,] person_id[2.6,] %v_6[2.12,] 
+		 14: %v_4->where def_%v_8 %v_4[2.9,] %v_7[2.13,] 	 SYMBOL:	 ARGS:%v_7,
+		 15: HASH-is_read- def_%v_9 
+		 16: %v_8->update_all def_%v_10 %v_8[2.14,] %v_9[2.15,] 	 SYMBOL:	 ARGS:%v_9,
+		 17: RETURN %v_10[2.16,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

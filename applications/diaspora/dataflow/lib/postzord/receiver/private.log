@@ -1,0 +1,855 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVECONSTARG def_opts 
+		 7: opts[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->user user[2.5,] 
+		 2: 
+		 3: GETFIELD %self->user def_%v_4 %self[4.1,2.0,] 
+		 4: %v_4->person def_%v_5 %v_4[4.3,] 	 SYMBOL:	 ARGS:
+		 5: ATTRASSIGN %self->user_person %v_5[4.4,] 
+		 6: 
+		 7: opts->[] def_%v_6 opts[3.1,2.6,] 	 SYMBOL:salmon_xml,	 ARGS:Symbol,
+		 8: ATTRASSIGN %self->salmon_xml %v_6[4.7,] 
+		 9: 
+		 10: opts->[] def_%v_7 opts[4.7,3.1,2.6,] 	 SYMBOL:person,	 ARGS:Symbol,
+		 11: BRANCH %v_7[4.10,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: (Person) def_%v_8 
+		 1: %self->salmon def_%v_9 %self[4.1,4.5,4.8,2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_9->author_id def_%v_10 %v_9[5.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_8->find_or_fetch_by_identifier def_%v_11 %v_8[5.0,] %v_10[5.2,] 	 SYMBOL:	 ARGS:%v_10,
+		 4: COPY TYPE_PASS def_%v_7 %v_11[5.3,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->author %v_7[5.4,4.10,] 
+		 1: 
+		 2: opts->[] def_%v_12 opts[3.1,2.6,] 	 SYMBOL:object,	 ARGS:Symbol,
+		 3: ATTRASSIGN %self->object %v_12[6.2,] 
+		 4: RETURN %v_12[6.2,] %self[6.0,6.3,4.1,4.5,4.8,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = receive! instanceMethod = true
+BB 1
+	outgoing: 17 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: GETFIELD %self->author def_%v_6 %self[2.0,] 
+		 3: BRANCH %v_6[4.2,] 
+BB 5
+	outgoing: 6 11 
+	datadep: 
+	instructions:
+		 0: %self->salmon def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: GETFIELD %self->author def_%v_8 %self[5.0,2.0,] 
+		 2: %v_8->public_key def_%v_9 %v_8[5.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_7->verified_for_key? def_%v_10 %v_7[5.0,] %v_9[5.2,] 	 SYMBOL:	 ARGS:%v_9,
+		 4: COPY TYPE_PASS def_%v_6 %v_10[5.3,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[5.4,4.2,] 
+BB 7
+	outgoing: 9 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->salmon def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_11->parsed_data def_%v_12 %v_11[7.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->parse_and_receive def_%v_13 %self[7.1,2.0,] %v_12[7.2,] 	 SYMBOL:	 ARGS:%v_12,
+		 4: 
+BB 8
+	outgoing: 9 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->logger def_%v_14 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "event=receive status=abort reason='not_verified for key' " def_%v_15 
+		 3: COPY TYPE_StringLiteral "recipient=" def_%v_16 
+		 4: 
+		 5: GETFIELD %self->user def_%v_17 %self[8.1,2.0,] 
+		 6: %v_17->diaspora_handle def_%v_18 %v_17[8.5,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral " sender=" def_%v_19 
+		 8: GETFIELD %self->salmon def_%v_20 %self[8.1,2.0,] 
+		 9: %v_20->author_id def_%v_21 %v_20[8.8,] 	 SYMBOL:	 ARGS:
+		 10: BUILDSTRING def_%v_22 %v_16[8.3,] %v_18[8.6,] %v_19[8.7,] %v_21[8.9,] 
+		 11: BUILDSTRING def_%v_23 %v_15[8.2,] %v_22[8.10,] 
+		 12: %v_14->error def_%v_24 %v_14[8.1,] %v_23[8.11,] 	 SYMBOL:	 ARGS:%v_23,
+		 13: COPY TYPE_PASS def_%v_13 %v_24[8.12,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_5 %v_13[8.13,7.3,] 
+		 1: %v_3[2.5,] 
+BB 10
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+BB 11
+	outgoing: 12 13 15 
+	datadep: 
+	instructions:
+		 0: def_%v_25 
+		 1: def_%v_26 %v_25[11.0,] 
+		 2: BRANCH %v_26[11.1,] 
+BB 12
+	outgoing: 15 17 
+	datadep: 
+	instructions:
+		 0: %v_25[11.0,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_27 
+		 1: COPY TYPE_PASS def_e %v_27[13.0,] 
+		 2: 
+		 3: %self->logger def_%v_28 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "failed to receive " def_%v_29 
+		 5: GETFIELD %self->object def_%v_30 %self[13.3,2.0,] 
+		 6: %v_30->class def_%v_31 %v_30[13.5,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral " from sender:" def_%v_32 
+		 8: GETFIELD %self->author def_%v_33 %self[13.3,2.0,] 
+		 9: %v_33->id def_%v_34 %v_33[13.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral " for user:" def_%v_35 
+		 11: GETFIELD %self->user def_%v_36 %self[13.3,2.0,] 
+		 12: %v_36->id def_%v_37 %v_36[13.11,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_StringLiteral ": " def_%v_38 
+		 14: e->message def_%v_39 e[13.1,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_StringLiteral "
+" def_%v_40 
+		 16: 
+		 17: GETFIELD %self->object def_%v_41 %self[13.3,2.0,] 
+		 18: %v_41->inspect def_%v_42 %v_41[13.17,] 	 SYMBOL:	 ARGS:
+		 19: BUILDSTRING def_%v_43 %v_42[13.18,] 
+		 20: BUILDSTRING def_%v_44 %v_29[13.4,] %v_31[13.6,] %v_32[13.7,] %v_34[13.9,] %v_35[13.10,] %v_37[13.12,] %v_38[13.13,] %v_39[13.14,] %v_40[13.15,] %v_43[13.19,] 
+		 21: %v_28->error def_%v_45 %v_28[13.3,] %v_44[13.20,] 	 SYMBOL:	 ARGS:%v_44,
+		 22: 
+		 23: %self->raise def_%v_46 %self[13.3,2.0,] e[13.1,13.14,] 	 SYMBOL:	 ARGS:e,
+		 24: COPY TYPE_PASS def_%v_5 %v_46[13.23,] 
+		 25: %v_3[2.5,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: def_%v_47 
+		 1: def_%v_48 %v_47[15.0,] %v_3[2.5,] 
+		 2: %v_47[15.0,] 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[9.0,13.24,] %self[2.0,] 
+BB 17
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = parse_and_receive instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_xml 
+		 6: 
+		 7: def_%v_4 %self[2.0,] 
+		 8: COPY TYPE_PASS def_%v_3 %v_4[2.7,] 
+		 9: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->object def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.8,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (Diaspora) def_%v_6 
+		 1: (inherit Parser) def_%v_7 %v_6[5.0,] 
+		 2: %v_7[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[5.0,] 	 SYMBOL:Parser,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_7->from_xml def_%v_8 %v_7[6.0,5.1,] xml[2.5,] 	 SYMBOL:	 ARGS:xml,
+		 1: ATTRASSIGN %self->object %v_8[7.0,] 
+		 2: COPY TYPE_PASS def_%v_5 %v_8[7.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->logger def_%v_9 %self[7.1,2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "user:" def_%v_10 
+		 3: GETFIELD %self->user def_%v_11 %self[8.1,2.0,] 
+		 4: %v_11->id def_%v_12 %v_11[8.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral " starting private receive from person:" def_%v_13 
+		 6: GETFIELD %self->author def_%v_14 %self[8.1,2.0,] 
+		 7: %v_14->guid def_%v_15 %v_14[8.6,] 	 SYMBOL:	 ARGS:
+		 8: BUILDSTRING def_%v_16 %v_10[8.2,] %v_12[8.4,] %v_13[8.5,] %v_15[8.7,] 
+		 9: %v_9->info def_%v_17 %v_9[8.1,] %v_16[8.8,] 	 SYMBOL:	 ARGS:%v_16,
+		 10: 
+		 11: %self->validate_object def_%v_18 %self[8.1,7.1,2.0,] 	 SYMBOL:	 ARGS:
+		 12: 
+		 13: %self->set_author! def_%v_19 %self[8.1,8.11,7.1,2.0,] 	 SYMBOL:	 ARGS:
+		 14: 
+		 15: %self->receive_object def_%v_20 %self[8.1,8.11,8.13,7.1,2.0,] 	 SYMBOL:	 ARGS:
+		 16: RETURN %v_20[8.15,] %self[8.1,8.11,8.13,8.15,7.1,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = receive_object instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->object def_%v_3 %self[2.0,] 
+		 7: GETFIELD %self->user def_%v_4 %self[2.0,] 
+		 8: GETFIELD %self->author def_%v_5 %self[2.0,] 
+		 9: %v_3->receive def_%v_6 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_4,%v_5,
+		 10: COPY TYPE_PASS def_obj %v_6[2.9,] 
+		 11: 
+		 12: %v_6->respond_to? def_%v_7 %v_6[2.9,] 	 SYMBOL:notification_type,	 ARGS:Symbol,
+		 13: BRANCH %v_7[2.12,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (Notification) def_%v_8 
+		 1: GETFIELD %self->user def_%v_9 %self[2.0,] 
+		 2: GETFIELD %self->author def_%v_10 %self[2.0,] 
+		 3: %v_8->notify def_%v_11 %v_8[3.0,] %v_9[3.1,] obj[2.10,] %v_10[3.2,] 	 SYMBOL:	 ARGS:%v_9,obj,%v_10,
+		 4: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->logger def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "user:" def_%v_13 
+		 3: GETFIELD %self->user def_%v_14 %self[5.1,2.0,] 
+		 4: %v_14->id def_%v_15 %v_14[5.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral " successfully received " def_%v_16 
+		 6: GETFIELD %self->object def_%v_17 %self[5.1,2.0,] 
+		 7: %v_17->class def_%v_18 %v_17[5.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral " from person " def_%v_19 
+		 9: GETFIELD %self->author def_%v_20 %self[5.1,2.0,] 
+		 10: %v_20->guid def_%v_21 %v_20[5.9,] 	 SYMBOL:	 ARGS:
+		 11: 
+		 12: GETFIELD %self->object def_%v_22 %self[5.1,2.0,] 
+		 13: %v_22->respond_to? def_%v_23 %v_22[5.12,] 	 SYMBOL:guid,	 ARGS:Symbol,
+		 14: BRANCH %v_23[5.13,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral ": " def_%v_24 
+		 1: GETFIELD %self->object def_%v_25 %self[2.0,] 
+		 2: %v_25->guid def_%v_26 %v_25[6.1,] 	 SYMBOL:	 ARGS:
+		 3: BUILDSTRING def_%v_27 %v_24[6.0,] %v_26[6.2,] 
+		 4: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_27 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: BUILDSTRING def_%v_28 %v_27[7.0,6.3,] 
+		 1: BUILDSTRING def_%v_29 %v_13[5.2,] %v_15[5.4,] %v_16[5.5,] %v_18[5.7,] %v_19[5.8,] %v_21[5.10,] %v_28[8.0,] 
+		 2: %v_12->info def_%v_30 %v_12[5.1,] %v_29[8.1,] 	 SYMBOL:	 ARGS:%v_29,
+		 3: 
+		 4: %self->logger def_%v_31 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "received: " def_%v_32 
+		 6: GETFIELD %self->object def_%v_33 %self[8.4,2.0,] 
+		 7: %v_33->inspect def_%v_34 %v_33[8.6,] 	 SYMBOL:	 ARGS:
+		 8: BUILDSTRING def_%v_35 %v_32[8.5,] %v_34[8.7,] 
+		 9: %v_31->debug def_%v_36 %v_31[8.4,] %v_35[8.8,] 	 SYMBOL:	 ARGS:%v_35,
+		 10: RETURN %v_36[8.9,] %self[8.4,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = salmon instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->salmon def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (Salmon) def_%v_6 
+		 1: (inherit EncryptedSlap) def_%v_7 %v_6[5.0,] 
+		 2: %v_7[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[5.0,] 	 SYMBOL:EncryptedSlap,	 ARGS:Symbol,
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->salmon_xml def_%v_8 %self[2.0,] 
+		 1: GETFIELD %self->user def_%v_9 %self[2.0,] 
+		 2: %v_7->from_xml def_%v_10 %v_7[6.0,5.1,] %v_8[7.0,] %v_9[7.1,] 	 SYMBOL:	 ARGS:%v_8,%v_9,
+		 3: ATTRASSIGN %self->salmon %v_10[7.2,] 
+		 4: RETURN %v_10[7.2,] %self[7.3,2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = xml_author instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 10 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->object def_%v_3 %self[2.0,] 
+		 7: %v_3->respond_to? def_%v_4 %v_3[2.6,] 	 SYMBOL:relayable?,	 ARGS:Symbol,
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%v_5 %self[2.0,] 
+		 2: GETFIELD %self->object def_%v_6 %self[2.0,] 
+		 3: %v_6->parent def_%v_7 %v_6[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_5->owns? def_%v_8 %v_5[3.1,] %v_7[3.3,] 	 SYMBOL:	 ARGS:%v_7,
+		 5: BRANCH %v_8[3.4,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->object def_%v_9 %self[2.0,] 
+		 1: %v_9->diaspora_handle def_%v_10 %v_9[4.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->object def_%v_11 %self[2.0,] 
+		 1: %v_11->parent_author def_%v_12 %v_11[5.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_12->diaspora_handle def_%v_13 %v_12[5.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_10 %v_13[5.2,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_xml_author %v_10[5.3,4.1,] 
+		 1: 
+		 2: GETFIELD %self->object def_%v_14 %self[2.0,] 
+		 3: %v_14->author def_%v_15 %v_14[6.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_15[6.3,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: (Person) def_%v_16 
+		 1: GETFIELD %self->object def_%v_17 %self[2.0,] 
+		 2: %v_17->diaspora_handle def_%v_18 %v_17[7.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_16->find_or_fetch_by_identifier def_%v_19 %v_16[7.0,] %v_18[7.2,] 	 SYMBOL:	 ARGS:%v_18,
+		 4: ATTRASSIGN %self->author %v_19[7.3,] 
+		 5: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_19 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->object def_%v_20 %self[2.0,] 
+		 2: %v_20->diaspora_handle def_%v_21 %v_20[10.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_xml_author %v_21[10.2,] 
+		 4: COPY TYPE_PASS def_%v_19 %v_21[10.2,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN xml_author[10.3,6.0,] %self[2.0,7.4,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = set_author! instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->author def_%v_3 %self[2.0,] 
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: GETFIELD %self->object def_%v_5 %self[2.0,] 
+		 2: %v_5->respond_to? def_%v_6 %v_5[3.1,] 	 SYMBOL:author=,	 ARGS:Symbol,
+		 3: BRANCH %v_6[3.2,] 
+BB 4
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->object def_%v_7 %self[2.0,] 
+		 1: GETFIELD %self->author def_%v_8 %self[2.0,] 
+		 2: ATTRASSIGN %v_7->author %v_8[6.1,] 
+		 3: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->object def_%v_9 %self[2.0,] 
+		 2: %v_9->respond_to? def_%v_10 %v_9[8.1,] 	 SYMBOL:person=,	 ARGS:Symbol,
+		 3: BRANCH %v_10[8.2,] 
+BB 9
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->object def_%v_11 %self[2.0,] 
+		 1: GETFIELD %self->author def_%v_12 %self[2.0,] 
+		 2: ATTRASSIGN %v_11->person %v_12[9.1,] 
+		 3: RETURN %v_12[9.1,] %self[2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = validate_object instanceMethod = true
+BB 1
+	outgoing: 23 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->object def_%v_3 %self[2.0,] 
+		 7: %v_3->nil? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: (Diaspora) def_%v_5 
+		 1: (inherit XMLNotParseable) def_%v_6 %v_5[3.0,] 
+		 2: %v_6[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_5->const_missing def_%v_6 %v_5[3.0,] 	 SYMBOL:XMLNotParseable,	 ARGS:Symbol,
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->raise def_%v_7 %self[2.0,] %v_6[4.0,3.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 1: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+BB 7
+	outgoing: 8 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->contact_required_unless_request def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_8[7.1,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: (Diaspora) def_%v_9 
+		 1: (inherit ContactRequiredUnlessRequest) def_%v_10 %v_9[8.0,] 
+		 2: %v_10[8.1,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_9->const_missing def_%v_10 %v_9[8.0,] 	 SYMBOL:ContactRequiredUnlessRequest,	 ARGS:Symbol,
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %self->raise def_%v_11 %self[2.0,] %v_10[9.0,8.1,] 	 SYMBOL:	 ARGS:%v_10,
+		 1: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 12
+	outgoing: 13 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->relayable_without_parent? def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_12[12.1,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: (Diaspora) def_%v_13 
+		 1: (inherit RelayableObjectWithoutParent) def_%v_14 %v_13[13.0,] 
+		 2: %v_14[13.1,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: %v_13->const_missing def_%v_14 %v_13[13.0,] 	 SYMBOL:RelayableObjectWithoutParent,	 ARGS:Symbol,
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: %self->raise def_%v_15 %self[2.0,] %v_14[14.0,13.1,] 	 SYMBOL:	 ARGS:%v_14,
+		 1: 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+BB 17
+	outgoing: 18 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->assign_sender_handle_if_request def_%v_16 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: %self->author_does_not_match_xml_author? def_%v_17 %self[17.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_17[17.3,] 
+BB 18
+	outgoing: 19 20 
+	datadep: 
+	instructions:
+		 0: (Diaspora) def_%v_18 
+		 1: (inherit AuthorXMLAuthorMismatch) def_%v_19 %v_18[18.0,] 
+		 2: %v_19[18.1,] 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: %v_18->const_missing def_%v_19 %v_18[18.0,] 	 SYMBOL:AuthorXMLAuthorMismatch,	 ARGS:Symbol,
+BB 20
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: %self->raise def_%v_20 %self[2.0,] %v_19[19.0,18.1,] 	 SYMBOL:	 ARGS:%v_19,
+		 1: RETURN %v_20[20.0,] %self[20.0,2.0,] 
+BB 21
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 23
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = contact_required_unless_request instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->object def_%v_3 %self[2.0,] 
+		 7: (Request) def_%v_4 
+		 8: %v_3->is_a? def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_6 %self[2.0,] 
+		 1: GETFIELD %self->author def_%v_7 %self[2.0,] 
+		 2: %v_6->contact_for def_%v_8 %v_6[3.0,] %v_7[3.1,] 	 SYMBOL:	 ARGS:%v_7,
+		 3: COPY TYPE_PASS def_%v_5 %v_8[3.2,] 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[3.3,2.8,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->author def_%v_9 %self[2.0,] 
+		 1: %v_9->owner def_%v_10 %v_9[5.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_10[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->author def_%v_11 %self[2.0,] 
+		 1: %v_11->owner def_%v_12 %v_11[6.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_12->podmin_account? def_%v_13 %v_12[6.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_10 %v_13[6.2,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_5 %v_10[6.3,5.1,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[7.0,3.3,2.8,] 
+BB 9
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+		 1: RETURN %v_14[9.0,] %self[2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->logger def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "event=receive status=abort reason='sender not connected to recipient' type=" def_%v_16 
+		 3: GETFIELD %self->object def_%v_17 %self[10.1,2.0,] 
+		 4: %v_17->class def_%v_18 %v_17[10.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral " " def_%v_19 
+		 6: COPY TYPE_StringLiteral "recipient=" def_%v_20 
+		 7: 
+		 8: GETFIELD %self->user_person def_%v_21 %self[10.1,2.0,] 
+		 9: %v_21->diaspora_handle def_%v_22 %v_21[10.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral " sender=" def_%v_23 
+		 11: GETFIELD %self->author def_%v_24 %self[10.1,2.0,] 
+		 12: %v_24->diaspora_handle def_%v_25 %v_24[10.11,] 	 SYMBOL:	 ARGS:
+		 13: BUILDSTRING def_%v_26 %v_20[10.6,] %v_22[10.9,] %v_23[10.10,] %v_25[10.12,] 
+		 14: BUILDSTRING def_%v_27 %v_16[10.2,] %v_18[10.4,] %v_19[10.5,] %v_26[10.13,] 
+		 15: %v_15->error def_%v_28 %v_15[10.1,] %v_27[10.14,] 	 SYMBOL:	 ARGS:%v_27,
+		 16: 
+		 17: RETURN %self[10.1,2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = assign_sender_handle_if_request instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->object def_%v_3 %self[2.0,] 
+		 7: (Request) def_%v_4 
+		 8: %v_3->is_a? def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->object def_%v_6 %self[2.0,] 
+		 2: GETFIELD %self->author def_%v_7 %self[2.0,] 
+		 3: %v_7->diaspora_handle def_%v_8 %v_7[3.2,] 	 SYMBOL:	 ARGS:
+		 4: ATTRASSIGN %v_6->sender_handle %v_8[3.3,] 
+		 5: RETURN %v_8[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,646 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_transaction 
+		 6: RECEIVEARG def_user 
+		 7: RECEIVEARG def_community 
+		 8: 
+		 9: ATTRASSIGN %self->transaction transaction[2.5,] 
+		 10: 
+		 11: transaction->conversation def_%v_3 transaction[2.5,] 	 SYMBOL:	 ARGS:
+		 12: ATTRASSIGN %self->conversation %v_3[2.11,] 
+		 13: 
+		 14: ATTRASSIGN %self->user user[2.6,] 
+		 15: 
+		 16: GETFIELD %self->conversation def_%v_4 %self[2.0,2.12,] 
+		 17: %v_4->participations def_%v_5 %v_4[2.16,] 	 SYMBOL:	 ARGS:
+		 18: user->id def_%v_6 user[2.6,] 	 SYMBOL:	 ARGS:
+		 19: %v_5->find_by_person_id def_%v_7 %v_5[2.17,] %v_6[2.18,] 	 SYMBOL:	 ARGS:%v_6,
+		 20: ATTRASSIGN %self->participation %v_7[2.19,] 
+		 21: 
+		 22: transaction->seller def_%v_8 transaction[2.5,2.11,] 	 SYMBOL:	 ARGS:
+		 23: ATTRASSIGN %self->offerer %v_8[2.22,] 
+		 24: 
+		 25: transaction->buyer def_%v_9 transaction[2.5,2.11,2.22,] 	 SYMBOL:	 ARGS:
+		 26: ATTRASSIGN %self->requester %v_9[2.25,] 
+		 27: 
+		 28: ATTRASSIGN %self->community community[2.7,] 
+		 29: 
+		 30: (TransactionService) def_%v_10 
+		 31: (inherit Transaction) def_%v_11 %v_10[2.30,] 
+		 32: %v_11[2.31,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_10->const_missing def_%v_11 %v_10[2.30,] 	 SYMBOL:Transaction,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: transaction->id def_%v_12 transaction[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_11->query def_%v_13 %v_11[3.0,2.31,] %v_12[4.0,] 	 SYMBOL:	 ARGS:%v_12,
+		 2: %self->Maybe def_%v_14 %self[2.0,2.9,2.12,2.14,2.20,2.23,2.26,2.28,] %v_13[4.1,] 	 SYMBOL:	 ARGS:%v_13,
+		 3: %v_14->map def_%v_15 %v_14[4.2,] %self[4.2,2.0,2.9,2.12,2.14,2.20,2.23,2.26,2.28,] 	 SYMBOL:	 ARGS:%v_14,
+CLOSURE BEGIN: transaction[4.0,2.5,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_transaction 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: transaction->[] def_%cl_1_3 transaction[2.2,] 	 SYMBOL:payment_gateway,	 ARGS:Symbol,
+		 2: %cl_1_3->== def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:braintree,	 ARGS:Symbol,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: %v_15->or_else def_%v_16 %v_15[4.3,] 	 SYMBOL:	 ARGS:Boolean,
+		 5: ATTRASSIGN %self->hold_in_escrow %v_16[4.4,] 
+		 6: 
+		 7: transaction->payment def_%v_17 transaction[4.0,4.3,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN %self->payment %v_17[4.7,] 
+		 9: RETURN %v_17[4.7,] %self[4.2,4.5,4.8,2.0,2.9,2.12,2.14,2.20,2.23,2.26,2.28,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = confirm! instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Delayed) def_%v_3 
+		 7: (inherit Job) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Job,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (TransactionConfirmedJob) def_%v_5 
+		 1: GETFIELD %self->transaction def_%v_6 %self[2.0,] 
+		 2: %v_6->id def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->community def_%v_8 %self[2.0,] 
+		 4: %v_8->id def_%v_9 %v_8[4.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_5->new def_%v_10 %v_5[4.0,] %v_7[4.2,] %v_9[4.4,] 	 SYMBOL:	 ARGS:%v_7,%v_9,
+		 6: %v_4->enqueue def_%v_11 %v_4[3.0,2.7,] %v_10[4.5,] 	 SYMBOL:	 ARGS:%v_10,
+		 7: 
+		 8: COPY TYPE_Array def_%v_12 
+		 9: %v_12->each def_%v_13 %v_12[4.8,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_12,
+CLOSURE BEGIN: %self[2.0,] send_interval[] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_send_interval 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Delayed) def_%cl_1_3 
+		 2: (inherit Job) def_%cl_1_4 %cl_1_3[3.1,] 
+		 3: %cl_1_4[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %cl_1_3->const_missing def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:Job,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: (TestimonialReminderJob) def_%cl_1_5 
+		 1: GETFIELD %self->transaction def_%cl_1_6 %self[2.0,] 
+		 2: %cl_1_6->id def_%cl_1_7 %cl_1_6[5.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->community def_%cl_1_8 %self[2.0,] 
+		 4: %cl_1_8->id def_%cl_1_9 %cl_1_8[5.3,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_5->new def_%cl_1_10 %cl_1_5[5.0,] %cl_1_7[5.2,] %cl_1_9[5.4,] 	 SYMBOL:	 ARGS:%cl_1_7,Nil,%cl_1_9,
+		 6: send_interval->days def_%cl_1_11 send_interval[2.2,] 	 SYMBOL:	 ARGS:
+		 7: %cl_1_11->from_now def_%cl_1_12 %cl_1_11[5.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-priority-run_at- def_%cl_1_13 %cl_1_12[5.7,] 
+		 9: %cl_1_4->enqueue def_%cl_1_14 %cl_1_4[4.0,3.2,] %cl_1_10[5.5,] %cl_1_13[5.8,] 	 SYMBOL:	 ARGS:%cl_1_10,%cl_1_13,
+		 10: RETURN %cl_1_14[5.9,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_15 
+		 1: def_%cl_1_16 %cl_1_15[6.0,] 
+		 2: RETURN %cl_1_16[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: 
+		 11: GETFIELD %self->hold_in_escrow def_%v_14 %self[2.0,] 
+		 12: BRANCH %v_14[4.11,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->release_escrow def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_15[5.0,] %self[5.0,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cancel! instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Delayed) def_%v_3 
+		 7: (inherit Job) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Job,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (TransactionCanceledJob) def_%v_5 
+		 1: GETFIELD %self->transaction def_%v_6 %self[2.0,] 
+		 2: %v_6->id def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->community def_%v_8 %self[2.0,] 
+		 4: %v_8->id def_%v_9 %v_8[4.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_5->new def_%v_10 %v_5[4.0,] %v_7[4.2,] %v_9[4.4,] 	 SYMBOL:	 ARGS:%v_7,%v_9,
+		 6: %v_4->enqueue def_%v_11 %v_4[3.0,2.7,] %v_10[4.5,] 	 SYMBOL:	 ARGS:%v_10,
+		 7: RETURN %v_11[4.6,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cancel_escrow! instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->hold_in_escrow def_%v_3 %self[2.0,] 
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: (Delayed) def_%v_5 
+		 2: (inherit Job) def_%v_6 %v_5[3.1,] 
+		 3: %v_6[3.2,] 
+BB 4
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_5->const_missing def_%v_6 %v_5[3.1,] 	 SYMBOL:Job,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: (EscrowCanceledJob) def_%v_7 
+		 1: GETFIELD %self->transaction def_%v_8 %self[2.0,] 
+		 2: %v_8->id def_%v_9 %v_8[7.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->community def_%v_10 %self[2.0,] 
+		 4: %v_10->id def_%v_11 %v_10[7.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_7->new def_%v_12 %v_7[7.0,] %v_9[7.2,] %v_11[7.4,] 	 SYMBOL:	 ARGS:%v_9,%v_11,
+		 6: %v_6->enqueue def_%v_13 %v_6[6.0,3.2,] %v_12[7.5,] 	 SYMBOL:	 ARGS:%v_12,
+		 7: 
+		 8: (BTLog) def_%v_14 
+		 9: COPY TYPE_StringLiteral "Escrow canceled by user " def_%v_15 
+		 10: GETFIELD %self->user def_%v_16 %self[2.0,] 
+		 11: %v_16->id def_%v_17 %v_16[7.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral ", transaction " def_%v_18 
+		 13: GETFIELD %self->transaction def_%v_19 %self[2.0,] 
+		 14: %v_19->id def_%v_20 %v_19[7.13,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_StringLiteral ", community " def_%v_21 
+		 16: GETFIELD %self->community def_%v_22 %self[2.0,] 
+		 17: %v_22->id def_%v_23 %v_22[7.16,] 	 SYMBOL:	 ARGS:
+		 18: BUILDSTRING def_%v_24 %v_15[7.9,] %v_17[7.11,] %v_18[7.12,] %v_20[7.14,] %v_21[7.15,] %v_23[7.17,] 
+		 19: %v_14->info def_%v_25 %v_14[7.8,] %v_24[7.18,] 	 SYMBOL:	 ARGS:%v_24,
+		 20: RETURN %v_25[7.19,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_participation instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_feedback_given 
+		 6: 
+		 7: GETFIELD %self->offerer def_%v_3 %self[2.0,] 
+		 8: GETFIELD %self->user def_%v_4 %self[2.0,] 
+		 9: %v_3->eql? def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: BRANCH %v_5[2.9,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->participation def_%v_6 %self[2.0,] 
+		 1: %v_6->update_attribute def_%v_7 %v_6[3.0,] 	 SYMBOL:is_read,	 ARGS:Symbol,Boolean,
+		 2: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+BB 5
+	outgoing: 6 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->transaction def_%v_8 %self[2.0,] 
+		 2: %v_8->author def_%v_9 %v_8[5.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->user def_%v_10 %self[2.0,] 
+		 4: %v_9->== def_%v_11 %v_9[5.2,] %v_10[5.3,] 	 SYMBOL:	 ARGS:%v_10,
+		 5: BRANCH %v_11[5.4,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH feedback_given[2.5,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+		 1: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->transaction def_%v_13 %self[2.0,] 
+		 1: HASH-author_skipped_feedback- def_%v_14 
+		 2: %v_13->update_attributes def_%v_15 %v_13[8.0,] %v_14[8.1,] 	 SYMBOL:	 ARGS:%v_14,
+		 3: COPY TYPE_PASS def_%v_12 %v_15[8.2,] 
+BB 9
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %v_12[8.3,7.0,] %self[2.0,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH feedback_given[2.5,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+		 1: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->transaction def_%v_17 %self[2.0,] 
+		 1: HASH-starter_skipped_feedback- def_%v_18 
+		 2: %v_17->update_attributes def_%v_19 %v_17[12.0,] %v_18[12.1,] 	 SYMBOL:	 ARGS:%v_18,
+		 3: COPY TYPE_PASS def_%v_16 %v_19[12.2,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %v_16[12.3,11.0,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = activate_automatic_confirmation! instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->transaction def_%v_3 %self[2.0,] 
+		 7: %v_3->automatic_confirmation_after_days def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->days def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->from_now def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_PASS def_automatic_confirmation_at %v_6[2.9,] 
+		 11: 
+		 12: %self->automatic_confirmation_job! def_%v_7 %self[2.0,] %v_6[2.9,] 	 SYMBOL:	 ARGS:automatic_confirmation_at,
+		 13: 
+		 14: %self->confirmation_reminder_job! def_%v_8 %self[2.0,2.12,] automatic_confirmation_at[2.10,] 	 SYMBOL:	 ARGS:automatic_confirmation_at,
+		 15: RETURN %v_8[2.14,] %self[2.0,2.12,2.14,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = activate_automatic_booking_confirmation_at! instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_automatic_confirmation_at 
+		 6: 
+		 7: (Delayed) def_%v_3 
+		 8: (inherit Job) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:Job,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (AutomaticBookingConfirmationJob) def_%v_5 
+		 1: GETFIELD %self->transaction def_%v_6 %self[2.0,] 
+		 2: %v_6->id def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->user def_%v_8 %self[2.0,] 
+		 4: %v_8->id def_%v_9 %v_8[4.3,] 	 SYMBOL:	 ARGS:
+		 5: GETFIELD %self->community def_%v_10 %self[2.0,] 
+		 6: %v_10->id def_%v_11 %v_10[4.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_5->new def_%v_12 %v_5[4.0,] %v_7[4.2,] %v_9[4.4,] %v_11[4.6,] 	 SYMBOL:	 ARGS:%v_7,%v_9,%v_11,
+		 8: HASH-run_at-priority- def_%v_13 automatic_confirmation_at[2.5,] 
+		 9: %v_4->enqueue def_%v_14 %v_4[3.0,2.8,] %v_12[4.7,] %v_13[4.8,] 	 SYMBOL:	 ARGS:%v_12,%v_13,
+		 10: RETURN %v_14[4.9,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = automatic_confirmation_job! instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_automatic_confirmation_at 
+		 6: 
+		 7: (Delayed) def_%v_3 
+		 8: (inherit Job) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:Job,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (AutomaticConfirmationJob) def_%v_5 
+		 1: GETFIELD %self->transaction def_%v_6 %self[2.0,] 
+		 2: %v_6->id def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->user def_%v_8 %self[2.0,] 
+		 4: %v_8->id def_%v_9 %v_8[4.3,] 	 SYMBOL:	 ARGS:
+		 5: GETFIELD %self->community def_%v_10 %self[2.0,] 
+		 6: %v_10->id def_%v_11 %v_10[4.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_5->new def_%v_12 %v_5[4.0,] %v_7[4.2,] %v_9[4.4,] %v_11[4.6,] 	 SYMBOL:	 ARGS:%v_7,%v_9,%v_11,
+		 8: HASH-run_at-priority- def_%v_13 automatic_confirmation_at[2.5,] 
+		 9: %v_4->enqueue def_%v_14 %v_4[3.0,2.8,] %v_12[4.7,] %v_13[4.8,] 	 SYMBOL:	 ARGS:%v_12,%v_13,
+		 10: RETURN %v_14[4.9,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = confirmation_reminder_job! instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_automatic_confirmation_at 
+		 6: 
+		 7: (REMIND_DAYS_BEFORE_CLOSING) def_%v_3 
+		 8: %v_3->days def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: automatic_confirmation_at->- def_%v_5 automatic_confirmation_at[2.5,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: COPY TYPE_PASS def_reminder_email_at %v_5[2.9,] 
+		 11: 
+		 12: GETFIELD %self->community def_%v_6 %self[2.0,] 
+		 13: %v_6->testimonials_in_use def_%v_7 %v_6[2.12,] 	 SYMBOL:	 ARGS:
+		 14: BRANCH %v_7[2.13,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->transaction def_%v_8 %self[2.0,] 
+		 1: %v_8->automatic_confirmation_after_days def_%v_9 %v_8[3.0,] 	 SYMBOL:	 ARGS:
+		 2: (REMIND_DAYS_BEFORE_CLOSING) def_%v_10 
+		 3: %v_9->> def_%v_11 %v_9[3.1,] %v_10[3.2,] 	 SYMBOL:	 ARGS:%v_10,
+		 4: COPY TYPE_PASS def_%v_7 %v_11[3.3,] 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_activate_reminder %v_7[3.4,2.13,] 
+		 1: 
+		 2: BRANCH %v_7[3.4,2.13,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Delayed) def_%v_12 
+		 2: (inherit Job) def_%v_13 %v_12[5.1,] 
+		 3: %v_13[5.2,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_12->const_missing def_%v_13 %v_12[5.1,] 	 SYMBOL:Job,	 ARGS:Symbol,
+BB 7
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: (ConfirmReminderJob) def_%v_14 
+		 1: GETFIELD %self->transaction def_%v_15 %self[2.0,] 
+		 2: %v_15->id def_%v_16 %v_15[7.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->requester def_%v_17 %self[2.0,] 
+		 4: %v_17->id def_%v_18 %v_17[7.3,] 	 SYMBOL:	 ARGS:
+		 5: GETFIELD %self->community def_%v_19 %self[2.0,] 
+		 6: %v_19->id def_%v_20 %v_19[7.5,] 	 SYMBOL:	 ARGS:
+		 7: (REMIND_DAYS_BEFORE_CLOSING) def_%v_21 
+		 8: %v_14->new def_%v_22 %v_14[7.0,] %v_16[7.2,] %v_18[7.4,] %v_20[7.6,] %v_21[7.7,] 	 SYMBOL:	 ARGS:%v_16,%v_18,%v_20,%v_21,
+		 9: HASH-priority-run_at- def_%v_23 reminder_email_at[2.10,] 
+		 10: %v_13->enqueue def_%v_24 %v_13[6.0,5.2,] %v_22[7.8,] %v_23[7.9,] 	 SYMBOL:	 ARGS:%v_22,%v_23,
+		 11: RETURN %v_24[7.10,] %self[2.0,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = release_escrow instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (BraintreeService) def_%v_3 
+		 7: (inherit EscrowReleaseHelper) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:EscrowReleaseHelper,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->community def_%v_5 %self[2.0,] 
+		 1: GETFIELD %self->payment def_%v_6 %self[2.0,] 
+		 2: %v_6->braintree_transaction_id def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_4->release_from_escrow def_%v_8 %v_4[3.0,2.7,] %v_5[4.0,] %v_7[4.2,] 	 SYMBOL:	 ARGS:%v_5,%v_7,
+		 4: RETURN %v_8[4.3,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

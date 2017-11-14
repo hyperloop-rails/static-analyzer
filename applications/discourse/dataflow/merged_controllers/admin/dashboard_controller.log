@@ -1,0 +1,104 @@
+SET IRMethod, name = index instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (AdminDashboardData) def_%v_3 
+		 7: %v_3->fetch_cached_stats def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: (Jobs) def_%v_5 
+		 1: (inherit DashboardStats) def_%v_6 %v_5[3.0,] 
+		 2: %v_6[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_5->const_missing def_%v_6 %v_5[3.0,] 	 SYMBOL:DashboardStats,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_6->new def_%v_7 %v_6[4.0,3.1,] 	 SYMBOL:	 ARGS:
+		 1: HASH- def_%v_8 
+		 2: %v_7->execute def_%v_9 %v_7[5.0,] %v_8[5.1,] 	 SYMBOL:	 ARGS:%v_8,
+		 3: COPY TYPE_PASS def_%v_4 %v_9[5.2,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_dashboard_data %v_4[5.3,2.7,] 
+		 1: 
+		 2: (SiteSetting) def_%v_10 
+		 3: %v_10->version_checks? def_%v_11 %v_10[6.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_11[6.3,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: (DiscourseUpdates) def_%v_12 
+		 1: %v_12->check_version def_%v_13 %v_12[7.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_13->as_json def_%v_14 %v_13[7.1,] 	 SYMBOL:	 ARGS:
+		 3: HASH-version_check- def_%v_15 %v_14[7.2,] 
+		 4: dashboard_data->merge! def_%v_16 dashboard_data[6.0,] %v_15[7.3,] 	 SYMBOL:	 ARGS:%v_15,
+		 5: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (DiskSpace) def_%v_17 
+		 2: %v_17->cached_stats def_%v_18 %v_17[9.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN dashboard_data->[] %v_18[9.2,] 
+		 4: 
+		 5: HASH-json- def_%v_19 dashboard_data[9.3,6.0,] 
+		 6: %self->render def_%v_20 %self[2.0,] %v_19[9.5,] 	 SYMBOL:	 ARGS:%v_19,
+		 7: RETURN %v_20[9.6,] %self[9.6,2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = problems instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (AdminDashboardData) def_%v_3 
+		 7: %v_3->fetch_problems def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-problems- def_%v_5 %v_4[2.7,] 
+		 9: %self->render_json_dump def_%v_6 %self[2.0,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

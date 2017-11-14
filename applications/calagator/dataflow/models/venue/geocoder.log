@@ -1,0 +1,372 @@
+SET IRMethod, name = geocode instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_venue 
+		 6: 
+		 7: %self->new def_%v_3 %self[2.0,] venue[2.5,] 	 SYMBOL:	 ARGS:venue,
+		 8: %v_3->geocode def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %v_4[2.8,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = geocode instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->should_geocode? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: %self->geo def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->success def_%v_6 %v_5[3.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_6[3.3,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->map_geo_to_venue def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->log def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_8[8.1,] %self[8.1,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = geo instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->geo def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (Geokit) def_%v_6 
+		 1: (inherit Geocoders) def_%v_7 %v_6[5.0,] 
+		 2: %v_7[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[5.0,] 	 SYMBOL:Geocoders,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: (inherit MultiGeocoder) def_%v_8 %v_7[6.0,5.1,] 
+		 1: %v_8[7.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_7->const_missing def_%v_8 %v_7[6.0,5.1,] 	 SYMBOL:MultiGeocoder,	 ARGS:Symbol,
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %self->venue def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_9->geocode_address def_%v_10 %v_9[9.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_8->geocode def_%v_11 %v_8[8.0,7.0,] %v_10[9.1,] 	 SYMBOL:	 ARGS:%v_10,
+		 3: ATTRASSIGN %self->geo %v_11[9.2,] 
+		 4: RETURN %v_11[9.2,] %self[9.0,9.3,2.0,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = map_geo_to_venue instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->venue def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->geo def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->lat def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: ATTRASSIGN %v_3->latitude %v_5[2.8,] 
+		 10: 
+		 11: %self->venue def_%v_6 %self[2.0,2.6,2.7,] 	 SYMBOL:	 ARGS:
+		 12: %self->geo def_%v_7 %self[2.0,2.6,2.7,2.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_7->lng def_%v_8 %v_7[2.12,] 	 SYMBOL:	 ARGS:
+		 14: ATTRASSIGN %v_6->longitude %v_8[2.13,] 
+		 15: 
+		 16: (VENUE_GEO_FIELD_MAP) def_%v_9 
+		 17: %v_9->each def_%v_10 %v_9[2.16,] %self[2.0,2.6,2.7,2.11,2.12,] 	 SYMBOL:	 ARGS:%v_9,
+CLOSURE BEGIN: %self[2.0,2.6,2.7,2.11,2.12,] venue_field[] geo_field[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_venue_field 
+		 3: RECEIVEARG def_geo_field 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->venue def_%cl_1_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_3->[] def_%cl_1_4 %cl_1_3[3.1,] venue_field[2.2,] 	 SYMBOL:	 ARGS:venue_field,
+		 3: %cl_1_4->present? def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %cl_1_5[3.3,] 
+BB 4
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_6 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->venue def_%cl_1_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->geo def_%cl_1_8 %self[6.1,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_8->send def_%cl_1_9 %cl_1_8[6.2,] geo_field[2.3,] 	 SYMBOL:	 ARGS:geo_field,
+		 4: ATTRASSIGN %cl_1_7->[] venue_field[2.2,] %cl_1_9[6.3,] 
+		 5: RETURN %cl_1_9[6.3,] %self[6.1,6.2,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_10 
+		 1: def_%cl_1_11 %cl_1_10[7.0,] 
+		 2: RETURN %cl_1_11[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: geo_field[2.3,] 
+		 18: RETURN %v_10[2.17,] %self[2.0,2.6,2.7,2.11,2.12,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%v_11 
+		 1: def_%v_12 %v_11[4.0,] 
+		 2: RETURN %v_12[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = should_geocode? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->perform_geocoding def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: %self->venue def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->location def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_5->blank? def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_6[2.10,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->venue def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_7->force_geocoding def_%v_8 %v_7[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "1" def_%v_9 
+		 3: %v_8->== def_%v_10 %v_8[3.1,] %v_9[3.2,] 	 SYMBOL:	 ARGS:%v_9,
+		 4: COPY TYPE_PASS def_%v_6 %v_10[3.3,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->venue def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_11->geocode_address def_%v_12 %v_11[4.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_12->present? def_%v_13 %v_12[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->venue def_%v_14 %self[4.0,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_14->duplicate_of def_%v_15 %v_14[4.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_15->blank? def_%v_16 %v_15[4.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_Array def_%v_17 %v_3[2.6,] %v_6[3.4,2.10,] %v_13[4.2,] %v_16[4.5,] 
+		 7: %v_17->all? def_%v_18 %v_17[4.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_18[4.7,] %self[4.0,4.3,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = log instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->venue def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->new_record? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "new record" def_%v_5 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "record " def_%v_6 
+		 1: %self->venue def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->id def_%v_8 %v_7[4.1,] 	 SYMBOL:	 ARGS:
+		 3: BUILDSTRING def_%v_9 %v_6[4.0,] %v_8[4.2,] 
+		 4: COPY TYPE_PASS def_%v_5 %v_9[4.3,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_venue_id %v_5[4.4,3.0,] 
+		 1: 
+		 2: %self->geo def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_10->success def_%v_11 %v_10[5.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_11[5.3,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "was successful" def_%v_12 
+		 1: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "failed" def_%v_13 
+		 1: COPY TYPE_PASS def_%v_12 %v_13[7.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_status %v_12[7.1,6.0,] 
+		 1: 
+		 2: COPY TYPE_StringLiteral "Venue#add_geocoding for " def_%v_14 
+		 3: %self->venue def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral " " def_%v_16 
+		 5: COPY TYPE_StringLiteral ", response was: " def_%v_17 
+		 6: %self->geo def_%v_18 %self[8.3,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_18->inspect def_%v_19 %v_18[8.6,] 	 SYMBOL:	 ARGS:
+		 8: BUILDSTRING def_%v_20 %v_14[8.2,] %v_15[8.3,] %v_16[8.4,] status[8.0,] %v_17[8.5,] %v_19[8.7,] 
+		 9: COPY TYPE_PASS def_message %v_20[8.8,] 
+		 10: 
+		 11: (Rails) def_%v_21 
+		 12: %v_21->logger def_%v_22 %v_21[8.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_22->info def_%v_23 %v_22[8.12,] message[8.9,] 	 SYMBOL:	 ARGS:message,
+		 14: RETURN %v_23[8.13,] %self[8.3,8.6,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+

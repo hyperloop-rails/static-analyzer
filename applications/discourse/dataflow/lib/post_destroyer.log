@@ -1,0 +1,1611 @@
+SET IRMethod, name = destroy_old_hidden_posts instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Post) def_%v_3 
+		 7: HASH-deleted_at-hidden- def_%v_4 
+		 8: %v_3->where def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: COPY TYPE_StringLiteral "hidden_at < ?" def_%v_6 
+		 10: CONSTANT def_%v_7 	 SYMBOL:	 ARGS:
+		 11: %v_7->ago def_%v_8 %v_7[2.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_5->where def_%v_9 %v_5[2.8,] %v_6[2.9,] %v_8[2.11,] 	 SYMBOL:	 ARGS:%v_6,%v_8,
+		 13: %v_9->find_each def_%v_10 %v_9[2.12,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_9,
+CLOSURE BEGIN: post[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_post 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PostDestroyer) def_%cl_1_3 
+		 2: (Discourse) def_%cl_1_4 
+		 3: %cl_1_4->system_user def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_3->new def_%cl_1_6 %cl_1_3[3.1,] %cl_1_5[3.3,] post[2.2,] 	 SYMBOL:	 ARGS:%cl_1_5,post,
+		 5: %cl_1_6->destroy def_%cl_1_7 %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:
+		 6: RETURN %cl_1_7[3.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[4.0,] 
+		 2: RETURN %cl_1_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 14: RETURN %v_10[2.13,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = destroy_stubs instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Post) def_%v_3 
+		 7: HASH-deleted_at-user_deleted- def_%v_4 
+		 8: %v_3->where def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: COPY TYPE_StringLiteral "NOT EXISTS (
+            SELECT 1 FROM topics t
+            WHERE t.deleted_at IS NOT NULL AND
+                  t.id = posts.topic_id
+        )" def_%v_6 
+		 10: %v_5->where def_%v_7 %v_5[2.8,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: COPY TYPE_StringLiteral "updated_at < ? AND post_number > 1" def_%v_8 
+		 12: (SiteSetting) def_%v_9 
+		 13: %v_9->delete_removed_posts_after def_%v_10 %v_9[2.12,] 	 SYMBOL:	 ARGS:
+		 14: %v_10->hours def_%v_11 %v_10[2.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_11->ago def_%v_12 %v_11[2.14,] 	 SYMBOL:	 ARGS:
+		 16: %v_7->where def_%v_13 %v_7[2.10,] %v_8[2.11,] %v_12[2.15,] 	 SYMBOL:	 ARGS:%v_8,%v_12,
+		 17: COPY TYPE_StringLiteral "NOT EXISTS (
+                  SELECT 1
+                  FROM post_actions pa
+                  WHERE pa.post_id = posts.id AND
+                        pa.deleted_at IS NULL AND
+                        pa.post_action_type_id IN (?)
+              )" def_%v_14 
+		 18: (PostActionType) def_%v_15 
+		 19: %v_15->notify_flag_type_ids def_%v_16 %v_15[2.18,] 	 SYMBOL:	 ARGS:
+		 20: %v_13->where def_%v_17 %v_13[2.16,] %v_14[2.17,] %v_16[2.19,] 	 SYMBOL:	 ARGS:%v_14,%v_16,
+		 21: %v_17->each def_%v_18 %v_17[2.20,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_17,
+CLOSURE BEGIN: post[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_post 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PostDestroyer) def_%cl_1_3 
+		 2: (Discourse) def_%cl_1_4 
+		 3: %cl_1_4->system_user def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_3->new def_%cl_1_6 %cl_1_3[3.1,] %cl_1_5[3.3,] post[2.2,] 	 SYMBOL:	 ARGS:%cl_1_5,post,
+		 5: %cl_1_6->destroy def_%cl_1_7 %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:
+		 6: RETURN %cl_1_7[3.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[4.0,] 
+		 2: RETURN %cl_1_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 22: RETURN %v_18[2.21,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_post 
+		 7: RECEIVECONSTARG def_opts 
+		 8: opts[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->user user[2.5,] 
+		 2: 
+		 3: ATTRASSIGN %self->post post[2.6,] 
+		 4: 
+		 5: BRANCH post[2.6,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: post->topic def_%v_4 post[2.6,] 	 SYMBOL:	 ARGS:
+		 1: ATTRASSIGN %self->topic %v_4[5.0,] 
+		 2: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->opts opts[3.1,2.7,] 
+		 2: RETURN opts[3.1,2.7,] %self[7.1,5.1,4.1,4.3,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = destroy instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->user def_%v_3 %self[2.0,] 
+		 7: %v_3->staff? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%v_5 
+		 1: %v_5->delete_removed_posts_after def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->< def_%v_7 %v_6[3.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: COPY TYPE_PASS def_%v_4 %v_7[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[3.3,2.7,] 
+BB 5
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->perform_delete def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%v_9 %self[2.0,] 
+		 2: %v_9->id def_%v_10 %v_9[6.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->post def_%v_11 %self[2.0,] 
+		 4: %v_11->user_id def_%v_12 %v_11[6.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_10->== def_%v_13 %v_10[6.2,] %v_12[6.4,] 	 SYMBOL:	 ARGS:%v_12,
+		 6: BRANCH %v_13[6.5,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->mark_for_deletion def_%v_14 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_8 %v_14[8.0,7.1,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (DiscourseEvent) def_%v_15 
+		 2: GETFIELD %self->post def_%v_16 %self[2.0,] 
+		 3: GETFIELD %self->opts def_%v_17 %self[2.0,] 
+		 4: GETFIELD %self->user def_%v_18 %self[2.0,] 
+		 5: %v_15->trigger def_%v_19 %v_15[10.1,] %v_16[10.2,] %v_17[10.3,] %v_18[10.4,] 	 SYMBOL:post_destroyed,	 ARGS:Symbol,%v_16,%v_17,%v_18,
+		 6: RETURN %v_19[10.5,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = recover instanceMethod = true
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->user def_%v_3 %self[2.0,] 
+		 7: %v_3->staff? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->post def_%v_5 %self[2.0,] 
+		 1: %v_5->deleted_at def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_4 %v_6[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[3.2,2.7,] 
+BB 5
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->staff_recovered def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%v_8 %self[2.0,] 
+		 2: %v_8->staff? def_%v_9 %v_8[6.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_9[6.2,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_10 %self[2.0,] 
+		 1: %v_10->id def_%v_11 %v_10[7.0,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->post def_%v_12 %self[2.0,] 
+		 3: %v_12->user_id def_%v_13 %v_12[7.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_11->== def_%v_14 %v_11[7.1,] %v_13[7.3,] 	 SYMBOL:	 ARGS:%v_13,
+		 5: COPY TYPE_PASS def_%v_9 %v_14[7.4,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_9[7.5,6.2,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->user_recovered def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_7 %v_15[10.0,9.1,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Topic) def_%v_16 
+		 2: %v_16->with_deleted def_%v_17 %v_16[12.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->post def_%v_18 %self[2.0,] 
+		 4: %v_18->topic_id def_%v_19 %v_18[12.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_17->find def_%v_20 %v_17[12.2,] %v_19[12.4,] 	 SYMBOL:	 ARGS:%v_19,
+		 6: COPY TYPE_PASS def_topic %v_20[12.5,] 
+		 7: 
+		 8: GETFIELD %self->post def_%v_21 %self[2.0,] 
+		 9: %v_21->is_first_post? def_%v_22 %v_21[12.8,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_22[12.9,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: topic->recover! def_%v_23 topic[12.6,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_23 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: topic->update_statistics def_%v_24 topic[12.6,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: %self->recover_user_actions def_%v_25 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: 
+		 5: (DiscourseEvent) def_%v_26 
+		 6: GETFIELD %self->post def_%v_27 %self[15.3,2.0,] 
+		 7: GETFIELD %self->opts def_%v_28 %self[15.3,2.0,] 
+		 8: GETFIELD %self->user def_%v_29 %self[15.3,2.0,] 
+		 9: %v_26->trigger def_%v_30 %v_26[15.5,] %v_27[15.6,] %v_28[15.7,] %v_29[15.8,] 	 SYMBOL:post_recovered,	 ARGS:Symbol,%v_27,%v_28,%v_29,
+		 10: RETURN %v_30[15.9,] %self[15.3,2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = staff_recovered instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->post def_%v_3 %self[2.0,] 
+		 7: %v_3->recover! def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: 
+		 9: GETFIELD %self->post def_%v_5 %self[2.0,] 
+		 10: %v_5->publish_change_to_clients! def_%v_6 %v_5[2.9,] 	 SYMBOL:recovered,	 ARGS:Symbol,
+		 11: RETURN %v_6[2.10,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = perform_delete instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Post) def_%v_3 
+		 7: %v_3->transaction def_%v_4 %v_3[2.6,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 20 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->post def_%cl_1_3 %self[2.0,] 
+		 2: GETFIELD %self->user def_%cl_1_4 %self[2.0,] 
+		 3: %cl_1_3->trash! def_%cl_1_5 %cl_1_3[3.1,] %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:%cl_1_4,
+		 4: 
+		 5: GETFIELD %self->post def_%cl_1_6 %self[2.0,] 
+		 6: %cl_1_6->topic def_%cl_1_7 %cl_1_6[3.5,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %cl_1_7[3.6,] 
+BB 4
+	outgoing: 6 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->make_previous_post_the_last_one def_%cl_1_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: %self->clear_user_posted_flag def_%cl_1_9 %self[4.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: 
+		 5: (Topic) def_%cl_1_10 
+		 6: GETFIELD %self->post def_%cl_1_11 %self[4.1,4.3,2.0,] 
+		 7: %cl_1_11->topic_id def_%cl_1_12 %cl_1_11[4.6,] 	 SYMBOL:	 ARGS:
+		 8: %cl_1_10->reset_highest def_%cl_1_13 %cl_1_10[4.5,] %cl_1_12[4.7,] 	 SYMBOL:	 ARGS:%cl_1_12,
+		 9: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_13 
+BB 6
+	outgoing: 7 8 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->trash_public_post_actions def_%cl_1_14 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: %self->agree_with_flags def_%cl_1_15 %self[6.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: 
+		 5: %self->trash_user_actions def_%cl_1_16 %self[6.1,6.3,2.0,] 	 SYMBOL:	 ARGS:
+		 6: 
+		 7: GETFIELD %self->post def_%cl_1_17 %self[6.1,6.3,6.5,2.0,] 
+		 8: %cl_1_17->update_flagged_posts_count def_%cl_1_18 %cl_1_17[6.7,] 	 SYMBOL:	 ARGS:
+		 9: 
+		 10: %self->remove_associated_replies def_%cl_1_19 %self[6.1,6.3,6.5,2.0,] 	 SYMBOL:	 ARGS:
+		 11: 
+		 12: %self->remove_associated_notifications def_%cl_1_20 %self[6.1,6.3,6.5,6.10,2.0,] 	 SYMBOL:	 ARGS:
+		 13: 
+		 14: GETFIELD %self->post def_%cl_1_21 %self[6.1,6.3,6.5,6.10,6.12,2.0,] 
+		 15: %cl_1_21->topic def_%cl_1_22 %cl_1_21[6.14,] 	 SYMBOL:	 ARGS:
+		 16: BRANCH %cl_1_22[6.15,] 
+BB 7
+	outgoing: 8 18 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->post def_%cl_1_23 %self[2.0,] 
+		 1: %cl_1_23->is_first_post? def_%cl_1_24 %cl_1_23[7.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%cl_1_22 %cl_1_24[7.1,] 
+BB 8
+	outgoing: 9 13 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_22[7.2,6.15,] 
+BB 9
+	outgoing: 10 11 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%cl_1_25 %self[2.0,] 
+		 2: %cl_1_25->id def_%cl_1_26 %cl_1_25[9.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->post def_%cl_1_27 %self[2.0,] 
+		 4: %cl_1_27->user_id def_%cl_1_28 %cl_1_27[9.3,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_26->!= def_%cl_1_29 %cl_1_26[9.2,] %cl_1_28[9.4,] 	 SYMBOL:	 ARGS:%cl_1_28,
+		 6: BRANCH %cl_1_29[9.5,] 
+BB 10
+	outgoing: 12 18 
+	datadep: 
+	instructions:
+		 0: (StaffActionLogger) def_%cl_1_30 
+		 1: GETFIELD %self->user def_%cl_1_31 %self[2.0,] 
+		 2: %cl_1_30->new def_%cl_1_32 %cl_1_30[10.0,] %cl_1_31[10.1,] 	 SYMBOL:	 ARGS:%cl_1_31,
+		 3: GETFIELD %self->post def_%cl_1_33 %self[2.0,] 
+		 4: %cl_1_33->topic def_%cl_1_34 %cl_1_33[10.3,] 	 SYMBOL:	 ARGS:
+		 5: GETFIELD %self->opts def_%cl_1_35 %self[2.0,] 
+		 6: %cl_1_35->slice def_%cl_1_36 %cl_1_35[10.5,] 	 SYMBOL:context,	 ARGS:Symbol,
+		 7: %cl_1_32->log_topic_deletion def_%cl_1_37 %cl_1_32[10.2,] %cl_1_34[10.4,] %cl_1_36[10.6,] 	 SYMBOL:	 ARGS:%cl_1_34,%cl_1_36,
+		 8: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_37 
+BB 12
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->post def_%cl_1_38 %self[2.0,] 
+		 2: %cl_1_38->topic def_%cl_1_39 %cl_1_38[12.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->user def_%cl_1_40 %self[2.0,] 
+		 4: %cl_1_39->trash! def_%cl_1_41 %cl_1_39[12.2,] %cl_1_40[12.3,] 	 SYMBOL:	 ARGS:%cl_1_40,
+		 5: 
+BB 13
+	outgoing: 14 15 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%cl_1_42 %self[2.0,] 
+		 2: %cl_1_42->id def_%cl_1_43 %cl_1_42[13.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->post def_%cl_1_44 %self[2.0,] 
+		 4: %cl_1_44->user_id def_%cl_1_45 %cl_1_44[13.3,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_43->!= def_%cl_1_46 %cl_1_43[13.2,] %cl_1_45[13.4,] 	 SYMBOL:	 ARGS:%cl_1_45,
+		 6: BRANCH %cl_1_46[13.5,] 
+BB 14
+	outgoing: 16 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (StaffActionLogger) def_%cl_1_47 
+		 2: GETFIELD %self->user def_%cl_1_48 %self[2.0,] 
+		 3: %cl_1_47->new def_%cl_1_49 %cl_1_47[14.1,] %cl_1_48[14.2,] 	 SYMBOL:	 ARGS:%cl_1_48,
+		 4: GETFIELD %self->post def_%cl_1_50 %self[2.0,] 
+		 5: GETFIELD %self->opts def_%cl_1_51 %self[2.0,] 
+		 6: %cl_1_51->slice def_%cl_1_52 %cl_1_51[14.5,] 	 SYMBOL:context,	 ARGS:Symbol,
+		 7: %cl_1_49->log_post_deletion def_%cl_1_53 %cl_1_49[14.3,] %cl_1_50[14.4,] %cl_1_52[14.6,] 	 SYMBOL:	 ARGS:%cl_1_50,%cl_1_52,
+		 8: 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_53 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_1_41 %cl_1_53[15.0,14.7,] 
+BB 17
+	outgoing: 18 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->update_associated_category_latest_topic def_%cl_1_54 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: %self->update_user_counts def_%cl_1_55 %self[17.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: 
+		 5: (TopicUser) def_%cl_1_56 
+		 6: GETFIELD %self->post def_%cl_1_57 %self[17.1,17.3,2.0,] 
+		 7: %cl_1_57->id def_%cl_1_58 %cl_1_57[17.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-post_id- def_%cl_1_59 %cl_1_58[17.7,] 
+		 9: %cl_1_56->update_post_action_cache def_%cl_1_60 %cl_1_56[17.5,] %cl_1_59[17.8,] 	 SYMBOL:	 ARGS:%cl_1_59,
+		 10: RETURN %cl_1_60[17.9,] %self[17.1,17.3,2.0,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_61 
+		 1: def_%cl_1_62 %cl_1_61[18.0,] 
+		 2: RETURN %cl_1_62[18.1,] %self[2.0,] 
+BB 20
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: 
+		 9: GETFIELD %self->post def_%v_5 %self[2.0,] 
+		 10: %v_5->topic def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_6[2.10,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->feature_users_in_the_topic def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->post def_%v_8 %self[2.0,] 
+		 2: %v_8->topic def_%v_9 %v_8[5.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_9[5.2,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->post def_%v_10 %self[2.0,] 
+		 1: %v_10->publish_change_to_clients! def_%v_11 %v_10[6.0,] 	 SYMBOL:deleted,	 ARGS:Symbol,
+		 2: RETURN %v_11[6.1,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mark_for_deletion instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (I18n) def_%v_3 
+		 7: (SiteSetting) def_%v_4 
+		 8: %v_4->default_locale def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->with_locale def_%v_6 %v_3[2.6,] %v_5[2.8,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_5,%v_3,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Post) def_%cl_1_3 
+		 2: %cl_1_3->transaction def_%cl_1_4 %cl_1_3[3.1,] %self[2.0,] 	 SYMBOL:	 ARGS:%cl_1_3,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->post def_%cl_2_3 %self[2.0,] 
+		 2: GETFIELD %self->user def_%cl_2_4 %self[2.0,] 
+		 3: (I18n) def_%cl_2_5 
+		 4: COPY TYPE_StringLiteral "js.post.deleted_by_author" def_%cl_2_6 
+		 5: (SiteSetting) def_%cl_2_7 
+		 6: %cl_2_7->delete_removed_posts_after def_%cl_2_8 %cl_2_7[3.5,] 	 SYMBOL:	 ARGS:
+		 7: HASH-count- def_%cl_2_9 %cl_2_8[3.6,] 
+		 8: %cl_2_5->t def_%cl_2_10 %cl_2_5[3.3,] %cl_2_6[3.4,] %cl_2_9[3.7,] 	 SYMBOL:	 ARGS:%cl_2_6,%cl_2_9,
+		 9: HASH-raw- def_%cl_2_11 %cl_2_10[3.8,] 
+		 10: HASH-force_new_version- def_%cl_2_12 
+		 11: %cl_2_3->revise def_%cl_2_13 %cl_2_3[3.1,] %cl_2_4[3.2,] %cl_2_11[3.9,] %cl_2_12[3.10,] 	 SYMBOL:	 ARGS:%cl_2_4,%cl_2_11,%cl_2_12,
+		 12: 
+		 13: GETFIELD %self->post def_%cl_2_14 %self[2.0,] 
+		 14: %cl_2_14->update_column def_%cl_2_15 %cl_2_14[3.13,] 	 SYMBOL:user_deleted,	 ARGS:Symbol,Boolean,
+		 15: 
+		 16: GETFIELD %self->post def_%cl_2_16 %self[2.0,] 
+		 17: %cl_2_16->update_flagged_posts_count def_%cl_2_17 %cl_2_16[3.16,] 	 SYMBOL:	 ARGS:
+		 18: 
+		 19: GETFIELD %self->post def_%cl_2_18 %self[2.0,] 
+		 20: %cl_2_18->topic_links def_%cl_2_19 %cl_2_18[3.19,] 	 SYMBOL:	 ARGS:
+		 21: %cl_2_19->each def_%cl_2_20 %cl_2_19[3.20,] 	 SYMBOL:destroy,	 ARGS:
+		 22: RETURN %cl_2_20[3.21,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_21 
+		 1: def_%cl_2_22 %cl_2_21[4.0,] 
+		 2: RETURN %cl_2_22[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: RETURN %v_6[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = user_recovered instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Post) def_%v_3 
+		 7: %v_3->transaction def_%v_4 %v_3[2.6,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->post def_%cl_1_3 %self[2.0,] 
+		 2: %cl_1_3->update_column def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:user_deleted,	 ARGS:Symbol,Boolean,
+		 3: 
+		 4: GETFIELD %self->post def_%cl_1_5 %self[2.0,] 
+		 5: ATTRASSIGN %cl_1_5->skip_unique_check 
+		 6: 
+		 7: GETFIELD %self->post def_%cl_1_6 %self[2.0,] 
+		 8: GETFIELD %self->user def_%cl_1_7 %self[2.0,] 
+		 9: GETFIELD %self->post def_%cl_1_8 %self[2.0,] 
+		 10: %cl_1_8->revisions def_%cl_1_9 %cl_1_8[3.9,] 	 SYMBOL:	 ARGS:
+		 11: %cl_1_9->last def_%cl_1_10 %cl_1_9[3.10,] 	 SYMBOL:	 ARGS:
+		 12: %cl_1_10->modifications def_%cl_1_11 %cl_1_10[3.11,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_StringLiteral "raw" def_%cl_1_12 
+		 14: %cl_1_11->[] def_%cl_1_13 %cl_1_11[3.12,] %cl_1_12[3.13,] 	 SYMBOL:	 ARGS:%cl_1_12,
+		 15: %cl_1_13->[] def_%cl_1_14 %cl_1_13[3.14,] 	 SYMBOL:	 ARGS:Fixnum,
+		 16: HASH-raw- def_%cl_1_15 %cl_1_14[3.15,] 
+		 17: HASH-force_new_version- def_%cl_1_16 
+		 18: %cl_1_6->revise def_%cl_1_17 %cl_1_6[3.7,] %cl_1_7[3.8,] %cl_1_15[3.16,] %cl_1_16[3.17,] 	 SYMBOL:	 ARGS:%cl_1_7,%cl_1_15,%cl_1_16,
+		 19: 
+		 20: GETFIELD %self->post def_%cl_1_18 %self[2.0,] 
+		 21: %cl_1_18->update_flagged_posts_count def_%cl_1_19 %cl_1_18[3.20,] 	 SYMBOL:	 ARGS:
+		 22: RETURN %cl_1_19[3.21,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_20 
+		 1: def_%cl_1_21 %cl_1_20[4.0,] 
+		 2: RETURN %cl_1_21[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = make_previous_post_the_last_one instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Post) def_%v_3 
+		 7: COPY TYPE_StringLiteral "topic_id = ? and id <> ?" def_%v_4 
+		 8: GETFIELD %self->post def_%v_5 %self[2.0,] 
+		 9: %v_5->topic_id def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: GETFIELD %self->post def_%v_7 %self[2.0,] 
+		 11: %v_7->id def_%v_8 %v_7[2.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_3->where def_%v_9 %v_3[2.6,] %v_4[2.7,] %v_6[2.9,] %v_8[2.11,] 	 SYMBOL:	 ARGS:%v_4,%v_6,%v_8,
+		 13: COPY TYPE_StringLiteral "created_at desc" def_%v_10 
+		 14: %v_9->order def_%v_11 %v_9[2.12,] %v_10[2.13,] 	 SYMBOL:	 ARGS:%v_10,
+		 15: %v_11->limit def_%v_12 %v_11[2.14,] 	 SYMBOL:	 ARGS:Fixnum,
+		 16: %v_12->first def_%v_13 %v_12[2.15,] 	 SYMBOL:	 ARGS:
+		 17: COPY TYPE_PASS def_last_post %v_13[2.16,] 
+		 18: 
+		 19: %v_13->present? def_%v_14 %v_13[2.16,] 	 SYMBOL:	 ARGS:
+		 20: BRANCH %v_14[2.19,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->post def_%v_15 %self[2.0,] 
+		 2: %v_15->topic def_%v_16 %v_15[3.1,] 	 SYMBOL:	 ARGS:
+		 3: last_post->created_at def_%v_17 last_post[2.17,] 	 SYMBOL:	 ARGS:
+		 4: last_post->user_id def_%v_18 last_post[3.3,2.17,] 	 SYMBOL:	 ARGS:
+		 5: last_post->post_number def_%v_19 last_post[3.3,3.4,2.17,] 	 SYMBOL:	 ARGS:
+		 6: HASH-last_posted_at-last_post_user_id-highest_post_number- def_%v_20 %v_17[3.3,] %v_18[3.4,] %v_19[3.5,] 
+		 7: %v_16->update_attributes def_%v_21 %v_16[3.2,] %v_20[3.6,] 	 SYMBOL:	 ARGS:%v_20,
+		 8: RETURN %v_21[3.7,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = clear_user_posted_flag instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Post) def_%v_3 
+		 7: COPY TYPE_StringLiteral "topic_id = ? and user_id = ? and id <> ?" def_%v_4 
+		 8: GETFIELD %self->post def_%v_5 %self[2.0,] 
+		 9: %v_5->topic_id def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: GETFIELD %self->post def_%v_7 %self[2.0,] 
+		 11: %v_7->user_id def_%v_8 %v_7[2.10,] 	 SYMBOL:	 ARGS:
+		 12: GETFIELD %self->post def_%v_9 %self[2.0,] 
+		 13: %v_9->id def_%v_10 %v_9[2.12,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_Array def_%v_11 %v_4[2.7,] %v_6[2.9,] %v_8[2.11,] %v_10[2.13,] 
+		 15: %v_3->exists? def_%v_12 %v_3[2.6,] %v_11[2.14,] 	 SYMBOL:	 ARGS:%v_11,
+		 16: BRANCH %v_12[2.15,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+		 1: RETURN %v_13[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TopicUser) def_%v_14 
+		 2: GETFIELD %self->post def_%v_15 %self[2.0,] 
+		 3: %v_15->topic_id def_%v_16 %v_15[4.2,] 	 SYMBOL:	 ARGS:
+		 4: GETFIELD %self->post def_%v_17 %self[2.0,] 
+		 5: %v_17->user_id def_%v_18 %v_17[4.4,] 	 SYMBOL:	 ARGS:
+		 6: HASH-topic_id-user_id- def_%v_19 %v_16[4.3,] %v_18[4.5,] 
+		 7: %v_14->where def_%v_20 %v_14[4.1,] %v_19[4.6,] 	 SYMBOL:	 ARGS:%v_19,
+		 8: COPY TYPE_StringLiteral "posted = false" def_%v_21 
+		 9: %v_20->update_all def_%v_22 %v_20[4.7,] %v_21[4.8,] 	 SYMBOL:	 ARGS:%v_21,
+		 10: RETURN %v_22[4.9,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = feature_users_in_the_topic instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Jobs) def_%v_3 
+		 7: GETFIELD %self->post def_%v_4 %self[2.0,] 
+		 8: %v_4->topic_id def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: HASH-topic_id- def_%v_6 %v_5[2.8,] 
+		 10: %v_3->enqueue def_%v_7 %v_3[2.6,] %v_6[2.9,] 	 SYMBOL:feature_topic_users,	 ARGS:Symbol,%v_6,
+		 11: RETURN %v_7[2.10,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = trash_public_post_actions instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (PostAction) def_%v_3 
+		 7: %v_3->publics def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: GETFIELD %self->post def_%v_5 %self[2.0,] 
+		 9: %v_5->id def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: HASH-post_id- def_%v_7 %v_6[2.9,] 
+		 11: %v_4->where def_%v_8 %v_4[2.7,] %v_7[2.10,] 	 SYMBOL:	 ARGS:%v_7,
+		 12: COPY TYPE_PASS def_public_post_actions %v_8[2.11,] 
+		 13: 
+		 14: %v_8->each def_%v_9 %v_8[2.11,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_8,
+CLOSURE BEGIN: %self[2.0,] pa[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_pa 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%cl_1_3 %self[2.0,] 
+		 2: pa->trash! def_%cl_1_4 pa[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 15: 
+		 16: (PostActionType) def_%v_10 
+		 17: %v_10->public_types def_%v_11 %v_10[2.16,] 	 SYMBOL:	 ARGS:
+		 18: %v_11->map def_%v_12 %v_11[2.17,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_11,
+CLOSURE BEGIN: k[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_k 
+		 3: RECEIVEARG def__ 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "_count" def_%cl_2_3 
+		 2: BUILDSTRING def_%cl_2_4 k[2.2,] %cl_2_3[3.1,] 
+		 3: COPY TYPE_Array def_%cl_2_5 %cl_2_4[3.2,] 
+		 4: RETURN %cl_2_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_6 
+		 1: def_%cl_2_7 %cl_2_6[4.0,] 
+		 2: RETURN %cl_2_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: _[2.3,] 
+		 19: COPY TYPE_PASS def_f %v_12[2.18,] 
+		 20: 
+		 21: (Post) def_%v_13 
+		 22: %v_13->with_deleted def_%v_14 %v_13[2.21,] 	 SYMBOL:	 ARGS:
+		 23: GETFIELD %self->post def_%v_15 %self[2.0,] 
+		 24: %v_15->id def_%v_16 %v_15[2.23,] 	 SYMBOL:	 ARGS:
+		 25: HASH-id- def_%v_17 %v_16[2.24,] 
+		 26: %v_14->where def_%v_18 %v_14[2.22,] %v_17[2.25,] 	 SYMBOL:	 ARGS:%v_17,
+		 27: (Hash) def_%v_19 
+		 28: f->flatten def_%v_21 f[2.19,] 	 SYMBOL:	 ARGS:
+		 29: def_%v_20 %v_21[2.28,] 
+		 30: %v_19->[] def_%v_22 %v_19[2.27,] %v_20[2.29,] 	 SYMBOL:	 ARGS:Splat,
+		 31: %v_18->update_all def_%v_23 %v_18[2.26,] %v_22[2.30,] 	 SYMBOL:	 ARGS:%v_22,
+		 32: RETURN %v_23[2.31,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = agree_with_flags instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (PostAction) def_%v_3 
+		 7: GETFIELD %self->post def_%v_4 %self[2.0,] 
+		 8: GETFIELD %self->user def_%v_5 %self[2.0,] 
+		 9: HASH-delete_post- def_%v_6 
+		 10: %v_3->agree_flags! def_%v_7 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_4,%v_5,%v_6,
+		 11: RETURN %v_7[2.10,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = trash_user_actions instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (UserAction) def_%v_3 
+		 7: GETFIELD %self->post def_%v_4 %self[2.0,] 
+		 8: %v_4->id def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: HASH-target_post_id- def_%v_6 %v_5[2.8,] 
+		 10: %v_3->where def_%v_7 %v_3[2.6,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: %v_7->each def_%v_8 %v_7[2.10,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: ua[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_ua 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ua->action_type def_%cl_1_3 ua[2.2,] 	 SYMBOL:	 ARGS:
+		 2: ua->user_id def_%cl_1_4 ua[3.1,2.2,] 	 SYMBOL:	 ARGS:
+		 3: ua->acting_user_id def_%cl_1_5 ua[3.1,3.2,2.2,] 	 SYMBOL:	 ARGS:
+		 4: ua->target_topic_id def_%cl_1_6 ua[3.1,3.2,3.3,2.2,] 	 SYMBOL:	 ARGS:
+		 5: ua->target_post_id def_%cl_1_7 ua[3.1,3.2,3.3,3.4,2.2,] 	 SYMBOL:	 ARGS:
+		 6: HASH-action_type-user_id-acting_user_id-target_topic_id-target_post_id- def_%cl_1_8 %cl_1_3[3.1,] %cl_1_4[3.2,] %cl_1_5[3.3,] %cl_1_6[3.4,] %cl_1_7[3.5,] 
+		 7: COPY TYPE_PASS def_row %cl_1_8[3.6,] 
+		 8: 
+		 9: (UserAction) def_%cl_1_9 
+		 10: %cl_1_9->remove_action! def_%cl_1_10 %cl_1_9[3.9,] %cl_1_8[3.6,] 	 SYMBOL:	 ARGS:row,
+		 11: RETURN %cl_1_10[3.10,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_11 
+		 1: def_%cl_1_12 %cl_1_11[4.0,] 
+		 2: RETURN %cl_1_12[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: row[3.7,] 
+		 12: RETURN %v_8[2.11,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = recover_user_actions instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (UserActionObserver) def_%v_3 
+		 7: GETFIELD %self->post def_%v_4 %self[2.0,] 
+		 8: %v_3->log_post def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = remove_associated_replies instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (PostReply) def_%v_3 
+		 7: GETFIELD %self->post def_%v_4 %self[2.0,] 
+		 8: %v_4->id def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: HASH-reply_id- def_%v_6 %v_5[2.8,] 
+		 10: %v_3->where def_%v_7 %v_3[2.6,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: %v_7->pluck def_%v_8 %v_7[2.10,] 	 SYMBOL:post_id,	 ARGS:Symbol,
+		 12: COPY TYPE_PASS def_post_ids %v_8[2.11,] 
+		 13: 
+		 14: %v_8->present? def_%v_9 %v_8[2.11,] 	 SYMBOL:	 ARGS:
+		 15: BRANCH %v_9[2.14,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PostReply) def_%v_10 
+		 2: GETFIELD %self->post def_%v_11 %self[2.0,] 
+		 3: %v_11->id def_%v_12 %v_11[3.2,] 	 SYMBOL:	 ARGS:
+		 4: HASH-reply_id- def_%v_13 %v_12[3.3,] 
+		 5: %v_10->delete_all def_%v_14 %v_10[3.1,] %v_13[3.4,] 	 SYMBOL:	 ARGS:%v_13,
+		 6: 
+		 7: (Post) def_%v_15 
+		 8: HASH-id- def_%v_16 post_ids[2.12,] 
+		 9: %v_15->where def_%v_17 %v_15[3.7,] %v_16[3.8,] 	 SYMBOL:	 ARGS:%v_16,
+		 10: %v_17->each def_%v_18 %v_17[3.9,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_17,
+CLOSURE BEGIN: p[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_p 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: p->replies def_%cl_1_3 p[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_3->count def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: p->update_column def_%cl_1_5 p[3.1,2.2,] %cl_1_4[3.2,] 	 SYMBOL:reply_count,	 ARGS:Symbol,%cl_1_4,
+		 4: RETURN %cl_1_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 11: RETURN %v_18[3.10,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = remove_associated_notifications instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Notification) def_%v_3 
+		 7: GETFIELD %self->post def_%v_4 %self[2.0,] 
+		 8: %v_4->topic_id def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: GETFIELD %self->post def_%v_6 %self[2.0,] 
+		 10: %v_6->post_number def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: HASH-topic_id-post_number- def_%v_8 %v_5[2.8,] %v_7[2.10,] 
+		 12: %v_3->delete_all def_%v_9 %v_3[2.6,] %v_8[2.11,] 	 SYMBOL:	 ARGS:%v_8,
+		 13: RETURN %v_9[2.12,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_associated_category_latest_topic instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->post def_%v_3 %self[2.0,] 
+		 7: %v_3->topic def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->post def_%v_5 %self[2.0,] 
+		 1: %v_5->topic def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->category def_%v_7 %v_6[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_4 %v_7[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[3.3,2.7,] 
+BB 5
+	outgoing: 8 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: GETFIELD %self->post def_%v_9 %self[2.0,] 
+		 3: %v_9->id def_%v_10 %v_9[5.2,] 	 SYMBOL:	 ARGS:
+		 4: GETFIELD %self->post def_%v_11 %self[2.0,] 
+		 5: %v_11->topic def_%v_12 %v_11[5.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_12->category def_%v_13 %v_12[5.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_13->latest_post_id def_%v_14 %v_13[5.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_10->== def_%v_15 %v_10[5.3,] %v_14[5.7,] 	 SYMBOL:	 ARGS:%v_14,
+		 9: BRANCH %v_15[5.8,] 
+BB 6
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->post def_%v_16 %self[2.0,] 
+		 1: %v_16->is_first_post? def_%v_17 %v_16[8.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_17[8.1,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->post def_%v_18 %self[2.0,] 
+		 1: %v_18->topic_id def_%v_19 %v_18[9.0,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->post def_%v_20 %self[2.0,] 
+		 3: %v_20->topic def_%v_21 %v_20[9.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_21->category def_%v_22 %v_21[9.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_22->latest_topic_id def_%v_23 %v_22[9.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_19->== def_%v_24 %v_19[9.1,] %v_23[9.5,] 	 SYMBOL:	 ARGS:%v_23,
+		 7: COPY TYPE_PASS def_%v_17 %v_24[9.6,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_15 %v_17[9.7,8.1,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_15[10.0,5.8,] 
+BB 12
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_25 
+		 1: 
+		 2: GETFIELD %self->post def_%v_26 %self[2.0,] 
+		 3: %v_26->topic def_%v_27 %v_26[12.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_27->category def_%v_28 %v_27[12.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_28->update_latest def_%v_29 %v_28[12.4,] 	 SYMBOL:	 ARGS:
+		 6: RETURN %v_29[12.5,] %self[2.0,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_user_counts instanceMethod = true
+BB 1
+	outgoing: 23 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->post def_%v_3 %self[2.0,] 
+		 7: %v_3->user def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_author %v_4[2.7,] 
+		 9: 
+		 10: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: author->user_stat def_%v_6 author[2.8,] 	 SYMBOL:	 ARGS:
+		 3: %v_6->nil? def_%v_7 %v_6[3.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_7[3.3,] 
+BB 4
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: author->create_user_stat def_%v_8 author[2.8,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->post def_%v_9 %self[2.0,] 
+		 2: %v_9->created_at def_%v_10 %v_9[8.1,] 	 SYMBOL:	 ARGS:
+		 3: author->user_stat def_%v_11 author[2.8,] 	 SYMBOL:	 ARGS:
+		 4: %v_11->first_post_created_at def_%v_12 %v_11[8.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_10->== def_%v_13 %v_10[8.2,] %v_12[8.4,] 	 SYMBOL:	 ARGS:%v_12,
+		 6: BRANCH %v_13[8.5,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: author->user_stat def_%v_14 author[2.8,] 	 SYMBOL:	 ARGS:
+		 2: author->posts def_%v_15 author[9.1,2.8,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "created_at ASC" def_%v_16 
+		 4: %v_15->order def_%v_17 %v_15[9.2,] %v_16[9.3,] 	 SYMBOL:	 ARGS:%v_16,
+		 5: %v_17->first def_%v_18 %v_17[9.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_18->try def_%v_19 %v_18[9.5,] 	 SYMBOL:created_at,	 ARGS:Symbol,
+		 7: ATTRASSIGN %v_14->first_post_created_at %v_19[9.6,] 
+		 8: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_19 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: author->user_stat def_%v_22 author[2.8,] 	 SYMBOL:	 ARGS:
+		 2: %v_22->post_count def_%v_20 %v_22[11.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_20->- def_%v_23 %v_20[11.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: %v_22->post_count= def_%v_21 %v_23[11.3,] 	 SYMBOL:	 ARGS:%v_23,
+		 5: 
+		 6: GETFIELD %self->post def_%v_24 %self[2.0,] 
+		 7: %v_24->is_first_post? def_%v_25 %v_24[11.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_25[11.7,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: author->user_stat def_%v_28 author[2.8,] 	 SYMBOL:	 ARGS:
+		 1: %v_28->topic_count def_%v_26 %v_28[12.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_26->- def_%v_29 %v_26[12.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: %v_28->topic_count= def_%v_27 %v_29[12.2,] 	 SYMBOL:	 ARGS:%v_29,
+		 4: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_29 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->topic def_%v_30 %self[2.0,] 
+		 2: BRANCH %v_30[14.1,] 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: author->id def_%v_31 author[2.8,] 	 SYMBOL:	 ARGS:
+		 1: GETFIELD %self->topic def_%v_32 %self[2.0,] 
+		 2: %v_32->user_id def_%v_33 %v_32[15.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_31->!= def_%v_34 %v_31[15.0,] %v_33[15.2,] 	 SYMBOL:	 ARGS:%v_33,
+		 4: COPY TYPE_PASS def_%v_30 %v_34[15.3,] 
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_30[15.4,14.1,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: author->user_stat def_%v_35 author[2.8,] 	 SYMBOL:	 ARGS:
+		 2: %v_35->update_topic_reply_count def_%v_36 %v_35[17.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_36 
+BB 19
+	outgoing: 20 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: author->user_stat def_%v_37 author[2.8,] 	 SYMBOL:	 ARGS:
+		 2: %v_37->save! def_%v_38 %v_37[19.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: GETFIELD %self->post def_%v_39 %self[2.0,] 
+		 5: %v_39->created_at def_%v_40 %v_39[19.4,] 	 SYMBOL:	 ARGS:
+		 6: author->last_posted_at def_%v_41 author[19.1,2.8,] 	 SYMBOL:	 ARGS:
+		 7: %v_40->== def_%v_42 %v_40[19.5,] %v_41[19.6,] 	 SYMBOL:	 ARGS:%v_41,
+		 8: BRANCH %v_42[19.7,] 
+BB 20
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: author->posts def_%v_43 author[2.8,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "created_at DESC" def_%v_44 
+		 3: %v_43->order def_%v_45 %v_43[20.1,] %v_44[20.2,] 	 SYMBOL:	 ARGS:%v_44,
+		 4: %v_45->first def_%v_46 %v_45[20.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_46->try def_%v_47 %v_46[20.4,] 	 SYMBOL:created_at,	 ARGS:Symbol,
+		 6: ATTRASSIGN author->last_posted_at %v_47[20.5,] 
+		 7: 
+		 8: author->save! def_%v_48 author[20.1,20.6,2.8,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %v_48[20.8,] %self[2.0,] 
+BB 21
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 23
+	outgoing: 
+	datadep: 
+	instructions:
+

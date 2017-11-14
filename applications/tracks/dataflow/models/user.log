@@ -1,0 +1,836 @@
+SET IRMethod, name = find_and_activate_ready instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "show_from <= ?" def_%v_3 
+		 7: (Time) def_%v_4 
+		 8: %v_4->current def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %self->where def_%v_6 %self[2.0,] %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_3,%v_5,
+		 10: %v_6->collect def_%v_7 %v_6[2.9,] %self[2.0,2.9,] 	 SYMBOL:	 ARGS:%v_6,
+CLOSURE BEGIN: t[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_t 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: t->activate! def_%cl_1_3 t[2.2,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 11: RETURN %v_7[2.10,] %self[2.0,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = validate_auth_type instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Tracks) def_%v_3 
+		 7: (inherit Config) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Config,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %v_4->auth_schemes def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:	 ARGS:
+		 1: %self->auth_type def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_5->include? def_%v_7 %v_5[4.0,] %v_6[4.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: BRANCH %v_7[4.2,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: RETURN %v_8[5.0,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->errors def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "auth_type" def_%v_10 
+		 3: COPY TYPE_StringLiteral "not a valid authentication type (" def_%v_11 
+		 4: %self->auth_type def_%v_12 %self[6.1,2.0,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral ")" def_%v_13 
+		 6: BUILDSTRING def_%v_14 %v_11[6.3,] %v_12[6.4,] %v_13[6.5,] 
+		 7: %v_9->add def_%v_15 %v_9[6.1,] %v_10[6.2,] %v_14[6.6,] 	 SYMBOL:	 ARGS:%v_10,%v_14,
+		 8: RETURN %v_15[6.7,] %self[6.1,6.4,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = authenticate instanceMethod = false
+BB 1
+	outgoing: 20 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_login 
+		 6: RECEIVEARG def_pass 
+		 7: 
+		 8: login->blank? def_%v_3 login[2.5,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_3[2.8,] 
+BB 3
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: COPY TYPE_StringLiteral "login = ?" def_%v_5 
+		 3: %self->where def_%v_6 %self[2.0,] %v_5[4.2,] login[2.5,] 	 SYMBOL:	 ARGS:%v_5,login,
+		 4: %v_6->first def_%v_7 %v_6[4.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_candidate %v_7[4.4,] 
+		 6: 
+		 7: %v_7->nil? def_%v_8 %v_7[4.4,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_8[4.7,] 
+BB 6
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 7
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: 
+		 2: (Tracks) def_%v_10 
+		 3: (inherit Config) def_%v_11 %v_10[7.2,] 
+		 4: %v_11[7.3,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_10->const_missing def_%v_11 %v_10[7.2,] 	 SYMBOL:Config,	 ARGS:Symbol,
+BB 10
+	outgoing: 11 17 
+	datadep: 
+	instructions:
+		 0: %v_11->auth_schemes def_%v_12 %v_11[9.0,7.3,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "database" def_%v_13 
+		 2: %v_12->include? def_%v_14 %v_12[10.0,] %v_13[10.1,] 	 SYMBOL:	 ARGS:%v_13,
+		 3: BRANCH %v_14[10.2,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: candidate->auth_type def_%v_15 candidate[4.5,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "database" def_%v_16 
+		 3: %v_15->== def_%v_17 %v_15[11.1,] %v_16[11.2,] 	 SYMBOL:	 ARGS:%v_16,
+		 4: BRANCH %v_17[11.3,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: candidate->password_matches? def_%v_18 candidate[4.5,] pass[2.6,] 	 SYMBOL:	 ARGS:pass,
+		 1: COPY TYPE_PASS def_%v_17 %v_18[12.0,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_17[12.1,11.3,] 
+BB 14
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: RETURN candidate[4.5,] %self[2.0,] 
+BB 15
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_19 
+		 1: 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_19 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 20
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = no_users_yet? instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->count def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->== def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: RETURN %v_4[2.7,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_admin instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: HASH-is_admin- def_%v_3 
+		 7: %self->where def_%v_4 %self[2.0,] %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_3,
+		 8: %v_4->first def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %v_5[2.8,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = to_param instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->login def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = display_name instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->first_name def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->blank? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->last_name def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->blank? def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_4 %v_6[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[3.2,2.7,] 
+BB 5
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->login def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_7[5.1,] %self[5.1,2.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->first_name def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_9->blank? def_%v_10 %v_9[6.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_10[6.2,] 
+BB 7
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->last_name def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_11[7.1,] %self[7.1,2.0,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->last_name def_%v_13 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_13->blank? def_%v_14 %v_13[8.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_14[8.2,] 
+BB 9
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->first_name def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_15[9.1,] %self[9.1,2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+		 1: COPY TYPE_PASS def_%v_12 %v_16[10.0,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_8 %v_12[10.1,] 
+		 1: 
+		 2: %self->first_name def_%v_17 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral " " def_%v_18 
+		 4: %self->last_name def_%v_19 %self[12.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: BUILDSTRING def_%v_20 %v_17[12.2,] %v_18[12.3,] %v_19[12.4,] 
+		 6: RETURN %v_20[12.5,] %self[12.2,12.4,2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = change_password instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_pass 
+		 6: RECEIVEARG def_pass_confirm 
+		 7: 
+		 8: ATTRASSIGN %self->password pass[2.5,] 
+		 9: 
+		 10: ATTRASSIGN %self->password_confirmation pass_confirm[2.6,] 
+		 11: 
+		 12: %self->save! def_%v_3 %self[2.0,2.8,2.10,] 	 SYMBOL:	 ARGS:
+		 13: RETURN %v_3[2.12,] %self[2.0,2.8,2.10,2.12,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = date instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Date) def_%v_3 
+		 7: %v_3->current def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = generate_token instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Digest) def_%v_3 
+		 7: (inherit SHA1) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:SHA1,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (Time) def_%v_5 
+		 1: %v_5->now def_%v_6 %v_5[4.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->to_i def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->rand def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: BUILDSTRING def_%v_9 %v_7[4.2,] %v_8[4.3,] 
+		 5: %v_4->hexdigest def_%v_10 %v_4[3.0,2.7,] %v_9[4.4,] 	 SYMBOL:	 ARGS:%v_9,
+		 6: ATTRASSIGN %self->token %v_10[4.5,] 
+		 7: RETURN %v_10[4.5,] %self[4.3,4.6,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = remember_token? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->remember_token_expires_at def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (Time) def_%v_4 
+		 1: %v_4->now def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_5->utc def_%v_6 %v_5[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->remember_token_expires_at def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_6->< def_%v_8 %v_6[3.2,] %v_7[3.3,] 	 SYMBOL:	 ARGS:%v_7,
+		 5: RETURN %v_8[3.4,] %self[3.3,2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.6,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = remember_me instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: CONSTANT def_%v_3 	 SYMBOL:	 ARGS:
+		 7: %v_3->from_now def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->utc def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: ATTRASSIGN %self->remember_token_expires_at %v_5[2.8,] 
+		 10: 
+		 11: %self->remember_token def_%v_6 %self[2.0,2.9,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_6[2.11,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: (Digest) def_%v_8 
+		 1: (inherit SHA1) def_%v_9 %v_8[3.0,] 
+		 2: %v_9[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_8->const_missing def_%v_9 %v_8[3.0,] 	 SYMBOL:SHA1,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->login def_%v_10 %self[2.0,2.9,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "--" def_%v_11 
+		 2: %self->remember_token_expires_at def_%v_12 %self[5.0,2.0,2.9,] 	 SYMBOL:	 ARGS:
+		 3: BUILDSTRING def_%v_13 %v_10[5.0,] %v_11[5.1,] %v_12[5.2,] 
+		 4: %v_9->hexdigest def_%v_14 %v_9[4.0,3.1,] %v_13[5.3,] 	 SYMBOL:	 ARGS:%v_13,
+		 5: %self->remember_token= def_%v_7 %v_14[5.4,] 	 SYMBOL:	 ARGS:%v_14,
+		 6: COPY TYPE_PASS def_%v_6 %v_14[5.4,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->save def_%v_15 %self[5.5,2.0,2.9,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_15[6.1,] %self[6.1,5.5,2.0,2.9,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = forget_me instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: ATTRASSIGN %self->remember_token_expires_at 
+		 7: 
+		 8: ATTRASSIGN %self->remember_token 
+		 9: 
+		 10: %self->save def_%v_3 %self[2.0,2.6,2.8,] 	 SYMBOL:	 ARGS:
+		 11: RETURN %v_3[2.10,] %self[2.0,2.6,2.8,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = password_matches? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_pass 
+		 6: 
+		 7: (BCrypt) def_%v_3 
+		 8: (inherit Password) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:Password,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->crypted_password def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->new def_%v_6 %v_4[3.0,2.8,] %v_5[4.0,] 	 SYMBOL:	 ARGS:%v_5,
+		 2: %v_6->== def_%v_7 %v_6[4.1,] pass[2.5,] 	 SYMBOL:	 ARGS:pass,
+		 3: RETURN %v_7[4.2,] %self[4.0,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create_hash instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_s 
+		 6: 
+		 7: (BCrypt) def_%v_3 
+		 8: (inherit Password) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:Password,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_4->create def_%v_5 %v_4[3.0,2.8,] s[2.5,] 	 SYMBOL:	 ARGS:s,
+		 1: RETURN %v_5[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = crypt_password instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->password def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->blank? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: %self->password def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %self->password_confirmation def_%v_7 %self[4.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_6->== def_%v_8 %v_6[4.2,] %v_7[4.3,] 	 SYMBOL:	 ARGS:%v_7,
+		 5: BRANCH %v_8[4.4,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %self->password def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %self->create_hash def_%v_10 %self[6.0,2.0,] %v_9[6.0,] 	 SYMBOL:	 ARGS:%v_9,
+		 2: %self->write_attribute def_%v_11 %self[6.0,6.1,2.0,] %v_10[6.1,] 	 SYMBOL:crypted_password,	 ARGS:Symbol,%v_10,
+		 3: RETURN %v_11[6.2,] %self[6.0,6.1,6.2,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = password_required? instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->auth_type def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "database" def_%v_4 
+		 8: %v_3->== def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->crypted_password def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->blank? def_%v_7 %v_6[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_5 %v_7[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[3.2,2.8,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->password def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_8->present? def_%v_9 %v_8[5.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_9[5.1,] %self[5.0,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.2,2.8,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = destroy_dependencies instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->todos def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->pluck def_%v_4 %v_3[2.6,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 8: COPY TYPE_PASS def_ids %v_4[2.7,] 
+		 9: 
+		 10: (Dependency) def_%v_5 
+		 11: HASH-predecessor_id- def_%v_6 %v_4[2.7,] 
+		 12: %v_5->where def_%v_7 %v_5[2.10,] %v_6[2.11,] 	 SYMBOL:	 ARGS:%v_6,
+		 13: %v_7->destroy_all def_%v_8 %v_7[2.12,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_PASS def_pred_deps %v_8[2.13,] 
+		 15: 
+		 16: (Dependency) def_%v_9 
+		 17: HASH-predecessor_id- def_%v_10 ids[2.8,] 
+		 18: %v_9->where def_%v_11 %v_9[2.16,] %v_10[2.17,] 	 SYMBOL:	 ARGS:%v_10,
+		 19: %v_11->destroy_all def_%v_12 %v_11[2.18,] 	 SYMBOL:	 ARGS:
+		 20: COPY TYPE_PASS def_succ_deps %v_12[2.19,] 
+		 21: RETURN %v_12[2.19,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = delete_taggings instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->todos def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->pluck def_%v_4 %v_3[2.6,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 8: COPY TYPE_PASS def_ids %v_4[2.7,] 
+		 9: 
+		 10: (Tagging) def_%v_5 
+		 11: HASH-taggable_id- def_%v_6 %v_4[2.7,] 
+		 12: %v_5->where def_%v_7 %v_5[2.10,] %v_6[2.11,] 	 SYMBOL:	 ARGS:%v_6,
+		 13: %v_7->pluck def_%v_8 %v_7[2.12,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 14: COPY TYPE_PASS def_taggings %v_8[2.13,] 
+		 15: 
+		 16: (Tagging) def_%v_9 
+		 17: HASH-id- def_%v_10 %v_8[2.13,] 
+		 18: %v_9->where def_%v_11 %v_9[2.16,] %v_10[2.17,] 	 SYMBOL:	 ARGS:%v_10,
+		 19: %v_11->delete_all def_%v_12 %v_11[2.18,] 	 SYMBOL:	 ARGS:
+		 20: RETURN %v_12[2.19,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

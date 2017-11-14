@@ -1,0 +1,163 @@
+SET IRMethod, name = send_confirmation instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Email) def_%v_3 
+		 7: %self->params def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->[] def_%v_5 %v_4[2.7,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 9: GETFIELD %self->current_user def_%v_6 %self[2.0,2.7,] 
+		 10: %v_6->id def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_3->find_by_id_and_person_id def_%v_8 %v_3[2.6,] %v_5[2.8,] %v_7[2.10,] 	 SYMBOL:	 ARGS:%v_5,%v_7,
+		 12: ATTRASSIGN %self->email %v_8[2.11,] 
+		 13: 
+		 14: GETFIELD %self->email def_%v_9 %self[2.0,2.7,2.12,] 
+		 15: %v_9->confirmed_at def_%v_10 %v_9[2.14,] 	 SYMBOL:	 ARGS:
+		 16: %v_10->present? def_%v_11 %v_10[2.15,] 	 SYMBOL:	 ARGS:
+		 17: BRANCH %v_11[2.16,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_12 %self[2.0,2.12,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "settings.account.email_already_confirmed" def_%v_13 
+		 3: %self->t def_%v_14 %self[3.1,2.0,2.12,] %v_13[3.2,] 	 SYMBOL:	 ARGS:%v_13,
+		 4: ATTRASSIGN %v_12->[] %v_14[3.3,] 
+		 5: 
+		 6: GETFIELD %self->current_user def_%v_15 %self[3.1,3.3,2.0,] 
+		 7: %self->account_person_settings_path def_%v_16 %self[3.1,3.3,2.0,2.12,] %v_15[3.6,] 	 SYMBOL:	 ARGS:%v_15,
+		 8: %self->redirect_to def_%v_17 %self[3.1,3.3,3.7,2.0,2.12,] %v_16[3.7,] 	 SYMBOL:	 ARGS:%v_16,
+		 9: RETURN %v_17[3.8,] %self[3.1,3.3,3.7,3.8,2.0,2.12,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_18 
+		 1: 
+		 2: (Email) def_%v_19 
+		 3: GETFIELD %self->email def_%v_20 %self[2.0,2.12,] 
+		 4: GETFIELD %self->current_community def_%v_21 %self[2.0,] 
+		 5: %v_19->send_confirmation def_%v_22 %v_19[4.2,] %v_20[4.3,] %v_21[4.4,] 	 SYMBOL:	 ARGS:%v_20,%v_21,
+		 6: 
+		 7: %self->flash def_%v_23 %self[2.0,2.12,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "sessions.confirmation_pending.check_your_email" def_%v_24 
+		 9: %self->t def_%v_25 %self[4.7,2.0,2.12,] %v_24[4.8,] 	 SYMBOL:	 ARGS:%v_24,
+		 10: ATTRASSIGN %v_23->[] %v_25[4.9,] 
+		 11: 
+		 12: GETFIELD %self->current_user def_%v_26 %self[4.7,4.9,2.0,] 
+		 13: %self->account_person_settings_path def_%v_27 %self[4.7,4.9,2.0,2.12,] %v_26[4.12,] 	 SYMBOL:	 ARGS:%v_26,
+		 14: %self->redirect_to def_%v_28 %self[4.7,4.9,4.13,2.0,2.12,] %v_27[4.13,] 	 SYMBOL:	 ARGS:%v_27,
+		 15: RETURN %v_28[4.14,] %self[4.7,4.9,4.13,4.14,2.0,2.12,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = destroy instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 8: COPY TYPE_PASS def_email_id %v_4[2.7,] 
+		 9: 
+		 10: (Email) def_%v_5 
+		 11: GETFIELD %self->current_user def_%v_6 %self[2.0,2.6,] 
+		 12: %v_6->id def_%v_7 %v_6[2.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_5->find_by_id_and_person_id def_%v_8 %v_5[2.10,] email_id[2.8,] %v_7[2.12,] 	 SYMBOL:	 ARGS:email_id,%v_7,
+		 14: COPY TYPE_PASS def_email %v_8[2.13,] 
+		 15: 
+		 16: %v_8->nil? def_%v_9 %v_8[2.13,] 	 SYMBOL:	 ARGS:
+		 17: %v_9->! def_%v_10 %v_9[2.16,] 	 SYMBOL:	 ARGS:
+		 18: BRANCH %v_10[2.17,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->current_user def_%v_11 %self[2.0,] 
+		 2: %v_11->communities def_%v_12 %v_11[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_12->collect def_%v_13 %v_12[3.2,] 	 SYMBOL:allowed_emails,	 ARGS:
+		 4: COPY TYPE_PASS def_list_of_allowed_emails %v_13[3.3,] 
+		 5: 
+		 6: (EmailService) def_%v_14 
+		 7: GETFIELD %self->current_user def_%v_15 %self[2.0,] 
+		 8: %v_15->emails def_%v_16 %v_15[3.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_14->can_delete_email def_%v_17 %v_14[3.6,] %v_16[3.8,] email[2.14,] list_of_allowed_emails[3.4,] 	 SYMBOL:	 ARGS:%v_16,email,list_of_allowed_emails,
+		 10: COPY TYPE_PASS def_can_delete %v_17[3.9,] 
+		 11: 
+		 12: %v_17->[] def_%v_18 %v_17[3.9,] 	 SYMBOL:result,	 ARGS:Symbol,
+		 13: %v_18->== def_%v_19 %v_18[3.12,] 	 SYMBOL:	 ARGS:Boolean,
+		 14: BRANCH %v_19[3.13,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: email->destroy def_%v_20 email[2.14,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_21 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "layouts.notifications.can_not_delete_email" def_%v_22 
+		 3: %self->t def_%v_23 %self[5.1,2.0,] %v_22[5.2,] 	 SYMBOL:	 ARGS:%v_22,
+		 4: ATTRASSIGN %v_21->[] %v_23[5.3,] 
+		 5: COPY TYPE_PASS def_%v_20 %v_23[5.3,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_24 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "layouts.notifications.user_does_not_have_email_to_delete" def_%v_25 
+		 3: %self->t def_%v_26 %self[7.1,2.0,] %v_25[7.2,] 	 SYMBOL:	 ARGS:%v_25,
+		 4: ATTRASSIGN %v_24->[] %v_26[7.3,] 
+		 5: COPY TYPE_PASS def_%v_20 %v_26[7.3,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_27 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "layouts.notifications.email_deleted" def_%v_28 
+		 3: %self->t def_%v_29 %self[8.1,2.0,] %v_28[8.2,] 	 SYMBOL:	 ARGS:%v_28,
+		 4: ATTRASSIGN %v_27->[] %v_29[8.3,] 
+		 5: 
+		 6: %self->account_person_settings_path def_%v_30 %self[8.1,8.3,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->redirect_to def_%v_31 %self[8.1,8.3,8.6,2.0,] %v_30[8.6,] 	 SYMBOL:	 ARGS:%v_30,
+		 8: RETURN %v_31[8.7,] %self[8.1,8.3,8.6,8.7,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+

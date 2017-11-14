@@ -1,0 +1,270 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->super def_%v_3 user[2.5,] %v_0[2.1,] 	 SYMBOL:	 ARGS:user,
+		 8: RETURN %v_3[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = every_x_days instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->get def_%v_3 %self[2.0,] 	 SYMBOL:every_other1,	 ARGS:Symbol,
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = only_work_days? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->get def_%v_3 %self[2.0,] 	 SYMBOL:only_work_days,	 ARGS:Symbol,
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = recurrence_pattern instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->only_work_days? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%v_4 
+		 2: COPY TYPE_StringLiteral "todos.recurrence.pattern.on_work_days" def_%v_5 
+		 3: %v_4->t def_%v_6 %v_4[3.1,] %v_5[3.2,] 	 SYMBOL:	 ARGS:%v_5,
+		 4: RETURN %v_6[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->every_x_days def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->> def_%v_8 %v_7[4.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: BRANCH %v_8[4.2,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%v_9 
+		 2: COPY TYPE_StringLiteral "todos.recurrence.pattern.every_n_days" def_%v_10 
+		 3: %self->every_x_days def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: HASH-n- def_%v_12 %v_11[5.3,] 
+		 5: %v_9->t def_%v_13 %v_9[5.1,] %v_10[5.2,] %v_12[5.4,] 	 SYMBOL:	 ARGS:%v_10,%v_12,
+		 6: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%v_14 
+		 2: COPY TYPE_StringLiteral "todos.recurrence.pattern.every_day" def_%v_15 
+		 3: %v_14->t def_%v_16 %v_14[6.1,] %v_15[6.2,] 	 SYMBOL:	 ARGS:%v_15,
+		 4: COPY TYPE_PASS def_%v_13 %v_16[6.3,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_13[6.4,5.5,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = validate instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->super def_%v_3 %v_0[2.1,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: %self->only_work_days? def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->! def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_5[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->every_x_days def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->blank? def_%v_7 %v_6[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_5 %v_7[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[3.2,2.9,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->errors def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_8->[] def_%v_9 %v_8[5.0,] 	 SYMBOL:base,	 ARGS:Symbol,
+		 2: COPY TYPE_StringLiteral "Every other nth day may not be empty for this daily recurrence setting" def_%v_10 
+		 3: %v_9-><< def_%v_11 %v_9[5.1,] %v_10[5.2,] 	 SYMBOL:	 ARGS:%v_10,
+		 4: RETURN %v_11[5.3,] %self[5.0,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_next_date instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 10 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_previous 
+		 6: 
+		 7: CONSTANT def_%v_3 	 SYMBOL:	 ARGS:
+		 8: %self->determine_start def_%v_4 %self[2.0,] previous[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:previous,%v_3,
+		 9: COPY TYPE_PASS def_start %v_4[2.8,] 
+		 10: 
+		 11: %self->only_work_days? def_%v_5 %self[2.0,2.8,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_5[2.11,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: start->wday def_%v_6 start[2.9,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->== def_%v_7 %v_6[3.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: BRANCH %v_7[3.2,] 
+BB 4
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: CONSTANT def_%v_8 	 SYMBOL:	 ARGS:
+		 1: start->+ def_%v_9 start[2.9,] %v_8[4.0,] 	 SYMBOL:	 ARGS:%v_8,
+		 2: RETURN %v_9[4.1,] %self[2.0,] 
+BB 5
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+		 2: start->wday def_%v_11 start[2.9,] 	 SYMBOL:	 ARGS:
+		 3: %v_11->== def_%v_12 %v_11[5.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: BRANCH %v_12[5.3,] 
+BB 7
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: CONSTANT def_%v_13 	 SYMBOL:	 ARGS:
+		 1: start->+ def_%v_14 start[2.9,] %v_13[7.0,] 	 SYMBOL:	 ARGS:%v_13,
+		 2: RETURN %v_14[7.1,] %self[2.0,] 
+BB 8
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+		 1: 
+		 2: RETURN start[2.9,] %self[2.0,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: previous->== def_%v_17 previous[2.5,] 	 SYMBOL:	 ARGS:Nil,
+		 2: BRANCH %v_17[10.1,] 
+BB 11
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_18 start[2.9,] 
+		 1: RETURN %v_18[11.0,] %self[2.0,] 
+BB 12
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: %self->every_x_days def_%v_19 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_19->day def_%v_20 %v_19[12.0,] 	 SYMBOL:	 ARGS:
+		 2: start->+ def_%v_21 start[2.9,] %v_20[12.1,] 	 SYMBOL:	 ARGS:%v_20,
+		 3: CONSTANT def_%v_22 	 SYMBOL:	 ARGS:
+		 4: %v_21->- def_%v_23 %v_21[12.2,] %v_22[12.3,] 	 SYMBOL:	 ARGS:%v_22,
+		 5: RETURN %v_23[12.4,] %self[12.0,2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+

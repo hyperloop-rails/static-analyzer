@@ -1,0 +1,3145 @@
+SET IRMethod, name = default_url_options instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (I18n) def_%v_3 
+		 7: %v_3->locale def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-locale- def_%v_5 %v_4[2.7,] 
+		 9: RETURN %v_5[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = redirect_removed_locale instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:locale,	 ARGS:Symbol,
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: (Kassi) def_%v_5 
+		 1: (inherit Application) def_%v_6 %v_5[3.0,] 
+		 2: %v_6[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_5->const_missing def_%v_6 %v_5[3.0,] 	 SYMBOL:Application,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_6->config def_%v_7 %v_6[4.0,3.1,] 	 SYMBOL:	 ARGS:
+		 1: %v_7->REMOVED_LOCALES def_%v_8 %v_7[5.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->params def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_9->[] def_%v_10 %v_9[5.2,] 	 SYMBOL:locale,	 ARGS:Symbol,
+		 4: %v_8->include? def_%v_11 %v_8[5.1,] %v_10[5.3,] 	 SYMBOL:	 ARGS:%v_10,
+		 5: COPY TYPE_PASS def_%v_4 %v_11[5.4,] 
+BB 6
+	outgoing: 7 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[5.5,2.7,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Kassi) def_%v_12 
+		 2: (inherit Application) def_%v_13 %v_12[7.1,] 
+		 3: %v_13[7.2,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_12->const_missing def_%v_13 %v_12[7.1,] 	 SYMBOL:Application,	 ARGS:Symbol,
+BB 9
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %v_13->config def_%v_14 %v_13[8.0,7.2,] 	 SYMBOL:	 ARGS:
+		 1: %v_14->REMOVED_LOCALE_FALLBACKS def_%v_15 %v_14[9.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->params def_%v_16 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_16->[] def_%v_17 %v_16[9.2,] 	 SYMBOL:locale,	 ARGS:Symbol,
+		 4: %v_15->[] def_%v_18 %v_15[9.1,] %v_17[9.3,] 	 SYMBOL:	 ARGS:%v_17,
+		 5: COPY TYPE_PASS def_fallback %v_18[9.4,] 
+		 6: 
+		 7: %self->redirect_to_locale def_%v_19 %self[9.2,2.0,] %v_18[9.4,] 	 SYMBOL:moved_permanently,	 ARGS:fallback,Symbol,
+		 8: RETURN %v_19[9.7,] %self[9.2,9.7,2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = set_locale instanceMethod = true
+BB 1
+	outgoing: 24 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->current_user def_%v_3 %self[2.0,] 
+		 7: %self->Maybe def_%v_4 %self[2.0,] %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_3,
+		 8: %v_4->locale def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->or_else def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:Nil,
+		 10: COPY TYPE_PASS def_user_locale %v_6[2.9,] 
+		 11: 
+		 12: GETFIELD %self->current_community def_%v_7 %self[2.0,2.7,] 
+		 13: %self->Maybe def_%v_8 %self[2.0,2.7,] %v_7[2.12,] 	 SYMBOL:	 ARGS:%v_7,
+		 14: COPY TYPE_PASS def_m_community %v_8[2.13,] 
+		 15: 
+		 16: %v_8->locales def_%v_9 %v_8[2.13,] 	 SYMBOL:	 ARGS:
+		 17: COPY TYPE_Array def_%v_10 
+		 18: %v_9->or_else def_%v_11 %v_9[2.16,] %v_10[2.17,] 	 SYMBOL:	 ARGS:%v_10,
+		 19: COPY TYPE_PASS def_community_locales %v_11[2.18,] 
+		 20: 
+		 21: m_community->default_locale def_%v_12 m_community[2.14,] 	 SYMBOL:	 ARGS:
+		 22: COPY TYPE_StringLiteral "en" def_%v_13 
+		 23: %v_12->or_else def_%v_14 %v_12[2.21,] %v_13[2.22,] 	 SYMBOL:	 ARGS:%v_13,
+		 24: COPY TYPE_PASS def_community_default_locale %v_14[2.23,] 
+		 25: 
+		 26: m_community->[] def_%v_15 m_community[2.14,2.21,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 27: %v_15->or_else def_%v_16 %v_15[2.26,] 	 SYMBOL:	 ARGS:Nil,
+		 28: COPY TYPE_PASS def_community_id %v_16[2.27,] 
+		 29: 
+		 30: (I18n) def_%v_17 
+		 31: (inherit Backend) def_%v_18 %v_17[2.30,] 
+		 32: %v_18[2.31,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_17->const_missing def_%v_18 %v_17[2.30,] 	 SYMBOL:Backend,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit CommunityBackend) def_%v_19 %v_18[3.0,2.31,] 
+		 1: %v_19[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_18->const_missing def_%v_19 %v_18[3.0,2.31,] 	 SYMBOL:CommunityBackend,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 12 
+	datadep: 
+	instructions:
+		 0: %v_19->instance def_%v_20 %v_19[5.0,4.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_community_backend %v_20[6.0,] 
+		 2: 
+		 3: BRANCH community_id[2.28,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: community_locales->map def_%v_21 community_locales[2.19,] 	 SYMBOL:to_sym,	 ARGS:
+		 2: community_backend->set_community! def_%v_22 community_backend[6.1,] community_id[2.28,] %v_21[7.1,] 	 SYMBOL:	 ARGS:community_id,%v_21,
+		 3: 
+		 4: (TranslationService) def_%v_23 
+		 5: (inherit API) def_%v_24 %v_23[7.4,] 
+		 6: %v_24[7.5,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_23->const_missing def_%v_24 %v_23[7.4,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: (inherit Api) def_%v_25 %v_24[8.0,7.5,] 
+		 1: %v_25[9.0,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %v_24->const_missing def_%v_25 %v_24[8.0,7.5,] 	 SYMBOL:Api,	 ARGS:Symbol,
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: %v_25->translations def_%v_26 %v_25[10.0,9.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_26->get def_%v_27 %v_26[11.0,] community_id[2.28,] 	 SYMBOL:	 ARGS:community_id,
+		 2: %v_27->[] def_%v_28 %v_27[11.1,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 3: COPY TYPE_PASS def_community_translations %v_28[11.2,] 
+		 4: 
+		 5: (TranslationServiceHelper) def_%v_29 
+		 6: %v_29->community_translations_for_i18n_backend def_%v_30 %v_29[11.5,] %v_28[11.2,] 	 SYMBOL:	 ARGS:community_translations,
+		 7: %v_30->each def_%v_31 %v_30[11.6,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_30,
+CLOSURE BEGIN: community_backend[6.1,] locale[] data[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_locale 
+		 3: RECEIVEARG def_data 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-escape- def_%cl_1_3 
+		 2: community_backend->store_translations def_%cl_1_4 community_backend[] locale[2.2,] data[2.3,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:locale,data,%cl_1_3,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: data[2.3,] 
+		 8: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_31 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18nHelper) def_%v_32 
+		 2: %self->params def_%v_33 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_33->[] def_%v_34 %v_33[13.2,] 	 SYMBOL:locale,	 ARGS:Symbol,
+		 4: (Sharetribe) def_%v_35 
+		 5: (inherit AVAILABLE_LOCALES) def_%v_36 %v_35[13.4,] 
+		 6: %v_36[13.5,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: %v_35->const_missing def_%v_36 %v_35[13.4,] 	 SYMBOL:AVAILABLE_LOCALES,	 ARGS:Symbol,
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: HASH-user_locale-param_locale-community_locales-community_default-all_locales- def_%v_37 user_locale[2.10,] %v_34[13.3,] community_locales[2.19,] community_default_locale[2.24,] %v_36[14.0,13.5,] 
+		 1: %v_32->select_locale def_%v_38 %v_32[13.1,] %v_37[15.0,] 	 SYMBOL:	 ARGS:%v_37,
+		 2: COPY TYPE_PASS def_locale %v_38[15.1,] 
+		 3: 
+		 4: %self->available_locales def_%v_39 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_39->collect def_%v_40 %v_39[15.4,] %self[15.4,2.0,] 	 SYMBOL:	 ARGS:%v_39,
+CLOSURE BEGIN: l[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_l 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: l->[] def_%cl_2_3 l[2.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: RETURN %cl_2_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_4 
+		 1: def_%cl_2_5 %cl_2_4[4.0,] 
+		 2: RETURN %cl_2_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 6: %v_40->include? def_%v_41 %v_40[15.5,] locale[15.2,] 	 SYMBOL:	 ARGS:locale,
+		 7: BRANCH %v_41[15.6,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_42 
+		 1: 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: (ArgumentError) def_%v_43 
+		 1: COPY TYPE_StringLiteral "Locale " def_%v_44 
+		 2: COPY TYPE_StringLiteral " not available. Check your community settings" def_%v_45 
+		 3: BUILDSTRING def_%v_46 %v_44[17.1,] locale[15.2,] %v_45[17.2,] 
+		 4: %v_43->new def_%v_47 %v_43[17.0,] %v_46[17.3,] 	 SYMBOL:	 ARGS:%v_46,
+		 5: %self->raise def_%v_48 %self[2.0,] %v_47[17.4,] 	 SYMBOL:	 ARGS:%v_47,
+		 6: COPY TYPE_PASS def_%v_42 %v_48[17.5,] 
+BB 18
+	outgoing: 19 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%v_49 
+		 2: ATTRASSIGN %v_49->locale locale[15.2,] 
+		 3: 
+		 4: (I18nHelper) def_%v_50 
+		 5: (Sharetribe) def_%v_51 
+		 6: (inherit AVAILABLE_LOCALES) def_%v_52 %v_51[18.5,] 
+		 7: %v_52[18.6,] 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: %v_51->const_missing def_%v_52 %v_51[18.5,] 	 SYMBOL:AVAILABLE_LOCALES,	 ARGS:Symbol,
+BB 20
+	outgoing: 21 22 
+	datadep: 
+	instructions:
+		 0: %v_50->facebook_locale_code def_%v_53 %v_50[18.4,] %v_52[19.0,18.6,] locale[15.2,] 	 SYMBOL:	 ARGS:%v_52,locale,
+		 1: ATTRASSIGN %self->facebook_locale_code %v_53[20.0,] 
+		 2: 
+		 3: (ApplicationHelper) def_%v_54 
+		 4: %self->service_name def_%v_55 %self[20.1,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_54->store_community_service_name_to_thread def_%v_56 %v_54[20.3,] %v_55[20.4,] 	 SYMBOL:	 ARGS:%v_55,
+		 6: 
+		 7: %self->request def_%v_57 %self[20.1,20.4,2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_57->fullpath def_%v_58 %v_57[20.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_58->clone def_%v_59 %v_58[20.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_PASS def_new_path %v_59[20.9,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "/" def_%v_60 
+		 13: %self->params def_%v_61 %self[20.1,20.4,20.7,2.0,] 	 SYMBOL:	 ARGS:
+		 14: %v_61->[] def_%v_62 %v_61[20.13,] 	 SYMBOL:locale,	 ARGS:Symbol,
+		 15: BUILDSTRING def_%v_63 %v_60[20.12,] %v_62[20.14,] 
+		 16: new_path->slice! def_%v_64 new_path[20.10,] %v_63[20.15,] 	 SYMBOL:	 ARGS:%v_63,
+		 17: 
+		 18: COPY TYPE_Regexp def_%v_65 
+		 19: new_path->=~ def_%v_66 new_path[20.10,20.16,] 	 SYMBOL:	 ARGS:%v_65,
+		 20: BRANCH %v_66[20.19,] 
+BB 21
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: new_path->slice! def_%v_67 new_path[20.10,] 	 SYMBOL:	 ARGS:Fixnum,Fixnum,
+		 1: 
+BB 22
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_67 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->return_to new_path[20.10,] 
+		 2: 
+		 3: GETFIELD %self->current_community def_%v_68 %self[2.0,] 
+		 4: %self->Maybe def_%v_69 %self[23.1,20.1,2.0,] %v_68[23.3,] 	 SYMBOL:	 ARGS:%v_68,
+		 5: %v_69->each def_%v_70 %v_69[23.4,] %self[23.1,23.4,20.1,2.0,] 	 SYMBOL:	 ARGS:%v_69,
+CLOSURE BEGIN: community[] locale[15.2,] %self[23.1,23.4,20.1,2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_community 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: community->community_customizations def_%cl_3_3 community[2.2,] 	 SYMBOL:	 ARGS:
+		 2: HASH-locale- def_%cl_3_4 locale[] 
+		 3: %cl_3_3->where def_%cl_3_5 %cl_3_3[3.1,] %cl_3_4[3.2,] 	 SYMBOL:	 ARGS:%cl_3_4,
+		 4: %cl_3_5->first def_%cl_3_6 %cl_3_5[3.3,] 	 SYMBOL:	 ARGS:
+		 5: ATTRASSIGN %self->community_customization %cl_3_6[3.4,] 
+		 6: RETURN %cl_3_6[3.4,] %self[3.5,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_7 
+		 1: def_%cl_3_8 %cl_3_7[4.0,] 
+		 2: RETURN %cl_3_8[4.1,] %self[3.5,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 6: RETURN %v_70[23.5,] %self[23.1,23.4,20.1,2.0,] 
+BB 24
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = set_homepage_path instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 5 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_3 %self[2.0,] 
+CLOSURE BEGIN: x[] 
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 5 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: RECEIVEARG def_x 
+		 5: 
+		 6: x->present? def_%cl_1_3 x[2.4,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %cl_1_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[3.0,] 
+		 2: RETURN %cl_1_5[3.1,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 7: COPY TYPE_PASS def_present %v_3[2.6,] 
+		 8: 
+		 9: GETFIELD %self->current_community def_%v_4 %self[2.0,] 
+		 10: GETFIELD %self->current_user def_%v_5 %self[2.0,] 
+		 11: %self->params def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 12: %v_6->[] def_%v_7 %v_6[2.11,] 	 SYMBOL:locale,	 ARGS:Symbol,
+		 13: COPY TYPE_Array def_%v_8 %v_4[2.9,] %v_5[2.10,] %v_7[2.12,] 
+		 14: %self->__ def_%v_11 %self[2.0,2.11,] 	 SYMBOL:	 ARGS:
+		 15: %self->__ def_%v_12 %self[2.0,2.11,2.14,] 	 SYMBOL:	 ARGS:
+		 16: COPY TYPE_Array def_%v_13 %v_11[2.14,] %v_12[2.15,] 
+		 17: %self->matches def_%v_14 %self[2.0,2.11,2.14,2.15,] %v_13[2.16,] 	 SYMBOL:	 ARGS:%v_13,
+		 18: def_%v_10 %v_14[2.17,] %v_8[2.13,] 
+		 19: BRANCH %v_10[2.18,] 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_16 present[2.7,] present[2.7,] 
+		 1: %self->matches def_%v_17 %self[2.0,] %v_16[3.0,] 	 SYMBOL:	 ARGS:%v_16,
+		 2: def_%v_15 %v_17[3.1,] %v_8[2.13,] 
+		 3: BRANCH %v_15[3.2,] 
+BB 4
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-locale- def_%v_27 
+		 2: %self->homepage_without_locale_path def_%v_28 %self[2.0,] %v_27[4.1,] 	 SYMBOL:	 ARGS:%v_27,
+		 3: COPY TYPE_PASS def_%v_9 %v_28[4.2,] 
+		 4: 
+BB 5
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Nil def_%v_9 
+		 2: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%v_18 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_18->[] def_%v_19 %v_18[6.1,] 	 SYMBOL:locale,	 ARGS:Symbol,
+		 3: GETFIELD %self->current_community def_%v_20 %self[6.1,2.0,] 
+		 4: %v_20->default_locale def_%v_21 %v_20[6.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_21->to_s def_%v_22 %v_21[6.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_19->!= def_%v_23 %v_19[6.2,] %v_22[6.5,] 	 SYMBOL:	 ARGS:%v_22,
+		 7: BRANCH %v_23[6.6,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->homepage_with_locale_path def_%v_24 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-locale- def_%v_25 
+		 2: %self->homepage_without_locale_path def_%v_26 %self[2.0,] %v_25[8.1,] 	 SYMBOL:	 ARGS:%v_25,
+		 3: COPY TYPE_PASS def_%v_24 %v_26[8.2,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_9 %v_24[8.3,7.1,] 
+		 1: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->homepage_path %v_9[5.1,9.0,4.3,] 
+		 1: RETURN %v_9[5.1,9.0,4.3,] %self[11.0,2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = redirect_locale_param instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:locale,	 ARGS:Symbol,
+		 8: %v_4->present? def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->[] def_%v_7 %v_6[3.0,] 	 SYMBOL:locale,	 ARGS:Symbol,
+		 2: (I18n) def_%v_8 
+		 3: %v_8->locale def_%v_9 %v_8[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_9->to_s def_%v_10 %v_9[3.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_7->!= def_%v_11 %v_7[3.1,] %v_10[3.4,] 	 SYMBOL:	 ARGS:%v_10,
+		 6: COPY TYPE_PASS def_%v_5 %v_11[3.5,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_param_locale_not_selected %v_5[3.6,2.8,] 
+		 1: 
+		 2: BRANCH %v_5[3.6,2.8,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: (I18n) def_%v_12 
+		 1: %v_12->locale def_%v_13 %v_12[5.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->redirect_to_locale def_%v_14 %self[2.0,] %v_13[5.1,] 	 SYMBOL:temporary_redirect,	 ARGS:%v_13,Symbol,
+		 3: RETURN %v_14[5.2,] %self[5.2,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = redirect_to_locale instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_new_locale 
+		 6: RECEIVEARG def_status 
+		 7: 
+		 8: GETFIELD %self->current_community def_%v_3 %self[2.0,] 
+		 9: %v_3->default_locale def_%v_4 %v_3[2.8,] 	 SYMBOL:	 ARGS:
+		 10: new_locale->to_s def_%v_5 new_locale[2.5,] 	 SYMBOL:	 ARGS:
+		 11: %v_4->== def_%v_6 %v_4[2.9,] %v_5[2.10,] 	 SYMBOL:	 ARGS:%v_5,
+		 12: BRANCH %v_6[2.11,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->except def_%v_8 %v_7[3.1,] 	 SYMBOL:locale,	 ARGS:Symbol,
+		 3: HASH-only_path- def_%v_9 
+		 4: %v_8->merge def_%v_10 %v_8[3.2,] %v_9[3.3,] 	 SYMBOL:	 ARGS:%v_9,
+		 5: %self->url_for def_%v_11 %self[3.1,2.0,] %v_10[3.4,] 	 SYMBOL:	 ARGS:%v_10,
+		 6: HASH-status- def_%v_12 status[2.6,] 
+		 7: %self->redirect_to def_%v_13 %self[3.1,3.5,2.0,] %v_11[3.5,] %v_12[3.6,] 	 SYMBOL:	 ARGS:%v_11,%v_12,
+		 8: RETURN %v_13[3.7,] %self[3.1,3.5,3.7,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%v_14 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: HASH-locale-only_path- def_%v_15 new_locale[2.5,] 
+		 3: %v_14->merge def_%v_16 %v_14[4.1,] %v_15[4.2,] 	 SYMBOL:	 ARGS:%v_15,
+		 4: %self->url_for def_%v_17 %self[4.1,2.0,] %v_16[4.3,] 	 SYMBOL:	 ARGS:%v_16,
+		 5: HASH-status- def_%v_18 status[2.6,] 
+		 6: %self->redirect_to def_%v_19 %self[4.1,4.4,2.0,] %v_17[4.4,] %v_18[4.5,] 	 SYMBOL:	 ARGS:%v_17,%v_18,
+		 7: RETURN %v_19[4.6,] %self[4.1,4.4,4.6,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = root instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->request def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->protocol def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->request def_%v_5 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->host_with_port def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral "/" def_%v_7 
+		 11: %self->params def_%v_8 %self[2.0,2.6,2.8,] 	 SYMBOL:	 ARGS:
+		 12: %v_8->[] def_%v_9 %v_8[2.11,] 	 SYMBOL:locale,	 ARGS:Symbol,
+		 13: BUILDSTRING def_%v_10 %v_4[2.7,] %v_6[2.9,] %v_7[2.10,] %v_9[2.12,] 
+		 14: RETURN %v_10[2.13,] %self[2.0,2.6,2.8,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = fetch_logged_in_user instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->person_signed_in? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->current_person def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %self->current_user %v_4[3.1,] 
+		 3: 
+		 4: GETFIELD %self->current_user def_%v_5 %self[3.1,3.2,2.0,] 
+		 5: %v_5->id def_%v_6 %v_5[3.4,] 	 SYMBOL:	 ARGS:
+		 6: GETFIELD %self->current_user def_%v_7 %self[3.1,3.2,2.0,] 
+		 7: %v_7->username def_%v_8 %v_7[3.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-user_id-username- def_%v_9 %v_6[3.5,] %v_8[3.7,] 
+		 9: %self->setup_logger! def_%v_10 %self[3.1,3.2,2.0,] %v_9[3.8,] 	 SYMBOL:	 ARGS:%v_9,
+		 10: RETURN %v_10[3.9,] %self[3.1,3.2,3.9,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ensure_logged_in instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_warning_message 
+		 6: 
+		 7: %self->logged_in? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: %self->session def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %self->request def_%v_6 %self[4.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_6->fullpath def_%v_7 %v_6[4.3,] 	 SYMBOL:	 ARGS:
+		 5: ATTRASSIGN %v_5->[] %v_7[4.4,] 
+		 6: 
+		 7: %self->flash def_%v_8 %self[4.2,4.3,2.0,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN %v_8->[] warning_message[2.5,] 
+		 9: 
+		 10: %self->login_path def_%v_9 %self[4.2,4.3,4.7,2.0,] 	 SYMBOL:	 ARGS:
+		 11: %self->redirect_to def_%v_10 %self[4.2,4.3,4.7,4.10,2.0,] %v_9[4.10,] 	 SYMBOL:	 ARGS:%v_9,
+		 12: BRANCH %v_10[4.11,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_10[4.11,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ensure_authorized instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 9 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_error_message 
+		 6: 
+		 7: %self->logged_in? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Person) def_%v_4 
+		 2: %self->params def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->[] def_%v_6 %v_5[3.2,] 	 SYMBOL:person_id,	 ARGS:Symbol,
+		 4: BRANCH %v_6[3.3,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_7->[] def_%v_8 %v_7[4.0,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%v_6 %v_8[4.1,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: %v_4->find def_%v_9 %v_4[3.1,] %v_6[4.2,3.3,] 	 SYMBOL:	 ARGS:%v_6,
+		 1: ATTRASSIGN %self->person %v_9[5.0,] 
+		 2: 
+		 3: GETFIELD %self->person def_%v_10 %self[5.1,2.0,] 
+		 4: %self->current_user? def_%v_11 %self[5.1,2.0,] %v_10[5.3,] 	 SYMBOL:	 ARGS:%v_10,
+		 5: BRANCH %v_11[5.4,] 
+BB 6
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[5.1,2.0,] 
+BB 7
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+		 1: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 10
+	outgoing: 11 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_13 %self[2.0,5.1,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %v_13->[] error_message[2.5,] 
+		 3: 
+		 4: %self->root def_%v_14 %self[10.1,2.0,5.1,] 	 SYMBOL:	 ARGS:
+		 5: %self->redirect_to def_%v_15 %self[10.1,10.4,2.0,5.1,] %v_14[10.4,] 	 SYMBOL:	 ARGS:%v_14,
+		 6: BRANCH %v_15[10.5,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,5.1,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %v_15[10.5,] %self[2.0,5.1,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = logged_in? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->current_user def_%v_3 %self[2.0,] 
+		 7: %v_3->present? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = current_user? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_person 
+		 6: 
+		 7: GETFIELD %self->current_user def_%v_3 %self[2.0,] 
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_user def_%v_4 %self[2.0,] 
+		 1: %v_4->id def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: person->id def_%v_6 person[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->eql? def_%v_7 %v_5[3.1,] %v_6[3.2,] 	 SYMBOL:	 ARGS:%v_6,
+		 4: RETURN %v_7[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.7,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = save_current_path instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->session def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->request def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->fullpath def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: ATTRASSIGN %v_3->[] %v_5[2.8,] 
+		 10: RETURN %v_5[2.8,] %self[2.0,2.6,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = save_current_host_with_port instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->request def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->host_with_port def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN %self->current_host_with_port %v_4[2.7,] 
+		 9: RETURN %v_4[2.7,] %self[2.0,2.6,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = fetch_community instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (ApplicationController) def_%v_3 
+		 7: %self->community_identifiers def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->find_community def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: ATTRASSIGN %self->current_community %v_5[2.8,] 
+		 10: 
+		 11: GETFIELD %self->current_community def_%v_6 %self[2.0,2.7,2.9,] 
+		 12: %self->Maybe def_%v_7 %self[2.0,2.7,2.9,] %v_6[2.11,] 	 SYMBOL:	 ARGS:%v_6,
+		 13: COPY TYPE_PASS def_m_community %v_7[2.12,] 
+		 14: 
+		 15: %v_7->id def_%v_8 %v_7[2.12,] 	 SYMBOL:	 ARGS:
+		 16: %v_8->or_else def_%v_9 %v_8[2.15,] 	 SYMBOL:	 ARGS:Nil,
+		 17: m_community->ident def_%v_10 m_community[2.13,] 	 SYMBOL:	 ARGS:
+		 18: %v_10->or_else def_%v_11 %v_10[2.17,] 	 SYMBOL:	 ARGS:Nil,
+		 19: HASH-marketplace_id-marketplace_ident- def_%v_12 %v_9[2.16,] %v_11[2.18,] 
+		 20: %self->setup_logger! def_%v_13 %self[2.0,2.7,2.9,2.12,] %v_12[2.19,] 	 SYMBOL:	 ARGS:%v_12,
+		 21: 
+		 22: GETFIELD %self->current_community def_%v_14 %self[2.0,2.7,2.9,2.12,2.20,] 
+		 23: BRANCH %v_14[2.22,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%v_15 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_%v_15 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->community_search_status %v_15[4.0,3.0,] 
+		 1: RETURN %v_15[4.0,3.0,] %self[5.0,2.0,2.9,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = community_search_status instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->community_search_status def_%v_3 %self[2.0,] 
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.6,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = perform_redirect instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->current_community def_%v_3 %self[2.0,] 
+		 7: %self->Maybe def_%v_4 %self[2.0,] %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_3,
+		 8: %v_4->map def_%v_5 %v_4[2.7,] %self[2.0,2.7,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: c[] %self[2.0,2.7,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_c 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: c->ident def_%cl_1_3 c[2.2,] 	 SYMBOL:	 ARGS:
+		 2: c->domain def_%cl_1_4 c[3.1,2.2,] 	 SYMBOL:	 ARGS:
+		 3: c->deleted? def_%cl_1_5 c[3.1,3.2,2.2,] 	 SYMBOL:	 ARGS:
+		 4: c->use_domain? def_%cl_1_6 c[3.1,3.2,3.3,2.2,] 	 SYMBOL:	 ARGS:
+		 5: c->dv_test_file_name def_%cl_1_7 c[3.1,3.2,3.3,3.4,2.2,] 	 SYMBOL:	 ARGS:
+		 6: GETFIELD %self->current_plan def_%cl_1_8 %self[2.0,] 
+		 7: %self->Maybe def_%cl_1_9 %self[2.0,] %cl_1_8[3.6,] 	 SYMBOL:	 ARGS:%cl_1_8,
+		 8: %cl_1_9->[] def_%cl_1_10 %cl_1_9[3.7,] 	 SYMBOL:closed,	 ARGS:Symbol,
+		 9: %cl_1_10->or_else def_%cl_1_11 %cl_1_10[3.8,] 	 SYMBOL:	 ARGS:Boolean,
+		 10: HASH-ident-domain-deleted-use_domain-domain_verification_file-closed- def_%cl_1_12 %cl_1_3[3.1,] %cl_1_4[3.2,] %cl_1_5[3.3,] %cl_1_6[3.4,] %cl_1_7[3.5,] %cl_1_11[3.9,] 
+		 11: RETURN %cl_1_12[3.10,] %self[3.7,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_13 
+		 1: def_%cl_1_14 %cl_1_13[4.0,] 
+		 2: RETURN %cl_1_14[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: %v_5->or_else def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:Nil,
+		 10: COPY TYPE_PASS def_community %v_6[2.9,] 
+		 11: 
+		 12: (APP_CONFIG) def_%v_7 
+		 13: %self->Maybe def_%v_8 %self[2.0,2.7,] %v_7[2.12,] 	 SYMBOL:	 ARGS:%v_7,
+		 14: %v_8->community_not_found_redirect def_%v_9 %v_8[2.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_9->map def_%v_10 %v_9[2.14,] %self[2.0,2.7,2.13,] 	 SYMBOL:	 ARGS:%v_9,
+CLOSURE BEGIN: url[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_url 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+		 5: 
+		 6: HASH-url- def_%cl_2_3 url[2.2,] 
+		 7: RETURN %cl_2_3[2.6,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 16: HASH-route_name- def_%v_11 
+		 17: %v_10->or_else def_%v_12 %v_10[2.15,] %v_11[2.16,] 	 SYMBOL:	 ARGS:%v_11,
+		 18: HASH-route_name- def_%v_13 
+		 19: HASH-community_not_found-new_community- def_%v_14 %v_12[2.17,] %v_13[2.18,] 
+		 20: COPY TYPE_PASS def_paths %v_14[2.19,] 
+		 21: 
+		 22: (APP_CONFIG) def_%v_15 
+		 23: %self->Maybe def_%v_16 %self[2.0,2.7,2.13,] %v_15[2.22,] 	 SYMBOL:	 ARGS:%v_15,
+		 24: %v_16->always_use_ssl def_%v_17 %v_16[2.23,] 	 SYMBOL:	 ARGS:
+		 25: %v_17->map def_%v_18 %v_17[2.24,] %self[2.0,2.7,2.13,2.23,] 	 SYMBOL:	 ARGS:%v_17,
+CLOSURE BEGIN: v[] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_v 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: v->== def_%cl_3_3 v[2.2,] 	 SYMBOL:	 ARGS:Boolean,
+		 2: BRANCH %cl_3_3[3.1,] 
+BB 4
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: v->to_s def_%cl_3_4 v[2.2,] 	 SYMBOL:	 ARGS:
+		 1: %cl_3_4->downcase def_%cl_3_5 %cl_3_4[4.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "true" def_%cl_3_6 
+		 3: %cl_3_5->== def_%cl_3_7 %cl_3_5[4.1,] %cl_3_6[4.2,] 	 SYMBOL:	 ARGS:%cl_3_6,
+		 4: RETURN %cl_3_7[4.3,] %self[2.0,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_3_3[3.1,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_8 
+		 1: def_%cl_3_9 %cl_3_8[6.0,] 
+		 2: RETURN %cl_3_9[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 26: %v_18->or_else def_%v_19 %v_18[2.25,] 	 SYMBOL:	 ARGS:Boolean,
+		 27: (URLUtils) def_%v_20 
+		 28: (APP_CONFIG) def_%v_21 
+		 29: %v_21->domain def_%v_22 %v_21[2.28,] 	 SYMBOL:	 ARGS:
+		 30: %v_20->strip_port_from_host def_%v_23 %v_20[2.27,] %v_22[2.29,] 	 SYMBOL:	 ARGS:%v_22,
+		 31: HASH-always_use_ssl-app_domain- def_%v_24 %v_19[2.26,] %v_23[2.30,] 
+		 32: COPY TYPE_PASS def_configs %v_24[2.31,] 
+		 33: 
+		 34: (Community) def_%v_25 
+		 35: %v_25->count def_%v_26 %v_25[2.34,] 	 SYMBOL:	 ARGS:
+		 36: %v_26->== def_%v_27 %v_26[2.35,] 	 SYMBOL:	 ARGS:Fixnum,
+		 37: %self->community_search_status def_%v_28 %self[2.0,2.7,2.13,2.23,] 	 SYMBOL:	 ARGS:
+		 38: HASH-no_communities-community_search_status- def_%v_29 %v_27[2.36,] %v_28[2.37,] 
+		 39: COPY TYPE_PASS def_other %v_29[2.38,] 
+		 40: 
+		 41: (MarketplaceRouter) def_%v_30 
+		 42: %self->request_hash def_%v_31 %self[2.0,2.7,2.13,2.23,2.37,] 	 SYMBOL:	 ARGS:
+		 43: HASH-request-community-paths-configs-other- def_%v_32 %v_31[2.42,] community[2.10,] paths[2.20,] configs[2.32,] other[2.39,] 
+		 44: %v_30->needs_redirect def_%v_33 %v_30[2.41,] %v_32[2.43,] %self[2.0,2.7,2.13,2.23,2.37,2.42,] 	 SYMBOL:	 ARGS:%v_32,%v_30,
+CLOSURE BEGIN: redirect_dest[] %self[2.0,2.7,2.13,2.23,2.37,2.42,] url[2.15,] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: RECEIVEARG def_redirect_dest 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: redirect_dest->[] def_%cl_4_3 redirect_dest[2.2,] 	 SYMBOL:url,	 ARGS:Symbol,
+		 2: BRANCH %cl_4_3[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: redirect_dest->[] def_%cl_4_4 redirect_dest[2.2,] 	 SYMBOL:route_name,	 ARGS:Symbol,
+		 1: redirect_dest->[] def_%cl_4_5 redirect_dest[4.0,2.2,] 	 SYMBOL:protocol,	 ARGS:Symbol,
+		 2: HASH-protocol- def_%cl_4_6 %cl_4_5[4.1,] 
+		 3: %self->send def_%cl_4_7 %self[2.0,] %cl_4_4[4.0,] %cl_4_6[4.2,] 	 SYMBOL:	 ARGS:%cl_4_4,%cl_4_6,
+		 4: COPY TYPE_PASS def_%cl_4_3 %cl_4_7[4.3,] 
+BB 5
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_url %cl_4_3[4.4,3.1,] 
+		 1: 
+		 2: redirect_dest->[] def_%cl_4_8 redirect_dest[2.2,] 	 SYMBOL:status,	 ARGS:Symbol,
+		 3: HASH-status- def_%cl_4_9 %cl_4_8[5.2,] 
+		 4: %self->redirect_to def_%cl_4_10 %self[2.0,] url[5.0,] %cl_4_9[5.3,] 	 SYMBOL:	 ARGS:url,%cl_4_9,
+		 5: RETURN %cl_4_10[5.4,] %self[5.4,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_4_11 
+		 1: def_%cl_4_12 %cl_4_11[6.0,] 
+		 2: RETURN %cl_4_12[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: url[5.0,] 
+		 45: RETURN %v_33[2.44,] %self[2.0,2.7,2.13,2.23,2.37,2.42,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%v_34 
+		 1: def_%v_35 %v_34[4.0,] 
+		 2: RETURN %v_35[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = community_identifiers instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (URLUtils) def_%v_3 
+		 7: (APP_CONFIG) def_%v_4 
+		 8: %v_4->domain def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->strip_port_from_host def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: COPY TYPE_PASS def_app_domain %v_6[2.9,] 
+		 11: 
+		 12: (ApplicationController) def_%v_7 
+		 13: %self->request def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 14: %v_8->host def_%v_9 %v_8[2.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_7->parse_community_identifiers_from_host def_%v_10 %v_7[2.12,] %v_9[2.14,] app_domain[2.10,] 	 SYMBOL:	 ARGS:%v_9,app_domain,
+		 16: RETURN %v_10[2.15,] %self[2.0,2.13,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = request_hash instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->request_hash def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->request def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->host def_%v_7 %v_6[5.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->request def_%v_8 %self[5.0,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_8->protocol def_%v_9 %v_8[5.2,] 	 SYMBOL:	 ARGS:
+		 4: %self->request def_%v_10 %self[5.0,5.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_10->fullpath def_%v_11 %v_10[5.4,] 	 SYMBOL:	 ARGS:
+		 6: %self->request def_%v_12 %self[5.0,5.2,5.4,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_12->port_string def_%v_13 %v_12[5.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->request def_%v_14 %self[5.0,5.2,5.4,5.6,2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_14->headers def_%v_15 %v_14[5.8,] 	 SYMBOL:	 ARGS:
+		 10: HASH-host-protocol-fullpath-port_string-headers- def_%v_16 %v_7[5.1,] %v_9[5.3,] %v_11[5.5,] %v_13[5.7,] %v_15[5.9,] 
+		 11: ATTRASSIGN %self->request_hash %v_16[5.10,] 
+		 12: RETURN %v_16[5.10,] %self[5.0,5.2,5.4,5.6,5.8,5.11,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = parse_community_identifiers_from_host instanceMethod = false
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_host 
+		 6: RECEIVEARG def_app_domain 
+		 7: 
+		 8: (Regexp) def_%v_3 
+		 9: %v_3->escape def_%v_4 %v_3[2.8,] app_domain[2.6,] 	 SYMBOL:	 ARGS:app_domain,
+		 10: COPY TYPE_PASS def_app_domain_regexp %v_4[2.9,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "" def_%v_5 
+		 13: COPY TYPE_StringLiteral "^www\.(.+)\." def_%v_6 
+		 14: COPY TYPE_StringLiteral "$" def_%v_7 
+		 15: def_%v_8 %v_5[2.12,] %v_6[2.13,] app_domain[2.6,] %v_7[2.14,] 
+		 16: %v_8->match def_%v_9 %v_8[2.15,] host[2.5,] 	 SYMBOL:	 ARGS:host,
+		 17: COPY TYPE_PASS def_ident_with_www %v_9[2.16,] 
+		 18: 
+		 19: COPY TYPE_StringLiteral "" def_%v_10 
+		 20: COPY TYPE_StringLiteral "^(.+)\." def_%v_11 
+		 21: COPY TYPE_StringLiteral "$" def_%v_12 
+		 22: def_%v_13 %v_10[2.19,] %v_11[2.20,] app_domain[2.6,] %v_12[2.21,] 
+		 23: %v_13->match def_%v_14 %v_13[2.22,] host[2.5,] 	 SYMBOL:	 ARGS:host,
+		 24: COPY TYPE_PASS def_ident_without_www %v_14[2.23,] 
+		 25: 
+		 26: BRANCH ident_with_www[2.17,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ident_with_www->[] def_%v_15 ident_with_www[2.17,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: HASH-ident- def_%v_16 %v_15[3.1,] 
+		 3: RETURN %v_15[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH ident_without_www[2.24,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ident_without_www->[] def_%v_17 ident_without_www[2.24,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: HASH-ident- def_%v_18 %v_17[5.1,] 
+		 3: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-domain- def_%v_19 host[2.5,] 
+		 2: COPY TYPE_PASS def_%v_18 %v_19[6.1,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_18[6.2,5.2,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_community instanceMethod = false
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_identifiers 
+		 6: 
+		 7: (Community) def_%v_3 
+		 8: %v_3->find_by_identifier def_%v_4 %v_3[2.7,] identifiers[2.5,] 	 SYMBOL:	 ARGS:identifiers,
+		 9: COPY TYPE_PASS def_by_identifier %v_4[2.8,] 
+		 10: 
+		 11: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_5 by_identifier[2.9,] 
+		 2: RETURN by_identifier[2.9,] %self[2.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Community) def_%v_6 
+		 2: %v_6->count def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_7->== def_%v_8 %v_7[4.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: BRANCH %v_8[4.3,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Community) def_%v_9 
+		 2: %v_9->first def_%v_10 %v_9[5.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Nil def_%v_10 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_10[6.1,5.2,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = fetch_community_membership instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 11 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: 
+		 7: GETFIELD %self->current_user def_%v_3 %self[2.0,] 
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: (CommunityMembership) def_%v_4 
+		 1: GETFIELD %self->current_user def_%v_5 %self[2.0,] 
+		 2: %v_5->id def_%v_6 %v_5[3.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->current_community def_%v_7 %self[2.0,] 
+		 4: %v_7->id def_%v_8 %v_7[3.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "accepted" def_%v_9 
+		 6: HASH-person_id-community_id-status- def_%v_10 %v_6[3.2,] %v_8[3.4,] %v_9[3.5,] 
+		 7: %v_4->where def_%v_11 %v_4[3.0,] %v_10[3.6,] 	 SYMBOL:	 ARGS:%v_10,
+		 8: %v_11->first def_%v_12 %v_11[3.7,] 	 SYMBOL:	 ARGS:
+		 9: ATTRASSIGN %self->current_community_membership %v_12[3.8,] 
+		 10: 
+		 11: GETFIELD %self->current_community_membership def_%v_13 %self[3.9,2.0,] 
+		 12: BRANCH %v_13[3.11,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_community_membership def_%v_14 %self[3.9,2.0,] 
+		 1: %v_14->last_page_load_date def_%v_15 %v_14[4.0,] 	 SYMBOL:	 ARGS:
+		 2: (Date) def_%v_16 
+		 3: %v_16->today def_%v_17 %v_16[4.2,] 	 SYMBOL:	 ARGS:
+		 4: %self->date_equals? def_%v_18 %self[3.9,2.0,] %v_15[4.1,] %v_17[4.3,] 	 SYMBOL:	 ARGS:%v_15,%v_17,
+		 5: %v_18->! def_%v_19 %v_18[4.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_PASS def_%v_13 %v_19[4.5,] 
+BB 5
+	outgoing: 6 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_13[4.6,3.11,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Delayed) def_%v_20 
+		 2: (inherit Job) def_%v_21 %v_20[6.1,] 
+		 3: %v_21[6.2,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_20->const_missing def_%v_21 %v_20[6.1,] 	 SYMBOL:Job,	 ARGS:Symbol,
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: (PageLoadedJob) def_%v_22 
+		 1: GETFIELD %self->current_community_membership def_%v_23 %self[3.9,2.0,] 
+		 2: %v_23->id def_%v_24 %v_23[8.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->request def_%v_25 %self[3.9,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_25->host def_%v_26 %v_25[8.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_22->new def_%v_27 %v_22[8.0,] %v_24[8.2,] %v_26[8.4,] 	 SYMBOL:	 ARGS:%v_24,%v_26,
+		 6: %v_21->enqueue def_%v_28 %v_21[7.0,6.2,] %v_27[8.5,] 	 SYMBOL:	 ARGS:%v_27,
+		 7: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_28 
+BB 10
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN %v_28[9.0,8.6,] %self[3.9,2.0,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = cannot_access_without_joining instanceMethod = true
+BB 1
+	outgoing: 23 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->current_user def_%v_3 %self[2.0,] 
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_community_membership def_%v_4 %self[2.0,] 
+		 1: BRANCH %v_4[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_user def_%v_5 %self[2.0,] 
+		 1: %v_5->is_admin? def_%v_6 %v_5[4.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_4 %v_6[4.1,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->! def_%v_7 %v_4[4.2,3.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_3 %v_7[5.0,] 
+BB 6
+	outgoing: 7 21 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[5.1,2.6,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->current_community def_%v_8 %self[2.0,] 
+		 2: BRANCH %v_8[7.1,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_user def_%v_9 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_8 %v_9[8.0,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_8[8.1,7.1,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_user def_%v_10 %self[2.0,] 
+		 1: GETFIELD %self->current_community def_%v_11 %self[2.0,] 
+		 2: %v_10->banned_at? def_%v_12 %v_10[10.0,] %v_11[10.1,] 	 SYMBOL:	 ARGS:%v_11,
+		 3: COPY TYPE_PASS def_%v_8 %v_12[10.2,] 
+BB 11
+	outgoing: 12 16 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_8[10.3,8.1,7.1,] 
+BB 12
+	outgoing: 13 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_13 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_13->keep def_%v_14 %v_13[12.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: %self->access_denied_tribe_memberships_path def_%v_15 %self[12.1,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %self->redirect_to def_%v_16 %self[12.1,12.4,2.0,] %v_15[12.4,] 	 SYMBOL:	 ARGS:%v_15,
+		 6: BRANCH %v_16[12.5,] 
+BB 13
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%v_17 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_17->[] def_%v_18 %v_17[17.1,] 	 SYMBOL:code,	 ARGS:Symbol,
+		 3: BRANCH %v_18[17.2,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: %self->session def_%v_19 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %self->params def_%v_20 %self[18.0,2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_20->[] def_%v_21 %v_20[18.1,] 	 SYMBOL:code,	 ARGS:Symbol,
+		 3: ATTRASSIGN %v_19->[] %v_21[18.2,] 
+		 4: 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+BB 20
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_22 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_22->keep def_%v_23 %v_22[20.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: %self->new_tribe_membership_path def_%v_24 %self[20.1,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %self->redirect_to def_%v_25 %self[20.1,20.4,2.0,] %v_24[20.4,] 	 SYMBOL:	 ARGS:%v_24,
+		 6: RETURN %v_25[20.5,] %self[20.1,20.4,20.5,2.0,] 
+BB 21
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 23
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_access_only_organizations_communities instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->current_community def_%v_3 %self[2.0,] 
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_community def_%v_4 %self[2.0,] 
+		 1: %v_4->only_organizations def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.2,2.6,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_user def_%v_6 %self[2.0,] 
+		 1: BRANCH %v_6[5.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->current_user def_%v_7 %self[2.0,] 
+		 2: %v_7->is_organization def_%v_8 %v_7[6.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_8->! def_%v_9 %v_8[6.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_%v_6 %v_9[6.3,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_3 %v_6[6.4,5.0,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[7.0,3.2,2.6,] 
+BB 9
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->current_user def_%v_10 %self[2.0,] 
+		 2: %self->sign_out def_%v_11 %self[2.0,] %v_10[9.1,] 	 SYMBOL:	 ARGS:%v_10,
+		 3: 
+		 4: %self->flash def_%v_12 %self[9.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "layouts.notifications.can_not_login_with_private_user" def_%v_13 
+		 6: %self->t def_%v_14 %self[9.2,9.4,2.0,] %v_13[9.5,] 	 SYMBOL:	 ARGS:%v_13,
+		 7: ATTRASSIGN %v_12->[] %v_14[9.6,] 
+		 8: 
+		 9: %self->login_path def_%v_15 %self[9.2,9.4,9.6,2.0,] 	 SYMBOL:	 ARGS:
+		 10: %self->redirect_to def_%v_16 %self[9.2,9.4,9.6,9.9,2.0,] %v_15[9.9,] 	 SYMBOL:	 ARGS:%v_15,
+		 11: RETURN %v_16[9.10,] %self[9.2,9.4,9.6,9.9,9.10,2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_email_confirmation instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->current_community def_%v_3 %self[2.0,] 
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_user def_%v_4 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_4[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.6,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_user def_%v_5 %self[2.0,] 
+		 1: GETFIELD %self->current_community_membership def_%v_6 %self[2.0,] 
+		 2: %v_5->pending_email_confirmation_to_join? def_%v_7 %v_5[5.0,] %v_6[5.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: COPY TYPE_PASS def_%v_3 %v_7[5.2,] 
+BB 6
+	outgoing: 7 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[5.3,3.1,2.6,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "layouts.notifications.you_need_to_confirm_your_account_first" def_%v_9 
+		 3: %self->t def_%v_10 %self[7.1,2.0,] %v_9[7.2,] 	 SYMBOL:	 ARGS:%v_9,
+		 4: ATTRASSIGN %v_8->[] %v_10[7.3,] 
+		 5: 
+		 6: %self->params def_%v_11 %self[7.1,7.3,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_11->[] def_%v_12 %v_11[7.6,] 	 SYMBOL:controller,	 ARGS:Symbol,
+		 8: COPY TYPE_StringLiteral "devise/confirmations" def_%v_13 
+		 9: %v_12->== def_%v_14 %v_12[7.7,] %v_13[7.8,] 	 SYMBOL:	 ARGS:%v_13,
+		 10: BRANCH %v_14[7.9,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+		 1: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "sessions" def_%v_16 
+		 1: COPY TYPE_StringLiteral "confirmation_pending" def_%v_17 
+		 2: HASH-controller-action- def_%v_18 %v_16[9.0,] %v_17[9.1,] 
+		 3: %self->redirect_to def_%v_19 %self[2.0,] %v_18[9.2,] 	 SYMBOL:	 ARGS:%v_18,
+		 4: COPY TYPE_PASS def_%v_15 %v_19[9.3,] 
+BB 10
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN %v_15[9.4,8.0,] %self[2.0,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = set_default_url_for_mailer instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->current_community def_%v_3 %self[2.0,] 
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_community def_%v_4 %self[2.0,] 
+		 1: %v_4->full_domain def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: BUILDSTRING def_%v_6 %v_5[3.1,] 
+		 3: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "www." def_%v_7 
+		 1: (APP_CONFIG) def_%v_8 
+		 2: %v_8->domain def_%v_9 %v_8[4.1,] 	 SYMBOL:	 ARGS:
+		 3: BUILDSTRING def_%v_10 %v_7[4.0,] %v_9[4.2,] 
+		 4: COPY TYPE_PASS def_%v_6 %v_10[4.3,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_url %v_6[4.4,3.2,] 
+		 1: 
+		 2: (ActionMailer) def_%v_11 
+		 3: (inherit Base) def_%v_12 %v_11[5.2,] 
+		 4: %v_12[5.3,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_11->const_missing def_%v_12 %v_11[5.2,] 	 SYMBOL:Base,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 11 
+	datadep: 
+	instructions:
+		 0: HASH-host- def_%v_13 url[5.0,] 
+		 1: ATTRASSIGN %v_12->default_url_options %v_13[7.0,] 
+		 2: 
+		 3: (APP_CONFIG) def_%v_14 
+		 4: %v_14->always_use_ssl def_%v_15 %v_14[7.3,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %v_15[7.4,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ActionMailer) def_%v_16 
+		 2: (inherit Base) def_%v_17 %v_16[8.1,] 
+		 3: %v_17[8.2,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_16->const_missing def_%v_17 %v_16[8.1,] 	 SYMBOL:Base,	 ARGS:Symbol,
+BB 10
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: %v_17->default_url_options def_%v_18 %v_17[9.0,8.2,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "https" def_%v_19 
+		 2: ATTRASSIGN %v_18->[] %v_19[10.1,] 
+		 3: RETURN %v_19[10.1,] %self[2.0,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = fetch_community_admin_status instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->current_user def_%v_3 %self[2.0,] 
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_user def_%v_4 %self[2.0,] 
+		 1: GETFIELD %self->current_community def_%v_5 %self[2.0,] 
+		 2: %v_4->has_admin_rights_in? def_%v_6 %v_4[3.0,] %v_5[3.1,] 	 SYMBOL:	 ARGS:%v_5,
+		 3: COPY TYPE_PASS def_%v_3 %v_6[3.2,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->is_current_community_admin %v_3[3.3,2.6,] 
+		 1: RETURN %v_3[3.3,2.6,] %self[4.0,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = fetch_community_plan_expiration_status instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->current_community def_%v_3 %self[2.0,] 
+		 7: %self->Maybe def_%v_4 %self[2.0,] %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_3,
+		 8: %v_4->id def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->each def_%v_6 %v_5[2.8,] %self[2.0,2.7,] 	 SYMBOL:	 ARGS:%v_5,
+CLOSURE BEGIN: community_id[] %self[2.0,2.7,] 
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_community_id 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PlanService) def_%cl_1_3 
+		 2: (inherit API) def_%cl_1_4 %cl_1_3[3.1,] 
+		 3: %cl_1_4[3.2,] 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: %cl_1_3->const_missing def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 7 8 
+	datadep: 
+	instructions:
+		 0: (inherit Api) def_%cl_1_5 %cl_1_4[4.0,3.2,] 
+		 1: %cl_1_5[5.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: %cl_1_4->const_missing def_%cl_1_5 %cl_1_4[4.0,3.2,] 	 SYMBOL:Api,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 10 
+	datadep: 
+	instructions:
+		 0: %cl_1_5->plans def_%cl_1_6 %cl_1_5[6.0,5.0,] 	 SYMBOL:	 ARGS:
+		 1: HASH-community_id- def_%cl_1_7 community_id[2.2,] 
+		 2: %cl_1_6->get_current def_%cl_1_8 %cl_1_6[7.0,] %cl_1_7[7.1,] 	 SYMBOL:	 ARGS:%cl_1_7,
+		 3: %cl_1_8->data def_%cl_1_9 %cl_1_8[7.2,] 	 SYMBOL:	 ARGS:
+		 4: ATTRASSIGN %self->current_plan %cl_1_9[7.3,] 
+		 5: RETURN %cl_1_9[7.3,] %self[7.4,2.0,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_10 
+		 1: def_%cl_1_11 %cl_1_10[8.0,] 
+		 2: RETURN %cl_1_11[8.1,] %self[7.4,2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: RETURN %v_6[2.9,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = warn_about_missing_payment_info instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->current_user def_%v_3 %self[2.0,] 
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (PaypalHelper) def_%v_4 
+		 1: GETFIELD %self->current_user def_%v_5 %self[2.0,] 
+		 2: %v_5->id def_%v_6 %v_5[3.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->current_community def_%v_7 %self[2.0,] 
+		 4: %v_7->id def_%v_8 %v_7[3.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_4->open_listings_with_missing_payment_info? def_%v_9 %v_4[3.0,] %v_6[3.2,] %v_8[3.4,] 	 SYMBOL:	 ARGS:%v_6,%v_8,
+		 6: COPY TYPE_PASS def_%v_3 %v_9[3.5,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.6,2.6,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->view_context def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "paypal_accounts.from_your_payment_settings_link_text" def_%v_11 
+		 3: %self->t def_%v_12 %self[5.1,2.0,] %v_11[5.2,] 	 SYMBOL:	 ARGS:%v_11,
+		 4: GETFIELD %self->current_user def_%v_13 %self[5.1,5.3,2.0,] 
+		 5: %self->payment_settings_path def_%v_14 %self[5.1,5.3,2.0,] %v_13[5.4,] 	 SYMBOL:paypal,	 ARGS:Symbol,%v_13,
+		 6: COPY TYPE_StringLiteral "_blank" def_%v_15 
+		 7: HASH-target- def_%v_16 %v_15[5.6,] 
+		 8: %v_10->link_to def_%v_17 %v_10[5.1,] %v_12[5.3,] %v_14[5.5,] %v_16[5.7,] 	 SYMBOL:	 ARGS:%v_12,%v_14,%v_16,
+		 9: COPY TYPE_PASS def_settings_link %v_17[5.8,] 
+		 10: 
+		 11: COPY TYPE_StringLiteral "paypal_accounts.missing" def_%v_18 
+		 12: HASH-settings_link- def_%v_19 %v_17[5.8,] 
+		 13: %self->t def_%v_20 %self[5.1,5.3,5.5,2.0,] %v_18[5.11,] %v_19[5.12,] 	 SYMBOL:	 ARGS:%v_18,%v_19,
+		 14: COPY TYPE_PASS def_warning %v_20[5.13,] 
+		 15: 
+		 16: %self->flash def_%v_21 %self[5.1,5.3,5.5,5.13,2.0,] 	 SYMBOL:	 ARGS:
+		 17: %v_21->now def_%v_22 %v_21[5.16,] 	 SYMBOL:	 ARGS:
+		 18: warning->html_safe def_%v_23 warning[5.14,] 	 SYMBOL:	 ARGS:
+		 19: ATTRASSIGN %v_22->[] %v_23[5.18,] 
+		 20: RETURN %v_23[5.18,] %self[5.1,5.3,5.5,5.13,5.16,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = report_queue_size instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (MonitoringService) def_%v_3 
+		 7: (inherit Monitoring) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Monitoring,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_4->report_queue_size def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_5[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = append_info_to_payload instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_payload 
+		 6: 
+		 7: %self->super def_%v_3 payload[2.5,] %v_0[2.1,] 	 SYMBOL:	 ARGS:payload,
+		 8: 
+		 9: %self->request def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 10: %v_4->host def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 11: ATTRASSIGN payload->[] %v_5[2.10,] 
+		 12: 
+		 13: GETFIELD %self->current_community def_%v_6 %self[2.0,2.9,] 
+		 14: %self->Maybe def_%v_7 %self[2.0,2.9,] %v_6[2.13,] 	 SYMBOL:	 ARGS:%v_6,
+		 15: %v_7->id def_%v_8 %v_7[2.14,] 	 SYMBOL:	 ARGS:
+		 16: COPY TYPE_StringLiteral "" def_%v_9 
+		 17: %v_8->or_else def_%v_10 %v_8[2.15,] %v_9[2.16,] 	 SYMBOL:	 ARGS:%v_9,
+		 18: ATTRASSIGN payload->[] %v_10[2.17,] 
+		 19: 
+		 20: GETFIELD %self->current_user def_%v_11 %self[2.0,2.9,2.14,] 
+		 21: %self->Maybe def_%v_12 %self[2.0,2.9,2.14,] %v_11[2.20,] 	 SYMBOL:	 ARGS:%v_11,
+		 22: %v_12->id def_%v_13 %v_12[2.21,] 	 SYMBOL:	 ARGS:
+		 23: COPY TYPE_StringLiteral "" def_%v_14 
+		 24: %v_13->or_else def_%v_15 %v_13[2.22,] %v_14[2.23,] 	 SYMBOL:	 ARGS:%v_14,
+		 25: ATTRASSIGN payload->[] %v_15[2.24,] 
+		 26: 
+		 27: %self->request def_%v_16 %self[2.0,2.9,2.14,2.21,] 	 SYMBOL:	 ARGS:
+		 28: %v_16->uuid def_%v_17 %v_16[2.27,] 	 SYMBOL:	 ARGS:
+		 29: ATTRASSIGN payload->[] %v_17[2.28,] 
+		 30: RETURN %v_17[2.28,] %self[2.0,2.9,2.14,2.21,2.27,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = date_equals? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_date 
+		 6: RECEIVEARG def_comp 
+		 7: 
+		 8: COPY TYPE_PASS def_%v_3 date[2.5,] 
+		 9: BRANCH date[2.5,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: date->to_date def_%v_4 date[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->eql? def_%v_5 %v_4[3.0,] comp[2.6,] 	 SYMBOL:	 ARGS:comp,
+		 2: RETURN %v_5[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.8,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = session_unauthorized instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 5 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->clear_user_session def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: %self->flash def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_StringLiteral "layouts.notifications.error_with_session" def_%v_5 
+		 10: %self->t def_%v_6 %self[2.0,2.6,2.8,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: ATTRASSIGN %v_4->[] %v_6[2.10,] 
+		 12: 
+		 13: (ApplicationHelper) def_%v_7 
+		 14: COPY TYPE_StringLiteral "ASI session was unauthorized. This may be normal, if session just expired, but if this occurs frequently something is wrong." def_%v_8 
+		 15: COPY TYPE_StringLiteral "ASI session error" def_%v_9 
+		 16: %self->params def_%v_10 %self[2.0,2.6,2.8,2.10,] 	 SYMBOL:	 ARGS:
+		 17: %v_7->send_error_notification def_%v_11 %v_7[2.13,] %v_8[2.14,] %v_9[2.15,] %v_10[2.16,] 	 SYMBOL:	 ARGS:%v_8,%v_9,%v_10,
+		 18: 
+		 19: %self->root_path def_%v_12 %self[2.0,2.6,2.8,2.10,2.16,] 	 SYMBOL:	 ARGS:
+		 20: %self->redirect_to def_%v_13 %self[2.0,2.6,2.8,2.10,2.16,2.19,] %v_12[2.19,] 	 SYMBOL:	 ARGS:%v_12,
+		 21: BRANCH %v_13[2.20,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %v_13[2.20,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = clear_user_session instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->session def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: ATTRASSIGN %v_3->[] 
+		 8: ATTRASSIGN %self->current_user 
+		 9: RETURN %self[2.0,2.6,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = generate_event_id instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (RestHelper) def_%v_3 
+		 7: (EventIdHelper) def_%v_4 
+		 8: %self->params def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->generate_event_id def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: COPY TYPE_StringLiteral "_" def_%v_7 
+		 11: (Time) def_%v_8 
+		 12: %v_8->now def_%v_9 %v_8[2.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_9->to_f def_%v_10 %v_9[2.12,] 	 SYMBOL:	 ARGS:
+		 14: BUILDSTRING def_%v_11 %v_6[2.9,] %v_7[2.10,] %v_10[2.13,] 
+		 15: ATTRASSIGN %v_3->event_id %v_11[2.14,] 
+		 16: RETURN %v_11[2.14,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ensure_is_admin instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: 
+		 7: GETFIELD %self->is_current_community_admin def_%v_3 %self[2.0,] 
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: RETURN %v_4[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 5 7 
+	datadep: 
+	instructions:
+		 0: %self->flash def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "layouts.notifications.only_kassi_administrators_can_access_this_area" def_%v_6 
+		 2: %self->t def_%v_7 %self[4.0,2.0,] %v_6[4.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: ATTRASSIGN %v_5->[] %v_7[4.2,] 
+		 4: 
+		 5: %self->root def_%v_8 %self[4.0,4.2,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %self->redirect_to def_%v_9 %self[4.0,4.2,4.5,2.0,] %v_8[4.5,] 	 SYMBOL:	 ARGS:%v_8,
+		 7: BRANCH %v_9[4.6,] 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_9[4.6,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ensure_is_superadmin instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->current_user def_%v_3 %self[2.0,] 
+		 7: %self->Maybe def_%v_4 %self[2.0,] %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_3,
+		 8: %v_4->is_admin? def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->or_else def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:Boolean,
+		 10: BRANCH %v_6[2.9,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: RETURN %v_7[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "layouts.notifications.only_kassi_administrators_can_access_this_area" def_%v_9 
+		 3: %self->t def_%v_10 %self[4.1,2.0,] %v_9[4.2,] 	 SYMBOL:	 ARGS:%v_9,
+		 4: ATTRASSIGN %v_8->[] %v_10[4.3,] 
+		 5: 
+		 6: %self->root def_%v_11 %self[4.1,4.3,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->redirect_to def_%v_12 %self[4.1,4.3,4.6,2.0,] %v_11[4.6,] 	 SYMBOL:	 ARGS:%v_11,
+		 8: BRANCH %v_12[4.7,] 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_12[4.7,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = report_analytics_event instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_params_array 
+		 6: 
+		 7: %self->session def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN %v_3->[] params_array[2.5,] 
+		 9: RETURN params_array[2.5,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = push_reported_analytics_event_to_js instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->session def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:analytics_event,	 ARGS:Symbol,
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->session def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_5->[] def_%v_6 %v_5[3.1,] 	 SYMBOL:analytics_event,	 ARGS:Symbol,
+		 3: ATTRASSIGN %self->analytics_event %v_6[3.2,] 
+		 4: 
+		 5: %self->session def_%v_7 %self[3.1,3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %v_7->delete def_%v_8 %v_7[3.5,] 	 SYMBOL:analytics_event,	 ARGS:Symbol,
+		 7: RETURN %v_8[3.6,] %self[3.1,3.3,3.5,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = fetch_translations instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (WebTranslateIt) def_%v_3 
+		 7: %v_3->fetch_translations def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_auth_token instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (UserService) def_%v_3 
+		 7: (inherit API) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit AuthTokens) def_%v_5 %v_4[3.0,2.7,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:AuthTokens,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->[] def_%v_7 %v_6[6.0,] 	 SYMBOL:auth,	 ARGS:Symbol,
+		 2: %v_5->use_token_for_login def_%v_8 %v_5[5.0,4.0,] %v_7[6.1,] 	 SYMBOL:	 ARGS:%v_7,
+		 3: COPY TYPE_PASS def_user_to_log_in %v_8[6.2,] 
+		 4: 
+		 5: BRANCH %v_8[6.2,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: (Person) def_%v_9 
+		 1: user_to_log_in->[] def_%v_10 user_to_log_in[6.3,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 2: %v_9->find def_%v_11 %v_9[7.0,] %v_10[7.1,] 	 SYMBOL:	 ARGS:%v_10,
+		 3: COPY TYPE_PASS def_person %v_11[7.2,] 
+		 4: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH person[7.3,] 
+BB 10
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->sign_in def_%v_12 %self[2.0,] person[7.3,] 	 SYMBOL:	 ARGS:person,
+		 2: 
+		 3: ATTRASSIGN %self->current_user person[7.3,] 
+		 4: 
+		 5: (URLUtils) def_%v_13 
+		 6: %self->request def_%v_14 %self[10.1,10.3,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_14->fullpath def_%v_15 %v_14[10.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "auth" def_%v_16 
+		 9: %v_13->remove_query_param def_%v_17 %v_13[10.5,] %v_15[10.7,] %v_16[10.8,] 	 SYMBOL:	 ARGS:%v_15,%v_16,
+		 10: COPY TYPE_PASS def_path_without_auth_token %v_17[10.9,] 
+		 11: 
+		 12: %self->redirect_to def_%v_18 %self[10.1,10.3,10.6,2.0,] %v_17[10.9,] 	 SYMBOL:	 ARGS:path_without_auth_token,
+		 13: RETURN %v_18[10.12,] %self[10.1,10.3,10.6,10.12,2.0,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = feature_flags instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->feature_flags def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->fetch_feature_flags def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: ATTRASSIGN %self->feature_flags %v_6[5.0,] 
+		 2: RETURN %v_6[5.0,] %self[5.0,5.1,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = fetch_feature_flags instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (FeatureFlagService) def_%v_3 
+		 7: (inherit API) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit Api) def_%v_5 %v_4[3.0,2.7,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:Api,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_5->features def_%v_6 %v_5[5.0,4.0,] 	 SYMBOL:	 ARGS:
+		 1: GETFIELD %self->current_community def_%v_7 %self[2.0,] 
+		 2: %v_7->id def_%v_8 %v_7[6.1,] 	 SYMBOL:	 ARGS:
+		 3: HASH-community_id- def_%v_9 %v_8[6.2,] 
+		 4: %v_6->get def_%v_10 %v_6[6.0,] %v_9[6.3,] 	 SYMBOL:	 ARGS:%v_9,
+		 5: %v_10->maybe def_%v_11 %v_10[6.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_11->[] def_%v_12 %v_11[6.5,] 	 SYMBOL:features,	 ARGS:Symbol,
+		 7: (Set) def_%v_13 
+		 8: %v_13->new def_%v_14 %v_13[6.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_12->or_else def_%v_15 %v_12[6.6,] %v_14[6.8,] 	 SYMBOL:	 ARGS:%v_14,
+		 10: COPY TYPE_PASS def_flags_from_service %v_15[6.9,] 
+		 11: 
+		 12: GETFIELD %self->current_user def_%v_16 %self[2.0,] 
+		 13: %self->Maybe def_%v_17 %self[2.0,] %v_16[6.12,] 	 SYMBOL:	 ARGS:%v_16,
+		 14: %v_17->is_admin? def_%v_18 %v_17[6.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_18->or_else def_%v_19 %v_18[6.14,] 	 SYMBOL:	 ARGS:Boolean,
+		 16: COPY TYPE_PASS def_is_admin %v_19[6.15,] 
+		 17: 
+		 18: (ApplicationController) def_%v_20 
+		 19: %self->params def_%v_21 %self[6.13,2.0,] 	 SYMBOL:	 ARGS:
+		 20: %self->session def_%v_22 %self[6.13,6.19,2.0,] 	 SYMBOL:	 ARGS:
+		 21: %v_20->fetch_temp_flags def_%v_23 %v_20[6.18,] is_admin[6.16,] %v_21[6.19,] %v_22[6.20,] 	 SYMBOL:	 ARGS:is_admin,%v_21,%v_22,
+		 22: COPY TYPE_PASS def_temp_flags %v_23[6.21,] 
+		 23: 
+		 24: %self->session def_%v_24 %self[6.13,6.19,6.20,2.0,] 	 SYMBOL:	 ARGS:
+		 25: ATTRASSIGN %v_24->[] temp_flags[6.22,] 
+		 26: 
+		 27: flags_from_service->union def_%v_25 flags_from_service[6.10,] temp_flags[6.22,] 	 SYMBOL:	 ARGS:temp_flags,
+		 28: RETURN %v_25[6.27,] %self[6.13,6.19,6.20,6.24,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = logger instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->logger def_%v_3 %self[2.0,] 
+		 7: %v_3->nil? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Array def_%v_5 
+		 2: COPY TYPE_PASS def_metadata %v_5[3.1,] 
+		 3: 
+		 4: (SharetribeLogger) def_%v_6 
+		 5: %v_6->new def_%v_7 %v_6[3.4,] %v_5[3.1,] 	 SYMBOL:controller,	 ARGS:Symbol,metadata,
+		 6: ATTRASSIGN %self->logger %v_7[3.5,] 
+		 7: 
+		 8: GETFIELD %self->logger def_%v_8 %self[3.6,2.0,] 
+		 9: %self->request def_%v_9 %self[3.6,2.0,] 	 SYMBOL:	 ARGS:
+		 10: %v_9->uuid def_%v_10 %v_9[3.9,] 	 SYMBOL:	 ARGS:
+		 11: HASH-request_uuid- def_%v_11 %v_10[3.10,] 
+		 12: %v_8->add_metadata def_%v_12 %v_8[3.8,] %v_11[3.11,] 	 SYMBOL:	 ARGS:%v_11,
+		 13: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->logger def_%v_13 %self[3.6,2.0,] 
+		 2: RETURN %v_13[5.1,] %self[3.6,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = setup_logger! instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_metadata 
+		 6: 
+		 7: %self->logger def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->add_metadata def_%v_4 %v_3[2.7,] metadata[2.5,] 	 SYMBOL:	 ARGS:metadata,
+		 9: RETURN %v_4[2.8,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = fetch_temp_flags instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_is_admin 
+		 6: RECEIVEARG def_params 
+		 7: RECEIVEARG def_session 
+		 8: 
+		 9: BRANCH is_admin[2.5,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_3 
+		 1: 
+		 2: %self->Maybe def_%v_6 %self[2.0,] session[2.7,] 	 SYMBOL:	 ARGS:session,
+		 3: %v_6->[] def_%v_7 %v_6[3.2,] 	 SYMBOL:feature_flags,	 ARGS:Symbol,
+		 4: (Set) def_%v_8 
+		 5: %v_8->new def_%v_9 %v_8[3.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_7->or_else def_%v_10 %v_7[3.3,] %v_9[3.5,] 	 SYMBOL:	 ARGS:%v_9,
+		 7: COPY TYPE_PASS def_from_session %v_10[3.6,] 
+		 8: 
+		 9: %self->Maybe def_%v_11 %self[3.2,2.0,] params[2.6,] 	 SYMBOL:	 ARGS:params,
+		 10: %v_11->[] def_%v_12 %v_11[3.9,] 	 SYMBOL:enable_feature,	 ARGS:Symbol,
+		 11: %v_12->map def_%v_13 %v_12[3.10,] %self[3.2,3.9,2.0,] 	 SYMBOL:	 ARGS:%v_12,
+CLOSURE BEGIN: feature[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_feature 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: feature->to_sym def_%cl_1_3 feature[2.2,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_Array def_%cl_1_4 %cl_1_3[3.1,] 
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 12: %v_13->to_set def_%v_14 %v_13[3.11,] 	 SYMBOL:	 ARGS:
+		 13: (Set) def_%v_15 
+		 14: %v_15->new def_%v_16 %v_15[3.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_14->or_else def_%v_17 %v_14[3.12,] %v_16[3.14,] 	 SYMBOL:	 ARGS:%v_16,
+		 16: COPY TYPE_PASS def_from_params %v_17[3.15,] 
+		 17: 
+		 18: from_session->union def_%v_18 from_session[3.7,] %v_17[3.15,] 	 SYMBOL:	 ARGS:from_params,
+		 19: RETURN %v_18[3.18,] %self[3.2,3.9,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: (Set) def_%v_4 
+		 1: %v_4->new def_%v_5 %v_4[4.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ensure_feature_enabled instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_feature_name 
+		 6: 
+		 7: %self->feature_flags def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->include? def_%v_4 %v_3[2.7,] feature_name[2.5,] 	 SYMBOL:	 ARGS:feature_name,
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: RETURN %v_5[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: (FeatureFlagNotEnabledError) def_%v_6 
+		 1: %self->raise def_%v_7 %self[2.0,] %v_6[4.0,] 	 SYMBOL:	 ARGS:%v_6,
+		 2: RETURN %v_7[4.1,] %self[4.1,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ensure_feature_enabled instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_feature_name 
+		 6: RECEIVECONSTARG def_options 
+		 7: options[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->before_filter def_%v_4 %self[2.0,] options[3.1,2.6,] %self[2.0,] 	 SYMBOL:	 ARGS:options,%self,
+CLOSURE BEGIN: %self[2.0,] feature_name[2.5,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->ensure_feature_enabled def_%cl_1_3 %self[2.0,] feature_name[] 	 SYMBOL:	 ARGS:feature_name,
+		 2: RETURN %cl_1_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: RETURN %v_4[4.1,] %self[4.1,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = render_not_found! instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_msg 
+		 6: msg[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Not found" def_%v_3 
+		 1: COPY TYPE_PASS def_msg %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ActionController) def_%v_4 
+		 2: (inherit RoutingError) def_%v_5 %v_4[4.1,] 
+		 3: %v_5[4.2,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[4.1,] 	 SYMBOL:RoutingError,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_5->new def_%v_6 %v_5[5.0,4.2,] msg[3.1,2.5,] 	 SYMBOL:	 ARGS:msg,
+		 1: %self->raise def_%v_7 %self[2.0,] %v_6[6.0,] 	 SYMBOL:	 ARGS:%v_6,
+		 2: RETURN %v_7[6.1,] %self[6.1,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+

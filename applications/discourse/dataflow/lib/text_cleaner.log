@@ -1,0 +1,350 @@
+SET IRMethod, name = title_options instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SiteSetting) def_%v_3 
+		 7: %v_3->title_prettify def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: (SiteSetting) def_%v_5 
+		 9: %v_5->title_prettify def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: (SiteSetting) def_%v_7 
+		 11: %v_7->title_prettify def_%v_8 %v_7[2.10,] 	 SYMBOL:	 ARGS:
+		 12: (SiteSetting) def_%v_9 
+		 13: %v_9->title_prettify def_%v_10 %v_9[2.12,] 	 SYMBOL:	 ARGS:
+		 14: (SiteSetting) def_%v_11 
+		 15: %v_11->title_prettify def_%v_12 %v_11[2.14,] 	 SYMBOL:	 ARGS:
+		 16: (SiteSetting) def_%v_13 
+		 17: %v_13->title_prettify def_%v_14 %v_13[2.16,] 	 SYMBOL:	 ARGS:
+		 18: BRANCH %v_14[2.17,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%v_15 
+		 1: %v_15->default_locale def_%v_16 %v_15[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "en" def_%v_17 
+		 3: %v_16->== def_%v_18 %v_16[3.1,] %v_17[3.2,] 	 SYMBOL:	 ARGS:%v_17,
+		 4: COPY TYPE_PASS def_%v_14 %v_18[3.3,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: HASH-deduplicate_exclamation_marks-deduplicate_question_marks-replace_all_upper_case-capitalize_first_letter-remove_all_periods_from_the_end-remove_extraneous_space-fixes_interior_spaces-strip_whitespaces- def_%v_19 %v_4[2.7,] %v_6[2.9,] %v_8[2.11,] %v_10[2.13,] %v_12[2.15,] %v_14[3.4,2.17,] 
+		 1: RETURN %v_19[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = clean_title instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_title 
+		 6: 
+		 7: (TextCleaner) def_%v_3 
+		 8: (TextCleaner) def_%v_4 
+		 9: %v_4->title_options def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_3->clean def_%v_6 %v_3[2.7,] title[2.5,] %v_5[2.9,] 	 SYMBOL:	 ARGS:title,%v_5,
+		 11: RETURN %v_6[2.10,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = clean instanceMethod = false
+BB 1
+	outgoing: 33 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_text 
+		 6: RECEIVECONSTARG def_opts 
+		 7: opts[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_4 opts[3.1,2.6,] 	 SYMBOL:deduplicate_exclamation_marks,	 ARGS:Symbol,
+		 2: BRANCH %v_4[4.1,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Regexp def_%v_5 
+		 1: COPY TYPE_StringLiteral "!" def_%v_6 
+		 2: text->gsub! def_%v_7 text[2.5,] %v_6[5.1,] 	 SYMBOL:	 ARGS:%v_5,%v_6,
+		 3: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_8 opts[3.1,2.6,] 	 SYMBOL:deduplicate_question_marks,	 ARGS:Symbol,
+		 2: BRANCH %v_8[7.1,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Regexp def_%v_9 
+		 1: COPY TYPE_StringLiteral "?" def_%v_10 
+		 2: text->gsub! def_%v_11 text[2.5,] %v_10[8.1,] 	 SYMBOL:	 ARGS:%v_9,%v_10,
+		 3: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_12 opts[3.1,2.6,] 	 SYMBOL:replace_all_upper_case,	 ARGS:Symbol,
+		 2: BRANCH %v_12[10.1,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Regexp def_%v_13 
+		 1: text->=~ def_%v_14 text[2.5,] 	 SYMBOL:	 ARGS:%v_13,
+		 2: COPY TYPE_PASS def_%v_12 %v_14[11.1,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_12[11.2,10.1,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: text->upcase def_%v_15 text[2.5,] 	 SYMBOL:	 ARGS:
+		 1: text->== def_%v_16 text[13.0,2.5,] %v_15[13.0,] 	 SYMBOL:	 ARGS:%v_15,
+		 2: COPY TYPE_PASS def_%v_12 %v_16[13.1,] 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_12[13.2,11.2,10.1,] 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "A-Z" def_%v_17 
+		 1: COPY TYPE_StringLiteral "a-z" def_%v_18 
+		 2: text->tr! def_%v_19 text[2.5,] %v_17[15.0,] %v_18[15.1,] 	 SYMBOL:	 ARGS:%v_17,%v_18,
+		 3: 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_19 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_20 opts[3.1,2.6,] 	 SYMBOL:capitalize_first_letter,	 ARGS:Symbol,
+		 2: BRANCH %v_20[17.1,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Regexp def_%v_21 
+		 1: text->sub! def_%v_22 text[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_21,text,
+CLOSURE BEGIN: first[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_first 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: first->capitalize def_%cl_1_3 first[2.2,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+BB 20
+	outgoing: 21 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_23 opts[3.1,2.6,] 	 SYMBOL:remove_all_periods_from_the_end,	 ARGS:Symbol,
+		 2: BRANCH %v_23[20.1,] 
+BB 21
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Regexp def_%v_24 
+		 1: COPY TYPE_StringLiteral "\1\2" def_%v_25 
+		 2: text->sub! def_%v_26 text[2.5,] %v_25[21.1,] 	 SYMBOL:	 ARGS:%v_24,%v_25,
+		 3: 
+BB 22
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_26 
+BB 23
+	outgoing: 24 25 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_27 opts[3.1,2.6,] 	 SYMBOL:remove_extraneous_space,	 ARGS:Symbol,
+		 2: BRANCH %v_27[23.1,] 
+BB 24
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Regexp def_%v_28 
+		 1: COPY TYPE_StringLiteral "\1" def_%v_29 
+		 2: text->sub! def_%v_30 text[2.5,] %v_29[24.1,] 	 SYMBOL:	 ARGS:%v_28,%v_29,
+		 3: 
+BB 25
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_30 
+BB 26
+	outgoing: 27 28 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_31 opts[3.1,2.6,] 	 SYMBOL:fixes_interior_spaces,	 ARGS:Symbol,
+		 2: BRANCH %v_31[26.1,] 
+BB 27
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Regexp def_%v_32 
+		 1: COPY TYPE_StringLiteral " " def_%v_33 
+		 2: text->gsub! def_%v_34 text[2.5,] %v_33[27.1,] 	 SYMBOL:	 ARGS:%v_32,%v_33,
+		 3: 
+BB 28
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_34 
+BB 29
+	outgoing: 30 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->normalize_whitespaces def_%v_35 %self[2.0,] text[2.5,] 	 SYMBOL:	 ARGS:text,
+		 2: COPY TYPE_PASS def_text %v_35[29.1,] 
+		 3: 
+		 4: opts->[] def_%v_36 opts[3.1,2.6,] 	 SYMBOL:strip_whitespaces,	 ARGS:Symbol,
+		 5: BRANCH %v_36[29.4,] 
+BB 30
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: text->strip! def_%v_37 text[29.2,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 31
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_37 
+BB 32
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN text[29.2,] %self[2.0,] 
+BB 33
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = normalize_whitespaces instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_text 
+		 6: 
+		 7: def_%v_3 
+		 8: COPY TYPE_StringLiteral " " def_%v_4 
+		 9: text->gsub def_%v_5 text[2.5,] %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_3,%v_4,
+		 10: RETURN %v_5[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

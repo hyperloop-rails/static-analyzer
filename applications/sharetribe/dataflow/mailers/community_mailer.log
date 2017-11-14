@@ -1,0 +1,652 @@
+SET IRMethod, name = deliver_community_updates instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Person) def_%v_3 
+		 7: %v_3->find_each def_%v_4 %v_3[2.6,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: person[] %self[2.0,] c[] community[] listings_to_send[] e[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_person 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: person->should_receive_community_updates_now? def_%cl_1_3 person[2.2,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_3[3.1,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: person->communities def_%cl_1_4 person[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_4->select def_%cl_1_5 %cl_1_4[4.1,] %self[2.0,] 	 SYMBOL:	 ARGS:%cl_1_4,
+CLOSURE BEGIN: c[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_c 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: c->automatic_newsletters def_%cl_2_3 c[2.2,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_2_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_4 
+		 1: def_%cl_2_5 %cl_2_4[4.0,] 
+		 2: RETURN %cl_2_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: %cl_1_5->each def_%cl_1_6 %cl_1_5[4.2,] %self[2.0,] 	 SYMBOL:	 ARGS:%cl_1_5,
+CLOSURE BEGIN: community[] person[4.1,2.2,] listings_to_send[] e[] %self[2.0,] 
+BB 1
+	outgoing: 18 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_community 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: community->get_new_listings_to_update_email def_%cl_3_3 community[2.2,] person[] 	 SYMBOL:	 ARGS:person,
+		 2: COPY TYPE_PASS def_listings_to_send %cl_3_3[3.1,] 
+		 3: 
+		 4: %cl_3_3->empty? def_%cl_3_4 %cl_3_3[3.1,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %cl_3_4[3.4,] 
+BB 4
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_3_5 
+		 1: RETURN %cl_3_5[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%cl_3_6 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (CommunityMailer) def_%cl_3_9 
+		 3: %cl_3_9->community_updates def_%cl_3_10 %cl_3_9[7.2,] person[] community[2.2,] listings_to_send[3.2,] 	 SYMBOL:	 ARGS:person,community,listings_to_send,
+		 4: %cl_3_10->deliver def_%cl_3_11 %cl_3_10[7.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_%cl_3_8 %cl_3_11[7.4,] 
+		 6: %cl_3_6[5.1,] 
+BB 8
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+BB 9
+	outgoing: 10 11 13 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_12 
+		 1: def_%cl_3_13 %cl_3_12[9.0,] 
+		 2: BRANCH %cl_3_13[9.1,] 
+BB 10
+	outgoing: 13 18 
+	datadep: 
+	instructions:
+		 0: %cl_3_12[9.0,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%cl_3_14 
+		 1: COPY TYPE_PASS def_e %cl_3_14[11.0,] 
+		 2: 
+		 3: COPY TYPE_StringLiteral "Error sending mail to " def_%cl_3_15 
+		 4: person->confirmed_notification_emails def_%cl_3_16 person[] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral " community updates: " def_%cl_3_17 
+		 6: e->message def_%cl_3_18 e[11.1,] 	 SYMBOL:	 ARGS:
+		 7: BUILDSTRING def_%cl_3_19 %cl_3_15[11.3,] %cl_3_16[11.4,] %cl_3_17[11.5,] %cl_3_18[11.6,] 
+		 8: %self->puts def_%cl_3_20 %self[2.0,] %cl_3_19[11.7,] 	 SYMBOL:	 ARGS:%cl_3_19,
+		 9: 
+		 10: (ApplicationHelper) def_%cl_3_21 
+		 11: COPY TYPE_StringLiteral "Error sending mail to " def_%cl_3_22 
+		 12: person->confirmed_notification_emails def_%cl_3_23 person[11.4,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_StringLiteral " community updates: " def_%cl_3_24 
+		 14: e->message def_%cl_3_25 e[11.1,11.6,] 	 SYMBOL:	 ARGS:
+		 15: BUILDSTRING def_%cl_3_26 %cl_3_22[11.11,] %cl_3_23[11.12,] %cl_3_24[11.13,] %cl_3_25[11.14,] 
+		 16: e->class def_%cl_3_27 e[11.1,11.6,11.14,] 	 SYMBOL:	 ARGS:
+		 17: %cl_3_21->send_error_notification def_%cl_3_28 %cl_3_21[11.10,] %cl_3_26[11.15,] %cl_3_27[11.16,] 	 SYMBOL:	 ARGS:%cl_3_26,%cl_3_27,
+		 18: COPY TYPE_PASS def_%cl_3_8 %cl_3_28[11.17,] 
+		 19: %cl_3_6[5.1,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+BB 13
+	outgoing: 16 18 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_29 
+		 1: def_%cl_3_30 %cl_3_29[13.0,] %cl_3_6[5.1,] 
+		 2: %cl_3_29[13.0,] 
+BB 14
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_3_8[7.5,11.18,] %self[2.0,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_31 
+		 1: def_%cl_3_32 %cl_3_31[16.0,] 
+		 2: RETURN %cl_3_32[16.1,] %self[2.0,] 
+BB 18
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: e[11.1,] listings_to_send[3.2,] 
+		 4: 
+		 5: (Time) def_%cl_1_7 
+		 6: %cl_1_7->now def_%cl_1_8 %cl_1_7[4.5,] 	 SYMBOL:	 ARGS:
+		 7: person->update_attribute def_%cl_1_9 person[4.1,2.2,] %cl_1_8[4.6,] 	 SYMBOL:community_updates_last_sent_at,	 ARGS:Symbol,%cl_1_8,
+		 8: 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_9[4.7,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_10 
+		 1: def_%cl_1_11 %cl_1_10[7.0,] 
+		 2: RETURN %cl_1_11[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = community_updates instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_recipient 
+		 6: RECEIVEARG def_community 
+		 7: RECEIVEARG def_listings 
+		 8: 
+		 9: ATTRASSIGN %self->community community[2.6,] 
+		 10: 
+		 11: ATTRASSIGN %self->current_community community[2.6,] 
+		 12: 
+		 13: ATTRASSIGN %self->recipient recipient[2.5,] 
+		 14: 
+		 15: ATTRASSIGN %self->listings listings[2.7,] 
+		 16: 
+		 17: GETFIELD %self->recipient def_%v_3 %self[2.0,2.13,] 
+		 18: GETFIELD %self->community def_%v_4 %self[2.0,2.9,] 
+		 19: %v_3->member_of? def_%v_5 %v_3[2.17,] %v_4[2.18,] 	 SYMBOL:	 ARGS:%v_4,
+		 20: BRANCH %v_5[2.19,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: recipient->locale def_%v_10 recipient[2.5,] 	 SYMBOL:	 ARGS:
+		 3: community->locales def_%v_11 community[2.6,] 	 SYMBOL:	 ARGS:
+		 4: %v_11->map def_%v_12 %v_11[3.3,] 	 SYMBOL:to_sym,	 ARGS:
+		 5: community->id def_%v_13 community[3.3,2.6,] 	 SYMBOL:	 ARGS:
+		 6: %self->with_locale def_%v_14 %self[2.0,2.9,2.11,2.13,2.15,] %v_10[3.2,] %v_12[3.4,] %v_13[3.5,] %self[2.0,2.9,2.11,2.13,2.15,] 	 SYMBOL:	 ARGS:%v_10,%v_12,%v_13,%self,
+CLOSURE BEGIN: %self[2.0,2.9,2.11,2.13,2.15,] community[3.3,3.5,2.6,] subject[] delivery_method[] format[] 
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "timestamps.days_since" def_%cl_1_3 
+		 2: GETFIELD %self->recipient def_%cl_1_4 %self[2.0,] 
+		 3: %cl_1_4->last_community_updates_at def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %self->time_difference_in_days def_%cl_1_6 %self[2.0,] %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:%cl_1_5,
+		 5: HASH-count- def_%cl_1_7 %cl_1_6[3.4,] 
+		 6: %self->t def_%cl_1_8 %self[3.4,2.0,] %cl_1_3[3.1,] %cl_1_7[3.5,] 	 SYMBOL:	 ARGS:%cl_1_3,%cl_1_7,
+		 7: ATTRASSIGN %self->time_since_last_update %cl_1_8[3.6,] 
+		 8: 
+		 9: HASH- def_%cl_1_9 
+		 10: ATTRASSIGN %self->url_params %cl_1_9[3.9,] 
+		 11: 
+		 12: GETFIELD %self->url_params def_%cl_1_10 %self[3.4,3.6,3.10,2.0,] 
+		 13: GETFIELD %self->community def_%cl_1_11 %self[3.4,3.6,2.0,] 
+		 14: %cl_1_11->full_domain def_%cl_1_12 %cl_1_11[3.13,] 	 SYMBOL:	 ARGS:
+		 15: BUILDSTRING def_%cl_1_13 %cl_1_12[3.14,] 
+		 16: ATTRASSIGN %cl_1_10->[] %cl_1_13[3.15,] 
+		 17: 
+		 18: GETFIELD %self->url_params def_%cl_1_14 %self[3.4,3.6,3.10,2.0,] 
+		 19: GETFIELD %self->recipient def_%cl_1_15 %self[3.4,3.6,2.0,] 
+		 20: %cl_1_15->locale def_%cl_1_16 %cl_1_15[3.19,] 	 SYMBOL:	 ARGS:
+		 21: ATTRASSIGN %cl_1_14->[] %cl_1_16[3.20,] 
+		 22: 
+		 23: GETFIELD %self->url_params def_%cl_1_17 %self[3.4,3.6,3.10,2.0,] 
+		 24: COPY TYPE_StringLiteral "weeklymail" def_%cl_1_18 
+		 25: ATTRASSIGN %cl_1_17->[] %cl_1_18[3.24,] 
+		 26: 
+		 27: GETFIELD %self->url_params def_%cl_1_19 %self[3.4,3.6,3.10,2.0,] 
+		 28: %cl_1_19->freeze def_%cl_1_20 %cl_1_19[3.27,] 	 SYMBOL:	 ARGS:
+		 29: 
+		 30: %self->shapes def_%cl_1_21 %self[3.4,3.6,3.7,3.10,2.0,] 	 SYMBOL:	 ARGS:
+		 31: community->id def_%cl_1_22 community[] 	 SYMBOL:	 ARGS:
+		 32: HASH-community_id- def_%cl_1_23 %cl_1_22[3.31,] 
+		 33: %cl_1_21->get def_%cl_1_24 %cl_1_21[3.30,] %cl_1_23[3.32,] 	 SYMBOL:	 ARGS:%cl_1_23,
+		 34: %cl_1_24->[] def_%cl_1_25 %cl_1_24[3.33,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 35: %cl_1_25->length def_%cl_1_26 %cl_1_25[3.34,] 	 SYMBOL:	 ARGS:
+		 36: %cl_1_26->> def_%cl_1_27 %cl_1_26[3.35,] 	 SYMBOL:	 ARGS:Fixnum,
+		 37: ATTRASSIGN %self->show_listing_shape_label %cl_1_27[3.36,] 
+		 38: 
+		 39: COPY TYPE_StringLiteral "emails.community_updates.title_link_text" def_%cl_1_28 
+		 40: GETFIELD %self->community def_%cl_1_29 %self[3.4,3.6,3.30,2.0,] 
+		 41: GETFIELD %self->recipient def_%cl_1_30 %self[3.4,3.6,3.30,2.0,] 
+		 42: %cl_1_30->locale def_%cl_1_31 %cl_1_30[3.41,] 	 SYMBOL:	 ARGS:
+		 43: %cl_1_29->full_name def_%cl_1_32 %cl_1_29[3.40,] %cl_1_31[3.42,] 	 SYMBOL:	 ARGS:%cl_1_31,
+		 44: HASH-community_name- def_%cl_1_33 %cl_1_32[3.43,] 
+		 45: %self->t def_%cl_1_34 %self[3.4,3.6,3.7,3.10,3.30,3.37,2.0,] %cl_1_28[3.39,] %cl_1_33[3.44,] 	 SYMBOL:	 ARGS:%cl_1_28,%cl_1_33,
+		 46: ATTRASSIGN %self->title_link_text %cl_1_34[3.45,] 
+		 47: 
+		 48: COPY TYPE_StringLiteral "emails.community_updates.update_mail_title" def_%cl_1_35 
+		 49: GETFIELD %self->title_link_text def_%cl_1_36 %self[3.4,3.6,3.30,3.45,3.46,2.0,] 
+		 50: HASH-title_link- def_%cl_1_37 %cl_1_36[3.49,] 
+		 51: %self->t def_%cl_1_38 %self[3.4,3.6,3.7,3.10,3.30,3.37,3.45,3.46,2.0,] %cl_1_35[3.48,] %cl_1_37[3.50,] 	 SYMBOL:	 ARGS:%cl_1_35,%cl_1_37,
+		 52: COPY TYPE_PASS def_subject %cl_1_38[3.51,] 
+		 53: 
+		 54: (APP_CONFIG) def_%cl_1_39 
+		 55: %cl_1_39->mail_delivery_method def_%cl_1_40 %cl_1_39[3.54,] 	 SYMBOL:	 ARGS:
+		 56: COPY TYPE_StringLiteral "postmark" def_%cl_1_41 
+		 57: %cl_1_40->== def_%cl_1_42 %cl_1_40[3.55,] %cl_1_41[3.56,] 	 SYMBOL:	 ARGS:%cl_1_41,
+		 58: BRANCH %cl_1_42[3.57,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_delivery_method 
+		 2: COPY TYPE_Symbol def_%cl_1_43 
+		 3: 
+BB 5
+	outgoing: 6 7 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Rails) def_%cl_1_44 
+		 2: %cl_1_44->env def_%cl_1_45 %cl_1_44[5.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_45->test? def_%cl_1_46 %cl_1_45[5.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %cl_1_46[5.3,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_47 
+		 1: 
+BB 7
+	outgoing: 8 10 
+	datadep: 
+	instructions:
+		 0: (APP_CONFIG) def_%cl_1_48 
+		 1: %cl_1_48->mail_delivery_method def_%cl_1_49 %cl_1_48[7.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_49->to_sym def_%cl_1_50 %cl_1_49[7.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_delivery_method %cl_1_50[7.2,] 
+		 4: COPY TYPE_PASS def_%cl_1_47 %cl_1_50[7.2,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_1_43 %cl_1_47[7.4,6.0,] 
+BB 9
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->recipient def_%cl_1_51 %self[2.0,] 
+		 2: %cl_1_51->confirmed_notification_emails_to def_%cl_1_52 %cl_1_51[9.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->community_specific_sender def_%cl_1_53 %self[3.7,3.10,3.37,3.46,2.0,] community[] 	 SYMBOL:	 ARGS:community,
+		 4: HASH-to-from-subject-delivery_method- def_%cl_1_54 %cl_1_52[9.2,] %cl_1_53[9.3,] subject[3.52,] delivery_method[4.1,7.3,] 
+		 5: %self->premailer_mail def_%cl_1_55 %self[9.3,3.7,3.10,3.37,3.46,2.0,] %cl_1_54[9.4,] %self[9.3,3.7,3.10,3.37,3.46,2.0,] 	 SYMBOL:	 ARGS:%cl_1_54,%self,
+CLOSURE BEGIN: format[] %self[9.3,3.7,3.10,3.37,3.46,2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_format 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: format->html def_%cl_2_3 format[2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:format,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "email_blank_layout" def_%cl_3_3 
+		 2: HASH-layout- def_%cl_3_4 %cl_3_3[3.1,] 
+		 3: %self->render def_%cl_3_5 %self[2.0,] %cl_3_4[3.2,] 	 SYMBOL:	 ARGS:%cl_3_4,
+		 4: RETURN %cl_3_5[3.3,] %self[3.3,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_6 
+		 1: def_%cl_3_7 %cl_3_6[4.0,] 
+		 2: RETURN %cl_3_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: RETURN %cl_2_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_4 
+		 1: def_%cl_2_5 %cl_2_4[4.0,] 
+		 2: RETURN %cl_2_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 6: RETURN %cl_1_55[9.5,] %self[9.3,9.5,3.7,3.10,3.37,3.46,2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_56 
+		 1: def_%cl_1_57 %cl_1_56[10.0,] 
+		 2: RETURN %cl_1_57[10.1,] %self[3.7,3.10,3.37,3.46,2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: delivery_method[4.1,7.3,] 
+		 7: RETURN %v_14[3.6,] %self[3.6,2.0,2.9,2.11,2.13,2.15,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->logger def_%v_7 %self[2.0,2.9,2.11,2.13,2.15,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "Trying to send community updates to a person who is not member of the given community. Skipping." def_%v_8 
+		 3: %v_7->info def_%v_9 %v_7[4.1,] %v_8[4.2,] 	 SYMBOL:	 ARGS:%v_8,
+		 4: 
+		 5: RETURN %self[4.1,2.0,2.9,2.11,2.13,2.15,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = time_difference_in_days instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_from_time 
+		 6: RECEIVECONSTARG def_to_time 
+		 7: to_time[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (Time) def_%v_3 
+		 1: %v_3->now def_%v_4 %v_3[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_to_time %v_4[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: from_time->nil? def_%v_5 from_time[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_5[4.1,] 
+BB 5
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: from_time->respond_to? def_%v_7 from_time[2.5,] 	 SYMBOL:to_time,	 ARGS:Symbol,
+		 3: BRANCH %v_7[6.2,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: from_time->to_time def_%v_8 from_time[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_from_time %v_8[8.0,] 
+		 2: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: to_time->respond_to? def_%v_9 to_time[3.2,2.6,] 	 SYMBOL:to_time,	 ARGS:Symbol,
+		 2: BRANCH %v_9[10.1,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: to_time->to_time def_%v_10 to_time[3.2,2.6,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_to_time %v_10[11.0,] 
+		 2: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: to_time->- def_%v_11 to_time[11.1,3.2,2.6,] from_time[8.1,2.5,] 	 SYMBOL:	 ARGS:from_time,
+		 2: %v_11->abs def_%v_12 %v_11[13.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_12->/ def_%v_13 %v_12[13.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: %v_13->/ def_%v_14 %v_13[13.3,] 	 SYMBOL:	 ARGS:Float,
+		 5: %v_14->round def_%v_15 %v_14[13.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_PASS def_distance_in_minutes %v_15[13.5,] 
+		 7: RETURN %v_15[13.5,] %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = premailer_mail instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_opts 
+		 6: def_%v_3 
+		 7: COPY TYPE_PASS def_block %v_3[2.6,] 
+		 8: 
+		 9: %self->mail def_%v_4 %self[2.0,] opts[2.5,] block[2.7,] 	 SYMBOL:	 ARGS:opts,
+		 10: %self->premailer def_%v_5 %self[2.0,2.9,] %v_4[2.9,] 	 SYMBOL:	 ARGS:%v_4,
+		 11: RETURN %v_5[2.10,] %self[2.0,2.9,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = shapes instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (ListingService) def_%v_3 
+		 7: (inherit API) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit Api) def_%v_5 %v_4[3.0,2.7,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:Api,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_5->shapes def_%v_6 %v_5[5.0,4.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_6[6.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+

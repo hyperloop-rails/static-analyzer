@@ -1,0 +1,182 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: RECEIVEARG def_current_user 
+		 7: 
+		 8: ATTRASSIGN %self->post post[2.5,] 
+		 9: 
+		 10: ATTRASSIGN %self->current_user current_user[2.6,] 
+		 11: RETURN current_user[2.6,] %self[2.0,2.8,2.10,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = as_json instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def__options 
+		 6: _options[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def__options %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->post def_%v_4 %self[2.0,] 
+		 2: %v_4->likes def_%v_5 %v_4[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->as_api def_%v_6 %self[2.0,] %v_5[4.2,] 	 SYMBOL:	 ARGS:%v_5,
+		 4: (PostPresenter) def_%v_7 
+		 5: GETFIELD %self->post def_%v_8 %self[4.3,2.0,] 
+		 6: %v_8->reshares def_%v_9 %v_8[4.5,] 	 SYMBOL:	 ARGS:
+		 7: GETFIELD %self->current_user def_%v_10 %self[4.3,2.0,] 
+		 8: %v_7->as_collection def_%v_11 %v_7[4.4,] %v_9[4.6,] %v_10[4.7,] 	 SYMBOL:as_json,	 ARGS:%v_9,Symbol,%v_10,
+		 9: (CommentPresenter) def_%v_12 
+		 10: GETFIELD %self->post def_%v_13 %self[4.3,2.0,] 
+		 11: %v_13->comments def_%v_14 %v_13[4.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral "created_at ASC" def_%v_15 
+		 13: %v_14->order def_%v_16 %v_14[4.11,] %v_15[4.12,] 	 SYMBOL:	 ARGS:%v_15,
+		 14: %v_12->as_collection def_%v_17 %v_12[4.9,] %v_16[4.13,] 	 SYMBOL:	 ARGS:%v_16,
+		 15: %self->participations def_%v_18 %self[4.3,2.0,] 	 SYMBOL:	 ARGS:
+		 16: %self->as_api def_%v_19 %self[4.3,4.15,2.0,] %v_18[4.15,] 	 SYMBOL:	 ARGS:%v_18,
+		 17: GETFIELD %self->post def_%v_20 %self[4.3,4.15,4.16,2.0,] 
+		 18: %v_20->comments_count def_%v_21 %v_20[4.17,] 	 SYMBOL:	 ARGS:
+		 19: GETFIELD %self->post def_%v_22 %self[4.3,4.15,4.16,2.0,] 
+		 20: %v_22->likes_count def_%v_23 %v_22[4.19,] 	 SYMBOL:	 ARGS:
+		 21: GETFIELD %self->post def_%v_24 %self[4.3,4.15,4.16,2.0,] 
+		 22: %v_24->reshares_count def_%v_25 %v_24[4.21,] 	 SYMBOL:	 ARGS:
+		 23: HASH-likes-reshares-comments-participations-comments_count-likes_count-reshares_count- def_%v_26 %v_6[4.3,] %v_11[4.8,] %v_17[4.14,] %v_19[4.16,] %v_21[4.18,] %v_23[4.20,] %v_25[4.22,] 
+		 24: RETURN %v_26[4.23,] %self[4.3,4.15,4.16,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = participations instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->current_user def_%v_3 %self[2.0,] 
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: GETFIELD %self->post def_%v_8 %self[2.0,] 
+		 2: %v_8->participations def_%v_9 %v_8[3.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->current_user def_%v_10 %self[2.0,] 
+		 4: %v_10->person def_%v_11 %v_10[3.3,] 	 SYMBOL:	 ARGS:
+		 5: HASH-author- def_%v_12 %v_11[3.4,] 
+		 6: %v_9->where def_%v_13 %v_9[3.2,] %v_12[3.5,] 	 SYMBOL:	 ARGS:%v_12,
+		 7: RETURN %v_13[3.6,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->post def_%v_5 %self[2.0,] 
+		 1: %v_5->participations def_%v_6 %v_5[4.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->none def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %v_7[4.2,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = as_api instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_collection 
+		 6: 
+		 7: HASH-author- def_%v_3 
+		 8: collection->includes def_%v_4 collection[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: %v_4->map def_%v_5 %v_4[2.8,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: element[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_element 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: element->as_api_response def_%cl_1_3 element[2.2,] 	 SYMBOL:backbone,	 ARGS:Symbol,
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: RETURN %v_5[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

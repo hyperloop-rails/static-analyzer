@@ -1,0 +1,345 @@
+SET IRMethod, name = reported_author instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->item def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->item def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->author def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_5[3.1,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = entry_does_not_exist instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Report) def_%v_3 
+		 7: %self->item_id def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %self->item_type def_%v_5 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 9: HASH-item_id-item_type- def_%v_6 %v_4[2.7,] %v_5[2.8,] 
+		 10: %v_3->where def_%v_7 %v_3[2.6,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: %self->user_id def_%v_8 %self[2.0,2.7,2.8,] 	 SYMBOL:	 ARGS:
+		 12: HASH-user_id- def_%v_9 %v_8[2.11,] 
+		 13: %v_7->exists? def_%v_10 %v_7[2.10,] %v_9[2.12,] 	 SYMBOL:	 ARGS:%v_9,
+		 14: BRANCH %v_10[2.13,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->errors def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_11->[] def_%v_12 %v_11[3.1,] 	 SYMBOL:base,	 ARGS:Symbol,
+		 3: COPY TYPE_StringLiteral "You cannot report the same post twice." def_%v_13 
+		 4: %v_12-><< def_%v_14 %v_12[3.2,] %v_13[3.3,] 	 SYMBOL:	 ARGS:%v_13,
+		 5: RETURN %v_14[3.4,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = post_or_comment_does_exist instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Post) def_%v_3 
+		 7: %self->item_id def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->find_by_id def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: %v_5->nil? def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_6[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (Comment) def_%v_7 
+		 1: %self->item_id def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->find_by_id def_%v_9 %v_7[3.0,] %v_8[3.1,] 	 SYMBOL:	 ARGS:%v_8,
+		 3: %v_9->nil? def_%v_10 %v_9[3.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_%v_6 %v_10[3.3,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[3.4,2.9,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->errors def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_11->[] def_%v_12 %v_11[5.1,] 	 SYMBOL:base,	 ARGS:Symbol,
+		 3: COPY TYPE_StringLiteral "Post or comment was already deleted or doesn't exists." def_%v_13 
+		 4: %v_12-><< def_%v_14 %v_12[5.2,] %v_13[5.3,] 	 SYMBOL:	 ARGS:%v_13,
+		 5: RETURN %v_14[5.4,] %self[5.1,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = destroy_reported_item instanceMethod = true
+BB 1
+	outgoing: 18 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 5 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->item def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: (Post) def_%v_6 
+		 8: def_%v_5 %v_6[2.7,] %v_3[2.6,] 
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 4 9 
+	datadep: 
+	instructions:
+		 0: (Comment) def_%v_8 
+		 1: def_%v_7 %v_8[3.0,] %v_3[2.6,] 
+		 2: BRANCH %v_7[3.1,] 
+BB 4
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->item def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_9->author def_%v_10 %v_9[5.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_10->local? def_%v_11 %v_10[5.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_11[5.3,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->item def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_12->author def_%v_13 %v_12[6.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_13->owner def_%v_14 %v_13[6.2,] 	 SYMBOL:	 ARGS:
+		 4: %self->item def_%v_15 %self[6.1,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_14->retract def_%v_16 %v_14[6.3,] %v_15[6.4,] 	 SYMBOL:	 ARGS:%v_15,
+		 6: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->item def_%v_17 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_17->destroy def_%v_18 %v_17[7.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_16 %v_18[7.2,] 
+BB 8
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_4 %v_16[7.3,6.5,] 
+		 1: 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->item def_%v_19 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_19->author def_%v_20 %v_19[9.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_20->local? def_%v_21 %v_20[9.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_21[9.3,] 
+BB 10
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->item def_%v_22 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_22->author def_%v_23 %v_22[10.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_23->owner def_%v_24 %v_23[10.2,] 	 SYMBOL:	 ARGS:
+		 4: %self->item def_%v_25 %self[10.1,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_24->retract def_%v_26 %v_24[10.3,] %v_25[10.4,] 	 SYMBOL:	 ARGS:%v_25,
+		 6: 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->item def_%v_27 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_27->parent def_%v_28 %v_27[11.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_28->author def_%v_29 %v_28[11.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_29->local? def_%v_30 %v_29[11.3,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %v_30[11.4,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->item def_%v_31 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_31->parent def_%v_32 %v_31[12.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_32->author def_%v_33 %v_32[12.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_33->owner def_%v_34 %v_33[12.3,] 	 SYMBOL:	 ARGS:
+		 5: %self->item def_%v_35 %self[12.1,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %v_34->retract def_%v_36 %v_34[12.4,] %v_35[12.5,] 	 SYMBOL:	 ARGS:%v_35,
+		 7: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->item def_%v_37 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_37->destroy def_%v_38 %v_37[13.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_36 %v_38[13.2,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_26 %v_36[13.3,12.6,] 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_4 %v_26[14.0,10.5,] 
+		 1: 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->mark_as_reviewed def_%v_39 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_39[17.1,] %self[17.1,2.0,] 
+BB 18
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mark_as_reviewed instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Report) def_%v_3 
+		 7: %self->item_id def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %self->item_type def_%v_5 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 9: HASH-item_id-item_type- def_%v_6 %v_4[2.7,] %v_5[2.8,] 
+		 10: %v_3->where def_%v_7 %v_3[2.6,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: HASH-reviewed- def_%v_8 
+		 12: %v_7->update_all def_%v_9 %v_7[2.10,] %v_8[2.11,] 	 SYMBOL:	 ARGS:%v_8,
+		 13: RETURN %v_9[2.12,] %self[2.0,2.7,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = send_report_notification instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Workers) def_%v_3 
+		 7: (inherit Mail) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Mail,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit ReportWorker) def_%v_5 %v_4[3.0,2.7,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:ReportWorker,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->id def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->perform_async def_%v_7 %v_5[5.0,4.0,] %v_6[6.0,] 	 SYMBOL:	 ARGS:%v_6,
+		 2: RETURN %v_7[6.1,] %self[6.0,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+

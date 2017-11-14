@@ -1,0 +1,262 @@
+SET IRMethod, name = title instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "Emails on push" def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = description instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "Email the commits and diff of each push to a list of recipients." def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = to_param instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "emails_on_push" def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = supported_events instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "push" def_%v_3 
+		 7: COPY TYPE_StringLiteral "tag_push" def_%v_4 
+		 8: COPY TYPE_Array def_%v_5 %v_3[2.6,] %v_4[2.7,] 
+		 9: RETURN %v_5[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = execute instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_push_data 
+		 6: 
+		 7: %self->supported_events def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: push_data->[] def_%v_4 push_data[2.5,] 	 SYMBOL:object_kind,	 ARGS:Symbol,
+		 9: %v_3->include? def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: BRANCH %v_5[2.9,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: (EmailsOnPushWorker) def_%v_7 
+		 3: %self->project_id def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %self->recipients def_%v_9 %self[3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %self->send_from_committer_email? def_%v_10 %self[3.3,3.4,2.0,] 	 SYMBOL:	 ARGS:
+		 6: %self->disable_diffs? def_%v_11 %self[3.3,3.4,3.5,2.0,] 	 SYMBOL:	 ARGS:
+		 7: HASH-send_from_committer_email-disable_diffs- def_%v_12 %v_10[3.5,] %v_11[3.6,] 
+		 8: %v_7->perform_async def_%v_13 %v_7[3.2,] %v_8[3.3,] %v_9[3.4,] push_data[2.5,] %v_12[3.7,] 	 SYMBOL:	 ARGS:%v_8,%v_9,push_data,%v_12,
+		 9: RETURN %v_13[3.8,] %self[3.3,3.4,3.5,3.6,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = send_from_committer_email? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->send_from_committer_email def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "1" def_%v_4 
+		 8: %v_3->== def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = disable_diffs? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->disable_diffs def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "1" def_%v_4 
+		 8: %v_3->== def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = fields instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Notify) def_%v_3 
+		 7: %v_3->allowed_email_domains def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->map def_%v_5 %v_4[2.7,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: domain[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_domain 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "user@" def_%cl_1_3 
+		 2: BUILDSTRING def_%cl_1_4 %cl_1_3[3.1,] domain[2.2,] 
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: COPY TYPE_StringLiteral ", " def_%v_6 
+		 10: %v_5->join def_%v_7 %v_5[2.8,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: COPY TYPE_PASS def_domains %v_7[2.10,] 
+		 12: 
+		 13: COPY TYPE_StringLiteral "checkbox" def_%v_8 
+		 14: COPY TYPE_StringLiteral "send_from_committer_email" def_%v_9 
+		 15: COPY TYPE_StringLiteral "Send from committer" def_%v_10 
+		 16: COPY TYPE_StringLiteral "Send notifications from the committer's email address if the domain is part of the domain GitLab is running on (e.g. " def_%v_11 
+		 17: 
+		 18: COPY TYPE_StringLiteral ")." def_%v_12 
+		 19: BUILDSTRING def_%v_13 %v_11[2.16,] %v_7[2.10,] %v_12[2.18,] 
+		 20: HASH-type-name-title-help- def_%v_14 %v_8[2.13,] %v_9[2.14,] %v_10[2.15,] %v_13[2.19,] 
+		 21: COPY TYPE_StringLiteral "checkbox" def_%v_15 
+		 22: COPY TYPE_StringLiteral "disable_diffs" def_%v_16 
+		 23: COPY TYPE_StringLiteral "Disable code diffs" def_%v_17 
+		 24: COPY TYPE_StringLiteral "Don't include possibly sensitive code diffs in notification body." def_%v_18 
+		 25: HASH-type-name-title-help- def_%v_19 %v_15[2.21,] %v_16[2.22,] %v_17[2.23,] %v_18[2.24,] 
+		 26: COPY TYPE_StringLiteral "textarea" def_%v_20 
+		 27: COPY TYPE_StringLiteral "recipients" def_%v_21 
+		 28: COPY TYPE_StringLiteral "Emails separated by whitespace" def_%v_22 
+		 29: HASH-type-name-placeholder- def_%v_23 %v_20[2.26,] %v_21[2.27,] %v_22[2.28,] 
+		 30: COPY TYPE_Array def_%v_24 %v_14[2.20,] %v_19[2.25,] %v_23[2.29,] 
+		 31: RETURN %v_24[2.30,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

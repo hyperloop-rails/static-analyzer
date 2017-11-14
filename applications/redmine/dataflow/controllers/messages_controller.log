@@ -1,0 +1,811 @@
+SET IRMethod, name = show instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:page,	 ARGS:Symbol,
+		 8: COPY TYPE_PASS def_page %v_4[2.7,] 
+		 9: 
+		 10: %self->params def_%v_5 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->[] def_%v_6 %v_5[2.10,] 	 SYMBOL:r,	 ARGS:Symbol,
+		 12: BRANCH %v_6[2.11,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: page->nil? def_%v_7 page[2.8,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_6 %v_7[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[3.1,2.11,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->topic def_%v_8 %self[2.0,] 
+		 2: %v_8->children def_%v_9 %v_8[5.1,] 	 SYMBOL:	 ARGS:
+		 3: (Message) def_%v_10 
+		 4: %v_10->table_name def_%v_11 %v_10[5.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral ".id < ?" def_%v_12 
+		 6: BUILDSTRING def_%v_13 %v_11[5.4,] %v_12[5.5,] 
+		 7: %self->params def_%v_14 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_14->[] def_%v_15 %v_14[5.7,] 	 SYMBOL:r,	 ARGS:Symbol,
+		 9: %v_15->to_i def_%v_16 %v_15[5.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_9->where def_%v_17 %v_9[5.2,] %v_13[5.6,] %v_16[5.9,] 	 SYMBOL:	 ARGS:%v_13,%v_16,
+		 11: %v_17->count def_%v_18 %v_17[5.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_PASS def_offset %v_18[5.11,] 
+		 13: 
+		 14: (REPLIES_PER_PAGE) def_%v_19 
+		 15: %v_18->/ def_%v_20 %v_18[5.11,] %v_19[5.14,] 	 SYMBOL:	 ARGS:%v_19,
+		 16: %v_20->+ def_%v_21 %v_20[5.15,] 	 SYMBOL:	 ARGS:%v_20,
+		 17: COPY TYPE_PASS def_page %v_21[5.16,] 
+		 18: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->topic def_%v_22 %self[2.0,] 
+		 2: %v_22->children def_%v_23 %v_22[7.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_23->count def_%v_24 %v_23[7.2,] 	 SYMBOL:	 ARGS:
+		 4: ATTRASSIGN %self->reply_count %v_24[7.3,] 
+		 5: 
+		 6: (Paginator) def_%v_25 
+		 7: GETFIELD %self->reply_count def_%v_26 %self[7.4,2.0,] 
+		 8: (REPLIES_PER_PAGE) def_%v_27 
+		 9: %v_25->new def_%v_28 %v_25[7.6,] %v_26[7.7,] %v_27[7.8,] page[5.17,2.8,] 	 SYMBOL:	 ARGS:%v_26,%v_27,page,
+		 10: ATTRASSIGN %self->reply_pages %v_28[7.9,] 
+		 11: 
+		 12: GETFIELD %self->topic def_%v_29 %self[2.0,] 
+		 13: %v_29->children def_%v_30 %v_29[7.12,] 	 SYMBOL:	 ARGS:
+		 14: HASH-board- def_%v_31 
+		 15: %v_30->includes def_%v_32 %v_30[7.13,] %v_31[7.14,] 	 SYMBOL:author,attachments,	 ARGS:Symbol,Symbol,%v_31,
+		 16: 
+		 17: (Message) def_%v_33 
+		 18: %v_33->table_name def_%v_34 %v_33[7.17,] 	 SYMBOL:	 ARGS:
+		 19: COPY TYPE_StringLiteral ".created_on ASC, " def_%v_35 
+		 20: (Message) def_%v_36 
+		 21: %v_36->table_name def_%v_37 %v_36[7.20,] 	 SYMBOL:	 ARGS:
+		 22: COPY TYPE_StringLiteral ".id ASC" def_%v_38 
+		 23: BUILDSTRING def_%v_39 %v_34[7.18,] %v_35[7.19,] %v_37[7.21,] %v_38[7.22,] 
+		 24: %v_32->reorder def_%v_40 %v_32[7.15,] %v_39[7.23,] 	 SYMBOL:	 ARGS:%v_39,
+		 25: GETFIELD %self->reply_pages def_%v_41 %self[7.10,2.0,] 
+		 26: %v_41->per_page def_%v_42 %v_41[7.25,] 	 SYMBOL:	 ARGS:
+		 27: %v_40->limit def_%v_43 %v_40[7.24,] %v_42[7.26,] 	 SYMBOL:	 ARGS:%v_42,
+		 28: GETFIELD %self->reply_pages def_%v_44 %self[7.10,2.0,] 
+		 29: %v_44->offset def_%v_45 %v_44[7.28,] 	 SYMBOL:	 ARGS:
+		 30: %v_43->offset def_%v_46 %v_43[7.27,] %v_45[7.29,] 	 SYMBOL:	 ARGS:%v_45,
+		 31: %v_46->to_a def_%v_47 %v_46[7.30,] 	 SYMBOL:	 ARGS:
+		 32: ATTRASSIGN %self->replies %v_47[7.31,] 
+		 33: 
+		 34: (Message) def_%v_48 
+		 35: COPY TYPE_StringLiteral "RE: " def_%v_49 
+		 36: GETFIELD %self->message def_%v_50 %self[2.0,] 
+		 37: %v_50->subject def_%v_51 %v_50[7.36,] 	 SYMBOL:	 ARGS:
+		 38: BUILDSTRING def_%v_52 %v_49[7.35,] %v_51[7.37,] 
+		 39: HASH-subject- def_%v_53 %v_52[7.38,] 
+		 40: %v_48->new def_%v_54 %v_48[7.34,] %v_53[7.39,] 	 SYMBOL:	 ARGS:%v_53,
+		 41: ATTRASSIGN %self->reply %v_54[7.40,] 
+		 42: 
+		 43: %self->request def_%v_55 %self[7.4,7.10,7.32,7.41,2.0,] 	 SYMBOL:	 ARGS:
+		 44: %v_55->xhr? def_%v_56 %v_55[7.43,] 	 SYMBOL:	 ARGS:
+		 45: BRANCH %v_56[7.44,] 
+BB 8
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "show" def_%v_57 
+		 1: HASH-action-layout- def_%v_58 %v_57[8.0,] 
+		 2: %self->render def_%v_59 %self[7.4,7.10,7.32,7.41,2.0,] %v_58[8.1,] 	 SYMBOL:	 ARGS:%v_58,
+		 3: RETURN %v_59[8.2,] %self[8.2,7.4,7.10,7.32,7.41,2.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %self[7.4,7.10,7.32,7.41,2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = new instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Message) def_%v_3 
+		 7: %v_3->new def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN %self->message %v_4[2.7,] 
+		 9: 
+		 10: GETFIELD %self->message def_%v_5 %self[2.0,2.8,] 
+		 11: (User) def_%v_6 
+		 12: %v_6->current def_%v_7 %v_6[2.11,] 	 SYMBOL:	 ARGS:
+		 13: ATTRASSIGN %v_5->author %v_7[2.12,] 
+		 14: 
+		 15: GETFIELD %self->message def_%v_8 %self[2.0,2.8,] 
+		 16: GETFIELD %self->board def_%v_9 %self[2.0,] 
+		 17: ATTRASSIGN %v_8->board %v_9[2.16,] 
+		 18: 
+		 19: GETFIELD %self->message def_%v_10 %self[2.0,2.8,] 
+		 20: %self->params def_%v_11 %self[2.0,2.8,] 	 SYMBOL:	 ARGS:
+		 21: %v_11->[] def_%v_12 %v_11[2.20,] 	 SYMBOL:message,	 ARGS:Symbol,
+		 22: ATTRASSIGN %v_10->safe_attributes %v_12[2.21,] 
+		 23: 
+		 24: %self->request def_%v_13 %self[2.0,2.8,2.20,] 	 SYMBOL:	 ARGS:
+		 25: %v_13->post? def_%v_14 %v_13[2.24,] 	 SYMBOL:	 ARGS:
+		 26: BRANCH %v_14[2.25,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->message def_%v_15 %self[2.0,2.8,] 
+		 2: %self->params def_%v_16 %self[2.0,2.8,] 	 SYMBOL:	 ARGS:
+		 3: %v_16->[] def_%v_17 %v_16[3.2,] 	 SYMBOL:attachments,	 ARGS:Symbol,
+		 4: %v_15->save_attachments def_%v_18 %v_15[3.1,] %v_17[3.3,] 	 SYMBOL:	 ARGS:%v_17,
+		 5: 
+		 6: GETFIELD %self->message def_%v_19 %self[3.2,2.0,2.8,] 
+		 7: %v_19->save def_%v_20 %v_19[3.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_20[3.7,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%v_21 %self[2.0,2.8,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->message def_%v_22 %self[4.1,2.0,2.8,] 
+		 3: HASH-params-message- def_%v_23 %v_21[4.1,] %v_22[4.2,] 
+		 4: %self->call_hook def_%v_24 %self[4.1,2.0,2.8,] %v_23[4.3,] 	 SYMBOL:controller_messages_new_after_save,	 ARGS:Symbol,%v_23,
+		 5: 
+		 6: GETFIELD %self->message def_%v_25 %self[4.1,4.4,2.0,2.8,] 
+		 7: %self->render_attachment_warning_if_needed def_%v_26 %self[4.1,4.4,2.0,2.8,] %v_25[4.6,] 	 SYMBOL:	 ARGS:%v_25,
+		 8: 
+		 9: GETFIELD %self->board def_%v_27 %self[4.1,4.4,4.7,2.0,] 
+		 10: GETFIELD %self->message def_%v_28 %self[4.1,4.4,4.7,2.0,2.8,] 
+		 11: %self->board_message_path def_%v_29 %self[4.1,4.4,4.7,2.0,2.8,] %v_27[4.9,] %v_28[4.10,] 	 SYMBOL:	 ARGS:%v_27,%v_28,
+		 12: %self->redirect_to def_%v_30 %self[4.1,4.4,4.7,4.11,2.0,2.8,] %v_29[4.11,] 	 SYMBOL:	 ARGS:%v_29,
+		 13: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_30 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_30[5.0,4.12,] %self[2.0,2.8,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,2.8,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = reply instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Message) def_%v_3 
+		 7: %v_3->new def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN %self->reply %v_4[2.7,] 
+		 9: 
+		 10: GETFIELD %self->reply def_%v_5 %self[2.0,2.8,] 
+		 11: (User) def_%v_6 
+		 12: %v_6->current def_%v_7 %v_6[2.11,] 	 SYMBOL:	 ARGS:
+		 13: ATTRASSIGN %v_5->author %v_7[2.12,] 
+		 14: 
+		 15: GETFIELD %self->reply def_%v_8 %self[2.0,2.8,] 
+		 16: GETFIELD %self->board def_%v_9 %self[2.0,] 
+		 17: ATTRASSIGN %v_8->board %v_9[2.16,] 
+		 18: 
+		 19: GETFIELD %self->reply def_%v_10 %self[2.0,2.8,] 
+		 20: %self->params def_%v_11 %self[2.0,2.8,] 	 SYMBOL:	 ARGS:
+		 21: %v_11->[] def_%v_12 %v_11[2.20,] 	 SYMBOL:reply,	 ARGS:Symbol,
+		 22: ATTRASSIGN %v_10->safe_attributes %v_12[2.21,] 
+		 23: 
+		 24: GETFIELD %self->topic def_%v_13 %self[2.0,2.20,] 
+		 25: %v_13->children def_%v_14 %v_13[2.24,] 	 SYMBOL:	 ARGS:
+		 26: GETFIELD %self->reply def_%v_15 %self[2.0,2.8,2.20,] 
+		 27: %v_14-><< def_%v_16 %v_14[2.25,] %v_15[2.26,] 	 SYMBOL:	 ARGS:%v_15,
+		 28: 
+		 29: GETFIELD %self->reply def_%v_17 %self[2.0,2.8,2.20,] 
+		 30: %v_17->new_record? def_%v_18 %v_17[2.29,] 	 SYMBOL:	 ARGS:
+		 31: %v_18->! def_%v_19 %v_18[2.30,] 	 SYMBOL:	 ARGS:
+		 32: BRANCH %v_19[2.31,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%v_20 %self[2.0,2.8,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->reply def_%v_21 %self[3.1,2.0,2.8,] 
+		 3: HASH-params-message- def_%v_22 %v_20[3.1,] %v_21[3.2,] 
+		 4: %self->call_hook def_%v_23 %self[3.1,2.0,2.8,] %v_22[3.3,] 	 SYMBOL:controller_messages_reply_after_save,	 ARGS:Symbol,%v_22,
+		 5: 
+		 6: (Attachment) def_%v_24 
+		 7: GETFIELD %self->reply def_%v_25 %self[3.1,3.4,2.0,2.8,] 
+		 8: %self->params def_%v_26 %self[3.1,3.4,2.0,2.8,] 	 SYMBOL:	 ARGS:
+		 9: %v_26->[] def_%v_27 %v_26[3.8,] 	 SYMBOL:attachments,	 ARGS:Symbol,
+		 10: %v_24->attach_files def_%v_28 %v_24[3.6,] %v_25[3.7,] %v_27[3.9,] 	 SYMBOL:	 ARGS:%v_25,%v_27,
+		 11: COPY TYPE_PASS def_attachments %v_28[3.10,] 
+		 12: 
+		 13: GETFIELD %self->reply def_%v_29 %self[3.1,3.4,3.8,2.0,2.8,] 
+		 14: %self->render_attachment_warning_if_needed def_%v_30 %self[3.1,3.4,3.8,2.0,2.8,] %v_29[3.13,] 	 SYMBOL:	 ARGS:%v_29,
+		 15: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_30 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->board def_%v_31 %self[2.0,] 
+		 2: GETFIELD %self->topic def_%v_32 %self[2.0,] 
+		 3: GETFIELD %self->reply def_%v_33 %self[2.0,2.8,] 
+		 4: HASH-r- def_%v_34 %v_33[5.3,] 
+		 5: %self->board_message_path def_%v_35 %self[2.0,2.8,] %v_31[5.1,] %v_32[5.2,] %v_34[5.4,] 	 SYMBOL:	 ARGS:%v_31,%v_32,%v_34,
+		 6: %self->redirect_to def_%v_36 %self[5.5,2.0,2.8,] %v_35[5.5,] 	 SYMBOL:	 ARGS:%v_35,
+		 7: RETURN %v_36[5.6,] %self[5.5,5.6,2.0,2.8,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = edit instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->message def_%v_3 %self[2.0,] 
+		 7: (User) def_%v_4 
+		 8: %v_4->current def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->editable_by? def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: BRANCH %v_6[2.9,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+		 2: GETFIELD %self->message def_%v_9 %self[2.0,] 
+		 3: %self->params def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_10->[] def_%v_11 %v_10[3.3,] 	 SYMBOL:message,	 ARGS:Symbol,
+		 5: ATTRASSIGN %v_9->safe_attributes %v_11[3.4,] 
+		 6: 
+		 7: %self->request def_%v_12 %self[3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_12->post? def_%v_13 %v_12[3.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_13[3.8,] 
+BB 4
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: %self->render_403 def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %self[4.0,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->message def_%v_14 %self[2.0,] 
+		 1: %v_14->save def_%v_15 %v_14[6.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_13 %v_15[6.1,] 
+BB 7
+	outgoing: 8 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_13[6.2,3.8,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Attachment) def_%v_16 
+		 2: GETFIELD %self->message def_%v_17 %self[2.0,] 
+		 3: %self->params def_%v_18 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_18->[] def_%v_19 %v_18[8.3,] 	 SYMBOL:attachments,	 ARGS:Symbol,
+		 5: %v_16->attach_files def_%v_20 %v_16[8.1,] %v_17[8.2,] %v_19[8.4,] 	 SYMBOL:	 ARGS:%v_17,%v_19,
+		 6: COPY TYPE_PASS def_attachments %v_20[8.5,] 
+		 7: 
+		 8: GETFIELD %self->message def_%v_21 %self[8.3,2.0,] 
+		 9: %self->render_attachment_warning_if_needed def_%v_22 %self[8.3,2.0,] %v_21[8.8,] 	 SYMBOL:	 ARGS:%v_21,
+		 10: 
+		 11: %self->flash def_%v_23 %self[8.3,8.9,2.0,] 	 SYMBOL:	 ARGS:
+		 12: %self->l def_%v_24 %self[8.3,8.9,8.11,2.0,] 	 SYMBOL:notice_successful_update,	 ARGS:Symbol,
+		 13: ATTRASSIGN %v_23->[] %v_24[8.12,] 
+		 14: 
+		 15: GETFIELD %self->message def_%v_25 %self[8.3,8.9,8.11,8.12,2.0,] 
+		 16: %v_25->reload def_%v_26 %v_25[8.15,] 	 SYMBOL:	 ARGS:
+		 17: 
+		 18: GETFIELD %self->message def_%v_27 %self[8.3,8.9,8.11,8.12,2.0,] 
+		 19: %v_27->board def_%v_28 %v_27[8.18,] 	 SYMBOL:	 ARGS:
+		 20: GETFIELD %self->message def_%v_29 %self[8.3,8.9,8.11,8.12,2.0,] 
+		 21: %v_29->root def_%v_30 %v_29[8.20,] 	 SYMBOL:	 ARGS:
+		 22: GETFIELD %self->message def_%v_31 %self[8.3,8.9,8.11,8.12,2.0,] 
+		 23: %v_31->parent_id def_%v_32 %v_31[8.22,] 	 SYMBOL:	 ARGS:
+		 24: BRANCH %v_32[8.23,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->message def_%v_33 %self[2.0,] 
+		 1: %v_33->id def_%v_34 %v_33[9.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_32 %v_34[9.1,] 
+BB 10
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: HASH-r- def_%v_35 %v_32[9.2,8.23,] 
+		 1: %self->board_message_path def_%v_36 %self[2.0,] %v_28[8.19,] %v_30[8.21,] %v_35[10.0,] 	 SYMBOL:	 ARGS:%v_28,%v_30,%v_35,
+		 2: %self->redirect_to def_%v_37 %self[10.1,2.0,] %v_36[10.1,] 	 SYMBOL:	 ARGS:%v_36,
+		 3: RETURN %v_37[10.2,] %self[10.1,10.2,2.0,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = destroy instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->message def_%v_3 %self[2.0,] 
+		 7: (User) def_%v_4 
+		 8: %v_4->current def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->destroyable_by? def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: BRANCH %v_6[2.9,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+		 2: GETFIELD %self->message def_%v_9 %self[2.0,] 
+		 3: %v_9->to_param def_%v_10 %v_9[3.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_r %v_10[3.3,] 
+		 5: 
+		 6: GETFIELD %self->message def_%v_11 %self[2.0,] 
+		 7: %v_11->destroy def_%v_12 %v_11[3.6,] 	 SYMBOL:	 ARGS:
+		 8: 
+		 9: GETFIELD %self->message def_%v_13 %self[2.0,] 
+		 10: %v_13->parent def_%v_14 %v_13[3.9,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_14[3.10,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %self->render_403 def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %self[4.0,2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->board def_%v_15 %self[2.0,] 
+		 2: GETFIELD %self->message def_%v_16 %self[2.0,] 
+		 3: %v_16->parent def_%v_17 %v_16[6.2,] 	 SYMBOL:	 ARGS:
+		 4: HASH-r- def_%v_18 r[3.4,] 
+		 5: %self->board_message_path def_%v_19 %self[2.0,] %v_15[6.1,] %v_17[6.3,] %v_18[6.4,] 	 SYMBOL:	 ARGS:%v_15,%v_17,%v_18,
+		 6: %self->redirect_to def_%v_20 %self[6.5,2.0,] %v_19[6.5,] 	 SYMBOL:	 ARGS:%v_19,
+		 7: RETURN %v_20[6.6,] %self[6.5,6.6,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->project def_%v_21 %self[2.0,] 
+		 2: GETFIELD %self->board def_%v_22 %self[2.0,] 
+		 3: %self->project_board_path def_%v_23 %self[2.0,] %v_21[7.1,] %v_22[7.2,] 	 SYMBOL:	 ARGS:%v_21,%v_22,
+		 4: %self->redirect_to def_%v_24 %self[7.3,2.0,] %v_23[7.3,] 	 SYMBOL:	 ARGS:%v_23,
+		 5: RETURN %v_24[7.4,] %self[7.3,7.4,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = quote instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->message def_%v_3 %self[2.0,] 
+		 7: %v_3->subject def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN %self->subject %v_4[2.7,] 
+		 9: 
+		 10: GETFIELD %self->subject def_%v_5 %self[2.0,2.8,] 
+		 11: COPY TYPE_StringLiteral "RE:" def_%v_6 
+		 12: %v_5->starts_with? def_%v_7 %v_5[2.10,] %v_6[2.11,] 	 SYMBOL:	 ARGS:%v_6,
+		 13: BRANCH %v_7[2.12,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "RE: " def_%v_9 
+		 1: GETFIELD %self->subject def_%v_10 %self[2.0,2.8,] 
+		 2: BUILDSTRING def_%v_11 %v_9[4.0,] %v_10[4.1,] 
+		 3: ATTRASSIGN %self->subject %v_11[4.2,] 
+		 4: COPY TYPE_PASS def_%v_8 %v_11[4.2,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Setting) def_%v_12 
+		 2: %v_12->default_language def_%v_13 %v_12[5.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->message def_%v_14 %self[2.0,] 
+		 4: %v_14->author def_%v_15 %v_14[5.3,] 	 SYMBOL:	 ARGS:
+		 5: %self->ll def_%v_16 %self[4.3,2.0,2.8,] %v_13[5.2,] %v_15[5.4,] 	 SYMBOL:text_user_wrote,	 ARGS:%v_13,Symbol,%v_15,
+		 6: COPY TYPE_StringLiteral "
+> " def_%v_17 
+		 7: BUILDSTRING def_%v_18 %v_16[5.5,] %v_17[5.6,] 
+		 8: ATTRASSIGN %self->content %v_18[5.7,] 
+		 9: 
+		 10: GETFIELD %self->content def_%v_19 %self[5.5,5.8,2.0,] 
+		 11: GETFIELD %self->message def_%v_20 %self[5.5,2.0,] 
+		 12: %v_20->content def_%v_21 %v_20[5.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_21->to_s def_%v_22 %v_21[5.12,] 	 SYMBOL:	 ARGS:
+		 14: %v_22->strip def_%v_23 %v_22[5.13,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_Regexp def_%v_24 
+		 16: COPY TYPE_StringLiteral "[...]" def_%v_25 
+		 17: %v_23->gsub def_%v_26 %v_23[5.14,] %v_25[5.16,] 	 SYMBOL:	 ARGS:%v_24,%v_25,
+		 18: COPY TYPE_Regexp def_%v_27 
+		 19: COPY TYPE_StringLiteral "
+> " def_%v_28 
+		 20: %v_26->gsub def_%v_29 %v_26[5.17,] %v_28[5.19,] 	 SYMBOL:	 ARGS:%v_27,%v_28,
+		 21: COPY TYPE_StringLiteral "
+
+" def_%v_30 
+		 22: %v_29->+ def_%v_31 %v_29[5.20,] %v_30[5.21,] 	 SYMBOL:	 ARGS:%v_30,
+		 23: %v_19-><< def_%v_32 %v_19[5.10,] %v_31[5.22,] 	 SYMBOL:	 ARGS:%v_31,
+		 24: RETURN %v_32[5.23,] %self[5.5,5.8,4.3,2.0,2.8,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = preview instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->board def_%v_3 %self[2.0,] 
+		 7: %v_3->messages def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->params def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->[] def_%v_6 %v_5[2.8,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 10: %v_4->find_by_id def_%v_7 %v_4[2.7,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: COPY TYPE_PASS def_message %v_7[2.10,] 
+		 12: 
+		 13: %self->params def_%v_8 %self[2.0,2.8,] 	 SYMBOL:	 ARGS:
+		 14: %v_8->[] def_%v_9 %v_8[2.13,] 	 SYMBOL:message,	 ARGS:Symbol,
+		 15: BRANCH %v_9[2.14,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_10->[] def_%v_11 %v_10[3.0,] 	 SYMBOL:reply,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%v_9 %v_11[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_9->[] def_%v_12 %v_9[3.2,2.14,] 	 SYMBOL:content,	 ARGS:Symbol,
+		 1: ATTRASSIGN %self->text %v_12[4.0,] 
+		 2: 
+		 3: ATTRASSIGN %self->previewed message[2.11,] 
+		 4: 
+		 5: COPY TYPE_StringLiteral "common/preview" def_%v_13 
+		 6: HASH-partial- def_%v_14 %v_13[4.5,] 
+		 7: %self->render def_%v_15 %self[4.1,4.3,2.0,] %v_14[4.6,] 	 SYMBOL:	 ARGS:%v_14,
+		 8: RETURN %v_15[4.7,] %self[4.1,4.3,4.7,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_message instanceMethod = true
+BB 1
+	outgoing: 18 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->find_board def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_6[4.2,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+BB 6
+	outgoing: 7 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: %v_3[2.5,] 
+BB 7
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: RETURN %v_8[6.0,] %self[2.0,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->board def_%v_9 %self[2.0,] 
+		 2: %v_9->messages def_%v_10 %v_9[8.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_10->includes def_%v_11 %v_10[8.2,] 	 SYMBOL:parent,	 ARGS:Symbol,
+		 4: %self->params def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_12->[] def_%v_13 %v_12[8.4,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 6: %v_11->find def_%v_14 %v_11[8.3,] %v_13[8.5,] 	 SYMBOL:	 ARGS:%v_13,
+		 7: ATTRASSIGN %self->message %v_14[8.6,] 
+		 8: 
+		 9: GETFIELD %self->message def_%v_15 %self[8.4,8.7,2.0,] 
+		 10: %v_15->root def_%v_16 %v_15[8.9,] 	 SYMBOL:	 ARGS:
+		 11: ATTRASSIGN %self->topic %v_16[8.10,] 
+		 12: COPY TYPE_PASS def_%v_5 %v_16[8.10,] 
+		 13: %v_3[2.5,] 
+BB 9
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 11 12 16 
+	datadep: 
+	instructions:
+		 0: def_%v_17 
+		 1: (ActiveRecord) def_%v_18 
+		 2: (inherit RecordNotFound) def_%v_19 %v_18[10.1,] 
+		 3: %v_19[10.2,] 
+BB 11
+	outgoing: 12 16 
+	datadep: 
+	instructions:
+		 0: %v_18->const_missing def_%v_19 %v_18[10.1,] 	 SYMBOL:RecordNotFound,	 ARGS:Symbol,
+BB 12
+	outgoing: 13 14 16 
+	datadep: 
+	instructions:
+		 0: def_%v_20 %v_19[11.0,10.2,] %v_17[10.0,] 
+		 1: BRANCH %v_20[12.0,] 
+BB 13
+	outgoing: 16 18 
+	datadep: 
+	instructions:
+		 0: %v_17[10.0,] 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->render_404 def_%v_21 %self[8.7,8.11,2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_5 %v_21[14.1,] 
+		 3: %v_3[2.5,] 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: def_%v_22 
+		 1: def_%v_23 %v_22[16.0,] %v_3[2.5,] 
+		 2: %v_22[16.0,] 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[8.12,14.2,] %self[8.7,8.11,2.0,] 
+BB 18
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_board instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (Board) def_%v_6 
+		 3: %v_6->includes def_%v_7 %v_6[4.2,] 	 SYMBOL:project,	 ARGS:Symbol,
+		 4: %self->params def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_8->[] def_%v_9 %v_8[4.4,] 	 SYMBOL:board_id,	 ARGS:Symbol,
+		 6: %v_7->find def_%v_10 %v_7[4.3,] %v_9[4.5,] 	 SYMBOL:	 ARGS:%v_9,
+		 7: ATTRASSIGN %self->board %v_10[4.6,] 
+		 8: 
+		 9: GETFIELD %self->board def_%v_11 %self[4.4,4.7,2.0,] 
+		 10: %v_11->project def_%v_12 %v_11[4.9,] 	 SYMBOL:	 ARGS:
+		 11: ATTRASSIGN %self->project %v_12[4.10,] 
+		 12: COPY TYPE_PASS def_%v_5 %v_12[4.10,] 
+		 13: %v_3[2.5,] 
+BB 5
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 12 
+	datadep: 
+	instructions:
+		 0: def_%v_13 
+		 1: (ActiveRecord) def_%v_14 
+		 2: (inherit RecordNotFound) def_%v_15 %v_14[6.1,] 
+		 3: %v_15[6.2,] 
+BB 7
+	outgoing: 8 12 
+	datadep: 
+	instructions:
+		 0: %v_14->const_missing def_%v_15 %v_14[6.1,] 	 SYMBOL:RecordNotFound,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 10 12 
+	datadep: 
+	instructions:
+		 0: def_%v_16 %v_15[7.0,6.2,] %v_13[6.0,] 
+		 1: BRANCH %v_16[8.0,] 
+BB 9
+	outgoing: 12 14 
+	datadep: 
+	instructions:
+		 0: %v_13[6.0,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->render_404 def_%v_17 %self[4.7,4.11,2.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: COPY TYPE_Nil def_%v_5 
+		 4: %v_3[2.5,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: def_%v_18 
+		 1: def_%v_19 %v_18[12.0,] %v_3[2.5,] 
+		 2: %v_18[12.0,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[4.12,10.3,] %self[4.7,4.11,2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+

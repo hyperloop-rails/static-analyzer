@@ -1,0 +1,532 @@
+SET IRMethod, name = validate instanceMethod = true
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_upload 
+		 6: 
+		 7: upload->is_attachment_for_group_message def_%v_3 upload[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%v_4 
+		 1: %v_4->allow_all_attachments_for_group_messages def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.2,2.7,] 
+BB 5
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: (File) def_%v_7 
+		 3: upload->original_filename def_%v_8 upload[2.5,] 	 SYMBOL:	 ARGS:
+		 4: %v_7->extname def_%v_9 %v_7[6.2,] %v_8[6.3,] 	 SYMBOL:	 ARGS:%v_8,
+		 5: CONSTANT def_%v_10 
+		 6: %v_9->[] def_%v_11 %v_9[6.4,] %v_10[6.5,] 	 SYMBOL:	 ARGS:%v_10,
+		 7: BRANCH %v_11[6.6,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_12 
+		 1: COPY TYPE_PASS def_%v_11 %v_12[8.0,] 
+BB 9
+	outgoing: 10 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_extension %v_11[8.1,6.6,] 
+		 1: 
+		 2: %self->is_authorized? def_%v_13 %self[2.0,] upload[2.5,] %v_11[8.1,6.6,] 	 SYMBOL:	 ARGS:upload,extension,
+		 3: BRANCH %v_13[9.2,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (FileHelper) def_%v_14 
+		 2: upload->original_filename def_%v_15 upload[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_14->is_image? def_%v_16 %v_14[10.1,] %v_15[10.2,] 	 SYMBOL:	 ARGS:%v_15,
+		 4: BRANCH %v_16[10.3,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->authorized_image_extension def_%v_17 %self[2.0,] upload[2.5,] extension[9.0,] 	 SYMBOL:	 ARGS:upload,extension,
+		 2: 
+		 3: %self->maximum_image_file_size def_%v_18 %self[11.1,2.0,] upload[2.5,] 	 SYMBOL:	 ARGS:upload,
+		 4: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->authorized_attachment_extension def_%v_19 %self[2.0,] upload[2.5,] extension[9.0,] 	 SYMBOL:	 ARGS:upload,extension,
+		 2: 
+		 3: %self->maximum_attachment_file_size def_%v_20 %self[12.1,2.0,] upload[2.5,] 	 SYMBOL:	 ARGS:upload,
+		 4: COPY TYPE_PASS def_%v_18 %v_20[12.3,] 
+BB 13
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %v_18[12.4,11.3,] %self[2.0,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = is_authorized? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_upload 
+		 6: RECEIVEARG def_extension 
+		 7: 
+		 8: %self->authorized_uploads def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %self->authorized_extensions def_%v_4 %self[2.0,2.8,] upload[2.5,] extension[2.6,] %v_3[2.8,] 	 SYMBOL:	 ARGS:upload,extension,%v_3,
+		 10: RETURN %v_4[2.9,] %self[2.0,2.8,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = authorized_image_extension instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_upload 
+		 6: RECEIVEARG def_extension 
+		 7: 
+		 8: %self->authorized_images def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %self->authorized_extensions def_%v_4 %self[2.0,2.8,] upload[2.5,] extension[2.6,] %v_3[2.8,] 	 SYMBOL:	 ARGS:upload,extension,%v_3,
+		 10: RETURN %v_4[2.9,] %self[2.0,2.8,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = maximum_image_file_size instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_upload 
+		 6: 
+		 7: COPY TYPE_StringLiteral "image" def_%v_3 
+		 8: %self->maximum_file_size def_%v_4 %self[2.0,] upload[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:upload,%v_3,
+		 9: RETURN %v_4[2.8,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = authorized_attachment_extension instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_upload 
+		 6: RECEIVEARG def_extension 
+		 7: 
+		 8: %self->authorized_attachments def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: %self->authorized_extensions def_%v_4 %self[2.0,2.8,] upload[2.5,] extension[2.6,] %v_3[2.8,] 	 SYMBOL:	 ARGS:upload,extension,%v_3,
+		 10: RETURN %v_4[2.9,] %self[2.0,2.8,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = maximum_attachment_file_size instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_upload 
+		 6: 
+		 7: COPY TYPE_StringLiteral "attachment" def_%v_3 
+		 8: %self->maximum_file_size def_%v_4 %self[2.0,] upload[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:upload,%v_3,
+		 9: RETURN %v_4[2.8,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = authorized_uploads instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Set) def_%v_3 
+		 7: %v_3->new def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_authorized_uploads %v_4[2.7,] 
+		 9: 
+		 10: (SiteSetting) def_%v_5 
+		 11: %v_5->authorized_extensions def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral " " def_%v_7 
+		 13: COPY TYPE_StringLiteral "" def_%v_8 
+		 14: %v_6->tr def_%v_9 %v_6[2.11,] %v_7[2.12,] %v_8[2.13,] 	 SYMBOL:	 ARGS:%v_7,%v_8,
+		 15: COPY TYPE_StringLiteral "|" def_%v_10 
+		 16: %v_9->split def_%v_11 %v_9[2.14,] %v_10[2.15,] 	 SYMBOL:	 ARGS:%v_10,
+		 17: %v_11->each def_%v_12 %v_11[2.16,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_11,
+CLOSURE BEGIN: extension[] authorized_uploads[2.8,] 
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_extension 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "*" def_%cl_1_3 
+		 2: extension->include? def_%cl_1_4 extension[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: BRANCH %cl_1_4[3.2,] 
+BB 4
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_5 
+BB 6
+	outgoing: 7 8 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "." def_%cl_1_6 
+		 2: extension->start_with? def_%cl_1_7 extension[2.2,] %cl_1_6[6.1,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 3: BRANCH %cl_1_7[6.2,] 
+BB 7
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: CONSTANT def_%cl_1_8 
+		 1: extension->[] def_%cl_1_9 extension[2.2,] %cl_1_8[7.0,] 	 SYMBOL:	 ARGS:%cl_1_8,
+		 2: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_1_9 extension[2.2,] 
+BB 9
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: %cl_1_9->downcase def_%cl_1_10 %cl_1_9[8.0,7.1,] 	 SYMBOL:	 ARGS:
+		 1: authorized_uploads-><< def_%cl_1_11 authorized_uploads[] %cl_1_10[9.0,] 	 SYMBOL:	 ARGS:%cl_1_10,
+		 2: RETURN %cl_1_11[9.1,] %self[2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_12 
+		 1: def_%cl_1_13 %cl_1_12[10.0,] 
+		 2: RETURN %cl_1_13[10.1,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 18: 
+		 19: RETURN authorized_uploads[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = authorized_images instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->authorized_uploads def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: (FileHelper) def_%v_4 
+		 8: %v_4->images def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->& def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = authorized_attachments instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->authorized_uploads def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: (FileHelper) def_%v_4 
+		 8: %v_4->images def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->- def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = authorizes_all_extensions? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SiteSetting) def_%v_3 
+		 7: %v_3->authorized_extensions def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "*" def_%v_5 
+		 9: %v_4->include? def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = authorized_extensions instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_upload 
+		 6: RECEIVEARG def_extension 
+		 7: RECEIVEARG def_extensions 
+		 8: 
+		 9: %self->authorizes_all_extensions? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_3[2.9,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: extension->downcase def_%v_5 extension[2.6,] 	 SYMBOL:	 ARGS:
+		 3: extensions->include? def_%v_6 extensions[2.7,] %v_5[4.2,] 	 SYMBOL:	 ARGS:%v_5,
+		 4: COPY TYPE_PASS def_authorized %v_6[4.3,] 
+		 5: BRANCH %v_6[4.3,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%v_8 
+		 2: COPY TYPE_StringLiteral "upload.unauthorized" def_%v_9 
+		 3: extensions->to_a def_%v_10 extensions[2.7,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral ", " def_%v_11 
+		 5: %v_10->join def_%v_12 %v_10[7.3,] %v_11[7.4,] 	 SYMBOL:	 ARGS:%v_11,
+		 6: HASH-authorized_extensions- def_%v_13 %v_12[7.5,] 
+		 7: %v_8->t def_%v_14 %v_8[7.1,] %v_9[7.2,] %v_13[7.6,] 	 SYMBOL:	 ARGS:%v_9,%v_13,
+		 8: COPY TYPE_PASS def_message %v_14[7.7,] 
+		 9: 
+		 10: upload->errors def_%v_15 upload[2.5,] 	 SYMBOL:	 ARGS:
+		 11: %v_15->add def_%v_16 %v_15[7.10,] message[7.8,] 	 SYMBOL:original_filename,	 ARGS:Symbol,message,
+		 12: COPY TYPE_PASS def_%v_7 %v_16[7.11,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN authorized[4.4,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = maximum_file_size instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_upload 
+		 6: RECEIVEARG def_type 
+		 7: 
+		 8: (SiteSetting) def_%v_3 
+		 9: COPY TYPE_StringLiteral "max_" def_%v_4 
+		 10: COPY TYPE_StringLiteral "_size_kb" def_%v_5 
+		 11: BUILDSTRING def_%v_6 %v_4[2.9,] type[2.6,] %v_5[2.10,] 
+		 12: %v_3->send def_%v_7 %v_3[2.8,] %v_6[2.11,] 	 SYMBOL:	 ARGS:%v_6,
+		 13: COPY TYPE_PASS def_max_size_kb %v_7[2.12,] 
+		 14: 
+		 15: %v_7->kilobytes def_%v_8 %v_7[2.12,] 	 SYMBOL:	 ARGS:
+		 16: COPY TYPE_PASS def_max_size_bytes %v_8[2.15,] 
+		 17: 
+		 18: upload->filesize def_%v_9 upload[2.5,] 	 SYMBOL:	 ARGS:
+		 19: %v_9->> def_%v_10 %v_9[2.18,] max_size_bytes[2.16,] 	 SYMBOL:	 ARGS:max_size_bytes,
+		 20: BRANCH %v_10[2.19,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%v_11 
+		 2: COPY TYPE_StringLiteral "upload." def_%v_12 
+		 3: COPY TYPE_StringLiteral "s.too_large" def_%v_13 
+		 4: BUILDSTRING def_%v_14 %v_12[3.2,] type[2.6,] %v_13[3.3,] 
+		 5: HASH-max_size_kb- def_%v_15 max_size_kb[2.13,] 
+		 6: %v_11->t def_%v_16 %v_11[3.1,] %v_14[3.4,] %v_15[3.5,] 	 SYMBOL:	 ARGS:%v_14,%v_15,
+		 7: COPY TYPE_PASS def_message %v_16[3.6,] 
+		 8: 
+		 9: upload->errors def_%v_17 upload[2.5,] 	 SYMBOL:	 ARGS:
+		 10: %v_17->add def_%v_18 %v_17[3.9,] message[3.7,] 	 SYMBOL:filesize,	 ARGS:Symbol,message,
+		 11: RETURN %v_18[3.10,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

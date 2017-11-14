@@ -1,0 +1,335 @@
+SET IRMethod, name = synchronize instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_key 
+		 6: RECEIVECONSTARG def_redis 
+		 7: redis[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_redis 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: def_%v_3 
+		 1: COPY TYPE_PASS def_blk %v_3[4.0,] 
+		 2: 
+		 3: %self->new def_%v_4 %self[2.0,] key[2.5,] redis[3.0,2.6,] 	 SYMBOL:	 ARGS:key,redis,
+		 4: %v_4->synchronize def_%v_5 %v_4[4.3,] blk[4.1,] 	 SYMBOL:	 ARGS:
+		 5: RETURN %v_5[4.4,] %self[4.3,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_key 
+		 6: RECEIVECONSTARG def_redis 
+		 7: redis[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_redis 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->key key[2.5,] 
+		 2: 
+		 3: COPY TYPE_PASS def_%v_3 redis[3.0,2.6,] 
+		 4: BRANCH redis[3.0,2.6,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $redis def_%v_4 
+		 1: COPY TYPE_PASS def_%v_3 %v_4[5.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->redis %v_3[5.1,4.3,] 
+		 1: 
+		 2: (Mutex) def_%v_5 
+		 3: %v_5->new def_%v_6 %v_5[6.2,] 	 SYMBOL:	 ARGS:
+		 4: ATTRASSIGN %self->mutex %v_6[6.3,] 
+		 5: RETURN %v_6[6.3,] %self[6.0,6.4,4.1,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = synchronize instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: GLOBALVAR $! def_%v_3 
+BB 3
+	outgoing: 4 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->mutex def_%v_10 %self[2.0,] 
+		 2: %v_10->lock def_%v_11 %v_10[3.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+BB 4
+	outgoing: 5 7 10 
+	datadep: 
+	instructions:
+		 0: %self->try_to_get_lock def_%v_13 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_13->! def_%v_14 %v_13[4.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_14[4.1,] 
+BB 5
+	outgoing: 6 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->sleep def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:Float,
+BB 6
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_16 %v_0[2.1,] 
+		 2: COPY TYPE_PASS def_%v_9 %v_16[8.1,] 
+BB 9
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->redis def_%v_4 %self[2.0,] 
+		 2: GETFIELD %self->key def_%v_5 %self[2.0,] 
+		 3: %v_4->del def_%v_6 %v_4[9.1,] %v_5[9.2,] 	 SYMBOL:	 ARGS:%v_5,
+		 4: 
+		 5: GETFIELD %self->mutex def_%v_7 %self[2.0,] 
+		 6: %v_7->unlock def_%v_8 %v_7[9.5,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %v_9[8.2,] %self[2.0,] 
+BB 10
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: def_%v_17 
+		 1: def_%v_18 %v_17[10.0,] %v_3[2.5,] 
+		 2: 
+		 3: GETFIELD %self->redis def_%v_4 %self[2.0,] 
+		 4: GETFIELD %self->key def_%v_5 %self[2.0,] 
+		 5: %v_4->del def_%v_6 %v_4[10.3,] %v_5[10.4,] 	 SYMBOL:	 ARGS:%v_5,
+		 6: 
+		 7: GETFIELD %self->mutex def_%v_7 %self[2.0,] 
+		 8: %v_7->unlock def_%v_8 %v_7[10.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_17[10.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = try_to_get_lock instanceMethod = true
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_Boolean def_got_lock 
+		 7: 
+		 8: GETFIELD %self->redis def_%v_3 %self[2.0,] 
+		 9: GETFIELD %self->key def_%v_4 %self[2.0,] 
+		 10: (Time) def_%v_5 
+		 11: %v_5->now def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_6->to_i def_%v_7 %v_6[2.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_7->+ def_%v_8 %v_7[2.12,] 	 SYMBOL:	 ARGS:Fixnum,
+		 14: %v_3->setnx def_%v_9 %v_3[2.8,] %v_4[2.9,] %v_8[2.13,] 	 SYMBOL:	 ARGS:%v_4,%v_8,
+		 15: BRANCH %v_9[2.14,] 
+BB 3
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->redis def_%v_10 %self[2.0,] 
+		 2: GETFIELD %self->key def_%v_11 %self[2.0,] 
+		 3: %v_10->expire def_%v_12 %v_10[3.1,] %v_11[3.2,] 	 SYMBOL:	 ARGS:%v_11,Fixnum,
+		 4: 
+		 5: COPY TYPE_Boolean def_got_lock 
+		 6: COPY TYPE_Boolean def_%v_13 
+		 7: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%v_14 
+BB 5
+	outgoing: 6 7 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->redis def_%v_18 %self[2.0,] 
+		 2: GETFIELD %self->key def_%v_19 %self[2.0,] 
+		 3: %v_18->watch def_%v_20 %v_18[5.1,] %v_19[5.2,] 	 SYMBOL:	 ARGS:%v_19,
+		 4: 
+		 5: GETFIELD %self->redis def_%v_21 %self[2.0,] 
+		 6: GETFIELD %self->key def_%v_22 %self[2.0,] 
+		 7: %v_21->get def_%v_23 %v_21[5.5,] %v_22[5.6,] 	 SYMBOL:	 ARGS:%v_22,
+		 8: COPY TYPE_PASS def_time %v_23[5.7,] 
+		 9: 
+		 10: COPY TYPE_PASS def_%v_24 %v_23[5.7,] 
+		 11: BRANCH %v_23[5.7,] 
+BB 6
+	outgoing: 7 12 
+	datadep: 
+	instructions:
+		 0: time->to_i def_%v_25 time[5.8,] 	 SYMBOL:	 ARGS:
+		 1: (Time) def_%v_26 
+		 2: %v_26->now def_%v_27 %v_26[6.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_27->to_i def_%v_28 %v_27[6.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_25->< def_%v_29 %v_25[6.0,] %v_28[6.3,] 	 SYMBOL:	 ARGS:%v_28,
+		 5: COPY TYPE_PASS def_%v_24 %v_29[6.4,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_24[6.5,5.10,] 
+BB 8
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->redis def_%v_30 %self[2.0,] 
+		 2: %v_30->multi def_%v_31 %v_30[8.1,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_30,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->redis def_%cl_1_3 %self[2.0,] 
+		 2: GETFIELD %self->key def_%cl_1_4 %self[2.0,] 
+		 3: (Time) def_%cl_1_5 
+		 4: %cl_1_5->now def_%cl_1_6 %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:
+		 5: %cl_1_6->to_i def_%cl_1_7 %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:
+		 6: %cl_1_7->+ def_%cl_1_8 %cl_1_7[3.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 7: %cl_1_3->set def_%cl_1_9 %cl_1_3[3.1,] %cl_1_4[3.2,] %cl_1_8[3.6,] 	 SYMBOL:	 ARGS:%cl_1_4,%cl_1_8,
+		 8: RETURN %cl_1_9[3.7,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_10 
+		 1: def_%cl_1_11 %cl_1_10[4.0,] 
+		 2: RETURN %cl_1_11[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: COPY TYPE_PASS def_got_lock %v_31[8.2,] 
+		 4: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_31 
+BB 10
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_17 %v_31[9.0,8.2,] 
+		 1: 
+		 2: GETFIELD %self->redis def_%v_15 %self[2.0,] 
+		 3: %v_15->unwatch def_%v_16 %v_15[10.2,] 	 SYMBOL:	 ARGS:
+		 4: 
+BB 12
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: def_%v_32 
+		 1: def_%v_33 %v_32[12.0,] %v_14[4.1,] 
+		 2: 
+		 3: GETFIELD %self->redis def_%v_15 %self[2.0,] 
+		 4: %v_15->unwatch def_%v_16 %v_15[12.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_32[12.0,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_13 %v_17[10.0,] 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN got_lock[3.5,8.3,2.6,] %self[2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+

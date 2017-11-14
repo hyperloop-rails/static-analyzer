@@ -1,0 +1,79 @@
+SET IRMethod, name = remove_user instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_deleted_by 
+		 6: deleted_by[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_3->block def_%v_4 %v_3[4.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: (DeleteUserWorker) def_%v_5 
+		 5: deleted_by->id def_%v_6 deleted_by[2.5,] 	 SYMBOL:	 ARGS:
+		 6: %self->user def_%v_7 %self[4.1,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_7->id def_%v_8 %v_7[4.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-delete_solo_owned_groups- def_%v_9 
+		 9: %v_5->perform_async def_%v_10 %v_5[4.4,] %v_6[4.5,] %v_8[4.7,] %v_9[4.8,] 	 SYMBOL:	 ARGS:%v_6,%v_8,%v_9,
+		 10: RETURN %v_10[4.9,] %self[4.1,4.6,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = notify instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->persisted? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: (AbuseReportMailer) def_%v_5 
+		 3: %self->id def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_5->notify def_%v_7 %v_5[3.2,] %v_6[3.3,] 	 SYMBOL:	 ARGS:%v_6,
+		 5: %v_7->deliver_later def_%v_8 %v_7[3.4,] 	 SYMBOL:	 ARGS:
+		 6: RETURN %v_8[3.5,] %self[3.3,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

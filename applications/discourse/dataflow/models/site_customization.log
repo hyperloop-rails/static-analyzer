@@ -1,0 +1,1374 @@
+SET IRMethod, name = css_fields instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "stylesheet" def_%v_3 
+		 7: COPY TYPE_StringLiteral "mobile_stylesheet" def_%v_4 
+		 8: COPY TYPE_StringLiteral "embedded_css" def_%v_5 
+		 9: COPY TYPE_Array def_%v_6 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] 
+		 10: RETURN %v_6[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = html_fields instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "body_tag" def_%v_3 
+		 7: COPY TYPE_StringLiteral "head_tag" def_%v_4 
+		 8: COPY TYPE_StringLiteral "header" def_%v_5 
+		 9: COPY TYPE_StringLiteral "mobile_header" def_%v_6 
+		 10: COPY TYPE_StringLiteral "footer" def_%v_7 
+		 11: COPY TYPE_StringLiteral "mobile_footer" def_%v_8 
+		 12: COPY TYPE_Array def_%v_9 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] %v_6[2.9,] %v_7[2.10,] %v_8[2.11,] 
+		 13: RETURN %v_9[2.12,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = compile_stylesheet instanceMethod = true
+BB 1
+	outgoing: 17 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_scss 
+		 6: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (DiscourseSassCompiler) def_%v_6 
+		 3: COPY TYPE_StringLiteral "@import "theme_variables";
+" def_%v_7 
+		 4: %v_7-><< def_%v_8 %v_7[4.3,] scss[2.5,] 	 SYMBOL:	 ARGS:scss,
+		 5: COPY TYPE_StringLiteral "custom" def_%v_9 
+		 6: %v_6->compile def_%v_10 %v_6[4.2,] %v_8[4.4,] %v_9[4.5,] 	 SYMBOL:	 ARGS:%v_8,%v_9,
+		 7: COPY TYPE_PASS def_%v_5 %v_10[4.6,] 
+		 8: %v_3[2.6,] 
+BB 5
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 15 
+	datadep: 
+	instructions:
+		 0: def_%v_11 
+		 1: def_%v_12 %v_11[6.0,] 
+		 2: BRANCH %v_12[6.1,] 
+BB 7
+	outgoing: 15 17 
+	datadep: 
+	instructions:
+		 0: %v_11[6.0,] 
+BB 8
+	outgoing: 9 10 15 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_13 
+		 1: COPY TYPE_PASS def_e %v_13[8.0,] 
+		 2: 
+		 3: (Sass) def_%v_14 
+		 4: (inherit SyntaxError) def_%v_15 %v_14[8.3,] 
+		 5: %v_15[8.4,] 
+BB 9
+	outgoing: 10 15 
+	datadep: 
+	instructions:
+		 0: %v_14->const_missing def_%v_15 %v_14[8.3,] 	 SYMBOL:SyntaxError,	 ARGS:Symbol,
+BB 10
+	outgoing: 11 12 15 
+	datadep: 
+	instructions:
+		 0: %v_15->=== def_%v_16 %v_15[9.0,8.4,] e[8.1,] 	 SYMBOL:	 ARGS:e,
+		 1: BRANCH %v_16[10.0,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+		 1: 
+BB 12
+	outgoing: 13 15 
+	datadep: 
+	instructions:
+		 0: e->backtrace def_%v_18 e[8.1,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "
+" def_%v_19 
+		 2: %v_18->join def_%v_20 %v_18[12.0,] %v_19[12.1,] 	 SYMBOL:	 ARGS:%v_19,
+		 3: %self->puts def_%v_21 %self[2.0,] %v_20[12.2,] 	 SYMBOL:	 ARGS:%v_20,
+		 4: COPY TYPE_PASS def_%v_17 %v_21[12.3,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->raise def_%v_22 %self[2.0,] e[8.1,] 	 SYMBOL:	 ARGS:e,
+		 2: COPY TYPE_PASS def_%v_5 %v_22[13.1,] 
+		 3: %v_3[2.6,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: def_%v_23 
+		 1: def_%v_24 %v_23[15.0,] %v_3[2.6,] 
+		 2: %v_23[15.0,] 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[4.7,13.2,] %self[2.0,] 
+BB 17
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = process_html instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_html 
+		 6: 
+		 7: (Nokogiri) def_%v_3 
+		 8: (inherit HTML) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:HTML,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_4->fragment def_%v_5 %v_4[3.0,2.8,] html[2.5,] 	 SYMBOL:	 ARGS:html,
+		 1: COPY TYPE_PASS def_doc %v_5[4.0,] 
+		 2: 
+		 3: COPY TYPE_StringLiteral "script[type="text/x-handlebars"]" def_%v_6 
+		 4: %v_5->css def_%v_7 %v_5[4.0,] %v_6[4.3,] 	 SYMBOL:	 ARGS:%v_6,
+		 5: %v_7->each def_%v_8 %v_7[4.4,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: node[] name[] precompiled[] 
+BB 1
+	outgoing: 19 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_node 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "name" def_%cl_1_3 
+		 2: node->[] def_%cl_1_4 node[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: BRANCH %cl_1_4[3.2,] 
+BB 4
+	outgoing: 5 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "data-template-name" def_%cl_1_5 
+		 1: node->[] def_%cl_1_6 node[2.2,] %cl_1_5[4.0,] 	 SYMBOL:	 ARGS:%cl_1_5,
+		 2: COPY TYPE_PASS def_%cl_1_4 %cl_1_6[4.1,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_4[4.2,3.2,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "broken" def_%cl_1_7 
+		 1: COPY TYPE_PASS def_%cl_1_4 %cl_1_7[6.0,] 
+BB 7
+	outgoing: 8 11 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_name %cl_1_4[6.1,4.2,3.2,] 
+		 1: 
+		 2: 
+		 3: COPY TYPE_Regexp def_%cl_1_8 
+		 4: %cl_1_4->=~ def_%cl_1_9 %cl_1_4[6.1,4.2,3.2,] 	 SYMBOL:	 ARGS:%cl_1_8,
+		 5: BRANCH %cl_1_9[7.4,] 
+BB 8
+	outgoing: 9 10 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Discourse.EmberCompatHandlebars.template(" def_%cl_1_10 
+		 2: (Barber) def_%cl_1_11 
+		 3: (inherit EmberCompatPrecompiler) def_%cl_1_12 %cl_1_11[8.2,] 
+		 4: %cl_1_12[8.3,] 
+BB 9
+	outgoing: 10 17 
+	datadep: 
+	instructions:
+		 0: %cl_1_11->const_missing def_%cl_1_12 %cl_1_11[8.2,] 	 SYMBOL:EmberCompatPrecompiler,	 ARGS:Symbol,
+BB 10
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: node->inner_html def_%cl_1_13 node[2.2,] 	 SYMBOL:	 ARGS:
+		 1: %cl_1_12->compile def_%cl_1_14 %cl_1_12[9.0,8.3,] %cl_1_13[10.0,] 	 SYMBOL:	 ARGS:%cl_1_13,
+		 2: COPY TYPE_StringLiteral ")" def_%cl_1_15 
+		 3: BUILDSTRING def_%cl_1_16 %cl_1_10[8.1,] %cl_1_14[10.1,] %cl_1_15[10.2,] 
+		 4: 
+BB 11
+	outgoing: 12 13 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Ember.HTMLBars.template(" def_%cl_1_17 
+		 2: (Barber) def_%cl_1_18 
+		 3: (inherit Ember) def_%cl_1_19 %cl_1_18[11.2,] 
+		 4: %cl_1_19[11.3,] 
+BB 12
+	outgoing: 13 17 
+	datadep: 
+	instructions:
+		 0: %cl_1_18->const_missing def_%cl_1_19 %cl_1_18[11.2,] 	 SYMBOL:Ember,	 ARGS:Symbol,
+BB 13
+	outgoing: 14 15 17 
+	datadep: 
+	instructions:
+		 0: (inherit Precompiler) def_%cl_1_20 %cl_1_19[12.0,11.3,] 
+		 1: %cl_1_20[13.0,] 
+BB 14
+	outgoing: 15 17 
+	datadep: 
+	instructions:
+		 0: %cl_1_19->const_missing def_%cl_1_20 %cl_1_19[12.0,11.3,] 	 SYMBOL:Precompiler,	 ARGS:Symbol,
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: node->inner_html def_%cl_1_21 node[2.2,] 	 SYMBOL:	 ARGS:
+		 1: %cl_1_20->compile def_%cl_1_22 %cl_1_20[14.0,13.0,] %cl_1_21[15.0,] 	 SYMBOL:	 ARGS:%cl_1_21,
+		 2: COPY TYPE_StringLiteral ")" def_%cl_1_23 
+		 3: BUILDSTRING def_%cl_1_24 %cl_1_17[11.1,] %cl_1_22[15.1,] %cl_1_23[15.2,] 
+		 4: COPY TYPE_PASS def_%cl_1_16 %cl_1_24[15.3,] 
+BB 16
+	outgoing: 17 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_precompiled %cl_1_16[15.4,10.3,] 
+		 1: 
+		 2: COPY TYPE_StringLiteral "  Ember.TEMPLATES[" def_%cl_1_25 
+		 3: 
+		 4: name->inspect def_%cl_1_26 name[7.0,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "] = " def_%cl_1_27 
+		 6: COPY TYPE_StringLiteral ";
+" def_%cl_1_28 
+		 7: BUILDSTRING def_%cl_1_29 %cl_1_25[16.2,] %cl_1_26[16.4,] %cl_1_27[16.5,] precompiled[16.0,] %cl_1_28[16.6,] 
+		 8: COPY TYPE_PASS def_compiled %cl_1_29[16.7,] 
+		 9: 
+		 10: COPY TYPE_StringLiteral "<script>" def_%cl_1_30 
+		 11: COPY TYPE_StringLiteral "</script>" def_%cl_1_31 
+		 12: BUILDSTRING def_%cl_1_32 %cl_1_30[16.10,] %cl_1_29[16.7,] %cl_1_31[16.11,] 
+		 13: node->replace def_%cl_1_33 node[2.2,] %cl_1_32[16.12,] 	 SYMBOL:	 ARGS:%cl_1_32,
+		 14: RETURN %cl_1_33[16.13,] %self[2.0,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_34 
+		 1: def_%cl_1_35 %cl_1_34[17.0,] 
+		 2: RETURN %cl_1_35[17.1,] %self[2.0,] 
+BB 19
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: precompiled[16.0,] compiled[16.8,] name[7.0,] 
+		 6: 
+		 7: doc->to_s def_%v_9 doc[4.1,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_9[4.7,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = any_stylesheet_changed? instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SiteCustomization) def_%v_3 
+		 7: %v_3->css_fields def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->each def_%v_5 %v_4[2.7,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: fieldname[] %self[2.0,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_fieldname 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "_changed?" def_%cl_1_3 
+		 2: BUILDSTRING def_%cl_1_4 fieldname[2.2,] %cl_1_3[3.1,] 
+		 3: %self->send def_%cl_1_5 %self[2.0,] %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:%cl_1_4,
+		 4: BRANCH %cl_1_5[3.3,] 
+BB 4
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_7 
+		 1: def_%cl_1_8 %cl_1_7[7.0,] 
+		 2: RETURN %cl_1_8[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: 
+		 10: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%v_6 
+		 1: def_%v_7 %v_6[4.0,] 
+		 2: RETURN %v_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = enabled_key instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (ENABLED_KEY) def_%v_3 
+		 7: %v_3->dup def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: (RailsMultisite) def_%v_5 
+		 9: (inherit ConnectionManagement) def_%v_6 %v_5[2.8,] 
+		 10: %v_6[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_5->const_missing def_%v_6 %v_5[2.8,] 	 SYMBOL:ConnectionManagement,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_6->current_db def_%v_7 %v_6[3.0,2.9,] 	 SYMBOL:	 ARGS:
+		 1: %v_4-><< def_%v_8 %v_4[2.7,] %v_7[4.0,] 	 SYMBOL:	 ARGS:%v_7,
+		 2: RETURN %v_8[4.1,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = field_for_target instanceMethod = false
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_target 
+		 6: target[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_target 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_3 target[3.0,2.5,] 
+		 2: COPY TYPE_PASS def_%v_4 target[3.0,2.5,] 
+		 3: BRANCH target[3.0,2.5,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_target 
+		 1: COPY TYPE_Symbol def_%v_4 
+BB 6
+	outgoing: 7 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: target->to_sym def_%v_5 target[5.0,3.0,2.5,] 	 SYMBOL:	 ARGS:
+		 2: def_%v_7 %v_5[6.1,] 
+		 3: BRANCH %v_7[6.2,] 
+BB 7
+	outgoing: 8 11 
+	datadep: 
+	instructions:
+		 0: def_%v_8 %v_5[6.1,] 
+		 1: BRANCH %v_8[7.0,] 
+BB 8
+	outgoing: 9 12 
+	datadep: 
+	instructions:
+		 0: def_%v_9 %v_5[6.1,] 
+		 1: BRANCH %v_9[8.0,] 
+BB 9
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+BB 10
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_6 
+		 2: RETURN %self[2.0,] 
+BB 11
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_6 
+		 2: RETURN %self[2.0,] 
+BB 12
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_6 
+		 2: RETURN %self[2.0,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %v_6[9.0,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = baked_for_target instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_target 
+		 6: target[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_target 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->field_for_target def_%v_3 %self[2.0,] target[3.0,2.5,] 	 SYMBOL:	 ARGS:target,
+		 2: COPY TYPE_StringLiteral "_baked" def_%v_4 
+		 3: BUILDSTRING def_%v_5 %v_3[4.1,] %v_4[4.2,] 
+		 4: %v_5->to_sym def_%v_6 %v_5[4.3,] 	 SYMBOL:	 ARGS:
+		 5: RETURN %v_6[4.4,] %self[4.1,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = enabled_stylesheet_contents instanceMethod = false
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_target 
+		 6: target[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_target 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->cache def_%v_3 %self[2.0,] 
+		 2: COPY TYPE_StringLiteral "enabled_stylesheet_" def_%v_5 
+		 3: BUILDSTRING def_%v_6 %v_5[4.2,] target[3.0,2.5,] 
+		 4: %v_3->[] def_%v_4 %v_3[4.1,] %v_6[4.3,] 	 SYMBOL:	 ARGS:%v_6,
+		 5: BRANCH %v_4[4.4,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: HASH-enabled- def_%v_7 
+		 1: %self->where def_%v_8 %self[2.0,] %v_7[5.0,] 	 SYMBOL:	 ARGS:%v_7,
+		 2: %v_8->order def_%v_9 %v_8[5.1,] 	 SYMBOL:name,	 ARGS:Symbol,
+		 3: %self->baked_for_target def_%v_10 %self[5.1,2.0,] target[3.0,2.5,] 	 SYMBOL:	 ARGS:target,
+		 4: %v_9->pluck def_%v_11 %v_9[5.2,] %v_10[5.3,] 	 SYMBOL:	 ARGS:%v_10,
+		 5: %v_11->compact def_%v_12 %v_11[5.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_StringLiteral "
+" def_%v_13 
+		 7: %v_12->join def_%v_14 %v_12[5.5,] %v_13[5.6,] 	 SYMBOL:	 ARGS:%v_13,
+		 8: %v_3->[]= def_%v_4 %v_3[4.1,] %v_6[4.3,] %v_14[5.7,] 	 SYMBOL:	 ARGS:%v_6,%v_14,
+		 9: RETURN %v_14[5.7,] %self[5.1,5.3,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_4[4.4,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = stylesheet_contents instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_key 
+		 6: RECEIVEARG def_target 
+		 7: 
+		 8: (ENABLED_KEY) def_%v_3 
+		 9: key->== def_%v_4 key[2.5,] %v_3[2.8,] 	 SYMBOL:	 ARGS:%v_3,
+		 10: BRANCH %v_4[2.9,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->enabled_stylesheet_contents def_%v_5 %self[2.0,] target[2.6,] 	 SYMBOL:	 ARGS:target,
+		 2: RETURN %v_5[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-key- def_%v_6 key[2.5,] 
+		 2: %self->where def_%v_7 %self[2.0,] %v_6[4.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: %self->baked_for_target def_%v_8 %self[4.2,2.0,] target[2.6,] 	 SYMBOL:	 ARGS:target,
+		 4: %v_7->pluck def_%v_9 %v_7[4.2,] %v_8[4.3,] 	 SYMBOL:	 ARGS:%v_8,
+		 5: %v_9->first def_%v_10 %v_9[4.4,] 	 SYMBOL:	 ARGS:
+		 6: RETURN %v_10[4.5,] %self[4.2,4.3,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = custom_stylesheet instanceMethod = false
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_preview_style 
+		 6: preview_style[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_preview_style 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_target 
+		 1: target[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_target 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_3 preview_style[3.0,2.5,] 
+		 2: COPY TYPE_PASS def_%v_4 preview_style[3.0,2.5,] 
+		 3: BRANCH preview_style[3.0,2.5,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: (ENABLED_KEY) def_%v_5 
+		 1: COPY TYPE_PASS def_preview_style %v_5[7.0,] 
+		 2: COPY TYPE_PASS def_%v_4 %v_5[7.0,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ENABLED_KEY) def_%v_6 
+		 2: preview_style->== def_%v_7 preview_style[7.1,3.0,2.5,] %v_6[8.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: BRANCH %v_7[8.2,] 
+BB 9
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ENABLED_KEY) def_%v_8 
+		 2: %self->enabled_stylesheet_contents def_%v_9 %self[2.0,] target[5.0,4.0,] 	 SYMBOL:	 ARGS:target,
+		 3: %self->stylesheet_link_tag def_%v_10 %self[9.2,2.0,] %v_8[9.1,] target[5.0,4.0,] %v_9[9.2,] 	 SYMBOL:	 ARGS:%v_8,target,%v_9,
+		 4: RETURN %v_10[9.3,] %self[9.2,9.3,2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->lookup_field def_%v_11 %self[2.0,] preview_style[7.1,3.0,2.5,] target[5.0,4.0,] 	 SYMBOL:stylesheet_link_tag,	 ARGS:preview_style,target,Symbol,
+		 2: RETURN %v_11[10.1,] %self[10.1,2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = lookup_field instanceMethod = false
+BB 1
+	outgoing: 20 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 5 18 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_key 
+		 6: RECEIVEARG def_target 
+		 7: RECEIVEARG def_field 
+		 8: 
+		 9: key->blank? def_%v_3 key[2.5,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_3[2.9,] 
+BB 4
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+BB 6
+	outgoing: 7 8 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: target->to_s def_%v_5 target[2.6,] 	 SYMBOL:	 ARGS:
+		 2: key->+ def_%v_6 key[2.5,] %v_5[6.1,] 	 SYMBOL:	 ARGS:%v_5,
+		 3: field->to_s def_%v_7 field[2.7,] 	 SYMBOL:	 ARGS:
+		 4: %v_6->+ def_%v_8 %v_6[6.2,] %v_7[6.3,] 	 SYMBOL:	 ARGS:%v_7,
+		 5: COPY TYPE_PASS def_cache_key %v_8[6.4,] 
+		 6: 
+		 7: GETFIELD %self->cache def_%v_9 %self[2.0,] 
+		 8: %v_9->[] def_%v_10 %v_9[6.7,] %v_8[6.4,] 	 SYMBOL:	 ARGS:cache_key,
+		 9: COPY TYPE_PASS def_lookup %v_10[6.8,] 
+		 10: 
+		 11: BRANCH %v_10[6.8,] 
+BB 7
+	outgoing: 18 20 
+	datadep: 
+	instructions:
+		 0: lookup->html_safe def_%v_11 lookup[6.9,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_11[7.0,] %self[2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 9
+	outgoing: 10 11 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ENABLED_KEY) def_%v_13 
+		 2: key->== def_%v_14 key[2.5,] %v_13[9.1,] 	 SYMBOL:	 ARGS:%v_13,
+		 3: BRANCH %v_14[9.2,] 
+BB 10
+	outgoing: 12 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->order def_%v_15 %self[2.0,] 	 SYMBOL:name,	 ARGS:Symbol,
+		 2: HASH-enabled- def_%v_16 
+		 3: %v_15->where def_%v_17 %v_15[10.1,] %v_16[10.2,] 	 SYMBOL:	 ARGS:%v_16,
+		 4: %v_17->to_a def_%v_18 %v_17[10.3,] 	 SYMBOL:	 ARGS:
+		 5: 
+BB 11
+	outgoing: 12 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-key- def_%v_19 key[2.5,] 
+		 2: %self->find_by def_%v_20 %self[2.0,] %v_19[11.1,] 	 SYMBOL:	 ARGS:%v_19,
+		 3: COPY TYPE_Array def_%v_21 %v_20[11.2,] 
+		 4: %v_21->compact def_%v_22 %v_21[11.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_%v_18 %v_22[11.4,] 
+BB 12
+	outgoing: 13 14 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_styles %v_18[11.5,10.4,] 
+		 1: 
+		 2: %v_18->present? def_%v_23 %v_18[11.5,10.4,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_23[12.2,] 
+BB 13
+	outgoing: 15 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: styles->map def_%v_24 styles[12.0,] %self[2.0,] 	 SYMBOL:	 ARGS:styles,
+CLOSURE BEGIN: target[2.6,] field[2.7,] %self[2.0,] lookup[6.9,] style[] 
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_style 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: target->== def_%cl_1_3 target[] 	 SYMBOL:mobile,	 ARGS:Symbol,
+		 2: BRANCH %cl_1_3[3.1,] 
+BB 4
+	outgoing: 6 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "mobile_" def_%cl_1_4 
+		 1: BUILDSTRING def_%cl_1_5 %cl_1_4[4.0,] field[] 
+		 2: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_1_5 field[] 
+BB 6
+	outgoing: 7 8 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_lookup %cl_1_5[5.0,4.1,] 
+		 1: 
+		 2: %self->html_fields def_%cl_1_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: lookup->to_s def_%cl_1_7 lookup[6.0,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_6->include? def_%cl_1_8 %cl_1_6[6.2,] %cl_1_7[6.3,] 	 SYMBOL:	 ARGS:%cl_1_7,
+		 5: BRANCH %cl_1_8[6.4,] 
+BB 7
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: style->ensure_baked! def_%cl_1_9 style[2.2,] lookup[6.0,] 	 SYMBOL:	 ARGS:lookup,
+		 2: 
+		 3: COPY TYPE_StringLiteral "_baked" def_%cl_1_10 
+		 4: BUILDSTRING def_%cl_1_11 lookup[6.0,] %cl_1_10[7.3,] 
+		 5: style->send def_%cl_1_12 style[7.1,2.2,] %cl_1_11[7.4,] 	 SYMBOL:	 ARGS:%cl_1_11,
+		 6: 
+BB 8
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: style->send def_%cl_1_13 style[2.2,] lookup[6.0,] 	 SYMBOL:	 ARGS:lookup,
+		 2: RETURN %cl_1_13[8.1,] %self[2.0,] 
+BB 9
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_12[7.5,] %self[2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_14 
+		 1: def_%cl_1_15 %cl_1_14[10.0,] 
+		 2: RETURN %cl_1_15[10.1,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: lookup[6.0,] 
+		 2: %v_24->compact def_%v_25 %v_24[13.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "
+" def_%v_26 
+		 4: %v_25->join def_%v_27 %v_25[13.2,] %v_26[13.3,] 	 SYMBOL:	 ARGS:%v_26,
+		 5: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_27 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_val %v_27[14.0,13.4,] 
+		 1: 
+		 2: GETFIELD %self->cache def_%v_28 %self[2.0,] 
+		 3: COPY TYPE_PASS def_%v_29 %v_27[14.0,13.4,] 
+		 4: BRANCH %v_27[14.0,13.4,] 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_30 
+		 1: COPY TYPE_PASS def_%v_29 %v_30[16.0,] 
+BB 17
+	outgoing: 18 20 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %v_28->[] cache_key[6.5,] %v_29[16.1,15.3,] 
+		 1: %v_29->html_safe def_%v_31 %v_29[16.1,15.3,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_31[17.1,] %self[2.0,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: def_%v_32 
+		 1: def_%v_33 %v_32[18.0,] 
+		 2: RETURN %v_33[18.1,] %self[2.0,] 
+BB 20
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = remove_from_cache! instanceMethod = false
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_key 
+		 6: RECEIVECONSTARG def_broadcast 
+		 7: broadcast[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Boolean def_broadcast 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH broadcast[3.0,2.6,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: (MessageBus) def_%v_3 
+		 1: COPY TYPE_StringLiteral "/site_customization" def_%v_4 
+		 2: HASH-key- def_%v_5 key[2.5,] 
+		 3: %v_3->publish def_%v_6 %v_3[5.0,] %v_4[5.1,] %v_5[5.2,] 	 SYMBOL:	 ARGS:%v_4,%v_5,
+		 4: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->clear_cache! def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_7[7.1,] %self[7.1,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = clear_cache! instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->cache def_%v_3 %self[2.0,] 
+		 7: %v_3->clear def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ensure_baked! instanceMethod = true
+BB 1
+	outgoing: 18 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_field 
+		 6: 
+		 7: COPY TYPE_StringLiteral "_baked" def_%v_3 
+		 8: BUILDSTRING def_%v_4 field[2.5,] %v_3[2.7,] 
+		 9: %self->send def_%v_5 %self[2.0,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: BRANCH %v_5[2.9,] 
+BB 3
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: RETURN %v_6[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 5 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->send def_%v_7 %self[2.0,] field[2.5,] 	 SYMBOL:	 ARGS:field,
+		 2: COPY TYPE_PASS def_val %v_7[4.1,] 
+		 3: BRANCH %v_7[4.1,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $! def_%v_8 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->process_html def_%v_11 %self[2.0,] val[4.2,] 	 SYMBOL:	 ARGS:val,
+		 2: COPY TYPE_PASS def_%v_10 %v_11[7.1,] 
+		 3: 
+		 4: %v_8[5.1,] 
+BB 8
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+BB 9
+	outgoing: 10 11 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_12 
+		 2: def_%v_13 %v_12[9.1,] 
+		 3: BRANCH %v_13[9.2,] 
+BB 10
+	outgoing: 13 18 
+	datadep: 
+	instructions:
+		 0: %v_12[9.1,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_14 
+		 1: COPY TYPE_PASS def_%v_10 %v_14[11.0,] 
+		 2: 
+		 3: %v_8[5.1,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+BB 13
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: def_%v_15 
+		 1: def_%v_16 %v_15[13.0,] %v_8[5.1,] 
+		 2: %v_15[13.0,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_val %v_10[7.2,11.1,] 
+		 1: 
+		 2: COPY TYPE_StringLiteral "_baked" def_%v_17 
+		 3: BUILDSTRING def_%v_18 field[2.5,] %v_17[14.2,] 
+		 4: HASH- def_%v_19 %v_18[14.3,] %v_10[7.2,11.1,] 
+		 5: %self->update_columns def_%v_20 %self[2.0,] %v_19[14.4,] 	 SYMBOL:	 ARGS:%v_19,
+		 6: 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_20 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: RETURN %v_20[15.0,14.5,] %self[2.0,] 
+BB 18
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = remove_from_cache! instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->class def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->class def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->enabled_key def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->remove_from_cache! def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: 
+		 11: %self->class def_%v_7 %self[2.0,2.6,2.7,] 	 SYMBOL:	 ARGS:
+		 12: %self->key def_%v_8 %self[2.0,2.6,2.7,2.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_7->remove_from_cache! def_%v_9 %v_7[2.11,] %v_8[2.12,] 	 SYMBOL:	 ARGS:%v_8,
+		 14: RETURN %v_9[2.13,] %self[2.0,2.6,2.7,2.11,2.12,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mobile_stylesheet_link_tag instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->stylesheet_link_tag def_%v_3 %self[2.0,] 	 SYMBOL:mobile,	 ARGS:Symbol,
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = stylesheet_link_tag instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_target 
+		 6: target[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_target 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteCustomization) def_%v_3 
+		 2: %v_3->field_for_target def_%v_4 %v_3[4.1,] target[3.0,2.5,] 	 SYMBOL:	 ARGS:target,
+		 3: %self->send def_%v_5 %self[2.0,] %v_4[4.2,] 	 SYMBOL:	 ARGS:%v_4,
+		 4: COPY TYPE_PASS def_content %v_5[4.3,] 
+		 5: 
+		 6: (SiteCustomization) def_%v_6 
+		 7: %self->key def_%v_7 %self[4.3,2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_6->stylesheet_link_tag def_%v_8 %v_6[4.6,] %v_7[4.7,] target[3.0,2.5,] content[4.4,] 	 SYMBOL:	 ARGS:%v_7,target,content,
+		 9: RETURN %v_8[4.8,] %self[4.3,4.7,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = stylesheet_link_tag instanceMethod = false
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_key 
+		 6: RECEIVEARG def_target 
+		 7: RECEIVEARG def_content 
+		 8: 
+		 9: content->present? def_%v_3 content[2.7,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_3[2.9,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: (Digest) def_%v_6 
+		 3: (inherit MD5) def_%v_7 %v_6[3.2,] 
+		 4: %v_7[3.3,] 
+BB 4
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_5 
+		 1: RETURN %v_5[4.0,] %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[3.2,] 	 SYMBOL:MD5,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_7->hexdigest def_%v_8 %v_7[6.0,3.3,] content[2.7,] 	 SYMBOL:	 ARGS:content,
+		 1: COPY TYPE_PASS def_hash %v_8[7.0,] 
+		 2: 
+		 3: COPY TYPE_StringLiteral "/site_customizations/" def_%v_9 
+		 4: COPY TYPE_StringLiteral ".css?target=" def_%v_10 
+		 5: COPY TYPE_StringLiteral "&v=" def_%v_11 
+		 6: BUILDSTRING def_%v_12 %v_9[7.3,] key[2.5,] %v_10[7.4,] target[2.6,] %v_11[7.5,] %v_8[7.0,] 
+		 7: %self->link_css_tag def_%v_13 %self[2.0,] %v_12[7.6,] 	 SYMBOL:	 ARGS:%v_12,
+		 8: RETURN %v_13[7.7,] %self[7.7,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = link_css_tag instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_href 
+		 6: 
+		 7: (GlobalSetting) def_%v_3 
+		 8: %v_3->cdn_url def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_5 
+		 1: COPY TYPE_PASS def_%v_4 %v_5[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (GlobalSetting) def_%v_6 
+		 1: %v_6->relative_url_root def_%v_7 %v_6[4.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "&__ws=" def_%v_8 
+		 3: (Discourse) def_%v_9 
+		 4: %v_9->current_hostname def_%v_10 %v_9[4.3,] 	 SYMBOL:	 ARGS:
+		 5: BUILDSTRING def_%v_11 %v_7[4.1,] href[2.5,] %v_8[4.2,] %v_10[4.4,] 
+		 6: %v_4->+ def_%v_12 %v_4[3.1,2.8,] %v_11[4.5,] 	 SYMBOL:	 ARGS:%v_11,
+		 7: COPY TYPE_PASS def_href %v_12[4.6,] 
+		 8: 
+		 9: COPY TYPE_StringLiteral "<link class="custom-css" rel="stylesheet" href="" def_%v_13 
+		 10: COPY TYPE_StringLiteral "" type="text/css" media="all">" def_%v_14 
+		 11: BUILDSTRING def_%v_15 %v_13[4.9,] %v_12[4.6,] %v_14[4.10,] 
+		 12: %v_15->html_safe def_%v_16 %v_15[4.11,] 	 SYMBOL:	 ARGS:
+		 13: RETURN %v_16[4.12,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

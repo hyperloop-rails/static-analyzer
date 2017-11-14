@@ -1,0 +1,3945 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_user 
+		 6: user[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_user 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_options 
+		 1: options[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[5.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (VALID_OPTIONS) def_%v_4 
+		 2: options->assert_valid_keys def_%v_5 options[5.1,4.0,] %v_4[6.1,] 	 SYMBOL:	 ARGS:%v_4,
+		 3: 
+		 4: options->dup def_%v_6 options[6.2,5.1,4.0,] 	 SYMBOL:	 ARGS:
+		 5: ATTRASSIGN %self->options %v_6[6.4,] 
+		 6: 
+		 7: ATTRASSIGN %self->user user[3.0,2.5,] 
+		 8: 
+		 9: (Guardian) def_%v_7 
+		 10: GETFIELD %self->user def_%v_8 %self[6.7,2.0,] 
+		 11: %v_7->new def_%v_9 %v_7[6.9,] %v_8[6.10,] 	 SYMBOL:	 ARGS:%v_8,
+		 12: ATTRASSIGN %self->guardian %v_9[6.11,] 
+		 13: RETURN %v_9[6.11,] %self[6.5,6.7,6.12,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = joined_topic_user instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_list 
+		 6: list[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_list 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_3 list[3.0,2.5,] 
+		 2: BRANCH list[3.0,2.5,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: (Topic) def_%v_4 
+		 1: COPY TYPE_PASS def_%v_3 %v_4[5.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "LEFT OUTER JOIN topic_users AS tu ON (topics.id = tu.topic_id AND tu.user_id = " def_%v_5 
+		 1: GETFIELD %self->user def_%v_6 %self[2.0,] 
+		 2: %v_6->id def_%v_7 %v_6[6.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_7->to_i def_%v_8 %v_7[6.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral ")" def_%v_9 
+		 5: BUILDSTRING def_%v_10 %v_5[6.0,] %v_8[6.3,] %v_9[6.4,] 
+		 6: %v_3->joins def_%v_11 %v_3[5.1,4.1,] %v_10[6.5,] 	 SYMBOL:	 ARGS:%v_10,
+		 7: RETURN %v_11[6.6,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = list_suggested_for instanceMethod = true
+BB 1
+	outgoing: 38 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_topic 
+		 6: 
+		 7: topic->private_message? def_%v_3 topic[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%v_4 %self[2.0,] 
+		 2: %v_4->! def_%v_5 %v_4[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_3 %v_5[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.3,2.7,] 
+BB 5
+	outgoing: 38 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: (SuggestedTopicsBuilder) def_%v_7 
+		 3: %v_7->new def_%v_8 %v_7[6.2,] topic[2.5,] 	 SYMBOL:	 ARGS:topic,
+		 4: COPY TYPE_PASS def_builder %v_8[6.3,] 
+		 5: 
+		 6: 
+		 7: topic->private_message? def_%v_9 topic[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_9[6.7,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: topic->topic_allowed_groups def_%v_10 topic[2.5,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "group_id IN (SELECT group_id FROM group_users WHERE user_id = :user_id)" def_%v_11 
+		 3: GETFIELD %self->user def_%v_12 %self[2.0,] 
+		 4: %v_12->id def_%v_13 %v_12[8.3,] 	 SYMBOL:	 ARGS:
+		 5: HASH-user_id- def_%v_14 %v_13[8.4,] 
+		 6: %v_10->where def_%v_15 %v_10[8.1,] %v_11[8.2,] %v_14[8.5,] 	 SYMBOL:	 ARGS:%v_11,%v_14,
+		 7: %v_15->pluck def_%v_16 %v_15[8.6,] 	 SYMBOL:group_id,	 ARGS:Symbol,
+		 8: COPY TYPE_PASS def_group_ids %v_16[8.7,] 
+		 9: 
+		 10: topic->topic_allowed_groups def_%v_17 topic[8.1,2.5,] 	 SYMBOL:	 ARGS:
+		 11: %v_17->pluck def_%v_18 %v_17[8.10,] 	 SYMBOL:group_id,	 ARGS:Symbol,
+		 12: topic->topic_allowed_users def_%v_19 topic[8.1,8.10,2.5,] 	 SYMBOL:	 ARGS:
+		 13: %v_19->pluck def_%v_20 %v_19[8.12,] 	 SYMBOL:user_id,	 ARGS:Symbol,
+		 14: GETFIELD %self->user def_%v_21 %self[2.0,] 
+		 15: %v_21->id def_%v_22 %v_21[8.14,] 	 SYMBOL:	 ARGS:
+		 16: COPY TYPE_Array def_%v_23 %v_22[8.15,] 
+		 17: %v_20->- def_%v_24 %v_20[8.13,] %v_23[8.16,] 	 SYMBOL:	 ARGS:%v_23,
+		 18: HASH-topic-my_group_ids-target_group_ids-target_user_ids- def_%v_25 topic[8.1,8.10,8.12,2.5,] group_ids[8.8,] %v_18[8.11,] %v_24[8.17,] 
+		 19: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_25 
+BB 10
+	outgoing: 11 24 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_pm_params %v_25[9.0,8.18,] 
+		 1: 
+		 2: 
+		 3: GETFIELD %self->user def_%v_26 %self[2.0,] 
+		 4: BRANCH %v_26[10.3,] 
+BB 11
+	outgoing: 12 19 
+	datadep: 
+	instructions:
+		 0: topic->private_message? def_%v_27 topic[2.5,] 	 SYMBOL:	 ARGS:
+		 1: BRANCH %v_27[11.0,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: builder->full? def_%v_28 builder[6.4,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_28[12.1,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_29 
+		 1: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: builder->results_left def_%v_30 builder[6.4,] 	 SYMBOL:	 ARGS:
+		 1: HASH-count- def_%v_31 %v_30[14.0,] 
+		 2: pm_params->merge def_%v_32 pm_params[10.0,] %v_31[14.1,] 	 SYMBOL:	 ARGS:%v_31,
+		 3: %self->new_messages def_%v_33 %self[2.0,] %v_32[14.2,] 	 SYMBOL:	 ARGS:%v_32,
+		 4: builder->add_results def_%v_34 builder[14.0,6.4,] %v_33[14.3,] 	 SYMBOL:	 ARGS:%v_33,
+		 5: COPY TYPE_PASS def_%v_29 %v_34[14.4,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: builder->full? def_%v_35 builder[6.4,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_35[15.1,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_36 
+		 1: 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: builder->results_left def_%v_37 builder[6.4,] 	 SYMBOL:	 ARGS:
+		 1: HASH-count- def_%v_38 %v_37[17.0,] 
+		 2: pm_params->merge def_%v_39 pm_params[10.0,] %v_38[17.1,] 	 SYMBOL:	 ARGS:%v_38,
+		 3: %self->unread_messages def_%v_40 %self[2.0,] %v_39[17.2,] 	 SYMBOL:	 ARGS:%v_39,
+		 4: builder->add_results def_%v_41 builder[17.0,6.4,] %v_40[17.3,] 	 SYMBOL:	 ARGS:%v_40,
+		 5: COPY TYPE_PASS def_%v_36 %v_41[17.4,] 
+BB 18
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: 
+BB 19
+	outgoing: 20 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: builder->results_left def_%v_42 builder[6.4,] 	 SYMBOL:	 ARGS:
+		 2: HASH-topic-per_page- def_%v_43 topic[2.5,] %v_42[19.1,] 
+		 3: %self->unread_results def_%v_44 %self[2.0,] %v_43[19.2,] 	 SYMBOL:	 ARGS:%v_43,
+		 4: builder->add_results def_%v_45 builder[19.1,6.4,] %v_44[19.3,] 	 SYMBOL:high,	 ARGS:%v_44,Symbol,
+		 5: 
+		 6: builder->full? def_%v_46 builder[19.1,19.4,6.4,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_46[19.6,] 
+BB 20
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_47 
+		 1: 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: builder->category_results_left def_%v_48 builder[6.4,] 	 SYMBOL:	 ARGS:
+		 1: HASH-topic-per_page- def_%v_49 topic[2.5,] %v_48[21.0,] 
+		 2: %self->new_results def_%v_50 %self[2.0,] %v_49[21.1,] 	 SYMBOL:	 ARGS:%v_49,
+		 3: builder->add_results def_%v_51 builder[21.0,6.4,] %v_50[21.2,] 	 SYMBOL:	 ARGS:%v_50,
+		 4: COPY TYPE_PASS def_%v_47 %v_51[21.3,] 
+BB 22
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_36 %v_47[21.4,20.0,] 
+BB 23
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: 
+BB 24
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_36 
+BB 25
+	outgoing: 26 30 
+	datadep: 
+	instructions:
+		 0: 
+		 1: topic->private_message? def_%v_52 topic[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_52[25.1,] 
+BB 26
+	outgoing: 27 28 
+	datadep: 
+	instructions:
+		 0: 
+		 1: pm_params->[] def_%v_53 pm_params[10.0,] 	 SYMBOL:my_group_ids,	 ARGS:Symbol,
+		 2: %v_53->present? def_%v_54 %v_53[26.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_54[26.2,] 
+BB 27
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: builder->results_left def_%v_55 builder[6.4,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_Array def_%v_56 %v_55[27.0,] 
+		 2: %v_56->max def_%v_57 %v_56[27.1,] 	 SYMBOL:	 ARGS:
+		 3: builder->excluded_topic_ids def_%v_58 builder[27.0,6.4,] 	 SYMBOL:	 ARGS:
+		 4: HASH-count-exclude- def_%v_59 %v_57[27.2,] %v_58[27.3,] 
+		 5: pm_params->merge def_%v_60 pm_params[10.0,] %v_59[27.4,] 	 SYMBOL:	 ARGS:%v_59,
+		 6: %self->related_messages_group def_%v_61 %self[2.0,] %v_60[27.5,] 	 SYMBOL:	 ARGS:%v_60,
+		 7: builder->add_results def_%v_62 builder[27.0,27.3,6.4,] %v_61[27.6,] 	 SYMBOL:	 ARGS:%v_61,
+		 8: 
+BB 28
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_62 
+BB 29
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: 
+		 1: builder->results_left def_%v_63 builder[6.4,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_Array def_%v_64 %v_63[29.1,] 
+		 3: %v_64->max def_%v_65 %v_64[29.2,] 	 SYMBOL:	 ARGS:
+		 4: builder->excluded_topic_ids def_%v_66 builder[29.1,6.4,] 	 SYMBOL:	 ARGS:
+		 5: HASH-count-exclude- def_%v_67 %v_65[29.3,] %v_66[29.4,] 
+		 6: pm_params->merge def_%v_68 pm_params[10.0,] %v_67[29.5,] 	 SYMBOL:	 ARGS:%v_67,
+		 7: %self->related_messages_user def_%v_69 %self[2.0,] %v_68[29.6,] 	 SYMBOL:	 ARGS:%v_68,
+		 8: builder->add_results def_%v_70 builder[29.1,29.4,6.4,] %v_69[29.7,] 	 SYMBOL:	 ARGS:%v_69,
+		 9: 
+BB 30
+	outgoing: 31 32 
+	datadep: 
+	instructions:
+		 0: 
+		 1: builder->full? def_%v_71 builder[6.4,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_71[30.1,] 
+BB 31
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_72 
+		 1: 
+BB 32
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: builder->results_left def_%v_73 builder[6.4,] 	 SYMBOL:	 ARGS:
+		 1: builder->excluded_topic_ids def_%v_74 builder[32.0,6.4,] 	 SYMBOL:	 ARGS:
+		 2: %self->random_suggested def_%v_75 %self[2.0,] topic[2.5,] %v_73[32.0,] %v_74[32.1,] 	 SYMBOL:	 ARGS:topic,%v_73,%v_74,
+		 3: builder->add_results def_%v_76 builder[32.0,32.1,6.4,] %v_75[32.2,] 	 SYMBOL:	 ARGS:%v_75,
+		 4: COPY TYPE_PASS def_%v_72 %v_76[32.3,] 
+BB 33
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_70 %v_72[32.4,31.0,] 
+BB 34
+	outgoing: 35 36 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-unordered- def_%v_77 
+		 2: COPY TYPE_PASS def_params %v_77[34.1,] 
+		 3: 
+		 4: topic->private_message? def_%v_78 topic[2.5,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %v_78[34.4,] 
+BB 35
+	outgoing: 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN params->[] 
+		 2: COPY TYPE_Boolean def_%v_79 
+		 3: 
+BB 36
+	outgoing: 37 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_79 
+BB 37
+	outgoing: 38 
+	datadep: 
+	instructions:
+		 0: 
+		 1: builder->results def_%v_80 builder[6.4,] 	 SYMBOL:	 ARGS:
+		 2: %self->create_list def_%v_81 %self[2.0,] params[35.1,34.2,] %v_80[37.1,] 	 SYMBOL:suggested,	 ARGS:Symbol,params,%v_80,
+		 3: RETURN %v_81[37.2,] %self[37.2,2.0,] 
+BB 38
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = list_latest instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: HASH- def_%v_3 
+		 7: %self->latest_results def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %self->create_list def_%v_5 %self[2.0,2.7,] %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:latest,	 ARGS:Symbol,%v_3,%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.7,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = list_read instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: HASH-unordered- def_%v_3 
+		 7: %self->create_list def_%v_4 %self[2.0,] %v_3[2.6,] %self[2.0,] 	 SYMBOL:read,	 ARGS:Symbol,%v_3,%self,
+CLOSURE BEGIN: topics[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_topics 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "COALESCE(tu.last_visited_at, topics.bumped_at) DESC" def_%cl_1_3 
+		 2: topics->order def_%cl_1_4 topics[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: RETURN %v_4[2.7,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = list_new instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: HASH-unordered- def_%v_3 
+		 7: %self->new_results def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %self->create_list def_%v_5 %self[2.0,2.7,] %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:new,	 ARGS:Symbol,%v_3,%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.7,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = list_unread instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: HASH-unordered- def_%v_3 
+		 7: %self->unread_results def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %self->create_list def_%v_5 %self[2.0,2.7,] %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:unread,	 ARGS:Symbol,%v_3,%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.7,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = list_posted instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->create_list def_%v_3 %self[2.0,] %self[2.0,] 	 SYMBOL:posted,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: l[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_l 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "tu.posted" def_%cl_1_3 
+		 2: l->where def_%cl_1_4 l[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = list_bookmarks instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->create_list def_%v_3 %self[2.0,] %self[2.0,] 	 SYMBOL:bookmarks,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: l[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_l 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "tu.bookmarked" def_%cl_1_3 
+		 2: l->where def_%cl_1_4 l[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = list_top_for instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_period 
+		 6: 
+		 7: COPY TYPE_StringLiteral "_score" def_%v_3 
+		 8: BUILDSTRING def_%v_4 period[2.5,] %v_3[2.7,] 
+		 9: COPY TYPE_PASS def_score %v_4[2.8,] 
+		 10: 
+		 11: HASH-unordered- def_%v_5 
+		 12: %self->create_list def_%v_6 %self[2.0,] %v_5[2.11,] %self[2.0,] 	 SYMBOL:top,	 ARGS:Symbol,%v_5,%self,
+CLOSURE BEGIN: topics[] score[2.9,] period[2.5,] %self[2.0,] 
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_topics 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: topics->joins def_%cl_1_3 topics[2.2,] 	 SYMBOL:top_topic,	 ARGS:Symbol,
+		 2: COPY TYPE_StringLiteral "top_topics." def_%cl_1_4 
+		 3: COPY TYPE_StringLiteral " > 0" def_%cl_1_5 
+		 4: BUILDSTRING def_%cl_1_6 %cl_1_4[3.2,] score[] %cl_1_5[3.3,] 
+		 5: %cl_1_3->where def_%cl_1_7 %cl_1_3[3.1,] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 6: COPY TYPE_PASS def_topics %cl_1_7[3.5,] 
+		 7: 
+		 8: period->== def_%cl_1_8 period[] 	 SYMBOL:yearly,	 ARGS:Symbol,
+		 9: BRANCH %cl_1_8[3.8,] 
+BB 4
+	outgoing: 5 9 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%cl_1_9 %self[2.0,] 
+		 1: %cl_1_9->try def_%cl_1_10 %cl_1_9[4.0,] 	 SYMBOL:trust_level,	 ARGS:Symbol,
+		 2: (TrustLevel) def_%cl_1_11 
+		 3: %cl_1_11->[] def_%cl_1_12 %cl_1_11[4.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: %cl_1_10->== def_%cl_1_13 %cl_1_10[4.1,] %cl_1_12[4.3,] 	 SYMBOL:	 ARGS:%cl_1_12,
+		 5: COPY TYPE_PASS def_%cl_1_8 %cl_1_13[4.4,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_8[4.5,3.8,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TopicQuerySQL) def_%cl_1_14 
+		 2: %cl_1_14->order_top_with_pinned_category_for def_%cl_1_15 %cl_1_14[6.1,] score[] 	 SYMBOL:	 ARGS:score,
+		 3: topics->order def_%cl_1_16 topics[3.6,] %cl_1_15[6.2,] 	 SYMBOL:	 ARGS:%cl_1_15,
+		 4: 
+BB 7
+	outgoing: 9 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TopicQuerySQL) def_%cl_1_17 
+		 2: %cl_1_17->order_top_for def_%cl_1_18 %cl_1_17[7.1,] score[] 	 SYMBOL:	 ARGS:score,
+		 3: topics->order def_%cl_1_19 topics[3.6,] %cl_1_18[7.2,] 	 SYMBOL:	 ARGS:%cl_1_18,
+		 4: RETURN %cl_1_19[7.3,] %self[2.0,] 
+BB 8
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_16[6.3,] %self[2.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_20 
+		 1: def_%cl_1_21 %cl_1_20[9.0,] 
+		 2: RETURN %cl_1_21[9.1,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 13: RETURN %v_6[2.12,] %self[2.0,2.12,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = list_topics_by instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: GETFIELD %self->options def_%v_3 %self[2.0,] 
+		 8: user->id def_%v_4 user[2.5,] 	 SYMBOL:	 ARGS:
+		 9: ATTRASSIGN %v_3->[] %v_4[2.8,] 
+		 10: 
+		 11: %self->create_list def_%v_5 %self[2.0,] %self[2.0,] 	 SYMBOL:user_topics,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: user[2.5,2.8,] topics[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_topics 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user->id def_%cl_1_3 user[] 	 SYMBOL:	 ARGS:
+		 2: HASH-user_id- def_%cl_1_4 %cl_1_3[3.1,] 
+		 3: topics->where def_%cl_1_5 topics[2.2,] %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:%cl_1_4,
+		 4: RETURN %cl_1_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 12: RETURN %v_5[2.11,] %self[2.0,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = not_archived instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_list 
+		 6: RECEIVEARG def_user 
+		 7: 
+		 8: COPY TYPE_StringLiteral "LEFT JOIN user_archived_messages um
+                       ON um.user_id = " def_%v_3 
+		 9: 
+		 10: user->id def_%v_4 user[2.6,] 	 SYMBOL:	 ARGS:
+		 11: %v_4->to_i def_%v_5 %v_4[2.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral " AND um.topic_id = topics.id" def_%v_6 
+		 13: BUILDSTRING def_%v_7 %v_3[2.8,] %v_5[2.11,] %v_6[2.12,] 
+		 14: list->joins def_%v_8 list[2.5,] %v_7[2.13,] 	 SYMBOL:	 ARGS:%v_7,
+		 15: COPY TYPE_StringLiteral "um.user_id IS NULL" def_%v_9 
+		 16: %v_8->where def_%v_10 %v_8[2.14,] %v_9[2.15,] 	 SYMBOL:	 ARGS:%v_9,
+		 17: RETURN %v_10[2.16,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = list_private_messages instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->private_messages_for def_%v_3 %self[2.0,] user[2.5,] 	 SYMBOL:user,	 ARGS:user,Symbol,
+		 8: COPY TYPE_PASS def_list %v_3[2.7,] 
+		 9: 
+		 10: %self->not_archived def_%v_4 %self[2.0,2.7,] %v_3[2.7,] user[2.5,] 	 SYMBOL:	 ARGS:list,user,
+		 11: COPY TYPE_StringLiteral "NOT (topics.participant_count = 1 AND topics.user_id = ?)" def_%v_5 
+		 12: user->id def_%v_6 user[2.5,] 	 SYMBOL:	 ARGS:
+		 13: %v_4->where def_%v_7 %v_4[2.10,] %v_5[2.11,] %v_6[2.12,] 	 SYMBOL:	 ARGS:%v_5,%v_6,
+		 14: COPY TYPE_PASS def_list %v_7[2.13,] 
+		 15: 
+		 16: HASH- def_%v_8 
+		 17: %self->create_list def_%v_9 %self[2.0,2.7,2.10,] %v_8[2.16,] %v_7[2.13,] 	 SYMBOL:private_messages,	 ARGS:Symbol,%v_8,list,
+		 18: RETURN %v_9[2.17,] %self[2.0,2.7,2.10,2.17,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = list_private_messages_archive instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->private_messages_for def_%v_3 %self[2.0,] user[2.5,] 	 SYMBOL:user,	 ARGS:user,Symbol,
+		 8: COPY TYPE_PASS def_list %v_3[2.7,] 
+		 9: 
+		 10: %v_3->joins def_%v_4 %v_3[2.7,] 	 SYMBOL:user_archived_messages,	 ARGS:Symbol,
+		 11: COPY TYPE_StringLiteral "user_archived_messages.user_id = ?" def_%v_5 
+		 12: user->id def_%v_6 user[2.5,] 	 SYMBOL:	 ARGS:
+		 13: %v_4->where def_%v_7 %v_4[2.10,] %v_5[2.11,] %v_6[2.12,] 	 SYMBOL:	 ARGS:%v_5,%v_6,
+		 14: COPY TYPE_PASS def_list %v_7[2.13,] 
+		 15: 
+		 16: HASH- def_%v_8 
+		 17: %self->create_list def_%v_9 %self[2.0,2.7,] %v_8[2.16,] %v_7[2.13,] 	 SYMBOL:private_messages,	 ARGS:Symbol,%v_8,list,
+		 18: RETURN %v_9[2.17,] %self[2.0,2.7,2.17,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = list_private_messages_sent instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->private_messages_for def_%v_3 %self[2.0,] user[2.5,] 	 SYMBOL:user,	 ARGS:user,Symbol,
+		 8: COPY TYPE_PASS def_list %v_3[2.7,] 
+		 9: 
+		 10: COPY TYPE_StringLiteral "EXISTS (
+                      SELECT 1 FROM posts
+                      WHERE posts.topic_id = topics.id AND
+                            posts.user_id = ?
+                     )" def_%v_4 
+		 11: user->id def_%v_5 user[2.5,] 	 SYMBOL:	 ARGS:
+		 12: list->where def_%v_6 list[2.8,] %v_4[2.10,] %v_5[2.11,] 	 SYMBOL:	 ARGS:%v_4,%v_5,
+		 13: COPY TYPE_PASS def_list %v_6[2.12,] 
+		 14: 
+		 15: %self->not_archived def_%v_7 %self[2.0,2.7,] %v_6[2.12,] user[2.5,2.11,] 	 SYMBOL:	 ARGS:list,user,
+		 16: COPY TYPE_PASS def_list %v_7[2.15,] 
+		 17: 
+		 18: HASH- def_%v_8 
+		 19: %self->create_list def_%v_9 %self[2.0,2.7,2.15,] %v_8[2.18,] %v_7[2.15,] 	 SYMBOL:private_messages,	 ARGS:Symbol,%v_8,list,
+		 20: RETURN %v_9[2.19,] %self[2.0,2.7,2.15,2.19,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = list_private_messages_unread instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->private_messages_for def_%v_3 %self[2.0,] user[2.5,] 	 SYMBOL:user,	 ARGS:user,Symbol,
+		 8: COPY TYPE_PASS def_list %v_3[2.7,] 
+		 9: 
+		 10: COPY TYPE_StringLiteral "tu.last_read_post_number IS NULL OR tu.last_read_post_number < topics.highest_post_number" def_%v_4 
+		 11: %v_3->where def_%v_5 %v_3[2.7,] %v_4[2.10,] 	 SYMBOL:	 ARGS:%v_4,
+		 12: COPY TYPE_PASS def_list %v_5[2.11,] 
+		 13: 
+		 14: HASH- def_%v_6 
+		 15: %self->create_list def_%v_7 %self[2.0,2.7,] %v_6[2.14,] %v_5[2.11,] 	 SYMBOL:private_messages,	 ARGS:Symbol,%v_6,list,
+		 16: RETURN %v_7[2.15,] %self[2.0,2.7,2.15,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = list_private_messages_group instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->private_messages_for def_%v_3 %self[2.0,] user[2.5,] 	 SYMBOL:group,	 ARGS:user,Symbol,
+		 8: COPY TYPE_PASS def_list %v_3[2.7,] 
+		 9: 
+		 10: (Group) def_%v_4 
+		 11: COPY TYPE_StringLiteral "name ilike ?" def_%v_5 
+		 12: GETFIELD %self->options def_%v_6 %self[2.0,2.7,] 
+		 13: %v_6->[] def_%v_7 %v_6[2.12,] 	 SYMBOL:group_name,	 ARGS:Symbol,
+		 14: %v_4->where def_%v_8 %v_4[2.10,] %v_5[2.11,] %v_7[2.13,] 	 SYMBOL:	 ARGS:%v_5,%v_7,
+		 15: %v_8->pluck def_%v_9 %v_8[2.14,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 16: %v_9->first def_%v_10 %v_9[2.15,] 	 SYMBOL:	 ARGS:
+		 17: COPY TYPE_PASS def_group_id %v_10[2.16,] 
+		 18: 
+		 19: COPY TYPE_StringLiteral "LEFT JOIN group_archived_messages gm ON gm.topic_id = topics.id AND
+                      gm.group_id = " def_%v_11 
+		 20: 
+		 21: %v_10->to_i def_%v_12 %v_10[2.16,] 	 SYMBOL:	 ARGS:
+		 22: BUILDSTRING def_%v_13 %v_11[2.19,] %v_12[2.21,] 
+		 23: list->joins def_%v_14 list[2.8,] %v_13[2.22,] 	 SYMBOL:	 ARGS:%v_13,
+		 24: COPY TYPE_PASS def_list %v_14[2.23,] 
+		 25: 
+		 26: COPY TYPE_StringLiteral "gm.id IS NULL" def_%v_15 
+		 27: %v_14->where def_%v_16 %v_14[2.23,] %v_15[2.26,] 	 SYMBOL:	 ARGS:%v_15,
+		 28: COPY TYPE_PASS def_list %v_16[2.27,] 
+		 29: 
+		 30: HASH- def_%v_17 
+		 31: %self->create_list def_%v_18 %self[2.0,2.7,] %v_17[2.30,] %v_16[2.27,] 	 SYMBOL:private_messages,	 ARGS:Symbol,%v_17,list,
+		 32: RETURN %v_18[2.31,] %self[2.0,2.7,2.31,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = list_private_messages_group_archive instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->private_messages_for def_%v_3 %self[2.0,] user[2.5,] 	 SYMBOL:group,	 ARGS:user,Symbol,
+		 8: COPY TYPE_PASS def_list %v_3[2.7,] 
+		 9: 
+		 10: (Group) def_%v_4 
+		 11: COPY TYPE_StringLiteral "name ilike ?" def_%v_5 
+		 12: GETFIELD %self->options def_%v_6 %self[2.0,2.7,] 
+		 13: %v_6->[] def_%v_7 %v_6[2.12,] 	 SYMBOL:group_name,	 ARGS:Symbol,
+		 14: %v_4->where def_%v_8 %v_4[2.10,] %v_5[2.11,] %v_7[2.13,] 	 SYMBOL:	 ARGS:%v_5,%v_7,
+		 15: %v_8->pluck def_%v_9 %v_8[2.14,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 16: %v_9->first def_%v_10 %v_9[2.15,] 	 SYMBOL:	 ARGS:
+		 17: COPY TYPE_PASS def_group_id %v_10[2.16,] 
+		 18: 
+		 19: COPY TYPE_StringLiteral "JOIN group_archived_messages gm ON gm.topic_id = topics.id AND
+                      gm.group_id = " def_%v_11 
+		 20: 
+		 21: %v_10->to_i def_%v_12 %v_10[2.16,] 	 SYMBOL:	 ARGS:
+		 22: BUILDSTRING def_%v_13 %v_11[2.19,] %v_12[2.21,] 
+		 23: list->joins def_%v_14 list[2.8,] %v_13[2.22,] 	 SYMBOL:	 ARGS:%v_13,
+		 24: COPY TYPE_PASS def_list %v_14[2.23,] 
+		 25: 
+		 26: HASH- def_%v_15 
+		 27: %self->create_list def_%v_16 %self[2.0,2.7,] %v_15[2.26,] %v_14[2.23,] 	 SYMBOL:private_messages,	 ARGS:Symbol,%v_15,list,
+		 28: RETURN %v_16[2.27,] %self[2.0,2.7,2.27,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = list_category_topic_ids instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_category 
+		 6: 
+		 7: category->id def_%v_3 category[2.5,] 	 SYMBOL:	 ARGS:
+		 8: HASH-category- def_%v_4 %v_3[2.7,] 
+		 9: %self->default_results def_%v_5 %self[2.0,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: COPY TYPE_PASS def_query %v_5[2.9,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "pinned_at IS NOT NULL AND category_id = ?" def_%v_6 
+		 13: category->id def_%v_7 category[2.5,2.7,] 	 SYMBOL:	 ARGS:
+		 14: query->where def_%v_8 query[2.10,] %v_6[2.12,] %v_7[2.13,] 	 SYMBOL:	 ARGS:%v_6,%v_7,
+		 15: %v_8->limit def_%v_9 %v_8[2.14,] 	 SYMBOL:	 ARGS:Nil,
+		 16: COPY TYPE_StringLiteral "pinned_at DESC" def_%v_10 
+		 17: %v_9->order def_%v_11 %v_9[2.15,] %v_10[2.16,] 	 SYMBOL:	 ARGS:%v_10,
+		 18: %v_11->pluck def_%v_12 %v_11[2.17,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 19: COPY TYPE_PASS def_pinned_ids %v_12[2.18,] 
+		 20: 
+		 21: COPY TYPE_StringLiteral "pinned_at IS NULL OR category_id <> ?" def_%v_13 
+		 22: category->id def_%v_14 category[2.5,2.7,2.13,] 	 SYMBOL:	 ARGS:
+		 23: query->where def_%v_15 query[2.10,2.14,] %v_13[2.21,] %v_14[2.22,] 	 SYMBOL:	 ARGS:%v_13,%v_14,
+		 24: %v_15->pluck def_%v_16 %v_15[2.23,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 25: COPY TYPE_PASS def_non_pinned_ids %v_16[2.24,] 
+		 26: 
+		 27: pinned_ids->+ def_%v_17 pinned_ids[2.19,] %v_16[2.24,] 	 SYMBOL:	 ARGS:non_pinned_ids,
+		 28: RETURN %v_17[2.27,] %self[2.0,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = list_new_in_category instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_category 
+		 6: 
+		 7: category->id def_%v_3 category[2.5,] 	 SYMBOL:	 ARGS:
+		 8: HASH-unordered-category- def_%v_4 %v_3[2.7,] 
+		 9: %self->create_list def_%v_5 %self[2.0,] %v_4[2.8,] %self[2.0,] 	 SYMBOL:new_in_category,	 ARGS:Symbol,%v_4,%self,
+CLOSURE BEGIN: list[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_list 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: list->by_newest def_%cl_1_3 list[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_3->first def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: RETURN %v_5[2.9,] %self[2.0,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = new_filter instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_list 
+		 6: RECEIVEARG def_treat_as_new_topic_start_date 
+		 7: 
+		 8: COPY TYPE_StringLiteral "topics.created_at >= :created_at" def_%v_3 
+		 9: HASH-created_at- def_%v_4 treat_as_new_topic_start_date[2.6,] 
+		 10: list->where def_%v_5 list[2.5,] %v_3[2.8,] %v_4[2.9,] 	 SYMBOL:	 ARGS:%v_3,%v_4,
+		 11: COPY TYPE_StringLiteral "tu.last_read_post_number IS NULL" def_%v_6 
+		 12: %v_5->where def_%v_7 %v_5[2.10,] %v_6[2.11,] 	 SYMBOL:	 ARGS:%v_6,
+		 13: COPY TYPE_StringLiteral "COALESCE(tu.notification_level, :tracking) >= :tracking" def_%v_8 
+		 14: (TopicUser) def_%v_9 
+		 15: %v_9->notification_levels def_%v_10 %v_9[2.14,] 	 SYMBOL:	 ARGS:
+		 16: %v_10->[] def_%v_11 %v_10[2.15,] 	 SYMBOL:tracking,	 ARGS:Symbol,
+		 17: HASH-tracking- def_%v_12 %v_11[2.16,] 
+		 18: %v_7->where def_%v_13 %v_7[2.12,] %v_8[2.13,] %v_12[2.17,] 	 SYMBOL:	 ARGS:%v_8,%v_12,
+		 19: RETURN %v_13[2.18,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = unread_filter instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_list 
+		 6: 
+		 7: COPY TYPE_StringLiteral "tu.last_read_post_number < topics.highest_post_number" def_%v_3 
+		 8: list->where def_%v_4 list[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: COPY TYPE_StringLiteral "COALESCE(tu.notification_level, :regular) >= :tracking" def_%v_5 
+		 10: (TopicUser) def_%v_6 
+		 11: %v_6->notification_levels def_%v_7 %v_6[2.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_7->[] def_%v_8 %v_7[2.11,] 	 SYMBOL:regular,	 ARGS:Symbol,
+		 13: (TopicUser) def_%v_9 
+		 14: %v_9->notification_levels def_%v_10 %v_9[2.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_10->[] def_%v_11 %v_10[2.14,] 	 SYMBOL:tracking,	 ARGS:Symbol,
+		 16: HASH-regular-tracking- def_%v_12 %v_8[2.12,] %v_11[2.15,] 
+		 17: %v_4->where def_%v_13 %v_4[2.8,] %v_5[2.9,] %v_12[2.16,] 	 SYMBOL:	 ARGS:%v_5,%v_12,
+		 18: RETURN %v_13[2.17,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = prioritize_pinned_topics instanceMethod = true
+BB 1
+	outgoing: 23 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_topics 
+		 6: RECEIVEARG def_options 
+		 7: 
+		 8: options->[] def_%v_3 options[2.6,] 	 SYMBOL:category_id,	 ARGS:Symbol,
+		 9: BRANCH %v_3[2.8,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "topics.category_id = " def_%v_4 
+		 1: options->[] def_%v_5 options[2.6,] 	 SYMBOL:category_id,	 ARGS:Symbol,
+		 2: %v_5->to_i def_%v_6 %v_5[3.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral " AND" def_%v_7 
+		 4: BUILDSTRING def_%v_8 %v_4[3.0,] %v_6[3.2,] %v_7[3.3,] 
+		 5: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "pinned_globally AND " def_%v_9 
+		 1: COPY TYPE_PASS def_%v_8 %v_9[4.0,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_pinned_clause %v_8[4.1,3.4,] 
+		 1: 
+		 2: COPY TYPE_StringLiteral " pinned_at IS NOT NULL " def_%v_10 
+		 3: %v_8-><< def_%v_11 %v_8[4.1,3.4,] %v_10[5.2,] 	 SYMBOL:	 ARGS:%v_10,
+		 4: 
+		 5: 
+		 6: GETFIELD %self->user def_%v_12 %self[2.0,] 
+		 7: BRANCH %v_12[5.6,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral " AND (topics.pinned_at > tu.cleared_pinned_at OR tu.cleared_pinned_at IS NULL)" def_%v_13 
+		 1: pinned_clause-><< def_%v_14 pinned_clause[5.0,] %v_13[6.0,] 	 SYMBOL:	 ARGS:%v_13,
+		 2: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "NOT ( " def_%v_15 
+		 2: COPY TYPE_StringLiteral " )" def_%v_16 
+		 3: BUILDSTRING def_%v_17 %v_15[8.1,] pinned_clause[5.0,] %v_16[8.2,] 
+		 4: topics->where def_%v_18 topics[2.5,] %v_17[8.3,] 	 SYMBOL:	 ARGS:%v_17,
+		 5: COPY TYPE_PASS def_unpinned_topics %v_18[8.4,] 
+		 6: 
+		 7: topics->dup def_%v_19 topics[8.4,2.5,] 	 SYMBOL:	 ARGS:
+		 8: %v_19->offset def_%v_20 %v_19[8.7,] 	 SYMBOL:	 ARGS:Nil,
+		 9: %v_20->where def_%v_21 %v_20[8.8,] pinned_clause[5.0,] 	 SYMBOL:	 ARGS:pinned_clause,
+		 10: COPY TYPE_PASS def_pinned_topics %v_21[8.9,] 
+		 11: 
+		 12: options->[] def_%v_22 options[2.6,] 	 SYMBOL:per_page,	 ARGS:Symbol,
+		 13: BRANCH %v_22[8.12,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %self->per_page_setting def_%v_23 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_22 %v_23[9.0,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_per_page %v_22[9.1,8.12,] 
+		 1: 
+		 2: options->[] def_%v_24 options[2.6,] 	 SYMBOL:limit,	 ARGS:Symbol,
+		 3: %v_24->== def_%v_25 %v_24[10.2,] 	 SYMBOL:	 ARGS:Boolean,
+		 4: BRANCH %v_25[10.3,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_26 
+		 1: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_limit per_page[10.0,] 
+		 1: COPY TYPE_PASS def_%v_26 per_page[10.0,] 
+BB 13
+	outgoing: 14 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_27 options[2.6,] 	 SYMBOL:page,	 ARGS:Symbol,
+		 2: %v_27->to_i def_%v_28 %v_27[13.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_page %v_28[13.2,] 
+		 4: 
+		 5: %v_28->== def_%v_29 %v_28[13.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 6: BRANCH %v_29[13.5,] 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH limit[12.0,] 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: pinned_topics->+ def_%v_30 pinned_topics[8.10,] unpinned_topics[8.5,] 	 SYMBOL:	 ARGS:unpinned_topics,
+		 1: CONSTANT def_%v_31 limit[12.0,] 
+		 2: %v_30->[] def_%v_32 %v_30[15.0,] %v_31[15.1,] 	 SYMBOL:	 ARGS:%v_31,
+		 3: 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_32 
+BB 17
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: RETURN %v_32[16.0,15.2,] %self[2.0,] 
+BB 18
+	outgoing: 19 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: page->* def_%v_33 page[13.3,] per_page[10.0,] 	 SYMBOL:	 ARGS:per_page,
+		 2: pinned_topics->count def_%v_34 pinned_topics[8.10,] 	 SYMBOL:	 ARGS:
+		 3: %v_33->- def_%v_35 %v_33[18.1,] %v_34[18.2,] 	 SYMBOL:	 ARGS:%v_34,
+		 4: %v_35->- def_%v_36 %v_35[18.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: COPY TYPE_PASS def_offset %v_36[18.4,] 
+		 6: 
+		 7: %v_36->> def_%v_37 %v_36[18.4,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: BRANCH %v_37[18.7,] 
+BB 19
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_38 
+		 1: 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_offset 
+		 1: COPY TYPE_Fixnum def_%v_38 
+BB 21
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: unpinned_topics->offset def_%v_39 unpinned_topics[8.5,] offset[20.0,18.5,] 	 SYMBOL:	 ARGS:offset,
+		 2: %v_39->to_a def_%v_40 %v_39[21.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %v_40[21.2,] %self[2.0,] 
+BB 23
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create_list instanceMethod = true
+BB 1
+	outgoing: 24 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_filter 
+		 6: RECEIVECONSTARG def_options 
+		 7: options[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_topics 
+		 1: topics[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_topics 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_4 topics[5.0,4.0,] 
+		 2: COPY TYPE_PASS def_%v_5 topics[5.0,4.0,] 
+		 3: BRANCH topics[5.0,4.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->default_results def_%v_6 %self[2.0,] options[3.1,2.6,] 	 SYMBOL:	 ARGS:options,
+		 1: COPY TYPE_PASS def_topics %v_6[7.0,] 
+		 2: COPY TYPE_PASS def_%v_5 %v_6[7.0,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->block_given? def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_7[8.1,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: def_%v_8 %v_0[2.1,] topics[7.1,5.0,4.0,] 
+		 1: COPY TYPE_PASS def_topics %v_8[9.0,] 
+		 2: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->options def_%v_9 %self[2.0,] 
+		 2: options->merge def_%v_10 options[3.1,2.6,] %v_9[11.1,] 	 SYMBOL:	 ARGS:%v_9,
+		 3: COPY TYPE_PASS def_options %v_10[11.2,] 
+		 4: 
+		 5: COPY TYPE_StringLiteral "activity" def_%v_11 
+		 6: COPY TYPE_StringLiteral "default" def_%v_12 
+		 7: COPY TYPE_Array def_%v_13 %v_11[11.5,] %v_12[11.6,] 
+		 8: %v_10->[] def_%v_14 %v_10[11.2,] 	 SYMBOL:order,	 ARGS:Symbol,
+		 9: BRANCH %v_14[11.8,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "activity" def_%v_15 
+		 1: COPY TYPE_PASS def_%v_14 %v_15[12.0,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: %v_13->include? def_%v_16 %v_13[11.7,] %v_14[12.1,11.8,] 	 SYMBOL:	 ARGS:%v_14,
+		 1: BRANCH %v_16[13.0,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_17 options[11.3,] 	 SYMBOL:unordered,	 ARGS:Symbol,
+		 2: %v_17->! def_%v_18 %v_17[14.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_16 %v_18[14.2,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_16[14.3,13.0,] 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: filter->!= def_%v_19 filter[2.5,] 	 SYMBOL:private_messages,	 ARGS:Symbol,
+		 1: COPY TYPE_PASS def_%v_16 %v_19[16.0,] 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_16[16.1,14.3,13.0,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->prioritize_pinned_topics def_%v_20 %self[2.0,] topics[9.1,7.1,5.0,4.0,] options[11.3,] 	 SYMBOL:	 ARGS:topics,options,
+		 2: COPY TYPE_PASS def_topics %v_20[18.1,] 
+		 3: 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_20 
+BB 20
+	outgoing: 21 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: topics->to_a def_%v_21 topics[18.2,9.1,7.1,5.0,4.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_topics %v_21[20.1,] 
+		 3: 
+		 4: options->[] def_%v_22 options[11.3,] 	 SYMBOL:preload_posters,	 ARGS:Symbol,
+		 5: BRANCH %v_22[20.4,] 
+BB 21
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Array def_%v_23 
+		 2: COPY TYPE_PASS def_user_ids %v_23[21.1,] 
+		 3: 
+		 4: topics->each def_%v_24 topics[20.2,] %self[2.0,] 	 SYMBOL:	 ARGS:topics,
+CLOSURE BEGIN: ft[] user_ids[21.2,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_ft 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ft->user_id def_%cl_1_3 ft[2.2,] 	 SYMBOL:	 ARGS:
+		 2: user_ids-><< def_%cl_1_4 user_ids[] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: ft->last_post_user_id def_%cl_1_5 ft[3.1,2.2,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_4-><< def_%cl_1_6 %cl_1_4[3.2,] %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:%cl_1_5,
+		 5: ft->featured_user_ids def_%cl_1_7 ft[3.1,3.3,2.2,] 	 SYMBOL:	 ARGS:
+		 6: %cl_1_6-><< def_%cl_1_8 %cl_1_6[3.4,] %cl_1_7[3.5,] 	 SYMBOL:	 ARGS:%cl_1_7,
+		 7: ft->allowed_user_ids def_%cl_1_9 ft[3.1,3.3,3.5,2.2,] 	 SYMBOL:	 ARGS:
+		 8: %cl_1_8-><< def_%cl_1_10 %cl_1_8[3.6,] %cl_1_9[3.7,] 	 SYMBOL:	 ARGS:%cl_1_9,
+		 9: RETURN %cl_1_10[3.8,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_11 
+		 1: def_%cl_1_12 %cl_1_11[4.0,] 
+		 2: RETURN %cl_1_12[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 5: 
+		 6: (AvatarLookup) def_%v_25 
+		 7: %v_25->new def_%v_26 %v_25[21.6,] user_ids[21.2,] 	 SYMBOL:	 ARGS:user_ids,
+		 8: COPY TYPE_PASS def_avatar_lookup %v_26[21.7,] 
+		 9: 
+		 10: topics->each def_%v_27 topics[21.4,20.2,] %self[2.0,] 	 SYMBOL:	 ARGS:topics,
+CLOSURE BEGIN: avatar_lookup[21.8,] t[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_t 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-avatar_lookup- def_%cl_2_3 avatar_lookup[] 
+		 2: t->posters_summary def_%cl_2_4 t[2.2,] %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:%cl_2_3,
+		 3: ATTRASSIGN t->posters %cl_2_4[3.2,] 
+		 4: RETURN %cl_2_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_5 
+		 1: def_%cl_2_6 %cl_2_5[4.0,] 
+		 2: RETURN %cl_2_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 11: 
+BB 22
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_27 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: topics->each def_%v_28 topics[20.2,] %self[2.0,] 	 SYMBOL:	 ARGS:topics,
+CLOSURE BEGIN: filter[16.0,2.5,] t[21.10,] %self[2.0,] u[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_t 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: filter->== def_%cl_3_3 filter[] 	 SYMBOL:private_messages,	 ARGS:Symbol,
+		 2: BRANCH %cl_3_3[3.1,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: t->allowed_users def_%cl_3_4 t[2.2,] 	 SYMBOL:	 ARGS:
+		 1: %cl_3_4->map def_%cl_3_5 %cl_3_4[4.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%cl_3_4,
+CLOSURE BEGIN: u[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: RECEIVEARG def_u 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: u->id def_%cl_4_3 u[2.2,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_4_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_4_4 
+		 1: def_%cl_4_5 %cl_4_4[4.0,] 
+		 2: RETURN %cl_4_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%cl_3_6 
+		 1: COPY TYPE_PASS def_%cl_3_5 %cl_3_6[5.0,] 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN t->allowed_user_ids %cl_3_5[5.1,4.1,] 
+		 1: RETURN %cl_3_5[5.1,4.1,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_7 
+		 1: def_%cl_3_8 %cl_3_7[7.0,] 
+		 2: RETURN %cl_3_8[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: (TopicList) def_%v_29 
+		 4: GETFIELD %self->user def_%v_30 %self[2.0,] 
+		 5: GETFIELD %self->options def_%v_31 %self[2.0,] 
+		 6: options->merge def_%v_32 options[11.3,] %v_31[23.5,] 	 SYMBOL:	 ARGS:%v_31,
+		 7: %v_29->new def_%v_33 %v_29[23.3,] filter[16.0,2.5,] %v_30[23.4,] topics[23.1,20.2,] %v_32[23.6,] 	 SYMBOL:	 ARGS:filter,%v_30,topics,%v_32,
+		 8: COPY TYPE_PASS def_list %v_33[23.7,] 
+		 9: 
+		 10: %self->per_page_setting def_%v_34 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 11: ATTRASSIGN list->per_page %v_34[23.10,] 
+		 12: 
+		 13: RETURN list[23.8,23.11,] %self[23.10,2.0,] 
+BB 24
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = latest_results instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_options 
+		 6: options[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->default_results def_%v_4 %self[2.0,] options[3.1,2.5,] 	 SYMBOL:	 ARGS:options,
+		 2: COPY TYPE_PASS def_result %v_4[4.1,] 
+		 3: 
+		 4: COPY TYPE_PASS def_%v_5 options[3.1,2.5,] 
+		 5: BRANCH options[3.1,2.5,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: options->[] def_%v_6 options[3.1,2.5,] 	 SYMBOL:state,	 ARGS:Symbol,
+		 1: %v_6->== def_%v_7 %v_6[5.0,] 	 SYMBOL:	 ARGS:FrozenString,
+		 2: COPY TYPE_PASS def_%v_5 %v_7[5.1,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[5.2,4.4,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_9 %self[2.0,] 
+		 1: %self->remove_muted_topics def_%v_10 %self[2.0,] result[4.2,] %v_9[8.0,] 	 SYMBOL:	 ARGS:result,%v_9,
+		 2: COPY TYPE_PASS def_result %v_10[8.1,] 
+		 3: COPY TYPE_PASS def_%v_8 %v_10[8.1,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%v_11 %self[2.0,] 
+		 2: options->[] def_%v_12 options[3.1,2.5,] 	 SYMBOL:category,	 ARGS:Symbol,
+		 3: HASH-exclude- def_%v_13 %v_12[9.2,] 
+		 4: %self->remove_muted_categories def_%v_14 %self[2.0,] result[8.2,4.2,] %v_11[9.1,] %v_13[9.3,] 	 SYMBOL:	 ARGS:result,%v_11,%v_13,
+		 5: COPY TYPE_PASS def_result %v_14[9.4,] 
+		 6: 
+		 7: %self->class def_%v_15 %self[9.4,2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_15->results_filter_callbacks def_%v_16 %v_15[9.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_16->each def_%v_17 %v_16[9.8,] %self[9.4,9.7,2.0,] 	 SYMBOL:	 ARGS:%v_16,
+CLOSURE BEGIN: %self[9.4,9.7,2.0,] filter_callback[] result[9.5,] options[9.2,3.1,2.5,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_filter_callback 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%cl_1_3 %self[2.0,] 
+		 2: filter_callback->call def_%cl_1_4 filter_callback[2.2,] result[] %cl_1_3[3.1,] options[] 	 SYMBOL:latest,	 ARGS:Symbol,result,%cl_1_3,options,
+		 3: COPY TYPE_PASS def_result %cl_1_4[3.2,] 
+		 4: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: result[3.3,] 
+		 10: 
+		 11: RETURN result[9.5,9.9,] %self[9.4,9.7,2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = unread_results instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_options 
+		 6: options[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TopicQuery) def_%v_4 
+		 2: HASH-unordered- def_%v_5 
+		 3: options->reverse_merge def_%v_6 options[3.1,2.5,] %v_5[4.2,] 	 SYMBOL:	 ARGS:%v_5,
+		 4: %self->default_results def_%v_7 %self[2.0,] %v_6[4.3,] 	 SYMBOL:	 ARGS:%v_6,
+		 5: %v_4->unread_filter def_%v_8 %v_4[4.1,] %v_7[4.4,] 	 SYMBOL:	 ARGS:%v_7,
+		 6: COPY TYPE_StringLiteral "CASE WHEN topics.user_id = tu.user_id THEN 1 ELSE 2 END" def_%v_9 
+		 7: %v_8->order def_%v_10 %v_8[4.5,] %v_9[4.6,] 	 SYMBOL:	 ARGS:%v_9,
+		 8: COPY TYPE_PASS def_result %v_10[4.7,] 
+		 9: 
+		 10: %self->class def_%v_11 %self[4.4,2.0,] 	 SYMBOL:	 ARGS:
+		 11: %v_11->results_filter_callbacks def_%v_12 %v_11[4.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_12->each def_%v_13 %v_12[4.11,] %self[4.4,4.10,2.0,] 	 SYMBOL:	 ARGS:%v_12,
+CLOSURE BEGIN: %self[4.4,4.10,2.0,] filter_callback[] result[4.8,] options[4.3,3.1,2.5,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_filter_callback 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%cl_1_3 %self[2.0,] 
+		 2: filter_callback->call def_%cl_1_4 filter_callback[2.2,] result[] %cl_1_3[3.1,] options[] 	 SYMBOL:unread,	 ARGS:Symbol,result,%cl_1_3,options,
+		 3: COPY TYPE_PASS def_result %cl_1_4[3.2,] 
+		 4: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: result[3.3,] 
+		 13: 
+		 14: %self->suggested_ordering def_%v_14 %self[4.4,4.10,2.0,] result[4.8,4.12,] options[4.3,3.1,2.5,] 	 SYMBOL:	 ARGS:result,options,
+		 15: RETURN %v_14[4.14,] %self[4.4,4.10,4.14,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = new_results instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_options 
+		 6: options[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TopicQuery) def_%v_4 
+		 2: HASH-unordered- def_%v_5 
+		 3: options->reverse_merge def_%v_6 options[3.1,2.5,] %v_5[4.2,] 	 SYMBOL:	 ARGS:%v_5,
+		 4: %self->default_results def_%v_7 %self[2.0,] %v_6[4.3,] 	 SYMBOL:	 ARGS:%v_6,
+		 5: GETFIELD %self->user def_%v_8 %self[4.4,2.0,] 
+		 6: %v_8->user_option def_%v_9 %v_8[4.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_9->treat_as_new_topic_start_date def_%v_10 %v_9[4.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->new_filter def_%v_11 %v_4[4.1,] %v_7[4.4,] %v_10[4.7,] 	 SYMBOL:	 ARGS:%v_7,%v_10,
+		 9: COPY TYPE_PASS def_result %v_11[4.8,] 
+		 10: 
+		 11: GETFIELD %self->user def_%v_12 %self[4.4,2.0,] 
+		 12: %self->remove_muted_topics def_%v_13 %self[4.4,2.0,] %v_11[4.8,] %v_12[4.11,] 	 SYMBOL:	 ARGS:result,%v_12,
+		 13: COPY TYPE_PASS def_result %v_13[4.12,] 
+		 14: 
+		 15: GETFIELD %self->user def_%v_14 %self[4.4,4.12,2.0,] 
+		 16: options->[] def_%v_15 options[4.3,3.1,2.5,] 	 SYMBOL:category,	 ARGS:Symbol,
+		 17: HASH-exclude- def_%v_16 %v_15[4.16,] 
+		 18: %self->remove_muted_categories def_%v_17 %self[4.4,4.12,2.0,] result[4.9,4.13,] %v_14[4.15,] %v_16[4.17,] 	 SYMBOL:	 ARGS:result,%v_14,%v_16,
+		 19: COPY TYPE_PASS def_result %v_17[4.18,] 
+		 20: 
+		 21: %self->class def_%v_18 %self[4.4,4.12,4.18,2.0,] 	 SYMBOL:	 ARGS:
+		 22: %v_18->results_filter_callbacks def_%v_19 %v_18[4.21,] 	 SYMBOL:	 ARGS:
+		 23: %v_19->each def_%v_20 %v_19[4.22,] %self[4.4,4.12,4.18,4.21,2.0,] 	 SYMBOL:	 ARGS:%v_19,
+CLOSURE BEGIN: %self[4.4,4.12,4.18,4.21,2.0,] filter_callback[] result[4.9,4.13,4.19,] options[4.3,4.16,3.1,2.5,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_filter_callback 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%cl_1_3 %self[2.0,] 
+		 2: filter_callback->call def_%cl_1_4 filter_callback[2.2,] result[] %cl_1_3[3.1,] options[] 	 SYMBOL:new,	 ARGS:Symbol,result,%cl_1_3,options,
+		 3: COPY TYPE_PASS def_result %cl_1_4[3.2,] 
+		 4: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: result[3.3,] 
+		 24: 
+		 25: %self->suggested_ordering def_%v_21 %self[4.4,4.12,4.18,4.21,2.0,] result[4.9,4.13,4.19,4.23,] options[4.3,4.16,3.1,2.5,] 	 SYMBOL:	 ARGS:result,options,
+		 26: RETURN %v_21[4.25,] %self[4.4,4.12,4.18,4.21,4.25,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = per_page_setting instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->options def_%v_3 %self[2.0,] 
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:slow_platform,	 ARGS:Symbol,
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_%v_5 
+		 1: RETURN %v_5[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = private_messages_for instanceMethod = true
+BB 1
+	outgoing: 22 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVEARG def_type 
+		 7: 
+		 8: GETFIELD %self->options def_%v_3 %self[2.0,] 
+		 9: COPY TYPE_PASS def_options %v_3[2.8,] 
+		 10: 
+		 11: %self->per_page_setting def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 12: HASH-per_page- def_%v_5 %v_4[2.11,] 
+		 13: options->reverse_merge! def_%v_6 options[2.9,] %v_5[2.12,] 	 SYMBOL:	 ARGS:%v_5,
+		 14: 
+		 15: (Topic) def_%v_7 
+		 16: COPY TYPE_PASS def_result %v_7[2.15,] 
+		 17: 
+		 18: type->== def_%v_8 type[2.6,] 	 SYMBOL:group,	 ARGS:Symbol,
+		 19: BRANCH %v_8[2.18,] 
+BB 3
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: result->includes def_%v_9 result[2.16,] 	 SYMBOL:allowed_groups,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_result %v_9[3.1,] 
+		 3: 
+		 4: COPY TYPE_StringLiteral "topics.id IN (SELECT topic_id FROM topic_allowed_groups
+                                              WHERE group_id IN (
+                                                  SELECT group_id FROM group_users WHERE user_id = " def_%v_10 
+		 5: 
+		 6: user->id def_%v_11 user[2.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_11->to_i def_%v_12 %v_11[3.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral ") AND
+                                                         group_id IN (SELECT id FROM groups WHERE name ilike ?)
+                                             )" def_%v_13 
+		 9: BUILDSTRING def_%v_14 %v_10[3.4,] %v_12[3.7,] %v_13[3.8,] 
+		 10: GETFIELD %self->options def_%v_15 %self[2.0,] 
+		 11: %v_15->[] def_%v_16 %v_15[3.10,] 	 SYMBOL:group_name,	 ARGS:Symbol,
+		 12: result->where def_%v_17 result[3.1,3.2,] %v_14[3.9,] %v_16[3.11,] 	 SYMBOL:	 ARGS:%v_14,%v_16,
+		 13: COPY TYPE_PASS def_result %v_17[3.12,] 
+		 14: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: type->== def_%v_18 type[2.6,] 	 SYMBOL:user,	 ARGS:Symbol,
+		 2: BRANCH %v_18[4.1,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: result->includes def_%v_19 result[2.16,] 	 SYMBOL:allowed_users,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_result %v_19[5.1,] 
+		 3: 
+		 4: COPY TYPE_StringLiteral "topics.id IN (SELECT topic_id FROM topic_allowed_users WHERE user_id = " def_%v_20 
+		 5: user->id def_%v_21 user[2.5,] 	 SYMBOL:	 ARGS:
+		 6: %v_21->to_i def_%v_22 %v_21[5.5,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral ")" def_%v_23 
+		 8: BUILDSTRING def_%v_24 %v_20[5.4,] %v_22[5.6,] %v_23[5.7,] 
+		 9: result->where def_%v_25 result[5.1,5.2,] %v_24[5.8,] 	 SYMBOL:	 ARGS:%v_24,
+		 10: COPY TYPE_PASS def_result %v_25[5.9,] 
+		 11: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_25 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_17 %v_25[6.0,5.9,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "LEFT OUTER JOIN topic_users AS tu ON (topics.id = tu.topic_id AND tu.user_id = " def_%v_26 
+		 2: user->id def_%v_27 user[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_27->to_i def_%v_28 %v_27[8.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral ")" def_%v_29 
+		 5: BUILDSTRING def_%v_30 %v_26[8.1,] %v_28[8.3,] %v_29[8.4,] 
+		 6: result->joins def_%v_31 result[3.2,3.13,5.2,5.10,2.16,] %v_30[8.5,] 	 SYMBOL:	 ARGS:%v_30,
+		 7: COPY TYPE_StringLiteral "topics.bumped_at DESC" def_%v_32 
+		 8: %v_31->order def_%v_33 %v_31[8.6,] %v_32[8.7,] 	 SYMBOL:	 ARGS:%v_32,
+		 9: %v_33->private_messages def_%v_34 %v_33[8.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_PASS def_result %v_34[8.9,] 
+		 11: 
+		 12: options->[] def_%v_35 options[2.9,] 	 SYMBOL:limit,	 ARGS:Symbol,
+		 13: %v_35->== def_%v_36 %v_35[8.12,] 	 SYMBOL:	 ARGS:Boolean,
+		 14: BRANCH %v_36[8.13,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_37 
+		 1: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: options->[] def_%v_38 options[2.9,] 	 SYMBOL:per_page,	 ARGS:Symbol,
+		 1: result->limit def_%v_39 result[8.10,] %v_38[10.0,] 	 SYMBOL:	 ARGS:%v_38,
+		 2: COPY TYPE_PASS def_result %v_39[10.1,] 
+		 3: COPY TYPE_PASS def_%v_37 %v_39[10.1,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_40 options[2.9,] 	 SYMBOL:visible,	 ARGS:Symbol,
+		 2: BRANCH %v_40[11.1,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_41 %self[2.0,] 
+		 1: %v_41->nil? def_%v_42 %v_41[12.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_40 %v_42[12.1,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_40[12.2,11.1,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_43 %self[2.0,] 
+		 1: %v_43->regular? def_%v_44 %v_43[14.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_40 %v_44[14.1,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_40[14.2,12.2,11.1,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: result->visible def_%v_45 result[10.2,8.10,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_result %v_45[16.0,] 
+		 2: 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_45 
+BB 18
+	outgoing: 19 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_46 options[2.9,] 	 SYMBOL:page,	 ARGS:Symbol,
+		 2: BRANCH %v_46[18.1,] 
+BB 19
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: options->[] def_%v_47 options[2.9,] 	 SYMBOL:page,	 ARGS:Symbol,
+		 1: %v_47->to_i def_%v_48 %v_47[19.0,] 	 SYMBOL:	 ARGS:
+		 2: options->[] def_%v_49 options[19.0,2.9,] 	 SYMBOL:per_page,	 ARGS:Symbol,
+		 3: %v_48->* def_%v_50 %v_48[19.1,] %v_49[19.2,] 	 SYMBOL:	 ARGS:%v_49,
+		 4: result->offset def_%v_51 result[16.1,10.2,8.10,] %v_50[19.3,] 	 SYMBOL:	 ARGS:%v_50,
+		 5: COPY TYPE_PASS def_result %v_51[19.4,] 
+		 6: 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_51 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN result[19.5,16.1,10.2,8.10,] %self[2.0,] 
+BB 22
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = apply_ordering instanceMethod = true
+BB 1
+	outgoing: 26 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_result 
+		 6: RECEIVEARG def_options 
+		 7: 
+		 8: (SORTABLE_MAPPING) def_%v_3 
+		 9: options->[] def_%v_4 options[2.6,] 	 SYMBOL:order,	 ARGS:Symbol,
+		 10: %v_3->[] def_%v_5 %v_3[2.8,] %v_4[2.9,] 	 SYMBOL:	 ARGS:%v_4,
+		 11: BRANCH %v_5[2.10,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "default" def_%v_6 
+		 1: COPY TYPE_PASS def_%v_5 %v_6[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_sort_column %v_5[3.1,2.10,] 
+		 1: 
+		 2: options->[] def_%v_7 options[2.6,] 	 SYMBOL:ascending,	 ARGS:Symbol,
+		 3: COPY TYPE_StringLiteral "true" def_%v_8 
+		 4: %v_7->== def_%v_9 %v_7[4.2,] %v_8[4.3,] 	 SYMBOL:	 ARGS:%v_8,
+		 5: BRANCH %v_9[4.4,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "ASC" def_%v_10 
+		 1: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "DESC" def_%v_11 
+		 1: COPY TYPE_PASS def_%v_10 %v_11[6.0,] 
+BB 7
+	outgoing: 8 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_sort_dir %v_10[6.1,5.0,] 
+		 1: 
+		 2: COPY TYPE_StringLiteral "default" def_%v_12 
+		 3: sort_column->== def_%v_13 sort_column[4.0,] %v_12[7.2,] 	 SYMBOL:	 ARGS:%v_12,
+		 4: BRANCH %v_13[7.3,] 
+BB 8
+	outgoing: 9 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "DESC" def_%v_14 
+		 2: sort_dir->== def_%v_15 sort_dir[7.0,] %v_14[8.1,] 	 SYMBOL:	 ARGS:%v_14,
+		 3: BRANCH %v_15[8.2,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_16 options[2.6,] 	 SYMBOL:unordered,	 ARGS:Symbol,
+		 2: BRANCH %v_16[9.1,] 
+BB 10
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: RETURN result[2.5,] %self[2.0,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+		 1: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "bumped_at" def_%v_18 
+		 2: COPY TYPE_PASS def_sort_column %v_18[14.1,] 
+		 3: 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_18 
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "category_id" def_%v_19 
+		 2: sort_column->== def_%v_20 sort_column[14.2,4.0,] %v_19[16.1,] 	 SYMBOL:	 ARGS:%v_19,
+		 3: BRANCH %v_20[16.2,] 
+BB 17
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: result->references def_%v_21 result[2.5,] 	 SYMBOL:categories,	 ARGS:Symbol,
+		 2: (TopicQuerySQL) def_%v_22 
+		 3: %v_22->order_by_category_sql def_%v_23 %v_22[17.2,] sort_dir[7.0,] 	 SYMBOL:	 ARGS:sort_dir,
+		 4: %v_21->order def_%v_24 %v_21[17.1,] %v_23[17.3,] 	 SYMBOL:	 ARGS:%v_23,
+		 5: RETURN %v_24[17.4,] %self[2.0,] 
+BB 18
+	outgoing: 20 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_25 
+		 1: 
+		 2: COPY TYPE_StringLiteral "op_likes" def_%v_26 
+		 3: sort_column->== def_%v_27 sort_column[14.2,4.0,] %v_26[18.2,] 	 SYMBOL:	 ARGS:%v_26,
+		 4: BRANCH %v_27[18.3,] 
+BB 20
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: result->includes def_%v_28 result[2.5,] 	 SYMBOL:first_post,	 ARGS:Symbol,
+		 2: COPY TYPE_StringLiteral "(SELECT like_count FROM posts p3 WHERE p3.topic_id = topics.id AND p3.post_number = 1) " def_%v_29 
+		 3: BUILDSTRING def_%v_30 %v_29[20.2,] sort_dir[7.0,] 
+		 4: %v_28->order def_%v_31 %v_28[20.1,] %v_30[20.3,] 	 SYMBOL:	 ARGS:%v_30,
+		 5: RETURN %v_31[20.4,] %self[2.0,] 
+BB 21
+	outgoing: 23 24 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_32 
+		 1: 
+		 2: COPY TYPE_StringLiteral "custom_fields" def_%v_33 
+		 3: sort_column->start_with? def_%v_34 sort_column[14.2,4.0,] %v_33[21.2,] 	 SYMBOL:	 ARGS:%v_33,
+		 4: BRANCH %v_34[21.3,] 
+BB 23
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "." def_%v_35 
+		 2: sort_column->split def_%v_36 sort_column[14.2,4.0,] %v_35[23.1,] 	 SYMBOL:	 ARGS:%v_35,
+		 3: %v_36->[] def_%v_37 %v_36[23.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: COPY TYPE_PASS def_field %v_37[23.3,] 
+		 5: 
+		 6: COPY TYPE_StringLiteral "(SELECT CASE WHEN EXISTS (SELECT true FROM topic_custom_fields tcf WHERE tcf.topic_id::integer = topics.id::integer AND tcf.name = '" def_%v_38 
+		 7: COPY TYPE_StringLiteral "') THEN (SELECT value::integer FROM topic_custom_fields tcf WHERE tcf.topic_id::integer = topics.id::integer AND tcf.name = '" def_%v_39 
+		 8: COPY TYPE_StringLiteral "') ELSE 0 END) " def_%v_40 
+		 9: BUILDSTRING def_%v_41 %v_38[23.6,] %v_37[23.3,] %v_39[23.7,] %v_37[23.3,] %v_40[23.8,] sort_dir[7.0,] 
+		 10: result->order def_%v_42 result[2.5,] %v_41[23.9,] 	 SYMBOL:	 ARGS:%v_41,
+		 11: RETURN %v_42[23.10,] %self[2.0,] 
+BB 24
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_43 
+		 1: 
+		 2: COPY TYPE_StringLiteral "topics." def_%v_44 
+		 3: COPY TYPE_StringLiteral " " def_%v_45 
+		 4: BUILDSTRING def_%v_46 %v_44[24.2,] sort_column[14.2,4.0,] %v_45[24.3,] sort_dir[7.0,] 
+		 5: result->order def_%v_47 result[2.5,] %v_46[24.4,] 	 SYMBOL:	 ARGS:%v_46,
+		 6: RETURN %v_47[24.5,] %self[2.0,] 
+BB 26
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_category_id instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_category_id_or_slug 
+		 6: 
+		 7: BRANCH category_id_or_slug[2.5,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_3 
+		 1: 
+		 2: category_id_or_slug->to_i def_%v_4 category_id_or_slug[2.5,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_category_id %v_4[3.2,] 
+		 4: 
+		 5: %v_4->== def_%v_5 %v_4[3.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 6: BRANCH %v_5[3.5,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: (Category) def_%v_6 
+		 1: HASH-slug- def_%v_7 category_id_or_slug[2.5,] 
+		 2: %v_6->where def_%v_8 %v_6[6.0,] %v_7[6.1,] 	 SYMBOL:	 ARGS:%v_7,
+		 3: %v_8->pluck def_%v_9 %v_8[6.2,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 4: %v_9->first def_%v_10 %v_9[6.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_category_id %v_10[6.4,] 
+		 6: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN category_id[6.5,3.3,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = default_results instanceMethod = true
+BB 1
+	outgoing: 102 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_options 
+		 6: options[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->options def_%v_4 %self[2.0,] 
+		 2: options->reverse_merge! def_%v_5 options[3.1,2.5,] %v_4[4.1,] 	 SYMBOL:	 ARGS:%v_4,
+		 3: 
+		 4: %self->per_page_setting def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: HASH-per_page- def_%v_7 %v_6[4.4,] 
+		 6: options->reverse_merge! def_%v_8 options[4.2,3.1,2.5,] %v_7[4.5,] 	 SYMBOL:	 ARGS:%v_7,
+		 7: 
+		 8: GETFIELD %self->user def_%v_9 %self[4.4,2.0,] 
+		 9: %v_9->nil? def_%v_10 %v_9[4.8,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_10[4.9,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_11 %self[2.0,] 
+		 1: %v_11->regular? def_%v_12 %v_11[5.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_10 %v_12[5.1,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_10[5.2,4.9,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN options->[] 
+		 1: COPY TYPE_Boolean def_%v_13 
+		 2: 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%v_14 %self[2.0,] 
+		 2: BRANCH %v_14[9.1,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_15 %self[2.0,] 
+		 1: %v_15->id def_%v_16 %v_15[10.0,] 	 SYMBOL:	 ARGS:
+		 2: options->[] def_%v_17 options[7.0,3.1,2.5,] 	 SYMBOL:filtered_to_user,	 ARGS:Symbol,
+		 3: %v_16->== def_%v_18 %v_16[10.1,] %v_17[10.2,] 	 SYMBOL:	 ARGS:%v_17,
+		 4: COPY TYPE_PASS def_%v_14 %v_18[10.3,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_14[10.4,9.1,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN options->[] 
+		 1: COPY TYPE_Boolean def_%v_19 
+		 2: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_19 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Topic) def_%v_20 
+		 2: %v_20->unscoped def_%v_21 %v_20[14.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_result %v_21[14.2,] 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->user def_%v_22 %self[2.0,] 
+		 7: BRANCH %v_22[14.6,] 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "LEFT OUTER JOIN topic_users AS tu ON (topics.id = tu.topic_id AND tu.user_id = " def_%v_23 
+		 1: GETFIELD %self->user def_%v_24 %self[2.0,] 
+		 2: %v_24->id def_%v_25 %v_24[15.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_25->to_i def_%v_26 %v_25[15.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral ")" def_%v_27 
+		 5: BUILDSTRING def_%v_28 %v_23[15.0,] %v_26[15.3,] %v_27[15.4,] 
+		 6: result->joins def_%v_29 result[14.3,] %v_28[15.5,] 	 SYMBOL:	 ARGS:%v_28,
+		 7: COPY TYPE_StringLiteral "tu" def_%v_30 
+		 8: %v_29->references def_%v_31 %v_29[15.6,] %v_30[15.7,] 	 SYMBOL:	 ARGS:%v_30,
+		 9: COPY TYPE_PASS def_result %v_31[15.8,] 
+		 10: 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_31 
+BB 17
+	outgoing: 18 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_32 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:category,	 ARGS:Symbol,
+		 2: %self->get_category_id def_%v_33 %self[2.0,] %v_32[17.1,] 	 SYMBOL:	 ARGS:%v_32,
+		 3: COPY TYPE_PASS def_category_id %v_33[17.2,] 
+		 4: 
+		 5: GETFIELD %self->options def_%v_34 %self[17.2,2.0,] 
+		 6: ATTRASSIGN %v_34->[] %v_33[17.2,] 
+		 7: 
+		 8: BRANCH category_id[17.3,] 
+BB 18
+	outgoing: 19 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_35 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:no_subcategories,	 ARGS:Symbol,
+		 2: BRANCH %v_35[18.1,] 
+BB 19
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "categories.id = ?" def_%v_36 
+		 2: result->where def_%v_37 result[15.9,14.3,] %v_36[19.1,] category_id[17.3,] 	 SYMBOL:	 ARGS:%v_36,category_id,
+		 3: COPY TYPE_PASS def_result %v_37[19.2,] 
+		 4: 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "categories.id = :category_id OR (categories.parent_category_id = :category_id AND categories.topic_id <> topics.id)" def_%v_38 
+		 2: HASH-category_id- def_%v_39 category_id[17.3,] 
+		 3: result->where def_%v_40 result[15.9,14.3,] %v_38[20.1,] %v_39[20.2,] 	 SYMBOL:	 ARGS:%v_38,%v_39,
+		 4: COPY TYPE_PASS def_result %v_40[20.3,] 
+		 5: COPY TYPE_PASS def_%v_37 %v_40[20.3,] 
+BB 21
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: result->references def_%v_41 result[20.4,19.3,] 	 SYMBOL:categories,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_result %v_41[21.1,] 
+		 3: 
+BB 22
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_41 
+BB 23
+	outgoing: 24 25 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->apply_ordering def_%v_42 %self[2.0,] result[21.2,15.9,14.3,] options[12.0,7.0,3.1,2.5,] 	 SYMBOL:	 ARGS:result,options,
+		 2: COPY TYPE_PASS def_result %v_42[23.1,] 
+		 3: 
+		 4: %v_42->listable_topics def_%v_43 %v_42[23.1,] 	 SYMBOL:	 ARGS:
+		 5: %v_43->includes def_%v_44 %v_43[23.4,] 	 SYMBOL:category,	 ARGS:Symbol,
+		 6: COPY TYPE_PASS def_result %v_44[23.5,] 
+		 7: 
+		 8: options->[] def_%v_45 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:exclude_category_ids,	 ARGS:Symbol,
+		 9: BRANCH %v_45[23.8,] 
+BB 24
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: options->[] def_%v_46 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:exclude_category_ids,	 ARGS:Symbol,
+		 1: (Array) def_%v_47 
+		 2: %v_46->is_a? def_%v_48 %v_46[24.0,] %v_47[24.1,] 	 SYMBOL:	 ARGS:%v_47,
+		 3: COPY TYPE_PASS def_%v_45 %v_48[24.2,] 
+BB 25
+	outgoing: 26 27 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_45[24.3,23.8,] 
+BB 26
+	outgoing: 27 
+	datadep: 
+	instructions:
+		 0: options->[] def_%v_49 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:exclude_category_ids,	 ARGS:Symbol,
+		 1: %v_49->size def_%v_50 %v_49[26.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_50->> def_%v_51 %v_50[26.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: COPY TYPE_PASS def_%v_45 %v_51[26.2,] 
+BB 27
+	outgoing: 28 29 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_45[26.3,24.3,23.8,] 
+BB 28
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "categories.id NOT IN (?)" def_%v_52 
+		 2: options->[] def_%v_53 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:exclude_category_ids,	 ARGS:Symbol,
+		 3: result->where def_%v_54 result[23.2,23.6,] %v_52[28.1,] %v_53[28.2,] 	 SYMBOL:	 ARGS:%v_52,%v_53,
+		 4: %v_54->references def_%v_55 %v_54[28.3,] 	 SYMBOL:categories,	 ARGS:Symbol,
+		 5: COPY TYPE_PASS def_result %v_55[28.4,] 
+		 6: 
+BB 29
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_55 
+BB 30
+	outgoing: 31 32 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_56 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:no_definitions,	 ARGS:Symbol,
+		 2: BRANCH %v_56[30.1,] 
+BB 31
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "COALESCE(categories.topic_id, 0) <> topics.id" def_%v_57 
+		 2: result->where def_%v_58 result[28.5,23.2,23.6,] %v_57[31.1,] 	 SYMBOL:	 ARGS:%v_57,
+		 3: COPY TYPE_PASS def_result %v_58[31.2,] 
+		 4: 
+BB 32
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_58 
+BB 33
+	outgoing: 34 35 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_59 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:limit,	 ARGS:Symbol,
+		 2: %v_59->== def_%v_60 %v_59[33.1,] 	 SYMBOL:	 ARGS:Boolean,
+		 3: BRANCH %v_60[33.2,] 
+BB 34
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_61 
+		 1: 
+BB 35
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: options->[] def_%v_62 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:per_page,	 ARGS:Symbol,
+		 1: result->limit def_%v_63 result[31.3,28.5,23.2,23.6,] %v_62[35.0,] 	 SYMBOL:	 ARGS:%v_62,
+		 2: COPY TYPE_PASS def_result %v_63[35.1,] 
+		 3: COPY TYPE_PASS def_%v_61 %v_63[35.1,] 
+BB 36
+	outgoing: 37 38 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_64 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:visible,	 ARGS:Symbol,
+		 2: BRANCH %v_64[36.1,] 
+BB 37
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: result->visible def_%v_65 result[35.2,31.3,28.5,23.2,23.6,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_result %v_65[37.0,] 
+		 2: 
+BB 38
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_65 
+BB 39
+	outgoing: 40 41 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_66 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:except_topic_ids,	 ARGS:Symbol,
+		 2: BRANCH %v_66[39.1,] 
+BB 40
+	outgoing: 42 
+	datadep: 
+	instructions:
+		 0: result->where def_%v_67 result[37.1,35.2,31.3,28.5,23.2,23.6,] 	 SYMBOL:	 ARGS:
+		 1: options->[] def_%v_68 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:except_topic_ids,	 ARGS:Symbol,
+		 2: HASH-id- def_%v_69 %v_68[40.1,] 
+		 3: HASH-topics- def_%v_70 %v_69[40.2,] 
+		 4: %v_67->not def_%v_71 %v_67[40.0,] %v_70[40.3,] 	 SYMBOL:	 ARGS:%v_70,
+		 5: %v_71->references def_%v_72 %v_71[40.4,] 	 SYMBOL:topics,	 ARGS:Symbol,
+		 6: COPY TYPE_PASS def_result %v_72[40.5,] 
+		 7: 
+BB 41
+	outgoing: 42 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_72 
+BB 42
+	outgoing: 43 44 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_73 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:page,	 ARGS:Symbol,
+		 2: BRANCH %v_73[42.1,] 
+BB 43
+	outgoing: 45 
+	datadep: 
+	instructions:
+		 0: options->[] def_%v_74 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:page,	 ARGS:Symbol,
+		 1: %v_74->to_i def_%v_75 %v_74[43.0,] 	 SYMBOL:	 ARGS:
+		 2: options->[] def_%v_76 options[43.0,12.0,7.0,3.1,2.5,] 	 SYMBOL:per_page,	 ARGS:Symbol,
+		 3: %v_75->* def_%v_77 %v_75[43.1,] %v_76[43.2,] 	 SYMBOL:	 ARGS:%v_76,
+		 4: result->offset def_%v_78 result[40.6,37.1,35.2,31.3,28.5,23.2,23.6,] %v_77[43.3,] 	 SYMBOL:	 ARGS:%v_77,
+		 5: COPY TYPE_PASS def_result %v_78[43.4,] 
+		 6: 
+BB 44
+	outgoing: 45 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_78 
+BB 45
+	outgoing: 46 47 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_79 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:topic_ids,	 ARGS:Symbol,
+		 2: BRANCH %v_79[45.1,] 
+BB 46
+	outgoing: 48 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "topics.id in (?)" def_%v_80 
+		 2: options->[] def_%v_81 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:topic_ids,	 ARGS:Symbol,
+		 3: result->where def_%v_82 result[43.5,40.6,37.1,35.2,31.3,28.5,23.2,23.6,] %v_80[46.1,] %v_81[46.2,] 	 SYMBOL:	 ARGS:%v_80,%v_81,
+		 4: %v_82->references def_%v_83 %v_82[46.3,] 	 SYMBOL:topics,	 ARGS:Symbol,
+		 5: COPY TYPE_PASS def_result %v_83[46.4,] 
+		 6: 
+BB 47
+	outgoing: 48 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_83 
+BB 48
+	outgoing: 49 50 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_84 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:search,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_search %v_84[48.1,] 
+		 3: BRANCH %v_84[48.1,] 
+BB 49
+	outgoing: 51 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "topics.id in (select pp.topic_id from post_search_data pd join posts pp on pp.id = pd.post_id where pd.search_data @@ " def_%v_85 
+		 2: (Search) def_%v_86 
+		 3: search->to_s def_%v_87 search[48.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_86->ts_query def_%v_88 %v_86[49.2,] %v_87[49.3,] 	 SYMBOL:	 ARGS:%v_87,
+		 5: COPY TYPE_StringLiteral ")" def_%v_89 
+		 6: BUILDSTRING def_%v_90 %v_85[49.1,] %v_88[49.4,] %v_89[49.5,] 
+		 7: result->where def_%v_91 result[46.5,43.5,40.6,37.1,35.2,31.3,28.5,23.2,23.6,] %v_90[49.6,] 	 SYMBOL:	 ARGS:%v_90,
+		 8: COPY TYPE_PASS def_result %v_91[49.7,] 
+		 9: 
+BB 50
+	outgoing: 51 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_91 
+BB 51
+	outgoing: 52 53 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_92 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:state,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_state %v_92[51.1,] 
+		 3: 
+		 4: GETFIELD %self->user def_%v_93 %self[2.0,] 
+		 5: BRANCH %v_93[51.4,] 
+BB 52
+	outgoing: 53 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_93 state[51.2,] 
+BB 53
+	outgoing: 54 55 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_93[52.0,51.4,] 
+BB 54
+	outgoing: 55 
+	datadep: 
+	instructions:
+		 0: (TopicUser) def_%v_94 
+		 1: %v_94->notification_levels def_%v_95 %v_94[54.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_95->keys def_%v_96 %v_95[54.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_96->map def_%v_97 %v_96[54.2,] 	 SYMBOL:to_s,	 ARGS:
+		 4: %v_97->include? def_%v_98 %v_97[54.3,] state[51.2,] 	 SYMBOL:	 ARGS:state,
+		 5: COPY TYPE_PASS def_%v_93 %v_98[54.4,] 
+BB 55
+	outgoing: 56 57 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_93[54.5,52.0,51.4,] 
+BB 56
+	outgoing: 58 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TopicUser) def_%v_99 
+		 2: %v_99->notification_levels def_%v_100 %v_99[56.1,] 	 SYMBOL:	 ARGS:
+		 3: state->to_sym def_%v_101 state[51.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_100->[] def_%v_102 %v_100[56.2,] %v_101[56.3,] 	 SYMBOL:	 ARGS:%v_101,
+		 5: COPY TYPE_PASS def_level %v_102[56.4,] 
+		 6: 
+		 7: COPY TYPE_StringLiteral "topics.id IN (
+                                  SELECT topic_id
+                                  FROM topic_users
+                                  WHERE user_id = ? AND
+                                        notification_level = ?)" def_%v_103 
+		 8: GETFIELD %self->user def_%v_104 %self[2.0,] 
+		 9: %v_104->id def_%v_105 %v_104[56.8,] 	 SYMBOL:	 ARGS:
+		 10: result->where def_%v_106 result[49.8,46.5,43.5,40.6,37.1,35.2,31.3,28.5,23.2,23.6,] %v_103[56.7,] %v_105[56.9,] level[56.5,] 	 SYMBOL:	 ARGS:%v_103,%v_105,level,
+		 11: COPY TYPE_PASS def_result %v_106[56.10,] 
+		 12: 
+BB 57
+	outgoing: 58 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_106 
+BB 58
+	outgoing: 59 77 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Boolean def_require_deleted_clause 
+		 2: 
+		 3: options->[] def_%v_107 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:status,	 ARGS:Symbol,
+		 4: COPY TYPE_PASS def_status %v_107[58.3,] 
+		 5: BRANCH %v_107[58.3,] 
+BB 59
+	outgoing: 60 66 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "open" def_%v_110 
+		 2: def_%v_109 %v_110[59.1,] status[58.4,] 
+		 3: BRANCH %v_109[59.2,] 
+BB 60
+	outgoing: 61 67 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "closed" def_%v_112 
+		 1: def_%v_111 %v_112[60.0,] status[58.4,] 
+		 2: BRANCH %v_111[60.1,] 
+BB 61
+	outgoing: 62 68 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "archived" def_%v_114 
+		 1: def_%v_113 %v_114[61.0,] status[58.4,] 
+		 2: BRANCH %v_113[61.1,] 
+BB 62
+	outgoing: 63 69 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "listed" def_%v_116 
+		 1: def_%v_115 %v_116[62.0,] status[58.4,] 
+		 2: BRANCH %v_115[62.1,] 
+BB 63
+	outgoing: 64 70 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "unlisted" def_%v_118 
+		 1: def_%v_117 %v_118[63.0,] status[58.4,] 
+		 2: BRANCH %v_117[63.1,] 
+BB 64
+	outgoing: 65 71 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "deleted" def_%v_120 
+		 1: def_%v_119 %v_120[64.0,] status[58.4,] 
+		 2: BRANCH %v_119[64.1,] 
+BB 65
+	outgoing: 76 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_108 
+		 1: 
+BB 66
+	outgoing: 76 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "NOT topics.closed AND NOT topics.archived" def_%v_121 
+		 2: result->where def_%v_122 result[56.11,49.8,46.5,43.5,40.6,37.1,35.2,31.3,28.5,23.2,23.6,] %v_121[66.1,] 	 SYMBOL:	 ARGS:%v_121,
+		 3: COPY TYPE_PASS def_result %v_122[66.2,] 
+		 4: COPY TYPE_PASS def_%v_108 %v_122[66.2,] 
+		 5: 
+BB 67
+	outgoing: 76 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "topics.closed" def_%v_123 
+		 2: result->where def_%v_124 result[56.11,49.8,46.5,43.5,40.6,37.1,35.2,31.3,28.5,23.2,23.6,] %v_123[67.1,] 	 SYMBOL:	 ARGS:%v_123,
+		 3: COPY TYPE_PASS def_result %v_124[67.2,] 
+		 4: COPY TYPE_PASS def_%v_108 %v_124[67.2,] 
+		 5: 
+BB 68
+	outgoing: 76 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "topics.archived" def_%v_125 
+		 2: result->where def_%v_126 result[56.11,49.8,46.5,43.5,40.6,37.1,35.2,31.3,28.5,23.2,23.6,] %v_125[68.1,] 	 SYMBOL:	 ARGS:%v_125,
+		 3: COPY TYPE_PASS def_result %v_126[68.2,] 
+		 4: COPY TYPE_PASS def_%v_108 %v_126[68.2,] 
+		 5: 
+BB 69
+	outgoing: 76 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "topics.visible" def_%v_127 
+		 2: result->where def_%v_128 result[56.11,49.8,46.5,43.5,40.6,37.1,35.2,31.3,28.5,23.2,23.6,] %v_127[69.1,] 	 SYMBOL:	 ARGS:%v_127,
+		 3: COPY TYPE_PASS def_result %v_128[69.2,] 
+		 4: COPY TYPE_PASS def_%v_108 %v_128[69.2,] 
+		 5: 
+BB 70
+	outgoing: 76 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "NOT topics.visible" def_%v_129 
+		 2: result->where def_%v_130 result[56.11,49.8,46.5,43.5,40.6,37.1,35.2,31.3,28.5,23.2,23.6,] %v_129[70.1,] 	 SYMBOL:	 ARGS:%v_129,
+		 3: COPY TYPE_PASS def_result %v_130[70.2,] 
+		 4: COPY TYPE_PASS def_%v_108 %v_130[70.2,] 
+		 5: 
+BB 71
+	outgoing: 72 73 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->guardian def_%v_131 %self[2.0,] 
+		 2: COPY TYPE_PASS def_guardian %v_131[71.1,] 
+		 3: 
+		 4: %v_131->is_staff? def_%v_132 %v_131[71.1,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %v_132[71.4,] 
+BB 72
+	outgoing: 74 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "topics.deleted_at IS NOT NULL" def_%v_133 
+		 2: result->where def_%v_134 result[56.11,49.8,46.5,43.5,40.6,37.1,35.2,31.3,28.5,23.2,23.6,] %v_133[72.1,] 	 SYMBOL:	 ARGS:%v_133,
+		 3: COPY TYPE_PASS def_result %v_134[72.2,] 
+		 4: 
+		 5: COPY TYPE_Boolean def_require_deleted_clause 
+		 6: COPY TYPE_Boolean def_%v_135 
+		 7: 
+BB 73
+	outgoing: 74 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_135 
+BB 74
+	outgoing: 76 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_108 %v_135[73.0,72.6,] 
+		 1: 
+BB 76
+	outgoing: 78 
+	datadep: 
+	instructions:
+		 0: 
+BB 77
+	outgoing: 78 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_108 
+BB 78
+	outgoing: 79 80 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_136 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:filter,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_filter %v_136[78.1,] 
+		 3: BRANCH %v_136[78.1,] 
+BB 79
+	outgoing: 80 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_137 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_136 %v_137[79.0,] 
+BB 80
+	outgoing: 81 91 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_136[79.1,78.1,] 
+BB 81
+	outgoing: 82 83 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: COPY TYPE_StringLiteral "bookmarked" def_%v_138 
+		 3: filter->== def_%v_139 filter[78.2,] %v_138[81.2,] 	 SYMBOL:	 ARGS:%v_138,
+		 4: BRANCH %v_139[81.3,] 
+BB 82
+	outgoing: 87 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PostActionType) def_%v_140 
+		 2: %v_140->types def_%v_141 %v_140[82.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_141->[] def_%v_142 %v_141[82.2,] 	 SYMBOL:bookmark,	 ARGS:Symbol,
+		 4: 
+BB 83
+	outgoing: 84 85 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "liked" def_%v_143 
+		 2: filter->== def_%v_144 filter[78.2,] %v_143[83.1,] 	 SYMBOL:	 ARGS:%v_143,
+		 3: BRANCH %v_144[83.2,] 
+BB 84
+	outgoing: 86 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PostActionType) def_%v_145 
+		 2: %v_145->types def_%v_146 %v_145[84.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_146->[] def_%v_147 %v_146[84.2,] 	 SYMBOL:like,	 ARGS:Symbol,
+		 4: 
+BB 85
+	outgoing: 86 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_147 
+BB 86
+	outgoing: 87 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_142 %v_147[85.0,84.3,] 
+BB 87
+	outgoing: 88 89 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_action %v_142[86.0,82.3,] 
+		 1: 
+		 2: BRANCH %v_142[86.0,82.3,] 
+BB 88
+	outgoing: 90 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "topics.id IN (SELECT pp.topic_id
+                                FROM post_actions pa
+                                JOIN posts pp ON pp.id = pa.post_id
+                                WHERE pa.user_id = :user_id AND
+                                      pa.post_action_type_id = :action AND
+                                      pa.deleted_at IS NULL
+                             )" def_%v_148 
+		 2: GETFIELD %self->user def_%v_149 %self[2.0,] 
+		 3: %v_149->id def_%v_150 %v_149[88.2,] 	 SYMBOL:	 ARGS:
+		 4: HASH-user_id-action- def_%v_151 %v_150[88.3,] action[87.0,] 
+		 5: result->where def_%v_152 result[66.3,67.3,68.3,69.3,70.3,56.11,72.3,49.8,46.5,43.5,40.6,37.1,35.2,31.3,28.5,23.2,23.6,] %v_148[88.1,] %v_151[88.4,] 	 SYMBOL:	 ARGS:%v_148,%v_151,
+		 6: COPY TYPE_PASS def_result %v_152[88.5,] 
+		 7: 
+BB 89
+	outgoing: 90 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_152 
+BB 90
+	outgoing: 92 
+	datadep: 
+	instructions:
+		 0: 
+BB 91
+	outgoing: 92 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_152 
+BB 92
+	outgoing: 93 94 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH require_deleted_clause[58.1,72.5,] 
+BB 93
+	outgoing: 95 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "topics.deleted_at IS NULL" def_%v_153 
+		 1: result->where def_%v_154 result[88.6,66.3,67.3,68.3,69.3,70.3,56.11,72.3,49.8,46.5,43.5,40.6,37.1,35.2,31.3,28.5,23.2,23.6,] %v_153[93.0,] 	 SYMBOL:	 ARGS:%v_153,
+		 2: COPY TYPE_PASS def_result %v_154[93.1,] 
+		 3: 
+BB 94
+	outgoing: 95 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_154 
+BB 95
+	outgoing: 96 97 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_155 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:max_posts,	 ARGS:Symbol,
+		 2: %v_155->present? def_%v_156 %v_155[95.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_156[95.2,] 
+BB 96
+	outgoing: 98 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "topics.posts_count <= ?" def_%v_157 
+		 1: options->[] def_%v_158 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:max_posts,	 ARGS:Symbol,
+		 2: result->where def_%v_159 result[93.2,88.6,66.3,67.3,68.3,69.3,70.3,56.11,72.3,49.8,46.5,43.5,40.6,37.1,35.2,31.3,28.5,23.2,23.6,] %v_157[96.0,] %v_158[96.1,] 	 SYMBOL:	 ARGS:%v_157,%v_158,
+		 3: COPY TYPE_PASS def_result %v_159[96.2,] 
+		 4: 
+BB 97
+	outgoing: 98 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_159 
+BB 98
+	outgoing: 99 100 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_160 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:min_posts,	 ARGS:Symbol,
+		 2: %v_160->present? def_%v_161 %v_160[98.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_161[98.2,] 
+BB 99
+	outgoing: 101 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "topics.posts_count >= ?" def_%v_162 
+		 1: options->[] def_%v_163 options[12.0,7.0,3.1,2.5,] 	 SYMBOL:min_posts,	 ARGS:Symbol,
+		 2: result->where def_%v_164 result[96.3,93.2,88.6,66.3,67.3,68.3,69.3,70.3,56.11,72.3,49.8,46.5,43.5,40.6,37.1,35.2,31.3,28.5,23.2,23.6,] %v_162[99.0,] %v_163[99.1,] 	 SYMBOL:	 ARGS:%v_162,%v_163,
+		 3: COPY TYPE_PASS def_result %v_164[99.2,] 
+		 4: 
+BB 100
+	outgoing: 101 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_164 
+BB 101
+	outgoing: 102 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->guardian def_%v_165 %self[2.0,] 
+		 2: %v_165->filter_allowed_categories def_%v_166 %v_165[101.1,] result[99.3,96.3,93.2,88.6,66.3,67.3,68.3,69.3,70.3,56.11,72.3,49.8,46.5,43.5,40.6,37.1,35.2,31.3,28.5,23.2,23.6,] 	 SYMBOL:	 ARGS:result,
+		 3: RETURN %v_166[101.2,] %self[2.0,] 
+BB 102
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = remove_muted_topics instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_list 
+		 6: RECEIVEARG def_user 
+		 7: 
+		 8: BRANCH user[2.6,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "COALESCE(tu.notification_level,1) > :muted" def_%v_3 
+		 2: (TopicUser) def_%v_4 
+		 3: %v_4->notification_levels def_%v_5 %v_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_5->[] def_%v_6 %v_5[3.3,] 	 SYMBOL:muted,	 ARGS:Symbol,
+		 5: HASH-muted- def_%v_7 %v_6[3.4,] 
+		 6: list->where def_%v_8 list[2.5,] %v_3[3.1,] %v_7[3.5,] 	 SYMBOL:	 ARGS:%v_3,%v_7,
+		 7: COPY TYPE_PASS def_list %v_8[3.6,] 
+		 8: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN list[3.7,2.5,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = remove_muted_categories instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_list 
+		 6: RECEIVEARG def_user 
+		 7: RECEIVECONSTARG def_opts 
+		 8: opts[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_opts 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH opts[3.0,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: opts->[] def_%v_3 opts[3.0,2.7,] 	 SYMBOL:exclude,	 ARGS:Symbol,
+		 1: %self->get_category_id def_%v_4 %self[2.0,] %v_3[5.0,] 	 SYMBOL:	 ARGS:%v_3,
+		 2: COPY TYPE_PASS def_category_id %v_4[5.1,] 
+		 3: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+BB 7
+	outgoing: 8 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH user[2.6,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "cu" def_%v_5 
+		 2: list->references def_%v_6 list[2.5,] %v_5[8.1,] 	 SYMBOL:	 ARGS:%v_5,
+		 3: COPY TYPE_StringLiteral "
+          NOT EXISTS (
+            SELECT 1
+              FROM category_users cu
+             WHERE cu.user_id = :user_id
+               AND cu.category_id = topics.category_id
+               AND cu.notification_level = :muted
+               AND cu.category_id <> :category_id
+               AND (tu.notification_level IS NULL OR tu.notification_level < :tracking)
+          )" def_%v_7 
+		 4: user->id def_%v_8 user[2.6,] 	 SYMBOL:	 ARGS:
+		 5: (CategoryUser) def_%v_9 
+		 6: %v_9->notification_levels def_%v_10 %v_9[8.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_10->[] def_%v_11 %v_10[8.6,] 	 SYMBOL:muted,	 ARGS:Symbol,
+		 8: (TopicUser) def_%v_12 
+		 9: %v_12->notification_levels def_%v_13 %v_12[8.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_13->[] def_%v_14 %v_13[8.9,] 	 SYMBOL:tracking,	 ARGS:Symbol,
+		 11: COPY TYPE_PASS def_%v_15 category_id[5.2,] 
+		 12: BRANCH category_id[5.2,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_%v_15 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: HASH-user_id-muted-tracking-category_id- def_%v_16 %v_8[8.4,] %v_11[8.7,] %v_14[8.10,] %v_15[9.0,8.11,] 
+		 1: %v_6->where def_%v_17 %v_6[8.2,] %v_7[8.3,] %v_16[10.0,] 	 SYMBOL:	 ARGS:%v_7,%v_16,
+		 2: COPY TYPE_PASS def_list %v_17[10.1,] 
+		 3: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN list[10.2,2.5,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = new_messages instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_params 
+		 6: 
+		 7: (TopicQuery) def_%v_3 
+		 8: params->[] def_%v_4 params[2.5,] 	 SYMBOL:my_group_ids,	 ARGS:Symbol,
+		 9: %self->messages_for_groups_or_user def_%v_5 %self[2.0,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: CONSTANT def_%v_6 	 SYMBOL:	 ARGS:
+		 11: %v_6->ago def_%v_7 %v_6[2.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_3->new_filter def_%v_8 %v_3[2.7,] %v_5[2.9,] %v_7[2.11,] 	 SYMBOL:	 ARGS:%v_5,%v_7,
+		 13: params->[] def_%v_9 params[2.5,2.8,] 	 SYMBOL:count,	 ARGS:Symbol,
+		 14: %v_8->limit def_%v_10 %v_8[2.12,] %v_9[2.13,] 	 SYMBOL:	 ARGS:%v_9,
+		 15: RETURN %v_10[2.14,] %self[2.0,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = unread_messages instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_params 
+		 6: 
+		 7: (TopicQuery) def_%v_3 
+		 8: params->[] def_%v_4 params[2.5,] 	 SYMBOL:my_group_ids,	 ARGS:Symbol,
+		 9: %self->messages_for_groups_or_user def_%v_5 %self[2.0,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: %v_3->unread_filter def_%v_6 %v_3[2.7,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: params->[] def_%v_7 params[2.5,2.8,] 	 SYMBOL:count,	 ARGS:Symbol,
+		 12: %v_6->limit def_%v_8 %v_6[2.10,] %v_7[2.11,] 	 SYMBOL:	 ARGS:%v_7,
+		 13: RETURN %v_8[2.12,] %self[2.0,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = related_messages_user instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_params 
+		 6: 
+		 7: %self->messages_for_user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: params->[] def_%v_4 params[2.5,] 	 SYMBOL:count,	 ARGS:Symbol,
+		 9: %v_3->limit def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: COPY TYPE_StringLiteral "topics.id IN (
+                SELECT ta.topic_id
+                FROM topic_allowed_users ta
+                WHERE ta.user_id IN (:user_ids)
+              ) OR
+                topics.id IN (
+                  SELECT tg.topic_id
+                  FROM topic_allowed_groups tg
+                  WHERE tg.group_id IN (:group_ids)
+              )
+              " def_%v_6 
+		 11: 
+		 12: params->[] def_%v_7 params[2.5,2.8,] 	 SYMBOL:target_user_ids,	 ARGS:Symbol,
+		 13: BRANCH %v_7[2.12,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_8 
+		 1: COPY TYPE_PASS def_%v_7 %v_8[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_9 
+		 1: %v_7->+ def_%v_10 %v_7[3.1,2.12,] %v_9[4.0,] 	 SYMBOL:	 ARGS:%v_9,
+		 2: 
+		 3: params->[] def_%v_11 params[2.5,] 	 SYMBOL:target_group_ids,	 ARGS:Symbol,
+		 4: params->[] def_%v_12 params[4.3,2.5,] 	 SYMBOL:my_group_ids,	 ARGS:Symbol,
+		 5: %v_11->- def_%v_13 %v_11[4.3,] %v_12[4.4,] 	 SYMBOL:	 ARGS:%v_12,
+		 6: BRANCH %v_13[4.5,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_14 
+		 1: COPY TYPE_PASS def_%v_13 %v_14[5.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_15 
+		 1: %v_13->+ def_%v_16 %v_13[5.1,4.5,] %v_15[6.0,] 	 SYMBOL:	 ARGS:%v_15,
+		 2: HASH-user_ids-group_ids- def_%v_17 %v_10[4.1,] %v_16[6.1,] 
+		 3: %v_5->where def_%v_18 %v_5[2.9,] %v_6[2.10,] %v_17[6.2,] 	 SYMBOL:	 ARGS:%v_6,%v_17,
+		 4: RETURN %v_18[6.3,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = related_messages_group instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_params 
+		 6: 
+		 7: params->[] def_%v_3 params[2.5,] 	 SYMBOL:my_group_ids,	 ARGS:Symbol,
+		 8: %self->messages_for_groups_or_user def_%v_4 %self[2.0,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: params->[] def_%v_5 params[2.5,2.7,] 	 SYMBOL:count,	 ARGS:Symbol,
+		 10: %v_4->limit def_%v_6 %v_4[2.8,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: COPY TYPE_StringLiteral "topics.id IN (
+                SELECT ta.topic_id
+                FROM topic_allowed_users ta
+                WHERE ta.user_id IN (:user_ids)
+              ) OR
+                topics.id IN (
+                  SELECT tg.topic_id
+                  FROM topic_allowed_groups tg
+                  WHERE tg.group_id IN (:group_ids)
+              )
+              " def_%v_7 
+		 12: 
+		 13: params->[] def_%v_8 params[2.5,2.7,2.9,] 	 SYMBOL:target_user_ids,	 ARGS:Symbol,
+		 14: BRANCH %v_8[2.13,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_9 
+		 1: COPY TYPE_PASS def_%v_8 %v_9[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_10 
+		 1: %v_8->+ def_%v_11 %v_8[3.1,2.13,] %v_10[4.0,] 	 SYMBOL:	 ARGS:%v_10,
+		 2: 
+		 3: params->[] def_%v_12 params[2.5,] 	 SYMBOL:target_group_ids,	 ARGS:Symbol,
+		 4: params->[] def_%v_13 params[4.3,2.5,] 	 SYMBOL:my_group_ids,	 ARGS:Symbol,
+		 5: %v_12->- def_%v_14 %v_12[4.3,] %v_13[4.4,] 	 SYMBOL:	 ARGS:%v_13,
+		 6: BRANCH %v_14[4.5,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_15 
+		 1: COPY TYPE_PASS def_%v_14 %v_15[5.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_16 
+		 1: %v_14->+ def_%v_17 %v_14[5.1,4.5,] %v_16[6.0,] 	 SYMBOL:	 ARGS:%v_16,
+		 2: HASH-user_ids-group_ids- def_%v_18 %v_11[4.1,] %v_17[6.1,] 
+		 3: %v_6->where def_%v_19 %v_6[2.10,] %v_7[2.11,] %v_18[6.2,] 	 SYMBOL:	 ARGS:%v_7,%v_18,
+		 4: RETURN %v_19[6.3,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = messages_for_groups_or_user instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_group_ids 
+		 6: 
+		 7: group_ids->present? def_%v_3 group_ids[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->base_messages def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "topics.id IN (
+                                  SELECT topic_id
+                                    FROM topic_allowed_groups tg
+                                    JOIN group_users gu ON gu.user_id = :user_id AND gu.group_id = tg.group_id
+                                    WHERE gu.group_id IN (:group_ids)
+                 )" def_%v_5 
+		 3: GETFIELD %self->user def_%v_6 %self[3.1,2.0,] 
+		 4: %v_6->id def_%v_7 %v_6[3.3,] 	 SYMBOL:	 ARGS:
+		 5: HASH-user_id-group_ids- def_%v_8 %v_7[3.4,] group_ids[2.5,] 
+		 6: %v_4->where def_%v_9 %v_4[3.1,] %v_5[3.2,] %v_8[3.5,] 	 SYMBOL:	 ARGS:%v_5,%v_8,
+		 7: RETURN %v_9[3.6,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->messages_for_user def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_10[4.1,] %self[4.1,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = messages_for_user instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->base_messages def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "topics.id IN (
+                                  SELECT topic_id
+                                    FROM topic_allowed_users
+                                    WHERE user_id = :user_id
+                 )" def_%v_4 
+		 8: GETFIELD %self->user def_%v_5 %self[2.0,2.6,] 
+		 9: %v_5->id def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: HASH-user_id- def_%v_7 %v_6[2.9,] 
+		 11: %v_3->where def_%v_8 %v_3[2.6,] %v_4[2.7,] %v_7[2.10,] 	 SYMBOL:	 ARGS:%v_4,%v_7,
+		 12: RETURN %v_8[2.11,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = base_messages instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Topic) def_%v_3 
+		 7: COPY TYPE_StringLiteral "topics.archetype = ?" def_%v_4 
+		 8: (Archetype) def_%v_5 
+		 9: %v_5->private_message def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_3->where def_%v_7 %v_3[2.6,] %v_4[2.7,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_4,%v_6,
+		 11: COPY TYPE_StringLiteral "LEFT JOIN topic_users tu ON topics.id = tu.topic_id AND tu.user_id = " def_%v_8 
+		 12: 
+		 13: GETFIELD %self->user def_%v_9 %self[2.0,] 
+		 14: %v_9->id def_%v_10 %v_9[2.13,] 	 SYMBOL:	 ARGS:
+		 15: %v_10->to_i def_%v_11 %v_10[2.14,] 	 SYMBOL:	 ARGS:
+		 16: BUILDSTRING def_%v_12 %v_8[2.11,] %v_11[2.15,] 
+		 17: %v_7->joins def_%v_13 %v_7[2.10,] %v_12[2.16,] 	 SYMBOL:	 ARGS:%v_12,
+		 18: COPY TYPE_StringLiteral "topics.bumped_at DESC" def_%v_14 
+		 19: %v_13->order def_%v_15 %v_13[2.17,] %v_14[2.18,] 	 SYMBOL:	 ARGS:%v_14,
+		 20: RETURN %v_15[2.19,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = random_suggested instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_topic 
+		 6: RECEIVEARG def_count 
+		 7: RECEIVECONSTARG def_excluded_topic_ids 
+		 8: excluded_topic_ids[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_3 
+		 1: COPY TYPE_PASS def_excluded_topic_ids %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-unordered-per_page- def_%v_4 count[2.6,] 
+		 2: %self->default_results def_%v_5 %self[2.0,] %v_4[4.1,] 	 SYMBOL:	 ARGS:%v_4,
+		 3: HASH-closed-archived- def_%v_6 
+		 4: %v_5->where def_%v_7 %v_5[4.2,] %v_6[4.3,] 	 SYMBOL:	 ARGS:%v_6,
+		 5: COPY TYPE_PASS def_result %v_7[4.4,] 
+		 6: 
+		 7: (Category) def_%v_8 
+		 8: %v_8->pluck def_%v_9 %v_8[4.7,] 	 SYMBOL:topic_id,	 ARGS:Symbol,
+		 9: %v_9->compact def_%v_10 %v_9[4.8,] 	 SYMBOL:	 ARGS:
+		 10: excluded_topic_ids->+ def_%v_11 excluded_topic_ids[3.1,2.7,] %v_10[4.9,] 	 SYMBOL:	 ARGS:%v_10,
+		 11: COPY TYPE_PASS def_excluded_topic_ids %v_11[4.10,] 
+		 12: 
+		 13: %v_11->empty? def_%v_12 %v_11[4.10,] 	 SYMBOL:	 ARGS:
+		 14: BRANCH %v_12[4.13,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+		 1: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "topics.id NOT IN (?)" def_%v_14 
+		 1: result->where def_%v_15 result[4.5,] %v_14[6.0,] excluded_topic_ids[4.11,] 	 SYMBOL:	 ARGS:%v_14,excluded_topic_ids,
+		 2: COPY TYPE_PASS def_result %v_15[6.1,] 
+		 3: COPY TYPE_PASS def_%v_13 %v_15[6.1,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->user def_%v_16 %self[2.0,] 
+		 2: %self->remove_muted_categories def_%v_17 %self[2.0,] result[6.2,4.5,] %v_16[7.1,] 	 SYMBOL:	 ARGS:result,%v_16,
+		 3: COPY TYPE_PASS def_result %v_17[7.2,] 
+		 4: 
+		 5: topic->category_id def_%v_18 topic[2.5,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %v_18[7.5,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "CASE WHEN topics.category_id = " def_%v_19 
+		 2: topic->category_id def_%v_20 topic[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_20->to_i def_%v_21 %v_20[8.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral " THEN 0 ELSE 1 END" def_%v_22 
+		 5: BUILDSTRING def_%v_23 %v_19[8.1,] %v_21[8.3,] %v_22[8.4,] 
+		 6: result->order def_%v_24 result[7.3,] %v_23[8.5,] 	 SYMBOL:	 ARGS:%v_23,
+		 7: COPY TYPE_PASS def_result %v_24[8.6,] 
+		 8: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_24 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: count->* def_%v_25 count[2.6,] 	 SYMBOL:	 ARGS:Float,
+		 2: %v_25->to_i def_%v_26 %v_25[10.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_max %v_26[10.2,] 
+		 4: 
+		 5: (RandomTopicSelector) def_%v_27 
+		 6: %v_27->next def_%v_28 %v_27[10.5,] %v_26[10.2,] 	 SYMBOL:	 ARGS:max,
+		 7: (RandomTopicSelector) def_%v_29 
+		 8: topic->category def_%v_30 topic[2.5,] 	 SYMBOL:	 ARGS:
+		 9: %v_29->next def_%v_31 %v_29[10.7,] max[10.3,] %v_30[10.8,] 	 SYMBOL:	 ARGS:max,%v_30,
+		 10: %v_28->+ def_%v_32 %v_28[10.6,] %v_31[10.9,] 	 SYMBOL:	 ARGS:%v_31,
+		 11: COPY TYPE_PASS def_ids %v_32[10.10,] 
+		 12: 
+		 13: %v_32->uniq def_%v_33 %v_32[10.10,] 	 SYMBOL:	 ARGS:
+		 14: HASH-id- def_%v_34 %v_33[10.13,] 
+		 15: result->where def_%v_35 result[8.7,7.3,] %v_34[10.14,] 	 SYMBOL:	 ARGS:%v_34,
+		 16: RETURN %v_35[10.15,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = suggested_ordering instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_result 
+		 6: RECEIVEARG def_options 
+		 7: 
+		 8: options->[] def_%v_3 options[2.6,] 	 SYMBOL:topic,	 ARGS:Symbol,
+		 9: BRANCH %v_3[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: options->[] def_%v_4 options[2.6,] 	 SYMBOL:topic,	 ARGS:Symbol,
+		 1: %v_4->category_id def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.2,2.8,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "CASE WHEN topics.category_id = " def_%v_6 
+		 2: options->[] def_%v_7 options[2.6,] 	 SYMBOL:topic,	 ARGS:Symbol,
+		 3: %v_7->category_id def_%v_8 %v_7[5.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_8->to_i def_%v_9 %v_8[5.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral " THEN 0 ELSE 1 END" def_%v_10 
+		 6: BUILDSTRING def_%v_11 %v_6[5.1,] %v_9[5.4,] %v_10[5.5,] 
+		 7: result->order def_%v_12 result[2.5,] %v_11[5.6,] 	 SYMBOL:	 ARGS:%v_11,
+		 8: COPY TYPE_PASS def_result %v_12[5.7,] 
+		 9: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "topics.bumped_at DESC" def_%v_13 
+		 2: result->order def_%v_14 result[5.8,2.5,] %v_13[7.1,] 	 SYMBOL:	 ARGS:%v_13,
+		 3: RETURN %v_14[7.2,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+

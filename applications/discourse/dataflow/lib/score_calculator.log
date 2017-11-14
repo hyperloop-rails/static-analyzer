@@ -1,0 +1,407 @@
+SET IRMethod, name = default_score_weights instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: HASH-reply_count-like_score-incoming_link_count-bookmark_count-avg_time-reads- def_%v_3 
+		 7: RETURN %v_3[2.6,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_weightings 
+		 6: weightings[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_weightings 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_3 weightings[3.0,2.5,] 
+		 2: BRANCH weightings[3.0,2.5,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: (ScoreCalculator) def_%v_4 
+		 1: %v_4->default_score_weights def_%v_5 %v_4[5.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_3 %v_5[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->weightings %v_3[5.2,4.1,] 
+		 1: RETURN %v_3[5.2,4.1,] %self[6.0,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = calculate instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_min_topic_age 
+		 6: min_topic_age[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_min_topic_age 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->update_posts_score def_%v_3 %self[2.0,] min_topic_age[3.0,2.5,] 	 SYMBOL:	 ARGS:min_topic_age,
+		 2: 
+		 3: %self->update_posts_rank def_%v_4 %self[4.1,2.0,] min_topic_age[3.0,2.5,] 	 SYMBOL:	 ARGS:min_topic_age,
+		 4: 
+		 5: %self->update_topics_rank def_%v_5 %self[4.1,4.3,2.0,] min_topic_age[3.0,2.5,] 	 SYMBOL:	 ARGS:min_topic_age,
+		 6: 
+		 7: %self->update_topics_percent_rank def_%v_6 %self[4.1,4.3,4.5,2.0,] min_topic_age[3.0,2.5,] 	 SYMBOL:	 ARGS:min_topic_age,
+		 8: RETURN %v_6[4.7,] %self[4.1,4.3,4.5,4.7,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_posts_score instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_min_topic_age 
+		 6: 
+		 7: COPY TYPE_Array def_%v_3 
+		 8: COPY TYPE_PASS def_components %v_3[2.7,] 
+		 9: 
+		 10: GETFIELD %self->weightings def_%v_4 %self[2.0,] 
+		 11: %v_4->each_key def_%v_5 %v_4[2.10,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: k[] components[2.8,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_k 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "COALESCE(" def_%cl_1_3 
+		 2: COPY TYPE_StringLiteral ", 0) * :" def_%cl_1_4 
+		 3: BUILDSTRING def_%cl_1_5 %cl_1_3[3.1,] k[2.2,] %cl_1_4[3.2,] k[2.2,] 
+		 4: components-><< def_%cl_1_6 components[] %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:%cl_1_5,
+		 5: RETURN %cl_1_6[3.4,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_7 
+		 1: def_%cl_1_8 %cl_1_7[4.0,] 
+		 2: RETURN %cl_1_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 12: 
+		 13: COPY TYPE_StringLiteral " + " def_%v_6 
+		 14: components->join def_%v_7 components[2.8,] %v_6[2.13,] 	 SYMBOL:	 ARGS:%v_6,
+		 15: COPY TYPE_PASS def_components %v_7[2.14,] 
+		 16: 
+		 17: (SqlBuilder) def_%v_8 
+		 18: COPY TYPE_StringLiteral "UPDATE posts SET score = x.score
+       FROM (SELECT id, " def_%v_9 
+		 19: 
+		 20: COPY TYPE_StringLiteral " as score FROM posts) AS x
+       /*where*/" def_%v_10 
+		 21: BUILDSTRING def_%v_11 %v_9[2.18,] %v_7[2.14,] %v_10[2.20,] 
+		 22: %v_8->new def_%v_12 %v_8[2.17,] %v_11[2.21,] 	 SYMBOL:	 ARGS:%v_11,
+		 23: COPY TYPE_PASS def_builder %v_12[2.22,] 
+		 24: 
+		 25: COPY TYPE_StringLiteral "x.id = posts.id
+                  AND (posts.score IS NULL OR x.score <> posts.score)" def_%v_13 
+		 26: GETFIELD %self->weightings def_%v_14 %self[2.0,] 
+		 27: %v_12->where def_%v_15 %v_12[2.22,] %v_13[2.25,] %v_14[2.26,] 	 SYMBOL:	 ARGS:%v_13,%v_14,
+		 28: 
+		 29: %self->filter_topics def_%v_16 %self[2.0,] builder[2.23,] min_topic_age[2.5,] 	 SYMBOL:	 ARGS:builder,min_topic_age,
+		 30: 
+		 31: builder->exec def_%v_17 builder[2.23,] 	 SYMBOL:	 ARGS:
+		 32: RETURN %v_17[2.31,] %self[2.0,2.29,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_posts_rank instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_min_topic_age 
+		 6: 
+		 7: (SqlBuilder) def_%v_3 
+		 8: COPY TYPE_StringLiteral "UPDATE posts SET percent_rank = x.percent_rank
+              FROM (SELECT id, percent_rank()
+                    OVER (PARTITION BY topic_id ORDER BY SCORE DESC) as percent_rank
+                    FROM posts) AS x
+                   /*where*/" def_%v_4 
+		 9: %v_3->new def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: COPY TYPE_PASS def_builder %v_5[2.9,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "x.id = posts.id AND
+               (posts.percent_rank IS NULL OR x.percent_rank <> posts.percent_rank)" def_%v_6 
+		 13: %v_5->where def_%v_7 %v_5[2.9,] %v_6[2.12,] 	 SYMBOL:	 ARGS:%v_6,
+		 14: 
+		 15: %self->filter_topics def_%v_8 %self[2.0,] builder[2.10,] min_topic_age[2.5,] 	 SYMBOL:	 ARGS:builder,min_topic_age,
+		 16: 
+		 17: builder->exec def_%v_9 builder[2.10,] 	 SYMBOL:	 ARGS:
+		 18: RETURN %v_9[2.17,] %self[2.0,2.15,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_topics_rank instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_min_topic_age 
+		 6: 
+		 7: (SqlBuilder) def_%v_3 
+		 8: COPY TYPE_StringLiteral "UPDATE topics AS t
+              SET has_summary = (t.like_count >= :likes_required AND
+                                 t.posts_count >= :posts_required AND
+                                 x.max_score >= :score_required),
+                  score = x.avg_score
+              FROM (SELECT p.topic_id,
+                           MAX(p.score) AS max_score,
+                           AVG(p.score) AS avg_score
+                    FROM posts AS p
+                    GROUP BY p.topic_id) AS x
+                    /*where*/" def_%v_4 
+		 9: %v_3->new def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: COPY TYPE_PASS def_builder %v_5[2.9,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "x.topic_id = t.id AND
+                        (
+                          (t.score <> x.avg_score OR t.score IS NULL) OR
+                          (t.has_summary IS NULL OR t.has_summary <> (
+                            t.like_count >= :likes_required AND
+                            t.posts_count >= :posts_required AND
+                            x.max_score >= :score_required
+                          ))
+                        )
+  " def_%v_6 
+		 13: (SiteSetting) def_%v_7 
+		 14: %v_7->summary_likes_required def_%v_8 %v_7[2.13,] 	 SYMBOL:	 ARGS:
+		 15: (SiteSetting) def_%v_9 
+		 16: %v_9->summary_posts_required def_%v_10 %v_9[2.15,] 	 SYMBOL:	 ARGS:
+		 17: (SiteSetting) def_%v_11 
+		 18: %v_11->summary_score_threshold def_%v_12 %v_11[2.17,] 	 SYMBOL:	 ARGS:
+		 19: HASH-likes_required-posts_required-score_required- def_%v_13 %v_8[2.14,] %v_10[2.16,] %v_12[2.18,] 
+		 20: builder->where def_%v_14 builder[2.10,] %v_6[2.12,] %v_13[2.19,] 	 SYMBOL:	 ARGS:%v_6,%v_13,
+		 21: 
+		 22: BRANCH min_topic_age[2.5,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "t.bumped_at > :bumped_at " def_%v_15 
+		 2: HASH-bumped_at- def_%v_16 min_topic_age[2.5,] 
+		 3: builder->where def_%v_17 builder[2.10,] %v_15[3.1,] %v_16[3.2,] 	 SYMBOL:	 ARGS:%v_15,%v_16,
+		 4: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: builder->exec def_%v_18 builder[2.10,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_18[5.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_topics_percent_rank instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_min_topic_age 
+		 6: 
+		 7: (SqlBuilder) def_%v_3 
+		 8: COPY TYPE_StringLiteral "UPDATE topics SET percent_rank = x.percent_rank
+          FROM (SELECT id, percent_rank()
+                OVER (ORDER BY SCORE DESC) as percent_rank
+                FROM topics) AS x
+                /*where*/" def_%v_4 
+		 9: %v_3->new def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: COPY TYPE_PASS def_builder %v_5[2.9,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "x.id = topics.id AND (topics.percent_rank <> x.percent_rank OR topics.percent_rank IS NULL)" def_%v_6 
+		 13: %v_5->where def_%v_7 %v_5[2.9,] %v_6[2.12,] 	 SYMBOL:	 ARGS:%v_6,
+		 14: 
+		 15: BRANCH min_topic_age[2.5,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "topics.bumped_at > :bumped_at " def_%v_8 
+		 2: HASH-bumped_at- def_%v_9 min_topic_age[2.5,] 
+		 3: builder->where def_%v_10 builder[2.10,] %v_8[3.1,] %v_9[3.2,] 	 SYMBOL:	 ARGS:%v_8,%v_9,
+		 4: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: builder->exec def_%v_11 builder[2.10,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_11[5.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = filter_topics instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_builder 
+		 6: RECEIVEARG def_min_topic_age 
+		 7: 
+		 8: BRANCH min_topic_age[2.6,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "posts.topic_id IN
+                    (SELECT id FROM topics WHERE bumped_at > :bumped_at)" def_%v_3 
+		 2: HASH-bumped_at- def_%v_4 min_topic_age[2.6,] 
+		 3: builder->where def_%v_5 builder[2.5,] %v_3[3.1,] %v_4[3.2,] 	 SYMBOL:	 ARGS:%v_3,%v_4,
+		 4: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN builder[2.5,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

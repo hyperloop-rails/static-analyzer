@@ -1,0 +1,1252 @@
+SET IRMethod, name = truncate_sha instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_sha 
+		 6: 
+		 7: CONSTANT def_%v_3 
+		 8: sha->[] def_%v_4 sha[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: RETURN %v_4[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = stages instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (CommitStatus) def_%v_3 
+		 7: %self->all def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: HASH-commit- def_%v_5 %v_4[2.7,] 
+		 9: %v_3->where def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: %v_6->stages def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: RETURN %v_7[2.10,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = project_id instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->project def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->id def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = valid_commit_sha instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->sha def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: (Gitlab) def_%v_4 
+		 8: (inherit Git) def_%v_5 %v_4[2.7,] 
+		 9: %v_5[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[2.7,] 	 SYMBOL:Git,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit BLANK_SHA) def_%v_6 %v_5[3.0,2.8,] 
+		 1: %v_6[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_5->const_missing def_%v_6 %v_5[3.0,2.8,] 	 SYMBOL:BLANK_SHA,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: %v_3->== def_%v_7 %v_3[2.6,] %v_6[5.0,4.0,] 	 SYMBOL:	 ARGS:%v_6,
+		 1: BRANCH %v_7[6.0,] 
+BB 7
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->errors def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral " cant be 00000000 (branch removal)" def_%v_9 
+		 3: %v_8->add def_%v_10 %v_8[7.1,] %v_9[7.2,] 	 SYMBOL:sha,	 ARGS:Symbol,%v_9,
+		 4: RETURN %v_10[7.3,] %self[7.1,2.0,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = git_author_name instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->commit_data def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->commit_data def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->author_name def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_5[3.1,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = git_author_email instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->commit_data def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->commit_data def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->author_email def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_5[3.1,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = git_commit_message instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->commit_data def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->commit_data def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->message def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_5[3.1,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = short_sha instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Ci) def_%v_3 
+		 7: (inherit Commit) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Commit,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->sha def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->truncate_sha def_%v_6 %v_4[3.0,2.7,] %v_5[4.0,] 	 SYMBOL:	 ARGS:%v_5,
+		 2: RETURN %v_6[4.1,] %self[4.0,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = commit_data instanceMethod = true
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: def_%v_7 %self[2.0,] 
+		 3: COPY TYPE_PASS def_%v_6 %v_7[4.2,] 
+		 4: %v_7[4.2,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->commit def_%v_8 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_6 %v_8[5.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[5.1,4.3,] 
+BB 7
+	outgoing: 8 10 
+	datadep: 
+	instructions:
+		 0: %self->project def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %self->sha def_%v_10 %self[7.0,2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_9->commit def_%v_11 %v_9[7.0,] %v_10[7.1,] 	 SYMBOL:	 ARGS:%v_10,
+		 3: ATTRASSIGN %self->commit %v_11[7.2,] 
+		 4: COPY TYPE_PASS def_%v_8 %v_11[7.2,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_5 %v_8[7.4,5.0,] 
+		 1: 
+		 2: %v_3[2.5,] 
+BB 9
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 11 12 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_12 
+		 2: def_%v_13 %v_12[10.1,] 
+		 3: BRANCH %v_13[10.2,] 
+BB 11
+	outgoing: 14 16 
+	datadep: 
+	instructions:
+		 0: %v_12[10.1,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Nil def_%v_5 
+		 2: 
+		 3: %v_3[2.5,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: def_%v_14 
+		 1: def_%v_15 %v_14[14.0,] %v_3[2.5,] 
+		 2: %v_14[14.0,] 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[8.0,12.1,] %self[7.3,2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = branch? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->tag? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->! def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = retryable? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->builds def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->latest def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->any? def_%v_5 %v_4[2.7,] %self[2.0,2.6,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: build[] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_build 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: build->failed? def_%cl_1_3 build[2.2,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_3[3.1,] 
+BB 4
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: build->retryable? def_%cl_1_4 build[2.2,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %cl_1_4[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[6.0,] 
+		 2: RETURN %cl_1_6[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: RETURN %v_5[2.8,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create_builds instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: RECEIVECONSTARG def_trigger_request 
+		 7: trigger_request[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_trigger_request 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->config_processor def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_3[4.1,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: %self->config_processor def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->stages def_%v_6 %v_5[5.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_6->any? def_%v_7 %v_6[5.3,] %self[5.2,2.0,] 	 SYMBOL:	 ARGS:%v_6,
+CLOSURE BEGIN: %self[5.2,2.0,] stage[] user[2.5,] trigger_request[3.0,2.6,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_stage 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (CreateBuildsService) def_%cl_1_3 
+		 2: %cl_1_3->new def_%cl_1_4 %cl_1_3[3.1,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+		 3: COPY TYPE_StringLiteral "success" def_%cl_1_5 
+		 4: %cl_1_4->execute def_%cl_1_6 %cl_1_4[3.2,] stage[2.2,] user[] %cl_1_5[3.3,] trigger_request[] 	 SYMBOL:	 ARGS:stage,user,%cl_1_5,trigger_request,
+		 5: %cl_1_6->present? def_%cl_1_7 %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:
+		 6: RETURN %cl_1_7[3.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[4.0,] 
+		 2: RETURN %cl_1_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 5: RETURN %v_7[5.4,] %self[5.2,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create_next_builds instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_build 
+		 6: 
+		 7: %self->config_processor def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: %self->builds def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->latest def_%v_6 %v_5[3.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_latest_builds %v_6[3.3,] 
+		 5: 
+		 6: build->id def_%v_7 build[2.5,] 	 SYMBOL:	 ARGS:
+		 7: latest_builds->exists? def_%v_8 latest_builds[3.4,] %v_7[3.6,] 	 SYMBOL:	 ARGS:%v_7,
+		 8: BRANCH %v_8[3.7,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: 
+		 2: %self->config_processor def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_10->stages def_%v_11 %v_10[6.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_11->drop_while def_%v_12 %v_11[6.3,] %self[6.2,2.0,] 	 SYMBOL:	 ARGS:%v_11,
+CLOSURE BEGIN: build[2.5,] stage[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_stage 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: build->stage def_%cl_1_3 build[] 	 SYMBOL:	 ARGS:
+		 2: stage->!= def_%cl_1_4 stage[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 5: COPY TYPE_PASS def_next_stages %v_12[6.4,] 
+		 6: 
+		 7: build->stage def_%v_13 build[2.5,] 	 SYMBOL:	 ARGS:
+		 8: next_stages->delete def_%v_14 next_stages[6.5,] %v_13[6.7,] 	 SYMBOL:	 ARGS:%v_13,
+		 9: 
+		 10: latest_builds->where def_%v_15 latest_builds[3.4,] 	 SYMBOL:	 ARGS:
+		 11: HASH-stage- def_%v_16 next_stages[6.5,6.8,] 
+		 12: %v_15->not def_%v_17 %v_15[6.10,] %v_16[6.11,] 	 SYMBOL:	 ARGS:%v_16,
+		 13: COPY TYPE_PASS def_prior_builds %v_17[6.12,] 
+		 14: 
+		 15: %v_17->status def_%v_18 %v_17[6.12,] 	 SYMBOL:	 ARGS:
+		 16: COPY TYPE_PASS def_prior_status %v_18[6.15,] 
+		 17: 
+		 18: next_stages->any? def_%v_19 next_stages[6.5,6.8,] %self[6.2,2.0,] 	 SYMBOL:	 ARGS:next_stages,
+CLOSURE BEGIN: %self[6.2,2.0,] build[6.7,2.5,] stage[6.4,] prior_status[6.16,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_stage 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (CreateBuildsService) def_%cl_2_3 
+		 2: %cl_2_3->new def_%cl_2_4 %cl_2_3[3.1,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+		 3: build->user def_%cl_2_5 build[] 	 SYMBOL:	 ARGS:
+		 4: build->trigger_request def_%cl_2_6 build[3.3,] 	 SYMBOL:	 ARGS:
+		 5: %cl_2_4->execute def_%cl_2_7 %cl_2_4[3.2,] stage[2.2,] %cl_2_5[3.3,] prior_status[] %cl_2_6[3.4,] 	 SYMBOL:	 ARGS:stage,%cl_2_5,prior_status,%cl_2_6,
+		 6: %cl_2_7->present? def_%cl_2_8 %cl_2_7[3.5,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %cl_2_8[3.6,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_9 
+		 1: def_%cl_2_10 %cl_2_9[4.0,] 
+		 2: RETURN %cl_2_10[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 19: RETURN %v_19[6.18,] %self[6.2,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = retried instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->retried def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->statuses def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: HASH-id- def_%v_7 
+		 2: %v_6->order def_%v_8 %v_6[5.0,] %v_7[5.1,] 	 SYMBOL:	 ARGS:%v_7,
+		 3: %self->statuses def_%v_9 %self[5.0,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_9->latest def_%v_10 %v_9[5.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_8->- def_%v_11 %v_8[5.2,] %v_10[5.4,] 	 SYMBOL:	 ARGS:%v_10,
+		 6: ATTRASSIGN %self->retried %v_11[5.5,] 
+		 7: RETURN %v_11[5.5,] %self[5.0,5.3,5.6,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = coverage instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->statuses def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->latest def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->map def_%v_5 %v_4[2.7,] 	 SYMBOL:coverage,	 ARGS:
+		 9: %v_5->compact def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_PASS def_coverage_array %v_6[2.9,] 
+		 11: 
+		 12: %v_6->size def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 13: %v_7->>= def_%v_8 %v_7[2.12,] 	 SYMBOL:	 ARGS:Fixnum,
+		 14: BRANCH %v_8[2.13,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "%.2f" def_%v_9 
+		 2: coverage_array->reduce def_%v_10 coverage_array[2.10,] 	 SYMBOL:+,	 ARGS:Symbol,
+		 3: coverage_array->size def_%v_11 coverage_array[3.2,2.10,] 	 SYMBOL:	 ARGS:
+		 4: %v_10->/ def_%v_12 %v_10[3.2,] %v_11[3.3,] 	 SYMBOL:	 ARGS:%v_11,
+		 5: %v_9->% def_%v_13 %v_9[3.1,] %v_12[3.4,] 	 SYMBOL:	 ARGS:%v_12,
+		 6: RETURN %v_13[3.5,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = config_processor instanceMethod = true
+BB 1
+	outgoing: 33 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->ci_yaml_file def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: def_%v_5 %self[2.0,] 
+		 3: BRANCH %v_5[3.2,] 
+BB 4
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->config_processor def_%v_6 %self[2.0,] 
+		 1: RETURN %v_6[6.0,] %self[2.0,] 
+BB 7
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+		 2: def_%v_9 %self[2.0,] 
+		 3: COPY TYPE_PASS def_%v_8 %v_9[7.2,] 
+		 4: %v_9[7.2,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->config_processor def_%v_10 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_8 %v_10[9.0,] 
+BB 10
+	outgoing: 11 32 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_8[9.1,7.3,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_11 
+BB 13
+	outgoing: 14 15 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (Ci) def_%v_14 
+		 3: (inherit GitlabCiYamlProcessor) def_%v_15 %v_14[13.2,] 
+		 4: %v_15[13.3,] 
+BB 14
+	outgoing: 15 17 
+	datadep: 
+	instructions:
+		 0: %v_14->const_missing def_%v_15 %v_14[13.2,] 	 SYMBOL:GitlabCiYamlProcessor,	 ARGS:Symbol,
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: %self->ci_yaml_file def_%v_16 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %self->project def_%v_17 %self[15.0,2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_17->path_with_namespace def_%v_18 %v_17[15.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_15->new def_%v_19 %v_15[14.0,13.3,] %v_16[15.0,] %v_18[15.2,] 	 SYMBOL:	 ARGS:%v_16,%v_18,
+		 4: COPY TYPE_PASS def_%v_13 %v_19[15.3,] 
+		 5: %v_11[11.0,] 
+BB 16
+	outgoing: 31 
+	datadep: 
+	instructions:
+		 0: 
+BB 17
+	outgoing: 18 19 30 
+	datadep: 
+	instructions:
+		 0: def_%v_20 
+		 1: (Ci) def_%v_21 
+		 2: (inherit GitlabCiYamlProcessor) def_%v_22 %v_21[17.1,] 
+		 3: %v_22[17.2,] 
+BB 18
+	outgoing: 19 30 
+	datadep: 
+	instructions:
+		 0: %v_21->const_missing def_%v_22 %v_21[17.1,] 	 SYMBOL:GitlabCiYamlProcessor,	 ARGS:Symbol,
+BB 19
+	outgoing: 20 21 30 
+	datadep: 
+	instructions:
+		 0: (inherit ValidationError) def_%v_23 %v_22[18.0,17.2,] 
+		 1: %v_23[19.0,] 
+BB 20
+	outgoing: 21 30 
+	datadep: 
+	instructions:
+		 0: %v_22->const_missing def_%v_23 %v_22[18.0,17.2,] 	 SYMBOL:ValidationError,	 ARGS:Symbol,
+BB 21
+	outgoing: 22 23 30 
+	datadep: 
+	instructions:
+		 0: (Psych) def_%v_24 
+		 1: (inherit SyntaxError) def_%v_25 %v_24[21.0,] 
+		 2: %v_25[21.1,] 
+BB 22
+	outgoing: 23 30 
+	datadep: 
+	instructions:
+		 0: %v_24->const_missing def_%v_25 %v_24[21.0,] 	 SYMBOL:SyntaxError,	 ARGS:Symbol,
+BB 23
+	outgoing: 24 28 30 
+	datadep: 
+	instructions:
+		 0: def_%v_26 %v_23[20.0,19.0,] %v_25[22.0,21.1,] %v_20[17.0,] 
+		 1: BRANCH %v_26[23.0,] 
+BB 24
+	outgoing: 25 26 30 
+	datadep: 
+	instructions:
+		 0: def_%v_27 %v_20[17.0,] 
+		 1: BRANCH %v_27[24.0,] 
+BB 25
+	outgoing: 30 33 
+	datadep: 
+	instructions:
+		 0: %v_20[17.0,] 
+BB 26
+	outgoing: 27 30 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Undefined error" def_%v_28 
+		 2: %self->save_yaml_error def_%v_29 %self[2.0,] %v_28[26.1,] 	 SYMBOL:	 ARGS:%v_28,
+		 3: 
+		 4: COPY TYPE_Nil def_%v_13 
+		 5: %v_11[11.0,] 
+BB 27
+	outgoing: 31 
+	datadep: 
+	instructions:
+		 0: 
+BB 28
+	outgoing: 29 30 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_30 
+		 1: COPY TYPE_PASS def_e %v_30[28.0,] 
+		 2: 
+		 3: %v_30->message def_%v_31 %v_30[28.0,] 	 SYMBOL:	 ARGS:
+		 4: %self->save_yaml_error def_%v_32 %self[2.0,] %v_31[28.3,] 	 SYMBOL:	 ARGS:%v_31,
+		 5: 
+		 6: COPY TYPE_Nil def_%v_13 
+		 7: %v_11[11.0,] 
+BB 29
+	outgoing: 31 
+	datadep: 
+	instructions:
+		 0: 
+BB 30
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: def_%v_33 
+		 1: def_%v_34 %v_33[30.0,] %v_11[11.0,] 
+		 2: %v_33[30.0,] 
+BB 31
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->config_processor %v_13[15.4,26.4,28.6,] 
+		 1: RETURN %v_13[15.4,26.4,28.6,] %self[31.0,2.0,] 
+BB 32
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: RETURN %v_10[9.0,] %self[2.0,] 
+BB 33
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ci_yaml_file instanceMethod = true
+BB 1
+	outgoing: 19 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_3 %self[2.0,] 
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->ci_yaml_file def_%v_4 %self[2.0,] 
+		 1: RETURN %v_4[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: def_%v_7 %self[2.0,] 
+		 3: COPY TYPE_PASS def_%v_6 %v_7[4.2,] 
+		 4: %v_7[4.2,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->ci_yaml_file def_%v_8 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_6 %v_8[6.0,] 
+BB 7
+	outgoing: 8 18 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[6.1,4.3,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_9 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->project def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_12->repository def_%v_13 %v_12[10.2,] 	 SYMBOL:	 ARGS:
+		 4: %self->sha def_%v_14 %self[10.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral ".gitlab-ci.yml" def_%v_15 
+		 6: %v_13->blob_at def_%v_16 %v_13[10.3,] %v_14[10.4,] %v_15[10.5,] 	 SYMBOL:	 ARGS:%v_14,%v_15,
+		 7: COPY TYPE_PASS def_blob %v_16[10.6,] 
+		 8: 
+		 9: %self->project def_%v_17 %self[10.2,10.4,2.0,] 	 SYMBOL:	 ARGS:
+		 10: %v_17->repository def_%v_18 %v_17[10.9,] 	 SYMBOL:	 ARGS:
+		 11: blob->load_all_data! def_%v_19 blob[10.7,] %v_18[10.10,] 	 SYMBOL:	 ARGS:%v_18,
+		 12: 
+		 13: blob->data def_%v_20 blob[10.7,10.11,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_PASS def_%v_11 %v_20[10.13,] 
+		 15: 
+		 16: %v_9[8.0,] 
+BB 11
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+BB 12
+	outgoing: 13 14 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_21 
+		 2: def_%v_22 %v_21[12.1,] 
+		 3: BRANCH %v_22[12.2,] 
+BB 13
+	outgoing: 16 19 
+	datadep: 
+	instructions:
+		 0: %v_21[12.1,] 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Nil def_%v_11 
+		 2: 
+		 3: %v_9[8.0,] 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+BB 16
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: def_%v_23 
+		 1: def_%v_24 %v_23[16.0,] %v_9[8.0,] 
+		 2: %v_23[16.0,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->ci_yaml_file %v_11[10.14,14.1,] 
+		 1: RETURN %v_11[10.14,14.1,] %self[17.0,2.0,] 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: RETURN %v_8[6.0,] %self[2.0,] 
+BB 19
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = skip_ci? instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->git_commit_message def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->git_commit_message def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_Regexp def_%v_5 
+		 2: %v_4->=~ def_%v_6 %v_4[3.0,] 	 SYMBOL:	 ARGS:%v_5,
+		 3: RETURN %v_6[3.2,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_state instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->statuses def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->reload def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: 
+		 9: %self->yaml_errors def_%v_5 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 10: %v_5->blank? def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_6[2.10,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->statuses def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->latest def_%v_8 %v_7[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_8->status def_%v_9 %v_8[3.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_9[3.3,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "skipped" def_%v_10 
+		 1: COPY TYPE_PASS def_%v_9 %v_10[4.0,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "failed" def_%v_11 
+		 2: COPY TYPE_PASS def_%v_9 %v_11[6.1,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->status %v_9[6.2,4.1,3.3,] 
+		 1: 
+		 2: %self->statuses def_%v_12 %self[7.0,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_12->started_at def_%v_13 %v_12[7.2,] 	 SYMBOL:	 ARGS:
+		 4: ATTRASSIGN %self->started_at %v_13[7.3,] 
+		 5: 
+		 6: %self->statuses def_%v_14 %self[7.0,7.2,7.4,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_14->finished_at def_%v_15 %v_14[7.6,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN %self->finished_at %v_15[7.7,] 
+		 9: 
+		 10: %self->statuses def_%v_16 %self[7.0,7.2,7.4,7.6,7.8,2.0,] 	 SYMBOL:	 ARGS:
+		 11: %v_16->latest def_%v_17 %v_16[7.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_17->duration def_%v_18 %v_17[7.11,] 	 SYMBOL:	 ARGS:
+		 13: ATTRASSIGN %self->duration %v_18[7.12,] 
+		 14: 
+		 15: %self->save def_%v_19 %self[7.0,7.2,7.4,7.6,7.8,7.10,7.13,2.0,] 	 SYMBOL:	 ARGS:
+		 16: RETURN %v_19[7.15,] %self[7.0,7.2,7.4,7.6,7.8,7.10,7.13,7.15,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = save_yaml_error instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_error 
+		 6: 
+		 7: %self->yaml_errors? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: ATTRASSIGN %self->yaml_errors error[2.5,] 
+		 3: 
+		 4: %self->update_state def_%v_5 %self[4.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: RETURN %v_5[4.4,] %self[4.2,4.4,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,943 @@
+SET IRMethod, name = s3_swf_uploader instanceMethod = true
+BB 1
+	outgoing: 34 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_media_type 
+		 6: 
+		 7: ATTRASSIGN %self->media_type media_type[2.5,] 
+		 8: 
+		 9: COPY TYPE_StringLiteral "banner" def_%v_5 
+		 10: def_%v_4 %v_5[2.9,] media_type[2.5,] 
+		 11: BRANCH %v_4[2.10,] 
+BB 3
+	outgoing: 4 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "image" def_%v_7 
+		 1: def_%v_6 %v_7[3.0,] media_type[2.5,] 
+		 2: BRANCH %v_6[3.1,] 
+BB 4
+	outgoing: 5 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "video" def_%v_9 
+		 1: def_%v_8 %v_9[4.0,] media_type[2.5,] 
+		 2: BRANCH %v_8[4.1,] 
+BB 5
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_3 
+		 1: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->filename_for_image_upload def_%v_10 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %self->temporary_filename %v_10[6.1,] 
+		 3: 
+		 4: %self->current_user def_%v_11 %self[6.1,6.2,2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 5: %self->user_account_image_path def_%v_12 %self[6.1,6.2,6.4,2.0,2.7,] %v_11[6.4,] 	 SYMBOL:	 ARGS:%v_11,
+		 6: ATTRASSIGN %self->success_response_path %v_12[6.5,] 
+		 7: 
+		 8: %self->current_user def_%v_13 %self[6.1,6.2,6.4,6.5,6.6,2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 9: HASH-media_type- def_%v_14 media_type[2.5,] 
+		 10: %self->user_account_image_status_path def_%v_15 %self[6.1,6.2,6.4,6.5,6.6,6.8,2.0,2.7,] %v_13[6.8,] %v_14[6.9,] 	 SYMBOL:	 ARGS:%v_13,%v_14,
+		 11: ATTRASSIGN %self->image_status_path %v_15[6.10,] 
+		 12: 
+		 13: (Brevidy) def_%v_16 
+		 14: (inherit Application) def_%v_17 %v_16[6.13,] 
+		 15: %v_17[6.14,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_16->const_missing def_%v_17 %v_16[6.13,] 	 SYMBOL:Application,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: (inherit S3_IMAGES_RELATIVE_PATH) def_%v_18 %v_17[7.0,6.14,] 
+		 1: %v_18[8.0,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_17->const_missing def_%v_18 %v_17[7.0,6.14,] 	 SYMBOL:S3_IMAGES_RELATIVE_PATH,	 ARGS:Symbol,
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "/" def_%v_19 
+		 1: %self->current_user def_%v_20 %self[6.2,6.6,6.11,2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 2: %v_20->id def_%v_21 %v_20[10.1,] 	 SYMBOL:	 ARGS:
+		 3: BUILDSTRING def_%v_22 %v_18[9.0,8.0,] %v_19[10.0,] %v_21[10.2,] 
+		 4: ATTRASSIGN %self->s3_storage_folder %v_22[10.3,] 
+		 5: 
+		 6: COPY TYPE_StringLiteral "public-read" def_%v_23 
+		 7: ATTRASSIGN %self->acl %v_23[10.6,] 
+		 8: 
+		 9: COPY TYPE_StringLiteral "image/jpg" def_%v_24 
+		 10: ATTRASSIGN %self->content_type %v_24[10.9,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "Images" def_%v_25 
+		 13: ATTRASSIGN %self->filter_title %v_25[10.12,] 
+		 14: 
+		 15: COPY TYPE_StringLiteral "jpg,jpeg,gif,png" def_%v_26 
+		 16: ATTRASSIGN %self->filter_extensions %v_26[10.15,] 
+		 17: 
+		 18: COPY TYPE_StringLiteral "banner" def_%v_27 
+		 19: media_type->== def_%v_28 media_type[2.5,] %v_27[10.18,] 	 SYMBOL:	 ARGS:%v_27,
+		 20: BRANCH %v_28[10.19,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: CONSTANT def_%v_29 	 SYMBOL:	 ARGS:
+		 1: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: CONSTANT def_%v_30 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_29 %v_30[12.0,] 
+BB 13
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->max_filesize %v_29[12.1,11.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_29[12.1,11.0,] 
+		 2: 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->filename_for_image_upload def_%v_31 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %self->temporary_filename %v_31[14.1,] 
+		 3: 
+		 4: %self->current_user def_%v_32 %self[14.1,14.2,2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 5: %self->user_account_image_path def_%v_33 %self[14.1,14.2,14.4,2.0,2.7,] %v_32[14.4,] 	 SYMBOL:	 ARGS:%v_32,
+		 6: ATTRASSIGN %self->success_response_path %v_33[14.5,] 
+		 7: 
+		 8: %self->current_user def_%v_34 %self[14.1,14.2,14.4,14.5,14.6,2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 9: HASH-media_type- def_%v_35 media_type[2.5,] 
+		 10: %self->user_account_image_status_path def_%v_36 %self[14.1,14.2,14.4,14.5,14.6,14.8,2.0,2.7,] %v_34[14.8,] %v_35[14.9,] 	 SYMBOL:	 ARGS:%v_34,%v_35,
+		 11: ATTRASSIGN %self->image_status_path %v_36[14.10,] 
+		 12: 
+		 13: (Brevidy) def_%v_37 
+		 14: (inherit Application) def_%v_38 %v_37[14.13,] 
+		 15: %v_38[14.14,] 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: %v_37->const_missing def_%v_38 %v_37[14.13,] 	 SYMBOL:Application,	 ARGS:Symbol,
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: (inherit S3_IMAGES_RELATIVE_PATH) def_%v_39 %v_38[15.0,14.14,] 
+		 1: %v_39[16.0,] 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: %v_38->const_missing def_%v_39 %v_38[15.0,14.14,] 	 SYMBOL:S3_IMAGES_RELATIVE_PATH,	 ARGS:Symbol,
+BB 18
+	outgoing: 19 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "/" def_%v_40 
+		 1: %self->current_user def_%v_41 %self[14.2,14.6,14.11,2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 2: %v_41->id def_%v_42 %v_41[18.1,] 	 SYMBOL:	 ARGS:
+		 3: BUILDSTRING def_%v_43 %v_39[17.0,16.0,] %v_40[18.0,] %v_42[18.2,] 
+		 4: ATTRASSIGN %self->s3_storage_folder %v_43[18.3,] 
+		 5: 
+		 6: COPY TYPE_StringLiteral "public-read" def_%v_44 
+		 7: ATTRASSIGN %self->acl %v_44[18.6,] 
+		 8: 
+		 9: COPY TYPE_StringLiteral "image/jpg" def_%v_45 
+		 10: ATTRASSIGN %self->content_type %v_45[18.9,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "Images" def_%v_46 
+		 13: ATTRASSIGN %self->filter_title %v_46[18.12,] 
+		 14: 
+		 15: COPY TYPE_StringLiteral "jpg,jpeg,gif,png" def_%v_47 
+		 16: ATTRASSIGN %self->filter_extensions %v_47[18.15,] 
+		 17: 
+		 18: COPY TYPE_StringLiteral "banner" def_%v_48 
+		 19: media_type->== def_%v_49 media_type[2.5,] %v_48[18.18,] 	 SYMBOL:	 ARGS:%v_48,
+		 20: BRANCH %v_49[18.19,] 
+BB 19
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: CONSTANT def_%v_50 	 SYMBOL:	 ARGS:
+		 1: 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: CONSTANT def_%v_51 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_50 %v_51[20.0,] 
+BB 21
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->max_filesize %v_50[20.1,19.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_50[20.1,19.0,] 
+		 2: 
+BB 22
+	outgoing: 23 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->new_video_graph_object def_%v_52 %self[2.0,] 
+		 2: %v_52->base_filename def_%v_53 %v_52[22.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN %self->base_filename %v_53[22.2,] 
+		 4: 
+		 5: COPY TYPE_StringLiteral "orig_" def_%v_54 
+		 6: GETFIELD %self->base_filename def_%v_55 %self[22.3,2.0,] 
+		 7: COPY TYPE_StringLiteral "_" def_%v_56 
+		 8: %self->current_user def_%v_57 %self[22.3,2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_57->id def_%v_58 %v_57[22.8,] 	 SYMBOL:	 ARGS:
+		 10: BUILDSTRING def_%v_59 %v_54[22.5,] %v_55[22.6,] %v_56[22.7,] %v_58[22.9,] 
+		 11: ATTRASSIGN %self->temporary_filename %v_59[22.10,] 
+		 12: 
+		 13: %self->current_user def_%v_60 %self[22.3,22.8,22.11,2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 14: GETFIELD %self->video def_%v_61 %self[22.8,22.13,2.0,] 
+		 15: %self->user_video_successful_upload_path def_%v_62 %self[22.3,22.8,22.11,22.13,2.0,2.7,] %v_60[22.13,] %v_61[22.14,] 	 SYMBOL:	 ARGS:%v_60,%v_61,
+		 16: ATTRASSIGN %self->success_response_path %v_62[22.15,] 
+		 17: 
+		 18: %self->current_user def_%v_63 %self[22.3,22.8,22.11,22.13,22.15,22.16,2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 19: GETFIELD %self->video def_%v_64 %self[22.8,22.13,22.15,22.18,2.0,] 
+		 20: %self->user_video_upload_error_path def_%v_65 %self[22.3,22.8,22.11,22.13,22.15,22.16,22.18,2.0,2.7,] %v_63[22.18,] %v_64[22.19,] 	 SYMBOL:	 ARGS:%v_63,%v_64,
+		 21: ATTRASSIGN %self->video_upload_error_path %v_65[22.20,] 
+		 22: 
+		 23: (Brevidy) def_%v_66 
+		 24: (inherit Application) def_%v_67 %v_66[22.23,] 
+		 25: %v_67[22.24,] 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: %v_66->const_missing def_%v_67 %v_66[22.23,] 	 SYMBOL:Application,	 ARGS:Symbol,
+BB 24
+	outgoing: 25 26 
+	datadep: 
+	instructions:
+		 0: (inherit S3_VIDEOS_RELATIVE_PATH) def_%v_68 %v_67[23.0,22.24,] 
+		 1: %v_68[24.0,] 
+BB 25
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: %v_67->const_missing def_%v_68 %v_67[23.0,22.24,] 	 SYMBOL:S3_VIDEOS_RELATIVE_PATH,	 ARGS:Symbol,
+BB 26
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "/" def_%v_69 
+		 1: %self->current_user def_%v_70 %self[22.3,22.11,22.16,22.21,2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 2: %v_70->id def_%v_71 %v_70[26.1,] 	 SYMBOL:	 ARGS:
+		 3: BUILDSTRING def_%v_72 %v_68[25.0,24.0,] %v_69[26.0,] %v_71[26.2,] 
+		 4: ATTRASSIGN %self->s3_storage_folder %v_72[26.3,] 
+		 5: 
+		 6: COPY TYPE_StringLiteral "private" def_%v_73 
+		 7: ATTRASSIGN %self->acl %v_73[26.6,] 
+		 8: 
+		 9: COPY TYPE_StringLiteral "video/" def_%v_74 
+		 10: ATTRASSIGN %self->content_type %v_74[26.9,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "Videos" def_%v_75 
+		 13: ATTRASSIGN %self->filter_title %v_75[26.12,] 
+		 14: 
+		 15: COPY TYPE_StringLiteral "*.3gp;*.3gpp;*.mov;*.avi;*.mp4;*.m4v;*.mpg;*.mpeg;*.rm;*.ram;*.ra;*.flv;*.f4v;*.ogm;*.asf;*.wma;*.ivf;*.wmv;*.ogv;*.3gp;*.swf;*.vob;*.divx;*.mts;*.m2ts;" def_%v_76 
+		 16: ATTRASSIGN %self->swf_filter_extensions %v_76[26.15,] 
+		 17: 
+		 18: CONSTANT def_%v_77 	 SYMBOL:	 ARGS:
+		 19: ATTRASSIGN %self->max_filesize %v_77[26.18,] 
+		 20: COPY TYPE_PASS def_%v_3 %v_77[26.18,] 
+		 21: 
+BB 28
+	outgoing: 29 30 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Brevidy) def_%v_78 
+		 2: (inherit Application) def_%v_79 %v_78[28.1,] 
+		 3: %v_79[28.2,] 
+BB 29
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: %v_78->const_missing def_%v_79 %v_78[28.1,] 	 SYMBOL:Application,	 ARGS:Symbol,
+BB 30
+	outgoing: 31 32 
+	datadep: 
+	instructions:
+		 0: (inherit S3_BASE_URL) def_%v_80 %v_79[29.0,28.2,] 
+		 1: %v_80[30.0,] 
+BB 31
+	outgoing: 32 
+	datadep: 
+	instructions:
+		 0: %v_79->const_missing def_%v_80 %v_79[29.0,28.2,] 	 SYMBOL:S3_BASE_URL,	 ARGS:Symbol,
+BB 32
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->s3_base_url %v_80[31.0,30.0,] 
+		 1: 
+		 2: GETFIELD %self->s3_storage_folder def_%v_81 %self[26.4,10.4,18.4,2.0,] 
+		 3: COPY TYPE_StringLiteral "/" def_%v_82 
+		 4: GETFIELD %self->temporary_filename def_%v_83 %self[22.11,2.0,6.2,14.2,] 
+		 5: BUILDSTRING def_%v_84 %v_81[32.2,] %v_82[32.3,] %v_83[32.4,] 
+		 6: ATTRASSIGN %self->s3_file_key %v_84[32.5,] 
+		 7: 
+		 8: CONSTANT def_%v_85 	 SYMBOL:	 ARGS:
+		 9: %v_85->from_now def_%v_86 %v_85[32.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_86->utc def_%v_87 %v_86[32.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_87->iso8601 def_%v_88 %v_87[32.10,] 	 SYMBOL:	 ARGS:
+		 12: ATTRASSIGN %self->expiration_date %v_88[32.11,] 
+		 13: 
+		 14: %self->swf_generated_policy def_%v_89 %self[32.0,32.6,32.12,13.0,21.0,26.4,26.7,26.10,26.13,26.16,26.19,10.4,10.7,10.10,10.13,10.16,18.4,18.7,18.10,18.13,18.16,22.3,22.11,22.16,22.21,2.0,2.7,6.2,6.6,6.11,14.2,14.6,14.11,] 	 SYMBOL:	 ARGS:
+		 15: ATTRASSIGN %self->policy %v_89[32.14,] 
+		 16: 
+		 17: GETFIELD %self->policy def_%v_90 %self[32.14,32.15,2.0,] 
+		 18: %self->swf_generated_signature def_%v_91 %self[32.0,32.6,32.12,32.14,32.15,13.0,21.0,26.4,26.7,26.10,26.13,26.16,26.19,10.4,10.7,10.10,10.13,10.16,18.4,18.7,18.10,18.13,18.16,22.3,22.11,22.16,22.21,2.0,2.7,6.2,6.6,6.11,14.2,14.6,14.11,] %v_90[32.17,] 	 SYMBOL:	 ARGS:%v_90,
+		 19: ATTRASSIGN %self->signature %v_91[32.18,] 
+		 20: 
+		 21: %self->swfupload_uploader_javascript def_%v_92 %self[32.0,32.6,32.12,32.14,32.15,32.18,32.19,13.0,21.0,26.4,26.7,26.10,26.13,26.16,26.19,10.4,10.7,10.10,10.13,10.16,18.4,18.7,18.10,18.13,18.16,22.3,22.11,22.16,22.21,2.0,2.7,6.2,6.6,6.11,14.2,14.6,14.11,] 	 SYMBOL:	 ARGS:
+		 22: RETURN %v_92[32.21,] %self[32.0,32.6,32.12,32.14,32.15,32.18,32.19,32.21,13.0,21.0,26.4,26.7,26.10,26.13,26.16,26.19,10.4,10.7,10.10,10.13,10.16,18.4,18.7,18.10,18.13,18.16,22.3,22.11,22.16,22.21,2.0,2.7,6.2,6.6,6.11,14.2,14.6,14.11,] 
+BB 34
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = swf_bucket instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Brevidy) def_%v_3 
+		 7: (inherit Application) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Application,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit S3_BUCKET) def_%v_5 %v_4[3.0,2.7,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:S3_BUCKET,	 ARGS:Symbol,
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[5.0,4.0,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = swf_access_key instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Brevidy) def_%v_3 
+		 7: (inherit Application) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Application,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit S3_ACCESS_KEY_ID) def_%v_5 %v_4[3.0,2.7,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:S3_ACCESS_KEY_ID,	 ARGS:Symbol,
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[5.0,4.0,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = swf_secret_access_key instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Brevidy) def_%v_3 
+		 7: (inherit Application) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Application,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit S3_SECRET_ACCESS_KEY) def_%v_5 %v_4[3.0,2.7,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:S3_SECRET_ACCESS_KEY,	 ARGS:Symbol,
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[5.0,4.0,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = swf_generated_policy instanceMethod = true
+BB 1
+	outgoing: 4 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Base64) def_%v_3 
+		 7: COPY TYPE_StringLiteral "{'expiration': '" def_%v_4 
+		 8: GETFIELD %self->expiration_date def_%v_5 %self[2.0,] 
+		 9: COPY TYPE_StringLiteral "',
+                                        'conditions': [
+                                          {'bucket': '" def_%v_6 
+		 10: 
+		 11: %self->swf_bucket def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral "'},
+                                          {'acl': '" def_%v_8 
+		 13: 
+		 14: GETFIELD %self->acl def_%v_9 %self[2.0,2.11,] 
+		 15: COPY TYPE_StringLiteral "'},
+                                          {'success_action_status': '201'},
+                                          ['content-length-range', 0, " def_%v_10 
+		 16: 
+		 17: GETFIELD %self->max_filesize def_%v_11 %self[2.0,2.11,] 
+		 18: COPY TYPE_StringLiteral "],
+                                          ['starts-with', '$key', '" def_%v_12 
+		 19: 
+		 20: GETFIELD %self->s3_file_key def_%v_13 %self[2.0,2.11,] 
+		 21: COPY TYPE_StringLiteral "'],
+                                          ['starts-with', '$Content-Type', ''],
+                                          ['starts-with', '$Filename', '']
+                                        ]
+                                      }" def_%v_14 
+		 22: BUILDSTRING def_%v_15 %v_4[2.7,] %v_5[2.8,] %v_6[2.9,] %v_7[2.11,] %v_8[2.12,] %v_9[2.14,] %v_10[2.15,] %v_11[2.17,] %v_12[2.18,] %v_13[2.20,] %v_14[2.21,] 
+		 23: %v_3->encode64 def_%v_16 %v_3[2.6,] %v_15[2.22,] 	 SYMBOL:	 ARGS:%v_15,
+		 24: COPY TYPE_Regexp def_%v_17 
+		 25: COPY TYPE_StringLiteral "" def_%v_18 
+		 26: %v_16->gsub def_%v_19 %v_16[2.23,] %v_18[2.25,] 	 SYMBOL:	 ARGS:%v_17,%v_18,
+		 27: COPY TYPE_PASS def_policy %v_19[2.26,] 
+		 28: RETURN %v_19[2.26,] %self[2.0,2.11,] 
+BB 4
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = swf_generated_signature instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_policy 
+		 6: 
+		 7: (Base64) def_%v_3 
+		 8: (OpenSSL) def_%v_4 
+		 9: (inherit HMAC) def_%v_5 %v_4[2.8,] 
+		 10: %v_5[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[2.8,] 	 SYMBOL:HMAC,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (OpenSSL) def_%v_6 
+		 1: (inherit Digest) def_%v_7 %v_6[4.0,] 
+		 2: %v_7[4.1,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[4.0,] 	 SYMBOL:Digest,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: (inherit Digest) def_%v_8 %v_7[5.0,4.1,] 
+		 1: %v_8[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_7->const_missing def_%v_8 %v_7[5.0,4.1,] 	 SYMBOL:Digest,	 ARGS:Symbol,
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "sha1" def_%v_9 
+		 1: %v_8->new def_%v_10 %v_8[7.0,6.0,] %v_9[8.0,] 	 SYMBOL:	 ARGS:%v_9,
+		 2: %self->swf_secret_access_key def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->digest def_%v_12 %v_5[3.0,2.9,] %v_10[8.1,] %v_11[8.2,] policy[2.5,] 	 SYMBOL:	 ARGS:%v_10,%v_11,policy,
+		 4: %v_3->encode64 def_%v_13 %v_3[2.7,] %v_12[8.3,] 	 SYMBOL:	 ARGS:%v_12,
+		 5: COPY TYPE_StringLiteral "
+" def_%v_14 
+		 6: COPY TYPE_StringLiteral "" def_%v_15 
+		 7: %v_13->gsub def_%v_16 %v_13[8.4,] %v_14[8.5,] %v_15[8.6,] 	 SYMBOL:	 ARGS:%v_14,%v_15,
+		 8: COPY TYPE_PASS def_signature %v_16[8.7,] 
+		 9: RETURN %v_16[8.7,] %self[8.2,2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = swfupload_uploader_javascript instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_options 
+		 6: options[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "" def_%v_4 
+		 2: COPY TYPE_PASS def_uploader_js %v_4[4.1,] 
+		 3: 
+		 4: COPY TYPE_StringLiteral "uploader/swfupload.and.speed.min" def_%v_5 
+		 5: %self->javascript_include_tag def_%v_6 %self[2.0,] %v_5[4.4,] 	 SYMBOL:	 ARGS:%v_5,
+		 6: uploader_js-><< def_%v_7 uploader_js[4.2,] %v_6[4.5,] 	 SYMBOL:	 ARGS:%v_6,
+		 7: 
+		 8: COPY TYPE_StringLiteral "
+        $(function() { 
+          var new_video = " def_%v_8 
+		 9: 
+		 10: GETFIELD %self->media_type def_%v_9 %self[4.5,2.0,] 
+		 11: COPY TYPE_StringLiteral "video" def_%v_10 
+		 12: %v_9->== def_%v_11 %v_9[4.10,] %v_10[4.11,] 	 SYMBOL:	 ARGS:%v_10,
+		 13: COPY TYPE_StringLiteral ";
+          var percent_uploaded = 0;
+          
+          var swf_uploader = new SWFUpload({
+          	// SWF Settings
+          	flash_url: '/javascripts/uploader/swfupload.swf',
+          	prevent_swf_caching: false,
+	
+	          // Button Settings
+          	button_action: SWFUpload.BUTTON_ACTION.SELECT_FILE,
+          	button_image_url: '" def_%v_12 
+		 14: 
+		 15: COPY TYPE_StringLiteral "/javascripts/uploader/select_" def_%v_13 
+		 16: GETFIELD %self->media_type def_%v_14 %self[4.5,2.0,] 
+		 17: COPY TYPE_StringLiteral "_v1.png" def_%v_15 
+		 18: BUILDSTRING def_%v_16 %v_13[4.15,] %v_14[4.16,] %v_15[4.17,] 
+		 19: %self->cache_buster_path def_%v_17 %self[4.5,2.0,] %v_16[4.18,] 	 SYMBOL:	 ARGS:%v_16,
+		 20: COPY TYPE_StringLiteral "',
+          	button_placeholder_id: 'select-" def_%v_18 
+		 21: 
+		 22: GETFIELD %self->media_type def_%v_19 %self[4.5,4.19,2.0,] 
+		 23: COPY TYPE_StringLiteral "',
+          	button_width: 103,
+          	button_height: 28,
+          	button_window_mode: 'transparent',
+          	button_cursor: SWFUpload.CURSOR.HAND,
+          	
+          	// S3 settings
+          	upload_url: '" def_%v_20 
+		 24: 
+		 25: GETFIELD %self->s3_base_url def_%v_21 %self[4.5,4.19,2.0,] 
+		 26: COPY TYPE_StringLiteral "https://" def_%v_22 
+		 27: COPY TYPE_StringLiteral "http://" def_%v_23 
+		 28: %v_21->gsub def_%v_24 %v_21[4.25,] %v_22[4.26,] %v_23[4.27,] 	 SYMBOL:	 ARGS:%v_22,%v_23,
+		 29: COPY TYPE_StringLiteral "',
+          	file_post_name: 'file',
+          	post_params: {
+                'key': '" def_%v_25 
+		 30: 
+		 31: GETFIELD %self->s3_file_key def_%v_26 %self[4.5,4.19,2.0,] 
+		 32: COPY TYPE_StringLiteral "',
+                'Filename': '${filename}',
+          			'acl': '" def_%v_27 
+		 33: 
+		 34: GETFIELD %self->acl def_%v_28 %self[4.5,4.19,2.0,] 
+		 35: COPY TYPE_StringLiteral "',
+          			'Content-Type': '" def_%v_29 
+		 36: 
+		 37: GETFIELD %self->content_type def_%v_30 %self[4.5,4.19,2.0,] 
+		 38: COPY TYPE_StringLiteral "',
+          			'success_action_status': '201',
+          			'AWSAccessKeyId': '" def_%v_31 
+		 39: 
+		 40: %self->swf_access_key def_%v_32 %self[4.5,4.19,2.0,] 	 SYMBOL:	 ARGS:
+		 41: COPY TYPE_StringLiteral "',		
+          			'policy': '" def_%v_33 
+		 42: 
+		 43: GETFIELD %self->policy def_%v_34 %self[4.5,4.19,4.40,2.0,] 
+		 44: COPY TYPE_StringLiteral "',
+          			'signature': '" def_%v_35 
+		 45: 
+		 46: GETFIELD %self->signature def_%v_36 %self[4.5,4.19,4.40,2.0,] 
+		 47: COPY TYPE_StringLiteral "'
+               },
+
+          	// File settings
+          	file_size_limit: '" def_%v_37 
+		 48: 
+		 49: GETFIELD %self->max_filesize def_%v_38 %self[4.5,4.19,4.40,2.0,] 
+		 50: %v_38->/ def_%v_39 %v_38[4.49,] 	 SYMBOL:	 ARGS:Fixnum,
+		 51: COPY TYPE_StringLiteral " MB',
+          	file_types: '" def_%v_40 
+		 52: 
+		 53: GETFIELD %self->swf_filter_extensions def_%v_41 %self[4.5,4.19,4.40,2.0,] 
+		 54: COPY TYPE_StringLiteral "',			
+          	file_types_description: '" def_%v_42 
+		 55: 
+		 56: GETFIELD %self->filter_title def_%v_43 %self[4.5,4.19,4.40,2.0,] 
+		 57: COPY TYPE_StringLiteral "',
+          	file_upload_limit: 1,
+          	file_queue_limit: 1,
+
+          	// Event handler settings
+          	http_success : [201],
+          	file_dialog_complete_handler: fileDialogComplete,
+          	file_queue_error_handler: fileQueueError,
+          	upload_start_handler: uploadStart,
+          	upload_progress_handler: uploadProgress,
+          	upload_error_handler: uploadError,
+          	upload_success_handler: uploadSuccess,
+
+          	// Debug settings
+          	debug: " def_%v_44 
+		 58: 
+		 59: (Rails) def_%v_45 
+		 60: %v_45->env def_%v_46 %v_45[4.59,] 	 SYMBOL:	 ARGS:
+		 61: %v_46->development? def_%v_47 %v_46[4.60,] 	 SYMBOL:	 ARGS:
+		 62: COPY TYPE_StringLiteral "
+          });
+          
+          function fileDialogComplete() { swf_uploader.startUpload(); }
+          
+          function uploadStart(file) {
+            // Move the uploader browse button off screen
+            $('.uploader-area').css({'position':'relative','top':'-9999999px','height':'0'});   
+            swf_uploader.setButtonDisabled(true);
+            
+            $('#progress-bar span').show();
+            $('#progress-bar').show('fast', function () { 
+              $('#new-video-form').slideDown('fast');
+            });  
+            
+            // warn user if they are still uploading to not leave the page
+            window.onbeforeunload = function() {
+              return 'You are currently uploading a file.  Are you sure you want to leave this page and cancel the upload?';
+            };
+          }
+          
+          function uploadSuccess(file, serverData) {
+            $('#progress-bar .progress').css('width', '100%');
+            $('#progress-bar span').text('Processing...');
+            
+            if (new_video) {
+              var ajax_data = { };
+              $('#new-video-form').submit();
+            } else {
+              var ajax_data = { 'media_type':'" def_%v_48 
+		 63: 
+		 64: GETFIELD %self->media_type def_%v_49 %self[4.5,4.19,4.40,2.0,] 
+		 65: COPY TYPE_StringLiteral "',
+        				                'filename':'" def_%v_50 
+		 66: 
+		 67: GETFIELD %self->temporary_filename def_%v_51 %self[4.5,4.19,4.40,2.0,] 
+		 68: COPY TYPE_StringLiteral "' };
+            }
+            
+            $.ajax({
+      				data: ajax_data,
+      				type: 'PUT',
+      				url: '" def_%v_52 
+		 69: 
+		 70: GETFIELD %self->success_response_path def_%v_53 %self[4.5,4.19,4.40,2.0,] 
+		 71: COPY TYPE_StringLiteral "',
+      				success: function(json) {
+      				  // Update progress bar
+                $('#progress-bar span').text(json.success_message);
+      				  
+      				  // Start polling for image uploads
+      				  if (new_video) { 
+      				    $('.success-message.video-saved p').html('Video information saved. You can edit it by <a href="'+ json.edit_video_path +'">clicking here</a>');
+      				  } else {
+      				    // Start polling for image uploads
+      				    simple_poll_request(); 
+      				  }
+      				},
+      				error: function(response) {
+      				  // show failure on progress bar
+                $('#progress-bar .progress').addClass('error').css('width', '100%');
+                $('#progress-bar span').text('Upload Failed :(');
+
+                brevidy.dialog('Error', 'There was an error uploading your file.  Please e-mail us at support@brevidy.com if this continues to happen.', 'error');
+      				}
+      			});
+
+            // clear out the user warning
+            window.onbeforeunload = null;
+          }
+          
+          var progressSpeed = 0;
+          function uploadProgress(file, bytesLoaded, bytesTotal) {    
+          	if (bytesTotal) {
+          		percent_uploaded = (bytesLoaded / bytesTotal) * 100;
+          		$('#progress-bar .progress').css('width', percent_uploaded + '%');
+          		// Convert to bytes per second and show time left (currentSpeed is bits per second)
+          		var speed = SWFUpload.speed.formatBytes(Math.round(file.currentSpeed) * 0.125) + '/s (' + SWFUpload.speed.formatTime(file.timeRemaining) + ' left)';
+          		if (progressSpeed == 5 || percent_uploaded > 95) { $('#progress-bar span').text('Uploading... ' + speed); progressSpeed = 1;}
+          		progressSpeed++;
+          	}
+          }
+
+          function fileQueueError(file, errorCode, message)  {
+          	switch (errorCode) {
+          	case SWFUpload.QUEUE_ERROR.QUEUE_LIMIT_EXCEEDED:
+          	  var error_message = 'You can only upload one file at a time.';
+          	  break;
+          	case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
+          	  var error_message = 'The file you chose was too large (it cannot be larger than ' + " def_%v_54 
+		 72: 
+		 73: GETFIELD %self->max_filesize def_%v_55 %self[4.5,4.19,4.40,2.0,] 
+		 74: %v_55->/ def_%v_56 %v_55[4.73,] 	 SYMBOL:	 ARGS:Fixnum,
+		 75: COPY TYPE_StringLiteral " + ' MB).  Please resize the file or choose a different one to upload.';
+          	  break;
+          	case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
+          		var error_message = 'The file you selected is empty. Please select another file.';
+          	  break;
+          	case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:
+          		var error_message = 'The file you choose is not an allowed file type.';
+          	  break;
+          	default:
+          		var error_message = 'An error occurred in the upload. Please email us at support@brevidy.com if this continues to happen.';
+          	  break;
+          	}
+          	brevidy.dialog('Error', error_message, 'error');
+          	return;
+          }
+          
+          function uploadError(file, errorCode, message) {
+            if (errorCode == SWFUpload.UPLOAD_ERROR.FILE_CANCELLED) { return; }
+          	switch (errorCode) {
+          	case SWFUpload.UPLOAD_ERROR.HTTP_ERROR:
+          		var error_message = message;
+          		break;
+          	case SWFUpload.UPLOAD_ERROR.UPLOAD_FAILED:
+          		var error_message = 'Upload failed';
+          		break;
+          	case SWFUpload.UPLOAD_ERROR.IO_ERROR:
+          		var error_message = 'IO error (check internet connection)';
+          		break;
+          	case SWFUpload.UPLOAD_ERROR.SECURITY_ERROR:
+          		var error_message = 'Security error';
+          		break;
+          	case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
+          		var error_message = 'Upload limit exceeded';
+          		break;
+          	case SWFUpload.UPLOAD_ERROR.FILE_VALIDATION_FAILED:
+          		var error_message = 'Failed validation so upload was skipped';
+          		break;
+          	case SWFUpload.UPLOAD_ERROR.UPLOAD_STOPPED:
+          		var error_message = 'Upload was stopped';
+          		break;
+          	default:
+          		msg = 'Unknown Error (' + errorCode + ')';
+          		break;
+          	}
+          	// Show the user an error box
+          	brevidy.dialog('Error', 'There was an error during the upload: ' + error_message, 'error');
+          	
+          	// Show failure on progress bar
+            $('#progress-bar .progress').addClass('error').css('width', '100%');
+            $('#progress-bar span').text('Upload Failed :(');
+            
+            // Send off error to the server
+            if (new_video) {
+              $.ajax({
+                data: { 'error_message':error_message,
+                        'file_size':SWFUpload.speed.formatBytes(file.size),
+                        'percent_uploaded':Math.round(percent_uploaded),
+                        'average_speed':SWFUpload.speed.formatBytes(file.averageSpeed),
+                        'moving_average':SWFUpload.speed.formatBytes(file.movingAverageSpeed) },
+                type: 'PUT',
+                url: '" def_%v_57 
+		 76: 
+		 77: GETFIELD %self->video_upload_error_path def_%v_58 %self[4.5,4.19,4.40,2.0,] 
+		 78: COPY TYPE_StringLiteral "'
+              });
+            }
+                
+            // hide the meta area
+            $('#new-video-form').slideUp('fast');
+                
+            // clear out the user warning
+            window.onbeforeunload = null;
+          }
+      });" def_%v_59 
+		 79: BUILDSTRING def_%v_60 %v_8[4.8,] %v_11[4.12,] %v_12[4.13,] %v_17[4.19,] %v_18[4.20,] %v_19[4.22,] %v_20[4.23,] %v_24[4.28,] %v_25[4.29,] %v_26[4.31,] %v_27[4.32,] %v_28[4.34,] %v_29[4.35,] %v_30[4.37,] %v_31[4.38,] %v_32[4.40,] %v_33[4.41,] %v_34[4.43,] %v_35[4.44,] %v_36[4.46,] %v_37[4.47,] %v_39[4.50,] %v_40[4.51,] %v_41[4.53,] %v_42[4.54,] %v_43[4.56,] %v_44[4.57,] %v_47[4.61,] %v_48[4.62,] %v_49[4.64,] %v_50[4.65,] %v_51[4.67,] %v_52[4.68,] %v_53[4.70,] %v_54[4.71,] %v_56[4.74,] %v_57[4.75,] %v_58[4.77,] %v_59[4.78,] 
+		 80: %self->javascript_tag def_%v_61 %self[4.5,4.19,4.40,2.0,] %v_60[4.79,] 	 SYMBOL:	 ARGS:%v_60,
+		 81: uploader_js-><< def_%v_62 uploader_js[4.2,4.6,] %v_61[4.80,] 	 SYMBOL:	 ARGS:%v_61,
+		 82: RETURN %v_62[4.81,] %self[4.5,4.19,4.40,4.80,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = filename_for_image_upload instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Digest) def_%v_3 
+		 7: (inherit SHA2) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:SHA2,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (Time) def_%v_5 
+		 1: %v_5->now def_%v_6 %v_5[4.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->utc def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "--" def_%v_8 
+		 4: %self->current_user def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_9->id def_%v_10 %v_9[4.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_10->to_s def_%v_11 %v_10[4.5,] 	 SYMBOL:	 ARGS:
+		 7: BUILDSTRING def_%v_12 %v_7[4.2,] %v_8[4.3,] %v_11[4.6,] 
+		 8: %v_4->hexdigest def_%v_13 %v_4[3.0,2.7,] %v_12[4.7,] 	 SYMBOL:	 ARGS:%v_12,
+		 9: %v_13->first def_%v_14 %v_13[4.8,] 	 SYMBOL:	 ARGS:Fixnum,
+		 10: COPY TYPE_PASS def_random_token %v_14[4.9,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "temp_upload_" def_%v_15 
+		 13: BUILDSTRING def_%v_16 %v_15[4.12,] %v_14[4.9,] 
+		 14: RETURN %v_16[4.13,] %self[4.4,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

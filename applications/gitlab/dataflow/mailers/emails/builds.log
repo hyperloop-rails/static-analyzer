@@ -1,0 +1,150 @@
+SET IRMethod, name = build_fail_email instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_build_id 
+		 6: RECEIVEARG def_to 
+		 7: 
+		 8: (Ci) def_%v_3 
+		 9: (inherit Build) def_%v_4 %v_3[2.8,] 
+		 10: %v_4[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.8,] 	 SYMBOL:Build,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_4->find def_%v_5 %v_4[3.0,2.9,] build_id[2.5,] 	 SYMBOL:	 ARGS:build_id,
+		 1: ATTRASSIGN %self->build %v_5[4.0,] 
+		 2: 
+		 3: GETFIELD %self->build def_%v_6 %self[4.1,2.0,] 
+		 4: %v_6->project def_%v_7 %v_6[4.3,] 	 SYMBOL:	 ARGS:
+		 5: ATTRASSIGN %self->project %v_7[4.4,] 
+		 6: 
+		 7: %self->add_project_headers def_%v_8 %self[4.1,4.5,2.0,] 	 SYMBOL:	 ARGS:
+		 8: 
+		 9: COPY TYPE_StringLiteral "failed" def_%v_9 
+		 10: %self->add_build_headers def_%v_10 %self[4.1,4.5,4.7,2.0,] %v_9[4.9,] 	 SYMBOL:	 ARGS:%v_9,
+		 11: 
+		 12: COPY TYPE_StringLiteral "Build failed for " def_%v_11 
+		 13: GETFIELD %self->project def_%v_12 %self[4.5,4.7,4.10,2.0,] 
+		 14: %v_12->name def_%v_13 %v_12[4.13,] 	 SYMBOL:	 ARGS:
+		 15: BUILDSTRING def_%v_14 %v_11[4.12,] %v_13[4.14,] 
+		 16: GETFIELD %self->build def_%v_15 %self[4.1,4.7,4.10,2.0,] 
+		 17: %v_15->short_sha def_%v_16 %v_15[4.16,] 	 SYMBOL:	 ARGS:
+		 18: %self->subject def_%v_17 %self[4.1,4.5,4.7,4.10,2.0,] %v_14[4.15,] %v_16[4.17,] 	 SYMBOL:	 ARGS:%v_14,%v_16,
+		 19: HASH-to-subject- def_%v_18 to[2.6,] %v_17[4.18,] 
+		 20: %self->mail def_%v_19 %self[4.1,4.5,4.7,4.10,4.18,2.0,] %v_18[4.19,] 	 SYMBOL:	 ARGS:%v_18,
+		 21: RETURN %v_19[4.20,] %self[4.1,4.5,4.7,4.10,4.18,4.20,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_success_email instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_build_id 
+		 6: RECEIVEARG def_to 
+		 7: 
+		 8: (Ci) def_%v_3 
+		 9: (inherit Build) def_%v_4 %v_3[2.8,] 
+		 10: %v_4[2.9,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.8,] 	 SYMBOL:Build,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_4->find def_%v_5 %v_4[3.0,2.9,] build_id[2.5,] 	 SYMBOL:	 ARGS:build_id,
+		 1: ATTRASSIGN %self->build %v_5[4.0,] 
+		 2: 
+		 3: GETFIELD %self->build def_%v_6 %self[4.1,2.0,] 
+		 4: %v_6->project def_%v_7 %v_6[4.3,] 	 SYMBOL:	 ARGS:
+		 5: ATTRASSIGN %self->project %v_7[4.4,] 
+		 6: 
+		 7: %self->add_project_headers def_%v_8 %self[4.1,4.5,2.0,] 	 SYMBOL:	 ARGS:
+		 8: 
+		 9: COPY TYPE_StringLiteral "success" def_%v_9 
+		 10: %self->add_build_headers def_%v_10 %self[4.1,4.5,4.7,2.0,] %v_9[4.9,] 	 SYMBOL:	 ARGS:%v_9,
+		 11: 
+		 12: COPY TYPE_StringLiteral "Build success for " def_%v_11 
+		 13: GETFIELD %self->project def_%v_12 %self[4.5,4.7,4.10,2.0,] 
+		 14: %v_12->name def_%v_13 %v_12[4.13,] 	 SYMBOL:	 ARGS:
+		 15: BUILDSTRING def_%v_14 %v_11[4.12,] %v_13[4.14,] 
+		 16: GETFIELD %self->build def_%v_15 %self[4.1,4.7,4.10,2.0,] 
+		 17: %v_15->short_sha def_%v_16 %v_15[4.16,] 	 SYMBOL:	 ARGS:
+		 18: %self->subject def_%v_17 %self[4.1,4.5,4.7,4.10,2.0,] %v_14[4.15,] %v_16[4.17,] 	 SYMBOL:	 ARGS:%v_14,%v_16,
+		 19: HASH-to-subject- def_%v_18 to[2.6,] %v_17[4.18,] 
+		 20: %self->mail def_%v_19 %self[4.1,4.5,4.7,4.10,4.18,2.0,] %v_18[4.19,] 	 SYMBOL:	 ARGS:%v_18,
+		 21: RETURN %v_19[4.20,] %self[4.1,4.5,4.7,4.10,4.18,4.20,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = add_build_headers instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_status 
+		 6: 
+		 7: %self->headers def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral "X-GitLab-Build-Id" def_%v_4 
+		 9: GETFIELD %self->build def_%v_5 %self[2.0,2.7,] 
+		 10: %v_5->id def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: ATTRASSIGN %v_3->[] %v_4[2.8,] %v_6[2.10,] 
+		 12: 
+		 13: %self->headers def_%v_7 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_StringLiteral "X-GitLab-Build-Ref" def_%v_8 
+		 15: GETFIELD %self->build def_%v_9 %self[2.0,2.7,2.13,] 
+		 16: %v_9->ref def_%v_10 %v_9[2.15,] 	 SYMBOL:	 ARGS:
+		 17: ATTRASSIGN %v_7->[] %v_8[2.14,] %v_10[2.16,] 
+		 18: 
+		 19: %self->headers def_%v_11 %self[2.0,2.7,2.13,] 	 SYMBOL:	 ARGS:
+		 20: COPY TYPE_StringLiteral "X-GitLab-Build-Status" def_%v_12 
+		 21: status->to_s def_%v_13 status[2.5,] 	 SYMBOL:	 ARGS:
+		 22: ATTRASSIGN %v_11->[] %v_12[2.20,] %v_13[2.21,] 
+		 23: RETURN %v_13[2.21,] %self[2.0,2.7,2.13,2.19,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

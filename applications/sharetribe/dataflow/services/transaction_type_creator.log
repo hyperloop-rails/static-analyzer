@@ -1,0 +1,671 @@
+SET IRMethod, name = create instanceMethod = true
+BB 1
+	outgoing: 20 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_community 
+		 6: RECEIVEARG def_transaction_type_class_name 
+		 7: RECEIVEARG def_process 
+		 8: RECEIVEARG def_enable_shipping 
+		 9: 
+		 10: %self->available_types def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 11: %v_3->include? def_%v_4 %v_3[2.10,] transaction_type_class_name[2.6,] 	 SYMBOL:	 ARGS:transaction_type_class_name,
+		 12: BRANCH %v_4[2.11,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Transaction type '" def_%v_6 
+		 1: COPY TYPE_StringLiteral "' not available. Available types are: " def_%v_7 
+		 2: %self->available_types def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral ", " def_%v_9 
+		 4: %v_8->join def_%v_10 %v_8[4.2,] %v_9[4.3,] 	 SYMBOL:	 ARGS:%v_9,
+		 5: BUILDSTRING def_%v_11 %v_6[4.0,] transaction_type_class_name[2.6,] %v_7[4.1,] %v_10[4.4,] 
+		 6: %self->throw def_%v_12 %self[4.2,2.0,] %v_11[4.5,] 	 SYMBOL:	 ARGS:%v_11,
+		 7: COPY TYPE_PASS def_%v_5 %v_12[4.6,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TRANSACTION_PROCESSES) def_%v_13 
+		 2: process->to_sym def_%v_14 process[2.7,] 	 SYMBOL:	 ARGS:
+		 3: %v_13->include? def_%v_15 %v_13[5.1,] %v_14[5.2,] 	 SYMBOL:	 ARGS:%v_14,
+		 4: BRANCH %v_15[5.3,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+		 1: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Transaction process '" def_%v_17 
+		 1: COPY TYPE_StringLiteral "' not available. Available processes are: " def_%v_18 
+		 2: (TRANSACTION_PROCESSES) def_%v_19 
+		 3: COPY TYPE_StringLiteral ", " def_%v_20 
+		 4: %v_19->join def_%v_21 %v_19[7.2,] %v_20[7.3,] 	 SYMBOL:	 ARGS:%v_20,
+		 5: BUILDSTRING def_%v_22 %v_17[7.0,] process[2.7,] %v_18[7.1,] %v_21[7.4,] 
+		 6: %self->throw def_%v_23 %self[2.0,] %v_22[7.5,] 	 SYMBOL:	 ARGS:%v_22,
+		 7: COPY TYPE_PASS def_%v_16 %v_23[7.6,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Request" def_%v_24 
+		 2: transaction_type_class_name->!= def_%v_25 transaction_type_class_name[2.6,] %v_24[8.1,] 	 SYMBOL:	 ARGS:%v_24,
+		 3: COPY TYPE_PASS def_author_is_seller %v_25[8.2,] 
+		 4: 
+		 5: community->id def_%v_26 community[2.5,] 	 SYMBOL:	 ARGS:
+		 6: HASH-community_id-process-author_is_seller- def_%v_27 %v_26[8.5,] process[2.7,] author_is_seller[8.3,] 
+		 7: %self->get_or_create_transaction_process def_%v_28 %self[2.0,] %v_27[8.6,] 	 SYMBOL:	 ARGS:%v_27,
+		 8: COPY TYPE_PASS def_transaction_process %v_28[8.7,] 
+		 9: 
+		 10: (TRANSLATIONS) def_%v_29 
+		 11: %v_29->[] def_%v_30 %v_29[8.10,] transaction_type_class_name[8.2,] 	 SYMBOL:	 ARGS:transaction_type_class_name,
+		 12: COPY TYPE_PASS def_translations %v_30[8.11,] 
+		 13: 
+		 14: community->locales def_%v_31 community[8.5,2.5,] 	 SYMBOL:	 ARGS:
+		 15: %v_31->map def_%v_32 %v_31[8.14,] %self[8.7,2.0,] 	 SYMBOL:	 ARGS:%v_31,
+CLOSURE BEGIN: translations[8.12,] locale[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_locale 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%cl_1_3 
+		 2: translations->[] def_%cl_1_4 translations[] 	 SYMBOL:translation_key,	 ARGS:Symbol,
+		 3: locale->to_sym def_%cl_1_5 locale[2.2,] 	 SYMBOL:	 ARGS:
+		 4: HASH-locale- def_%cl_1_6 %cl_1_5[3.3,] 
+		 5: %cl_1_3->t def_%cl_1_7 %cl_1_3[3.1,] %cl_1_4[3.2,] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_4,%cl_1_6,
+		 6: HASH-locale-translation- def_%cl_1_8 locale[3.3,2.2,] %cl_1_7[3.5,] 
+		 7: RETURN %cl_1_8[3.6,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_9 
+		 1: def_%cl_1_10 %cl_1_9[4.0,] 
+		 2: RETURN %cl_1_10[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 16: HASH-translations- def_%v_33 %v_32[8.15,] 
+		 17: COPY TYPE_PASS def_name_group %v_33[8.16,] 
+		 18: 
+		 19: community->locales def_%v_34 community[8.5,8.14,2.5,] 	 SYMBOL:	 ARGS:
+		 20: %v_34->map def_%v_35 %v_34[8.19,] %self[8.7,2.0,] 	 SYMBOL:	 ARGS:%v_34,
+CLOSURE BEGIN: translations[8.12,] locale[8.15,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_locale 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%cl_2_3 
+		 2: translations->[] def_%cl_2_4 translations[] 	 SYMBOL:action_button_translation_key,	 ARGS:Symbol,
+		 3: locale->to_sym def_%cl_2_5 locale[2.2,] 	 SYMBOL:	 ARGS:
+		 4: HASH-locale- def_%cl_2_6 %cl_2_5[3.3,] 
+		 5: %cl_2_3->t def_%cl_2_7 %cl_2_3[3.1,] %cl_2_4[3.2,] %cl_2_6[3.4,] 	 SYMBOL:	 ARGS:%cl_2_4,%cl_2_6,
+		 6: HASH-locale-translation- def_%cl_2_8 locale[3.3,2.2,] %cl_2_7[3.5,] 
+		 7: RETURN %cl_2_8[3.6,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_9 
+		 1: def_%cl_2_10 %cl_2_9[4.0,] 
+		 2: RETURN %cl_2_10[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 21: HASH-translations- def_%v_36 %v_35[8.20,] 
+		 22: COPY TYPE_PASS def_action_button_group %v_36[8.21,] 
+		 23: 
+		 24: (TranslationService) def_%v_37 
+		 25: (inherit API) def_%v_38 %v_37[8.24,] 
+		 26: %v_38[8.25,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_37->const_missing def_%v_38 %v_37[8.24,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: (inherit Api) def_%v_39 %v_38[9.0,8.25,] 
+		 1: %v_39[10.0,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %v_38->const_missing def_%v_39 %v_38[9.0,8.25,] 	 SYMBOL:Api,	 ARGS:Symbol,
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: %v_39->translations def_%v_40 %v_39[11.0,10.0,] 	 SYMBOL:	 ARGS:
+		 1: community->id def_%v_41 community[2.5,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_Array def_%v_42 name_group[8.17,] action_button_group[8.22,] 
+		 3: %v_40->create def_%v_43 %v_40[12.0,] %v_41[12.1,] %v_42[12.2,] 	 SYMBOL:	 ARGS:%v_41,%v_42,
+		 4: COPY TYPE_PASS def_created_translations %v_43[12.3,] 
+		 5: 
+		 6: %v_43->[] def_%v_44 %v_43[12.3,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 7: %v_44->map def_%v_45 %v_44[12.6,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_44,
+CLOSURE BEGIN: translation[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_translation 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: translation->[] def_%cl_3_3 translation[2.2,] 	 SYMBOL:translation_key,	 ARGS:Symbol,
+		 2: RETURN %cl_3_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_4 
+		 1: def_%cl_3_5 %cl_3_4[4.0,] 
+		 2: RETURN %cl_3_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: def_%v_46 %v_45[12.7,] 
+		 9: def_%v_47 %v_46[12.8,] 
+		 10: def_%v_48 %v_46[12.8,] 
+		 11: COPY TYPE_PASS def_name_tr_key %v_47[12.9,] 
+		 12: COPY TYPE_PASS def_action_button_tr_key %v_48[12.10,] 
+		 13: 
+		 14: (DEFAULTS) def_%v_49 
+		 15: %v_49->[] def_%v_50 %v_49[12.14,] transaction_type_class_name[8.2,2.6,] 	 SYMBOL:	 ARGS:transaction_type_class_name,
+		 16: COPY TYPE_PASS def_defaults %v_50[12.15,] 
+		 17: 
+		 18: (ListingService) def_%v_51 
+		 19: (inherit API) def_%v_52 %v_51[12.18,] 
+		 20: %v_52[12.19,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: %v_51->const_missing def_%v_52 %v_51[12.18,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: (inherit Api) def_%v_53 %v_52[13.0,12.19,] 
+		 1: %v_53[14.0,] 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: %v_52->const_missing def_%v_53 %v_52[13.0,12.19,] 	 SYMBOL:Api,	 ARGS:Symbol,
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_listings_api %v_53[15.0,14.0,] 
+		 1: 
+		 2: community->locales def_%v_54 community[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_54->map def_%v_55 %v_54[16.2,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_54,
+CLOSURE BEGIN: translations[8.12,] locale[8.15,8.20,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: RECEIVEARG def_locale 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%cl_4_3 
+		 2: translations->[] def_%cl_4_4 translations[] 	 SYMBOL:translation_key,	 ARGS:Symbol,
+		 3: locale->to_sym def_%cl_4_5 locale[2.2,] 	 SYMBOL:	 ARGS:
+		 4: HASH-locale- def_%cl_4_6 %cl_4_5[3.3,] 
+		 5: %cl_4_3->t def_%cl_4_7 %cl_4_3[3.1,] %cl_4_4[3.2,] %cl_4_6[3.4,] 	 SYMBOL:	 ARGS:%cl_4_4,%cl_4_6,
+		 6: (I18n) def_%cl_4_8 
+		 7: translations->[] def_%cl_4_9 translations[3.2,] 	 SYMBOL:action_button_translation_key,	 ARGS:Symbol,
+		 8: locale->to_sym def_%cl_4_10 locale[3.3,2.2,] 	 SYMBOL:	 ARGS:
+		 9: HASH-locale- def_%cl_4_11 %cl_4_10[3.8,] 
+		 10: %cl_4_8->t def_%cl_4_12 %cl_4_8[3.6,] %cl_4_9[3.7,] %cl_4_11[3.9,] 	 SYMBOL:	 ARGS:%cl_4_9,%cl_4_11,
+		 11: HASH-locale-name-action_button_label- def_%cl_4_13 locale[3.3,3.8,2.2,] %cl_4_7[3.5,] %cl_4_12[3.10,] 
+		 12: RETURN %cl_4_13[3.11,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_4_14 
+		 1: def_%cl_4_15 %cl_4_14[4.0,] 
+		 2: RETURN %cl_4_15[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: COPY TYPE_PASS def_translations %v_55[16.3,] 
+		 5: 
+		 6: transaction_process->[] def_%v_56 transaction_process[8.8,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 7: translations->find def_%v_57 translations[16.4,] %self[2.0,] 	 SYMBOL:	 ARGS:translations,
+CLOSURE BEGIN: t[] community[16.2,2.5,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_5_0 
+		 2: RECEIVEARG def_t 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: t->[] def_%cl_5_3 t[2.2,] 	 SYMBOL:locale,	 ARGS:Symbol,
+		 2: community->default_locale def_%cl_5_4 community[] 	 SYMBOL:	 ARGS:
+		 3: %cl_5_3->== def_%cl_5_5 %cl_5_3[3.1,] %cl_5_4[3.2,] 	 SYMBOL:	 ARGS:%cl_5_4,
+		 4: RETURN %cl_5_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_5_6 
+		 1: def_%cl_5_7 %cl_5_6[4.0,] 
+		 2: RETURN %cl_5_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: %v_57->[] def_%v_58 %v_57[16.7,] 	 SYMBOL:name,	 ARGS:Symbol,
+		 9: HASH-transaction_process_id-name_tr_key-action_button_tr_key-translations-shipping_enabled-basename- def_%v_59 %v_56[16.6,] name_tr_key[12.11,] action_button_tr_key[12.12,] translations[16.4,16.7,] enable_shipping[2.8,] %v_58[16.8,] 
+		 10: defaults->merge def_%v_60 defaults[12.16,] %v_59[16.9,] 	 SYMBOL:	 ARGS:%v_59,
+		 11: COPY TYPE_PASS def_shape_opts %v_60[16.10,] 
+		 12: 
+		 13: listings_api->shapes def_%v_61 listings_api[16.0,] 	 SYMBOL:	 ARGS:
+		 14: community->id def_%v_62 community[16.2,2.5,] 	 SYMBOL:	 ARGS:
+		 15: HASH-community_id-opts- def_%v_63 %v_62[16.14,] shape_opts[16.11,] 
+		 16: %v_61->create def_%v_64 %v_61[16.13,] %v_63[16.15,] 	 SYMBOL:	 ARGS:%v_63,
+		 17: COPY TYPE_PASS def_shape_res %v_64[16.16,] 
+		 18: 
+		 19: %v_64->success def_%v_65 %v_64[16.16,] 	 SYMBOL:	 ARGS:
+		 20: BRANCH %v_65[16.19,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_66 
+		 1: 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: (ArgumentError) def_%v_67 
+		 1: COPY TYPE_StringLiteral "Could not create new shape: " def_%v_68 
+		 2: BUILDSTRING def_%v_69 %v_68[18.1,] shape_opts[16.11,] 
+		 3: %v_67->new def_%v_70 %v_67[18.0,] %v_69[18.2,] 	 SYMBOL:	 ARGS:%v_69,
+		 4: %self->raise def_%v_71 %self[2.0,] %v_70[18.3,] 	 SYMBOL:	 ARGS:%v_70,
+		 5: COPY TYPE_PASS def_%v_66 %v_71[18.4,] 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: shape_res->data def_%v_72 shape_res[16.17,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_72[19.1,] %self[2.0,] 
+BB 20
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = available_types instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (TransactionTypeCreator) def_%v_3 
+		 7: (inherit DEFAULTS) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:DEFAULTS,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_4->map def_%v_5 %v_4[3.0,2.7,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: type[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_type 
+		 3: RECEIVEARG def__ 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+		 6: 
+		 7: RETURN type[2.2,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: _[2.3,] 
+		 1: RETURN %v_5[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_or_create_transaction_process instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_community_id 
+		 6: community_id[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_process 
+		 1: process[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: def_author_is_seller 
+		 1: author_is_seller[6.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TransactionService) def_%v_3 
+		 2: (inherit API) def_%v_4 %v_3[8.1,] 
+		 3: %v_4[8.2,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[8.1,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: (inherit Api) def_%v_5 %v_4[9.0,8.2,] 
+		 1: %v_5[10.0,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[9.0,8.2,] 	 SYMBOL:Api,	 ARGS:Symbol,
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: %v_5->processes def_%v_6 %v_5[11.0,10.0,] 	 SYMBOL:	 ARGS:
+		 1: HASH-community_id- def_%v_7 community_id[2.5,] 
+		 2: %v_6->get def_%v_8 %v_6[12.0,] %v_7[12.1,] 	 SYMBOL:	 ARGS:%v_7,
+		 3: %v_8->maybe def_%v_9 %v_8[12.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_9->map def_%v_10 %v_9[12.3,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_9,
+CLOSURE BEGIN: processes[] %self[2.0,] p[] process[4.0,] author_is_seller[6.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_processes 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: processes->find def_%cl_1_3 processes[2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:processes,
+CLOSURE BEGIN: p[] process[] author_is_seller[] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_p 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: p->[] def_%cl_2_3 p[2.2,] 	 SYMBOL:process,	 ARGS:Symbol,
+		 2: %cl_2_3->== def_%cl_2_4 %cl_2_3[3.1,] process[] 	 SYMBOL:	 ARGS:process,
+		 3: BRANCH %cl_2_4[3.2,] 
+BB 4
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: p->[] def_%cl_2_5 p[2.2,] 	 SYMBOL:author_is_seller,	 ARGS:Symbol,
+		 1: %cl_2_5->== def_%cl_2_6 %cl_2_5[4.0,] author_is_seller[] 	 SYMBOL:	 ARGS:author_is_seller,
+		 2: RETURN %cl_2_6[4.1,] %self[2.0,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_2_4[3.2,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_7 
+		 1: def_%cl_2_8 %cl_2_7[6.0,] 
+		 2: RETURN %cl_2_8[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 5: %v_10->or_else def_%v_11 %v_10[12.4,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_10,
+CLOSURE BEGIN: community_id[2.5,] process[4.0,] author_is_seller[6.0,] 
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (TransactionService) def_%cl_3_3 
+		 2: (inherit API) def_%cl_3_4 %cl_3_3[3.1,] 
+		 3: %cl_3_4[3.2,] 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: %cl_3_3->const_missing def_%cl_3_4 %cl_3_3[3.1,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 7 8 
+	datadep: 
+	instructions:
+		 0: (inherit Api) def_%cl_3_5 %cl_3_4[4.0,3.2,] 
+		 1: %cl_3_5[5.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: %cl_3_4->const_missing def_%cl_3_5 %cl_3_4[4.0,3.2,] 	 SYMBOL:Api,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 10 
+	datadep: 
+	instructions:
+		 0: %cl_3_5->processes def_%cl_3_6 %cl_3_5[6.0,5.0,] 	 SYMBOL:	 ARGS:
+		 1: HASH-community_id-process-author_is_seller- def_%cl_3_7 community_id[] process[] author_is_seller[] 
+		 2: %cl_3_6->create def_%cl_3_8 %cl_3_6[7.0,] %cl_3_7[7.1,] 	 SYMBOL:	 ARGS:%cl_3_7,
+		 3: %cl_3_8->data def_%cl_3_9 %cl_3_8[7.2,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %cl_3_9[7.3,] %self[2.0,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_10 
+		 1: def_%cl_3_11 %cl_3_10[8.0,] 
+		 2: RETURN %cl_3_11[8.1,] %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 6: RETURN %v_11[12.5,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+

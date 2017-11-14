@@ -1,0 +1,812 @@
+SET IRMethod, name = send_pingback_or_trackback instanceMethod = true
+BB 1
+	outgoing: 21 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (Net) def_%v_6 
+		 3: (inherit HTTP) def_%v_7 %v_6[4.2,] 
+		 4: %v_7[4.3,] 
+BB 5
+	outgoing: 6 10 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[4.2,] 	 SYMBOL:HTTP,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 10 
+	datadep: 
+	instructions:
+		 0: (URI) def_%v_8 
+		 1: %self->ping def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_9->url def_%v_10 %v_9[6.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_8->parse def_%v_11 %v_8[6.0,] %v_10[6.2,] 	 SYMBOL:	 ARGS:%v_10,
+		 4: %v_7->get_response def_%v_12 %v_7[5.0,4.3,] %v_11[6.3,] 	 SYMBOL:	 ARGS:%v_11,
+		 5: ATTRASSIGN %self->response %v_12[6.4,] 
+		 6: 
+		 7: %self->send_pingback def_%v_13 %self[6.1,6.5,2.0,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_13[6.7,] 
+BB 7
+	outgoing: 8 10 
+	datadep: 
+	instructions:
+		 0: %self->send_trackback def_%v_14 %self[6.5,2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_13 %v_14[7.0,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_5 %v_13[7.1,6.7,] 
+		 1: %v_3[2.5,] 
+BB 9
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 11 12 19 
+	datadep: 
+	instructions:
+		 0: def_%v_15 
+		 1: (Timeout) def_%v_16 
+		 2: (inherit Error) def_%v_17 %v_16[10.1,] 
+		 3: %v_17[10.2,] 
+BB 11
+	outgoing: 12 19 
+	datadep: 
+	instructions:
+		 0: %v_16->const_missing def_%v_17 %v_16[10.1,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 12
+	outgoing: 13 17 19 
+	datadep: 
+	instructions:
+		 0: def_%v_18 %v_17[11.0,10.2,] %v_15[10.0,] 
+		 1: BRANCH %v_18[12.0,] 
+BB 13
+	outgoing: 14 15 19 
+	datadep: 
+	instructions:
+		 0: def_%v_19 %v_15[10.0,] 
+		 1: BRANCH %v_19[13.0,] 
+BB 14
+	outgoing: 19 21 
+	datadep: 
+	instructions:
+		 0: %v_15[10.0,] 
+BB 15
+	outgoing: 16 19 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_20 
+		 1: COPY TYPE_PASS def_err %v_20[15.0,] 
+		 2: 
+		 3: (Rails) def_%v_21 
+		 4: %v_21->logger def_%v_22 %v_21[15.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "Sending pingback or trackback failed with error: " def_%v_23 
+		 6: BUILDSTRING def_%v_24 %v_23[15.5,] err[15.1,] 
+		 7: %v_22->info def_%v_25 %v_22[15.4,] %v_24[15.6,] 	 SYMBOL:	 ARGS:%v_24,
+		 8: COPY TYPE_PASS def_%v_5 %v_25[15.7,] 
+		 9: %v_3[2.5,] 
+BB 16
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Rails) def_%v_26 
+		 2: %v_26->logger def_%v_27 %v_26[17.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "Sending pingback or trackback timed out" def_%v_28 
+		 4: %v_27->info def_%v_29 %v_27[17.2,] %v_28[17.3,] 	 SYMBOL:	 ARGS:%v_28,
+		 5: 
+		 6: COPY TYPE_Nil def_%v_30 
+		 7: %v_3[2.5,] 
+BB 18
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: RETURN %v_30[17.6,] %self[6.5,2.0,] 
+BB 19
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: def_%v_31 
+		 1: def_%v_32 %v_31[19.0,] %v_3[2.5,] 
+		 2: %v_31[19.0,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[8.0,15.8,] %self[6.5,2.0,] 
+BB 21
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = pingback_url instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->response def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "X-Pingback" def_%v_4 
+		 8: %v_3->[] def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->response def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "X-Pingback" def_%v_7 
+		 3: %v_6->[] def_%v_8 %v_6[3.1,] %v_7[3.2,] 	 SYMBOL:	 ARGS:%v_7,
+		 4: RETURN %v_8[3.3,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->response def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_9->body def_%v_10 %v_9[4.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_Regexp def_%v_11 
+		 4: %v_10->=~ def_%v_12 %v_10[4.2,] 	 SYMBOL:	 ARGS:%v_11,
+		 5: BRANCH %v_12[4.4,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Regexp) def_%v_13 
+		 2: %v_13->last_match def_%v_14 %v_13[5.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_14->[] def_%v_15 %v_14[5.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_15[6.0,5.3,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = send_xml_rpc instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_args 
+		 6: 
+		 7: %self->ping def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_Array def_%v_4 
+		 9: def_%v_5 %v_4[2.8,] args[2.5,] 
+		 10: %v_3->send def_%v_6 %v_3[2.7,] %v_5[2.9,] 	 SYMBOL:	 ARGS:Splat,
+		 11: RETURN %v_6[2.10,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = trackback_url instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->response def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->body def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_Regexp def_%v_5 
+		 9: %v_4->scan def_%v_6 %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: COPY TYPE_PASS def_rdfs %v_6[2.9,] 
+		 11: 
+		 12: %v_6->each def_%v_7 %v_6[2.9,] %self[2.0,2.6,] 	 SYMBOL:	 ARGS:%v_6,
+CLOSURE BEGIN: rdf[] %self[2.0,2.6,] rdfs[2.10,] desc[] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_rdf 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (REXML) def_%cl_1_3 
+		 2: (inherit Document) def_%cl_1_4 %cl_1_3[3.1,] 
+		 3: %cl_1_4[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %cl_1_3->const_missing def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:Document,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: %cl_1_4->new def_%cl_1_5 %cl_1_4[4.0,3.2,] rdf[2.2,] 	 SYMBOL:	 ARGS:rdf,
+		 1: COPY TYPE_PASS def_xml %cl_1_5[5.0,] 
+		 2: 
+		 3: %cl_1_5->elements def_%cl_1_6 %cl_1_5[5.0,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "//rdf:Description" def_%cl_1_7 
+		 5: %cl_1_6->each def_%cl_1_8 %cl_1_6[5.3,] %cl_1_7[5.4,] %self[2.0,] 	 SYMBOL:	 ARGS:%cl_1_7,%cl_1_6,
+CLOSURE BEGIN: rdfs[] desc[] %self[2.0,] 
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_desc 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: rdfs->size def_%cl_2_3 rdfs[] 	 SYMBOL:	 ARGS:
+		 2: %cl_2_3->== def_%cl_2_4 %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: BRANCH %cl_2_4[3.2,] 
+BB 4
+	outgoing: 5 9 
+	datadep: 
+	instructions:
+		 0: desc->attributes def_%cl_2_5 desc[2.2,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "dc:identifier" def_%cl_2_6 
+		 2: %cl_2_5->[] def_%cl_2_7 %cl_2_5[4.0,] %cl_2_6[4.1,] 	 SYMBOL:	 ARGS:%cl_2_6,
+		 3: %self->ping def_%cl_2_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %cl_2_8->url def_%cl_2_9 %cl_2_8[4.3,] 	 SYMBOL:	 ARGS:
+		 5: %cl_2_7->== def_%cl_2_10 %cl_2_7[4.2,] %cl_2_9[4.4,] 	 SYMBOL:	 ARGS:%cl_2_9,
+		 6: COPY TYPE_PASS def_%cl_2_4 %cl_2_10[4.5,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_2_4[4.6,3.2,] 
+BB 6
+	outgoing: 9 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: desc->attributes def_%cl_2_11 desc[2.2,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "trackback:ping" def_%cl_2_12 
+		 3: %cl_2_11->[] def_%cl_2_13 %cl_2_11[6.1,] %cl_2_12[6.2,] 	 SYMBOL:	 ARGS:%cl_2_12,
+		 4: 
+		 5: RETURN %cl_2_13[6.3,] %self[2.0,] 
+BB 7
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_15 
+		 1: def_%cl_2_16 %cl_2_15[9.0,] 
+		 2: RETURN %cl_2_16[9.1,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 6: RETURN %cl_1_8[5.5,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_9 
+		 1: def_%cl_1_10 %cl_1_9[6.0,] 
+		 2: RETURN %cl_1_10[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: xml[5.1,] 
+		 13: 
+		 14: GETFIELD %self->ping def_%v_8 %self[2.0,2.6,] 
+		 15: %v_8->url def_%v_9 %v_8[2.14,] 	 SYMBOL:	 ARGS:
+		 16: RETURN %v_9[2.15,] %self[2.0,2.6,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%v_10 
+		 1: def_%v_11 %v_10[4.0,] 
+		 2: RETURN %v_11[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = send_pingback instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->pingback_url def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->pingback_url def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "pingback.ping" def_%v_5 
+		 3: %self->origin_url def_%v_6 %self[3.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %self->ping def_%v_7 %self[3.1,3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_7->url def_%v_8 %v_7[3.4,] 	 SYMBOL:	 ARGS:
+		 6: %self->send_xml_rpc def_%v_9 %self[3.1,3.3,3.4,2.0,] %v_4[3.1,] %v_5[3.2,] %v_6[3.3,] %v_8[3.5,] 	 SYMBOL:	 ARGS:%v_4,%v_5,%v_6,%v_8,
+		 7: 
+		 8: COPY TYPE_Boolean def_%v_10 
+		 9: RETURN %self[3.1,3.3,3.4,3.6,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = send_trackback instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->trackback_url def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->origin_url def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->do_send_trackback def_%v_5 %self[2.0,2.6,2.7,] %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_3,%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.6,2.7,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = do_send_trackback instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_trackback_url 
+		 6: RECEIVEARG def_origin_url 
+		 7: 
+		 8: (URI) def_%v_3 
+		 9: %v_3->parse def_%v_4 %v_3[2.8,] trackback_url[2.5,] 	 SYMBOL:	 ARGS:trackback_url,
+		 10: COPY TYPE_PASS def_trackback_uri %v_4[2.9,] 
+		 11: 
+		 12: COPY TYPE_StringLiteral "title=" def_%v_5 
+		 13: (CGI) def_%v_6 
+		 14: %self->article def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 15: %v_7->title def_%v_8 %v_7[2.14,] 	 SYMBOL:	 ARGS:
+		 16: %v_6->escape def_%v_9 %v_6[2.13,] %v_8[2.15,] 	 SYMBOL:	 ARGS:%v_8,
+		 17: BUILDSTRING def_%v_10 %v_5[2.12,] %v_9[2.16,] 
+		 18: COPY TYPE_PASS def_post %v_10[2.17,] 
+		 19: 
+		 20: COPY TYPE_StringLiteral "&excerpt=" def_%v_11 
+		 21: (CGI) def_%v_12 
+		 22: %self->article def_%v_13 %self[2.0,2.14,] 	 SYMBOL:	 ARGS:
+		 23: %v_13->html def_%v_14 %v_13[2.22,] 	 SYMBOL:body,	 ARGS:Symbol,
+		 24: %v_14->strip_html def_%v_15 %v_14[2.23,] 	 SYMBOL:	 ARGS:
+		 25: CONSTANT def_%v_16 
+		 26: %v_15->[] def_%v_17 %v_15[2.24,] %v_16[2.25,] 	 SYMBOL:	 ARGS:%v_16,
+		 27: %v_12->escape def_%v_18 %v_12[2.21,] %v_17[2.26,] 	 SYMBOL:	 ARGS:%v_17,
+		 28: BUILDSTRING def_%v_19 %v_11[2.20,] %v_18[2.27,] 
+		 29: post-><< def_%v_20 post[2.18,] %v_19[2.28,] 	 SYMBOL:	 ARGS:%v_19,
+		 30: 
+		 31: COPY TYPE_StringLiteral "&url=" def_%v_21 
+		 32: BUILDSTRING def_%v_22 %v_21[2.31,] origin_url[2.6,] 
+		 33: post-><< def_%v_23 post[2.18,2.29,] %v_22[2.32,] 	 SYMBOL:	 ARGS:%v_22,
+		 34: 
+		 35: COPY TYPE_StringLiteral "&blog_name=" def_%v_24 
+		 36: (CGI) def_%v_25 
+		 37: %self->blog def_%v_26 %self[2.0,2.14,2.22,] 	 SYMBOL:	 ARGS:
+		 38: %v_26->blog_name def_%v_27 %v_26[2.37,] 	 SYMBOL:	 ARGS:
+		 39: %v_25->escape def_%v_28 %v_25[2.36,] %v_27[2.38,] 	 SYMBOL:	 ARGS:%v_27,
+		 40: BUILDSTRING def_%v_29 %v_24[2.35,] %v_28[2.39,] 
+		 41: post-><< def_%v_30 post[2.18,2.29,2.33,] %v_29[2.40,] 	 SYMBOL:	 ARGS:%v_29,
+		 42: 
+		 43: trackback_uri->path def_%v_31 trackback_uri[2.10,] 	 SYMBOL:	 ARGS:
+		 44: COPY TYPE_PASS def_path %v_31[2.43,] 
+		 45: 
+		 46: trackback_uri->query def_%v_32 trackback_uri[2.10,2.43,] 	 SYMBOL:	 ARGS:
+		 47: BRANCH %v_32[2.46,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "?" def_%v_33 
+		 1: trackback_uri->query def_%v_34 trackback_uri[2.10,] 	 SYMBOL:	 ARGS:
+		 2: BUILDSTRING def_%v_35 %v_33[3.0,] %v_34[3.1,] 
+		 3: path->+ def_%v_36 path[2.44,] %v_35[3.2,] 	 SYMBOL:	 ARGS:%v_35,
+		 4: COPY TYPE_PASS def_path %v_36[3.3,] 
+		 5: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_36 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Net) def_%v_37 
+		 2: (inherit HTTP) def_%v_38 %v_37[5.1,] 
+		 3: %v_38[5.2,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_37->const_missing def_%v_38 %v_37[5.1,] 	 SYMBOL:HTTP,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: trackback_uri->host def_%v_39 trackback_uri[2.10,] 	 SYMBOL:	 ARGS:
+		 1: trackback_uri->port def_%v_40 trackback_uri[7.0,2.10,] 	 SYMBOL:	 ARGS:
+		 2: %v_38->start def_%v_41 %v_38[6.0,5.2,] %v_39[7.0,] %v_40[7.1,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_39,%v_40,%v_38,
+CLOSURE BEGIN: http[] path[3.4,2.44,] post[2.18,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_http 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Content-type" def_%cl_1_3 
+		 2: COPY TYPE_StringLiteral "application/x-www-form-urlencoded; charset=utf-8" def_%cl_1_4 
+		 3: HASH- def_%cl_1_5 %cl_1_3[3.1,] %cl_1_4[3.2,] 
+		 4: http->post def_%cl_1_6 http[2.2,] path[] post[] %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:path,post,%cl_1_5,
+		 5: RETURN %cl_1_6[3.4,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_7 
+		 1: def_%cl_1_8 %cl_1_7[4.0,] 
+		 2: RETURN %cl_1_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: RETURN %v_41[7.2,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_origin_url 
+		 6: RECEIVEARG def_ping 
+		 7: 
+		 8: ATTRASSIGN %self->origin_url origin_url[2.5,] 
+		 9: 
+		 10: ATTRASSIGN %self->ping ping[2.6,] 
+		 11: 
+		 12: ping->article def_%v_3 ping[2.6,] 	 SYMBOL:	 ARGS:
+		 13: %v_3->default_text_filter def_%v_4 %v_3[2.12,] 	 SYMBOL:	 ARGS:
+		 14: 
+		 15: ping->article def_%v_5 ping[2.6,2.12,] 	 SYMBOL:	 ARGS:
+		 16: %v_5->text_filter def_%v_6 %v_5[2.15,] 	 SYMBOL:	 ARGS:
+		 17: 
+		 18: ping->article def_%v_7 ping[2.6,2.12,2.15,] 	 SYMBOL:	 ARGS:
+		 19: ATTRASSIGN %self->article %v_7[2.18,] 
+		 20: 
+		 21: %self->article def_%v_8 %self[2.0,2.8,2.10,2.19,] 	 SYMBOL:	 ARGS:
+		 22: %v_8->blog def_%v_9 %v_8[2.21,] 	 SYMBOL:	 ARGS:
+		 23: ATTRASSIGN %self->blog %v_9[2.22,] 
+		 24: RETURN %v_9[2.22,] %self[2.0,2.8,2.10,2.19,2.21,2.23,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = send_pingback_or_trackback instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_origin_url 
+		 6: 
+		 7: (Thread) def_%v_3 
+		 8: (Pinger) def_%v_4 
+		 9: %v_4->new def_%v_5 %v_4[2.8,] origin_url[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:origin_url,%self,
+		 10: %v_3->start def_%v_6 %v_3[2.7,] %v_5[2.9,] 	 SYMBOL:send_pingback_or_trackback,	 ARGS:%v_5,
+		 11: COPY TYPE_PASS def_t %v_6[2.10,] 
+		 12: 
+		 13: RETURN %v_6[2.10,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = send_weblogupdatesping instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_server_url 
+		 6: RECEIVEARG def_origin_url 
+		 7: 
+		 8: (Thread) def_%v_3 
+		 9: %self->article def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 10: %v_4->blog def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->blog_name def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_3->start def_%v_7 %v_3[2.8,] %v_6[2.11,] %self[2.0,2.9,] 	 SYMBOL:	 ARGS:%v_6,%v_3,
+CLOSURE BEGIN: %self[2.0,2.9,] blog_name[] server_url[2.5,] origin_url[2.6,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_blog_name 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->url def_%cl_1_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "weblogUpdates.ping" def_%cl_1_4 
+		 3: %self->send_xml_rpc def_%cl_1_5 %self[3.1,2.0,] %cl_1_3[3.1,] %cl_1_4[3.2,] blog_name[2.2,] server_url[] origin_url[] 	 SYMBOL:	 ARGS:%cl_1_3,%cl_1_4,blog_name,server_url,origin_url,
+		 4: RETURN %cl_1_5[3.3,] %self[3.1,3.3,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 13: COPY TYPE_PASS def_t %v_7[2.12,] 
+		 14: 
+		 15: RETURN %v_7[2.12,] %self[2.0,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = send_xml_rpc instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_xml_rpc_url 
+		 6: RECEIVEARG def_name 
+		 7: RECEIVEARG def_args 
+		 8: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (XMLRPC) def_%v_6 
+		 3: (inherit Client) def_%v_7 %v_6[4.2,] 
+		 4: %v_7[4.3,] 
+BB 5
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[4.2,] 	 SYMBOL:Client,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: (URI) def_%v_8 
+		 1: %v_8->parse def_%v_9 %v_8[6.0,] xml_rpc_url[2.5,] 	 SYMBOL:	 ARGS:xml_rpc_url,
+		 2: %v_9->to_s def_%v_10 %v_9[6.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_7->new2 def_%v_11 %v_7[5.0,4.3,] %v_10[6.2,] 	 SYMBOL:	 ARGS:%v_10,
+		 4: COPY TYPE_PASS def_server %v_11[6.3,] 
+		 5: 
+		 6: COPY TYPE_Array def_%v_12 name[2.6,] 
+		 7: def_%v_13 %v_12[6.6,] args[2.7,] 
+		 8: %v_11->call def_%v_14 %v_11[6.3,] %v_13[6.7,] 	 SYMBOL:	 ARGS:Splat,
+		 9: COPY TYPE_PASS def_%v_5 %v_14[6.8,] 
+		 10: %v_3[2.8,] 
+BB 7
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+BB 8
+	outgoing: 9 10 12 
+	datadep: 
+	instructions:
+		 0: def_%v_15 
+		 1: def_%v_16 %v_15[8.0,] 
+		 2: BRANCH %v_16[8.1,] 
+BB 9
+	outgoing: 12 14 
+	datadep: 
+	instructions:
+		 0: %v_15[8.0,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: GLOBALVAR $! def_%v_17 
+		 1: COPY TYPE_PASS def_e %v_17[10.0,] 
+		 2: 
+		 3: %self->logger def_%v_18 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_18->error def_%v_19 %v_18[10.3,] e[10.1,] 	 SYMBOL:	 ARGS:e,
+		 5: COPY TYPE_PASS def_%v_5 %v_19[10.4,] 
+		 6: %v_3[2.8,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: def_%v_20 
+		 1: def_%v_21 %v_20[12.0,] %v_3[2.8,] 
+		 2: %v_20[12.0,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[6.9,10.5,] %self[2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,416 @@
+SET IRMethod, name = proceed_to_confirm instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_params 
+		 6: params[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_params %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "confirming" def_%v_4 
+		 2: ATTRASSIGN %self->status %v_4[4.1,] 
+		 3: 
+		 4: %self->update def_%v_5 %self[4.2,2.0,] params[3.1,2.5,] 	 SYMBOL:	 ARGS:params,
+		 5: BRANCH %v_5[4.4,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Boolean def_%v_6 
+		 2: RETURN %self[4.2,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[4.2,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = confirm! instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->order_items def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->select def_%v_4 %v_3[2.6,] 	 SYMBOL:validate_stock_levels,	 ARGS:
+		 8: COPY TYPE_PASS def_no_stock_of %v_4[2.7,] 
+		 9: 
+		 10: %v_4->empty? def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_5[2.10,] 
+BB 3
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Errors) def_%v_7 
+		 2: (inherit InsufficientStockToFulfil) def_%v_8 %v_7[4.1,] 
+		 3: %v_8[4.2,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_7->const_missing def_%v_8 %v_7[4.1,] 	 SYMBOL:InsufficientStockToFulfil,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: HASH-order-out_of_stock_items- def_%v_9 %self[2.0,] no_stock_of[2.8,] 
+		 1: %self->fail def_%v_10 %self[2.0,] %v_8[5.0,4.2,] %v_9[6.0,] 	 SYMBOL:	 ARGS:%v_8,%v_9,
+		 2: COPY TYPE_PASS def_%v_6 %v_10[6.1,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->run_callbacks def_%v_11 %self[2.0,] %self[2.0,] 	 SYMBOL:confirmation,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "received" def_%cl_1_3 
+		 2: ATTRASSIGN %self->status %cl_1_3[3.1,] 
+		 3: 
+		 4: (Time) def_%cl_1_4 
+		 5: %cl_1_4->now def_%cl_1_5 %cl_1_4[3.4,] 	 SYMBOL:	 ARGS:
+		 6: ATTRASSIGN %self->received_at %cl_1_5[3.5,] 
+		 7: 
+		 8: %self->save! def_%cl_1_6 %self[3.2,3.6,2.0,] 	 SYMBOL:	 ARGS:
+		 9: 
+		 10: %self->order_items def_%cl_1_7 %self[3.2,3.6,3.8,2.0,] 	 SYMBOL:	 ARGS:
+		 11: %cl_1_7->each def_%cl_1_8 %cl_1_7[3.10,] 	 SYMBOL:confirm!,	 ARGS:
+		 12: 
+		 13: %self->deliver_received_order_email def_%cl_1_9 %self[3.2,3.6,3.8,3.10,2.0,] 	 SYMBOL:	 ARGS:
+		 14: RETURN %cl_1_9[3.13,] %self[3.2,3.6,3.8,3.10,3.13,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_10 
+		 1: def_%cl_1_11 %cl_1_10[4.0,] 
+		 2: RETURN %cl_1_11[4.1,] %self[3.2,3.6,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: RETURN %self[7.1,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = accept! instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_user 
+		 6: user[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_user 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->run_callbacks def_%v_3 %self[2.0,] %self[2.0,] 	 SYMBOL:acceptance,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: %self[2.0,] user[3.0,2.5,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Time) def_%cl_1_3 
+		 2: %cl_1_3->now def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN %self->accepted_at %cl_1_4[3.2,] 
+		 4: 
+		 5: BRANCH user[] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->accepter user[] 
+		 1: COPY TYPE_PASS def_%cl_1_5 user[] 
+		 2: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_5 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "accepted" def_%cl_1_6 
+		 2: ATTRASSIGN %self->status %cl_1_6[6.1,] 
+		 3: 
+		 4: %self->save! def_%cl_1_7 %self[6.2,4.0,3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 5: 
+		 6: %self->order_items def_%cl_1_8 %self[6.2,6.4,4.0,3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %cl_1_8->each def_%cl_1_9 %cl_1_8[6.6,] 	 SYMBOL:accept!,	 ARGS:
+		 8: 
+		 9: %self->deliver_accepted_order_email def_%cl_1_10 %self[6.2,6.4,6.6,4.0,3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 10: RETURN %cl_1_10[6.9,] %self[6.2,6.4,6.6,6.9,4.0,3.3,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_11 
+		 1: def_%cl_1_12 %cl_1_11[7.0,] 
+		 2: RETURN %cl_1_12[7.1,] %self[3.3,4.0,6.2,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: RETURN %v_3[4.1,] %self[4.1,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = reject! instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_user 
+		 6: user[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_user 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->run_callbacks def_%v_3 %self[2.0,] %self[2.0,] 	 SYMBOL:rejection,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: %self[2.0,] user[3.0,2.5,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Time) def_%cl_1_3 
+		 2: %cl_1_3->now def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN %self->rejected_at %cl_1_4[3.2,] 
+		 4: 
+		 5: BRANCH user[] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->rejecter user[] 
+		 1: COPY TYPE_PASS def_%cl_1_5 user[] 
+		 2: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_5 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "rejected" def_%cl_1_6 
+		 2: ATTRASSIGN %self->status %cl_1_6[6.1,] 
+		 3: 
+		 4: %self->save! def_%cl_1_7 %self[6.2,4.0,3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 5: 
+		 6: %self->order_items def_%cl_1_8 %self[6.2,6.4,4.0,3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 7: %cl_1_8->each def_%cl_1_9 %cl_1_8[6.6,] 	 SYMBOL:reject!,	 ARGS:
+		 8: 
+		 9: %self->deliver_rejected_order_email def_%cl_1_10 %self[6.2,6.4,6.6,4.0,3.3,2.0,] 	 SYMBOL:	 ARGS:
+		 10: RETURN %cl_1_10[6.9,] %self[6.2,6.4,6.6,6.9,4.0,3.3,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_11 
+		 1: def_%cl_1_12 %cl_1_11[7.0,] 
+		 2: RETURN %cl_1_12[7.1,] %self[3.3,4.0,6.2,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: RETURN %v_3[4.1,] %self[4.1,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = deliver_accepted_order_email instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (OrderMailer) def_%v_3 
+		 7: %v_3->accepted def_%v_4 %v_3[2.6,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+		 8: %v_4->deliver def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %v_5[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = deliver_rejected_order_email instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (OrderMailer) def_%v_3 
+		 7: %v_3->rejected def_%v_4 %v_3[2.6,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+		 8: %v_4->deliver def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %v_5[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = deliver_received_order_email instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (OrderMailer) def_%v_3 
+		 7: %v_3->received def_%v_4 %v_3[2.6,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+		 8: %v_4->deliver def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %v_5[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

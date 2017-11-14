@@ -1,0 +1,2288 @@
+SET IRMethod, name = index instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->accounts_api def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: GETFIELD %self->current_community def_%v_4 %self[2.0,2.6,] 
+		 8: %v_4->id def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: GETFIELD %self->current_user def_%v_6 %self[2.0,2.6,] 
+		 10: %v_6->id def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: HASH-community_id-person_id- def_%v_8 %v_5[2.8,] %v_7[2.10,] 
+		 12: %v_3->get def_%v_9 %v_3[2.6,] %v_8[2.11,] 	 SYMBOL:	 ARGS:%v_8,
+		 13: %v_9->maybe def_%v_10 %v_9[2.12,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_PASS def_m_account %v_10[2.13,] 
+		 15: 
+		 16: COPY TYPE_StringLiteral "payments" def_%v_11 
+		 17: ATTRASSIGN %self->selected_left_navi_link %v_11[2.16,] 
+		 18: 
+		 19: (PaypalHelper) def_%v_12 
+		 20: GETFIELD %self->current_community def_%v_13 %self[2.0,2.6,] 
+		 21: %v_12->community_ready_for_payments? def_%v_14 %v_12[2.19,] %v_13[2.20,] 	 SYMBOL:	 ARGS:%v_13,
+		 22: COPY TYPE_PASS def_community_ready_for_payments %v_14[2.21,] 
+		 23: 
+		 24: BRANCH %v_14[2.21,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_16 %self[2.0,2.17,] 	 SYMBOL:	 ARGS:
+		 2: %v_16->now def_%v_17 %v_16[4.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "paypal_accounts.admin_account_not_connected" def_%v_18 
+		 4: %self->view_context def_%v_19 %self[4.1,2.0,2.17,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_StringLiteral "paypal_accounts.contact_admin_link_text" def_%v_20 
+		 6: %self->t def_%v_21 %self[4.1,4.4,2.0,2.17,] %v_20[4.5,] 	 SYMBOL:	 ARGS:%v_20,
+		 7: %self->new_user_feedback_path def_%v_22 %self[4.1,4.4,4.6,2.0,2.17,] 	 SYMBOL:	 ARGS:
+		 8: %v_19->link_to def_%v_23 %v_19[4.4,] %v_21[4.6,] %v_22[4.7,] 	 SYMBOL:	 ARGS:%v_21,%v_22,
+		 9: HASH-contact_admin_link- def_%v_24 %v_23[4.8,] 
+		 10: %self->t def_%v_25 %self[4.1,4.4,4.6,4.7,2.0,2.17,] %v_18[4.3,] %v_24[4.9,] 	 SYMBOL:	 ARGS:%v_18,%v_24,
+		 11: %v_25->html_safe def_%v_26 %v_25[4.10,] 	 SYMBOL:	 ARGS:
+		 12: ATTRASSIGN %v_17->[] %v_26[4.11,] 
+		 13: COPY TYPE_PASS def_%v_15 %v_26[4.11,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->current_community def_%v_27 %self[2.0,] 
+		 2: %v_27->default_currency def_%v_28 %v_27[5.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_community_currency %v_28[5.2,] 
+		 4: 
+		 5: %self->payment_settings_api def_%v_29 %self[2.0,2.17,] 	 SYMBOL:	 ARGS:
+		 6: GETFIELD %self->current_community def_%v_30 %self[5.5,2.0,] 
+		 7: %v_30->id def_%v_31 %v_30[5.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-community_id- def_%v_32 %v_31[5.7,] 
+		 9: %v_29->get_active def_%v_33 %v_29[5.5,] %v_32[5.8,] 	 SYMBOL:	 ARGS:%v_32,
+		 10: %v_33->maybe def_%v_34 %v_33[5.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_34->get def_%v_35 %v_34[5.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_PASS def_payment_settings %v_35[5.11,] 
+		 13: 
+		 14: (LocalizationUtils) def_%v_36 
+		 15: GETFIELD %self->current_community def_%v_37 %self[5.5,2.0,] 
+		 16: %v_37->country def_%v_38 %v_37[5.15,] 	 SYMBOL:	 ARGS:
+		 17: %v_36->valid_country_code def_%v_39 %v_36[5.14,] %v_38[5.16,] 	 SYMBOL:	 ARGS:%v_38,
+		 18: COPY TYPE_PASS def_community_country_code %v_39[5.17,] 
+		 19: 
+		 20: m_account->[] def_%v_40 m_account[2.14,] 	 SYMBOL:state,	 ARGS:Symbol,
+		 21: COPY TYPE_StringLiteral "" def_%v_41 
+		 22: %v_40->or_else def_%v_42 %v_40[5.20,] %v_41[5.21,] 	 SYMBOL:	 ARGS:%v_41,
+		 23: %self->next_action def_%v_43 %self[5.5,2.0,2.17,] %v_42[5.22,] 	 SYMBOL:	 ARGS:%v_42,
+		 24: GETFIELD %self->current_user def_%v_44 %self[5.5,5.23,2.0,] 
+		 25: GETFIELD %self->current_community def_%v_45 %self[5.5,5.23,2.0,] 
+		 26: %self->settings_links_for def_%v_46 %self[5.5,5.23,2.0,2.17,] %v_44[5.24,] %v_45[5.25,] 	 SYMBOL:	 ARGS:%v_44,%v_45,
+		 27: GETFIELD %self->current_user def_%v_47 %self[5.5,5.23,5.26,2.0,] 
+		 28: %self->ask_order_permission_person_paypal_account_path def_%v_48 %self[5.5,5.23,5.26,2.0,2.17,] %v_47[5.27,] 	 SYMBOL:	 ARGS:%v_47,
+		 29: GETFIELD %self->current_user def_%v_49 %self[5.5,5.23,5.26,5.28,2.0,] 
+		 30: %self->ask_billing_agreement_person_paypal_account_path def_%v_50 %self[5.5,5.23,5.26,5.28,2.0,2.17,] %v_49[5.29,] 	 SYMBOL:	 ARGS:%v_49,
+		 31: m_account->[] def_%v_51 m_account[5.20,2.14,] 	 SYMBOL:email,	 ARGS:Symbol,
+		 32: COPY TYPE_StringLiteral "" def_%v_52 
+		 33: %v_51->or_else def_%v_53 %v_51[5.31,] %v_52[5.32,] 	 SYMBOL:	 ARGS:%v_52,
+		 34: COPY TYPE_StringLiteral "paypal_accounts.commission" def_%v_54 
+		 35: payment_settings->[] def_%v_55 payment_settings[5.12,] 	 SYMBOL:commission_from_seller,	 ARGS:Symbol,
+		 36: HASH-commission- def_%v_56 %v_55[5.35,] 
+		 37: %self->t def_%v_57 %self[5.5,5.23,5.26,5.28,5.30,2.0,2.17,] %v_54[5.34,] %v_56[5.36,] 	 SYMBOL:	 ARGS:%v_54,%v_56,
+		 38: (Money) def_%v_58 
+		 39: payment_settings->[] def_%v_59 payment_settings[5.12,5.35,] 	 SYMBOL:minimum_transaction_fee_cents,	 ARGS:Symbol,
+		 40: %v_58->new def_%v_60 %v_58[5.38,] %v_59[5.39,] community_currency[5.3,] 	 SYMBOL:	 ARGS:%v_59,community_currency,
+		 41: payment_settings->[] def_%v_61 payment_settings[5.12,5.35,5.39,] 	 SYMBOL:commission_type,	 ARGS:Symbol,
+		 42: (PaypalCountryHelper) def_%v_62 
+		 43: %v_62->fee_link def_%v_63 %v_62[5.42,] community_country_code[5.18,] 	 SYMBOL:	 ARGS:community_country_code,
+		 44: (PaypalCountryHelper) def_%v_64 
+		 45: %v_64->create_paypal_account_url def_%v_65 %v_64[5.44,] community_country_code[5.18,] 	 SYMBOL:	 ARGS:community_country_code,
+		 46: (PaypalCountryHelper) def_%v_66 
+		 47: %v_66->receive_funds_info_label_tr_key def_%v_67 %v_66[5.46,] community_country_code[5.18,] 	 SYMBOL:	 ARGS:community_country_code,
+		 48: COPY TYPE_StringLiteral "https://www.paypal.com/" def_%v_68 
+		 49: 
+		 50: COPY TYPE_StringLiteral "/upgrade" def_%v_69 
+		 51: BUILDSTRING def_%v_70 %v_68[5.48,] community_country_code[5.18,] %v_69[5.50,] 
+		 52: HASH-next_action-community_ready_for_payments-left_hand_navigation_links-order_permission_action-billing_agreement_action-paypal_account_email-commission_from_seller-minimum_commission-commission_type-currency-paypal_fees_url-create_url-receive_funds_info_label_tr_key-upgrade_url- def_%v_71 %v_43[5.23,] community_ready_for_payments[2.22,] %v_46[5.26,] %v_48[5.28,] %v_50[5.30,] %v_53[5.33,] %v_57[5.37,] %v_60[5.40,] %v_61[5.41,] community_currency[5.3,] %v_63[5.43,] %v_65[5.45,] %v_67[5.47,] %v_70[5.51,] 
+		 53: HASH-locals- def_%v_72 %v_71[5.52,] 
+		 54: %self->render def_%v_73 %self[5.5,5.23,5.26,5.28,5.30,5.37,2.0,2.17,] %v_72[5.53,] 	 SYMBOL:	 ARGS:%v_72,
+		 55: 
+		 56: %self->ruby_code_from_view def_%v_74 %self[5.5,5.23,5.26,5.28,5.30,5.37,5.54,2.0,2.17,] 	 SYMBOL:	 ARGS:
+		 57: %v_74->ruby_code_from_view def_%v_75 %v_74[5.56,] %self[5.5,5.23,5.26,5.28,5.30,5.37,5.54,5.56,2.0,2.17,] 	 SYMBOL:	 ARGS:%v_74,
+CLOSURE BEGIN: %self[5.5,5.23,5.26,5.28,5.30,5.37,5.54,5.56,2.0,2.17,] announcement[] community_ready_for_payments[2.22,] paypal_redirect_link[] param[] value[] 
+BB 1
+	outgoing: 39 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_rb_from_view 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 11 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (APP_CONFIG) def_%cl_1_3 
+		 2: %cl_1_3->use_kissmetrics def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_1_4[3.2,] 
+BB 4
+	outgoing: 5 6 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "_kms('//i.kissmetrics.com/i.js');_kms('" def_%cl_1_5 
+		 2: (APP_CONFIG) def_%cl_1_6 
+		 3: %cl_1_6->kissmetrics_url def_%cl_1_7 %cl_1_6[4.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "');" def_%cl_1_8 
+		 5: BUILDSTRING def_%cl_1_9 %cl_1_5[4.1,] %cl_1_7[4.3,] %cl_1_8[4.4,] 
+		 6: 
+		 7: 
+		 8: GETFIELD %self->current_user def_%cl_1_10 %self[2.0,] 
+		 9: BRANCH %cl_1_10[4.8,] 
+BB 5
+	outgoing: 7 37 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "_kmq.push(['identify', '" def_%cl_1_11 
+		 1: GETFIELD %self->current_user def_%cl_1_12 %self[2.0,] 
+		 2: %cl_1_12->id def_%cl_1_13 %cl_1_12[5.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "']);" def_%cl_1_14 
+		 4: BUILDSTRING def_%cl_1_15 %cl_1_11[5.0,] %cl_1_13[5.2,] %cl_1_14[5.3,] 
+		 5: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_15 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: GETFIELD %self->current_community def_%cl_1_16 %self[2.0,] 
+		 3: BRANCH %cl_1_16[7.2,] 
+BB 8
+	outgoing: 10 37 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "_kmq.push(['set', {'SiteName' : '" def_%cl_1_17 
+		 1: GETFIELD %self->current_community def_%cl_1_18 %self[2.0,] 
+		 2: %cl_1_18->ident def_%cl_1_19 %cl_1_18[8.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "'}]);" def_%cl_1_20 
+		 4: BUILDSTRING def_%cl_1_21 %cl_1_17[8.0,] %cl_1_19[8.2,] %cl_1_20[8.3,] 
+		 5: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "_kmq.push(['set', {'SiteName' : 'dashboard'}]);" def_%cl_1_22 
+		 2: COPY TYPE_PASS def_%cl_1_21 %cl_1_22[9.1,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_21 
+BB 12
+	outgoing: 13 14 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (I18n) def_%cl_1_23 
+		 2: %cl_1_23->locale def_%cl_1_24 %cl_1_23[12.1,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: %self->content_for def_%cl_1_25 %self[2.0,] 	 SYMBOL:head,	 ARGS:Symbol,
+		 5: 
+		 6: %self->display_expiration_notice? def_%cl_1_26 %self[12.4,2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %cl_1_26[12.6,] 
+BB 13
+	outgoing: 15 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->content_for def_%cl_1_27 %self[2.0,] %self[2.0,] 	 SYMBOL:javascript,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: COPY TYPE_StringLiteral "expiration.title" def_%cl_1_28 
+		 4: %self->t def_%cl_1_29 %self[13.1,2.0,] %cl_1_28[13.3,] 	 SYMBOL:	 ARGS:%cl_1_28,
+		 5: 
+		 6: COPY TYPE_StringLiteral "expiration.sub_title_new" def_%cl_1_30 
+		 7: %self->t def_%cl_1_31 %self[13.1,13.4,2.0,] %cl_1_30[13.6,] 	 SYMBOL:	 ARGS:%cl_1_30,
+		 8: 
+		 9: %self->external_plan_service_login_url def_%cl_1_32 %self[13.1,13.4,13.7,2.0,] 	 SYMBOL:	 ARGS:
+		 10: 
+		 11: COPY TYPE_StringLiteral "expiration.link_to_external_service" def_%cl_1_33 
+		 12: %self->t def_%cl_1_34 %self[13.1,13.4,13.7,13.9,2.0,] %cl_1_33[13.11,] 	 SYMBOL:	 ARGS:%cl_1_33,
+		 13: 
+		 14: COPY TYPE_StringLiteral "expiration.need_more_info" def_%cl_1_35 
+		 15: %self->t def_%cl_1_36 %self[13.1,13.4,13.7,13.9,13.12,2.0,] %cl_1_35[13.14,] 	 SYMBOL:	 ARGS:%cl_1_35,
+		 16: 
+		 17: COPY TYPE_StringLiteral "expiration.contact_us" def_%cl_1_37 
+		 18: %self->t def_%cl_1_38 %self[13.1,13.4,13.7,13.9,13.12,13.15,2.0,] %cl_1_37[13.17,] 	 SYMBOL:	 ARGS:%cl_1_37,
+		 19: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_38 
+BB 15
+	outgoing: 16 17 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->content_for def_%cl_1_39 %self[2.0,] %self[2.0,] 	 SYMBOL:page_content,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: %self[2.0,] announcement[] community_ready_for_payments[] paypal_redirect_link[] 
+BB 1
+	outgoing: 33 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 29 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->with_big_cover_photo def_%cl_3_3 %self[2.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%cl_4_3 %cl_4_0[2.1,] 
+		 2: RETURN %cl_4_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_4_4 
+		 1: def_%cl_4_5 %cl_4_4[4.0,] 
+		 2: RETURN %cl_4_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: %self->with_small_cover_photo def_%cl_3_4 %self[3.1,2.0,] %self[3.1,2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_5_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%cl_5_3 %cl_5_0[2.1,] 
+		 2: 
+		 3: def_%cl_5_4 %cl_5_0[2.1,] 
+		 4: RETURN %cl_5_4[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_5_5 
+		 1: def_%cl_5_6 %cl_5_5[4.0,] 
+		 2: RETURN %cl_5_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: 
+		 5: COPY TYPE_StringLiteral "ss-check" def_%cl_3_5 
+		 6: COPY TYPE_StringLiteral "ss-info" def_%cl_3_6 
+		 7: COPY TYPE_StringLiteral "ss-alert" def_%cl_3_7 
+		 8: HASH-notice-warning-error- def_%cl_3_8 %cl_3_5[3.5,] %cl_3_6[3.6,] %cl_3_7[3.7,] 
+		 9: %cl_3_8->each def_%cl_3_9 %cl_3_8[3.8,] %self[3.1,3.3,2.0,] 	 SYMBOL:	 ARGS:%cl_3_8,
+CLOSURE BEGIN: %self[3.1,3.3,2.0,] announcement[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_6_0 
+		 2: RECEIVEARG def_announcement 
+		 3: RECEIVEARG def_icon_class 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%cl_6_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_6_3->[] def_%cl_6_4 %cl_6_3[3.1,] announcement[2.2,] 	 SYMBOL:	 ARGS:announcement,
+		 3: BRANCH %cl_6_4[3.2,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: announcement->to_s def_%cl_6_5 announcement[2.2,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: 
+		 4: %self->flash def_%cl_6_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: %cl_6_6->[] def_%cl_6_7 %cl_6_6[4.4,] announcement[4.1,2.2,] 	 SYMBOL:	 ARGS:announcement,
+		 6: 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_6_7[4.5,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_6_8 
+		 1: def_%cl_6_9 %cl_6_8[7.0,] 
+		 2: RETURN %cl_6_9[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: icon_class[2.3,] 
+		 10: 
+		 11: COPY TYPE_StringLiteral "paypal_accounts.payout_info_title" def_%cl_3_10 
+		 12: %self->t def_%cl_3_11 %self[3.1,3.3,2.0,] %cl_3_10[3.11,] 	 SYMBOL:	 ARGS:%cl_3_10,
+		 13: 
+		 14: BRANCH community_ready_for_payments[] 
+BB 4
+	outgoing: 5 6 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "paypal_accounts.create_paypal_account_link_text" def_%cl_3_12 
+		 2: %self->t def_%cl_3_13 %self[2.0,] %cl_3_12[4.1,] 	 SYMBOL:	 ARGS:%cl_3_12,
+		 3: %self->create_url def_%cl_3_14 %self[4.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "_blank" def_%cl_3_15 
+		 5: HASH-target- def_%cl_3_16 %cl_3_15[4.4,] 
+		 6: %self->link_to def_%cl_3_17 %self[4.2,4.3,2.0,] %cl_3_13[4.2,] %cl_3_14[4.3,] %cl_3_16[4.5,] 	 SYMBOL:	 ARGS:%cl_3_13,%cl_3_14,%cl_3_16,
+		 7: COPY TYPE_PASS def_create_paypal_link %cl_3_17[4.6,] 
+		 8: 
+		 9: COPY TYPE_StringLiteral "paypal_accounts.upgrade_paypal_account_link_text" def_%cl_3_18 
+		 10: %self->t def_%cl_3_19 %self[4.2,4.3,4.6,2.0,] %cl_3_18[4.9,] 	 SYMBOL:	 ARGS:%cl_3_18,
+		 11: %self->upgrade_url def_%cl_3_20 %self[4.2,4.3,4.6,4.10,2.0,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral "_blank" def_%cl_3_21 
+		 13: HASH-target- def_%cl_3_22 %cl_3_21[4.12,] 
+		 14: %self->link_to def_%cl_3_23 %self[4.2,4.3,4.6,4.10,4.11,2.0,] %cl_3_19[4.10,] %cl_3_20[4.11,] %cl_3_22[4.13,] 	 SYMBOL:	 ARGS:%cl_3_19,%cl_3_20,%cl_3_22,
+		 15: COPY TYPE_PASS def_upgrade_paypal_link %cl_3_23[4.14,] 
+		 16: 
+		 17: COPY TYPE_StringLiteral "<a href='#' id='ask_paypal_permissions_redirect'>" def_%cl_3_24 
+		 18: COPY TYPE_StringLiteral "paypal_accounts.redirect_link_text" def_%cl_3_25 
+		 19: %self->t def_%cl_3_26 %self[4.2,4.3,4.6,4.10,4.11,4.14,2.0,] %cl_3_25[4.18,] 	 SYMBOL:	 ARGS:%cl_3_25,
+		 20: COPY TYPE_StringLiteral "</a>" def_%cl_3_27 
+		 21: BUILDSTRING def_%cl_3_28 %cl_3_24[4.17,] %cl_3_26[4.19,] %cl_3_27[4.20,] 
+		 22: COPY TYPE_PASS def_paypal_redirect_link %cl_3_28[4.21,] 
+		 23: 
+		 24: COPY TYPE_StringLiteral "paypal_accounts.payout_info_paypal" def_%cl_3_29 
+		 25: %self->create_paypal_account_link def_%cl_3_30 %self[4.2,4.3,4.6,4.10,4.11,4.14,4.19,2.0,] 	 SYMBOL:	 ARGS:
+		 26: HASH-create_paypal_account_link- def_%cl_3_31 %cl_3_30[4.25,] 
+		 27: %self->t def_%cl_3_32 %self[4.2,4.3,4.6,4.10,4.11,4.14,4.19,4.25,2.0,] %cl_3_29[4.24,] %cl_3_31[4.26,] 	 SYMBOL:	 ARGS:%cl_3_29,%cl_3_31,
+		 28: %cl_3_32->html_safe def_%cl_3_33 %cl_3_32[4.27,] 	 SYMBOL:	 ARGS:
+		 29: 
+		 30: %self->commission_required def_%cl_3_34 %self[4.2,4.3,4.6,4.10,4.11,4.14,4.19,4.25,4.27,2.0,] 	 SYMBOL:	 ARGS:
+		 31: BRANCH %cl_3_34[4.30,] 
+BB 5
+	outgoing: 7 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "paypal_accounts.commission_permission_needed" def_%cl_3_35 
+		 2: %self->t def_%cl_3_36 %self[2.0,] %cl_3_35[5.1,] 	 SYMBOL:	 ARGS:%cl_3_35,
+		 3: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_3_36 
+BB 7
+	outgoing: 8 9 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->paypal_account_linked def_%cl_3_37 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_3_37[7.1,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_3_38 
+		 1: 
+BB 9
+	outgoing: 10 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "alert" def_%cl_3_39 
+		 2: %self->icon_tag def_%cl_3_40 %self[2.0,] %cl_3_39[9.1,] 	 SYMBOL:	 ARGS:%cl_3_39,
+		 3: 
+		 4: %self->receive_funds_info_label_tr_key def_%cl_3_41 %self[9.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %self->t def_%cl_3_42 %self[9.2,9.4,2.0,] %cl_3_41[9.4,] 	 SYMBOL:	 ARGS:%cl_3_41,
+		 6: 
+		 7: COPY TYPE_StringLiteral "paypal_accounts.paypal_receive_funds_info" def_%cl_3_43 
+		 8: %self->upgrade_paypal_account_link def_%cl_3_44 %self[9.2,9.4,9.5,2.0,] 	 SYMBOL:	 ARGS:
+		 9: HASH-upgrade_paypal_account_link- def_%cl_3_45 %cl_3_44[9.8,] 
+		 10: %self->t def_%cl_3_46 %self[9.2,9.4,9.5,9.8,2.0,] %cl_3_43[9.7,] %cl_3_45[9.9,] 	 SYMBOL:	 ARGS:%cl_3_43,%cl_3_45,
+		 11: %cl_3_46->html_safe def_%cl_3_47 %cl_3_46[9.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_PASS def_%cl_3_38 %cl_3_47[9.11,] 
+BB 10
+	outgoing: 11 12 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->next_action def_%cl_3_48 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_3_48->== def_%cl_3_49 %cl_3_48[10.1,] 	 SYMBOL:ask_order_permission,	 ARGS:Symbol,
+		 3: BRANCH %cl_3_49[10.2,] 
+BB 11
+	outgoing: 28 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->content_for def_%cl_3_50 %self[2.0,] %self[2.0,] 	 SYMBOL:javascript,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_7_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: COPY TYPE_StringLiteral "paypal_accounts.new.follow_steps" def_%cl_3_51 
+		 4: %self->t def_%cl_3_52 %self[11.1,2.0,] %cl_3_51[11.3,] 	 SYMBOL:	 ARGS:%cl_3_51,
+		 5: 
+		 6: COPY TYPE_StringLiteral "paypal_accounts.new.connect_paypal_account_title_with_step" def_%cl_3_53 
+		 7: HASH-current_step-total_steps- def_%cl_3_54 
+		 8: %self->t def_%cl_3_55 %self[11.1,11.4,2.0,] %cl_3_53[11.6,] %cl_3_54[11.7,] 	 SYMBOL:	 ARGS:%cl_3_53,%cl_3_54,
+		 9: 
+		 10: COPY TYPE_StringLiteral "paypal_accounts.new.connect_paypal_account_instructions" def_%cl_3_56 
+		 11: %self->t def_%cl_3_57 %self[11.1,11.4,11.8,2.0,] %cl_3_56[11.10,] 	 SYMBOL:	 ARGS:%cl_3_56,
+		 12: 
+		 13: COPY TYPE_StringLiteral "paypal_accounts.new.connect_paypal_account" def_%cl_3_58 
+		 14: %self->t def_%cl_3_59 %self[11.1,11.4,11.8,11.11,2.0,] %cl_3_58[11.13,] 	 SYMBOL:	 ARGS:%cl_3_58,
+		 15: 
+		 16: COPY TYPE_StringLiteral "paypal_accounts.redirect_message" def_%cl_3_60 
+		 17: HASH-redirect_link- def_%cl_3_61 paypal_redirect_link[4.22,] 
+		 18: %self->t def_%cl_3_62 %self[11.1,11.4,11.8,11.11,11.14,2.0,] %cl_3_60[11.16,] %cl_3_61[11.17,] 	 SYMBOL:	 ARGS:%cl_3_60,%cl_3_61,
+		 19: %cl_3_62->html_safe def_%cl_3_63 %cl_3_62[11.18,] 	 SYMBOL:	 ARGS:
+		 20: 
+BB 12
+	outgoing: 13 26 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->next_action def_%cl_3_64 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_3_64->== def_%cl_3_65 %cl_3_64[12.1,] 	 SYMBOL:ask_billing_agreement,	 ARGS:Symbol,
+		 3: BRANCH %cl_3_65[12.2,] 
+BB 13
+	outgoing: 14 15 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->content_for def_%cl_3_66 %self[2.0,] %self[2.0,] 	 SYMBOL:javascript,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_8_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: %self->commission_type def_%cl_3_67 %self[13.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %cl_3_67->!= def_%cl_3_68 %cl_3_67[13.3,] 	 SYMBOL:none,	 ARGS:Symbol,
+		 5: BRANCH %cl_3_68[13.4,] 
+BB 14
+	outgoing: 16 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "paypal_accounts.new.follow_steps" def_%cl_3_69 
+		 2: %self->t def_%cl_3_70 %self[2.0,] %cl_3_69[14.1,] 	 SYMBOL:	 ARGS:%cl_3_69,
+		 3: 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_3_70 
+BB 16
+	outgoing: 17 18 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "check" def_%cl_3_71 
+		 2: COPY TYPE_StringLiteral "icon-fix" def_%cl_3_72 
+		 3: COPY TYPE_Array def_%cl_3_73 %cl_3_72[16.2,] 
+		 4: %self->icon_tag def_%cl_3_74 %self[2.0,] %cl_3_71[16.1,] %cl_3_73[16.3,] 	 SYMBOL:	 ARGS:%cl_3_71,%cl_3_73,
+		 5: 
+		 6: COPY TYPE_StringLiteral "paypal_accounts.paypal_account_connected_title" def_%cl_3_75 
+		 7: %self->t def_%cl_3_76 %self[16.4,2.0,] %cl_3_75[16.6,] 	 SYMBOL:	 ARGS:%cl_3_75,
+		 8: 
+		 9: COPY TYPE_StringLiteral "paypal_accounts.paypal_account_connected" def_%cl_3_77 
+		 10: %self->paypal_account_email def_%cl_3_78 %self[16.4,16.7,2.0,] 	 SYMBOL:	 ARGS:
+		 11: HASH-email- def_%cl_3_79 %cl_3_78[16.10,] 
+		 12: %self->t def_%cl_3_80 %self[16.4,16.7,16.10,2.0,] %cl_3_77[16.9,] %cl_3_79[16.11,] 	 SYMBOL:	 ARGS:%cl_3_77,%cl_3_79,
+		 13: 
+		 14: COPY TYPE_StringLiteral "paypal_accounts.change_account" def_%cl_3_81 
+		 15: %self->t def_%cl_3_82 %self[16.4,16.7,16.10,16.12,2.0,] %cl_3_81[16.14,] 	 SYMBOL:	 ARGS:%cl_3_81,
+		 16: 
+		 17: COPY TYPE_StringLiteral "<a href='#' id='ask_paypal_permissions_redirect'>" def_%cl_3_83 
+		 18: COPY TYPE_StringLiteral "paypal_accounts.redirect_link_text" def_%cl_3_84 
+		 19: %self->t def_%cl_3_85 %self[16.4,16.7,16.10,16.12,16.15,2.0,] %cl_3_84[16.18,] 	 SYMBOL:	 ARGS:%cl_3_84,
+		 20: COPY TYPE_StringLiteral "</a>" def_%cl_3_86 
+		 21: BUILDSTRING def_%cl_3_87 %cl_3_83[16.17,] %cl_3_85[16.19,] %cl_3_86[16.20,] 
+		 22: COPY TYPE_PASS def_paypal_redirect_link %cl_3_87[16.21,] 
+		 23: 
+		 24: COPY TYPE_StringLiteral "paypal_accounts.redirect_message" def_%cl_3_88 
+		 25: HASH-redirect_link- def_%cl_3_89 %cl_3_87[16.21,] 
+		 26: %self->t def_%cl_3_90 %self[16.4,16.7,16.10,16.12,16.15,16.19,2.0,] %cl_3_88[16.24,] %cl_3_89[16.25,] 	 SYMBOL:	 ARGS:%cl_3_88,%cl_3_89,
+		 27: %cl_3_90->html_safe def_%cl_3_91 %cl_3_90[16.26,] 	 SYMBOL:	 ARGS:
+		 28: 
+		 29: COPY TYPE_StringLiteral "paypal_accounts.new.paypal_account_billing_agreement_with_step" def_%cl_3_92 
+		 30: HASH-current_step-total_steps- def_%cl_3_93 
+		 31: %self->t def_%cl_3_94 %self[16.4,16.7,16.10,16.12,16.15,16.19,16.26,2.0,] %cl_3_92[16.29,] %cl_3_93[16.30,] 	 SYMBOL:	 ARGS:%cl_3_92,%cl_3_93,
+		 32: 
+		 33: COPY TYPE_StringLiteral "<a id='paypal_fee_info_link' href='#'>" def_%cl_3_95 
+		 34: COPY TYPE_StringLiteral "paypal_accounts.new.paypal_info_link_text" def_%cl_3_96 
+		 35: %self->t def_%cl_3_97 %self[16.4,16.7,16.10,16.12,16.15,16.19,16.26,16.31,2.0,] %cl_3_96[16.34,] 	 SYMBOL:	 ARGS:%cl_3_96,
+		 36: COPY TYPE_StringLiteral "</a>" def_%cl_3_98 
+		 37: BUILDSTRING def_%cl_3_99 %cl_3_95[16.33,] %cl_3_97[16.35,] %cl_3_98[16.36,] 
+		 38: COPY TYPE_PASS def_paypal_info_link %cl_3_99[16.37,] 
+		 39: 
+		 40: %self->commission_type def_%cl_3_100 %self[16.4,16.7,16.10,16.12,16.15,16.19,16.26,16.31,16.35,2.0,] 	 SYMBOL:	 ARGS:
+		 41: %cl_3_100->== def_%cl_3_101 %cl_3_100[16.40,] 	 SYMBOL:both,	 ARGS:Symbol,
+		 42: BRANCH %cl_3_101[16.41,] 
+BB 17
+	outgoing: 25 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "information" def_%cl_3_102 
+		 2: %self->icon_tag def_%cl_3_103 %self[2.0,] %cl_3_102[17.1,] 	 SYMBOL:	 ARGS:%cl_3_102,
+		 3: 
+		 4: %self->text def_%cl_3_104 %self[17.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: 
+BB 18
+	outgoing: 19 20 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->commission_type def_%cl_3_105 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_3_105->== def_%cl_3_106 %cl_3_105[18.1,] 	 SYMBOL:relative,	 ARGS:Symbol,
+		 3: BRANCH %cl_3_106[18.2,] 
+BB 19
+	outgoing: 24 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "information" def_%cl_3_107 
+		 2: %self->icon_tag def_%cl_3_108 %self[2.0,] %cl_3_107[19.1,] 	 SYMBOL:	 ARGS:%cl_3_107,
+		 3: 
+		 4: %self->text def_%cl_3_109 %self[19.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: 
+BB 20
+	outgoing: 21 22 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->commission_type def_%cl_3_110 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_3_110->== def_%cl_3_111 %cl_3_110[20.1,] 	 SYMBOL:fixed,	 ARGS:Symbol,
+		 3: BRANCH %cl_3_111[20.2,] 
+BB 21
+	outgoing: 23 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "information" def_%cl_3_112 
+		 2: %self->icon_tag def_%cl_3_113 %self[2.0,] %cl_3_112[21.1,] 	 SYMBOL:	 ARGS:%cl_3_112,
+		 3: 
+		 4: %self->text def_%cl_3_114 %self[21.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: 
+BB 22
+	outgoing: 23 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "information" def_%cl_3_115 
+		 2: %self->icon_tag def_%cl_3_116 %self[2.0,] %cl_3_115[22.1,] 	 SYMBOL:	 ARGS:%cl_3_115,
+		 3: 
+		 4: %self->text def_%cl_3_117 %self[22.2,2.0,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_%cl_3_114 %cl_3_117[22.4,] 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_3_109 %cl_3_114[22.5,21.4,] 
+BB 24
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_3_104 %cl_3_109[23.0,19.4,] 
+BB 25
+	outgoing: 27 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "paypal_accounts.new.billing_agreement" def_%cl_3_118 
+		 2: %self->t def_%cl_3_119 %self[2.0,] %cl_3_118[25.1,] 	 SYMBOL:	 ARGS:%cl_3_118,
+		 3: 
+		 4: COPY TYPE_StringLiteral "<a href='#' id='ask_billing_agreement_redirect'>" def_%cl_3_120 
+		 5: COPY TYPE_StringLiteral "paypal_accounts.redirect_link_text" def_%cl_3_121 
+		 6: %self->t def_%cl_3_122 %self[25.2,2.0,] %cl_3_121[25.5,] 	 SYMBOL:	 ARGS:%cl_3_121,
+		 7: COPY TYPE_StringLiteral "</a>" def_%cl_3_123 
+		 8: BUILDSTRING def_%cl_3_124 %cl_3_120[25.4,] %cl_3_122[25.6,] %cl_3_123[25.7,] 
+		 9: COPY TYPE_PASS def_paypal_redirect_link %cl_3_124[25.8,] 
+		 10: 
+		 11: COPY TYPE_StringLiteral "paypal_accounts.redirect_message" def_%cl_3_125 
+		 12: HASH-redirect_link- def_%cl_3_126 %cl_3_124[25.8,] 
+		 13: %self->t def_%cl_3_127 %self[25.2,25.6,2.0,] %cl_3_125[25.11,] %cl_3_126[25.12,] 	 SYMBOL:	 ARGS:%cl_3_125,%cl_3_126,
+		 14: %cl_3_127->html_safe def_%cl_3_128 %cl_3_127[25.13,] 	 SYMBOL:	 ARGS:
+		 15: 
+		 16: COPY TYPE_StringLiteral "layouts/lightbox" def_%cl_3_129 
+		 17: COPY TYPE_StringLiteral "paypal_fee_info_content" def_%cl_3_130 
+		 18: HASH-id- def_%cl_3_131 %cl_3_130[25.17,] 
+		 19: HASH-layout-locals- def_%cl_3_132 %cl_3_129[25.16,] %cl_3_131[25.18,] 
+		 20: %self->render def_%cl_3_133 %self[25.2,25.6,25.13,2.0,] %cl_3_132[25.19,] %self[25.2,25.6,25.13,2.0,] 	 SYMBOL:	 ARGS:%cl_3_132,%self,
+CLOSURE BEGIN: %self[25.2,25.6,25.13,2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_9_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "common.paypal_fee_info.title" def_%cl_9_3 
+		 2: %self->t def_%cl_9_4 %self[2.0,] %cl_9_3[3.1,] 	 SYMBOL:	 ARGS:%cl_9_3,
+		 3: 
+		 4: %self->text_with_line_breaks_html_safe def_%cl_9_5 %self[3.2,2.0,] %self[3.2,2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: %self[3.2,2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_10_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "common.paypal_fee_info.link_to_paypal_text" def_%cl_10_3 
+		 2: %self->t def_%cl_10_4 %self[2.0,] %cl_10_3[3.1,] 	 SYMBOL:	 ARGS:%cl_10_3,
+		 3: %self->paypal_fees_url def_%cl_10_5 %self[3.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "_blank" def_%cl_10_6 
+		 5: HASH-target- def_%cl_10_7 %cl_10_6[3.4,] 
+		 6: %self->link_to def_%cl_10_8 %self[3.2,3.3,2.0,] %cl_10_4[3.2,] %cl_10_5[3.3,] %cl_10_7[3.5,] 	 SYMBOL:	 ARGS:%cl_10_4,%cl_10_5,%cl_10_7,
+		 7: COPY TYPE_PASS def_link_to_paypal %cl_10_8[3.6,] 
+		 8: 
+		 9: COPY TYPE_StringLiteral "common.paypal_fee_info.body_text" def_%cl_10_9 
+		 10: HASH-link_to_paypal- def_%cl_10_10 %cl_10_8[3.6,] 
+		 11: %self->t def_%cl_10_11 %self[3.2,3.3,3.6,2.0,] %cl_10_9[3.9,] %cl_10_10[3.10,] 	 SYMBOL:	 ARGS:%cl_10_9,%cl_10_10,
+		 12: %cl_10_11->html_safe def_%cl_10_12 %cl_10_11[3.11,] 	 SYMBOL:	 ARGS:
+		 13: RETURN %cl_10_12[3.12,] %self[3.2,3.3,3.6,3.11,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_10_13 
+		 1: def_%cl_10_14 %cl_10_13[4.0,] 
+		 2: RETURN %cl_10_14[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 5: RETURN %cl_9_5[3.4,] %self[3.2,3.4,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_9_6 
+		 1: def_%cl_9_7 %cl_9_6[4.0,] 
+		 2: RETURN %cl_9_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 21: 
+		 22: %self->content_for def_%cl_3_134 %self[25.2,25.6,25.13,25.20,2.0,] %self[25.2,25.6,25.13,25.20,2.0,] 	 SYMBOL:extra_javascript,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_11_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 23: 
+BB 26
+	outgoing: 27 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->content_for def_%cl_3_135 %self[2.0,] %self[2.0,] 	 SYMBOL:javascript,	 ARGS:Symbol,%self,
+CLOSURE BEGIN: 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_12_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: COPY TYPE_StringLiteral "paypal_accounts.paypal_account_all_set_up" def_%cl_3_136 
+		 4: %self->t def_%cl_3_137 %self[26.1,2.0,] %cl_3_136[26.3,] 	 SYMBOL:	 ARGS:%cl_3_136,
+		 5: 
+		 6: COPY TYPE_StringLiteral "paypal_accounts.can_receive_payments" def_%cl_3_138 
+		 7: %self->t def_%cl_3_139 %self[26.1,26.4,2.0,] %cl_3_138[26.6,] 	 SYMBOL:	 ARGS:%cl_3_138,
+		 8: 
+		 9: COPY TYPE_StringLiteral "check" def_%cl_3_140 
+		 10: COPY TYPE_StringLiteral "icon-fix" def_%cl_3_141 
+		 11: COPY TYPE_StringLiteral "paypal-success-mark" def_%cl_3_142 
+		 12: COPY TYPE_Array def_%cl_3_143 %cl_3_141[26.10,] %cl_3_142[26.11,] 
+		 13: %self->icon_tag def_%cl_3_144 %self[26.1,26.4,26.7,2.0,] %cl_3_140[26.9,] %cl_3_143[26.12,] 	 SYMBOL:	 ARGS:%cl_3_140,%cl_3_143,
+		 14: 
+		 15: COPY TYPE_StringLiteral "paypal_accounts.paypal_account_connected_summary" def_%cl_3_145 
+		 16: %self->paypal_account_email def_%cl_3_146 %self[26.1,26.4,26.7,26.13,2.0,] 	 SYMBOL:	 ARGS:
+		 17: HASH-email- def_%cl_3_147 %cl_3_146[26.16,] 
+		 18: %self->t def_%cl_3_148 %self[26.1,26.4,26.7,26.13,26.16,2.0,] %cl_3_145[26.15,] %cl_3_147[26.17,] 	 SYMBOL:	 ARGS:%cl_3_145,%cl_3_147,
+		 19: 
+		 20: COPY TYPE_StringLiteral "check" def_%cl_3_149 
+		 21: COPY TYPE_StringLiteral "icon-fix" def_%cl_3_150 
+		 22: COPY TYPE_StringLiteral "paypal-success-mark" def_%cl_3_151 
+		 23: COPY TYPE_Array def_%cl_3_152 %cl_3_150[26.21,] %cl_3_151[26.22,] 
+		 24: %self->icon_tag def_%cl_3_153 %self[26.1,26.4,26.7,26.13,26.16,26.18,2.0,] %cl_3_149[26.20,] %cl_3_152[26.23,] 	 SYMBOL:	 ARGS:%cl_3_149,%cl_3_152,
+		 25: 
+		 26: COPY TYPE_StringLiteral "paypal_accounts.paypal_permission_granted_summary" def_%cl_3_154 
+		 27: %self->t def_%cl_3_155 %self[26.1,26.4,26.7,26.13,26.16,26.18,26.24,2.0,] %cl_3_154[26.26,] 	 SYMBOL:	 ARGS:%cl_3_154,
+		 28: 
+		 29: COPY TYPE_StringLiteral "paypal_accounts.change_account" def_%cl_3_156 
+		 30: %self->t def_%cl_3_157 %self[26.1,26.4,26.7,26.13,26.16,26.18,26.24,26.27,2.0,] %cl_3_156[26.29,] 	 SYMBOL:	 ARGS:%cl_3_156,
+		 31: 
+		 32: COPY TYPE_StringLiteral "<a href='#' id='ask_paypal_permissions_redirect'>" def_%cl_3_158 
+		 33: COPY TYPE_StringLiteral "paypal_accounts.redirect_link_text" def_%cl_3_159 
+		 34: %self->t def_%cl_3_160 %self[26.1,26.4,26.7,26.13,26.16,26.18,26.24,26.27,26.30,2.0,] %cl_3_159[26.33,] 	 SYMBOL:	 ARGS:%cl_3_159,
+		 35: COPY TYPE_StringLiteral "</a>" def_%cl_3_161 
+		 36: BUILDSTRING def_%cl_3_162 %cl_3_158[26.32,] %cl_3_160[26.34,] %cl_3_161[26.35,] 
+		 37: COPY TYPE_PASS def_paypal_redirect_link %cl_3_162[26.36,] 
+		 38: 
+		 39: COPY TYPE_StringLiteral "paypal_accounts.redirect_message" def_%cl_3_163 
+		 40: HASH-redirect_link- def_%cl_3_164 %cl_3_162[26.36,] 
+		 41: %self->t def_%cl_3_165 %self[26.1,26.4,26.7,26.13,26.16,26.18,26.24,26.27,26.30,26.34,2.0,] %cl_3_163[26.39,] %cl_3_164[26.40,] 	 SYMBOL:	 ARGS:%cl_3_163,%cl_3_164,
+		 42: %cl_3_165->html_safe def_%cl_3_166 %cl_3_165[26.41,] 	 SYMBOL:	 ARGS:
+		 43: COPY TYPE_PASS def_%cl_3_134 %cl_3_166[26.42,] 
+BB 27
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%cl_3_63 %cl_3_134[26.43,25.22,] 
+BB 28
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_3_63[27.0,11.19,] %self[2.0,] 
+BB 29
+	outgoing: 31 33 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "paypal_accounts.admin_account_not_connected" def_%cl_3_167 
+		 2: COPY TYPE_StringLiteral "paypal_accounts.contact_admin_link_text" def_%cl_3_168 
+		 3: %self->t def_%cl_3_169 %self[2.0,] %cl_3_168[29.2,] 	 SYMBOL:	 ARGS:%cl_3_168,
+		 4: %self->new_user_feedback_path def_%cl_3_170 %self[29.3,2.0,] 	 SYMBOL:	 ARGS:
+		 5: %self->link_to def_%cl_3_171 %self[29.3,29.4,2.0,] %cl_3_169[29.3,] %cl_3_170[29.4,] 	 SYMBOL:	 ARGS:%cl_3_169,%cl_3_170,
+		 6: HASH-contact_admin_link- def_%cl_3_172 %cl_3_171[29.5,] 
+		 7: %self->t def_%cl_3_173 %self[29.3,29.4,29.5,2.0,] %cl_3_167[29.1,] %cl_3_172[29.6,] 	 SYMBOL:	 ARGS:%cl_3_167,%cl_3_172,
+		 8: %cl_3_173->html_safe def_%cl_3_174 %cl_3_173[29.7,] 	 SYMBOL:	 ARGS:
+		 9: RETURN %cl_3_174[29.8,] %self[29.3,29.4,29.5,29.7,2.0,] 
+BB 31
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_175 
+		 1: def_%cl_3_176 %cl_3_175[31.0,] 
+		 2: RETURN %cl_3_176[31.1,] %self[2.0,] 
+BB 33
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: paypal_info_link[16.38,] paypal_redirect_link[4.22,16.22,25.9,26.37,] upgrade_paypal_link[4.15,] 
+		 2: 
+		 3: %self->params def_%cl_1_40 %self[15.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_40->[] def_%cl_1_41 %cl_1_40[15.3,] 	 SYMBOL:controller,	 ARGS:Symbol,
+		 5: COPY TYPE_StringLiteral "homepage" def_%cl_1_42 
+		 6: %cl_1_41->== def_%cl_1_43 %cl_1_41[15.4,] %cl_1_42[15.5,] 	 SYMBOL:	 ARGS:%cl_1_42,
+		 7: BRANCH %cl_1_43[15.6,] 
+BB 16
+	outgoing: 17 37 
+	datadep: 
+	instructions:
+		 0: %self->params def_%cl_1_44 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %cl_1_44->[] def_%cl_1_45 %cl_1_44[16.0,] 	 SYMBOL:action,	 ARGS:Symbol,
+		 2: COPY TYPE_StringLiteral "index" def_%cl_1_46 
+		 3: %cl_1_45->== def_%cl_1_47 %cl_1_45[16.1,] %cl_1_46[16.2,] 	 SYMBOL:	 ARGS:%cl_1_46,
+		 4: COPY TYPE_PASS def_%cl_1_43 %cl_1_47[16.3,] 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_43[16.4,15.6,] 
+BB 18
+	outgoing: 20 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->params def_%cl_1_48 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "action" def_%cl_1_49 
+		 3: COPY TYPE_StringLiteral "controller" def_%cl_1_50 
+		 4: COPY TYPE_StringLiteral "q" def_%cl_1_51 
+		 5: COPY TYPE_StringLiteral "view" def_%cl_1_52 
+		 6: COPY TYPE_StringLiteral "utf8" def_%cl_1_53 
+		 7: %cl_1_48->except def_%cl_1_54 %cl_1_48[18.1,] %cl_1_49[18.2,] %cl_1_50[18.3,] %cl_1_51[18.4,] %cl_1_52[18.5,] %cl_1_53[18.6,] 	 SYMBOL:	 ARGS:%cl_1_49,%cl_1_50,%cl_1_51,%cl_1_52,%cl_1_53,
+		 8: %cl_1_54->each def_%cl_1_55 %cl_1_54[18.7,] %self[18.1,2.0,] 	 SYMBOL:	 ARGS:%cl_1_54,
+CLOSURE BEGIN: param[] %self[18.1,2.0,] value[] 
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_13_0 
+		 2: RECEIVEARG def_param 
+		 3: RECEIVEARG def_value 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Regexp def_%cl_13_3 
+		 2: param->match def_%cl_13_4 param[2.2,] 	 SYMBOL:	 ARGS:%cl_13_3,
+		 3: BRANCH %cl_13_4[3.2,] 
+BB 4
+	outgoing: 5 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Regexp def_%cl_13_5 
+		 1: param->match def_%cl_13_6 param[2.2,] 	 SYMBOL:	 ARGS:%cl_13_5,
+		 2: COPY TYPE_PASS def_%cl_13_4 %cl_13_6[4.1,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_13_4[4.2,3.2,] 
+BB 6
+	outgoing: 7 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Regexp def_%cl_13_7 
+		 1: param->match def_%cl_13_8 param[2.2,] 	 SYMBOL:	 ARGS:%cl_13_7,
+		 2: COPY TYPE_PASS def_%cl_13_4 %cl_13_8[6.1,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_13_4[6.2,4.2,3.2,] 
+BB 8
+	outgoing: 9 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Regexp def_%cl_13_9 
+		 1: param->match def_%cl_13_10 param[2.2,] 	 SYMBOL:	 ARGS:%cl_13_9,
+		 2: COPY TYPE_PASS def_%cl_13_4 %cl_13_10[8.1,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_13_4[8.2,6.2,4.2,3.2,] 
+BB 10
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_13_11 
+		 1: RETURN %cl_13_11[10.0,] %self[2.0,] 
+BB 11
+	outgoing: 13 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->hidden_field_tag def_%cl_13_12 %self[2.0,] param[2.2,] value[2.3,] 	 SYMBOL:	 ARGS:param,value,
+		 2: RETURN %cl_13_12[11.1,] %self[11.1,2.0,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: def_%cl_13_13 
+		 1: def_%cl_13_14 %cl_13_13[13.0,] 
+		 2: RETURN %cl_13_14[13.1,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: value[2.3,] 
+		 9: 
+		 10: COPY TYPE_StringLiteral "view" def_%cl_1_56 
+		 11: GETFIELD %self->view_type def_%cl_1_57 %self[18.1,2.0,] 
+		 12: %self->hidden_field_tag def_%cl_1_58 %self[18.1,2.0,] %cl_1_56[18.10,] %cl_1_57[18.11,] 	 SYMBOL:	 ARGS:%cl_1_56,%cl_1_57,
+		 13: 
+		 14: %self->content_for def_%cl_1_59 %self[18.1,18.12,2.0,] 	 SYMBOL:page_content,	 ARGS:Symbol,
+		 15: 
+BB 19
+	outgoing: 20 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->content_for def_%cl_1_60 %self[2.0,] 	 SYMBOL:page_content,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%cl_1_59 %cl_1_60[19.1,] 
+BB 20
+	outgoing: 21 29 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (APP_CONFIG) def_%cl_1_61 
+		 2: %cl_1_61->use_google_analytics def_%cl_1_62 %cl_1_61[20.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %cl_1_62[20.2,] 
+BB 21
+	outgoing: 22 23 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "_gaq.push(['_setAccount', '" def_%cl_1_63 
+		 2: (APP_CONFIG) def_%cl_1_64 
+		 3: %cl_1_64->google_analytics_key def_%cl_1_65 %cl_1_64[21.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "']);" def_%cl_1_66 
+		 5: BUILDSTRING def_%cl_1_67 %cl_1_63[21.1,] %cl_1_65[21.3,] %cl_1_66[21.4,] 
+		 6: 
+		 7: COPY TYPE_StringLiteral "_gaq.push(['_setDomainName', '." def_%cl_1_68 
+		 8: (PublicSuffix) def_%cl_1_69 
+		 9: %self->request def_%cl_1_70 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 10: %cl_1_70->host def_%cl_1_71 %cl_1_70[21.9,] 	 SYMBOL:	 ARGS:
+		 11: %cl_1_69->parse def_%cl_1_72 %cl_1_69[21.8,] %cl_1_71[21.10,] 	 SYMBOL:	 ARGS:%cl_1_71,
+		 12: %cl_1_72->domain def_%cl_1_73 %cl_1_72[21.11,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_StringLiteral "']);" def_%cl_1_74 
+		 14: BUILDSTRING def_%cl_1_75 %cl_1_68[21.7,] %cl_1_73[21.12,] %cl_1_74[21.13,] 
+		 15: 
+		 16: GETFIELD %self->current_community def_%cl_1_76 %self[21.9,2.0,] 
+		 17: BRANCH %cl_1_76[21.16,] 
+BB 22
+	outgoing: 23 37 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_community def_%cl_1_77 %self[2.0,] 
+		 1: %cl_1_77->google_analytics_key def_%cl_1_78 %cl_1_77[22.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%cl_1_76 %cl_1_78[22.1,] 
+BB 23
+	outgoing: 24 27 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_76[22.2,21.16,] 
+BB 24
+	outgoing: 25 26 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "_gaq.push(['b._setAccount', '" def_%cl_1_79 
+		 2: GETFIELD %self->current_community def_%cl_1_80 %self[2.0,] 
+		 3: %cl_1_80->google_analytics_key def_%cl_1_81 %cl_1_80[24.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "']);" def_%cl_1_82 
+		 5: BUILDSTRING def_%cl_1_83 %cl_1_79[24.1,] %cl_1_81[24.3,] %cl_1_82[24.4,] 
+		 6: 
+		 7: COPY TYPE_StringLiteral "_gaq.push(['b._setDomainName', '." def_%cl_1_84 
+		 8: (PublicSuffix) def_%cl_1_85 
+		 9: %self->request def_%cl_1_86 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 10: %cl_1_86->host def_%cl_1_87 %cl_1_86[24.9,] 	 SYMBOL:	 ARGS:
+		 11: %cl_1_85->parse def_%cl_1_88 %cl_1_85[24.8,] %cl_1_87[24.10,] 	 SYMBOL:	 ARGS:%cl_1_87,
+		 12: %cl_1_88->domain def_%cl_1_89 %cl_1_88[24.11,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_StringLiteral "']);" def_%cl_1_90 
+		 14: BUILDSTRING def_%cl_1_91 %cl_1_84[24.7,] %cl_1_89[24.12,] %cl_1_90[24.13,] 
+		 15: 
+		 16: COPY TYPE_StringLiteral "_gaq.push(['b._addIgnoredOrganic', '" def_%cl_1_92 
+		 17: GETFIELD %self->current_community def_%cl_1_93 %self[24.9,2.0,] 
+		 18: (I18n) def_%cl_1_94 
+		 19: %cl_1_94->locale def_%cl_1_95 %cl_1_94[24.18,] 	 SYMBOL:	 ARGS:
+		 20: %cl_1_93->name def_%cl_1_96 %cl_1_93[24.17,] %cl_1_95[24.19,] 	 SYMBOL:	 ARGS:%cl_1_95,
+		 21: %self->Maybe def_%cl_1_97 %self[24.9,2.0,] %cl_1_96[24.20,] 	 SYMBOL:	 ARGS:%cl_1_96,
+		 22: COPY TYPE_StringLiteral "'" def_%cl_1_98 
+		 23: COPY TYPE_StringLiteral "" def_%cl_1_99 
+		 24: %cl_1_97->gsub def_%cl_1_100 %cl_1_97[24.21,] %cl_1_98[24.22,] %cl_1_99[24.23,] 	 SYMBOL:	 ARGS:%cl_1_98,%cl_1_99,
+		 25: COPY TYPE_StringLiteral "" def_%cl_1_101 
+		 26: %cl_1_100->or_else def_%cl_1_102 %cl_1_100[24.24,] %cl_1_101[24.25,] 	 SYMBOL:	 ARGS:%cl_1_101,
+		 27: COPY TYPE_StringLiteral "']);" def_%cl_1_103 
+		 28: BUILDSTRING def_%cl_1_104 %cl_1_92[24.16,] %cl_1_102[24.26,] %cl_1_103[24.27,] 
+		 29: 
+		 30: COPY TYPE_StringLiteral "_gaq.push(['b._addIgnoredOrganic', '" def_%cl_1_105 
+		 31: GETFIELD %self->current_community def_%cl_1_106 %self[24.9,24.21,2.0,] 
+		 32: %cl_1_106->domain def_%cl_1_107 %cl_1_106[24.31,] 	 SYMBOL:	 ARGS:
+		 33: BRANCH %cl_1_107[24.32,] 
+BB 25
+	outgoing: 26 37 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_community def_%cl_1_108 %self[2.0,] 
+		 1: %cl_1_108->ident def_%cl_1_109 %cl_1_108[25.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%cl_1_107 %cl_1_109[25.1,] 
+BB 26
+	outgoing: 28 37 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "']);" def_%cl_1_110 
+		 1: BUILDSTRING def_%cl_1_111 %cl_1_105[24.30,] %cl_1_107[25.2,24.32,] %cl_1_110[26.0,] 
+		 2: 
+BB 27
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_111 
+BB 28
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: 
+BB 29
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_111 
+BB 30
+	outgoing: 31 32 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->content_for def_%cl_1_112 %self[2.0,] 	 SYMBOL:location_search,	 ARGS:Symbol,
+		 2: 
+		 3: COPY TYPE_StringLiteral "application" def_%cl_1_113 
+		 4: %self->javascript_include_tag def_%cl_1_114 %self[30.1,2.0,] %cl_1_113[30.3,] 	 SYMBOL:	 ARGS:%cl_1_113,
+		 5: 
+		 6: 
+		 7: GETFIELD %self->analytics_event def_%cl_1_115 %self[30.1,30.4,2.0,] 
+		 8: BRANCH %cl_1_115[30.7,] 
+BB 31
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_116 
+		 1: 
+BB 32
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_116 
+BB 33
+	outgoing: 34 35 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Rails) def_%cl_1_117 
+		 2: %cl_1_117->env def_%cl_1_118 %cl_1_117[33.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_118->test? def_%cl_1_119 %cl_1_118[33.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %cl_1_119[33.3,] 
+BB 34
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_120 
+		 1: 
+BB 35
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_120 
+BB 36
+	outgoing: 37 39 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->content_for def_%cl_1_121 %self[2.0,] 	 SYMBOL:extra_javascript,	 ARGS:Symbol,
+		 2: 
+		 3: COPY TYPE_StringLiteral "error_pages.no_javascript.javascript_is_disabled_in_your_browser" def_%cl_1_122 
+		 4: %self->t def_%cl_1_123 %self[36.1,2.0,] %cl_1_122[36.3,] 	 SYMBOL:	 ARGS:%cl_1_122,
+		 5: 
+		 6: COPY TYPE_StringLiteral "error_pages.no_javascript.kassi_does_not_currently_work_without_javascript" def_%cl_1_124 
+		 7: %self->t def_%cl_1_125 %self[36.1,36.4,2.0,] %cl_1_124[36.6,] 	 SYMBOL:	 ARGS:%cl_1_124,
+		 8: RETURN %cl_1_125[36.7,] %self[36.1,36.4,36.7,2.0,] 
+BB 37
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_126 
+		 1: def_%cl_1_127 %cl_1_126[37.0,] 
+		 2: RETURN %cl_1_127[37.1,] %self[2.0,] 
+BB 39
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 58: RETURN %v_75[5.57,] %self[5.5,5.23,5.26,5.28,5.30,5.37,5.54,5.56,2.0,2.17,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ask_order_permission instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (PaypalHelper) def_%v_3 
+		 7: GETFIELD %self->current_community def_%v_4 %self[2.0,] 
+		 8: %v_3->community_ready_for_payments? def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: (LocalizationUtils) def_%v_9 
+		 3: GETFIELD %self->current_community def_%v_10 %self[2.0,] 
+		 4: %v_10->country def_%v_11 %v_10[3.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_9->valid_country_code def_%v_12 %v_9[3.2,] %v_11[3.4,] 	 SYMBOL:	 ARGS:%v_11,
+		 6: COPY TYPE_PASS def_community_country_code %v_12[3.5,] 
+		 7: 
+		 8: %self->accounts_api def_%v_13 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: (PaypalService) def_%v_14 
+		 10: (inherit API) def_%v_15 %v_14[3.9,] 
+		 11: %v_15[3.10,] 
+BB 4
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: HASH-action- def_%v_7 
+		 1: %self->redirect_to def_%v_8 %self[2.0,] %v_7[4.0,] 	 SYMBOL:	 ARGS:%v_7,
+		 2: RETURN %v_8[4.1,] %self[4.1,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_14->const_missing def_%v_15 %v_14[3.9,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: (inherit DataTypes) def_%v_16 %v_15[6.0,3.10,] 
+		 1: %v_16[7.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_15->const_missing def_%v_16 %v_15[6.0,3.10,] 	 SYMBOL:DataTypes,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->current_community def_%v_17 %self[2.0,] 
+		 1: %v_17->id def_%v_18 %v_17[9.0,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->current_user def_%v_19 %self[2.0,] 
+		 3: %v_19->id def_%v_20 %v_19[9.2,] 	 SYMBOL:	 ARGS:
+		 4: %self->permissions_verified_person_paypal_account_url def_%v_21 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: HASH-community_id-person_id-callback_url-country- def_%v_22 %v_18[9.1,] %v_20[9.3,] %v_21[9.4,] community_country_code[3.6,] 
+		 6: %v_16->create_create_account_request def_%v_23 %v_16[8.0,7.0,] %v_22[9.5,] 	 SYMBOL:	 ARGS:%v_22,
+		 7: HASH-body-flow- def_%v_24 %v_23[9.6,] 
+		 8: %v_13->request def_%v_25 %v_13[3.8,] %v_24[9.7,] 	 SYMBOL:	 ARGS:%v_24,
+		 9: COPY TYPE_PASS def_response %v_25[9.8,] 
+		 10: 
+		 11: %v_25->data def_%v_26 %v_25[9.8,] 	 SYMBOL:	 ARGS:
+		 12: %v_26->[] def_%v_27 %v_26[9.11,] 	 SYMBOL:redirect_url,	 ARGS:Symbol,
+		 13: COPY TYPE_PASS def_permissions_url %v_27[9.12,] 
+		 14: 
+		 15: %v_27->blank? def_%v_28 %v_27[9.12,] 	 SYMBOL:	 ARGS:
+		 16: BRANCH %v_28[9.15,] 
+BB 10
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_29 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "paypal_accounts.new.could_not_fetch_redirect_url" def_%v_30 
+		 3: %self->t def_%v_31 %self[10.1,2.0,] %v_30[10.2,] 	 SYMBOL:	 ARGS:%v_30,
+		 4: ATTRASSIGN %v_29->[] %v_31[10.3,] 
+		 5: 
+		 6: HASH-action- def_%v_32 
+		 7: %self->redirect_to def_%v_33 %self[10.1,10.3,2.0,] %v_32[10.6,] 	 SYMBOL:	 ARGS:%v_32,
+		 8: RETURN %v_33[10.7,] %self[10.1,10.3,10.7,2.0,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-redirect_url- def_%v_35 permissions_url[9.13,] 
+		 2: HASH-json- def_%v_36 %v_35[11.1,] 
+		 3: %self->render def_%v_37 %self[2.0,] %v_36[11.2,] 	 SYMBOL:	 ARGS:%v_36,
+		 4: RETURN %v_37[11.3,] %self[11.3,2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ask_billing_agreement instanceMethod = true
+BB 1
+	outgoing: 17 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (PaypalHelper) def_%v_3 
+		 7: GETFIELD %self->current_community def_%v_4 %self[2.0,] 
+		 8: %v_3->community_ready_for_payments? def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: %self->accounts_api def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->current_community def_%v_10 %self[3.2,2.0,] 
+		 4: %v_10->id def_%v_11 %v_10[3.3,] 	 SYMBOL:	 ARGS:
+		 5: GETFIELD %self->current_user def_%v_12 %self[3.2,2.0,] 
+		 6: %v_12->id def_%v_13 %v_12[3.5,] 	 SYMBOL:	 ARGS:
+		 7: HASH-community_id-person_id- def_%v_14 %v_11[3.4,] %v_13[3.6,] 
+		 8: %v_9->get def_%v_15 %v_9[3.2,] %v_14[3.7,] 	 SYMBOL:	 ARGS:%v_14,
+		 9: COPY TYPE_PASS def_account_response %v_15[3.8,] 
+		 10: 
+		 11: %v_15->maybe def_%v_16 %v_15[3.8,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_PASS def_m_account %v_16[3.11,] 
+		 13: 
+		 14: %v_16->[] def_%v_17 %v_16[3.11,] 	 SYMBOL:order_permission_state,	 ARGS:Symbol,
+		 15: %self->Some def_%v_20 %self[3.2,2.0,] 	 SYMBOL:verified,	 ARGS:Symbol,
+		 16: def_%v_19 %v_20[3.15,] %v_17[3.14,] 
+		 17: BRANCH %v_19[3.16,] 
+BB 4
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: HASH-action- def_%v_7 
+		 1: %self->redirect_to def_%v_8 %self[2.0,] %v_7[4.0,] 	 SYMBOL:	 ARGS:%v_7,
+		 2: RETURN %v_8[4.1,] %self[4.1,2.0,] 
+BB 6
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->ask_order_permission def_%v_49 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: HASH-action- def_%v_50 %v_49[6.1,] 
+		 3: %self->redirect_to def_%v_51 %self[6.1,2.0,] %v_50[6.2,] 	 SYMBOL:	 ARGS:%v_50,
+		 4: COPY TYPE_PASS def_%v_18 %v_51[6.3,] 
+		 5: RETURN %v_51[6.3,] %self[6.1,6.3,2.0,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->accounts_api def_%v_21 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->current_community def_%v_22 %self[7.1,2.0,] 
+		 3: %v_22->id def_%v_23 %v_22[7.2,] 	 SYMBOL:	 ARGS:
+		 4: GETFIELD %self->current_user def_%v_24 %self[7.1,2.0,] 
+		 5: %v_24->id def_%v_25 %v_24[7.4,] 	 SYMBOL:	 ARGS:
+		 6: (PaypalService) def_%v_26 
+		 7: (inherit API) def_%v_27 %v_26[7.6,] 
+		 8: %v_27[7.7,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_26->const_missing def_%v_27 %v_26[7.6,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: (inherit DataTypes) def_%v_28 %v_27[8.0,7.7,] 
+		 1: %v_28[9.0,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %v_27->const_missing def_%v_28 %v_27[8.0,7.7,] 	 SYMBOL:DataTypes,	 ARGS:Symbol,
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "paypal_accounts.new.billing_agreement_description" def_%v_29 
+		 1: %self->t def_%v_30 %self[2.0,] %v_29[11.0,] 	 SYMBOL:	 ARGS:%v_29,
+		 2: %self->billing_agreement_success_person_paypal_account_url def_%v_31 %self[11.1,2.0,] 	 SYMBOL:	 ARGS:
+		 3: %self->billing_agreement_cancel_person_paypal_account_url def_%v_32 %self[11.1,11.2,2.0,] 	 SYMBOL:	 ARGS:
+		 4: HASH-description-success_url-cancel_url- def_%v_33 %v_30[11.1,] %v_31[11.2,] %v_32[11.3,] 
+		 5: %v_28->create_create_billing_agreement_request def_%v_34 %v_28[10.0,9.0,] %v_33[11.4,] 	 SYMBOL:	 ARGS:%v_33,
+		 6: HASH-community_id-person_id-body- def_%v_35 %v_23[7.3,] %v_25[7.5,] %v_34[11.5,] 
+		 7: %v_21->billing_agreement_request def_%v_36 %v_21[7.1,] %v_35[11.6,] 	 SYMBOL:	 ARGS:%v_35,
+		 8: COPY TYPE_PASS def_response %v_36[11.7,] 
+		 9: 
+		 10: %v_36->data def_%v_37 %v_36[11.7,] 	 SYMBOL:	 ARGS:
+		 11: %v_37->[] def_%v_38 %v_37[11.10,] 	 SYMBOL:redirect_url,	 ARGS:Symbol,
+		 12: COPY TYPE_PASS def_billing_agreement_url %v_38[11.11,] 
+		 13: 
+		 14: %v_38->blank? def_%v_39 %v_38[11.11,] 	 SYMBOL:	 ARGS:
+		 15: BRANCH %v_39[11.14,] 
+BB 12
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_40 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "paypal_accounts.new.could_not_fetch_redirect_url" def_%v_41 
+		 3: %self->t def_%v_42 %self[12.1,2.0,] %v_41[12.2,] 	 SYMBOL:	 ARGS:%v_41,
+		 4: ATTRASSIGN %v_40->[] %v_42[12.3,] 
+		 5: 
+		 6: HASH-action- def_%v_43 
+		 7: %self->redirect_to def_%v_44 %self[12.1,12.3,2.0,] %v_43[12.6,] 	 SYMBOL:	 ARGS:%v_43,
+		 8: RETURN %v_44[12.7,] %self[12.1,12.3,12.7,2.0,] 
+BB 13
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-redirect_url- def_%v_46 billing_agreement_url[11.12,] 
+		 2: HASH-json- def_%v_47 %v_46[13.1,] 
+		 3: %self->render def_%v_48 %self[2.0,] %v_47[13.2,] 	 SYMBOL:	 ARGS:%v_47,
+		 4: COPY TYPE_PASS def_%v_45 %v_48[13.3,] 
+		 5: COPY TYPE_PASS def_%v_18 %v_45[13.4,] 
+		 6: 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: RETURN %v_18[13.5,] %self[2.0,] 
+BB 17
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = permissions_verified instanceMethod = true
+BB 1
+	outgoing: 16 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:verification_code,	 ARGS:Symbol,
+		 8: %v_4->present? def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: %self->accounts_api def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->current_community def_%v_12 %self[3.2,2.0,] 
+		 4: %v_12->id def_%v_13 %v_12[3.3,] 	 SYMBOL:	 ARGS:
+		 5: GETFIELD %self->current_user def_%v_14 %self[3.2,2.0,] 
+		 6: %v_14->id def_%v_15 %v_14[3.5,] 	 SYMBOL:	 ARGS:
+		 7: %self->params def_%v_16 %self[3.2,2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_16->[] def_%v_17 %v_16[3.7,] 	 SYMBOL:request_token,	 ARGS:Symbol,
+		 9: (PaypalService) def_%v_18 
+		 10: (inherit API) def_%v_19 %v_18[3.9,] 
+		 11: %v_19[3.10,] 
+BB 4
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "paypal_accounts.new.permissions_not_granted" def_%v_7 
+		 2: %self->t def_%v_8 %self[2.0,] %v_7[4.1,] 	 SYMBOL:	 ARGS:%v_7,
+		 3: HASH-error_msg- def_%v_9 %v_8[4.2,] 
+		 4: %self->flash_error_and_redirect_to_settings def_%v_10 %self[4.2,2.0,] %v_9[4.3,] 	 SYMBOL:	 ARGS:%v_9,
+		 5: RETURN %v_10[4.4,] %self[4.2,4.4,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_18->const_missing def_%v_19 %v_18[3.9,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: (inherit DataTypes) def_%v_20 %v_19[6.0,3.10,] 
+		 1: %v_20[7.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_19->const_missing def_%v_20 %v_19[6.0,3.10,] 	 SYMBOL:DataTypes,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_21 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_21->[] def_%v_22 %v_21[9.0,] 	 SYMBOL:verification_code,	 ARGS:Symbol,
+		 2: HASH-order_permission_verification_code- def_%v_23 %v_22[9.1,] 
+		 3: %v_20->create_account_permission_verification_request def_%v_24 %v_20[8.0,7.0,] %v_23[9.2,] 	 SYMBOL:	 ARGS:%v_23,
+		 4: HASH-community_id-person_id-order_permission_request_token-body-flow- def_%v_25 %v_13[3.4,] %v_15[3.6,] %v_17[3.8,] %v_24[9.3,] 
+		 5: %v_11->create def_%v_26 %v_11[3.2,] %v_25[9.4,] 	 SYMBOL:	 ARGS:%v_25,
+		 6: COPY TYPE_PASS def_response %v_26[9.5,] 
+		 7: 
+		 8: %v_26->[] def_%v_27 %v_26[9.5,] 	 SYMBOL:success,	 ARGS:Symbol,
+		 9: BRANCH %v_27[9.8,] 
+BB 10
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->current_user def_%v_28 %self[2.0,] 
+		 2: %v_28->username def_%v_29 %v_28[10.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->paypal_account_settings_payment_path def_%v_30 %self[2.0,] %v_29[10.2,] 	 SYMBOL:	 ARGS:%v_29,
+		 4: %self->redirect_to def_%v_31 %self[10.3,2.0,] %v_30[10.3,] 	 SYMBOL:	 ARGS:%v_30,
+		 5: RETURN %v_31[10.4,] %self[10.3,10.4,2.0,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: response->[] def_%v_32 response[9.6,] 	 SYMBOL:success,	 ARGS:Symbol,
+		 2: BRANCH %v_32[11.1,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_33 
+		 1: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: HASH-error_response- def_%v_34 response[9.6,] 
+		 1: %self->flash_error_and_redirect_to_settings def_%v_35 %self[2.0,] %v_34[13.0,] 	 SYMBOL:	 ARGS:%v_34,
+		 2: COPY TYPE_PASS def_%v_33 %v_35[13.1,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: RETURN %v_33[13.2,12.0,] %self[2.0,] 
+BB 16
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = billing_agreement_success instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->accounts_api def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: GETFIELD %self->current_community def_%v_4 %self[2.0,2.6,] 
+		 8: %v_4->id def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: GETFIELD %self->current_user def_%v_6 %self[2.0,2.6,] 
+		 10: %v_6->id def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: %self->params def_%v_8 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 12: %v_8->[] def_%v_9 %v_8[2.11,] 	 SYMBOL:token,	 ARGS:Symbol,
+		 13: HASH-community_id-person_id-billing_agreement_request_token- def_%v_10 %v_5[2.8,] %v_7[2.10,] %v_9[2.12,] 
+		 14: %v_3->billing_agreement_create def_%v_11 %v_3[2.6,] %v_10[2.13,] 	 SYMBOL:	 ARGS:%v_10,
+		 15: COPY TYPE_PASS def_response %v_11[2.14,] 
+		 16: 
+		 17: %v_11->[] def_%v_12 %v_11[2.14,] 	 SYMBOL:success,	 ARGS:Symbol,
+		 18: BRANCH %v_12[2.17,] 
+BB 3
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->current_user def_%v_13 %self[2.0,] 
+		 2: %v_13->username def_%v_14 %v_13[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->paypal_account_settings_payment_path def_%v_15 %self[2.0,] %v_14[3.2,] 	 SYMBOL:	 ARGS:%v_14,
+		 4: %self->redirect_to def_%v_16 %self[3.3,2.0,] %v_15[3.3,] 	 SYMBOL:	 ARGS:%v_15,
+		 5: RETURN %v_16[3.4,] %self[3.3,3.4,2.0,] 
+BB 4
+	outgoing: 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: response->error_msg def_%v_17 response[2.15,] 	 SYMBOL:	 ARGS:
+		 2: def_%v_19 %v_17[4.1,] 
+		 3: BRANCH %v_19[4.2,] 
+BB 5
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: def_%v_20 %v_17[4.1,] 
+		 1: BRANCH %v_20[5.0,] 
+BB 6
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-error_response- def_%v_29 response[2.15,] 
+		 2: %self->flash_error_and_redirect_to_settings def_%v_30 %self[2.0,] %v_29[6.1,] 	 SYMBOL:	 ARGS:%v_29,
+		 3: COPY TYPE_PASS def_%v_18 %v_30[6.2,] 
+		 4: 
+BB 7
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "paypal_accounts.new.billing_agreement_not_accepted" def_%v_21 
+		 2: %self->t def_%v_22 %self[2.0,] %v_21[7.1,] 	 SYMBOL:	 ARGS:%v_21,
+		 3: HASH-error_msg- def_%v_23 %v_22[7.2,] 
+		 4: %self->flash_error_and_redirect_to_settings def_%v_24 %self[7.2,2.0,] %v_23[7.3,] 	 SYMBOL:	 ARGS:%v_23,
+		 5: COPY TYPE_PASS def_%v_18 %v_24[7.4,] 
+		 6: 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "paypal_accounts.new.billing_agreement_wrong_account" def_%v_25 
+		 2: %self->t def_%v_26 %self[2.0,] %v_25[8.1,] 	 SYMBOL:	 ARGS:%v_25,
+		 3: HASH-error_msg- def_%v_27 %v_26[8.2,] 
+		 4: %self->flash_error_and_redirect_to_settings def_%v_28 %self[8.2,2.0,] %v_27[8.3,] 	 SYMBOL:	 ARGS:%v_27,
+		 5: COPY TYPE_PASS def_%v_18 %v_28[8.4,] 
+		 6: 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %v_18[7.5,8.5,6.3,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = billing_agreement_cancel instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->accounts_api def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: GETFIELD %self->current_community def_%v_4 %self[2.0,2.6,] 
+		 8: %v_4->id def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: GETFIELD %self->current_user def_%v_6 %self[2.0,2.6,] 
+		 10: %v_6->id def_%v_7 %v_6[2.9,] 	 SYMBOL:	 ARGS:
+		 11: HASH-community_id-person_id- def_%v_8 %v_5[2.8,] %v_7[2.10,] 
+		 12: %v_3->delete_billing_agreement def_%v_9 %v_3[2.6,] %v_8[2.11,] 	 SYMBOL:	 ARGS:%v_8,
+		 13: 
+		 14: %self->flash def_%v_10 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 15: COPY TYPE_StringLiteral "paypal_accounts.new.billing_agreement_canceled" def_%v_11 
+		 16: %self->t def_%v_12 %self[2.0,2.6,2.14,] %v_11[2.15,] 	 SYMBOL:	 ARGS:%v_11,
+		 17: ATTRASSIGN %v_10->[] %v_12[2.16,] 
+		 18: 
+		 19: GETFIELD %self->current_user def_%v_13 %self[2.0,2.6,2.14,2.16,] 
+		 20: %v_13->username def_%v_14 %v_13[2.19,] 	 SYMBOL:	 ARGS:
+		 21: %self->paypal_account_settings_payment_path def_%v_15 %self[2.0,2.6,2.14,2.16,] %v_14[2.20,] 	 SYMBOL:	 ARGS:%v_14,
+		 22: %self->redirect_to def_%v_16 %self[2.0,2.6,2.14,2.16,2.21,] %v_15[2.21,] 	 SYMBOL:	 ARGS:%v_15,
+		 23: RETURN %v_16[2.22,] %self[2.0,2.6,2.14,2.16,2.21,2.22,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = next_action instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_paypal_account_state 
+		 6: 
+		 7: paypal_account_state->== def_%v_3 paypal_account_state[2.5,] 	 SYMBOL:verified,	 ARGS:Symbol,
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_4 
+		 2: RETURN %self[2.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: paypal_account_state->== def_%v_5 paypal_account_state[2.5,] 	 SYMBOL:connected,	 ARGS:Symbol,
+		 2: BRANCH %v_5[4.1,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_6 
+		 2: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Symbol def_%v_6 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_6[6.1,5.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ensure_paypal_enabled instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (PaypalHelper) def_%v_3 
+		 7: GETFIELD %self->current_community def_%v_4 %self[2.0,] 
+		 8: %v_4->id def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->paypal_active? def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: BRANCH %v_6[2.9,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: RETURN %v_7[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "paypal_accounts.new.paypal_not_enabled" def_%v_9 
+		 3: %self->t def_%v_10 %self[4.1,2.0,] %v_9[4.2,] 	 SYMBOL:	 ARGS:%v_9,
+		 4: ATTRASSIGN %v_8->[] %v_10[4.3,] 
+		 5: 
+		 6: GETFIELD %self->current_user def_%v_11 %self[4.1,4.3,2.0,] 
+		 7: %self->person_settings_path def_%v_12 %self[4.1,4.3,2.0,] %v_11[4.6,] 	 SYMBOL:	 ARGS:%v_11,
+		 8: %self->redirect_to def_%v_13 %self[4.1,4.3,4.7,2.0,] %v_12[4.7,] 	 SYMBOL:	 ARGS:%v_12,
+		 9: RETURN %v_13[4.8,] %self[4.1,4.3,4.7,4.8,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = flash_error_and_redirect_to_settings instanceMethod = true
+BB 1
+	outgoing: 20 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: def_error_response 
+		 6: error_response[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_error_response 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: def_error_msg 
+		 1: error_msg[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_error_msg 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: BRANCH error_msg[5.0,4.0,] 
+BB 7
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_3 error_msg[5.0,4.0,] 
+		 2: 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_4 error_response[3.0,2.5,] 
+		 2: BRANCH error_response[3.0,2.5,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: error_response->[] def_%v_5 error_response[3.0,2.5,] 	 SYMBOL:error_code,	 ARGS:Symbol,
+		 1: COPY TYPE_StringLiteral "570058" def_%v_6 
+		 2: %v_5->== def_%v_7 %v_5[9.0,] %v_6[9.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: COPY TYPE_PASS def_%v_4 %v_7[9.2,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[9.3,8.1,] 
+BB 11
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "paypal_accounts.new.account_not_verified" def_%v_8 
+		 2: %self->t def_%v_9 %self[2.0,] %v_8[11.1,] 	 SYMBOL:	 ARGS:%v_8,
+		 3: 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_10 error_response[3.0,2.5,] 
+		 2: BRANCH error_response[3.0,2.5,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: error_response->[] def_%v_11 error_response[3.0,2.5,] 	 SYMBOL:error_code,	 ARGS:Symbol,
+		 1: COPY TYPE_StringLiteral "520009" def_%v_12 
+		 2: %v_11->== def_%v_13 %v_11[13.0,] %v_12[13.1,] 	 SYMBOL:	 ARGS:%v_12,
+		 3: COPY TYPE_PASS def_%v_10 %v_13[13.2,] 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_10[13.3,12.1,] 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "paypal_accounts.new.account_restricted" def_%v_14 
+		 2: %self->t def_%v_15 %self[2.0,] %v_14[15.1,] 	 SYMBOL:	 ARGS:%v_14,
+		 3: 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "paypal_accounts.new.something_went_wrong" def_%v_16 
+		 2: %self->t def_%v_17 %self[2.0,] %v_16[16.1,] 	 SYMBOL:	 ARGS:%v_16,
+		 3: COPY TYPE_PASS def_%v_15 %v_17[16.2,] 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_9 %v_15[16.3,15.2,] 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_3 %v_9[17.0,11.2,] 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_error_msg %v_3[18.0,7.1,] 
+		 1: 
+		 2: %self->flash def_%v_18 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN %v_18->[] error_msg[19.0,] 
+		 4: 
+		 5: %self->error_redirect_action def_%v_19 %self[19.2,2.0,] 	 SYMBOL:	 ARGS:
+		 6: HASH-action- def_%v_20 %v_19[19.5,] 
+		 7: %self->redirect_to def_%v_21 %self[19.2,19.5,2.0,] %v_20[19.6,] 	 SYMBOL:	 ARGS:%v_20,
+		 8: RETURN %v_21[19.7,] %self[19.2,19.5,19.7,2.0,] 
+BB 20
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = error_redirect_action instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: RETURN %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = payment_gateway_commission instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_community_id 
+		 6: 
+		 7: %self->payment_settings_api def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: HASH-community_id- def_%v_4 community_id[2.5,] 
+		 9: %v_3->get_active def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: %self->Maybe def_%v_6 %self[2.0,2.7,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: %v_6->map def_%v_7 %v_6[2.10,] %self[2.0,2.7,2.10,] 	 SYMBOL:	 ARGS:%v_6,
+CLOSURE BEGIN: res[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_res 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: res->[] def_%cl_1_3 res[2.2,] 	 SYMBOL:success,	 ARGS:Symbol,
+		 2: BRANCH %cl_1_3[3.1,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: res->[] def_%cl_1_4 res[2.2,] 	 SYMBOL:data,	 ARGS:Symbol,
+		 1: 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_4[4.0,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[7.0,] 
+		 2: RETURN %cl_1_6[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 12: %v_7->select def_%v_8 %v_7[2.11,] %self[2.0,2.7,2.10,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: set[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_set 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: set->[] def_%cl_2_3 set[2.2,] 	 SYMBOL:payment_gateway,	 ARGS:Symbol,
+		 2: %cl_2_3->== def_%cl_2_4 %cl_2_3[3.1,] 	 SYMBOL:paypal,	 ARGS:Symbol,
+		 3: RETURN %cl_2_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_5 
+		 1: def_%cl_2_6 %cl_2_5[4.0,] 
+		 2: RETURN %cl_2_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 13: %v_8->or_else def_%v_9 %v_8[2.12,] 	 SYMBOL:	 ARGS:Nil,
+		 14: COPY TYPE_PASS def_p_set %v_9[2.13,] 
+		 15: 
+		 16: %v_9->nil? def_%v_10 %v_9[2.13,] 	 SYMBOL:	 ARGS:
+		 17: BRANCH %v_10[2.16,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: (ArgumentError) def_%v_11 
+		 1: COPY TYPE_StringLiteral "No active paypal gateway for community: " def_%v_12 
+		 2: COPY TYPE_StringLiteral "." def_%v_13 
+		 3: BUILDSTRING def_%v_14 %v_12[3.1,] community_id[2.5,] %v_13[3.2,] 
+		 4: %v_11->new def_%v_15 %v_11[3.0,] %v_14[3.3,] 	 SYMBOL:	 ARGS:%v_14,
+		 5: %self->raise def_%v_16 %self[2.0,] %v_15[3.4,] 	 SYMBOL:	 ARGS:%v_15,
+		 6: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: p_set->[] def_%v_17 p_set[2.14,] 	 SYMBOL:commission_from_seller,	 ARGS:Symbol,
+		 2: RETURN %v_17[5.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = paypal_minimum_commissions_api instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (PaypalService) def_%v_3 
+		 7: (inherit API) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit Api) def_%v_5 %v_4[3.0,2.7,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:Api,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_5->minimum_commissions def_%v_6 %v_5[5.0,4.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_6[6.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = payment_settings_api instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (TransactionService) def_%v_3 
+		 7: (inherit API) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit Api) def_%v_5 %v_4[3.0,2.7,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:Api,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_5->settings def_%v_6 %v_5[5.0,4.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_6[6.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = accounts_api instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (PaypalService) def_%v_3 
+		 7: (inherit API) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:API,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit Api) def_%v_5 %v_4[3.0,2.7,] 
+		 1: %v_5[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[3.0,2.7,] 	 SYMBOL:Api,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_5->accounts_api def_%v_6 %v_5[5.0,4.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_6[6.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+

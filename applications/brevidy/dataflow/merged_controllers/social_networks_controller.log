@@ -1,0 +1,337 @@
+SET IRMethod, name = deauthorize instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->[] def_%v_4 %v_3[2.6,] 	 SYMBOL:signed_request,	 ARGS:Symbol,
+		 8: COPY TYPE_StringLiteral "." def_%v_5 
+		 9: %v_4->split def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: COPY TYPE_PASS def_request_params %v_6[2.9,] 
+		 11: 
+		 12: (SocialNetwork) def_%v_7 
+		 13: %v_6->[] def_%v_8 %v_6[2.9,] 	 SYMBOL:	 ARGS:Fixnum,
+		 14: %v_7->base64_url_decode def_%v_9 %v_7[2.12,] %v_8[2.13,] 	 SYMBOL:	 ARGS:%v_8,
+		 15: COPY TYPE_PASS def_encoded_signature %v_9[2.14,] 
+		 16: 
+		 17: (ActiveSupport) def_%v_10 
+		 18: (inherit JSON) def_%v_11 %v_10[2.17,] 
+		 19: %v_11[2.18,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_10->const_missing def_%v_11 %v_10[2.17,] 	 SYMBOL:JSON,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (SocialNetwork) def_%v_12 
+		 1: request_params->[] def_%v_13 request_params[2.10,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: %v_12->base64_url_decode def_%v_14 %v_12[4.0,] %v_13[4.1,] 	 SYMBOL:	 ARGS:%v_13,
+		 3: %v_11->decode def_%v_15 %v_11[3.0,2.18,] %v_14[4.2,] 	 SYMBOL:	 ARGS:%v_14,
+		 4: COPY TYPE_PASS def_user_payload %v_15[4.3,] 
+		 5: 
+		 6: (Rails) def_%v_16 
+		 7: %v_16->env def_%v_17 %v_16[4.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_17->production? def_%v_18 %v_17[4.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_18[4.8,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: (Airbrake) def_%v_19 
+		 1: COPY TYPE_StringLiteral "Non-Issue" def_%v_20 
+		 2: COPY TYPE_StringLiteral "Just letting you know that a user deauthorized Brevidy on Facebook :(  The user was " def_%v_21 
+		 3: (User) def_%v_22 
+		 4: (SocialNetwork) def_%v_23 
+		 5: COPY TYPE_StringLiteral "user_id" def_%v_24 
+		 6: user_payload->[] def_%v_25 user_payload[4.4,] %v_24[5.5,] 	 SYMBOL:	 ARGS:%v_24,
+		 7: COPY TYPE_StringLiteral "facebook" def_%v_26 
+		 8: HASH-uid-provider- def_%v_27 %v_25[5.6,] %v_26[5.7,] 
+		 9: %v_23->where def_%v_28 %v_23[5.4,] %v_27[5.8,] 	 SYMBOL:	 ARGS:%v_27,
+		 10: %v_28->first def_%v_29 %v_28[5.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_22->find_by_id def_%v_30 %v_22[5.3,] %v_29[5.10,] 	 SYMBOL:	 ARGS:%v_29,
+		 12: %v_30->id def_%v_31 %v_30[5.11,] 	 SYMBOL:	 ARGS:
+		 13: BUILDSTRING def_%v_32 %v_21[5.2,] %v_31[5.12,] 
+		 14: HASH-error_class-error_message- def_%v_33 %v_20[5.1,] %v_32[5.13,] 
+		 15: %v_19->notify def_%v_34 %v_19[5.0,] %v_33[5.14,] 	 SYMBOL:	 ARGS:%v_33,
+		 16: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_34 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH-nothing-status- def_%v_35 
+		 2: %self->render def_%v_36 %self[2.0,] %v_35[7.1,] 	 SYMBOL:	 ARGS:%v_35,
+		 3: RETURN %v_36[7.2,] %self[7.2,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = destroy instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SocialNetwork) def_%v_3 
+		 7: %self->current_user def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->id def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %self->params def_%v_6 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 10: %v_6->[] def_%v_7 %v_6[2.9,] 	 SYMBOL:provider,	 ARGS:Symbol,
+		 11: %v_3->find_by_user_id_and_provider def_%v_8 %v_3[2.6,] %v_5[2.8,] %v_7[2.10,] 	 SYMBOL:	 ARGS:%v_5,%v_7,
+		 12: COPY TYPE_PASS def_social_credentials %v_8[2.11,] 
+		 13: 
+		 14: %self->respond_to def_%v_9 %self[2.0,2.7,2.9,] %self[2.0,2.7,2.9,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: social_credentials[2.12,] error_message[] %self[2.0,2.7,2.9,] format[] 
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_format 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: social_credentials->blank? def_%cl_1_3 social_credentials[] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_3[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%cl_1_4 error_message[] 
+		 2: COPY TYPE_PASS def_%cl_1_5 error_message[] 
+		 3: BRANCH error_message[] 
+BB 5
+	outgoing: 6 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "We could not find a " def_%cl_1_6 
+		 1: %self->params def_%cl_1_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_7->[] def_%cl_1_8 %cl_1_7[5.1,] 	 SYMBOL:provider,	 ARGS:Symbol,
+		 3: %cl_1_8->capitalize def_%cl_1_9 %cl_1_8[5.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral " account associated with your Brevidy account." def_%cl_1_10 
+		 5: BUILDSTRING def_%cl_1_11 %cl_1_6[5.0,] %cl_1_9[5.3,] %cl_1_10[5.4,] 
+		 6: COPY TYPE_PASS def_error_message %cl_1_11[5.5,] 
+		 7: COPY TYPE_PASS def_%cl_1_5 %cl_1_11[5.5,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: format->html def_%cl_1_12 format[2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:format,
+CLOSURE BEGIN: %self[2.0,] error_message[5.6,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->flash def_%cl_2_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %cl_2_3->[] error_message[] 
+		 3: %self->current_user def_%cl_2_4 %self[3.1,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %self->user_account_path def_%cl_2_5 %self[3.1,3.3,2.0,] %cl_2_4[3.3,] 	 SYMBOL:	 ARGS:%cl_2_4,
+		 5: %self->redirect_to def_%cl_2_6 %self[3.1,3.3,3.4,2.0,] %cl_2_5[3.4,] 	 SYMBOL:	 ARGS:%cl_2_5,
+		 6: RETURN %cl_2_6[3.5,] %self[3.1,3.3,3.4,3.5,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_7 
+		 1: def_%cl_2_8 %cl_2_7[4.0,] 
+		 2: RETURN %cl_2_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: format->json def_%cl_1_13 format[6.1,2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:format,
+CLOSURE BEGIN: %self[2.0,] error_message[5.6,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->current_user def_%cl_3_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_3_3->id def_%cl_3_4 %cl_3_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: HASH-success-message-user_id- def_%cl_3_5 error_message[] %cl_3_4[3.2,] 
+		 4: HASH-json-status- def_%cl_3_6 %cl_3_5[3.3,] 
+		 5: %self->render def_%cl_3_7 %self[3.1,2.0,] %cl_3_6[3.4,] 	 SYMBOL:	 ARGS:%cl_3_6,
+		 6: RETURN %cl_3_7[3.5,] %self[3.1,3.5,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_8 
+		 1: def_%cl_3_9 %cl_3_8[4.0,] 
+		 2: RETURN %cl_3_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: 
+BB 7
+	outgoing: 9 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: social_credentials->destroy def_%cl_1_14 social_credentials[] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: format->html def_%cl_1_15 format[2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:format,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->current_user def_%cl_4_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->user_account_path def_%cl_4_4 %self[3.1,2.0,] %cl_4_3[3.1,] 	 SYMBOL:	 ARGS:%cl_4_3,
+		 3: %self->redirect_to def_%cl_4_5 %self[3.1,3.2,2.0,] %cl_4_4[3.2,] 	 SYMBOL:	 ARGS:%cl_4_4,
+		 4: RETURN %cl_4_5[3.3,] %self[3.1,3.2,3.3,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_4_6 
+		 1: def_%cl_4_7 %cl_4_6[4.0,] 
+		 2: RETURN %cl_4_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: 
+		 5: format->json def_%cl_1_16 format[7.3,2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:format,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_5_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->current_user def_%cl_5_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %cl_5_3->id def_%cl_5_4 %cl_5_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: HASH-success-message-user_id- def_%cl_5_5 %cl_5_4[3.2,] 
+		 4: HASH-json-status- def_%cl_5_6 %cl_5_5[3.3,] 
+		 5: %self->render def_%cl_5_7 %self[3.1,2.0,] %cl_5_6[3.4,] 	 SYMBOL:	 ARGS:%cl_5_6,
+		 6: RETURN %cl_5_7[3.5,] %self[3.1,3.5,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_5_8 
+		 1: def_%cl_5_9 %cl_5_8[4.0,] 
+		 2: RETURN %cl_5_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 6: RETURN %cl_1_16[7.5,] %self[2.0,] 
+BB 8
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_13[6.3,] %self[2.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_17 
+		 1: def_%cl_1_18 %cl_1_17[9.0,] 
+		 2: RETURN %cl_1_18[9.1,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: error_message[5.6,] 
+		 15: RETURN %v_9[2.14,] %self[2.0,2.7,2.9,2.14,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

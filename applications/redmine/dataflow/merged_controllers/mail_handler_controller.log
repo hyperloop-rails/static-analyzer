@@ -1,0 +1,121 @@
+SET IRMethod, name = new instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RETURN %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = index instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->params def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->dup def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_options %v_4[2.7,] 
+		 9: 
+		 10: %v_4->delete def_%v_5 %v_4[2.7,] 	 SYMBOL:email,	 ARGS:Symbol,
+		 11: COPY TYPE_PASS def_email %v_5[2.10,] 
+		 12: 
+		 13: (MailHandler) def_%v_6 
+		 14: %v_6->receive def_%v_7 %v_6[2.13,] %v_5[2.10,] options[2.8,] 	 SYMBOL:	 ARGS:email,options,
+		 15: BRANCH %v_7[2.14,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->head def_%v_8 %self[2.0,] 	 SYMBOL:created,	 ARGS:Symbol,
+		 2: RETURN %v_8[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->head def_%v_9 %self[2.0,] 	 SYMBOL:unprocessable_entity,	 ARGS:Symbol,
+		 2: RETURN %v_9[4.1,] %self[4.1,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = check_credential instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (User) def_%v_3 
+		 7: ATTRASSIGN %v_3->current 
+		 8: 
+		 9: (Setting) def_%v_4 
+		 10: %v_4->mail_handler_api_enabled? def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_5[2.10,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->params def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->[] def_%v_7 %v_6[3.0,] 	 SYMBOL:key,	 ARGS:Symbol,
+		 2: %v_7->to_s def_%v_8 %v_7[3.1,] 	 SYMBOL:	 ARGS:
+		 3: (Setting) def_%v_9 
+		 4: %v_9->mail_handler_api_key def_%v_10 %v_9[3.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_8->== def_%v_11 %v_8[3.2,] %v_10[3.4,] 	 SYMBOL:	 ARGS:%v_10,
+		 6: COPY TYPE_PASS def_%v_5 %v_11[3.5,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[3.6,2.10,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+		 1: RETURN %v_12[5.0,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Access denied. Incoming emails WS is disabled or key is invalid." def_%v_13 
+		 2: HASH-plain-status- def_%v_14 %v_13[6.1,] 
+		 3: %self->render def_%v_15 %self[2.0,] %v_14[6.2,] 	 SYMBOL:	 ARGS:%v_14,
+		 4: RETURN %v_15[6.3,] %self[6.3,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+

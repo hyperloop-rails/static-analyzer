@@ -1,0 +1,93 @@
+SET IRMethod, name = after_destroy instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_channel 
+		 6: 
+		 7: COPY TYPE_StringLiteral "delete" def_%v_3 
+		 8: %self->broadcast def_%v_4 %self[2.0,] %v_3[2.7,] channel[2.5,] 	 SYMBOL:	 ARGS:%v_3,channel,
+		 9: RETURN %v_4[2.8,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = after_create instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_channel 
+		 6: 
+		 7: COPY TYPE_StringLiteral "create" def_%v_3 
+		 8: %self->broadcast def_%v_4 %self[2.0,] %v_3[2.7,] channel[2.5,] 	 SYMBOL:	 ARGS:%v_3,channel,
+		 9: RETURN %v_4[2.8,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = broadcast instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_event 
+		 6: RECEIVEARG def_channel 
+		 7: 
+		 8: COPY TYPE_StringLiteral "channel#" def_%v_3 
+		 9: %v_3-><< def_%v_4 %v_3[2.8,] event[2.5,] 	 SYMBOL:	 ARGS:event,
+		 10: channel->attributes def_%v_5 channel[2.6,] 	 SYMBOL:	 ARGS:
+		 11: HASH- def_%v_6 
+		 12: HASH-event-entity-extra- def_%v_7 %v_4[2.9,] %v_5[2.10,] %v_6[2.11,] 
+		 13: COPY TYPE_PASS def_data %v_7[2.12,] 
+		 14: 
+		 15: (Kandan) def_%v_8 
+		 16: (inherit Config) def_%v_9 %v_8[2.15,] 
+		 17: %v_9[2.16,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_8->const_missing def_%v_9 %v_8[2.15,] 	 SYMBOL:Config,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_9->broadcaster def_%v_10 %v_9[3.0,2.16,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "/app/activities" def_%v_11 
+		 2: %v_10->broadcast def_%v_12 %v_10[4.0,] %v_11[4.1,] data[2.13,] 	 SYMBOL:	 ARGS:%v_11,data,
+		 3: RETURN %v_12[4.2,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

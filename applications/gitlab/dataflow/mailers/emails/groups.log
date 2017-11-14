@@ -1,0 +1,216 @@
+SET IRMethod, name = group_access_granted_email instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_group_member_id 
+		 6: 
+		 7: (GroupMember) def_%v_3 
+		 8: %v_3->find def_%v_4 %v_3[2.7,] group_member_id[2.5,] 	 SYMBOL:	 ARGS:group_member_id,
+		 9: ATTRASSIGN %self->group_member %v_4[2.8,] 
+		 10: 
+		 11: GETFIELD %self->group_member def_%v_5 %self[2.0,2.9,] 
+		 12: %v_5->group def_%v_6 %v_5[2.11,] 	 SYMBOL:	 ARGS:
+		 13: ATTRASSIGN %self->group %v_6[2.12,] 
+		 14: 
+		 15: GETFIELD %self->group def_%v_7 %self[2.0,2.13,] 
+		 16: %self->group_url def_%v_8 %self[2.0,2.9,2.13,] %v_7[2.15,] 	 SYMBOL:	 ARGS:%v_7,
+		 17: ATTRASSIGN %self->target_url %v_8[2.16,] 
+		 18: 
+		 19: GETFIELD %self->group_member def_%v_9 %self[2.0,2.9,2.16,] 
+		 20: %v_9->user def_%v_10 %v_9[2.19,] 	 SYMBOL:	 ARGS:
+		 21: ATTRASSIGN %self->current_user %v_10[2.20,] 
+		 22: 
+		 23: GETFIELD %self->group_member def_%v_11 %self[2.0,2.9,2.16,] 
+		 24: %v_11->user def_%v_12 %v_11[2.23,] 	 SYMBOL:	 ARGS:
+		 25: %v_12->notification_email def_%v_13 %v_12[2.24,] 	 SYMBOL:	 ARGS:
+		 26: COPY TYPE_StringLiteral "Access to group was granted" def_%v_14 
+		 27: %self->subject def_%v_15 %self[2.0,2.9,2.13,2.16,2.17,2.21,] %v_14[2.26,] 	 SYMBOL:	 ARGS:%v_14,
+		 28: HASH-to-subject- def_%v_16 %v_13[2.25,] %v_15[2.27,] 
+		 29: %self->mail def_%v_17 %self[2.0,2.9,2.13,2.16,2.17,2.21,2.27,] %v_16[2.28,] 	 SYMBOL:	 ARGS:%v_16,
+		 30: RETURN %v_17[2.29,] %self[2.0,2.9,2.13,2.16,2.17,2.21,2.27,2.29,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = group_member_invited_email instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_group_member_id 
+		 6: RECEIVEARG def_token 
+		 7: 
+		 8: (GroupMember) def_%v_3 
+		 9: %v_3->find def_%v_4 %v_3[2.8,] group_member_id[2.5,] 	 SYMBOL:	 ARGS:group_member_id,
+		 10: ATTRASSIGN %self->group_member %v_4[2.9,] 
+		 11: 
+		 12: GETFIELD %self->group_member def_%v_5 %self[2.0,2.10,] 
+		 13: %v_5->group def_%v_6 %v_5[2.12,] 	 SYMBOL:	 ARGS:
+		 14: ATTRASSIGN %self->group %v_6[2.13,] 
+		 15: 
+		 16: ATTRASSIGN %self->token token[2.6,] 
+		 17: 
+		 18: GETFIELD %self->group def_%v_7 %self[2.0,2.14,] 
+		 19: %self->group_url def_%v_8 %self[2.0,2.10,2.14,2.16,] %v_7[2.18,] 	 SYMBOL:	 ARGS:%v_7,
+		 20: ATTRASSIGN %self->target_url %v_8[2.19,] 
+		 21: 
+		 22: GETFIELD %self->group_member def_%v_9 %self[2.0,2.10,2.19,] 
+		 23: %v_9->user def_%v_10 %v_9[2.22,] 	 SYMBOL:	 ARGS:
+		 24: ATTRASSIGN %self->current_user %v_10[2.23,] 
+		 25: 
+		 26: GETFIELD %self->group_member def_%v_11 %self[2.0,2.10,2.19,] 
+		 27: %v_11->invite_email def_%v_12 %v_11[2.26,] 	 SYMBOL:	 ARGS:
+		 28: COPY TYPE_StringLiteral "Invitation to join group " def_%v_13 
+		 29: 
+		 30: GETFIELD %self->group def_%v_14 %self[2.0,2.14,2.19,] 
+		 31: %v_14->name def_%v_15 %v_14[2.30,] 	 SYMBOL:	 ARGS:
+		 32: BUILDSTRING def_%v_16 %v_13[2.28,] %v_15[2.31,] 
+		 33: HASH-to-subject- def_%v_17 %v_12[2.27,] %v_16[2.32,] 
+		 34: %self->mail def_%v_18 %self[2.0,2.10,2.14,2.16,2.19,2.20,2.24,] %v_17[2.33,] 	 SYMBOL:	 ARGS:%v_17,
+		 35: RETURN %v_18[2.34,] %self[2.0,2.10,2.14,2.16,2.19,2.20,2.24,2.34,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = group_invite_accepted_email instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_group_member_id 
+		 6: 
+		 7: (GroupMember) def_%v_3 
+		 8: %v_3->find def_%v_4 %v_3[2.7,] group_member_id[2.5,] 	 SYMBOL:	 ARGS:group_member_id,
+		 9: ATTRASSIGN %self->group_member %v_4[2.8,] 
+		 10: 
+		 11: GETFIELD %self->group_member def_%v_5 %self[2.0,2.9,] 
+		 12: %v_5->created_by def_%v_6 %v_5[2.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_6->nil? def_%v_7 %v_6[2.12,] 	 SYMBOL:	 ARGS:
+		 14: BRANCH %v_7[2.13,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,2.9,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: GETFIELD %self->group_member def_%v_9 %self[2.0,2.9,] 
+		 3: %v_9->group def_%v_10 %v_9[4.2,] 	 SYMBOL:	 ARGS:
+		 4: ATTRASSIGN %self->group %v_10[4.3,] 
+		 5: 
+		 6: GETFIELD %self->group def_%v_11 %self[4.4,2.0,] 
+		 7: %self->group_url def_%v_12 %self[4.4,2.0,2.9,] %v_11[4.6,] 	 SYMBOL:	 ARGS:%v_11,
+		 8: ATTRASSIGN %self->target_url %v_12[4.7,] 
+		 9: 
+		 10: GETFIELD %self->group_member def_%v_13 %self[4.7,2.0,2.9,] 
+		 11: %v_13->created_by def_%v_14 %v_13[4.10,] 	 SYMBOL:	 ARGS:
+		 12: ATTRASSIGN %self->current_user %v_14[4.11,] 
+		 13: 
+		 14: GETFIELD %self->group_member def_%v_15 %self[4.7,2.0,2.9,] 
+		 15: %v_15->created_by def_%v_16 %v_15[4.14,] 	 SYMBOL:	 ARGS:
+		 16: %v_16->notification_email def_%v_17 %v_16[4.15,] 	 SYMBOL:	 ARGS:
+		 17: COPY TYPE_StringLiteral "Invitation accepted" def_%v_18 
+		 18: %self->subject def_%v_19 %self[4.4,4.7,4.8,4.12,2.0,2.9,] %v_18[4.17,] 	 SYMBOL:	 ARGS:%v_18,
+		 19: HASH-to-subject- def_%v_20 %v_17[4.16,] %v_19[4.18,] 
+		 20: %self->mail def_%v_21 %self[4.4,4.7,4.8,4.12,4.18,2.0,2.9,] %v_20[4.19,] 	 SYMBOL:	 ARGS:%v_20,
+		 21: RETURN %v_21[4.20,] %self[4.4,4.7,4.8,4.12,4.18,4.20,2.0,2.9,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = group_invite_declined_email instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_group_id 
+		 6: RECEIVEARG def_invite_email 
+		 7: RECEIVEARG def_access_level 
+		 8: RECEIVEARG def_created_by_id 
+		 9: 
+		 10: created_by_id->nil? def_%v_3 created_by_id[2.8,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_3[2.10,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: (Group) def_%v_5 
+		 3: %v_5->find def_%v_6 %v_5[4.2,] group_id[2.5,] 	 SYMBOL:	 ARGS:group_id,
+		 4: ATTRASSIGN %self->group %v_6[4.3,] 
+		 5: 
+		 6: (User) def_%v_7 
+		 7: %v_7->find def_%v_8 %v_7[4.6,] created_by_id[2.8,] 	 SYMBOL:	 ARGS:created_by_id,
+		 8: ATTRASSIGN %self->created_by %v_8[4.7,] 
+		 9: ATTRASSIGN %self->current_user %v_8[4.7,] 
+		 10: 
+		 11: ATTRASSIGN %self->access_level access_level[2.7,] 
+		 12: 
+		 13: ATTRASSIGN %self->invite_email invite_email[2.6,] 
+		 14: 
+		 15: GETFIELD %self->group def_%v_9 %self[4.4,2.0,] 
+		 16: %self->group_url def_%v_10 %self[4.4,4.8,4.9,4.11,4.13,2.0,] %v_9[4.15,] 	 SYMBOL:	 ARGS:%v_9,
+		 17: ATTRASSIGN %self->target_url %v_10[4.16,] 
+		 18: 
+		 19: GETFIELD %self->created_by def_%v_11 %self[4.8,4.16,2.0,] 
+		 20: %v_11->notification_email def_%v_12 %v_11[4.19,] 	 SYMBOL:	 ARGS:
+		 21: COPY TYPE_StringLiteral "Invitation declined" def_%v_13 
+		 22: %self->subject def_%v_14 %self[4.4,4.8,4.9,4.11,4.13,4.16,4.17,2.0,] %v_13[4.21,] 	 SYMBOL:	 ARGS:%v_13,
+		 23: HASH-to-subject- def_%v_15 %v_12[4.20,] %v_14[4.22,] 
+		 24: %self->mail def_%v_16 %self[4.4,4.8,4.9,4.11,4.13,4.16,4.17,4.22,2.0,] %v_15[4.23,] 	 SYMBOL:	 ARGS:%v_15,
+		 25: RETURN %v_16[4.24,] %self[4.4,4.8,4.9,4.11,4.13,4.16,4.17,4.22,4.24,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

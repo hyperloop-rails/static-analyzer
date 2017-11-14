@@ -1,0 +1,171 @@
+SET IRMethod, name = active_share_links instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "link_expires_at >= ?" def_%v_3 
+		 7: (DateTime) def_%v_4 
+		 8: %v_4->now def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %self->where def_%v_6 %self[2.0,] %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_3,%v_5,
+		 10: %v_6->order def_%v_7 %v_6[2.9,] 	 SYMBOL:link_expires_at,	 ARGS:Symbol,
+		 11: RETURN %v_7[2.10,] %self[2.0,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = file_for_token instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_token 
+		 6: 
+		 7: %self->find_by_link_token def_%v_3 %self[2.0,] token[2.5,] 	 SYMBOL:	 ARGS:token,
+		 8: COPY TYPE_PASS def_share_link %v_3[2.7,] 
+		 9: 
+		 10: %v_3->link_expires_at def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 11: (DateTime) def_%v_5 
+		 12: %v_5->now def_%v_6 %v_5[2.11,] 	 SYMBOL:	 ARGS:
+		 13: %v_4->< def_%v_7 %v_4[2.10,] %v_6[2.12,] 	 SYMBOL:	 ARGS:%v_6,
+		 14: BRANCH %v_7[2.13,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "This share link expired." def_%v_8 
+		 2: %self->raise def_%v_9 %self[2.0,] %v_8[3.1,] 	 SYMBOL:	 ARGS:%v_8,
+		 3: RETURN %v_9[3.2,] %self[3.2,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: share_link->user_file def_%v_10 share_link[2.8,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_10[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = format_of_emails instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->emails def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_Regexp def_%v_4 
+		 8: %v_3->split def_%v_5 %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: %v_5->each def_%v_6 %v_5[2.8,] %self[2.0,2.6,] 	 SYMBOL:	 ARGS:%v_5,
+CLOSURE BEGIN: email[] %self[2.0,2.6,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_email 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: email->strip def_%cl_1_3 email[2.2,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_Regexp def_%cl_1_4 
+		 3: %cl_1_3->=~ def_%cl_1_5 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_4,
+		 4: BRANCH %cl_1_5[3.3,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_6 
+		 1: RETURN %cl_1_6[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->errors def_%cl_1_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: (I18n) def_%cl_1_8 
+		 3: HASH-email- def_%cl_1_9 email[2.2,] 
+		 4: %cl_1_8->t def_%cl_1_10 %cl_1_8[5.2,] %cl_1_9[5.3,] 	 SYMBOL:are_invalid_due_to,	 ARGS:Symbol,%cl_1_9,
+		 5: %cl_1_7->add def_%cl_1_11 %cl_1_7[5.1,] %cl_1_10[5.4,] 	 SYMBOL:emails,	 ARGS:Symbol,%cl_1_10,
+		 6: RETURN %cl_1_11[5.5,] %self[5.1,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_12 
+		 1: def_%cl_1_13 %cl_1_12[7.0,] 
+		 2: RETURN %cl_1_13[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: RETURN %v_6[2.9,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = generate_token instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SecureRandom) def_%v_3 
+		 7: %v_3->hex def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: ATTRASSIGN %self->link_token %v_4[2.7,] 
+		 9: RETURN %v_4[2.7,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

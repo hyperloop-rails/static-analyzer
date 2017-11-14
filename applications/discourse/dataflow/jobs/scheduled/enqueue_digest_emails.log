@@ -1,0 +1,139 @@
+SET IRMethod, name = execute instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_args 
+		 6: 
+		 7: (SiteSetting) def_%v_3 
+		 8: %v_3->disable_digest_emails? def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: RETURN %v_5[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->target_user_ids def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->each def_%v_7 %v_6[4.1,] %self[4.1,2.0,] 	 SYMBOL:	 ARGS:%v_6,
+CLOSURE BEGIN: user_id[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_user_id 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Jobs) def_%cl_1_3 
+		 2: HASH-type-user_id- def_%cl_1_4 user_id[2.2,] 
+		 3: %cl_1_3->enqueue def_%cl_1_5 %cl_1_3[3.1,] %cl_1_4[3.2,] 	 SYMBOL:user_email,	 ARGS:Symbol,%cl_1_4,
+		 4: RETURN %cl_1_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: RETURN %v_7[4.2,] %self[4.1,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = target_user_ids instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (User) def_%v_3 
+		 7: %v_3->real def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: HASH-active-staged- def_%v_5 
+		 9: %v_4->where def_%v_6 %v_4[2.7,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: %v_6->joins def_%v_7 %v_6[2.9,] 	 SYMBOL:user_option,	 ARGS:Symbol,
+		 11: %v_7->not_suspended def_%v_8 %v_7[2.10,] 	 SYMBOL:	 ARGS:
+		 12: HASH-email_digests- def_%v_9 
+		 13: HASH-user_options- def_%v_10 %v_9[2.12,] 
+		 14: %v_8->where def_%v_11 %v_8[2.11,] %v_10[2.13,] 	 SYMBOL:	 ARGS:%v_10,
+		 15: COPY TYPE_StringLiteral "COALESCE(last_emailed_at, '2010-01-01') <= CURRENT_TIMESTAMP - ('1 MINUTE'::INTERVAL * user_options.digest_after_minutes)" def_%v_12 
+		 16: %v_11->where def_%v_13 %v_11[2.14,] %v_12[2.15,] 	 SYMBOL:	 ARGS:%v_12,
+		 17: COPY TYPE_StringLiteral "COALESCE(last_seen_at, '2010-01-01') <= CURRENT_TIMESTAMP - ('1 MINUTE'::INTERVAL * user_options.digest_after_minutes)" def_%v_14 
+		 18: %v_13->where def_%v_15 %v_13[2.16,] %v_14[2.17,] 	 SYMBOL:	 ARGS:%v_14,
+		 19: COPY TYPE_StringLiteral "COALESCE(last_seen_at, '2010-01-01') >= CURRENT_TIMESTAMP - ('1 DAY'::INTERVAL * " def_%v_16 
+		 20: 
+		 21: (SiteSetting) def_%v_17 
+		 22: %v_17->delete_digest_email_after_days def_%v_18 %v_17[2.21,] 	 SYMBOL:	 ARGS:
+		 23: COPY TYPE_StringLiteral ")" def_%v_19 
+		 24: BUILDSTRING def_%v_20 %v_16[2.19,] %v_18[2.22,] %v_19[2.23,] 
+		 25: %v_15->where def_%v_21 %v_15[2.18,] %v_20[2.24,] 	 SYMBOL:	 ARGS:%v_20,
+		 26: COPY TYPE_PASS def_query %v_21[2.25,] 
+		 27: 
+		 28: (SiteSetting) def_%v_22 
+		 29: %v_22->must_approve_users? def_%v_23 %v_22[2.28,] 	 SYMBOL:	 ARGS:
+		 30: BRANCH %v_23[2.29,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "approved OR moderator OR admin" def_%v_24 
+		 2: query->where def_%v_25 query[2.26,] %v_24[3.1,] 	 SYMBOL:	 ARGS:%v_24,
+		 3: COPY TYPE_PASS def_query %v_25[3.2,] 
+		 4: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_25 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: query->pluck def_%v_26 query[3.3,2.26,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 2: RETURN %v_26[5.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

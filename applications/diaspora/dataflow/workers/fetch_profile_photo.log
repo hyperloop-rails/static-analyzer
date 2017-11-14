@@ -1,0 +1,90 @@
+SET IRMethod, name = perform instanceMethod = true
+BB 1
+	outgoing: 10 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user_id 
+		 6: RECEIVEARG def_service_id 
+		 7: RECEIVECONSTARG def_fallback_image_url 
+		 8: fallback_image_url[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_fallback_image_url 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Service) def_%v_3 
+		 2: %v_3->find def_%v_4 %v_3[4.1,] service_id[2.6,] 	 SYMBOL:	 ARGS:service_id,
+		 3: COPY TYPE_PASS def_service %v_4[4.2,] 
+		 4: 
+		 5: %v_4->profile_photo_url def_%v_5 %v_4[4.2,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_PASS def_image_url %v_5[4.5,] 
+		 7: 
+		 8: COPY TYPE_PASS def_%v_6 %v_5[4.5,] 
+		 9: COPY TYPE_PASS def_%v_7 %v_5[4.5,] 
+		 10: BRANCH %v_5[4.5,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_image_url fallback_image_url[3.0,2.7,] 
+		 1: COPY TYPE_PASS def_%v_7 fallback_image_url[3.0,2.7,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH image_url[5.0,4.6,] 
+BB 7
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: (User) def_%v_9 
+		 3: %v_9->find def_%v_10 %v_9[7.2,] user_id[2.5,] 	 SYMBOL:	 ARGS:user_id,
+		 4: COPY TYPE_PASS def_user %v_10[7.3,] 
+		 5: 
+		 6: (Photo) def_%v_11 
+		 7: %v_10->person def_%v_12 %v_10[7.3,] 	 SYMBOL:	 ARGS:
+		 8: HASH-author-image_url-pending- def_%v_13 %v_12[7.7,] image_url[5.0,4.6,] 
+		 9: %v_11->diaspora_initialize def_%v_14 %v_11[7.6,] %v_13[7.8,] 	 SYMBOL:	 ARGS:%v_13,
+		 10: ATTRASSIGN %self->photo %v_14[7.9,] 
+		 11: 
+		 12: GETFIELD %self->photo def_%v_15 %self[7.10,2.0,] 
+		 13: %v_15->save! def_%v_16 %v_15[7.12,] 	 SYMBOL:	 ARGS:
+		 14: 
+		 15: GETFIELD %self->photo def_%v_17 %self[7.10,2.0,] 
+		 16: %v_17->url def_%v_18 %v_17[7.15,] 	 SYMBOL:thumb_large,	 ARGS:Symbol,
+		 17: GETFIELD %self->photo def_%v_19 %self[7.10,2.0,] 
+		 18: %v_19->url def_%v_20 %v_19[7.17,] 	 SYMBOL:thumb_medium,	 ARGS:Symbol,
+		 19: GETFIELD %self->photo def_%v_21 %self[7.10,2.0,] 
+		 20: %v_21->url def_%v_22 %v_21[7.19,] 	 SYMBOL:thumb_small,	 ARGS:Symbol,
+		 21: HASH-image_url-image_url_medium-image_url_small- def_%v_23 %v_18[7.16,] %v_20[7.18,] %v_22[7.20,] 
+		 22: COPY TYPE_PASS def_profile_params %v_23[7.21,] 
+		 23: 
+		 24: user->update_profile def_%v_24 user[7.4,] %v_23[7.21,] 	 SYMBOL:	 ARGS:profile_params,
+		 25: RETURN %v_24[7.24,] %self[7.10,2.0,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 10
+	outgoing: 
+	datadep: 
+	instructions:
+

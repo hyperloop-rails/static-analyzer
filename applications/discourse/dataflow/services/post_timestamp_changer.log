@@ -1,0 +1,309 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_params 
+		 6: 
+		 7: (Topic) def_%v_3 
+		 8: %v_3->with_deleted def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: params->[] def_%v_5 params[2.5,] 	 SYMBOL:topic_id,	 ARGS:Symbol,
+		 10: %v_4->find def_%v_6 %v_4[2.8,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: ATTRASSIGN %self->topic %v_6[2.10,] 
+		 12: 
+		 13: GETFIELD %self->topic def_%v_7 %self[2.0,2.11,] 
+		 14: %v_7->posts def_%v_8 %v_7[2.13,] 	 SYMBOL:	 ARGS:
+		 15: ATTRASSIGN %self->posts %v_8[2.14,] 
+		 16: 
+		 17: (Time) def_%v_9 
+		 18: params->[] def_%v_10 params[2.5,2.9,] 	 SYMBOL:timestamp,	 ARGS:Symbol,
+		 19: %v_9->at def_%v_11 %v_9[2.17,] %v_10[2.18,] 	 SYMBOL:	 ARGS:%v_10,
+		 20: ATTRASSIGN %self->timestamp %v_11[2.19,] 
+		 21: 
+		 22: %self->calculate_time_difference def_%v_12 %self[2.0,2.11,2.15,2.20,] 	 SYMBOL:	 ARGS:
+		 23: ATTRASSIGN %self->time_difference %v_12[2.22,] 
+		 24: RETURN %v_12[2.22,] %self[2.0,2.11,2.15,2.20,2.22,2.23,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = change! instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (ActiveRecord) def_%v_3 
+		 7: (inherit Base) def_%v_4 %v_3[2.6,] 
+		 8: %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.6,] 	 SYMBOL:Base,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_4->transaction def_%v_5 %v_4[3.0,2.7,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: %self[2.0,] post[] last_posted_at[] new_created_at[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->timestamp def_%cl_1_3 %self[2.0,] 
+		 2: COPY TYPE_PASS def_last_posted_at %cl_1_3[3.1,] 
+		 3: 
+		 4: GETFIELD %self->posts def_%cl_1_4 %self[2.0,] 
+		 5: %cl_1_4->each def_%cl_1_5 %cl_1_4[3.4,] %self[2.0,] 	 SYMBOL:	 ARGS:%cl_1_4,
+CLOSURE BEGIN: post[] %self[2.0,] last_posted_at[3.2,] new_created_at[] 
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_post 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: post->is_first_post? def_%cl_2_3 post[2.2,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_2_3[3.1,] 
+BB 4
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->timestamp def_%cl_2_4 %self[2.0,] 
+		 2: %self->update_post def_%cl_2_5 %self[2.0,] post[2.2,] %cl_2_4[4.1,] 	 SYMBOL:	 ARGS:post,%cl_2_4,
+		 3: 
+BB 5
+	outgoing: 6 7 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Time) def_%cl_2_6 
+		 2: post->created_at def_%cl_2_7 post[2.2,] 	 SYMBOL:	 ARGS:
+		 3: %cl_2_7->to_f def_%cl_2_8 %cl_2_7[5.2,] 	 SYMBOL:	 ARGS:
+		 4: GETFIELD %self->time_difference def_%cl_2_9 %self[2.0,] 
+		 5: %cl_2_8->+ def_%cl_2_10 %cl_2_8[5.3,] %cl_2_9[5.4,] 	 SYMBOL:	 ARGS:%cl_2_9,
+		 6: %cl_2_6->at def_%cl_2_11 %cl_2_6[5.1,] %cl_2_10[5.5,] 	 SYMBOL:	 ARGS:%cl_2_10,
+		 7: COPY TYPE_PASS def_new_created_at %cl_2_11[5.6,] 
+		 8: 
+		 9: %cl_2_11->> def_%cl_2_12 %cl_2_11[5.6,] last_posted_at[] 	 SYMBOL:	 ARGS:last_posted_at,
+		 10: BRANCH %cl_2_12[5.9,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_last_posted_at new_created_at[5.7,] 
+		 1: COPY TYPE_PASS def_%cl_2_13 new_created_at[5.7,] 
+		 2: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_2_13 
+BB 8
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->update_post def_%cl_2_14 %self[2.0,] post[2.2,] new_created_at[5.7,] 	 SYMBOL:	 ARGS:post,new_created_at,
+		 2: RETURN %cl_2_14[8.1,] %self[8.1,2.0,] 
+BB 9
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_2_5[4.2,] %self[2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_15 
+		 1: def_%cl_2_16 %cl_2_15[10.0,] 
+		 2: RETURN %cl_2_16[10.1,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: new_created_at[5.7,] last_posted_at[6.0,] 
+		 6: 
+		 7: %self->update_topic def_%cl_1_6 %self[2.0,] last_posted_at[3.2,3.5,] 	 SYMBOL:	 ARGS:last_posted_at,
+		 8: RETURN %cl_1_6[3.7,] %self[3.7,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_7 
+		 1: def_%cl_1_8 %cl_1_7[4.0,] 
+		 2: RETURN %cl_1_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 1: 
+		 2: (AdminDashboardData) def_%v_6 
+		 3: (About) def_%v_7 
+		 4: COPY TYPE_Array def_%v_8 %v_6[4.2,] %v_7[4.3,] 
+		 5: %v_8->each def_%v_9 %v_8[4.4,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_8,
+CLOSURE BEGIN: klass[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_klass 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GLOBALVAR $redis def_%cl_3_3 
+		 2: klass->stats_cache_key def_%cl_3_4 klass[2.2,] 	 SYMBOL:	 ARGS:
+		 3: %cl_3_3->del def_%cl_3_5 %cl_3_3[3.1,] %cl_3_4[3.2,] 	 SYMBOL:	 ARGS:%cl_3_4,
+		 4: RETURN %cl_3_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_6 
+		 1: def_%cl_3_7 %cl_3_6[4.0,] 
+		 2: RETURN %cl_3_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 6: RETURN %v_9[4.5,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = calculate_time_difference instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->timestamp def_%v_3 %self[2.0,] 
+		 7: GETFIELD %self->topic def_%v_4 %self[2.0,] 
+		 8: %v_4->created_at def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->- def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_topic instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_last_posted_at 
+		 6: 
+		 7: GETFIELD %self->topic def_%v_3 %self[2.0,] 
+		 8: GETFIELD %self->timestamp def_%v_4 %self[2.0,] 
+		 9: GETFIELD %self->timestamp def_%v_5 %self[2.0,] 
+		 10: GETFIELD %self->timestamp def_%v_6 %self[2.0,] 
+		 11: HASH-created_at-updated_at-bumped_at-last_posted_at- def_%v_7 %v_4[2.8,] %v_5[2.9,] %v_6[2.10,] last_posted_at[2.5,] 
+		 12: %v_3->update_attributes def_%v_8 %v_3[2.7,] %v_7[2.11,] 	 SYMBOL:	 ARGS:%v_7,
+		 13: RETURN %v_8[2.12,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update_post instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: RECEIVEARG def_timestamp 
+		 7: 
+		 8: HASH-created_at-updated_at- def_%v_3 timestamp[2.6,] timestamp[2.6,] 
+		 9: post->update_attributes def_%v_4 post[2.5,] %v_3[2.8,] 	 SYMBOL:	 ARGS:%v_3,
+		 10: RETURN %v_4[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

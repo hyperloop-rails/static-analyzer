@@ -1,0 +1,600 @@
+SET IRMethod, name = execute_hooks_for instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_model 
+		 6: RECEIVEARG def_event 
+		 7: 
+		 8: %self->build_event_data def_%v_3 %self[2.0,] model[2.5,] event[2.6,] 	 SYMBOL:	 ARGS:model,event,
+		 9: %self->execute_hooks def_%v_4 %self[2.0,2.8,] %v_3[2.8,] 	 SYMBOL:	 ARGS:%v_3,
+		 10: RETURN %v_4[2.9,] %self[2.0,2.8,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = execute_hooks instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_data 
+		 6: RECEIVECONSTARG def_hooks_scope 
+		 7: hooks_scope[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Symbol def_hooks_scope 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SystemHook) def_%v_3 
+		 2: %v_3->send def_%v_4 %v_3[4.1,] hooks_scope[3.0,2.6,] 	 SYMBOL:	 ARGS:hooks_scope,
+		 3: %v_4->each def_%v_5 %v_4[4.2,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: hook[] data[2.5,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_hook 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "system_hooks" def_%cl_1_3 
+		 2: hook->async_execute def_%cl_1_4 hook[2.2,] data[] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:data,%cl_1_3,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: RETURN %v_5[4.3,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_event_data instanceMethod = true
+BB 1
+	outgoing: 31 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 9 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_model 
+		 6: RECEIVEARG def_event 
+		 7: 
+		 8: %self->build_event_name def_%v_3 %self[2.0,] model[2.5,] event[2.6,] 	 SYMBOL:	 ARGS:model,event,
+		 9: model->created_at def_%v_4 model[2.5,] 	 SYMBOL:	 ARGS:
+		 10: %v_4->xmlschema def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 11: model->updated_at def_%v_6 model[2.5,2.9,] 	 SYMBOL:	 ARGS:
+		 12: %v_6->xmlschema def_%v_7 %v_6[2.11,] 	 SYMBOL:	 ARGS:
+		 13: HASH-event_name-created_at-updated_at- def_%v_8 %v_3[2.8,] %v_5[2.10,] %v_7[2.12,] 
+		 14: COPY TYPE_PASS def_data %v_8[2.13,] 
+		 15: 
+		 16: (Key) def_%v_11 
+		 17: def_%v_10 %v_11[2.16,] model[2.5,2.9,2.11,] 
+		 18: BRANCH %v_10[2.17,] 
+BB 3
+	outgoing: 4 13 
+	datadep: 
+	instructions:
+		 0: (Project) def_%v_13 
+		 1: def_%v_12 %v_13[3.0,] model[2.5,] 
+		 2: BRANCH %v_12[3.1,] 
+BB 4
+	outgoing: 5 19 
+	datadep: 
+	instructions:
+		 0: (User) def_%v_15 
+		 1: def_%v_14 %v_15[4.0,] model[2.5,] 
+		 2: BRANCH %v_14[4.1,] 
+BB 5
+	outgoing: 6 20 
+	datadep: 
+	instructions:
+		 0: (ProjectMember) def_%v_17 
+		 1: def_%v_16 %v_17[5.0,] model[2.5,] 
+		 2: BRANCH %v_16[5.1,] 
+BB 6
+	outgoing: 7 21 
+	datadep: 
+	instructions:
+		 0: (Group) def_%v_19 
+		 1: def_%v_18 %v_19[6.0,] model[2.5,] 
+		 2: BRANCH %v_18[6.1,] 
+BB 7
+	outgoing: 8 28 
+	datadep: 
+	instructions:
+		 0: (GroupMember) def_%v_21 
+		 1: def_%v_20 %v_21[7.0,] model[2.5,] 
+		 2: BRANCH %v_20[7.1,] 
+BB 8
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: model->key def_%v_22 model[2.5,] 	 SYMBOL:	 ARGS:
+		 2: model->id def_%v_23 model[9.1,2.5,] 	 SYMBOL:	 ARGS:
+		 3: HASH-key-id- def_%v_24 %v_22[9.1,] %v_23[9.2,] 
+		 4: data->merge! def_%v_25 data[2.14,] %v_24[9.3,] 	 SYMBOL:	 ARGS:%v_24,
+		 5: 
+		 6: model->user def_%v_26 model[9.1,9.2,2.5,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_26[9.6,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: model->user def_%v_27 model[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_27->username def_%v_28 %v_27[10.1,] 	 SYMBOL:	 ARGS:
+		 3: HASH-username- def_%v_29 %v_28[10.2,] 
+		 4: data->merge! def_%v_30 data[2.14,] %v_29[10.3,] 	 SYMBOL:	 ARGS:%v_29,
+		 5: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_30 
+BB 12
+	outgoing: 30 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_9 %v_30[11.0,10.4,] 
+		 1: 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->project_data def_%v_31 %self[2.0,] model[2.5,] 	 SYMBOL:	 ARGS:model,
+		 2: data->merge! def_%v_32 data[2.14,] %v_31[13.1,] 	 SYMBOL:	 ARGS:%v_31,
+		 3: 
+		 4: event->== def_%v_33 event[2.6,] 	 SYMBOL:rename,	 ARGS:Symbol,
+		 5: BRANCH %v_33[13.4,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: event->== def_%v_34 event[2.6,] 	 SYMBOL:transfer,	 ARGS:Symbol,
+		 1: COPY TYPE_PASS def_%v_33 %v_34[14.0,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_33[14.1,13.4,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: model->old_path_with_namespace def_%v_35 model[2.5,] 	 SYMBOL:	 ARGS:
+		 2: HASH-old_path_with_namespace- def_%v_36 %v_35[16.1,] 
+		 3: data->merge! def_%v_37 data[2.14,] %v_36[16.2,] 	 SYMBOL:	 ARGS:%v_36,
+		 4: 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_37 
+BB 18
+	outgoing: 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_9 data[2.14,] 
+		 2: RETURN data[2.14,] %self[2.0,] 
+BB 19
+	outgoing: 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: model->name def_%v_38 model[2.5,] 	 SYMBOL:	 ARGS:
+		 2: model->email def_%v_39 model[19.1,2.5,] 	 SYMBOL:	 ARGS:
+		 3: model->id def_%v_40 model[19.1,19.2,2.5,] 	 SYMBOL:	 ARGS:
+		 4: model->username def_%v_41 model[19.1,19.2,19.3,2.5,] 	 SYMBOL:	 ARGS:
+		 5: HASH-name-email-user_id-username- def_%v_42 %v_38[19.1,] %v_39[19.2,] %v_40[19.3,] %v_41[19.4,] 
+		 6: data->merge! def_%v_43 data[2.14,] %v_42[19.5,] 	 SYMBOL:	 ARGS:%v_42,
+		 7: COPY TYPE_PASS def_%v_9 %v_43[19.6,] 
+		 8: RETURN %v_43[19.6,] %self[2.0,] 
+BB 20
+	outgoing: 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->project_member_data def_%v_44 %self[2.0,] model[2.5,] 	 SYMBOL:	 ARGS:model,
+		 2: data->merge! def_%v_45 data[2.14,] %v_44[20.1,] 	 SYMBOL:	 ARGS:%v_44,
+		 3: COPY TYPE_PASS def_%v_9 %v_45[20.2,] 
+		 4: RETURN %v_45[20.2,] %self[20.1,2.0,] 
+BB 21
+	outgoing: 22 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: model->owner def_%v_46 model[2.5,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_owner %v_46[21.1,] 
+		 3: 
+		 4: model->name def_%v_47 model[21.1,2.5,] 	 SYMBOL:	 ARGS:
+		 5: model->path def_%v_48 model[21.1,21.4,2.5,] 	 SYMBOL:	 ARGS:
+		 6: model->id def_%v_49 model[21.1,21.4,21.5,2.5,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: owner->respond_to? def_%v_50 owner[21.2,] 	 SYMBOL:name,	 ARGS:Symbol,
+		 9: BRANCH %v_50[21.8,] 
+BB 22
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: owner->name def_%v_51 owner[21.2,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_51 
+BB 24
+	outgoing: 25 26 
+	datadep: 
+	instructions:
+		 0: 
+		 1: owner->respond_to? def_%v_52 owner[21.2,] 	 SYMBOL:email,	 ARGS:Symbol,
+		 2: BRANCH %v_52[24.1,] 
+BB 25
+	outgoing: 27 
+	datadep: 
+	instructions:
+		 0: owner->email def_%v_53 owner[21.2,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 26
+	outgoing: 27 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_53 
+BB 27
+	outgoing: 31 
+	datadep: 
+	instructions:
+		 0: HASH-name-path-group_id-owner_name-owner_email- def_%v_54 %v_47[21.4,] %v_48[21.5,] %v_49[21.6,] %v_51[23.0,22.0,] %v_53[26.0,25.0,] 
+		 1: data->merge! def_%v_55 data[2.14,] %v_54[27.0,] 	 SYMBOL:	 ARGS:%v_54,
+		 2: COPY TYPE_PASS def_%v_9 %v_55[27.1,] 
+		 3: RETURN %v_55[27.1,] %self[2.0,] 
+BB 28
+	outgoing: 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->group_member_data def_%v_56 %self[2.0,] model[2.5,] 	 SYMBOL:	 ARGS:model,
+		 2: data->merge! def_%v_57 data[2.14,] %v_56[28.1,] 	 SYMBOL:	 ARGS:%v_56,
+		 3: COPY TYPE_PASS def_%v_9 %v_57[28.2,] 
+		 4: RETURN %v_57[28.2,] %self[28.1,2.0,] 
+BB 30
+	outgoing: 31 
+	datadep: 
+	instructions:
+		 0: RETURN %v_9[12.0,8.0,] %self[2.0,] 
+BB 31
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = build_event_name instanceMethod = true
+BB 1
+	outgoing: 21 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 5 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_model 
+		 6: RECEIVEARG def_event 
+		 7: 
+		 8: (ProjectMember) def_%v_5 
+		 9: def_%v_4 %v_5[2.8,] model[2.5,] 
+		 10: BRANCH %v_4[2.9,] 
+BB 3
+	outgoing: 4 12 
+	datadep: 
+	instructions:
+		 0: (GroupMember) def_%v_7 
+		 1: def_%v_6 %v_7[3.0,] model[2.5,] 
+		 2: BRANCH %v_6[3.1,] 
+BB 4
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: model->class def_%v_20 model[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_20->name def_%v_21 %v_20[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_21->downcase def_%v_22 %v_21[4.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "_" def_%v_23 
+		 5: event->to_s def_%v_24 event[2.6,] 	 SYMBOL:	 ARGS:
+		 6: BUILDSTRING def_%v_25 %v_22[4.3,] %v_23[4.4,] %v_24[4.5,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_25[4.6,] 
+		 8: RETURN %v_25[4.6,] %self[2.0,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->== def_%v_8 event[2.6,] 	 SYMBOL:create,	 ARGS:Symbol,
+		 2: BRANCH %v_8[5.1,] 
+BB 6
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "user_add_to_team" def_%v_9 
+		 1: RETURN %v_9[6.0,] %self[2.0,] 
+BB 7
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+		 2: event->== def_%v_11 event[2.6,] 	 SYMBOL:destroy,	 ARGS:Symbol,
+		 3: BRANCH %v_11[7.2,] 
+BB 9
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "user_remove_from_team" def_%v_12 
+		 1: RETURN %v_12[9.0,] %self[2.0,] 
+BB 10
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+		 1: COPY TYPE_PASS def_%v_3 %v_13[10.0,] 
+		 2: 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: event->== def_%v_14 event[2.6,] 	 SYMBOL:create,	 ARGS:Symbol,
+		 2: BRANCH %v_14[12.1,] 
+BB 13
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "user_add_to_group" def_%v_15 
+		 1: RETURN %v_15[13.0,] %self[2.0,] 
+BB 14
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+		 1: 
+		 2: event->== def_%v_17 event[2.6,] 	 SYMBOL:destroy,	 ARGS:Symbol,
+		 3: BRANCH %v_17[14.2,] 
+BB 16
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "user_remove_from_group" def_%v_18 
+		 1: RETURN %v_18[16.0,] %self[2.0,] 
+BB 17
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_19 
+		 1: COPY TYPE_PASS def_%v_3 %v_19[17.0,] 
+		 2: 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[10.1,17.1,] %self[2.0,] 
+BB 21
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = project_data instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_model 
+		 6: 
+		 7: model->owner def_%v_3 model[2.5,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_owner %v_3[2.7,] 
+		 9: 
+		 10: model->name def_%v_4 model[2.5,2.7,] 	 SYMBOL:	 ARGS:
+		 11: model->path def_%v_5 model[2.5,2.7,2.10,] 	 SYMBOL:	 ARGS:
+		 12: model->path_with_namespace def_%v_6 model[2.5,2.7,2.10,2.11,] 	 SYMBOL:	 ARGS:
+		 13: model->id def_%v_7 model[2.5,2.7,2.10,2.11,2.12,] 	 SYMBOL:	 ARGS:
+		 14: owner->name def_%v_8 owner[2.8,] 	 SYMBOL:	 ARGS:
+		 15: 
+		 16: owner->respond_to? def_%v_9 owner[2.8,2.14,] 	 SYMBOL:email,	 ARGS:Symbol,
+		 17: BRANCH %v_9[2.16,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: owner->email def_%v_10 owner[2.8,] 	 SYMBOL:	 ARGS:
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "" def_%v_11 
+		 1: COPY TYPE_PASS def_%v_10 %v_11[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: (Project) def_%v_12 
+		 1: %v_12->visibility_levels def_%v_13 %v_12[5.0,] 	 SYMBOL:	 ARGS:
+		 2: model->visibility_level_field def_%v_14 model[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_13->key def_%v_15 %v_13[5.1,] %v_14[5.2,] 	 SYMBOL:	 ARGS:%v_14,
+		 4: %v_15->downcase def_%v_16 %v_15[5.3,] 	 SYMBOL:	 ARGS:
+		 5: HASH-name-path-path_with_namespace-project_id-owner_name-owner_email-project_visibility- def_%v_17 %v_4[2.10,] %v_5[2.11,] %v_6[2.12,] %v_7[2.13,] %v_8[2.14,] %v_10[4.1,3.0,] %v_16[5.4,] 
+		 6: RETURN %v_17[5.5,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = project_member_data instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_model 
+		 6: 
+		 7: model->project def_%v_3 model[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: (Project) def_%v_4 
+		 1: %v_4->unscoped def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: model->source_id def_%v_6 model[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->find def_%v_7 %v_5[3.1,] %v_6[3.2,] 	 SYMBOL:	 ARGS:%v_6,
+		 4: COPY TYPE_PASS def_%v_3 %v_7[3.3,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_project %v_3[3.4,2.7,] 
+		 1: 
+		 2: %v_3->name def_%v_8 %v_3[3.4,2.7,] 	 SYMBOL:	 ARGS:
+		 3: project->path def_%v_9 project[4.0,] 	 SYMBOL:	 ARGS:
+		 4: project->path_with_namespace def_%v_10 project[4.0,4.3,] 	 SYMBOL:	 ARGS:
+		 5: project->id def_%v_11 project[4.0,4.3,4.4,] 	 SYMBOL:	 ARGS:
+		 6: model->user def_%v_12 model[2.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_12->username def_%v_13 %v_12[4.6,] 	 SYMBOL:	 ARGS:
+		 8: model->user def_%v_14 model[4.6,2.5,] 	 SYMBOL:	 ARGS:
+		 9: %v_14->name def_%v_15 %v_14[4.8,] 	 SYMBOL:	 ARGS:
+		 10: model->user def_%v_16 model[4.6,4.8,2.5,] 	 SYMBOL:	 ARGS:
+		 11: %v_16->email def_%v_17 %v_16[4.10,] 	 SYMBOL:	 ARGS:
+		 12: model->user def_%v_18 model[4.6,4.8,4.10,2.5,] 	 SYMBOL:	 ARGS:
+		 13: %v_18->id def_%v_19 %v_18[4.12,] 	 SYMBOL:	 ARGS:
+		 14: model->human_access def_%v_20 model[4.6,4.8,4.10,4.12,2.5,] 	 SYMBOL:	 ARGS:
+		 15: (Project) def_%v_21 
+		 16: %v_21->visibility_levels def_%v_22 %v_21[4.15,] 	 SYMBOL:	 ARGS:
+		 17: project->visibility_level_field def_%v_23 project[4.0,4.3,4.4,4.5,] 	 SYMBOL:	 ARGS:
+		 18: %v_22->key def_%v_24 %v_22[4.16,] %v_23[4.17,] 	 SYMBOL:	 ARGS:%v_23,
+		 19: %v_24->downcase def_%v_25 %v_24[4.18,] 	 SYMBOL:	 ARGS:
+		 20: HASH-project_name-project_path-project_path_with_namespace-project_id-user_username-user_name-user_email-user_id-access_level-project_visibility- def_%v_26 %v_8[4.2,] %v_9[4.3,] %v_10[4.4,] %v_11[4.5,] %v_13[4.7,] %v_15[4.9,] %v_17[4.11,] %v_19[4.13,] %v_20[4.14,] %v_25[4.19,] 
+		 21: RETURN %v_26[4.20,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = group_member_data instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_model 
+		 6: 
+		 7: model->group def_%v_3 model[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->name def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: model->group def_%v_5 model[2.5,2.7,] 	 SYMBOL:	 ARGS:
+		 10: %v_5->path def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: model->group def_%v_7 model[2.5,2.7,2.9,] 	 SYMBOL:	 ARGS:
+		 12: %v_7->id def_%v_8 %v_7[2.11,] 	 SYMBOL:	 ARGS:
+		 13: model->user def_%v_9 model[2.5,2.7,2.9,2.11,] 	 SYMBOL:	 ARGS:
+		 14: %v_9->username def_%v_10 %v_9[2.13,] 	 SYMBOL:	 ARGS:
+		 15: model->user def_%v_11 model[2.5,2.7,2.9,2.11,2.13,] 	 SYMBOL:	 ARGS:
+		 16: %v_11->name def_%v_12 %v_11[2.15,] 	 SYMBOL:	 ARGS:
+		 17: model->user def_%v_13 model[2.5,2.7,2.9,2.11,2.13,2.15,] 	 SYMBOL:	 ARGS:
+		 18: %v_13->email def_%v_14 %v_13[2.17,] 	 SYMBOL:	 ARGS:
+		 19: model->user def_%v_15 model[2.5,2.7,2.9,2.11,2.13,2.15,2.17,] 	 SYMBOL:	 ARGS:
+		 20: %v_15->id def_%v_16 %v_15[2.19,] 	 SYMBOL:	 ARGS:
+		 21: model->human_access def_%v_17 model[2.5,2.7,2.9,2.11,2.13,2.15,2.17,2.19,] 	 SYMBOL:	 ARGS:
+		 22: HASH-group_name-group_path-group_id-user_username-user_name-user_email-user_id-group_access- def_%v_18 %v_4[2.8,] %v_6[2.10,] %v_8[2.12,] %v_10[2.14,] %v_12[2.16,] %v_14[2.18,] %v_16[2.20,] %v_17[2.21,] 
+		 23: RETURN %v_18[2.22,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

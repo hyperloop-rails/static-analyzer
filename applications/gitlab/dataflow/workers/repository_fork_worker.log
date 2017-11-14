@@ -1,0 +1,108 @@
+SET IRMethod, name = perform instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_project_id 
+		 6: RECEIVEARG def_source_path 
+		 7: RECEIVEARG def_target_path 
+		 8: 
+		 9: (Project) def_%v_3 
+		 10: %v_3->find_by_id def_%v_4 %v_3[2.9,] project_id[2.5,] 	 SYMBOL:	 ARGS:project_id,
+		 11: COPY TYPE_PASS def_project %v_4[2.10,] 
+		 12: 
+		 13: %v_4->present? def_%v_5 %v_4[2.10,] 	 SYMBOL:	 ARGS:
+		 14: BRANCH %v_5[2.13,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: %self->gitlab_shell def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_12->fork_repository def_%v_13 %v_12[3.2,] source_path[2.6,] target_path[2.7,] 	 SYMBOL:	 ARGS:source_path,target_path,
+		 4: COPY TYPE_PASS def_result %v_13[3.3,] 
+		 5: 
+		 6: BRANCH %v_13[3.3,] 
+BB 4
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->logger def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "Project " def_%v_8 
+		 3: COPY TYPE_StringLiteral " no longer exists!" def_%v_9 
+		 4: BUILDSTRING def_%v_10 %v_8[4.2,] project_id[2.5,] %v_9[4.3,] 
+		 5: %v_7->error def_%v_11 %v_7[4.1,] %v_10[4.4,] 	 SYMBOL:	 ARGS:%v_10,
+		 6: 
+		 7: RETURN %self[4.1,2.0,] 
+BB 6
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+		 1: 
+		 2: project->repository def_%v_25 project[2.11,] 	 SYMBOL:	 ARGS:
+		 3: %v_25->after_import def_%v_26 %v_25[6.2,] 	 SYMBOL:	 ARGS:
+		 4: 
+		 5: project->valid_repo? def_%v_27 project[6.2,2.11,] 	 SYMBOL:	 ARGS:
+		 6: BRANCH %v_27[6.5,] 
+BB 7
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->logger def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "Unable to fork project " def_%v_16 
+		 3: COPY TYPE_StringLiteral " for repository " def_%v_17 
+		 4: COPY TYPE_StringLiteral " -> " def_%v_18 
+		 5: BUILDSTRING def_%v_19 %v_16[7.2,] project_id[2.5,] %v_17[7.3,] source_path[2.6,] %v_18[7.4,] target_path[2.7,] 
+		 6: %v_15->error def_%v_20 %v_15[7.1,] %v_19[7.5,] 	 SYMBOL:	 ARGS:%v_19,
+		 7: 
+		 8: COPY TYPE_StringLiteral "The project could not be forked." def_%v_21 
+		 9: HASH-import_error- def_%v_22 %v_21[7.8,] 
+		 10: project->update def_%v_23 project[2.11,] %v_22[7.9,] 	 SYMBOL:	 ARGS:%v_22,
+		 11: 
+		 12: project->import_fail def_%v_24 project[7.10,2.11,] 	 SYMBOL:	 ARGS:
+		 13: 
+		 14: RETURN %self[7.1,2.0,] 
+BB 9
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_28 
+		 1: 
+		 2: project->import_finish def_%v_38 project[2.11,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %v_38[9.2,] %self[2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->logger def_%v_29 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "Project " def_%v_30 
+		 3: COPY TYPE_StringLiteral " had an invalid repository after fork" def_%v_31 
+		 4: BUILDSTRING def_%v_32 %v_30[10.2,] project_id[2.5,] %v_31[10.3,] 
+		 5: %v_29->error def_%v_33 %v_29[10.1,] %v_32[10.4,] 	 SYMBOL:	 ARGS:%v_32,
+		 6: 
+		 7: COPY TYPE_StringLiteral "The forked repository is invalid." def_%v_34 
+		 8: HASH-import_error- def_%v_35 %v_34[10.7,] 
+		 9: project->update def_%v_36 project[2.11,] %v_35[10.8,] 	 SYMBOL:	 ARGS:%v_35,
+		 10: 
+		 11: project->import_fail def_%v_37 project[10.9,2.11,] 	 SYMBOL:	 ARGS:
+		 12: 
+		 13: RETURN %self[10.1,2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+

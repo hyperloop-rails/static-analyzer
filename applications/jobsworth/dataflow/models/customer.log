@@ -1,0 +1,201 @@
+SET IRMethod, name = from_company instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_company_id 
+		 6: 
+		 7: COPY TYPE_StringLiteral "customers.company_id" def_%v_3 
+		 8: HASH- def_%v_4 %v_3[2.7,] company_id[2.5,] 
+		 9: %self->where def_%v_5 %self[2.0,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: RETURN %v_5[2.9,] %self[2.0,2.9,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = search_by_name instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_term 
+		 6: 
+		 7: %self->arel_table def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->[] def_%v_4 %v_3[2.7,] 	 SYMBOL:name,	 ARGS:Symbol,
+		 9: COPY TYPE_PASS def_name %v_4[2.8,] 
+		 10: 
+		 11: COPY TYPE_StringLiteral "%" def_%v_5 
+		 12: BUILDSTRING def_%v_6 term[2.5,] %v_5[2.11,] 
+		 13: %v_4->matches def_%v_7 %v_4[2.8,] %v_6[2.12,] 	 SYMBOL:	 ARGS:%v_6,
+		 14: COPY TYPE_StringLiteral "%" def_%v_8 
+		 15: 
+		 16: COPY TYPE_StringLiteral "%" def_%v_9 
+		 17: BUILDSTRING def_%v_10 %v_8[2.14,] term[2.5,] %v_9[2.16,] 
+		 18: name->matches def_%v_11 name[2.9,] %v_10[2.17,] 	 SYMBOL:	 ARGS:%v_10,
+		 19: %v_7->or def_%v_12 %v_7[2.13,] %v_11[2.18,] 	 SYMBOL:	 ARGS:%v_11,
+		 20: %self->where def_%v_13 %self[2.0,2.7,] %v_12[2.19,] 	 SYMBOL:	 ARGS:%v_12,
+		 21: COPY TYPE_StringLiteral "name" def_%v_14 
+		 22: %v_13->order def_%v_15 %v_13[2.20,] %v_14[2.21,] 	 SYMBOL:	 ARGS:%v_14,
+		 23: RETURN %v_15[2.22,] %self[2.0,2.7,2.20,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = search instanceMethod = false
+BB 1
+	outgoing: 4 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_company 
+		 6: RECEIVEARG def_strings 
+		 7: 
+		 8: (Search) def_%v_3 
+		 9: COPY TYPE_Array def_%v_4 
+		 10: HASH-start_search_only- def_%v_5 
+		 11: %v_3->search_conditions_for def_%v_6 %v_3[2.8,] strings[2.6,] %v_4[2.9,] %v_5[2.10,] 	 SYMBOL:	 ARGS:strings,%v_4,%v_5,
+		 12: COPY TYPE_PASS def_conds %v_6[2.11,] 
+		 13: 
+		 14: company->customers def_%v_7 company[2.5,] 	 SYMBOL:	 ARGS:
+		 15: %v_7->where def_%v_8 %v_7[2.14,] conds[2.12,] 	 SYMBOL:	 ARGS:conds,
+		 16: RETURN %v_8[2.15,] %self[2.0,] 
+BB 4
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = internal_customer? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->company def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->internal_customer def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->== def_%v_5 %self[2.0,2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.6,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = has_projects? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->projects def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->count def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->> def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:Fixnum,
+		 9: RETURN %v_5[2.8,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = full_name instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->internal_customer? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->company def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_4->name def_%v_5 %v_4[3.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %v_5[3.2,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->name def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_6[4.1,] %self[4.1,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = to_s instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->full_name def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

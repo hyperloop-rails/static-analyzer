@@ -1,0 +1,881 @@
+SET IRMethod, name = index instanceMethod = true
+BB 1
+	outgoing: 23 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->retrieve_query def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: 
+		 4: COPY TYPE_StringLiteral "id" def_%v_7 
+		 5: COPY TYPE_StringLiteral "desc" def_%v_8 
+		 6: %self->sort_init def_%v_9 %self[4.2,2.0,] %v_7[4.4,] %v_8[4.5,] 	 SYMBOL:	 ARGS:%v_7,%v_8,
+		 7: 
+		 8: GETFIELD %self->query def_%v_10 %self[4.2,4.6,2.0,] 
+		 9: %v_10->sortable_columns def_%v_11 %v_10[4.8,] 	 SYMBOL:	 ARGS:
+		 10: %self->sort_update def_%v_12 %self[4.2,4.6,2.0,] %v_11[4.9,] 	 SYMBOL:	 ARGS:%v_11,
+		 11: 
+		 12: GETFIELD %self->query def_%v_13 %self[4.2,4.6,4.10,2.0,] 
+		 13: %v_13->valid? def_%v_14 %v_13[4.12,] 	 SYMBOL:	 ARGS:
+		 14: BRANCH %v_14[4.13,] 
+BB 5
+	outgoing: 7 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->query def_%v_15 %self[2.0,] 
+		 2: (Journal) def_%v_16 
+		 3: %v_16->table_name def_%v_17 %v_16[5.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral ".created_on DESC" def_%v_18 
+		 5: BUILDSTRING def_%v_19 %v_17[5.3,] %v_18[5.4,] 
+		 6: HASH-order-limit- def_%v_20 %v_19[5.5,] 
+		 7: %v_15->journals def_%v_21 %v_15[5.1,] %v_20[5.6,] 	 SYMBOL:	 ARGS:%v_20,
+		 8: ATTRASSIGN %self->journals %v_21[5.7,] 
+		 9: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->project def_%v_22 %self[2.0,] 
+		 2: BRANCH %v_22[7.1,] 
+BB 8
+	outgoing: 10 15 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->project def_%v_23 %self[2.0,] 
+		 1: %v_23->name def_%v_24 %v_23[8.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 9
+	outgoing: 10 15 
+	datadep: 
+	instructions:
+		 0: (Setting) def_%v_25 
+		 1: %v_25->app_title def_%v_26 %v_25[9.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_24 %v_26[9.1,] 
+BB 10
+	outgoing: 11 12 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral ": " def_%v_27 
+		 1: %v_24->+ def_%v_28 %v_24[9.2,8.1,] %v_27[10.0,] 	 SYMBOL:	 ARGS:%v_27,
+		 2: GETFIELD %self->query def_%v_29 %self[2.0,] 
+		 3: %v_29->new_record? def_%v_30 %v_29[10.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_30[10.3,] 
+BB 11
+	outgoing: 13 15 
+	datadep: 
+	instructions:
+		 0: %self->l def_%v_31 %self[5.8,2.0,] 	 SYMBOL:label_changes_details,	 ARGS:Symbol,
+		 1: 
+BB 12
+	outgoing: 13 15 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->query def_%v_32 %self[2.0,] 
+		 1: %v_32->name def_%v_33 %v_32[12.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_31 %v_33[12.1,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: %v_28->+ def_%v_34 %v_28[10.1,] %v_31[12.2,11.0,] 	 SYMBOL:	 ARGS:%v_31,
+		 1: ATTRASSIGN %self->title %v_34[13.0,] 
+		 2: 
+		 3: COPY TYPE_StringLiteral "application/atom+xml" def_%v_35 
+		 4: HASH-layout-content_type- def_%v_36 %v_35[13.3,] 
+		 5: %self->render def_%v_37 %self[13.1,5.8,2.0,] %v_36[13.4,] 	 SYMBOL:	 ARGS:%v_36,
+		 6: COPY TYPE_PASS def_%v_5 %v_37[13.5,] 
+		 7: %v_3[2.5,] 
+BB 14
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: 
+BB 15
+	outgoing: 16 17 21 
+	datadep: 
+	instructions:
+		 0: def_%v_38 
+		 1: (ActiveRecord) def_%v_39 
+		 2: (inherit RecordNotFound) def_%v_40 %v_39[15.1,] 
+		 3: %v_40[15.2,] 
+BB 16
+	outgoing: 17 21 
+	datadep: 
+	instructions:
+		 0: %v_39->const_missing def_%v_40 %v_39[15.1,] 	 SYMBOL:RecordNotFound,	 ARGS:Symbol,
+BB 17
+	outgoing: 18 19 21 
+	datadep: 
+	instructions:
+		 0: def_%v_41 %v_40[16.0,15.2,] %v_38[15.0,] 
+		 1: BRANCH %v_41[17.0,] 
+BB 18
+	outgoing: 21 23 
+	datadep: 
+	instructions:
+		 0: %v_38[15.0,] 
+BB 19
+	outgoing: 20 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->render_404 def_%v_42 %self[5.8,13.1,2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_5 %v_42[19.1,] 
+		 3: %v_3[2.5,] 
+BB 20
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: 
+BB 21
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: def_%v_43 
+		 1: def_%v_44 %v_43[21.0,] %v_3[2.5,] 
+		 2: %v_43[21.0,] 
+BB 22
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[13.6,19.2,] %self[13.1,5.8,2.0,] 
+BB 23
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = diff instanceMethod = true
+BB 1
+	outgoing: 25 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->journal def_%v_3 %self[2.0,] 
+		 7: %v_3->issue def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN %self->issue %v_4[2.7,] 
+		 9: 
+		 10: %self->params def_%v_5 %self[2.0,2.8,] 	 SYMBOL:	 ARGS:
+		 11: %v_5->[] def_%v_6 %v_5[2.10,] 	 SYMBOL:detail_id,	 ARGS:Symbol,
+		 12: %v_6->present? def_%v_7 %v_6[2.11,] 	 SYMBOL:	 ARGS:
+		 13: BRANCH %v_7[2.12,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->journal def_%v_8 %self[2.0,] 
+		 2: %v_8->details def_%v_9 %v_8[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->params def_%v_10 %self[2.0,2.8,] 	 SYMBOL:	 ARGS:
+		 4: %v_10->[] def_%v_11 %v_10[3.3,] 	 SYMBOL:detail_id,	 ARGS:Symbol,
+		 5: %v_9->find_by_id def_%v_12 %v_9[3.2,] %v_11[3.4,] 	 SYMBOL:	 ARGS:%v_11,
+		 6: ATTRASSIGN %self->detail %v_12[3.5,] 
+		 7: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->journal def_%v_13 %self[2.0,] 
+		 2: %v_13->details def_%v_14 %v_13[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_14->detect def_%v_15 %v_14[4.2,] %self[2.0,2.8,] 	 SYMBOL:	 ARGS:%v_14,
+CLOSURE BEGIN: d[] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_d 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: d->property def_%cl_1_3 d[2.2,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "attr" def_%cl_1_4 
+		 3: %cl_1_3->== def_%cl_1_5 %cl_1_3[3.1,] %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:%cl_1_4,
+		 4: BRANCH %cl_1_5[3.3,] 
+BB 4
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: d->prop_key def_%cl_1_6 d[2.2,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "description" def_%cl_1_7 
+		 2: %cl_1_6->== def_%cl_1_8 %cl_1_6[4.0,] %cl_1_7[4.1,] 	 SYMBOL:	 ARGS:%cl_1_7,
+		 3: RETURN %cl_1_8[4.2,] %self[2.0,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_5[3.3,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_9 
+		 1: def_%cl_1_10 %cl_1_9[6.0,] 
+		 2: RETURN %cl_1_10[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: ATTRASSIGN %self->detail %v_15[4.3,] 
+		 5: COPY TYPE_PASS def_%v_12 %v_15[4.3,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->issue def_%v_16 %self[2.0,2.8,] 
+		 2: BRANCH %v_16[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->detail def_%v_17 %self[4.4,3.6,2.0,] 
+		 1: COPY TYPE_PASS def_%v_16 %v_17[6.0,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_16[6.1,5.1,] 
+BB 8
+	outgoing: 11 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_18 
+		 1: 
+		 2: GETFIELD %self->detail def_%v_20 %self[4.4,3.6,2.0,] 
+		 3: %v_20->property def_%v_21 %v_20[8.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "cf" def_%v_22 
+		 5: %v_21->== def_%v_23 %v_21[8.3,] %v_22[8.4,] 	 SYMBOL:	 ARGS:%v_22,
+		 6: BRANCH %v_23[8.5,] 
+BB 9
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->render_404 def_%v_19 %self[4.4,3.6,2.0,2.8,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: RETURN %self[9.1,4.4,3.6,2.0,2.8,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->detail def_%v_24 %self[4.4,3.6,2.0,] 
+		 2: %v_24->custom_field def_%v_25 %v_24[11.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_25[11.2,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->detail def_%v_26 %self[4.4,3.6,2.0,] 
+		 1: %v_26->custom_field def_%v_27 %v_26[12.0,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->issue def_%v_28 %self[2.0,2.8,] 
+		 3: %v_28->project def_%v_29 %v_28[12.2,] 	 SYMBOL:	 ARGS:
+		 4: (User) def_%v_30 
+		 5: %v_30->current def_%v_31 %v_30[12.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_27->visible_by? def_%v_32 %v_27[12.1,] %v_29[12.3,] %v_31[12.5,] 	 SYMBOL:	 ARGS:%v_29,%v_31,
+		 7: COPY TYPE_PASS def_%v_25 %v_32[12.6,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_25[12.7,11.2,] 
+BB 14
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_33 
+		 1: 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (inherit Unauthorized) def_%v_34 
+		 2: %v_34[15.1,] 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: CONSTANT def_%v_34 	 SYMBOL:Unauthorized,	 ARGS:Symbol,
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: %self->raise def_%v_35 %self[4.4,3.6,2.0,2.8,] %v_34[16.0,15.1,] 	 SYMBOL:	 ARGS:%v_34,
+		 1: COPY TYPE_PASS def_%v_33 %v_35[17.0,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_33 
+BB 20
+	outgoing: 21 22 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Redmine) def_%v_36 
+		 2: (inherit Helpers) def_%v_37 %v_36[20.1,] 
+		 3: %v_37[20.2,] 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: %v_36->const_missing def_%v_37 %v_36[20.1,] 	 SYMBOL:Helpers,	 ARGS:Symbol,
+BB 22
+	outgoing: 23 24 
+	datadep: 
+	instructions:
+		 0: (inherit Diff) def_%v_38 %v_37[21.0,20.2,] 
+		 1: %v_38[22.0,] 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: %v_37->const_missing def_%v_38 %v_37[21.0,20.2,] 	 SYMBOL:Diff,	 ARGS:Symbol,
+BB 24
+	outgoing: 25 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->detail def_%v_39 %self[4.4,3.6,2.0,] 
+		 1: %v_39->value def_%v_40 %v_39[24.0,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->detail def_%v_41 %self[4.4,3.6,2.0,] 
+		 3: %v_41->old_value def_%v_42 %v_41[24.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_38->new def_%v_43 %v_38[23.0,22.0,] %v_40[24.1,] %v_42[24.3,] 	 SYMBOL:	 ARGS:%v_40,%v_42,
+		 5: ATTRASSIGN %self->diff %v_43[24.4,] 
+		 6: RETURN %v_43[24.4,] %self[24.5,4.4,3.6,2.0,2.8,] 
+BB 25
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = new instanceMethod = true
+BB 1
+	outgoing: 20 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->params def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_6->[] def_%v_7 %v_6[4.2,] 	 SYMBOL:journal_id,	 ARGS:Symbol,
+		 4: BRANCH %v_7[4.3,] 
+BB 5
+	outgoing: 7 12 
+	datadep: 
+	instructions:
+		 0: (Journal) def_%v_8 
+		 1: %v_8->visible def_%v_9 %v_8[5.0,] 	 SYMBOL:	 ARGS:
+		 2: %self->params def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_10->[] def_%v_11 %v_10[5.2,] 	 SYMBOL:journal_id,	 ARGS:Symbol,
+		 4: %v_9->find def_%v_12 %v_9[5.1,] %v_11[5.3,] 	 SYMBOL:	 ARGS:%v_11,
+		 5: ATTRASSIGN %self->journal %v_12[5.4,] 
+		 6: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: GETFIELD %self->journal def_%v_13 %self[5.5,2.0,] 
+		 3: BRANCH %v_13[7.2,] 
+BB 8
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->journal def_%v_14 %self[5.5,2.0,] 
+		 1: %v_14->user def_%v_15 %v_14[8.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_user %v_15[8.1,] 
+		 3: 
+		 4: GETFIELD %self->journal def_%v_16 %self[5.5,2.0,] 
+		 5: %v_16->notes def_%v_17 %v_16[8.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_PASS def_text %v_17[8.5,] 
+		 7: 
+BB 9
+	outgoing: 10 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->issue def_%v_18 %self[2.0,] 
+		 2: %v_18->author def_%v_19 %v_18[9.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_user %v_19[9.2,] 
+		 4: 
+		 5: GETFIELD %self->issue def_%v_20 %self[2.0,] 
+		 6: %v_20->description def_%v_21 %v_20[9.5,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_PASS def_text %v_21[9.6,] 
+		 8: COPY TYPE_PASS def_%v_17 %v_21[9.6,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: text->to_s def_%v_22 text[9.7,8.6,] 	 SYMBOL:	 ARGS:
+		 2: %v_22->strip def_%v_23 %v_22[10.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_Regexp def_%v_24 
+		 4: COPY TYPE_StringLiteral "[...]" def_%v_25 
+		 5: %v_23->gsub def_%v_26 %v_23[10.2,] %v_25[10.4,] 	 SYMBOL:	 ARGS:%v_24,%v_25,
+		 6: COPY TYPE_PASS def_text %v_26[10.5,] 
+		 7: 
+		 8: (Setting) def_%v_27 
+		 9: %v_27->default_language def_%v_28 %v_27[10.8,] 	 SYMBOL:	 ARGS:
+		 10: %self->ll def_%v_29 %self[5.5,2.0,] %v_28[10.9,] user[9.3,8.2,] 	 SYMBOL:text_user_wrote,	 ARGS:%v_28,Symbol,user,
+		 11: COPY TYPE_StringLiteral "
+> " def_%v_30 
+		 12: BUILDSTRING def_%v_31 %v_29[10.10,] %v_30[10.11,] 
+		 13: ATTRASSIGN %self->content %v_31[10.12,] 
+		 14: 
+		 15: GETFIELD %self->content def_%v_32 %self[10.10,10.13,2.0,] 
+		 16: COPY TYPE_Regexp def_%v_33 
+		 17: COPY TYPE_StringLiteral "
+> " def_%v_34 
+		 18: text->gsub def_%v_35 text[10.1,10.6,] %v_34[10.17,] 	 SYMBOL:	 ARGS:%v_33,%v_34,
+		 19: COPY TYPE_StringLiteral "
+
+" def_%v_36 
+		 20: %v_35->+ def_%v_37 %v_35[10.18,] %v_36[10.19,] 	 SYMBOL:	 ARGS:%v_36,
+		 21: %v_32-><< def_%v_38 %v_32[10.15,] %v_37[10.20,] 	 SYMBOL:	 ARGS:%v_37,
+		 22: COPY TYPE_PASS def_%v_5 %v_38[10.21,] 
+		 23: %v_3[2.5,] 
+BB 11
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+BB 12
+	outgoing: 13 14 18 
+	datadep: 
+	instructions:
+		 0: def_%v_39 
+		 1: (ActiveRecord) def_%v_40 
+		 2: (inherit RecordNotFound) def_%v_41 %v_40[12.1,] 
+		 3: %v_41[12.2,] 
+BB 13
+	outgoing: 14 18 
+	datadep: 
+	instructions:
+		 0: %v_40->const_missing def_%v_41 %v_40[12.1,] 	 SYMBOL:RecordNotFound,	 ARGS:Symbol,
+BB 14
+	outgoing: 15 16 18 
+	datadep: 
+	instructions:
+		 0: def_%v_42 %v_41[13.0,12.2,] %v_39[12.0,] 
+		 1: BRANCH %v_42[14.0,] 
+BB 15
+	outgoing: 18 20 
+	datadep: 
+	instructions:
+		 0: %v_39[12.0,] 
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->render_404 def_%v_43 %self[5.5,10.13,2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_5 %v_43[16.1,] 
+		 3: %v_3[2.5,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: def_%v_44 
+		 1: def_%v_45 %v_44[18.0,] %v_3[2.5,] 
+		 2: %v_44[18.0,] 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[10.22,16.2,] %self[10.13,5.5,2.0,] 
+BB 20
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = edit instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->journal def_%v_3 %self[2.0,] 
+		 7: (User) def_%v_4 
+		 8: %v_4->current def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->editable_by? def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: BRANCH %v_6[2.9,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+		 2: %self->respond_to def_%v_9 %self[2.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: format[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_format 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: format->js def_%cl_1_3 format[2.2,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 3: RETURN %v_9[3.2,] %self[3.2,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->render_403 def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %self[4.0,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = update instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->journal def_%v_3 %self[2.0,] 
+		 7: (User) def_%v_4 
+		 8: %v_4->current def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->editable_by? def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: BRANCH %v_6[2.9,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+		 2: GETFIELD %self->journal def_%v_9 %self[2.0,] 
+		 3: %self->params def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_10->[] def_%v_11 %v_10[3.3,] 	 SYMBOL:journal,	 ARGS:Symbol,
+		 5: ATTRASSIGN %v_9->safe_attributes %v_11[3.4,] 
+		 6: 
+		 7: GETFIELD %self->journal def_%v_12 %self[3.3,2.0,] 
+		 8: %v_12->save def_%v_13 %v_12[3.7,] 	 SYMBOL:	 ARGS:
+		 9: 
+		 10: GETFIELD %self->journal def_%v_14 %self[3.3,2.0,] 
+		 11: %v_14->details def_%v_15 %v_14[3.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_15->empty? def_%v_16 %v_15[3.11,] 	 SYMBOL:	 ARGS:
+		 13: BRANCH %v_16[3.12,] 
+BB 4
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %self->render_403 def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %self[4.0,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->journal def_%v_17 %self[2.0,] 
+		 1: %v_17->notes def_%v_18 %v_17[6.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_18->blank? def_%v_19 %v_18[6.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_16 %v_19[6.2,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_16[6.3,3.12,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->journal def_%v_20 %self[2.0,] 
+		 1: %v_20->destroy def_%v_21 %v_20[8.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->journal def_%v_22 %self[2.0,] 
+		 2: %self->params def_%v_23 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: HASH-journal-params- def_%v_24 %v_22[10.1,] %v_23[10.2,] 
+		 4: %self->call_hook def_%v_25 %self[10.2,2.0,] %v_24[10.3,] 	 SYMBOL:controller_journals_edit_post,	 ARGS:Symbol,%v_24,
+		 5: 
+		 6: %self->respond_to def_%v_26 %self[10.2,10.4,2.0,] %self[10.2,10.4,2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: format[] %self[10.2,10.4,2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_format 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: format->html def_%cl_1_3 format[2.2,] %self[2.0,] 	 SYMBOL:	 ARGS:format,
+CLOSURE BEGIN: %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->journal def_%cl_2_3 %self[2.0,] 
+		 2: %cl_2_3->journalized def_%cl_2_4 %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->issue_path def_%cl_2_5 %self[2.0,] %cl_2_4[3.2,] 	 SYMBOL:	 ARGS:%cl_2_4,
+		 4: %self->redirect_to def_%cl_2_6 %self[3.3,2.0,] %cl_2_5[3.3,] 	 SYMBOL:	 ARGS:%cl_2_5,
+		 5: RETURN %cl_2_6[3.4,] %self[3.3,3.4,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_7 
+		 1: def_%cl_2_8 %cl_2_7[4.0,] 
+		 2: RETURN %cl_2_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: 
+		 3: format->js def_%cl_1_4 format[3.1,2.2,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %cl_1_4[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 7: RETURN %v_26[10.6,] %self[10.2,10.4,10.6,2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_journal instanceMethod = true
+BB 1
+	outgoing: 14 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (Journal) def_%v_6 
+		 3: %v_6->visible def_%v_7 %v_6[4.2,] 	 SYMBOL:	 ARGS:
+		 4: %self->params def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: %v_8->[] def_%v_9 %v_8[4.4,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 6: %v_7->find def_%v_10 %v_7[4.3,] %v_9[4.5,] 	 SYMBOL:	 ARGS:%v_9,
+		 7: ATTRASSIGN %self->journal %v_10[4.6,] 
+		 8: 
+		 9: GETFIELD %self->journal def_%v_11 %self[4.4,4.7,2.0,] 
+		 10: %v_11->journalized def_%v_12 %v_11[4.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_12->project def_%v_13 %v_12[4.10,] 	 SYMBOL:	 ARGS:
+		 12: ATTRASSIGN %self->project %v_13[4.11,] 
+		 13: COPY TYPE_PASS def_%v_5 %v_13[4.11,] 
+		 14: %v_3[2.5,] 
+BB 5
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 8 12 
+	datadep: 
+	instructions:
+		 0: def_%v_14 
+		 1: (ActiveRecord) def_%v_15 
+		 2: (inherit RecordNotFound) def_%v_16 %v_15[6.1,] 
+		 3: %v_16[6.2,] 
+BB 7
+	outgoing: 8 12 
+	datadep: 
+	instructions:
+		 0: %v_15->const_missing def_%v_16 %v_15[6.1,] 	 SYMBOL:RecordNotFound,	 ARGS:Symbol,
+BB 8
+	outgoing: 9 10 12 
+	datadep: 
+	instructions:
+		 0: def_%v_17 %v_16[7.0,6.2,] %v_14[6.0,] 
+		 1: BRANCH %v_17[8.0,] 
+BB 9
+	outgoing: 12 14 
+	datadep: 
+	instructions:
+		 0: %v_14[6.0,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->render_404 def_%v_18 %self[4.7,4.12,2.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_5 %v_18[10.1,] 
+		 3: %v_3[2.5,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: def_%v_19 
+		 1: def_%v_20 %v_19[12.0,] %v_3[2.5,] 
+		 2: %v_19[12.0,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[4.13,10.2,] %self[4.7,4.12,2.0,] 
+BB 14
+	outgoing: 
+	datadep: 
+	instructions:
+

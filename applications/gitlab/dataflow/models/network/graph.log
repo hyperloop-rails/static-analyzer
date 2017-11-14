@@ -1,0 +1,1591 @@
+SET IRMethod, name = max_count instanceMethod = false
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->max_count def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->max_count 
+		 1: RETURN %self[5.0,2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_project 
+		 6: RECEIVEARG def_ref 
+		 7: RECEIVEARG def_commit 
+		 8: RECEIVEARG def_filter_ref 
+		 9: 
+		 10: ATTRASSIGN %self->project project[2.5,] 
+		 11: 
+		 12: ATTRASSIGN %self->ref ref[2.6,] 
+		 13: 
+		 14: ATTRASSIGN %self->commit commit[2.7,] 
+		 15: 
+		 16: ATTRASSIGN %self->filter_ref filter_ref[2.8,] 
+		 17: 
+		 18: project->repository def_%v_3 project[2.5,] 	 SYMBOL:	 ARGS:
+		 19: ATTRASSIGN %self->repo %v_3[2.18,] 
+		 20: 
+		 21: %self->collect_commits def_%v_4 %self[2.0,2.10,2.12,2.14,2.16,2.19,] 	 SYMBOL:	 ARGS:
+		 22: ATTRASSIGN %self->commits %v_4[2.21,] 
+		 23: 
+		 24: %self->index_commits def_%v_5 %self[2.0,2.10,2.12,2.14,2.16,2.19,2.21,2.22,] 	 SYMBOL:	 ARGS:
+		 25: ATTRASSIGN %self->days %v_5[2.24,] 
+		 26: 
+		 27: %self->collect_notes def_%v_6 %self[2.0,2.10,2.12,2.14,2.16,2.19,2.21,2.22,2.24,2.25,] 	 SYMBOL:	 ARGS:
+		 28: ATTRASSIGN %self->notes %v_6[2.27,] 
+		 29: RETURN %v_6[2.27,] %self[2.0,2.10,2.12,2.14,2.16,2.19,2.21,2.22,2.24,2.25,2.27,2.28,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = collect_notes instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Hash) def_%v_3 
+		 7: %v_3->new def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: COPY TYPE_PASS def_h %v_4[2.7,] 
+		 9: 
+		 10: GETFIELD %self->project def_%v_5 %self[2.0,] 
+		 11: %v_5->notes def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral "noteable_type = ?" def_%v_7 
+		 13: COPY TYPE_StringLiteral "Commit" def_%v_8 
+		 14: %v_6->where def_%v_9 %v_6[2.11,] %v_7[2.12,] %v_8[2.13,] 	 SYMBOL:	 ARGS:%v_7,%v_8,
+		 15: COPY TYPE_StringLiteral "notes.commit_id" def_%v_10 
+		 16: %v_9->group def_%v_11 %v_9[2.14,] %v_10[2.15,] 	 SYMBOL:	 ARGS:%v_10,
+		 17: COPY TYPE_StringLiteral "notes.commit_id, count(notes.id) as note_count" def_%v_12 
+		 18: %v_11->select def_%v_13 %v_11[2.16,] %v_12[2.17,] 	 SYMBOL:	 ARGS:%v_12,
+		 19: %v_13->each def_%v_14 %v_13[2.18,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_13,
+CLOSURE BEGIN: item[] h[2.8,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_item 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: item->commit_id def_%cl_1_3 item[2.2,] 	 SYMBOL:	 ARGS:
+		 2: item->note_count def_%cl_1_4 item[3.1,2.2,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_4->to_i def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: ATTRASSIGN h->[] %cl_1_3[3.1,] %cl_1_5[3.3,] 
+		 5: RETURN %cl_1_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 20: 
+		 21: RETURN h[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = collect_commits instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->count_to_display_commit_in_center def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->find_commits def_%v_4 %self[2.0,2.6,] %v_3[2.6,] 	 SYMBOL:	 ARGS:%v_3,
+		 8: %v_4->map def_%v_5 %v_4[2.7,] %self[2.0,2.6,2.7,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: commit[] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_commit 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Network) def_%cl_1_3 
+		 2: (inherit Commit) def_%cl_1_4 %cl_1_3[3.1,] 
+		 3: %cl_1_4[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: %cl_1_3->const_missing def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:Commit,	 ARGS:Symbol,
+BB 5
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: %cl_1_4->new def_%cl_1_5 %cl_1_4[4.0,3.2,] commit[2.2,] 	 SYMBOL:	 ARGS:commit,
+		 1: RETURN %cl_1_5[5.0,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[6.0,] 
+		 2: RETURN %cl_1_7[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: RETURN %v_5[2.8,] %self[2.0,2.6,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = index_commits instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_Array def_%v_3 
+		 7: COPY TYPE_PASS def_days %v_3[2.6,] 
+		 8: 
+		 9: HASH- def_%v_4 
+		 10: ATTRASSIGN %self->map %v_4[2.9,] 
+		 11: 
+		 12: HASH- def_%v_5 
+		 13: ATTRASSIGN %self->reserved %v_5[2.12,] 
+		 14: 
+		 15: GETFIELD %self->commits def_%v_6 %self[2.0,] 
+		 16: %v_6->each_with_index def_%v_7 %v_6[2.15,] %self[2.0,2.10,2.13,] 	 SYMBOL:	 ARGS:%v_6,
+CLOSURE BEGIN: c[] i[] days[2.7,] %self[2.0,2.10,2.13,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_c 
+		 3: RECEIVEARG def_i 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN c->time i[2.3,] 
+		 2: 
+		 3: c->committed_date def_%cl_1_3 c[3.1,2.2,] 	 SYMBOL:	 ARGS:
+		 4: ATTRASSIGN days->[] i[2.3,] %cl_1_3[3.3,] 
+		 5: 
+		 6: GETFIELD %self->map def_%cl_1_4 %self[2.0,] 
+		 7: c->id def_%cl_1_5 c[3.1,3.3,2.2,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN %cl_1_4->[] %cl_1_5[3.7,] c[3.1,3.3,3.7,2.2,] 
+		 9: 
+		 10: GETFIELD %self->reserved def_%cl_1_6 %self[2.0,] 
+		 11: COPY TYPE_Array def_%cl_1_7 
+		 12: ATTRASSIGN %cl_1_6->[] i[2.3,] %cl_1_7[3.11,] 
+		 13: RETURN %cl_1_7[3.11,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[4.0,] 
+		 2: RETURN %cl_1_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: i[2.3,] 
+		 17: 
+		 18: %self->commits_sort_by_ref def_%v_8 %self[2.0,2.10,2.13,] 	 SYMBOL:	 ARGS:
+		 19: %v_8->each def_%v_9 %v_8[2.18,] %self[2.0,2.10,2.13,2.18,] 	 SYMBOL:	 ARGS:%v_8,
+CLOSURE BEGIN: %self[2.0,2.10,2.13,2.18,] commit[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_commit 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->place_chain def_%cl_2_3 %self[2.0,] commit[2.2,] 	 SYMBOL:	 ARGS:commit,
+		 2: RETURN %cl_2_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_4 
+		 1: def_%cl_2_5 %cl_2_4[4.0,] 
+		 2: RETURN %cl_2_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 20: 
+		 21: GETFIELD %self->commits def_%v_10 %self[2.0,2.18,] 
+		 22: %v_10->each def_%v_11 %v_10[2.21,] %self[2.0,2.10,2.13,2.18,] 	 SYMBOL:	 ARGS:%v_10,
+CLOSURE BEGIN: c[2.16,] %self[2.0,2.10,2.13,2.18,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_c 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: c->parent_spaces def_%cl_3_3 c[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %self->find_free_parent_spaces def_%cl_3_4 %self[2.0,] c[3.1,2.2,] 	 SYMBOL:	 ARGS:c,
+		 3: %cl_3_3->concat def_%cl_3_5 %cl_3_3[3.1,] %cl_3_4[3.2,] 	 SYMBOL:	 ARGS:%cl_3_4,
+		 4: RETURN %cl_3_5[3.3,] %self[3.2,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_6 
+		 1: def_%cl_3_7 %cl_3_6[4.0,] 
+		 2: RETURN %cl_3_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 23: 
+		 24: RETURN days[2.7,] %self[2.0,2.10,2.13,2.18,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = count_to_display_commit_in_center instanceMethod = true
+BB 1
+	outgoing: 17 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_Fixnum def_offset 
+		 7: 
+		 8: COPY TYPE_Fixnum def_skip 
+		 9: 
+BB 3
+	outgoing: 4 12 
+	datadep: 
+	instructions:
+		 0: offset->== def_%v_4 offset[2.6,9.1,6.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 1: BRANCH %v_4[3.0,] 
+BB 4
+	outgoing: 5 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: %self->find_commits def_%v_5 %self[2.0,] skip[2.8,7.4,] 	 SYMBOL:	 ARGS:skip,
+		 3: COPY TYPE_PASS def_tmp_commits %v_5[4.2,] 
+		 4: 
+		 5: %v_5->size def_%v_6 %v_5[4.2,] 	 SYMBOL:	 ARGS:
+		 6: %v_6->> def_%v_7 %v_6[4.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 7: BRANCH %v_7[4.6,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: tmp_commits->index def_%v_8 tmp_commits[4.3,] %self[2.0,] 	 SYMBOL:	 ARGS:tmp_commits,
+CLOSURE BEGIN: c[] %self[2.0,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_c 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: c->id def_%cl_1_3 c[2.2,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->commit def_%cl_1_4 %self[2.0,] 
+		 3: %cl_1_4->id def_%cl_1_5 %cl_1_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: %cl_1_3->== def_%cl_1_6 %cl_1_3[3.1,] %cl_1_5[3.3,] 	 SYMBOL:	 ARGS:%cl_1_5,
+		 5: RETURN %cl_1_6[3.4,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_7 
+		 1: def_%cl_1_8 %cl_1_7[4.0,] 
+		 2: RETURN %cl_1_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: COPY TYPE_PASS def_index %v_8[5.1,] 
+		 3: 
+		 4: BRANCH %v_8[5.1,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: index->+ def_%v_9 index[5.2,] skip[2.8,7.4,] 	 SYMBOL:	 ARGS:skip,
+		 2: COPY TYPE_PASS def_offset %v_9[6.1,] 
+		 3: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->class def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_10->max_count def_%v_11 %v_10[7.1,] 	 SYMBOL:	 ARGS:
+		 3: skip->+ def_%v_12 skip[2.8,] %v_11[7.2,] 	 SYMBOL:	 ARGS:%v_11,
+		 4: COPY TYPE_PASS def_skip %v_12[7.3,] 
+		 5: COPY TYPE_PASS def_%v_9 %v_12[7.3,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Fixnum def_offset 
+		 2: COPY TYPE_Fixnum def_%v_9 
+BB 10
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: 
+BB 12
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_3 
+		 1: 
+		 2: %self->class def_%v_13 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_13->max_count def_%v_14 %v_13[12.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_14->/ def_%v_15 %v_14[12.3,] 	 SYMBOL:	 ARGS:Fixnum,
+		 5: %v_15->< def_%v_16 %v_15[12.4,] offset[2.6,9.1,6.2,] 	 SYMBOL:	 ARGS:offset,
+		 6: BRANCH %v_16[12.5,] 
+BB 14
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->class def_%v_17 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_17->max_count def_%v_18 %v_17[14.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_18->/ def_%v_19 %v_18[14.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: offset->- def_%v_20 offset[2.6,9.1,6.2,] %v_19[14.3,] 	 SYMBOL:	 ARGS:%v_19,
+		 5: RETURN %v_20[14.4,] %self[14.1,2.0,] 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 17
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_commits instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVECONSTARG def_skip 
+		 6: skip[2.5,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_skip 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->class def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_3->max_count def_%v_4 %v_3[4.1,] 	 SYMBOL:	 ARGS:
+		 3: HASH-max_count-skip- def_%v_5 %v_4[4.2,] skip[3.0,2.5,] 
+		 4: COPY TYPE_PASS def_opts %v_5[4.3,] 
+		 5: 
+		 6: GETFIELD %self->filter_ref def_%v_6 %self[4.1,2.0,] 
+		 7: BRANCH %v_6[4.6,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->commit def_%v_7 %self[2.0,] 
+		 1: %v_7->id def_%v_8 %v_7[5.0,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN opts->[] %v_8[5.1,] 
+		 3: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->repo def_%v_9 %self[2.0,] 
+		 2: %v_9->find_commits def_%v_10 %v_9[7.1,] opts[5.2,4.4,] 	 SYMBOL:	 ARGS:opts,
+		 3: RETURN %v_10[7.2,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = commits_sort_by_ref instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: GETFIELD %self->commits def_%v_3 %self[2.0,] 
+		 7: %v_3->sort def_%v_4 %v_3[2.6,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: %self[2.0,] a[] b[] 
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_a 
+		 3: RECEIVEARG def_b 
+		 4: COPY TYPE_CurrentScope def_%current_scope 
+		 5: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->include_ref? def_%cl_1_3 %self[2.0,] a[2.2,] 	 SYMBOL:	 ARGS:a,
+		 2: BRANCH %cl_1_3[3.1,] 
+BB 4
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Fixnum def_%cl_1_4 
+		 2: RETURN %self[2.0,] 
+BB 5
+	outgoing: 6 7 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->include_ref? def_%cl_1_5 %self[2.0,] b[2.3,] 	 SYMBOL:	 ARGS:b,
+		 2: BRANCH %cl_1_5[5.1,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Fixnum def_%cl_1_6 
+		 2: 
+BB 7
+	outgoing: 8 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: b->committed_date def_%cl_1_7 b[2.3,] 	 SYMBOL:	 ARGS:
+		 2: a->committed_date def_%cl_1_8 a[2.2,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_7-><=> def_%cl_1_9 %cl_1_7[7.1,] %cl_1_8[7.2,] 	 SYMBOL:	 ARGS:%cl_1_8,
+		 4: COPY TYPE_PASS def_%cl_1_6 %cl_1_9[7.3,] 
+BB 8
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_6[7.4,6.1,] %self[2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_10 
+		 1: def_%cl_1_11 %cl_1_10[10.0,] 
+		 2: RETURN %cl_1_11[10.1,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: b[2.3,] 
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = include_ref? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_commit 
+		 6: 
+		 7: GETFIELD %self->repo def_%v_3 %self[2.0,] 
+		 8: commit->ref_names def_%v_4 commit[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: GETFIELD %self->ref def_%v_5 %self[2.0,] 
+		 10: %v_4->include? def_%v_6 %v_4[2.8,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: RETURN %v_6[2.10,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_free_parent_spaces instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_commit 
+		 6: 
+		 7: COPY TYPE_Array def_%v_3 
+		 8: COPY TYPE_PASS def_spaces %v_3[2.7,] 
+		 9: 
+		 10: GETFIELD %self->map def_%v_4 %self[2.0,] 
+		 11: commit->parents def_%v_5 commit[2.5,] %v_4[2.10,] 	 SYMBOL:	 ARGS:%v_4,
+		 12: %v_5->each def_%v_6 %v_5[2.11,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_5,
+CLOSURE BEGIN: commit[2.5,2.11,] parent[] %self[2.0,] range[] spaces[2.8,] space[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_parent 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: commit->time def_%cl_1_4 commit[] 	 SYMBOL:	 ARGS:
+		 2: parent->time def_%cl_1_5 parent[2.2,] 	 SYMBOL:	 ARGS:
+		 3: CONSTANT def_%cl_1_3 %cl_1_4[3.1,] %cl_1_5[3.2,] 
+		 4: COPY TYPE_PASS def_range %cl_1_3[3.3,] 
+		 5: 
+		 6: commit->space def_%cl_1_6 commit[3.1,] 	 SYMBOL:	 ARGS:
+		 7: parent->space def_%cl_1_7 parent[3.2,2.2,] 	 SYMBOL:	 ARGS:
+		 8: %cl_1_6->>= def_%cl_1_8 %cl_1_6[3.6,] %cl_1_7[3.7,] 	 SYMBOL:	 ARGS:%cl_1_7,
+		 9: BRANCH %cl_1_8[3.8,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: parent->space def_%cl_1_9 parent[2.2,] 	 SYMBOL:	 ARGS:
+		 2: commit->space def_%cl_1_10 commit[] 	 SYMBOL:	 ARGS:
+		 3: %self->find_free_parent_space def_%cl_1_11 %self[2.0,] range[3.4,] %cl_1_9[4.1,] %cl_1_10[4.2,] 	 SYMBOL:	 ARGS:range,%cl_1_9,Fixnum,%cl_1_10,
+		 4: 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: commit->space def_%cl_1_12 commit[] 	 SYMBOL:	 ARGS:
+		 2: parent->space def_%cl_1_13 parent[2.2,] 	 SYMBOL:	 ARGS:
+		 3: %self->find_free_parent_space def_%cl_1_14 %self[2.0,] range[3.4,] %cl_1_12[5.1,] %cl_1_13[5.2,] 	 SYMBOL:	 ARGS:range,%cl_1_12,Fixnum,%cl_1_13,
+		 4: COPY TYPE_PASS def_%cl_1_11 %cl_1_14[5.3,] 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_space %cl_1_11[5.4,4.3,] 
+		 1: 
+		 2: %self->mark_reserved def_%cl_1_15 %self[2.0,] range[3.4,] %cl_1_11[5.4,4.3,] 	 SYMBOL:	 ARGS:range,space,
+		 3: 
+		 4: spaces-><< def_%cl_1_16 spaces[] space[6.0,] 	 SYMBOL:	 ARGS:space,
+		 5: RETURN %cl_1_16[6.4,] %self[6.2,2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_17 
+		 1: def_%cl_1_18 %cl_1_17[7.0,] 
+		 2: RETURN %cl_1_18[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: range[3.4,] space[6.0,] 
+		 13: 
+		 14: RETURN spaces[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_free_parent_space instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_range 
+		 6: RECEIVEARG def_space_base 
+		 7: RECEIVEARG def_space_step 
+		 8: RECEIVEARG def_space_default 
+		 9: 
+		 10: %self->is_overlap? def_%v_3 %self[2.0,] range[2.5,] space_default[2.8,] 	 SYMBOL:	 ARGS:range,space_default,
+		 11: BRANCH %v_3[2.10,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->find_free_space def_%v_4 %self[2.0,] range[2.5,] space_step[2.7,] space_base[2.6,] space_default[2.8,] 	 SYMBOL:	 ARGS:range,space_step,space_base,space_default,
+		 2: RETURN %v_4[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN space_default[2.8,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = is_overlap? instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_range 
+		 6: RECEIVEARG def_overlap_space 
+		 7: 
+		 8: range->each def_%v_3 range[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:range,
+CLOSURE BEGIN: range[2.5,] i[] %self[2.0,] overlap_space[2.6,] 
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_i 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: range->first def_%cl_1_3 range[] 	 SYMBOL:	 ARGS:
+		 2: i->!= def_%cl_1_4 i[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: BRANCH %cl_1_4[3.2,] 
+BB 4
+	outgoing: 5 11 
+	datadep: 
+	instructions:
+		 0: range->last def_%cl_1_5 range[] 	 SYMBOL:	 ARGS:
+		 1: i->!= def_%cl_1_6 i[3.2,2.2,] %cl_1_5[4.0,] 	 SYMBOL:	 ARGS:%cl_1_5,
+		 2: COPY TYPE_PASS def_%cl_1_4 %cl_1_6[4.1,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_4[4.2,3.2,] 
+BB 6
+	outgoing: 7 11 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->commits def_%cl_1_7 %self[2.0,] 
+		 1: %cl_1_7->[] def_%cl_1_8 %cl_1_7[6.0,] i[4.1,3.2,2.2,] 	 SYMBOL:	 ARGS:i,
+		 2: %cl_1_8->spaces def_%cl_1_9 %cl_1_8[6.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_9->include? def_%cl_1_10 %cl_1_9[6.2,] overlap_space[] 	 SYMBOL:	 ARGS:overlap_space,
+		 4: COPY TYPE_PASS def_%cl_1_4 %cl_1_10[6.3,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_4[6.4,4.2,3.2,] 
+BB 8
+	outgoing: 11 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: RETURN %self[2.0,] 
+BB 9
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_12 
+		 1: def_%cl_1_13 %cl_1_12[11.0,] 
+		 2: RETURN %cl_1_13[11.1,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: 
+		 10: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%v_4 
+		 1: def_%v_5 %v_4[4.0,] 
+		 2: RETURN %v_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = place_chain instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_commit 
+		 6: RECEIVECONSTARG def_parent_time 
+		 7: parent_time[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_parent_time 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->take_left_leaves def_%v_3 %self[2.0,] commit[2.5,] 	 SYMBOL:	 ARGS:commit,
+		 2: COPY TYPE_PASS def_leaves %v_3[4.1,] 
+		 3: 
+		 4: %v_3->empty? def_%v_4 %v_3[4.1,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %v_4[4.4,] 
+BB 5
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: leaves->first def_%v_7 leaves[4.2,] 	 SYMBOL:	 ARGS:
+		 3: %v_7->time def_%v_8 %v_7[6.2,] 	 SYMBOL:	 ARGS:
+		 4: leaves->last def_%v_9 leaves[6.2,4.2,] 	 SYMBOL:	 ARGS:
+		 5: %v_9->time def_%v_10 %v_9[6.4,] 	 SYMBOL:	 ARGS:
+		 6: CONSTANT def_%v_6 %v_8[6.3,] %v_10[6.5,] 
+		 7: COPY TYPE_PASS def_time_range %v_6[6.6,] 
+		 8: 
+		 9: %self->get_space_base def_%v_11 %self[2.0,] leaves[6.2,6.4,4.2,] 	 SYMBOL:	 ARGS:leaves,
+		 10: COPY TYPE_PASS def_space_base %v_11[6.9,] 
+		 11: 
+		 12: %self->find_free_space def_%v_12 %self[6.9,2.0,] time_range[6.7,] %v_11[6.9,] 	 SYMBOL:	 ARGS:time_range,Fixnum,space_base,
+		 13: COPY TYPE_PASS def_space %v_12[6.12,] 
+		 14: 
+		 15: leaves->each def_%v_13 leaves[6.2,6.4,4.2,] %self[6.9,6.12,2.0,] 	 SYMBOL:	 ARGS:leaves,
+CLOSURE BEGIN: l[] space[6.13,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_l 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: l->spaces def_%cl_1_3 l[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_3-><< def_%cl_1_4 %cl_1_3[3.1,] space[] 	 SYMBOL:	 ARGS:space,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 16: 
+		 17: parent_time->nil? def_%v_14 parent_time[3.0,2.6,] 	 SYMBOL:	 ARGS:
+		 18: BRANCH %v_14[6.17,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: leaves->first def_%v_15 leaves[4.2,] 	 SYMBOL:	 ARGS:
+		 2: %v_15->time def_%v_16 %v_15[8.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_min_time %v_16[8.2,] 
+		 4: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: parent_time->+ def_%v_17 parent_time[3.0,2.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: COPY TYPE_PASS def_min_time %v_17[9.1,] 
+		 3: COPY TYPE_PASS def_%v_16 %v_17[9.1,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: leaves->last def_%v_18 leaves[4.2,] 	 SYMBOL:	 ARGS:
+		 2: %v_18->time def_%v_19 %v_18[10.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_max_time %v_19[10.2,] 
+		 4: 
+		 5: leaves->last def_%v_20 leaves[10.1,4.2,] 	 SYMBOL:	 ARGS:
+		 6: GETFIELD %self->map def_%v_21 %self[2.0,] 
+		 7: %v_20->parents def_%v_22 %v_20[10.5,] %v_21[10.6,] 	 SYMBOL:	 ARGS:%v_21,
+		 8: %v_22->each def_%v_23 %v_22[10.7,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_22,
+CLOSURE BEGIN: parent[] max_time[10.3,] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_parent 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: parent->time def_%cl_2_3 parent[2.2,] 	 SYMBOL:	 ARGS:
+		 2: max_time->< def_%cl_2_4 max_time[] %cl_2_3[3.1,] 	 SYMBOL:	 ARGS:%cl_2_3,
+		 3: BRANCH %cl_2_4[3.2,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: parent->time def_%cl_2_5 parent[2.2,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_max_time %cl_2_5[4.1,] 
+		 3: 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_2_5[4.1,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_6 
+		 1: def_%cl_2_7 %cl_2_6[7.0,] 
+		 2: RETURN %cl_2_7[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: max_time[4.2,] 
+		 9: 
+		 10: CONSTANT def_%v_24 min_time[9.2,8.3,] max_time[10.3,10.8,] 
+		 11: %self->mark_reserved def_%v_25 %self[2.0,] %v_24[10.10,] space[6.13,] 	 SYMBOL:	 ARGS:%v_24,space,
+		 12: 
+		 13: leaves->each def_%v_26 leaves[10.1,10.5,4.2,] %self[10.11,2.0,] 	 SYMBOL:	 ARGS:leaves,
+CLOSURE BEGIN: %self[10.11,2.0,] l[6.15,] p[] p[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_l 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->map def_%cl_3_3 %self[2.0,] 
+		 2: l->parents def_%cl_3_4 l[2.2,] %cl_3_3[3.1,] 	 SYMBOL:	 ARGS:%cl_3_3,
+		 3: %cl_3_4->select def_%cl_3_5 %cl_3_4[3.2,] %self[2.0,] 	 SYMBOL:	 ARGS:%cl_3_4,
+CLOSURE BEGIN: p[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_4_0 
+		 2: RECEIVEARG def_p 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: p->space def_%cl_4_3 p[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_4_3->zero? def_%cl_4_4 %cl_4_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %cl_4_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_4_5 
+		 1: def_%cl_4_6 %cl_4_5[4.0,] 
+		 2: RETURN %cl_4_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 4: COPY TYPE_PASS def_parents %cl_3_5[3.3,] 
+		 5: 
+		 6: %cl_3_5->each def_%cl_3_6 %cl_3_5[3.3,] %self[2.0,] 	 SYMBOL:	 ARGS:%cl_3_5,
+CLOSURE BEGIN: l[3.2,2.2,] %self[2.0,] p[3.3,] 
+BB 1
+	outgoing: 4 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_5_0 
+		 2: RECEIVEARG def_p 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+		 5: 
+		 6: l->time def_%cl_5_3 l[] 	 SYMBOL:	 ARGS:
+		 7: %self->place_chain def_%cl_5_4 %self[2.0,] p[2.2,] %cl_5_3[2.6,] 	 SYMBOL:	 ARGS:p,%cl_5_3,
+		 8: RETURN %cl_5_4[2.7,] %self[2.0,2.7,] 
+BB 4
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: p[2.2,] 
+		 7: RETURN %cl_3_6[3.6,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_7 
+		 1: def_%cl_3_8 %cl_3_7[4.0,] 
+		 2: RETURN %cl_3_8[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: parents[3.4,] 
+		 14: RETURN %v_26[10.13,] %self[10.11,2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_space_base instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_leaves 
+		 6: 
+		 7: COPY TYPE_Fixnum def_space_base 
+		 8: 
+		 9: leaves->last def_%v_3 leaves[2.5,] 	 SYMBOL:	 ARGS:
+		 10: GETFIELD %self->map def_%v_4 %self[2.0,] 
+		 11: %v_3->parents def_%v_5 %v_3[2.9,] %v_4[2.10,] 	 SYMBOL:	 ARGS:%v_4,
+		 12: COPY TYPE_PASS def_parents %v_5[2.11,] 
+		 13: 
+		 14: %v_5->size def_%v_6 %v_5[2.11,] 	 SYMBOL:	 ARGS:
+		 15: %v_6->> def_%v_7 %v_6[2.14,] 	 SYMBOL:	 ARGS:Fixnum,
+		 16: BRANCH %v_7[2.15,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: parents->first def_%v_8 parents[2.12,] 	 SYMBOL:	 ARGS:
+		 2: %v_8->space def_%v_9 %v_8[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_9->> def_%v_10 %v_9[3.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: BRANCH %v_10[3.3,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: parents->first def_%v_11 parents[2.12,] 	 SYMBOL:	 ARGS:
+		 2: %v_11->space def_%v_12 %v_11[4.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_space_base %v_12[4.2,] 
+		 4: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN space_base[2.7,4.3,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mark_reserved instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_time_range 
+		 6: RECEIVEARG def_space 
+		 7: 
+		 8: time_range->each def_%v_3 time_range[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:time_range,
+CLOSURE BEGIN: %self[2.0,] day[] space[2.6,] 
+BB 1
+	outgoing: 4 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_day 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+		 5: 
+		 6: GETFIELD %self->reserved def_%cl_1_3 %self[2.0,] 
+		 7: %cl_1_3->[] def_%cl_1_4 %cl_1_3[2.6,] day[2.2,] 	 SYMBOL:	 ARGS:day,
+		 8: %cl_1_4->push def_%cl_1_5 %cl_1_4[2.7,] space[] 	 SYMBOL:	 ARGS:space,
+		 9: RETURN %cl_1_5[2.8,] %self[2.0,] 
+BB 4
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: day[2.2,] 
+		 9: RETURN %v_3[2.8,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_free_space instanceMethod = true
+BB 1
+	outgoing: 17 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_time_range 
+		 6: RECEIVEARG def_space_step 
+		 7: RECEIVECONSTARG def_space_base 
+		 8: space_base[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_space_base 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: RECEIVECONSTARG def_space_default 
+		 1: space_default[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_space_default 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_3 space_default[5.0,4.0,] 
+		 2: COPY TYPE_PASS def_%v_4 space_default[5.0,4.0,] 
+		 3: BRANCH space_default[5.0,4.0,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_space_default space_base[3.0,2.7,] 
+		 1: COPY TYPE_PASS def_%v_4 space_base[3.0,2.7,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Array def_%v_5 
+		 2: COPY TYPE_PASS def_reserved %v_5[8.1,] 
+		 3: 
+		 4: time_range->each def_%v_6 time_range[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:time_range,
+CLOSURE BEGIN: %self[2.0,] day[] reserved[8.2,] 
+BB 1
+	outgoing: 4 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_day 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+		 5: 
+		 6: GETFIELD %self->reserved def_%cl_1_4 %self[2.0,] 
+		 7: %cl_1_4->[] def_%cl_1_5 %cl_1_4[2.6,] day[2.2,] 	 SYMBOL:	 ARGS:day,
+		 8: def_%cl_1_3 %cl_1_5[2.7,] 
+		 9: reserved->push def_%cl_1_6 reserved[] %cl_1_3[2.8,] 	 SYMBOL:	 ARGS:Splat,
+		 10: RETURN %cl_1_6[2.9,] %self[2.0,] 
+BB 4
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: day[2.2,] 
+		 5: 
+		 6: reserved->uniq! def_%v_7 reserved[8.2,] 	 SYMBOL:	 ARGS:
+		 7: 
+		 8: COPY TYPE_PASS def_space space_default[7.0,5.0,4.0,] 
+		 9: 
+BB 9
+	outgoing: 10 15 
+	datadep: 
+	instructions:
+		 0: reserved->include? def_%v_9 reserved[8.2,] space[8.8,11.5,10.3,] 	 SYMBOL:	 ARGS:space,
+		 1: BRANCH %v_9[9.0,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: space->+ def_%v_10 space[8.8,11.5,] space_step[11.2,2.6,] 	 SYMBOL:	 ARGS:space_step,
+		 3: COPY TYPE_PASS def_space %v_10[10.2,] 
+		 4: 
+		 5: %v_10->< def_%v_11 %v_10[10.2,] space_base[3.0,2.7,] 	 SYMBOL:	 ARGS:space_base,
+		 6: BRANCH %v_11[10.5,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: space_step->* def_%v_12 space_step[2.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: COPY TYPE_PASS def_space_step %v_12[11.1,] 
+		 3: 
+		 4: space_base->+ def_%v_13 space_base[3.0,2.7,] %v_12[11.1,] 	 SYMBOL:	 ARGS:space_step,
+		 5: COPY TYPE_PASS def_space %v_13[11.4,] 
+		 6: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+BB 13
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: RETURN space[8.8,11.5,10.3,] %self[2.0,] 
+BB 17
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = take_left_leaves instanceMethod = true
+BB 1
+	outgoing: 17 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_raw_commit 
+		 6: 
+		 7: GETFIELD %self->map def_%v_3 %self[2.0,] 
+		 8: raw_commit->id def_%v_4 raw_commit[2.5,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->[] def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: COPY TYPE_PASS def_commit %v_5[2.9,] 
+		 11: 
+		 12: COPY TYPE_Array def_%v_6 
+		 13: COPY TYPE_PASS def_leaves %v_6[2.12,] 
+		 14: 
+		 15: %v_5->space def_%v_7 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 16: %v_7->zero? def_%v_8 %v_7[2.15,] 	 SYMBOL:	 ARGS:
+		 17: BRANCH %v_8[2.16,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: leaves->push def_%v_9 leaves[2.13,] commit[2.10,] 	 SYMBOL:	 ARGS:commit,
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 6
+	outgoing: 7 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: BRANCH 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->map def_%v_11 %self[2.0,] 
+		 2: commit->parents def_%v_12 commit[2.10,9.5,] %v_11[7.1,] 	 SYMBOL:	 ARGS:%v_11,
+		 3: %v_12->count def_%v_13 %v_12[7.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_13->zero? def_%v_14 %v_13[7.3,] 	 SYMBOL:	 ARGS:
+		 5: BRANCH %v_14[7.4,] 
+BB 8
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: RETURN leaves[2.13,] %self[2.0,] 
+BB 9
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+		 1: 
+		 2: GETFIELD %self->map def_%v_16 %self[2.0,] 
+		 3: commit->parents def_%v_17 commit[2.10,] %v_16[9.2,] 	 SYMBOL:	 ARGS:%v_16,
+		 4: %v_17->first def_%v_18 %v_17[9.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_commit %v_18[9.4,] 
+		 6: 
+		 7: %v_18->space def_%v_19 %v_18[9.4,] 	 SYMBOL:	 ARGS:
+		 8: %v_19->zero? def_%v_20 %v_19[9.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_20[9.8,] 
+BB 11
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+		 1: 
+		 2: leaves->push def_%v_22 leaves[2.13,] commit[9.5,] 	 SYMBOL:	 ARGS:commit,
+BB 12
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: RETURN leaves[2.13,] %self[2.0,] 
+BB 14
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 17
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,183 @@
+SET IRMethod, name = get_download_path instanceMethod = false
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_filename 
+		 6: 
+		 7: (File) def_%v_3 
+		 8: (UserExport) def_%v_4 
+		 9: %v_4->base_directory def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_3->join def_%v_6 %v_3[2.7,] %v_5[2.9,] filename[2.5,] 	 SYMBOL:	 ARGS:%v_5,filename,
+		 11: COPY TYPE_PASS def_path %v_6[2.10,] 
+		 12: 
+		 13: (File) def_%v_7 
+		 14: %v_7->exists? def_%v_8 %v_7[2.13,] %v_6[2.10,] 	 SYMBOL:	 ARGS:path,
+		 15: BRANCH %v_8[2.14,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN path[2.11,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = remove_old_exports instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (UserExport) def_%v_3 
+		 7: COPY TYPE_StringLiteral "created_at < ?" def_%v_4 
+		 8: CONSTANT def_%v_5 	 SYMBOL:	 ARGS:
+		 9: %v_5->ago def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: %v_3->where def_%v_7 %v_3[2.6,] %v_4[2.7,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_4,%v_6,
+		 11: %v_7->to_a def_%v_8 %v_7[2.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_PASS def_expired_exports %v_8[2.11,] 
+		 13: 
+		 14: %v_8->map def_%v_9 %v_8[2.11,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_8,
+CLOSURE BEGIN: expired_export[] file_name[] file_path[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_expired_export 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: expired_export->file_name def_%cl_1_3 expired_export[2.2,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "-" def_%cl_1_4 
+		 3: expired_export->id def_%cl_1_5 expired_export[3.1,2.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral ".csv.gz" def_%cl_1_6 
+		 5: BUILDSTRING def_%cl_1_7 %cl_1_3[3.1,] %cl_1_4[3.2,] %cl_1_5[3.3,] %cl_1_6[3.4,] 
+		 6: COPY TYPE_PASS def_file_name %cl_1_7[3.5,] 
+		 7: 
+		 8: (UserExport) def_%cl_1_8 
+		 9: %cl_1_8->base_directory def_%cl_1_9 %cl_1_8[3.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_StringLiteral "/" def_%cl_1_10 
+		 11: BUILDSTRING def_%cl_1_11 %cl_1_9[3.9,] %cl_1_10[3.10,] file_name[3.6,] 
+		 12: COPY TYPE_PASS def_file_path %cl_1_11[3.11,] 
+		 13: 
+		 14: (File) def_%cl_1_12 
+		 15: %cl_1_12->exist? def_%cl_1_13 %cl_1_12[3.14,] %cl_1_11[3.11,] 	 SYMBOL:	 ARGS:file_path,
+		 16: BRANCH %cl_1_13[3.15,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (File) def_%cl_1_14 
+		 2: %cl_1_14->delete def_%cl_1_15 %cl_1_14[4.1,] file_path[3.12,] 	 SYMBOL:	 ARGS:file_path,
+		 3: 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_15 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (UserExport) def_%cl_1_16 
+		 2: expired_export->id def_%cl_1_17 expired_export[2.2,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_16->find def_%cl_1_18 %cl_1_16[6.1,] %cl_1_17[6.2,] 	 SYMBOL:	 ARGS:%cl_1_17,
+		 4: %cl_1_18->destroy def_%cl_1_19 %cl_1_18[6.3,] 	 SYMBOL:	 ARGS:
+		 5: RETURN %cl_1_19[6.4,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_20 
+		 1: def_%cl_1_21 %cl_1_20[7.0,] 
+		 2: RETURN %cl_1_21[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: file_path[3.12,] file_name[3.6,] 
+		 15: RETURN %v_9[2.14,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = base_directory instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (File) def_%v_3 
+		 7: (Rails) def_%v_4 
+		 8: %v_4->root def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: COPY TYPE_StringLiteral "public" def_%v_6 
+		 10: COPY TYPE_StringLiteral "uploads" def_%v_7 
+		 11: COPY TYPE_StringLiteral "csv_exports" def_%v_8 
+		 12: (RailsMultisite) def_%v_9 
+		 13: (inherit ConnectionManagement) def_%v_10 %v_9[2.12,] 
+		 14: %v_10[2.13,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_9->const_missing def_%v_10 %v_9[2.12,] 	 SYMBOL:ConnectionManagement,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_10->current_db def_%v_11 %v_10[3.0,2.13,] 	 SYMBOL:	 ARGS:
+		 1: %v_3->join def_%v_12 %v_3[2.6,] %v_5[2.8,] %v_6[2.9,] %v_7[2.10,] %v_8[2.11,] %v_11[4.0,] 	 SYMBOL:	 ARGS:%v_5,%v_6,%v_7,%v_8,%v_11,
+		 2: RETURN %v_12[4.1,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

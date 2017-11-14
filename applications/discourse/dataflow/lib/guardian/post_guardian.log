@@ -1,0 +1,1694 @@
+SET IRMethod, name = post_can_act? instanceMethod = true
+BB 1
+	outgoing: 53 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: RECEIVEARG def_action_key 
+		 7: RECEIVECONSTARG def_opts 
+		 8: opts[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: opts->[] def_%v_4 opts[3.1,2.7,] 	 SYMBOL:taken_actions,	 ARGS:Symbol,
+		 2: %v_4->try def_%v_5 %v_4[4.1,] 	 SYMBOL:keys,	 ARGS:Symbol,
+		 3: %v_5->to_a def_%v_6 %v_5[4.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_taken %v_6[4.3,] 
+		 5: 
+		 6: (PostActionType) def_%v_7 
+		 7: %v_7->is_flag? def_%v_8 %v_7[4.6,] action_key[2.6,] 	 SYMBOL:	 ARGS:action_key,
+		 8: COPY TYPE_PASS def_is_flag %v_8[4.7,] 
+		 9: 
+		 10: taken->any? def_%v_9 taken[4.4,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_9[4.10,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: (PostActionType) def_%v_10 
+		 1: %v_10->types def_%v_11 %v_10[5.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_11->[] def_%v_12 %v_11[5.1,] action_key[2.6,] 	 SYMBOL:	 ARGS:action_key,
+		 3: taken->include? def_%v_13 taken[4.4,] %v_12[5.2,] 	 SYMBOL:	 ARGS:%v_12,
+		 4: COPY TYPE_PASS def_%v_9 %v_13[5.3,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_already_taken_this_action %v_9[5.4,4.10,] 
+		 1: 
+		 2: taken->any? def_%v_14 taken[4.4,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_14[6.2,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: (PostActionType) def_%v_15 
+		 1: %v_15->flag_types def_%v_16 %v_15[7.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_16->values def_%v_17 %v_16[7.1,] 	 SYMBOL:	 ARGS:
+		 3: taken->& def_%v_18 taken[4.4,] %v_17[7.2,] 	 SYMBOL:	 ARGS:%v_17,
+		 4: %v_18->any? def_%v_19 %v_18[7.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_%v_14 %v_19[7.4,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_already_did_flagging %v_14[7.5,6.2,] 
+		 1: 
+		 2: %self->authenticated? def_%v_20 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_20[8.2,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_20 post[2.5,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_20[9.0,8.2,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_21 %self[2.0,] 
+		 1: %v_21->anonymous? def_%v_22 %v_21[11.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_22->! def_%v_23 %v_22[11.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_20 %v_23[11.2,] 
+BB 12
+	outgoing: 13 51 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_20[11.3,9.0,8.2,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: action_key->== def_%v_24 action_key[2.6,] 	 SYMBOL:notify_moderators,	 ARGS:Symbol,
+		 2: BRANCH %v_24[13.1,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%v_25 
+		 1: %v_25->enable_private_messages def_%v_26 %v_25[14.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_26->! def_%v_27 %v_26[14.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_24 %v_27[14.2,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_24[14.3,13.1,] 
+BB 16
+	outgoing: 53 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 17
+	outgoing: 19 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_28 
+		 1: 
+		 2: COPY TYPE_PASS def_%v_29 is_flag[4.8,] 
+		 3: BRANCH is_flag[4.8,] 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: already_did_flagging->! def_%v_30 already_did_flagging[8.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_29 %v_30[19.0,] 
+BB 20
+	outgoing: 21 24 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_29[19.1,17.2,] 
+BB 21
+	outgoing: 22 23 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_31 %self[2.0,] 
+		 1: (TrustLevel) def_%v_32 
+		 2: %v_32->[] def_%v_33 %v_32[21.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: %v_31->has_trust_level? def_%v_34 %v_31[21.0,] %v_33[21.2,] 	 SYMBOL:	 ARGS:%v_33,
+		 4: BRANCH %v_34[21.3,] 
+BB 22
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: post->topic def_%v_35 post[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_35->private_message? def_%v_36 %v_35[22.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_34 %v_36[22.1,] 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_29 %v_34[22.2,21.3,] 
+BB 24
+	outgoing: 25 50 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_29[23.0,19.1,17.2,] 
+BB 25
+	outgoing: 26 27 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_37 is_flag[4.8,] 
+		 2: BRANCH is_flag[4.8,] 
+BB 26
+	outgoing: 27 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_37 already_taken_this_action[6.0,] 
+BB 27
+	outgoing: 28 29 
+	datadep: 
+	instructions:
+		 0: %v_37->! def_%v_38 %v_37[26.0,25.1,] 	 SYMBOL:	 ARGS:
+		 1: BRANCH %v_38[27.0,] 
+BB 28
+	outgoing: 29 
+	datadep: 
+	instructions:
+		 0: 
+		 1: post->topic def_%v_39 post[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_39->try def_%v_40 %v_39[28.1,] 	 SYMBOL:archived?,	 ARGS:Symbol,
+		 3: %v_40->! def_%v_41 %v_40[28.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_PASS def_%v_38 %v_41[28.3,] 
+BB 29
+	outgoing: 30 31 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_38[28.4,27.0,] 
+BB 30
+	outgoing: 31 
+	datadep: 
+	instructions:
+		 0: 
+		 1: post->trashed? def_%v_42 post[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_42->! def_%v_43 %v_42[30.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_38 %v_43[30.2,] 
+BB 31
+	outgoing: 32 35 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_38[30.3,28.4,27.0,] 
+BB 32
+	outgoing: 33 34 
+	datadep: 
+	instructions:
+		 0: 
+		 1: action_key->== def_%v_44 action_key[2.6,] 	 SYMBOL:like,	 ARGS:Symbol,
+		 2: BRANCH %v_44[32.1,] 
+BB 33
+	outgoing: 34 
+	datadep: 
+	instructions:
+		 0: %self->is_my_own? def_%v_45 %self[2.0,] post[2.5,] 	 SYMBOL:	 ARGS:post,
+		 1: COPY TYPE_PASS def_%v_44 %v_45[33.0,] 
+BB 34
+	outgoing: 35 
+	datadep: 
+	instructions:
+		 0: %v_44->! def_%v_46 %v_44[33.1,32.1,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_38 %v_46[34.0,] 
+BB 35
+	outgoing: 36 39 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_38[34.1,30.3,28.4,27.0,] 
+BB 36
+	outgoing: 37 38 
+	datadep: 
+	instructions:
+		 0: 
+		 1: action_key->== def_%v_47 action_key[2.6,] 	 SYMBOL:notify_user,	 ARGS:Symbol,
+		 2: BRANCH %v_47[36.1,] 
+BB 37
+	outgoing: 38 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_48 %self[2.0,] 
+		 1: (SiteSetting) def_%v_49 
+		 2: %v_49->min_trust_to_send_messages def_%v_50 %v_49[37.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_48->has_trust_level? def_%v_51 %v_48[37.0,] %v_50[37.2,] 	 SYMBOL:	 ARGS:%v_50,
+		 4: %v_51->! def_%v_52 %v_51[37.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_%v_47 %v_52[37.4,] 
+BB 38
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: %v_47->! def_%v_53 %v_47[37.5,36.1,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_38 %v_53[38.0,] 
+BB 39
+	outgoing: 40 43 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_38[38.1,34.1,30.3,28.4,27.0,] 
+BB 40
+	outgoing: 41 42 
+	datadep: 
+	instructions:
+		 0: 
+		 1: action_key->== def_%v_54 action_key[2.6,] 	 SYMBOL:notify_user,	 ARGS:Symbol,
+		 2: BRANCH %v_54[40.1,] 
+BB 41
+	outgoing: 42 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%v_55 
+		 1: %v_55->enable_private_messages def_%v_56 %v_55[41.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_56->! def_%v_57 %v_56[41.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_54 %v_57[41.2,] 
+BB 42
+	outgoing: 43 
+	datadep: 
+	instructions:
+		 0: %v_54->! def_%v_58 %v_54[41.3,40.1,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_38 %v_58[42.0,] 
+BB 43
+	outgoing: 44 49 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_38[42.1,38.1,34.1,30.3,28.4,27.0,] 
+BB 44
+	outgoing: 45 46 
+	datadep: 
+	instructions:
+		 0: 
+		 1: action_key->== def_%v_59 action_key[2.6,] 	 SYMBOL:vote,	 ARGS:Symbol,
+		 2: BRANCH %v_59[44.1,] 
+BB 45
+	outgoing: 46 
+	datadep: 
+	instructions:
+		 0: opts->[] def_%v_60 opts[3.1,2.7,] 	 SYMBOL:voted_in_topic,	 ARGS:Symbol,
+		 1: COPY TYPE_PASS def_%v_59 %v_60[45.0,] 
+BB 46
+	outgoing: 47 48 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_59[45.1,44.1,] 
+BB 47
+	outgoing: 48 
+	datadep: 
+	instructions:
+		 0: post->topic def_%v_61 post[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_61->has_meta_data_boolean? def_%v_62 %v_61[47.0,] 	 SYMBOL:single_vote,	 ARGS:Symbol,
+		 2: COPY TYPE_PASS def_%v_59 %v_62[47.1,] 
+BB 48
+	outgoing: 49 
+	datadep: 
+	instructions:
+		 0: %v_59->! def_%v_63 %v_59[47.2,45.1,44.1,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_38 %v_63[48.0,] 
+BB 49
+	outgoing: 50 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_29 %v_38[48.1,42.1,38.1,34.1,30.3,28.4,27.0,] 
+BB 50
+	outgoing: 52 
+	datadep: 
+	instructions:
+		 0: 
+BB 51
+	outgoing: 52 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_29 
+BB 52
+	outgoing: 53 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_result %v_29[51.0,49.0,23.0,19.1,17.2,] 
+		 1: 
+		 2: %v_29->! def_%v_64 %v_29[51.0,49.0,23.0,19.1,17.2,] 	 SYMBOL:	 ARGS:
+		 3: %v_64->! def_%v_65 %v_64[52.2,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %v_65[52.3,] %self[2.0,] 
+BB 53
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_defer_flags? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: %self->is_staff? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN post[2.5,] %self[2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.7,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_see_post_actors? instanceMethod = true
+BB 1
+	outgoing: 21 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_topic 
+		 6: RECEIVEARG def_post_action_type_id 
+		 7: 
+		 8: %self->is_admin? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_3[2.8,] 
+BB 3
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: BRANCH topic[2.5,] 
+BB 6
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: (PostActionType) def_%v_6 
+		 3: %v_6->types def_%v_7 %v_6[6.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_7->[] def_%v_8 %v_7[6.3,] post_action_type_id[2.6,] 	 SYMBOL:	 ARGS:post_action_type_id,
+		 5: COPY TYPE_PASS def_type_symbol %v_8[6.4,] 
+		 6: 
+		 7: %v_8->== def_%v_9 %v_8[6.4,] 	 SYMBOL:bookmark,	 ARGS:Symbol,
+		 8: BRANCH %v_9[6.7,] 
+BB 7
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 10
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+		 2: (PostActionType) def_%v_11 
+		 3: %v_11->is_flag? def_%v_12 %v_11[10.2,] type_symbol[6.5,] 	 SYMBOL:	 ARGS:type_symbol,
+		 4: BRANCH %v_12[10.3,] 
+BB 12
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: %self->can_see_flags? def_%v_13 %self[2.0,] topic[2.5,] 	 SYMBOL:	 ARGS:topic,
+		 1: RETURN %v_13[12.0,] %self[12.0,2.0,] 
+BB 13
+	outgoing: 15 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+		 1: 
+		 2: type_symbol->== def_%v_15 type_symbol[6.5,] 	 SYMBOL:vote,	 ARGS:Symbol,
+		 3: BRANCH %v_15[13.2,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: topic->has_meta_data_boolean? def_%v_16 topic[2.5,] 	 SYMBOL:private_poll,	 ARGS:Symbol,
+		 2: BRANCH %v_16[15.1,] 
+BB 16
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 17
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+		 1: 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 21
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_delete_all_posts? instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_user 
+		 6: 
+		 7: %self->is_staff? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_3 user[2.5,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.0,2.7,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user->admin? def_%v_4 user[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_4->! def_%v_5 %v_4[5.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_3 %v_5[5.2,] 
+BB 6
+	outgoing: 7 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[5.3,3.0,2.7,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: user->first_post_created_at def_%v_6 user[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->nil? def_%v_7 %v_6[7.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_7[7.2,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: user->first_post_created_at def_%v_8 user[2.5,] 	 SYMBOL:	 ARGS:
+		 1: (SiteSetting) def_%v_9 
+		 2: %v_9->delete_user_max_post_age def_%v_10 %v_9[8.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_10->days def_%v_11 %v_10[8.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_11->ago def_%v_12 %v_11[8.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_8->>= def_%v_13 %v_8[8.0,] %v_12[8.4,] 	 SYMBOL:	 ARGS:%v_12,
+		 6: COPY TYPE_PASS def_%v_7 %v_13[8.5,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_3 %v_7[8.6,7.2,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[9.0,5.3,3.0,2.7,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: user->post_count def_%v_14 user[2.5,] 	 SYMBOL:	 ARGS:
+		 1: (SiteSetting) def_%v_15 
+		 2: %v_15->delete_all_posts_max def_%v_16 %v_15[11.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_16->to_i def_%v_17 %v_16[11.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_14-><= def_%v_18 %v_14[11.0,] %v_17[11.3,] 	 SYMBOL:	 ARGS:%v_17,
+		 5: RETURN %v_18[11.4,] %self[2.0,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[9.0,5.3,3.0,2.7,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_create_post? instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_parent 
+		 6: 
+		 7: (SpamRule) def_%v_3 
+		 8: (inherit AutoBlock) def_%v_4 %v_3[2.7,] 
+		 9: %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_3->const_missing def_%v_4 %v_3[2.7,] 	 SYMBOL:AutoBlock,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_5 %self[2.0,] 
+		 1: %v_4->block? def_%v_6 %v_4[3.0,2.8,] %v_5[4.0,] 	 SYMBOL:	 ARGS:%v_5,
+		 2: %v_6->! def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_7[4.2,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: parent->try def_%v_8 parent[2.5,] 	 SYMBOL:private_message?,	 ARGS:Symbol,
+		 1: %v_8->! def_%v_9 %v_8[5.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_9->! def_%v_10 %v_9[5.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_10[5.2,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: parent->allowed_users def_%v_11 parent[2.5,] 	 SYMBOL:	 ARGS:
+		 1: GETFIELD %self->user def_%v_12 %self[2.0,] 
+		 2: %v_11->include? def_%v_13 %v_11[6.0,] %v_12[6.1,] 	 SYMBOL:	 ARGS:%v_12,
+		 3: COPY TYPE_PASS def_%v_10 %v_13[6.2,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_7 %v_10[6.3,5.2,] 
+BB 8
+	outgoing: 9 14 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_7[7.0,4.2,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: parent->! def_%v_14 parent[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_14[9.1,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: parent->category def_%v_15 parent[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_15->! def_%v_16 %v_15[10.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_14 %v_16[10.2,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_14[10.3,9.1,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: (Category) def_%v_17 
+		 1: %v_17->post_create_allowed def_%v_18 %v_17[12.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+		 2: parent->category def_%v_19 parent[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_19->id def_%v_20 %v_19[12.2,] 	 SYMBOL:	 ARGS:
+		 4: HASH-id- def_%v_21 %v_20[12.3,] 
+		 5: %v_18->where def_%v_22 %v_18[12.1,] %v_21[12.4,] 	 SYMBOL:	 ARGS:%v_21,
+		 6: %v_22->count def_%v_23 %v_22[12.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_23->== def_%v_24 %v_23[12.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: COPY TYPE_PASS def_%v_14 %v_24[12.7,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %v_14[12.8,10.3,9.1,] %self[2.0,] 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: RETURN %v_7[7.0,4.2,] %self[2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_edit_post? instanceMethod = true
+BB 1
+	outgoing: 36 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: (Discourse) def_%v_3 
+		 8: %v_3->static_doc_topic_ids def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: post->topic_id def_%v_5 post[2.5,] 	 SYMBOL:	 ARGS:
+		 10: %v_4->include? def_%v_6 %v_4[2.8,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_5,
+		 11: BRANCH %v_6[2.10,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->is_admin? def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_7->! def_%v_8 %v_7[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_6 %v_8[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[3.2,2.10,] 
+BB 5
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: 
+		 2: %self->is_staff? def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_10[6.2,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_11 %self[2.0,] 
+		 1: (TrustLevel) def_%v_12 
+		 2: %v_12->[] def_%v_13 %v_12[8.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: %v_11->has_trust_level? def_%v_14 %v_11[8.0,] %v_13[8.2,] 	 SYMBOL:	 ARGS:%v_13,
+		 4: COPY TYPE_PASS def_%v_10 %v_14[8.3,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_10[8.4,6.2,] 
+BB 10
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 11
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+		 1: 
+		 2: post->topic def_%v_16 post[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_16->archived? def_%v_17 %v_16[11.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_17[11.3,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: post->user_deleted def_%v_18 post[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_17 %v_18[13.0,] 
+BB 14
+	outgoing: 15 16 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_17[13.1,11.3,] 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: post->deleted_at def_%v_19 post[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_17 %v_19[15.0,] 
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_17[15.1,13.1,11.3,] 
+BB 17
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 18
+	outgoing: 20 21 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_20 
+		 1: 
+		 2: post->wiki def_%v_21 post[2.5,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_21[18.2,] 
+BB 20
+	outgoing: 21 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_22 %self[2.0,] 
+		 1: %v_22->trust_level def_%v_23 %v_22[20.0,] 	 SYMBOL:	 ARGS:
+		 2: (SiteSetting) def_%v_24 
+		 3: %v_24->min_trust_to_edit_wiki_post def_%v_25 %v_24[20.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_25->to_i def_%v_26 %v_25[20.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_23->>= def_%v_27 %v_23[20.1,] %v_26[20.4,] 	 SYMBOL:	 ARGS:%v_26,
+		 6: COPY TYPE_PASS def_%v_21 %v_27[20.5,] 
+BB 21
+	outgoing: 22 23 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_21[20.6,18.2,] 
+BB 22
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 23
+	outgoing: 25 34 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_28 
+		 1: 
+		 2: %self->is_my_own? def_%v_29 %self[2.0,] post[2.5,] 	 SYMBOL:	 ARGS:post,
+		 3: BRANCH %v_29[23.2,] 
+BB 25
+	outgoing: 26 32 
+	datadep: 
+	instructions:
+		 0: 
+		 1: post->hidden? def_%v_30 post[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_30[25.1,] 
+BB 26
+	outgoing: 27 28 
+	datadep: 
+	instructions:
+		 0: 
+		 1: post->hidden_at def_%v_31 post[2.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_31->present? def_%v_32 %v_31[26.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_32[26.2,] 
+BB 27
+	outgoing: 28 
+	datadep: 
+	instructions:
+		 0: post->hidden_at def_%v_33 post[2.5,] 	 SYMBOL:	 ARGS:
+		 1: (SiteSetting) def_%v_34 
+		 2: %v_34->cooldown_minutes_after_hiding_posts def_%v_35 %v_34[27.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_35->minutes def_%v_36 %v_35[27.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_36->ago def_%v_37 %v_36[27.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_33->>= def_%v_38 %v_33[27.0,] %v_37[27.4,] 	 SYMBOL:	 ARGS:%v_37,
+		 6: COPY TYPE_PASS def_%v_32 %v_38[27.5,] 
+BB 28
+	outgoing: 29 30 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_32[27.6,26.2,] 
+BB 29
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 30
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_39 
+		 1: 
+		 2: RETURN %self[2.0,] 
+BB 32
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_40 
+		 1: 
+		 2: post->edit_time_limit_expired? def_%v_41 post[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_41->! def_%v_42 %v_41[32.2,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %v_42[32.3,] %self[2.0,] 
+BB 34
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_43 
+		 1: 
+		 2: RETURN %self[2.0,] 
+BB 36
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_delete_post? instanceMethod = true
+BB 1
+	outgoing: 19 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: post->is_first_post? def_%v_3 post[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: %self->is_staff? def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->! def_%v_6 %v_5[4.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_6[4.3,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: post->edit_time_limit_expired? def_%v_7 post[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_6 %v_7[6.0,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[6.1,4.3,] 
+BB 8
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: %self->is_staff? def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_9->! def_%v_10 %v_9[9.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_10[9.3,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: post->topic def_%v_11 post[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_11->archived? def_%v_12 %v_11[11.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_10 %v_12[11.1,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_10[11.2,9.3,] 
+BB 13
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 14
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+		 1: 
+		 2: %self->is_my_own? def_%v_14 %self[2.0,] post[2.5,] 	 SYMBOL:	 ARGS:post,
+		 3: BRANCH %v_14[14.2,] 
+BB 16
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: post->user_deleted? def_%v_15 post[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_15->! def_%v_16 %v_15[16.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_16[16.1,] %self[2.0,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+		 1: 
+		 2: %self->is_staff? def_%v_18 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %v_18[17.2,] %self[17.2,2.0,] 
+BB 19
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_recover_post? instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 8 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: %self->is_staff? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: %self->is_my_own? def_%v_4 %self[2.0,] post[2.5,] 	 SYMBOL:	 ARGS:post,
+		 1: BRANCH %v_4[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: post->user_deleted def_%v_5 post[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_4 %v_5[4.0,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_4[4.1,3.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: post->deleted_at def_%v_6 post[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->! def_%v_7 %v_6[6.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_4 %v_7[6.1,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_4[6.2,4.1,3.0,] %self[2.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.7,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_delete_post_action? instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post_action 
+		 6: 
+		 7: %self->is_my_own? def_%v_3 %self[2.0,] post_action[2.5,] 	 SYMBOL:	 ARGS:post_action,
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: post_action->is_private_message? def_%v_4 post_action[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->! def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_3 %v_5[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.2,2.7,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: post_action->created_at def_%v_6 post_action[2.5,] 	 SYMBOL:	 ARGS:
+		 1: (SiteSetting) def_%v_7 
+		 2: %v_7->post_undo_action_window_mins def_%v_8 %v_7[5.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_8->minutes def_%v_9 %v_8[5.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_9->ago def_%v_10 %v_9[5.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_6->> def_%v_11 %v_6[5.0,] %v_10[5.4,] 	 SYMBOL:	 ARGS:%v_10,
+		 6: RETURN %v_11[5.5,] %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[3.2,2.7,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_see_post? instanceMethod = true
+BB 1
+	outgoing: 22 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: post->blank? def_%v_3 post[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: %self->is_admin? def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_5[4.2,] 
+BB 6
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 7
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+		 2: post->topic def_%v_7 post[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %self->can_see_topic? def_%v_8 %self[2.0,] %v_7[7.2,] 	 SYMBOL:	 ARGS:%v_7,
+		 4: BRANCH %v_8[7.3,] 
+BB 9
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: 
+		 2: post->user def_%v_10 post[2.5,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->user def_%v_11 %self[2.0,] 
+		 4: %v_10->== def_%v_12 %v_10[9.2,] %v_11[9.3,] 	 SYMBOL:	 ARGS:%v_11,
+		 5: BRANCH %v_12[9.4,] 
+BB 10
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: (Topic) def_%v_13 
+		 1: GETFIELD %self->user def_%v_14 %self[2.0,] 
+		 2: %v_13->visible_post_types def_%v_15 %v_13[12.0,] %v_14[12.1,] 	 SYMBOL:	 ARGS:%v_14,
+		 3: post->post_type def_%v_16 post[2.5,] 	 SYMBOL:	 ARGS:
+		 4: %v_15->include? def_%v_17 %v_15[12.2,] %v_16[12.3,] 	 SYMBOL:	 ARGS:%v_16,
+		 5: COPY TYPE_PASS def_%v_12 %v_17[12.4,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_12[12.5,9.4,] 
+BB 14
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_18 
+		 1: 
+		 2: %self->is_moderator? def_%v_19 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_19->! def_%v_20 %v_19[14.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_20[14.3,] 
+BB 15
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: post->deleted_at def_%v_21 post[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_21->present? def_%v_22 %v_21[17.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_20 %v_22[17.1,] 
+BB 18
+	outgoing: 19 20 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_20[17.2,14.3,] 
+BB 19
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 20
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_23 
+		 1: 
+		 2: RETURN %self[2.0,] 
+BB 22
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_view_edit_history? instanceMethod = true
+BB 1
+	outgoing: 26 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: BRANCH post[2.5,] 
+BB 3
+	outgoing: 6 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_3 
+		 1: 
+		 2: post->hidden def_%v_4 post[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_4->! def_%v_5 %v_4[3.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_5[3.3,] 
+BB 4
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 7 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: post->wiki def_%v_6 post[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_6[6.1,] 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: (SiteSetting) def_%v_7 
+		 1: %v_7->edit_history_visible_to_public def_%v_8 %v_7[7.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_6 %v_8[7.1,] 
+BB 8
+	outgoing: 9 12 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[7.2,6.1,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: post->user def_%v_9 post[2.5,] 	 SYMBOL:	 ARGS:
+		 1: BRANCH %v_9[9.0,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: post->user def_%v_10 post[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_10->user_option def_%v_11 %v_10[10.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_11->edit_history_public def_%v_12 %v_11[10.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_9 %v_12[10.2,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_6 %v_9[10.3,9.0,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[11.0,7.2,6.1,] 
+BB 13
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 14
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+		 1: 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+BB 17
+	outgoing: 18 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->authenticated? def_%v_14 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_14[17.1,] 
+BB 18
+	outgoing: 19 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->is_staff? def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_15[18.1,] 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_16 %self[2.0,] 
+		 1: (TrustLevel) def_%v_17 
+		 2: %v_17->[] def_%v_18 %v_17[19.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: %v_16->has_trust_level? def_%v_19 %v_16[19.0,] %v_18[19.2,] 	 SYMBOL:	 ARGS:%v_18,
+		 4: COPY TYPE_PASS def_%v_15 %v_19[19.3,] 
+BB 20
+	outgoing: 21 22 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_15[19.4,18.1,] 
+BB 21
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_20 %self[2.0,] 
+		 1: %v_20->id def_%v_21 %v_20[21.0,] 	 SYMBOL:	 ARGS:
+		 2: post->user_id def_%v_22 post[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_21->== def_%v_23 %v_21[21.1,] %v_22[21.2,] 	 SYMBOL:	 ARGS:%v_22,
+		 4: COPY TYPE_PASS def_%v_15 %v_23[21.3,] 
+BB 22
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_14 %v_15[21.4,19.4,18.1,] 
+BB 23
+	outgoing: 24 25 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_14[22.0,17.1,] 
+BB 24
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: %self->can_see_post? def_%v_24 %self[2.0,] post[2.5,] 	 SYMBOL:	 ARGS:post,
+		 1: RETURN %v_24[24.0,] %self[24.0,2.0,] 
+BB 25
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: RETURN %v_14[22.0,17.1,] %self[2.0,] 
+BB 26
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_vote? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: RECEIVECONSTARG def_opts 
+		 7: opts[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->post_can_act? def_%v_4 %self[2.0,] post[2.5,] opts[3.1,2.6,] 	 SYMBOL:vote,	 ARGS:post,Symbol,opts,
+		 2: RETURN %v_4[4.1,] %self[4.1,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_change_post_owner? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->is_admin? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_wiki? instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: %self->authenticated? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: %self->is_staff? def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_5[3.2,] 
+BB 4
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_6 %self[2.0,] 
+		 1: (TrustLevel) def_%v_7 
+		 2: %v_7->[] def_%v_8 %v_7[6.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: %v_6->has_trust_level? def_%v_9 %v_6[6.0,] %v_8[6.2,] 	 SYMBOL:	 ARGS:%v_8,
+		 4: COPY TYPE_PASS def_%v_5 %v_9[6.3,] 
+BB 7
+	outgoing: 8 11 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_5[6.4,3.2,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_10 %self[2.0,] 
+		 1: (SiteSetting) def_%v_11 
+		 2: %v_11->min_trust_to_allow_self_wiki def_%v_12 %v_11[8.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_10->has_trust_level? def_%v_13 %v_10[8.0,] %v_12[8.2,] 	 SYMBOL:	 ARGS:%v_12,
+		 4: BRANCH %v_13[8.3,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %self->is_my_own? def_%v_14 %self[2.0,] post[2.5,] 	 SYMBOL:	 ARGS:post,
+		 1: COPY TYPE_PASS def_%v_13 %v_14[9.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %v_13[9.1,8.3,] %self[2.0,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[6.4,3.2,] %self[2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_change_post_type? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->is_staff? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_rebake? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->is_staff? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->user def_%v_4 %self[2.0,] 
+		 1: (TrustLevel) def_%v_5 
+		 2: %v_5->[] def_%v_6 %v_5[3.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: %v_4->has_trust_level? def_%v_7 %v_4[3.0,] %v_6[3.2,] 	 SYMBOL:	 ARGS:%v_6,
+		 4: RETURN %v_7[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.6,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_see_flagged_posts? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->is_staff? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_see_deleted_posts? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->is_staff? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_view_raw_email? instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: COPY TYPE_PASS def_%v_3 post[2.5,] 
+		 8: BRANCH post[2.5,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: %self->is_staff? def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: BRANCH %v_4[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: post->user_id def_%v_5 post[2.5,] 	 SYMBOL:	 ARGS:
+		 1: GETFIELD %self->user def_%v_6 %self[2.0,] 
+		 2: %v_6->id def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->== def_%v_8 %v_5[4.0,] %v_7[4.2,] 	 SYMBOL:	 ARGS:%v_7,
+		 4: COPY TYPE_PASS def_%v_4 %v_8[4.3,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_4[4.4,3.0,] %self[2.0,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.7,] %self[2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = can_unhide? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_post 
+		 6: 
+		 7: post->try def_%v_3 post[2.5,] 	 SYMBOL:hidden,	 ARGS:Symbol,
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->is_staff? def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_4[3.0,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.7,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,179 @@
+SET IRMethod, name = index instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (ApiKey) def_%v_3 
+		 7: HASH-hidden- def_%v_4 
+		 8: %v_3->where def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: %v_5->to_a def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: (ApiKeySerializer) def_%v_7 
+		 11: %self->render_serialized def_%v_8 %self[2.0,] %v_6[2.9,] %v_7[2.10,] 	 SYMBOL:	 ARGS:%v_6,%v_7,
+		 12: RETURN %v_8[2.11,] %self[2.0,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = regenerate_key instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (ApiKey) def_%v_3 
+		 7: %self->params def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->[] def_%v_5 %v_4[2.7,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 9: HASH-id- def_%v_6 %v_5[2.8,] 
+		 10: %v_3->find_by def_%v_7 %v_3[2.6,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: COPY TYPE_PASS def_api_key %v_7[2.10,] 
+		 12: 
+		 13: %v_7->blank? def_%v_8 %v_7[2.10,] 	 SYMBOL:	 ARGS:
+		 14: BRANCH %v_8[2.13,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: (Discourse) def_%v_9 
+		 1: (inherit NotFound) def_%v_10 %v_9[3.0,] 
+		 2: %v_10[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_9->const_missing def_%v_10 %v_9[3.0,] 	 SYMBOL:NotFound,	 ARGS:Symbol,
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->raise def_%v_11 %self[2.0,] %v_10[4.0,3.1,] 	 SYMBOL:	 ARGS:%v_10,
+		 1: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->current_user def_%v_12 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: api_key->regenerate! def_%v_13 api_key[2.11,] %v_12[7.1,] 	 SYMBOL:	 ARGS:%v_12,
+		 3: 
+		 4: (ApiKeySerializer) def_%v_14 
+		 5: %self->render_serialized def_%v_15 %self[7.1,2.0,] api_key[7.2,2.11,] %v_14[7.4,] 	 SYMBOL:	 ARGS:api_key,%v_14,
+		 6: RETURN %v_15[7.5,] %self[7.1,7.5,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = revoke_key instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (ApiKey) def_%v_3 
+		 7: %self->params def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->[] def_%v_5 %v_4[2.7,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 9: HASH-id- def_%v_6 %v_5[2.8,] 
+		 10: %v_3->find_by def_%v_7 %v_3[2.6,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: COPY TYPE_PASS def_api_key %v_7[2.10,] 
+		 12: 
+		 13: %v_7->blank? def_%v_8 %v_7[2.10,] 	 SYMBOL:	 ARGS:
+		 14: BRANCH %v_8[2.13,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: (Discourse) def_%v_9 
+		 1: (inherit NotFound) def_%v_10 %v_9[3.0,] 
+		 2: %v_10[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_9->const_missing def_%v_10 %v_9[3.0,] 	 SYMBOL:NotFound,	 ARGS:Symbol,
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %self->raise def_%v_11 %self[2.0,] %v_10[4.0,3.1,] 	 SYMBOL:	 ARGS:%v_10,
+		 1: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_11 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: api_key->destroy def_%v_12 api_key[2.11,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: HASH-nothing- def_%v_13 
+		 4: %self->render def_%v_14 %self[2.0,] %v_13[7.3,] 	 SYMBOL:	 ARGS:%v_13,
+		 5: RETURN %v_14[7.4,] %self[7.4,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create_master_key instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (ApiKey) def_%v_3 
+		 7: %v_3->create_master_key def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_api_key %v_4[2.7,] 
+		 9: 
+		 10: (ApiKeySerializer) def_%v_5 
+		 11: %self->render_serialized def_%v_6 %self[2.0,] %v_4[2.7,] %v_5[2.10,] 	 SYMBOL:	 ARGS:api_key,%v_5,
+		 12: RETURN %v_6[2.11,] %self[2.0,2.11,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

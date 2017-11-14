@@ -1,0 +1,574 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 7 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_term 
+		 6: RECEIVECONSTARG def_opts 
+		 7: opts[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: ATTRASSIGN %self->term term[2.5,] 
+		 2: 
+		 3: term->downcase def_%v_4 term[2.5,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral "_" def_%v_5 
+		 5: COPY TYPE_StringLiteral "\_" def_%v_6 
+		 6: %v_4->gsub def_%v_7 %v_4[4.3,] %v_5[4.4,] %v_6[4.5,] 	 SYMBOL:	 ARGS:%v_5,%v_6,
+		 7: COPY TYPE_StringLiteral "%" def_%v_8 
+		 8: BUILDSTRING def_%v_9 %v_7[4.6,] %v_8[4.7,] 
+		 9: ATTRASSIGN %self->term_like %v_9[4.8,] 
+		 10: 
+		 11: opts->[] def_%v_10 opts[3.1,2.6,] 	 SYMBOL:topic_id,	 ARGS:Symbol,
+		 12: ATTRASSIGN %self->topic_id %v_10[4.11,] 
+		 13: 
+		 14: opts->[] def_%v_11 opts[4.11,3.1,2.6,] 	 SYMBOL:topic_allowed_users,	 ARGS:Symbol,
+		 15: ATTRASSIGN %self->topic_allowed_users %v_11[4.14,] 
+		 16: 
+		 17: opts->[] def_%v_12 opts[4.11,4.14,3.1,2.6,] 	 SYMBOL:searching_user,	 ARGS:Symbol,
+		 18: ATTRASSIGN %self->searching_user %v_12[4.17,] 
+		 19: 
+		 20: opts->[] def_%v_13 opts[4.11,4.14,4.17,3.1,2.6,] 	 SYMBOL:limit,	 ARGS:Symbol,
+		 21: BRANCH %v_13[4.20,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_%v_13 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->limit %v_13[5.0,4.20,] 
+		 1: RETURN %v_13[5.0,4.20,] %self[6.0,4.1,4.9,4.12,4.15,4.18,2.0,] 
+BB 7
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = scoped_users instanceMethod = true
+BB 1
+	outgoing: 18 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (User) def_%v_3 
+		 7: HASH-active-staged- def_%v_4 
+		 8: %v_3->where def_%v_5 %v_3[2.6,] %v_4[2.7,] 	 SYMBOL:	 ARGS:%v_4,
+		 9: COPY TYPE_PASS def_users %v_5[2.8,] 
+		 10: 
+		 11: GETFIELD %self->searching_user def_%v_6 %self[2.0,] 
+		 12: BRANCH %v_6[2.11,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->searching_user def_%v_7 %self[2.0,] 
+		 1: %v_7->staff? def_%v_8 %v_7[3.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_6 %v_8[3.1,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_6[3.2,2.11,] 
+BB 5
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: users->not_suspended def_%v_10 users[2.9,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_users %v_10[6.1,] 
+		 3: COPY TYPE_PASS def_%v_9 %v_10[6.1,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->topic_id def_%v_11 %self[2.0,] 
+		 2: BRANCH %v_11[7.1,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->topic_allowed_users def_%v_12 %self[2.0,] 
+		 1: COPY TYPE_StringLiteral "true" def_%v_13 
+		 2: %v_12->== def_%v_14 %v_12[8.0,] %v_13[8.1,] 	 SYMBOL:	 ARGS:%v_13,
+		 3: COPY TYPE_PASS def_%v_11 %v_14[8.2,] 
+BB 9
+	outgoing: 10 16 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_11[8.3,7.1,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Topic) def_%v_15 
+		 2: GETFIELD %self->topic_id def_%v_16 %self[2.0,] 
+		 3: HASH-id- def_%v_17 %v_16[10.2,] 
+		 4: %v_15->find_by def_%v_18 %v_15[10.1,] %v_17[10.3,] 	 SYMBOL:	 ARGS:%v_17,
+		 5: COPY TYPE_PASS def_topic %v_18[10.4,] 
+		 6: 
+		 7: %v_18->category def_%v_19 %v_18[10.4,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_19[10.7,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: topic->category def_%v_20 topic[10.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_20->read_restricted def_%v_21 %v_20[11.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_%v_19 %v_21[11.1,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_19[11.2,10.7,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: users->includes def_%v_22 users[6.2,2.9,] 	 SYMBOL:secure_categories,	 ARGS:Symbol,
+		 2: COPY TYPE_StringLiteral "users.admin = TRUE OR categories.id = ?" def_%v_23 
+		 3: topic->category def_%v_24 topic[10.5,] 	 SYMBOL:	 ARGS:
+		 4: %v_24->id def_%v_25 %v_24[13.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_22->where def_%v_26 %v_22[13.1,] %v_23[13.2,] %v_25[13.4,] 	 SYMBOL:	 ARGS:%v_23,%v_25,
+		 6: %v_26->references def_%v_27 %v_26[13.5,] 	 SYMBOL:categories,	 ARGS:Symbol,
+		 7: COPY TYPE_PASS def_users %v_27[13.6,] 
+		 8: 
+BB 14
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_27 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_27 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->limit def_%v_28 %self[2.0,] 
+		 2: users->limit def_%v_29 users[13.7,6.2,2.9,] %v_28[17.1,] 	 SYMBOL:	 ARGS:%v_28,
+		 3: RETURN %v_29[17.2,] %self[2.0,] 
+BB 18
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = filtered_by_term_users instanceMethod = true
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 9 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->scoped_users def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_PASS def_users %v_3[2.6,] 
+		 8: 
+		 9: GETFIELD %self->term def_%v_4 %self[2.0,2.6,] 
+		 10: %v_4->present? def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_5[2.10,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SiteSetting) def_%v_6 
+		 2: %v_6->enable_names? def_%v_7 %v_6[3.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_7[3.2,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->term def_%v_8 %self[2.0,] 
+		 1: COPY TYPE_Regexp def_%v_9 
+		 2: %v_8->!~ def_%v_10 %v_8[4.0,] 	 SYMBOL:	 ARGS:%v_9,
+		 3: COPY TYPE_PASS def_%v_7 %v_10[4.2,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_7[4.3,3.2,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Search) def_%v_11 
+		 2: GETFIELD %self->term def_%v_12 %self[2.0,] 
+		 3: COPY TYPE_StringLiteral "simple" def_%v_13 
+		 4: %v_11->ts_query def_%v_14 %v_11[6.1,] %v_12[6.2,] %v_13[6.3,] 	 SYMBOL:	 ARGS:%v_12,%v_13,
+		 5: COPY TYPE_PASS def_query %v_14[6.4,] 
+		 6: 
+		 7: users->includes def_%v_15 users[2.7,] 	 SYMBOL:user_search_data,	 ARGS:Symbol,
+		 8: %v_15->references def_%v_16 %v_15[6.7,] 	 SYMBOL:user_search_data,	 ARGS:Symbol,
+		 9: COPY TYPE_StringLiteral "user_search_data.search_data @@ " def_%v_17 
+		 10: 
+		 11: BUILDSTRING def_%v_18 %v_17[6.9,] query[6.5,] 
+		 12: %v_16->where def_%v_19 %v_16[6.8,] %v_18[6.11,] 	 SYMBOL:	 ARGS:%v_18,
+		 13: (User) def_%v_20 
+		 14: COPY TYPE_StringLiteral "CASE WHEN username_lower LIKE ? THEN 0 ELSE 1 END ASC" def_%v_21 
+		 15: GETFIELD %self->term_like def_%v_22 %self[2.0,] 
+		 16: %v_20->sql_fragment def_%v_23 %v_20[6.13,] %v_21[6.14,] %v_22[6.15,] 	 SYMBOL:	 ARGS:%v_21,%v_22,
+		 17: %v_19->order def_%v_24 %v_19[6.12,] %v_23[6.16,] 	 SYMBOL:	 ARGS:%v_23,
+		 18: COPY TYPE_PASS def_users %v_24[6.17,] 
+		 19: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "username_lower LIKE :term_like" def_%v_25 
+		 2: GETFIELD %self->term_like def_%v_26 %self[2.0,] 
+		 3: HASH-term_like- def_%v_27 %v_26[7.2,] 
+		 4: users->where def_%v_28 users[2.7,] %v_25[7.1,] %v_27[7.3,] 	 SYMBOL:	 ARGS:%v_25,%v_27,
+		 5: COPY TYPE_PASS def_users %v_28[7.4,] 
+		 6: COPY TYPE_PASS def_%v_24 %v_28[7.4,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_24 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN users[2.7,7.5,6.18,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = search_ids instanceMethod = true
+BB 1
+	outgoing: 15 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Set) def_%v_3 
+		 7: %v_3->new def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_users %v_4[2.7,] 
+		 9: 
+		 10: GETFIELD %self->term def_%v_5 %self[2.0,] 
+		 11: %v_5->present? def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_6[2.11,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->scoped_users def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->term def_%v_8 %self[3.1,2.0,] 
+		 3: %v_8->downcase def_%v_9 %v_8[3.2,] 	 SYMBOL:	 ARGS:
+		 4: HASH-username_lower- def_%v_10 %v_9[3.3,] 
+		 5: %v_7->where def_%v_11 %v_7[3.1,] %v_10[3.4,] 	 SYMBOL:	 ARGS:%v_10,
+		 6: GETFIELD %self->limit def_%v_12 %self[3.1,2.0,] 
+		 7: %v_11->limit def_%v_13 %v_11[3.5,] %v_12[3.6,] 	 SYMBOL:	 ARGS:%v_12,
+		 8: %v_13->pluck def_%v_14 %v_13[3.7,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 9: %v_14->each def_%v_15 %v_14[3.8,] %self[3.1,2.0,] 	 SYMBOL:	 ARGS:%v_14,
+CLOSURE BEGIN: users[2.8,] id[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_id 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: users-><< def_%cl_1_3 users[] id[2.2,] 	 SYMBOL:	 ARGS:id,
+		 2: RETURN %cl_1_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_4 
+		 1: def_%cl_1_5 %cl_1_4[4.0,] 
+		 2: RETURN %cl_1_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: users->length def_%v_16 users[2.8,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->limit def_%v_17 %self[2.0,] 
+		 3: %v_16->>= def_%v_18 %v_16[5.1,] %v_17[5.2,] 	 SYMBOL:	 ARGS:%v_17,
+		 4: BRANCH %v_18[5.3,] 
+BB 6
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: users->to_a def_%v_19 users[2.8,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_19[6.0,] %self[2.0,] 
+BB 7
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_20 
+		 1: 
+		 2: 
+		 3: GETFIELD %self->topic_id def_%v_21 %self[2.0,] 
+		 4: BRANCH %v_21[7.3,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %self->filtered_by_term_users def_%v_22 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "users.id IN (SELECT p.user_id FROM posts p WHERE topic_id = ?)" def_%v_23 
+		 2: GETFIELD %self->topic_id def_%v_24 %self[9.0,2.0,] 
+		 3: %v_22->where def_%v_25 %v_22[9.0,] %v_23[9.1,] %v_24[9.2,] 	 SYMBOL:	 ARGS:%v_23,%v_24,
+		 4: COPY TYPE_StringLiteral "last_seen_at DESC" def_%v_26 
+		 5: %v_25->order def_%v_27 %v_25[9.3,] %v_26[9.4,] 	 SYMBOL:	 ARGS:%v_26,
+		 6: GETFIELD %self->limit def_%v_28 %self[9.0,2.0,] 
+		 7: users->length def_%v_29 users[2.8,] 	 SYMBOL:	 ARGS:
+		 8: %v_28->- def_%v_30 %v_28[9.6,] %v_29[9.7,] 	 SYMBOL:	 ARGS:%v_29,
+		 9: %v_27->limit def_%v_31 %v_27[9.5,] %v_30[9.8,] 	 SYMBOL:	 ARGS:%v_30,
+		 10: %v_31->pluck def_%v_32 %v_31[9.9,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 11: %v_32->each def_%v_33 %v_32[9.10,] %self[9.0,2.0,] 	 SYMBOL:	 ARGS:%v_32,
+CLOSURE BEGIN: users[9.7,2.8,] id[3.9,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_id 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: users-><< def_%cl_2_3 users[] id[2.2,] 	 SYMBOL:	 ARGS:id,
+		 2: RETURN %cl_2_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_4 
+		 1: def_%cl_2_5 %cl_2_4[4.0,] 
+		 2: RETURN %cl_2_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 12: 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_33 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: users->length def_%v_34 users[2.8,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->limit def_%v_35 %self[2.0,] 
+		 3: %v_34->>= def_%v_36 %v_34[11.1,] %v_35[11.2,] 	 SYMBOL:	 ARGS:%v_35,
+		 4: BRANCH %v_36[11.3,] 
+BB 12
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: users->to_a def_%v_37 users[2.8,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_37[12.0,] %self[2.0,] 
+BB 13
+	outgoing: 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_38 
+		 1: 
+		 2: %self->filtered_by_term_users def_%v_39 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "last_seen_at DESC" def_%v_40 
+		 4: %v_39->order def_%v_41 %v_39[13.2,] %v_40[13.3,] 	 SYMBOL:	 ARGS:%v_40,
+		 5: GETFIELD %self->limit def_%v_42 %self[13.2,2.0,] 
+		 6: users->length def_%v_43 users[2.8,] 	 SYMBOL:	 ARGS:
+		 7: %v_42->- def_%v_44 %v_42[13.5,] %v_43[13.6,] 	 SYMBOL:	 ARGS:%v_43,
+		 8: %v_41->limit def_%v_45 %v_41[13.4,] %v_44[13.7,] 	 SYMBOL:	 ARGS:%v_44,
+		 9: %v_45->pluck def_%v_46 %v_45[13.8,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 10: %v_46->each def_%v_47 %v_46[13.9,] %self[13.2,2.0,] 	 SYMBOL:	 ARGS:%v_46,
+CLOSURE BEGIN: users[13.6,2.8,] id[9.11,3.9,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_id 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: users-><< def_%cl_3_3 users[] id[2.2,] 	 SYMBOL:	 ARGS:id,
+		 2: RETURN %cl_3_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_4 
+		 1: def_%cl_3_5 %cl_3_4[4.0,] 
+		 2: RETURN %cl_3_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 11: 
+		 12: users->to_a def_%v_48 users[13.6,2.8,] 	 SYMBOL:	 ARGS:
+		 13: RETURN %v_48[13.12,] %self[13.2,2.0,] 
+BB 15
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = search instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->search_ids def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_PASS def_ids %v_3[2.6,] 
+		 8: 
+		 9: %v_3->empty? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_4[2.9,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: (User) def_%v_5 
+		 1: COPY TYPE_StringLiteral "0=1" def_%v_6 
+		 2: %v_5->where def_%v_7 %v_5[3.0,] %v_6[3.1,] 	 SYMBOL:	 ARGS:%v_6,
+		 3: RETURN %v_7[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_8 
+		 1: 
+		 2: (User) def_%v_9 
+		 3: COPY TYPE_StringLiteral "JOIN (SELECT unnest uid, row_number() OVER () AS rn
+      FROM unnest('{" def_%v_10 
+		 4: 
+		 5: COPY TYPE_StringLiteral "," def_%v_11 
+		 6: ids->join def_%v_12 ids[2.7,] %v_11[4.5,] 	 SYMBOL:	 ARGS:%v_11,
+		 7: COPY TYPE_StringLiteral "}'::int[])
+    ) x on uid = users.id" def_%v_13 
+		 8: BUILDSTRING def_%v_14 %v_10[4.3,] %v_12[4.6,] %v_13[4.7,] 
+		 9: %v_9->joins def_%v_15 %v_9[4.2,] %v_14[4.8,] 	 SYMBOL:	 ARGS:%v_14,
+		 10: COPY TYPE_StringLiteral "rn" def_%v_16 
+		 11: %v_15->order def_%v_17 %v_15[4.9,] %v_16[4.10,] 	 SYMBOL:	 ARGS:%v_16,
+		 12: RETURN %v_17[4.11,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

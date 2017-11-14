@@ -1,0 +1,142 @@
+SET IRMethod, name = valid instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_time 
+		 6: 
+		 7: COPY TYPE_StringLiteral "expires_at >= ?" def_%v_3 
+		 8: %self->where def_%v_4 %self[2.0,] %v_3[2.7,] time[2.5,] 	 SYMBOL:	 ARGS:%v_3,time,
+		 9: RETURN %v_4[2.8,] %self[2.0,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = setup instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (SecureRandom) def_%v_3 
+		 7: %v_3->hex def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: ATTRASSIGN %self->token %v_4[2.7,] 
+		 9: 
+		 10: CONSTANT def_%v_5 	 SYMBOL:	 ARGS:
+		 11: %v_5->from_now def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: ATTRASSIGN %self->expires_at %v_6[2.11,] 
+		 13: RETURN %v_6[2.11,] %self[2.0,2.8,2.12,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = bearer_token instanceMethod = true
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: def_%v_4 %self[2.0,] 
+		 7: COPY TYPE_PASS def_%v_3 %v_4[2.6,] 
+		 8: %v_4[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->bearer_token def_%v_5 %self[2.0,] 
+		 1: COPY TYPE_PASS def_%v_3 %v_5[3.0,] 
+BB 4
+	outgoing: 5 12 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.7,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: (Rack) def_%v_6 
+		 1: (inherit OAuth2) def_%v_7 %v_6[5.0,] 
+		 2: %v_7[5.1,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[5.0,] 	 SYMBOL:OAuth2,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: (inherit AccessToken) def_%v_8 %v_7[6.0,5.1,] 
+		 1: %v_8[7.0,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_7->const_missing def_%v_8 %v_7[6.0,5.1,] 	 SYMBOL:AccessToken,	 ARGS:Symbol,
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: (inherit Bearer) def_%v_9 %v_8[8.0,7.0,] 
+		 1: %v_9[9.0,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: %v_8->const_missing def_%v_9 %v_8[8.0,7.0,] 	 SYMBOL:Bearer,	 ARGS:Symbol,
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: %self->token def_%v_10 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: 
+		 2: %self->expires_at def_%v_11 %self[11.0,2.0,] 	 SYMBOL:	 ARGS:
+		 3: (Time) def_%v_12 
+		 4: %v_12->zone def_%v_13 %v_12[11.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_13->now def_%v_14 %v_13[11.4,] 	 SYMBOL:	 ARGS:
+		 6: %v_14->utc def_%v_15 %v_14[11.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_11->- def_%v_16 %v_11[11.2,] %v_15[11.6,] 	 SYMBOL:	 ARGS:%v_15,
+		 8: %v_16->to_i def_%v_17 %v_16[11.7,] 	 SYMBOL:	 ARGS:
+		 9: HASH-access_token-expires_in- def_%v_18 %v_10[11.0,] %v_17[11.8,] 
+		 10: %v_9->new def_%v_19 %v_9[10.0,9.0,] %v_18[11.9,] 	 SYMBOL:	 ARGS:%v_18,
+		 11: ATTRASSIGN %self->bearer_token %v_19[11.10,] 
+		 12: RETURN %v_19[11.10,] %self[11.0,11.2,11.11,2.0,] 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[3.0,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+

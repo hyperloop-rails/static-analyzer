@@ -1,0 +1,994 @@
+SET IRMethod, name = render instanceMethod = false
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_events 
+		 6: RECEIVECONSTARG def_opts 
+		 7: opts[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_opts %v_3[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->render_icalendar def_%v_4 %self[2.0,] events[2.5,] opts[3.1,2.6,] 	 SYMBOL:	 ARGS:events,opts,
+		 2: COPY TYPE_PASS def_output %v_4[4.1,] 
+		 3: 
+		 4: %self->add_name def_%v_5 %self[4.1,2.0,] %v_4[4.1,] 	 SYMBOL:	 ARGS:output,
+		 5: COPY TYPE_PASS def_output %v_5[4.4,] 
+		 6: 
+		 7: %self->normalize_line_endings def_%v_6 %self[4.1,4.4,2.0,] %v_5[4.4,] 	 SYMBOL:	 ARGS:output,
+		 8: COPY TYPE_PASS def_output %v_6[4.7,] 
+		 9: RETURN %v_6[4.7,] %self[4.1,4.4,4.7,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = render_icalendar instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_events 
+		 6: RECEIVEARG def_opts 
+		 7: 
+		 8: (RiCal) def_%v_3 
+		 9: %v_3->Calendar def_%v_4 %v_3[2.8,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: calendar[] %self[2.0,] events[2.5,] event[] opts[2.6,] entry[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_calendar 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "-//Calagator//EN" def_%cl_1_3 
+		 2: ATTRASSIGN calendar->prodid %cl_1_3[3.1,] 
+		 3: 
+		 4: %self->Array def_%cl_1_4 %self[2.0,] events[] 	 SYMBOL:	 ARGS:events,
+		 5: %cl_1_4->each def_%cl_1_5 %cl_1_4[3.4,] %self[3.4,2.0,] 	 SYMBOL:	 ARGS:%cl_1_4,
+CLOSURE BEGIN: calendar[3.2,2.2,] %self[3.4,2.0,] event[] opts[] entry[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_event 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: calendar->event def_%cl_2_3 calendar[] %self[2.0,] 	 SYMBOL:	 ARGS:calendar,
+CLOSURE BEGIN: %self[2.0,] event[2.2,] opts[] entry[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_3_0 
+		 2: RECEIVEARG def_entry 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->new def_%cl_3_3 %self[2.0,] event[] opts[] 	 SYMBOL:	 ARGS:event,opts,
+		 2: %cl_3_3->add_event_to def_%cl_3_4 %cl_3_3[3.1,] entry[2.2,] 	 SYMBOL:	 ARGS:entry,
+		 3: RETURN %cl_3_4[3.2,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_3_5 
+		 1: def_%cl_3_6 %cl_3_5[4.0,] 
+		 2: RETURN %cl_3_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: RETURN %cl_2_3[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_4 
+		 1: def_%cl_2_5 %cl_2_4[4.0,] 
+		 2: RETURN %cl_2_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 6: RETURN %cl_1_5[3.5,] %self[3.4,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: %v_4->export def_%v_5 %v_4[2.9,] 	 SYMBOL:	 ARGS:
+		 11: RETURN %v_5[2.10,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = add_name instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_output 
+		 6: 
+		 7: COPY TYPE_Regexp def_%v_3 
+		 8: COPY TYPE_StringLiteral "\1
+X-WR-CALNAME:" def_%v_4 
+		 9: (Calagator) def_%v_5 
+		 10: %v_5->title def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_StringLiteral "
+METHOD:PUBLISH" def_%v_7 
+		 12: BUILDSTRING def_%v_8 %v_4[2.8,] %v_6[2.10,] %v_7[2.11,] 
+		 13: output->sub def_%v_9 output[2.5,] %v_3[2.7,] %v_8[2.12,] 	 SYMBOL:	 ARGS:%v_3,%v_8,
+		 14: RETURN %v_9[2.13,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = normalize_line_endings instanceMethod = false
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_output 
+		 6: 
+		 7: COPY TYPE_Regexp def_%v_3 
+		 8: COPY TYPE_StringLiteral "
+" def_%v_4 
+		 9: output->gsub def_%v_5 output[2.5,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_3,%v_4,
+		 10: RETURN %v_5[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_event 
+		 6: RECEIVEARG def_opts 
+		 7: 
+		 8: ATTRASSIGN %self->event event[2.5,] 
+		 9: 
+		 10: opts->[] def_%v_3 opts[2.6,] 	 SYMBOL:url_helper,	 ARGS:Symbol,
+		 11: BRANCH %v_3[2.10,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: opts->[] def_%v_4 opts[2.6,] 	 SYMBOL:url_helper,	 ARGS:Symbol,
+		 1: %v_4->call def_%v_5 %v_4[3.0,] event[2.5,] 	 SYMBOL:	 ARGS:event,
+		 2: %v_5->to_s def_%v_6 %v_5[3.1,] 	 SYMBOL:	 ARGS:
+		 3: ATTRASSIGN %self->imported_from %v_6[3.2,] 
+		 4: RETURN %v_6[3.2,] %self[3.3,2.0,2.8,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,2.8,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = add_event_to instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_entry 
+		 6: 
+		 7: %self->fields def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->each def_%v_4 %v_3[2.7,] %self[2.0,2.7,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: %self[2.0,2.7,] field[] entry[2.5,] value[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_field 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->send def_%cl_1_3 %self[2.0,] field[2.2,] 	 SYMBOL:	 ARGS:field,
+		 2: COPY TYPE_PASS def_value %cl_1_3[3.1,] 
+		 3: 
+		 4: BRANCH %cl_1_3[3.1,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: entry->send def_%cl_1_4 entry[] field[2.2,] value[3.2,] 	 SYMBOL:	 ARGS:field,value,
+		 1: 
+BB 5
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_4[4.0,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[7.0,] 
+		 2: RETURN %cl_1_6[7.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: value[3.2,] 
+		 9: RETURN %v_4[2.8,] %self[2.0,2.7,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%v_5 
+		 1: def_%v_6 %v_5[4.0,] 
+		 2: RETURN %v_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = fields instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: COPY TYPE_StringLiteral "summary" def_%v_3 
+		 7: COPY TYPE_StringLiteral "description" def_%v_4 
+		 8: COPY TYPE_StringLiteral "url" def_%v_5 
+		 9: COPY TYPE_StringLiteral "location" def_%v_6 
+		 10: COPY TYPE_StringLiteral "dtstart" def_%v_7 
+		 11: COPY TYPE_StringLiteral "dtend" def_%v_8 
+		 12: COPY TYPE_StringLiteral "created" def_%v_9 
+		 13: COPY TYPE_StringLiteral "last_modified" def_%v_10 
+		 14: COPY TYPE_StringLiteral "sequence" def_%v_11 
+		 15: COPY TYPE_StringLiteral "dtstamp" def_%v_12 
+		 16: COPY TYPE_StringLiteral "uid" def_%v_13 
+		 17: COPY TYPE_Array def_%v_14 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] %v_6[2.9,] %v_7[2.10,] %v_8[2.11,] %v_9[2.12,] %v_10[2.13,] %v_11[2.14,] %v_12[2.15,] %v_13[2.16,] 
+		 18: RETURN %v_14[2.17,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = summary instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->event def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->title def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Untitled Event" def_%v_5 
+		 1: RETURN %v_5[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_4[2.7,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = description instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->description_range def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %self->description_description def_%v_4 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 8: %self->description_tags def_%v_5 %self[2.0,2.6,2.7,] 	 SYMBOL:	 ARGS:
+		 9: %self->description_imported_from def_%v_6 %self[2.0,2.6,2.7,2.8,] 	 SYMBOL:	 ARGS:
+		 10: COPY TYPE_Array def_%v_7 %v_3[2.6,] %v_4[2.7,] %v_5[2.8,] %v_6[2.9,] 
+		 11: %v_7->compact def_%v_8 %v_7[2.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_PASS def_parts %v_8[2.11,] 
+		 13: 
+		 14: %v_8->any? def_%v_9 %v_8[2.11,] 	 SYMBOL:	 ARGS:
+		 15: BRANCH %v_9[2.14,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: parts->join def_%v_10 parts[2.12,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_10[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = description_range instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->multiday? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: 
+		 2: (TimeRangeHelper) def_%v_5 
+		 3: %self->event def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: HASH-format- def_%v_7 
+		 5: %v_5->normalize_time def_%v_8 %v_5[3.2,] %v_6[3.3,] %v_7[3.4,] 	 SYMBOL:	 ARGS:%v_6,%v_7,
+		 6: COPY TYPE_PASS def_time_range %v_8[3.5,] 
+		 7: 
+		 8: COPY TYPE_StringLiteral "This event runs from " def_%v_9 
+		 9: COPY TYPE_StringLiteral ".
+
+Description:
+" def_%v_10 
+		 10: BUILDSTRING def_%v_11 %v_9[3.8,] %v_8[3.5,] %v_10[3.9,] 
+		 11: RETURN %v_11[3.10,] %self[3.3,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = description_description instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->event def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->description def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->present? def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: (Loofah) def_%v_6 
+		 1: (inherit Helpers) def_%v_7 %v_6[3.0,] 
+		 2: %v_7[3.1,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[3.0,] 	 SYMBOL:Helpers,	 ARGS:Symbol,
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->event def_%v_8 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_8->description def_%v_9 %v_8[5.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->strip_tags def_%v_10 %v_7[4.0,3.1,] %v_9[5.1,] 	 SYMBOL:	 ARGS:%v_9,
+		 3: RETURN %v_10[5.2,] %self[5.0,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = description_tags instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->event def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->tag_list def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->present? def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "
+
+Tags: " def_%v_6 
+		 1: %self->event def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->tag_list def_%v_8 %v_7[3.1,] 	 SYMBOL:	 ARGS:
+		 3: BUILDSTRING def_%v_9 %v_6[3.0,] %v_8[3.2,] 
+		 4: RETURN %v_9[3.3,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = description_imported_from instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->imported_from def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "
+
+Imported from: " def_%v_4 
+		 1: %self->imported_from def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: BUILDSTRING def_%v_6 %v_4[3.0,] %v_5[3.1,] 
+		 3: RETURN %v_6[3.2,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = url instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->event def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->url def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->present? def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_5[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->event def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->url def_%v_7 %v_6[3.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_7[3.1,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = location instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->event def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->venue def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->event def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->venue def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->title def_%v_7 %v_6[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %self->event def_%v_8 %self[3.0,2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_8->venue def_%v_9 %v_8[3.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_9->full_address def_%v_10 %v_9[3.4,] 	 SYMBOL:	 ARGS:
+		 6: COPY TYPE_Array def_%v_11 %v_7[3.2,] %v_10[3.5,] 
+		 7: %v_11->compact def_%v_12 %v_11[3.6,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_StringLiteral ": " def_%v_13 
+		 9: %v_12->join def_%v_14 %v_12[3.7,] %v_13[3.8,] 	 SYMBOL:	 ARGS:%v_13,
+		 10: RETURN %v_14[3.9,] %self[3.0,3.3,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = dtstart instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->multiday? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->event def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_4->start_time def_%v_5 %v_4[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->to_date def_%v_6 %v_5[3.2,] 	 SYMBOL:	 ARGS:
+		 4: RETURN %v_6[3.3,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->event def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_7->start_time def_%v_8 %v_7[4.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %v_8[4.2,] %self[4.1,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = dtend instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->multiday? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->event def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_4->end_time def_%v_5 %v_4[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_5->to_date def_%v_6 %v_5[3.2,] 	 SYMBOL:	 ARGS:
+		 4: CONSTANT def_%v_7 	 SYMBOL:	 ARGS:
+		 5: %v_6->+ def_%v_8 %v_6[3.3,] %v_7[3.4,] 	 SYMBOL:	 ARGS:%v_7,
+		 6: RETURN %v_8[3.5,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->event def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_9->end_time def_%v_10 %v_9[4.1,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_10[4.2,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->event def_%v_11 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_11->start_time def_%v_12 %v_11[5.0,] 	 SYMBOL:	 ARGS:
+		 2: CONSTANT def_%v_13 	 SYMBOL:	 ARGS:
+		 3: %v_12->+ def_%v_14 %v_12[5.1,] %v_13[5.2,] 	 SYMBOL:	 ARGS:%v_13,
+		 4: COPY TYPE_PASS def_%v_10 %v_14[5.3,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %v_10[5.4,4.2,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = created instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->event def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->created_at def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->event def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->created_at def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_6[3.1,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = last_modified instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->event def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->updated_at def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->event def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->updated_at def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_6[3.1,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = sequence instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Calagator) def_%v_3 
+		 7: %v_3->icalendar_sequence_offset def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_%v_4 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->event def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->versions def_%v_6 %v_5[4.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_6->count def_%v_7 %v_6[4.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_4->+ def_%v_8 %v_4[3.0,2.7,] %v_7[4.2,] 	 SYMBOL:	 ARGS:%v_7,
+		 4: RETURN %v_8[4.3,] %self[4.0,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = dtstamp instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->event def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->created_at def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->event def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->start_time def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_6[3.1,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_4[2.7,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = uid instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->imported_from def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: RETURN %v_3[2.6,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = multiday? instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->event def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->duration def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->seconds def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: CONSTANT def_%v_6 	 SYMBOL:	 ARGS:
+		 10: %v_5->> def_%v_7 %v_5[2.8,] %v_6[2.9,] 	 SYMBOL:	 ARGS:%v_6,
+		 11: RETURN %v_7[2.10,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

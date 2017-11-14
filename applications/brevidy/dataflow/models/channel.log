@@ -1,0 +1,827 @@
+SET IRMethod, name = to_param instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->id def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral "-" def_%v_4 
+		 8: %self->title def_%v_5 %self[2.0,2.6,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->parameterize def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: BUILDSTRING def_%v_7 %v_3[2.6,] %v_4[2.7,] %v_6[2.9,] 
+		 11: RETURN %v_7[2.10,] %self[2.0,2.6,2.8,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = videos_for_preview instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->videos def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->joins def_%v_4 %v_3[2.6,] 	 SYMBOL:video_graph,	 ARGS:Symbol,
+		 8: (VideoGraph) def_%v_5 
+		 9: %v_5->get_status_number def_%v_6 %v_5[2.8,] 	 SYMBOL:ready,	 ARGS:Symbol,
+		 10: HASH-status- def_%v_7 %v_6[2.9,] 
+		 11: HASH-video_graphs- def_%v_8 %v_7[2.10,] 
+		 12: %v_4->where def_%v_9 %v_4[2.7,] %v_8[2.11,] 	 SYMBOL:	 ARGS:%v_8,
+		 13: %v_9->limit def_%v_10 %v_9[2.12,] 	 SYMBOL:	 ARGS:Fixnum,
+		 14: RETURN %v_10[2.13,] %self[2.0,2.6,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = is_accessible_by instanceMethod = true
+BB 1
+	outgoing: 19 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_current_user 
+		 6: 
+		 7: %self->private? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->! def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: current_user->blank? def_%v_6 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 3: BRANCH %v_6[4.2,] 
+BB 6
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_7 
+		 1: 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Blocking) def_%v_8 
+		 2: %self->user_id def_%v_9 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: current_user->id def_%v_10 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 4: HASH-requesting_user-blocked_user- def_%v_11 %v_9[7.2,] %v_10[7.3,] 
+		 5: %v_8->where def_%v_12 %v_8[7.1,] %v_11[7.4,] 	 SYMBOL:	 ARGS:%v_11,
+		 6: %v_12->exists? def_%v_13 %v_12[7.5,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_13[7.6,] 
+BB 8
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+		 1: 
+		 2: %self->user_id def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: current_user->id def_%v_16 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 4: %v_15->== def_%v_17 %v_15[9.2,] %v_16[9.3,] 	 SYMBOL:	 ARGS:%v_16,
+		 5: BRANCH %v_17[9.4,] 
+BB 11
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 12
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_18 
+		 1: 
+		 2: current_user->is_subscribed_to? def_%v_19 current_user[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+		 3: BRANCH %v_19[12.2,] 
+BB 14
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_20 
+		 1: COPY TYPE_PASS def_%v_7 %v_20[15.0,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 19
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = regenerate_public_token! instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->regenerate_public_token def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %self->save def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_4[3.0,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.6,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = regenerate_public_token instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+BB 3
+	outgoing: 5 4 
+	datadep: 
+	instructions:
+		 0: %self->loop def_%v_3 %self[2.0,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+CLOSURE BEGIN: %self[2.0,] new_token[] 
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (SecureRandom) def_%cl_1_3 
+		 2: %cl_1_3->base64 def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:Fixnum,
+		 3: COPY TYPE_StringLiteral "+/=" def_%cl_1_5 
+		 4: COPY TYPE_StringLiteral "xyz" def_%cl_1_6 
+		 5: %cl_1_4->tr def_%cl_1_7 %cl_1_4[3.2,] %cl_1_5[3.3,] %cl_1_6[3.4,] 	 SYMBOL:	 ARGS:%cl_1_5,%cl_1_6,
+		 6: %cl_1_7->first def_%cl_1_8 %cl_1_7[3.5,] 	 SYMBOL:	 ARGS:Fixnum,
+		 7: COPY TYPE_PASS def_new_token %cl_1_8[3.6,] 
+		 8: 
+		 9: (Channel) def_%cl_1_9 
+		 10: HASH-public_token- def_%cl_1_10 %cl_1_8[3.6,] 
+		 11: %cl_1_9->where def_%cl_1_11 %cl_1_9[3.9,] %cl_1_10[3.10,] 	 SYMBOL:	 ARGS:%cl_1_10,
+		 12: %cl_1_11->exists? def_%cl_1_12 %cl_1_11[3.11,] 	 SYMBOL:	 ARGS:
+		 13: BRANCH %cl_1_12[3.12,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_13 
+		 1: RETURN %cl_1_13[4.0,] %self[2.0,] 
+BB 5
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: ATTRASSIGN %self->public_token new_token[3.7,] 
+		 1: new_token[3.7,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_14 
+		 1: def_%cl_1_15 %cl_1_14[7.0,] 
+		 2: RETURN %cl_1_15[7.1,] %self[5.0,2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: def_%v_4 
+		 1: def_%v_3 %v_4[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[4.1,3.0,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = subscribe! instanceMethod = true
+BB 1
+	outgoing: 39 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_current_user 
+		 6: RECEIVECONSTARG def_request_approved 
+		 7: request_approved[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Boolean def_request_approved 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_PASS def_%v_3 subscription[] 
+		 2: COPY TYPE_PASS def_%v_4 subscription[] 
+		 3: BRANCH subscription[] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: current_user->subscriptions def_%v_5 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->new def_%v_6 %v_5[5.0,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_subscription %v_6[5.1,] 
+		 3: COPY TYPE_PASS def_%v_4 %v_6[5.1,] 
+BB 6
+	outgoing: 7 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->user_id def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: current_user->id def_%v_8 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_7->== def_%v_9 %v_7[6.1,] %v_8[6.2,] 	 SYMBOL:	 ARGS:%v_8,
+		 4: BRANCH %v_9[6.3,] 
+BB 7
+	outgoing: 8 10 
+	datadep: 
+	instructions:
+		 0: subscription->errors def_%v_10 subscription[5.2,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "^You cannot subscribe to your own channel." def_%v_11 
+		 2: %v_10->add def_%v_12 %v_10[7.0,] %v_11[7.1,] 	 SYMBOL:id,	 ARGS:Symbol,%v_11,
+		 3: BRANCH %v_12[7.2,] 
+BB 8
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: RETURN subscription[5.2,] %self[2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_12 
+BB 12
+	outgoing: 13 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Subscription) def_%v_13 
+		 2: current_user->id def_%v_14 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %self->id def_%v_15 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: HASH-subscriber_id-channel_id- def_%v_16 %v_14[12.2,] %v_15[12.3,] 
+		 5: %v_13->where def_%v_17 %v_13[12.1,] %v_16[12.4,] 	 SYMBOL:	 ARGS:%v_16,
+		 6: %v_17->exists? def_%v_18 %v_17[12.5,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_18[12.6,] 
+BB 13
+	outgoing: 14 16 
+	datadep: 
+	instructions:
+		 0: subscription->errors def_%v_19 subscription[5.2,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "^You are already subscribed to this channel." def_%v_20 
+		 2: %v_19->add def_%v_21 %v_19[13.0,] %v_20[13.1,] 	 SYMBOL:channel_id,	 ARGS:Symbol,%v_20,
+		 3: BRANCH %v_21[13.2,] 
+BB 14
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: RETURN subscription[5.2,] %self[2.0,] 
+BB 16
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_21 
+BB 18
+	outgoing: 19 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (User) def_%v_22 
+		 2: %self->user_id def_%v_23 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 3: %v_22->find_by_id def_%v_24 %v_22[18.1,] %v_23[18.2,] 	 SYMBOL:	 ARGS:%v_23,
+		 4: COPY TYPE_PASS def_channel_owner %v_24[18.3,] 
+		 5: 
+		 6: %self->private? def_%v_25 %self[18.2,2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_25[18.6,] 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: request_approved->== def_%v_26 request_approved[3.0,2.6,] 	 SYMBOL:	 ARGS:Boolean,
+		 1: COPY TYPE_PASS def_%v_25 %v_26[19.0,] 
+BB 20
+	outgoing: 21 28 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_25[19.1,18.6,] 
+BB 21
+	outgoing: 22 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ChannelRequest) def_%v_27 
+		 2: current_user->id def_%v_28 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %self->id def_%v_29 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: HASH-user_id-channel_id- def_%v_30 %v_28[21.2,] %v_29[21.3,] 
+		 5: %v_27->where def_%v_31 %v_27[21.1,] %v_30[21.4,] 	 SYMBOL:	 ARGS:%v_30,
+		 6: %v_31->exists? def_%v_32 %v_31[21.5,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_32[21.6,] 
+BB 22
+	outgoing: 27 
+	datadep: 
+	instructions:
+		 0: 
+		 1: subscription->errors def_%v_33 subscription[5.2,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "^You have already requested access to this channel.  Please be patient while this person responds to the request." def_%v_34 
+		 3: %v_33->add def_%v_35 %v_33[22.1,] %v_34[22.2,] 	 SYMBOL:channel_id,	 ARGS:Symbol,%v_34,
+		 4: 
+BB 23
+	outgoing: 24 25 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ChannelRequest) def_%v_36 
+		 2: %v_36->new def_%v_37 %v_36[23.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_channel_request %v_37[23.2,] 
+		 4: 
+		 5: current_user->id def_%v_38 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 6: ATTRASSIGN channel_request->user_id %v_38[23.5,] 
+		 7: 
+		 8: %self->id def_%v_39 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 9: ATTRASSIGN channel_request->channel_id %v_39[23.8,] 
+		 10: 
+		 11: channel_request->save def_%v_40 channel_request[23.3,23.6,23.9,] 	 SYMBOL:	 ARGS:
+		 12: 
+		 13: subscription->errors def_%v_41 subscription[5.2,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_StringLiteral "^requesting permission" def_%v_42 
+		 15: %v_41->add def_%v_43 %v_41[23.13,] %v_42[23.14,] 	 SYMBOL:subscriber_id,	 ARGS:Symbol,%v_42,
+		 16: 
+		 17: channel_owner->send_email_for_private_channel_request def_%v_44 channel_owner[18.4,] 	 SYMBOL:	 ARGS:
+		 18: BRANCH %v_44[23.17,] 
+BB 24
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: (UserMailer) def_%v_45 
+		 1: %v_45->delay def_%v_46 %v_45[24.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_46->request_channel_approval def_%v_47 %v_46[24.1,] current_user[2.5,] %self[2.0,] channel_request[23.3,23.6,23.9,] 	 SYMBOL:	 ARGS:current_user,%self,channel_request,
+		 3: 
+BB 25
+	outgoing: 26 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_47 
+BB 26
+	outgoing: 27 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (UserEvent) def_%v_48 
+		 2: HASH-priority- def_%v_49 
+		 3: %v_48->delay def_%v_50 %v_48[26.1,] %v_49[26.2,] 	 SYMBOL:	 ARGS:%v_49,
+		 4: (UserEvent) def_%v_51 
+		 5: %v_51->event_type_value def_%v_52 %v_51[26.4,] 	 SYMBOL:channel_request,	 ARGS:Symbol,
+		 6: channel_request->id def_%v_53 channel_request[23.3,23.6,23.9,] 	 SYMBOL:	 ARGS:
+		 7: %self->user_id def_%v_54 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: current_user->id def_%v_55 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 9: HASH-event_type-event_object_id-user_id-event_creator_id- def_%v_56 %v_52[26.5,] %v_53[26.6,] %v_54[26.7,] %v_55[26.8,] 
+		 10: %v_50->create def_%v_57 %v_50[26.3,] %v_56[26.9,] 	 SYMBOL:	 ARGS:%v_56,
+		 11: COPY TYPE_PASS def_%v_35 %v_57[26.10,] 
+BB 27
+	outgoing: 37 
+	datadep: 
+	instructions:
+		 0: 
+BB 28
+	outgoing: 29 30 
+	datadep: 
+	instructions:
+		 0: 
+		 1: current_user->id def_%v_58 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN subscription->subscriber_id %v_58[28.1,] 
+		 3: 
+		 4: %self->user_id def_%v_59 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 5: ATTRASSIGN subscription->publisher_id %v_59[28.4,] 
+		 6: 
+		 7: %self->id def_%v_60 %self[28.4,2.0,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN subscription->channel_id %v_60[28.7,] 
+		 9: 
+		 10: subscription->save def_%v_61 subscription[28.2,28.5,28.8,5.2,] 	 SYMBOL:	 ARGS:
+		 11: 
+		 12: BRANCH request_approved[3.0,2.6,] 
+BB 29
+	outgoing: 31 
+	datadep: 
+	instructions:
+		 0: (UserMailer) def_%v_62 
+		 1: %v_62->delay def_%v_63 %v_62[29.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_63->private_channel_request_approved def_%v_64 %v_63[29.1,] current_user[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:current_user,%self,
+		 3: 
+BB 30
+	outgoing: 31 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_64 
+BB 31
+	outgoing: 32 33 
+	datadep: 
+	instructions:
+		 0: 
+		 1: channel_owner->send_email_for_new_subscriber def_%v_65 channel_owner[18.4,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_65[31.1,] 
+BB 32
+	outgoing: 33 
+	datadep: 
+	instructions:
+		 0: request_approved->! def_%v_66 request_approved[3.0,2.6,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_65 %v_66[32.0,] 
+BB 33
+	outgoing: 34 35 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_65[32.1,31.1,] 
+BB 34
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: (UserMailer) def_%v_67 
+		 1: %v_67->delay def_%v_68 %v_67[34.0,] 	 SYMBOL:	 ARGS:
+		 2: %v_68->new_subscriber def_%v_69 %v_68[34.1,] channel_owner[18.4,] current_user[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:channel_owner,current_user,%self,
+		 3: 
+BB 35
+	outgoing: 36 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_69 
+BB 36
+	outgoing: 37 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (UserEvent) def_%v_70 
+		 2: HASH-priority- def_%v_71 
+		 3: %v_70->delay def_%v_72 %v_70[36.1,] %v_71[36.2,] 	 SYMBOL:	 ARGS:%v_71,
+		 4: (UserEvent) def_%v_73 
+		 5: %v_73->event_type_value def_%v_74 %v_73[36.4,] 	 SYMBOL:subscription,	 ARGS:Symbol,
+		 6: subscription->id def_%v_75 subscription[28.2,28.5,28.8,5.2,] 	 SYMBOL:	 ARGS:
+		 7: %self->user_id def_%v_76 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 8: current_user->id def_%v_77 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 9: HASH-event_type-event_object_id-user_id-event_creator_id- def_%v_78 %v_74[36.5,] %v_75[36.6,] %v_76[36.7,] %v_77[36.8,] 
+		 10: %v_72->create def_%v_79 %v_72[36.3,] %v_78[36.9,] 	 SYMBOL:	 ARGS:%v_78,
+		 11: COPY TYPE_PASS def_%v_35 %v_79[36.10,] 
+BB 37
+	outgoing: 39 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN subscription[28.2,28.5,28.8,5.2,] %self[2.0,] 
+BB 39
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = unsubscribe! instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_current_user 
+		 6: 
+		 7: COPY TYPE_PASS def_%v_3 subscription[] 
+		 8: COPY TYPE_PASS def_%v_4 subscription[] 
+		 9: BRANCH subscription[] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: current_user->subscriptions def_%v_5 current_user[2.5,] 	 SYMBOL:	 ARGS:
+		 1: %self->id def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 2: HASH-channel_id- def_%v_7 %v_6[3.1,] 
+		 3: %v_5->where def_%v_8 %v_5[3.0,] %v_7[3.2,] 	 SYMBOL:	 ARGS:%v_7,
+		 4: %v_8->first def_%v_9 %v_8[3.3,] 	 SYMBOL:	 ARGS:
+		 5: COPY TYPE_PASS def_subscription %v_9[3.4,] 
+		 6: COPY TYPE_PASS def_%v_4 %v_9[3.4,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: subscription->blank? def_%v_10 subscription[3.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_10[4.1,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: subscription->destroy def_%v_12 subscription[3.5,] 	 SYMBOL:	 ARGS:
+		 2: 
+		 3: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = generate_public_token instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->featured? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_4 
+		 1: RETURN %v_4[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->regenerate_public_token def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_5[4.0,] %self[4.0,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = featured_channel_stays_public instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->featured? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->private? def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_3 %v_4[3.0,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.1,2.6,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->errors def_%v_5 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "^You cannot make the featured channel private" def_%v_6 
+		 2: %v_5->add def_%v_7 %v_5[5.0,] %v_6[5.1,] 	 SYMBOL:private,	 ARGS:Symbol,%v_6,
+		 3: RETURN %v_7[5.2,] %self[5.0,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = user_cant_change_featured_channel_title instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->featured? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %self->title def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "Featured Videos" def_%v_5 
+		 2: %v_4->!= def_%v_6 %v_4[3.0,] %v_5[3.1,] 	 SYMBOL:	 ARGS:%v_5,
+		 3: COPY TYPE_PASS def_%v_3 %v_6[3.2,] 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_3[3.3,2.6,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->errors def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_StringLiteral "^You cannot change the name for the featured videos channel" def_%v_8 
+		 2: %v_7->add def_%v_9 %v_7[5.0,] %v_8[5.1,] 	 SYMBOL:title,	 ARGS:Symbol,%v_8,
+		 3: RETURN %v_9[5.2,] %self[5.0,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = strip_title instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->title def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: %v_3->blank? def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_4[2.7,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: RETURN %v_5[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->title def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_6->strip def_%v_7 %v_6[4.0,] 	 SYMBOL:	 ARGS:
+		 2: ATTRASSIGN %self->title %v_7[4.1,] 
+		 3: RETURN %v_7[4.1,] %self[4.0,4.2,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = make_sure_they_dont_destroy_featured_channel instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->featured? def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

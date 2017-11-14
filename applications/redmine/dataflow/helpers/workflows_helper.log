@@ -1,0 +1,594 @@
+SET IRMethod, name = options_for_workflow_select instanceMethod = true
+BB 1
+	outgoing: 17 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_name 
+		 6: RECEIVEARG def_objects 
+		 7: RECEIVEARG def_selected 
+		 8: RECEIVECONSTARG def_options 
+		 9: options[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: HASH- def_%v_3 
+		 1: COPY TYPE_PASS def_options %v_3[3.0,] 
+BB 4
+	outgoing: 5 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "" def_%v_4 
+		 2: %v_4->html_safe def_%v_5 %v_4[4.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_option_tags %v_5[4.2,] 
+		 4: 
+		 5: COPY TYPE_Boolean def_multiple 
+		 6: 
+		 7: BRANCH selected[2.7,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: selected->size def_%v_6 selected[2.7,] 	 SYMBOL:	 ARGS:
+		 2: objects->size def_%v_7 objects[2.6,] 	 SYMBOL:	 ARGS:
+		 3: %v_6->== def_%v_8 %v_6[5.1,] %v_7[5.2,] 	 SYMBOL:	 ARGS:%v_7,
+		 4: BRANCH %v_8[5.3,] 
+BB 6
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "all" def_%v_9 
+		 2: COPY TYPE_PASS def_selected %v_9[6.1,] 
+		 3: 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: selected->map def_%v_10 selected[2.7,] 	 SYMBOL:id,	 ARGS:
+		 2: COPY TYPE_PASS def_selected %v_10[7.1,] 
+		 3: 
+		 4: %v_10->size def_%v_11 %v_10[7.1,] 	 SYMBOL:	 ARGS:
+		 5: %v_11->> def_%v_12 %v_11[7.4,] 	 SYMBOL:	 ARGS:Fixnum,
+		 6: BRANCH %v_12[7.5,] 
+BB 8
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Boolean def_multiple 
+		 2: COPY TYPE_Boolean def_%v_13 
+		 3: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_13 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_9 %v_13[9.0,8.2,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+BB 12
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: objects->first def_%v_14 objects[2.6,] 	 SYMBOL:	 ARGS:
+		 2: %v_14->try def_%v_15 %v_14[12.1,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 3: COPY TYPE_PASS def_selected %v_15[12.2,] 
+		 4: COPY TYPE_PASS def_%v_9 %v_15[12.2,] 
+BB 13
+	outgoing: 14 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "all" def_%v_16 
+		 2: COPY TYPE_StringLiteral "all" def_%v_17 
+		 3: selected->== def_%v_18 selected[12.3,6.2,7.2,] %v_17[13.2,] 	 SYMBOL:	 ARGS:%v_17,
+		 4: HASH-value-selected- def_%v_19 %v_16[13.1,] %v_18[13.3,] 
+		 5: COPY TYPE_PASS def_all_tag_options %v_19[13.4,] 
+		 6: 
+		 7: BRANCH multiple[4.5,8.1,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "display:none;" def_%v_20 
+		 2: HASH-style- def_%v_21 %v_20[14.1,] 
+		 3: all_tag_options->merge! def_%v_22 all_tag_options[13.5,] %v_21[14.2,] 	 SYMBOL:	 ARGS:%v_21,
+		 4: 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_22 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "option" def_%v_23 
+		 2: %self->l def_%v_24 %self[2.0,] 	 SYMBOL:label_all,	 ARGS:Symbol,
+		 3: %self->content_tag def_%v_25 %self[16.2,2.0,] %v_23[16.1,] %v_24[16.2,] all_tag_options[13.5,] 	 SYMBOL:	 ARGS:%v_23,%v_24,all_tag_options,
+		 4: option_tags-><< def_%v_26 option_tags[4.3,] %v_25[16.3,] 	 SYMBOL:	 ARGS:%v_25,
+		 5: 
+		 6: COPY TYPE_StringLiteral "id" def_%v_27 
+		 7: COPY TYPE_StringLiteral "name" def_%v_28 
+		 8: %self->options_from_collection_for_select def_%v_29 %self[16.2,16.3,2.0,] objects[2.6,] %v_27[16.6,] %v_28[16.7,] selected[12.3,6.2,7.2,] 	 SYMBOL:	 ARGS:objects,%v_27,%v_28,selected,
+		 9: option_tags-><< def_%v_30 option_tags[16.4,4.3,] %v_29[16.8,] 	 SYMBOL:	 ARGS:%v_29,
+		 10: 
+		 11: HASH-multiple- def_%v_31 multiple[4.5,8.1,] 
+		 12: %v_31->merge def_%v_32 %v_31[16.11,] options[3.1,2.8,] 	 SYMBOL:	 ARGS:options,
+		 13: %self->select_tag def_%v_33 %self[16.2,16.3,16.8,2.0,] name[2.5,] option_tags[16.4,16.9,4.3,] %v_32[16.12,] 	 SYMBOL:	 ARGS:name,option_tags,%v_32,
+		 14: RETURN %v_33[16.13,] %self[16.2,16.3,16.8,16.13,2.0,] 
+BB 17
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = field_required? instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_field 
+		 6: 
+		 7: (CustomField) def_%v_3 
+		 8: field->is_a? def_%v_4 field[2.5,] %v_3[2.7,] 	 SYMBOL:	 ARGS:%v_3,
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: field->is_required? def_%v_5 field[2.5,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_5[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "project_id" def_%v_6 
+		 1: COPY TYPE_StringLiteral "tracker_id" def_%v_7 
+		 2: COPY TYPE_StringLiteral "subject" def_%v_8 
+		 3: COPY TYPE_StringLiteral "priority_id" def_%v_9 
+		 4: COPY TYPE_StringLiteral "is_private" def_%v_10 
+		 5: COPY TYPE_Array def_%v_11 %v_6[4.0,] %v_7[4.1,] %v_8[4.2,] %v_9[4.3,] %v_10[4.4,] 
+		 6: %v_11->include? def_%v_12 %v_11[4.5,] field[2.5,] 	 SYMBOL:	 ARGS:field,
+		 7: RETURN %v_12[4.6,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = field_permission_tag instanceMethod = true
+BB 1
+	outgoing: 24 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_permissions 
+		 6: RECEIVEARG def_status 
+		 7: RECEIVEARG def_field 
+		 8: RECEIVEARG def_roles 
+		 9: 
+		 10: (CustomField) def_%v_3 
+		 11: field->is_a? def_%v_4 field[2.7,] %v_3[2.10,] 	 SYMBOL:	 ARGS:%v_3,
+		 12: BRANCH %v_4[2.11,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: field->id def_%v_5 field[2.7,] 	 SYMBOL:	 ARGS:
+		 1: %v_5->to_s def_%v_6 %v_5[3.0,] 	 SYMBOL:	 ARGS:
+		 2: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_6 field[2.7,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_name %v_6[4.0,3.1,] 
+		 1: 
+		 2: COPY TYPE_StringLiteral "" def_%v_7 
+		 3: COPY TYPE_StringLiteral "" def_%v_8 
+		 4: COPY TYPE_Array def_%v_9 %v_7[5.2,] %v_8[5.3,] 
+		 5: %self->l def_%v_10 %self[2.0,] 	 SYMBOL:label_readonly,	 ARGS:Symbol,
+		 6: COPY TYPE_StringLiteral "readonly" def_%v_11 
+		 7: COPY TYPE_Array def_%v_12 %v_10[5.5,] %v_11[5.6,] 
+		 8: COPY TYPE_Array def_%v_13 %v_9[5.4,] %v_12[5.7,] 
+		 9: COPY TYPE_PASS def_options %v_13[5.8,] 
+		 10: 
+		 11: %self->field_required? def_%v_14 %self[5.5,2.0,] field[2.7,] 	 SYMBOL:	 ARGS:field,
+		 12: BRANCH %v_14[5.11,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+		 1: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->l def_%v_16 %self[2.0,] 	 SYMBOL:label_required,	 ARGS:Symbol,
+		 1: COPY TYPE_StringLiteral "required" def_%v_17 
+		 2: COPY TYPE_Array def_%v_18 %v_16[7.0,] %v_17[7.1,] 
+		 3: options-><< def_%v_19 options[5.9,] %v_18[7.2,] 	 SYMBOL:	 ARGS:%v_18,
+		 4: COPY TYPE_PASS def_%v_15 %v_19[7.3,] 
+BB 8
+	outgoing: 9 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: HASH- def_%v_20 
+		 2: COPY TYPE_PASS def_html_options %v_20[8.1,] 
+		 3: 
+		 4: status->id def_%v_21 status[2.6,] 	 SYMBOL:	 ARGS:
+		 5: permissions->[] def_%v_22 permissions[2.5,] %v_21[8.4,] 	 SYMBOL:	 ARGS:%v_21,
+		 6: %v_22->[] def_%v_23 %v_22[8.5,] name[5.0,] 	 SYMBOL:	 ARGS:name,
+		 7: COPY TYPE_PASS def_perm %v_23[8.6,] 
+		 8: BRANCH %v_23[8.6,] 
+BB 9
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: perm->uniq def_%v_24 perm[8.7,] 	 SYMBOL:	 ARGS:
+		 2: %v_24->size def_%v_25 %v_24[9.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_25->> def_%v_26 %v_25[9.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: BRANCH %v_26[9.3,] 
+BB 10
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: perm->size def_%v_27 perm[8.7,] 	 SYMBOL:	 ARGS:
+		 1: GETFIELD %self->roles def_%v_28 %self[2.0,] 
+		 2: %v_28->size def_%v_29 %v_28[10.1,] 	 SYMBOL:	 ARGS:
+		 3: GETFIELD %self->trackers def_%v_30 %self[2.0,] 
+		 4: %v_30->size def_%v_31 %v_30[10.3,] 	 SYMBOL:	 ARGS:
+		 5: %v_29->* def_%v_32 %v_29[10.2,] %v_31[10.4,] 	 SYMBOL:	 ARGS:%v_31,
+		 6: %v_27->< def_%v_33 %v_27[10.0,] %v_32[10.5,] 	 SYMBOL:	 ARGS:%v_32,
+		 7: COPY TYPE_PASS def_%v_26 %v_33[10.6,] 
+BB 11
+	outgoing: 12 13 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_26[10.7,9.3,] 
+BB 12
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->l def_%v_34 %self[2.0,] 	 SYMBOL:label_no_change_option,	 ARGS:Symbol,
+		 2: COPY TYPE_StringLiteral "no_change" def_%v_35 
+		 3: COPY TYPE_Array def_%v_36 %v_34[12.1,] %v_35[12.2,] 
+		 4: options-><< def_%v_37 options[5.9,] %v_36[12.3,] 	 SYMBOL:	 ARGS:%v_36,
+		 5: 
+		 6: COPY TYPE_StringLiteral "no_change" def_%v_38 
+		 7: COPY TYPE_PASS def_selected %v_38[12.6,] 
+		 8: 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: perm->first def_%v_39 perm[8.7,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_PASS def_selected %v_39[13.1,] 
+		 3: COPY TYPE_PASS def_%v_38 %v_39[13.1,] 
+BB 14
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: 
+BB 15
+	outgoing: 16 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_38 
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (CustomField) def_%v_40 
+		 2: field->is_a? def_%v_41 field[2.7,] %v_40[16.1,] 	 SYMBOL:	 ARGS:%v_40,
+		 3: BRANCH %v_41[16.2,] 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: field->visible? def_%v_42 field[2.7,] 	 SYMBOL:	 ARGS:
+		 2: %v_42->! def_%v_43 %v_42[17.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_41 %v_43[17.2,] 
+BB 18
+	outgoing: 19 20 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_41[17.3,16.2,] 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: 
+		 1: roles->detect def_%v_44 roles[2.8,] %self[2.0,] 	 SYMBOL:	 ARGS:roles,
+CLOSURE BEGIN: role[] field[2.7,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_role 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: role->custom_fields def_%cl_1_3 role[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_3->to_a def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: %cl_1_4->include? def_%cl_1_5 %cl_1_4[3.2,] field[] 	 SYMBOL:	 ARGS:field,
+		 4: RETURN %cl_1_5[3.3,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_6 
+		 1: def_%cl_1_7 %cl_1_6[4.0,] 
+		 2: RETURN %cl_1_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 2: %v_44->! def_%v_45 %v_44[19.1,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_PASS def_%v_41 %v_45[19.2,] 
+BB 20
+	outgoing: 21 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_hidden %v_41[19.3,17.3,16.2,] 
+		 1: 
+		 2: BRANCH %v_41[19.3,17.3,16.2,] 
+BB 21
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: 
+		 1: options->[] def_%v_46 options[5.9,] 	 SYMBOL:	 ARGS:Fixnum,
+		 2: %self->l def_%v_47 %self[2.0,] 	 SYMBOL:label_hidden,	 ARGS:Symbol,
+		 3: ATTRASSIGN %v_46->[] %v_47[21.2,] 
+		 4: 
+		 5: COPY TYPE_StringLiteral "" def_%v_48 
+		 6: COPY TYPE_PASS def_selected %v_48[21.5,] 
+		 7: 
+		 8: ATTRASSIGN html_options->[] 
+		 9: COPY TYPE_Boolean def_%v_49 
+		 10: 
+BB 22
+	outgoing: 23 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_49 
+BB 23
+	outgoing: 24 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "permissions[" def_%v_50 
+		 2: status->id def_%v_51 status[2.6,] 	 SYMBOL:	 ARGS:
+		 3: COPY TYPE_StringLiteral "][" def_%v_52 
+		 4: COPY TYPE_StringLiteral "]" def_%v_53 
+		 5: BUILDSTRING def_%v_54 %v_50[23.1,] %v_51[23.2,] %v_52[23.3,] name[5.0,] %v_53[23.4,] 
+		 6: %self->options_for_select def_%v_55 %self[2.0,] options[5.9,] selected[21.6,13.2,12.7,] 	 SYMBOL:	 ARGS:options,selected,
+		 7: %self->select_tag def_%v_56 %self[23.6,2.0,] %v_54[23.5,] %v_55[23.6,] html_options[21.8,8.2,] 	 SYMBOL:	 ARGS:%v_54,%v_55,html_options,
+		 8: RETURN %v_56[23.7,] %self[23.6,23.7,2.0,] 
+BB 24
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = transition_tag instanceMethod = true
+BB 1
+	outgoing: 12 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_workflows 
+		 6: RECEIVEARG def_old_status 
+		 7: RECEIVEARG def_new_status 
+		 8: RECEIVEARG def_name 
+		 9: 
+		 10: workflows->select def_%v_3 workflows[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:workflows,
+CLOSURE BEGIN: w[] old_status[2.6,] new_status[2.7,] 
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_w 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: w->old_status def_%cl_1_3 w[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_3->== def_%cl_1_4 %cl_1_3[3.1,] old_status[] 	 SYMBOL:	 ARGS:old_status,
+		 3: BRANCH %cl_1_4[3.2,] 
+BB 4
+	outgoing: 6 8 
+	datadep: 
+	instructions:
+		 0: w->new_status def_%cl_1_5 w[2.2,] 	 SYMBOL:	 ARGS:
+		 1: %cl_1_5->== def_%cl_1_6 %cl_1_5[4.0,] new_status[] 	 SYMBOL:	 ARGS:new_status,
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_7 
+		 1: def_%cl_1_8 %cl_1_7[6.0,] 
+		 2: RETURN %cl_1_8[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 11: %v_3->size def_%v_4 %v_3[2.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_PASS def_w %v_4[2.11,] 
+		 13: 
+		 14: COPY TYPE_StringLiteral "transitions[" def_%v_5 
+		 15: old_status->try def_%v_6 old_status[2.6,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 16: BRANCH %v_6[2.15,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_%v_6 
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "][" def_%v_7 
+		 1: new_status->id def_%v_8 new_status[2.7,] 	 SYMBOL:	 ARGS:
+		 2: COPY TYPE_StringLiteral "][" def_%v_9 
+		 3: COPY TYPE_StringLiteral "]" def_%v_10 
+		 4: BUILDSTRING def_%v_11 %v_5[2.14,] %v_6[3.0,2.15,] %v_7[4.0,] %v_8[4.1,] %v_9[4.2,] name[2.8,] %v_10[4.3,] 
+		 5: COPY TYPE_PASS def_tag_name %v_11[4.4,] 
+		 6: 
+		 7: w->== def_%v_12 w[2.10,2.12,] 	 SYMBOL:	 ARGS:Fixnum,
+		 8: BRANCH %v_12[4.7,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: GETFIELD %self->roles def_%v_13 %self[2.0,] 
+		 1: %v_13->size def_%v_14 %v_13[5.0,] 	 SYMBOL:	 ARGS:
+		 2: GETFIELD %self->trackers def_%v_15 %self[2.0,] 
+		 3: %v_15->size def_%v_16 %v_15[5.2,] 	 SYMBOL:	 ARGS:
+		 4: %v_14->* def_%v_17 %v_14[5.1,] %v_16[5.3,] 	 SYMBOL:	 ARGS:%v_16,
+		 5: w->== def_%v_18 w[2.10,2.12,] %v_17[5.4,] 	 SYMBOL:	 ARGS:%v_17,
+		 6: COPY TYPE_PASS def_%v_12 %v_18[5.5,] 
+BB 6
+	outgoing: 7 10 
+	datadep: 
+	instructions:
+		 0: BRANCH %v_12[5.6,4.7,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "0" def_%v_19 
+		 2: HASH-id- def_%v_20 
+		 3: %self->hidden_field_tag def_%v_21 %self[2.0,] tag_name[4.5,] %v_19[7.1,] %v_20[7.2,] 	 SYMBOL:	 ARGS:tag_name,%v_19,%v_20,
+		 4: COPY TYPE_StringLiteral "1" def_%v_22 
+		 5: w->!= def_%v_23 w[2.10,2.12,] 	 SYMBOL:	 ARGS:Fixnum,
+		 6: COPY TYPE_StringLiteral "old-status-" def_%v_24 
+		 7: 
+		 8: old_status->try def_%v_25 old_status[2.6,] 	 SYMBOL:id,	 ARGS:Symbol,
+		 9: BRANCH %v_25[7.8,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Fixnum def_%v_25 
+BB 9
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral " new-status-" def_%v_26 
+		 1: new_status->id def_%v_27 new_status[2.7,] 	 SYMBOL:	 ARGS:
+		 2: BUILDSTRING def_%v_28 %v_24[7.6,] %v_25[8.0,7.8,] %v_26[9.0,] %v_27[9.1,] 
+		 3: HASH-class- def_%v_29 %v_28[9.2,] 
+		 4: %self->check_box_tag def_%v_30 %self[2.0,] tag_name[4.5,] %v_22[7.4,] %v_23[7.5,] %v_29[9.3,] 	 SYMBOL:	 ARGS:tag_name,%v_22,%v_23,%v_29,
+		 5: %v_21->+ def_%v_31 %v_21[7.3,] %v_30[9.4,] 	 SYMBOL:	 ARGS:%v_30,
+		 6: RETURN %v_31[9.5,] %self[9.4,2.0,] 
+BB 10
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->l def_%v_32 %self[2.0,] 	 SYMBOL:general_text_Yes,	 ARGS:Symbol,
+		 2: COPY TYPE_StringLiteral "1" def_%v_33 
+		 3: COPY TYPE_Array def_%v_34 %v_32[10.1,] %v_33[10.2,] 
+		 4: %self->l def_%v_35 %self[10.1,2.0,] 	 SYMBOL:general_text_No,	 ARGS:Symbol,
+		 5: COPY TYPE_StringLiteral "0" def_%v_36 
+		 6: COPY TYPE_Array def_%v_37 %v_35[10.4,] %v_36[10.5,] 
+		 7: %self->l def_%v_38 %self[10.1,10.4,2.0,] 	 SYMBOL:label_no_change_option,	 ARGS:Symbol,
+		 8: COPY TYPE_StringLiteral "no_change" def_%v_39 
+		 9: COPY TYPE_Array def_%v_40 %v_38[10.7,] %v_39[10.8,] 
+		 10: COPY TYPE_Array def_%v_41 %v_34[10.3,] %v_37[10.6,] %v_40[10.9,] 
+		 11: COPY TYPE_StringLiteral "no_change" def_%v_42 
+		 12: %self->options_for_select def_%v_43 %self[10.1,10.4,10.7,2.0,] %v_41[10.10,] %v_42[10.11,] 	 SYMBOL:	 ARGS:%v_41,%v_42,
+		 13: %self->select_tag def_%v_44 %self[10.1,10.4,10.7,10.12,2.0,] tag_name[4.5,] %v_43[10.12,] 	 SYMBOL:	 ARGS:tag_name,%v_43,
+		 14: RETURN %v_44[10.13,] %self[10.1,10.4,10.7,10.12,10.13,2.0,] 
+BB 12
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,801 @@
+SET IRMethod, name = initialize instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_logger 
+		 6: 
+		 7: ATTRASSIGN %self->logger logger[2.5,] 
+		 8: RETURN logger[2.5,] %self[2.0,2.7,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = with_active_account instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_cid 
+		 6: RECEIVEARG def_pid 
+		 7: def_%v_3 
+		 8: def_block %v_3[2.7,] 
+		 9: 
+		 10: (AccountStore) def_%v_4 
+		 11: HASH-person_id-community_id- def_%v_5 pid[2.6,] cid[2.5,] 
+		 12: %v_4->get_active def_%v_6 %v_4[2.10,] %v_5[2.11,] 	 SYMBOL:	 ARGS:%v_5,
+		 13: COPY TYPE_PASS def_m_acc %v_6[2.12,] 
+		 14: 
+		 15: %v_6->nil? def_%v_7 %v_6[2.12,] 	 SYMBOL:	 ARGS:
+		 16: BRANCH %v_7[2.15,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Result) def_%v_8 
+		 2: (inherit Error) def_%v_9 %v_8[3.1,] 
+		 3: %v_9[3.2,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_8->const_missing def_%v_9 %v_8[3.1,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Cannot find paypal account for the given community and person: community_id: " def_%v_10 
+		 1: COPY TYPE_StringLiteral ", person_id: " def_%v_11 
+		 2: COPY TYPE_StringLiteral "." def_%v_12 
+		 3: BUILDSTRING def_%v_13 %v_10[5.0,] cid[2.5,] %v_11[5.1,] pid[2.6,] %v_12[5.2,] 
+		 4: %v_9->new def_%v_14 %v_9[4.0,3.2,] %v_13[5.3,] 	 SYMBOL:	 ARGS:%v_13,
+		 5: %self->log_and_return def_%v_15 %self[2.0,] %v_14[5.4,] 	 SYMBOL:	 ARGS:%v_14,
+		 6: RETURN %v_15[5.5,] %self[5.5,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: block->call def_%v_17 block[2.8,] m_acc[2.13,] 	 SYMBOL:	 ARGS:m_acc,
+		 2: RETURN %v_17[6.1,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = with_accounts instanceMethod = true
+BB 1
+	outgoing: 18 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_cid 
+		 6: RECEIVEARG def_pid 
+		 7: RECEIVEARG def_receiver_id 
+		 8: def_%v_3 
+		 9: def_block %v_3[2.8,] 
+		 10: 
+		 11: (AccountStore) def_%v_4 
+		 12: HASH-community_id- def_%v_5 cid[2.5,] 
+		 13: %v_4->get_active def_%v_6 %v_4[2.11,] %v_5[2.12,] 	 SYMBOL:	 ARGS:%v_5,
+		 14: COPY TYPE_PASS def_admin_acc %v_6[2.13,] 
+		 15: 
+		 16: %v_6->nil? def_%v_7 %v_6[2.13,] 	 SYMBOL:	 ARGS:
+		 17: BRANCH %v_7[2.16,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Result) def_%v_8 
+		 2: (inherit Error) def_%v_9 %v_8[3.1,] 
+		 3: %v_9[3.2,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_8->const_missing def_%v_9 %v_8[3.1,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 5
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "No matching admin account for community_id: " def_%v_10 
+		 1: COPY TYPE_StringLiteral "." def_%v_11 
+		 2: BUILDSTRING def_%v_12 %v_10[5.0,] cid[2.5,] %v_11[5.1,] 
+		 3: %v_9->new def_%v_13 %v_9[4.0,3.2,] %v_12[5.2,] 	 SYMBOL:	 ARGS:%v_12,
+		 4: %self->log_and_return def_%v_14 %self[2.0,] %v_13[5.3,] 	 SYMBOL:	 ARGS:%v_13,
+		 5: RETURN %v_14[5.4,] %self[5.4,2.0,] 
+BB 6
+	outgoing: 8 11 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+		 1: 
+		 2: (AccountStore) def_%v_16 
+		 3: HASH-person_id-community_id-payer_id- def_%v_17 pid[2.6,] cid[2.5,] receiver_id[2.7,] 
+		 4: %v_16->get def_%v_18 %v_16[6.2,] %v_17[6.3,] 	 SYMBOL:	 ARGS:%v_17,
+		 5: COPY TYPE_PASS def_m_acc %v_18[6.4,] 
+		 6: 
+		 7: %v_18->nil? def_%v_19 %v_18[6.4,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_19[6.7,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Result) def_%v_20 
+		 2: (inherit Error) def_%v_21 %v_20[8.1,] 
+		 3: %v_21[8.2,] 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: %v_20->const_missing def_%v_21 %v_20[8.1,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 10
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Cannot find paypal account for the given community and person: community_id: " def_%v_22 
+		 1: COPY TYPE_StringLiteral ", person_id: " def_%v_23 
+		 2: COPY TYPE_StringLiteral ", payer_id: " def_%v_24 
+		 3: COPY TYPE_StringLiteral "." def_%v_25 
+		 4: BUILDSTRING def_%v_26 %v_22[10.0,] cid[2.5,] %v_23[10.1,] pid[2.6,] %v_24[10.2,] receiver_id[2.7,] %v_25[10.3,] 
+		 5: %v_21->new def_%v_27 %v_21[9.0,8.2,] %v_26[10.4,] 	 SYMBOL:	 ARGS:%v_26,
+		 6: %self->log_and_return def_%v_28 %self[2.0,] %v_27[10.5,] 	 SYMBOL:	 ARGS:%v_27,
+		 7: RETURN %v_28[10.6,] %self[10.6,2.0,] 
+BB 11
+	outgoing: 12 15 
+	datadep: 
+	instructions:
+		 0: 
+		 1: m_acc->[] def_%v_30 m_acc[6.5,] 	 SYMBOL:billing_agreement_state,	 ARGS:Symbol,
+		 2: %v_30->!= def_%v_31 %v_30[11.1,] 	 SYMBOL:verified,	 ARGS:Symbol,
+		 3: BRANCH %v_31[11.2,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Result) def_%v_32 
+		 2: (inherit Error) def_%v_33 %v_32[12.1,] 
+		 3: %v_33[12.2,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: %v_32->const_missing def_%v_33 %v_32[12.1,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 14
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Merchant account has no billing agreement setup." def_%v_34 
+		 1: %v_33->new def_%v_35 %v_33[13.0,12.2,] %v_34[14.0,] 	 SYMBOL:	 ARGS:%v_34,
+		 2: %self->log_and_return def_%v_36 %self[2.0,] %v_35[14.1,] 	 SYMBOL:	 ARGS:%v_35,
+		 3: RETURN %v_36[14.2,] %self[14.2,2.0,] 
+BB 15
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_37 
+		 1: COPY TYPE_PASS def_%v_29 %v_37[15.0,] 
+BB 17
+	outgoing: 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: block->call def_%v_38 block[2.9,] m_acc[6.5,] admin_acc[2.14,] 	 SYMBOL:	 ARGS:m_acc,admin_acc,
+		 2: RETURN %v_38[17.1,] %self[2.0,] 
+BB 18
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = with_token instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_cid 
+		 6: RECEIVEARG def_t 
+		 7: def_%v_3 
+		 8: def_block %v_3[2.7,] 
+		 9: 
+		 10: (TokenStore) def_%v_4 
+		 11: %v_4->get def_%v_5 %v_4[2.10,] cid[2.5,] t[2.6,] 	 SYMBOL:	 ARGS:cid,t,
+		 12: COPY TYPE_PASS def_token %v_5[2.11,] 
+		 13: 
+		 14: %v_5->nil? def_%v_6 %v_5[2.11,] 	 SYMBOL:	 ARGS:
+		 15: BRANCH %v_6[2.14,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Result) def_%v_7 
+		 2: (inherit Error) def_%v_8 %v_7[3.1,] 
+		 3: %v_8[3.2,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_7->const_missing def_%v_8 %v_7[3.1,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "No matching token for community_id: " def_%v_9 
+		 1: COPY TYPE_StringLiteral " and token: " def_%v_10 
+		 2: BUILDSTRING def_%v_11 %v_9[5.0,] cid[2.5,] %v_10[5.1,] t[2.6,] 
+		 3: %v_8->new def_%v_12 %v_8[4.0,3.2,] %v_11[5.2,] 	 SYMBOL:	 ARGS:%v_11,
+		 4: %self->log_and_return def_%v_13 %self[2.0,] %v_12[5.3,] 	 SYMBOL:	 ARGS:%v_12,
+		 5: RETURN %v_13[5.4,] %self[5.4,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+		 1: 
+		 2: block->call def_%v_15 block[2.8,] token[2.12,] 	 SYMBOL:	 ARGS:token,
+		 3: RETURN %v_15[6.2,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = with_merchant_account instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_cid 
+		 6: RECEIVEARG def_token 
+		 7: def_%v_3 
+		 8: def_block %v_3[2.7,] 
+		 9: 
+		 10: (AccountStore) def_%v_4 
+		 11: token->[] def_%v_5 token[2.6,] 	 SYMBOL:merchant_id,	 ARGS:Symbol,
+		 12: token->[] def_%v_6 token[2.6,2.11,] 	 SYMBOL:receiver_id,	 ARGS:Symbol,
+		 13: HASH-person_id-community_id-payer_id- def_%v_7 %v_5[2.11,] cid[2.5,] %v_6[2.12,] 
+		 14: %v_4->get def_%v_8 %v_4[2.10,] %v_7[2.13,] 	 SYMBOL:	 ARGS:%v_7,
+		 15: COPY TYPE_PASS def_m_acc %v_8[2.14,] 
+		 16: 
+		 17: %v_8->nil? def_%v_9 %v_8[2.14,] 	 SYMBOL:	 ARGS:
+		 18: BRANCH %v_9[2.17,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Result) def_%v_10 
+		 2: (inherit Error) def_%v_11 %v_10[3.1,] 
+		 3: %v_11[3.2,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_10->const_missing def_%v_11 %v_10[3.1,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "No matching merchant account for community_id: " def_%v_12 
+		 1: COPY TYPE_StringLiteral " and person_id: " def_%v_13 
+		 2: token->[] def_%v_14 token[2.6,] 	 SYMBOL:merchant_id,	 ARGS:Symbol,
+		 3: COPY TYPE_StringLiteral "." def_%v_15 
+		 4: BUILDSTRING def_%v_16 %v_12[5.0,] cid[2.5,] %v_13[5.1,] %v_14[5.2,] %v_15[5.3,] 
+		 5: %v_11->new def_%v_17 %v_11[4.0,3.2,] %v_16[5.4,] 	 SYMBOL:	 ARGS:%v_16,
+		 6: %self->log_and_return def_%v_18 %self[2.0,] %v_17[5.5,] 	 SYMBOL:	 ARGS:%v_17,
+		 7: RETURN %v_18[5.6,] %self[5.6,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_19 
+		 1: 
+		 2: block->call def_%v_20 block[2.8,] m_acc[2.15,] 	 SYMBOL:	 ARGS:m_acc,
+		 3: RETURN %v_20[6.2,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = with_payment instanceMethod = true
+BB 1
+	outgoing: 20 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_cid 
+		 6: RECEIVEARG def_txid 
+		 7: RECEIVECONSTARG def_accepted_states 
+		 8: accepted_states[2.7,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_3 
+		 1: COPY TYPE_PASS def_accepted_states %v_3[3.0,] 
+BB 4
+	outgoing: 5 8 
+	datadep: 
+	instructions:
+		 0: def_%v_4 
+		 1: def_block %v_4[4.0,] 
+		 2: 
+		 3: (PaymentStore) def_%v_5 
+		 4: %v_5->get def_%v_6 %v_5[4.3,] cid[2.5,] txid[2.6,] 	 SYMBOL:	 ARGS:cid,txid,
+		 5: COPY TYPE_PASS def_payment %v_6[4.4,] 
+		 6: 
+		 7: %v_6->nil? def_%v_7 %v_6[4.4,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_7[4.7,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Result) def_%v_8 
+		 2: (inherit Error) def_%v_9 %v_8[5.1,] 
+		 3: %v_9[5.2,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_8->const_missing def_%v_9 %v_8[5.1,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 7
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "No matching payment for community_id: " def_%v_10 
+		 1: COPY TYPE_StringLiteral " and transaction_id: " def_%v_11 
+		 2: COPY TYPE_StringLiteral "." def_%v_12 
+		 3: BUILDSTRING def_%v_13 %v_10[7.0,] cid[2.5,] %v_11[7.1,] txid[2.6,] %v_12[7.2,] 
+		 4: %v_9->new def_%v_14 %v_9[6.0,5.2,] %v_13[7.3,] 	 SYMBOL:	 ARGS:%v_13,
+		 5: %self->log_and_return def_%v_15 %self[2.0,] %v_14[7.4,] 	 SYMBOL:	 ARGS:%v_14,
+		 6: RETURN %v_15[7.5,] %self[7.5,2.0,] 
+BB 8
+	outgoing: 10 13 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_16 
+		 1: 
+		 2: %self->payment_in_accepted_state? def_%v_17 %self[2.0,] payment[4.5,] accepted_states[3.1,2.7,] 	 SYMBOL:	 ARGS:payment,accepted_states,
+		 3: %v_17->! def_%v_18 %v_17[8.2,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_18[8.3,] 
+BB 10
+	outgoing: 11 12 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Result) def_%v_19 
+		 2: (inherit Error) def_%v_20 %v_19[10.1,] 
+		 3: %v_20[10.2,] 
+BB 11
+	outgoing: 12 
+	datadep: 
+	instructions:
+		 0: %v_19->const_missing def_%v_20 %v_19[10.1,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 12
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Payment was not in accepted precondition state for the requested operation. Expected one of: " def_%v_21 
+		 1: COPY TYPE_StringLiteral ", was: :[" def_%v_22 
+		 2: payment->[] def_%v_23 payment[4.5,] 	 SYMBOL:payment_status,	 ARGS:Symbol,
+		 3: COPY TYPE_StringLiteral ", :" def_%v_24 
+		 4: payment->[] def_%v_25 payment[12.2,4.5,] 	 SYMBOL:pending_reason,	 ARGS:Symbol,
+		 5: COPY TYPE_StringLiteral "]" def_%v_26 
+		 6: BUILDSTRING def_%v_27 %v_21[12.0,] accepted_states[3.1,2.7,] %v_22[12.1,] %v_23[12.2,] %v_24[12.3,] %v_25[12.4,] %v_26[12.5,] 
+		 7: %v_20->new def_%v_28 %v_20[11.0,10.2,] %v_27[12.6,] 	 SYMBOL:	 ARGS:%v_27,
+		 8: %self->log_and_return def_%v_29 %self[2.0,] %v_28[12.7,] 	 SYMBOL:	 ARGS:%v_28,
+		 9: RETURN %v_29[12.8,] %self[12.8,2.0,] 
+BB 13
+	outgoing: 15 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_30 
+		 1: 
+		 2: (AccountStore) def_%v_31 
+		 3: payment->[] def_%v_32 payment[4.5,] 	 SYMBOL:merchant_id,	 ARGS:Symbol,
+		 4: payment->[] def_%v_33 payment[13.3,4.5,] 	 SYMBOL:receiver_id,	 ARGS:Symbol,
+		 5: HASH-person_id-community_id-payer_id- def_%v_34 %v_32[13.3,] cid[2.5,] %v_33[13.4,] 
+		 6: %v_31->get def_%v_35 %v_31[13.2,] %v_34[13.5,] 	 SYMBOL:	 ARGS:%v_34,
+		 7: COPY TYPE_PASS def_m_acc %v_35[13.6,] 
+		 8: 
+		 9: %v_35->nil? def_%v_36 %v_35[13.6,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_36[13.9,] 
+BB 15
+	outgoing: 16 17 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Result) def_%v_37 
+		 2: (inherit Error) def_%v_38 %v_37[15.1,] 
+		 3: %v_38[15.2,] 
+BB 16
+	outgoing: 17 
+	datadep: 
+	instructions:
+		 0: %v_37->const_missing def_%v_38 %v_37[15.1,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 17
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "No matching merchant account for community_id: " def_%v_39 
+		 1: COPY TYPE_StringLiteral " and transaction_id: " def_%v_40 
+		 2: COPY TYPE_StringLiteral "." def_%v_41 
+		 3: BUILDSTRING def_%v_42 %v_39[17.0,] cid[2.5,] %v_40[17.1,] txid[2.6,] %v_41[17.2,] 
+		 4: %v_38->new def_%v_43 %v_38[16.0,15.2,] %v_42[17.3,] 	 SYMBOL:	 ARGS:%v_42,
+		 5: %self->log_and_return def_%v_44 %self[2.0,] %v_43[17.4,] 	 SYMBOL:	 ARGS:%v_43,
+		 6: RETURN %v_44[17.5,] %self[17.5,2.0,] 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_45 
+		 1: 
+		 2: block->call def_%v_46 block[4.1,] payment[4.5,] m_acc[13.7,] 	 SYMBOL:	 ARGS:payment,m_acc,
+		 3: RETURN %v_46[18.2,] %self[2.0,] 
+BB 20
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = with_completed_payment instanceMethod = true
+BB 1
+	outgoing: 22 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_cid 
+		 6: RECEIVEARG def_txid 
+		 7: def_%v_3 
+		 8: def_block %v_3[2.7,] 
+		 9: 
+		 10: (PaypalService) def_%v_4 
+		 11: (inherit Store) def_%v_5 %v_4[2.10,] 
+		 12: %v_5[2.11,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: %v_4->const_missing def_%v_5 %v_4[2.10,] 	 SYMBOL:Store,	 ARGS:Symbol,
+BB 4
+	outgoing: 5 6 
+	datadep: 
+	instructions:
+		 0: (inherit PaypalPayment) def_%v_6 %v_5[3.0,2.11,] 
+		 1: %v_6[4.0,] 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %v_5->const_missing def_%v_6 %v_5[3.0,2.11,] 	 SYMBOL:PaypalPayment,	 ARGS:Symbol,
+BB 6
+	outgoing: 7 10 
+	datadep: 
+	instructions:
+		 0: %v_6->get def_%v_7 %v_6[5.0,4.0,] cid[2.5,] txid[2.6,] 	 SYMBOL:	 ARGS:cid,txid,
+		 1: COPY TYPE_PASS def_payment %v_7[6.0,] 
+		 2: 
+		 3: %v_7->nil? def_%v_8 %v_7[6.0,] 	 SYMBOL:	 ARGS:
+		 4: BRANCH %v_8[6.3,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Result) def_%v_9 
+		 2: (inherit Error) def_%v_10 %v_9[7.1,] 
+		 3: %v_10[7.2,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: %v_9->const_missing def_%v_10 %v_9[7.1,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 9
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "No matching payment for community_id: " def_%v_11 
+		 1: COPY TYPE_StringLiteral " and transaction_id: " def_%v_12 
+		 2: COPY TYPE_StringLiteral "." def_%v_13 
+		 3: BUILDSTRING def_%v_14 %v_11[9.0,] cid[2.5,] %v_12[9.1,] txid[2.6,] %v_13[9.2,] 
+		 4: %v_10->new def_%v_15 %v_10[8.0,7.2,] %v_14[9.3,] 	 SYMBOL:	 ARGS:%v_14,
+		 5: %self->log_and_return def_%v_16 %self[2.0,] %v_15[9.4,] 	 SYMBOL:	 ARGS:%v_15,
+		 6: RETURN %v_16[9.5,] %self[9.5,2.0,] 
+BB 10
+	outgoing: 12 15 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_17 
+		 1: 
+		 2: payment->[] def_%v_18 payment[6.1,] 	 SYMBOL:payment_status,	 ARGS:Symbol,
+		 3: %v_18->!= def_%v_19 %v_18[10.2,] 	 SYMBOL:completed,	 ARGS:Symbol,
+		 4: BRANCH %v_19[10.3,] 
+BB 12
+	outgoing: 13 14 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Result) def_%v_20 
+		 2: (inherit Error) def_%v_21 %v_20[12.1,] 
+		 3: %v_21[12.2,] 
+BB 13
+	outgoing: 14 
+	datadep: 
+	instructions:
+		 0: %v_20->const_missing def_%v_21 %v_20[12.1,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 14
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Payment is not in :completed state. State was: " def_%v_22 
+		 1: payment->[] def_%v_23 payment[6.1,] 	 SYMBOL:payment_status,	 ARGS:Symbol,
+		 2: COPY TYPE_StringLiteral "." def_%v_24 
+		 3: BUILDSTRING def_%v_25 %v_22[14.0,] %v_23[14.1,] %v_24[14.2,] 
+		 4: %v_21->new def_%v_26 %v_21[13.0,12.2,] %v_25[14.3,] 	 SYMBOL:	 ARGS:%v_25,
+		 5: %self->log_and_return def_%v_27 %self[2.0,] %v_26[14.4,] 	 SYMBOL:	 ARGS:%v_26,
+		 6: RETURN %v_27[14.5,] %self[14.5,2.0,] 
+BB 15
+	outgoing: 17 20 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_28 
+		 1: 
+		 2: payment->[] def_%v_29 payment[6.1,] 	 SYMBOL:commission_status,	 ARGS:Symbol,
+		 3: %v_29->!= def_%v_30 %v_29[15.2,] 	 SYMBOL:not_charged,	 ARGS:Symbol,
+		 4: BRANCH %v_30[15.3,] 
+BB 17
+	outgoing: 18 19 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Result) def_%v_31 
+		 2: (inherit Error) def_%v_32 %v_31[17.1,] 
+		 3: %v_32[17.2,] 
+BB 18
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: %v_31->const_missing def_%v_32 %v_31[17.1,] 	 SYMBOL:Error,	 ARGS:Symbol,
+BB 19
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral "Commission already charged. Commission status was: " def_%v_33 
+		 1: payment->[] def_%v_34 payment[6.1,] 	 SYMBOL:commission_status,	 ARGS:Symbol,
+		 2: BUILDSTRING def_%v_35 %v_33[19.0,] %v_34[19.1,] 
+		 3: %v_32->new def_%v_36 %v_32[18.0,17.2,] %v_35[19.2,] 	 SYMBOL:	 ARGS:%v_35,
+		 4: %self->log_and_return def_%v_37 %self[2.0,] %v_36[19.3,] 	 SYMBOL:	 ARGS:%v_36,
+		 5: RETURN %v_37[19.4,] %self[19.4,2.0,] 
+BB 20
+	outgoing: 22 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_38 
+		 1: 
+		 2: block->call def_%v_39 block[2.8,] payment[6.1,] 	 SYMBOL:	 ARGS:payment,
+		 3: RETURN %v_39[20.2,] %self[2.0,] 
+BB 22
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_payment_by_token instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_token 
+		 6: 
+		 7: (PaymentStore) def_%v_3 
+		 8: token->[] def_%v_4 token[2.5,] 	 SYMBOL:community_id,	 ARGS:Symbol,
+		 9: token->[] def_%v_5 token[2.5,2.8,] 	 SYMBOL:transaction_id,	 ARGS:Symbol,
+		 10: %v_3->get def_%v_6 %v_3[2.7,] %v_4[2.8,] %v_5[2.9,] 	 SYMBOL:	 ARGS:%v_4,%v_5,
+		 11: RETURN %v_6[2.10,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = payment_in_accepted_state? instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_payment 
+		 6: RECEIVEARG def_accepted_states 
+		 7: 
+		 8: accepted_states->empty? def_%v_3 accepted_states[2.6,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_3[2.8,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: accepted_states->any? def_%v_4 accepted_states[2.6,] %self[2.0,] 	 SYMBOL:	 ARGS:accepted_states,
+CLOSURE BEGIN: reason[] payment[2.5,] status[] 
+BB 1
+	outgoing: 11 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 9 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_%cl_1_1 
+		 3: def_%cl_1_2 %cl_1_1[2.2,] 
+		 4: def_status %cl_1_2[2.3,] 
+		 5: def_reason %cl_1_2[2.3,] 
+		 6: COPY TYPE_CurrentScope def_%current_scope 
+		 7: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: reason->nil? def_%cl_1_5 reason[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %cl_1_5[3.1,] 
+BB 4
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: payment->[] def_%cl_1_6 payment[] 	 SYMBOL:payment_status,	 ARGS:Symbol,
+		 2: %cl_1_6->== def_%cl_1_7 %cl_1_6[4.1,] status[2.4,] 	 SYMBOL:	 ARGS:status,
+		 3: 
+BB 5
+	outgoing: 6 7 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: payment->[] def_%cl_1_8 payment[] 	 SYMBOL:payment_status,	 ARGS:Symbol,
+		 2: %cl_1_8->== def_%cl_1_9 %cl_1_8[5.1,] status[2.4,] 	 SYMBOL:	 ARGS:status,
+		 3: BRANCH %cl_1_9[5.2,] 
+BB 6
+	outgoing: 7 9 
+	datadep: 
+	instructions:
+		 0: payment->[] def_%cl_1_10 payment[] 	 SYMBOL:pending_reason,	 ARGS:Symbol,
+		 1: %cl_1_10->== def_%cl_1_11 %cl_1_10[6.0,] reason[2.5,] 	 SYMBOL:	 ARGS:reason,
+		 2: COPY TYPE_PASS def_%cl_1_9 %cl_1_11[6.1,] 
+BB 7
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_9[6.2,5.2,] %self[2.0,] 
+BB 8
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: RETURN %cl_1_7[4.2,] %self[2.0,] 
+BB 9
+	outgoing: 11 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_12 
+		 1: def_%cl_1_13 %cl_1_12[9.0,] 
+		 2: RETURN %cl_1_13[9.1,] %self[2.0,] 
+BB 11
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: reason[2.5,] 
+		 1: RETURN %v_4[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: RETURN %v_3[2.8,] %self[2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = log_and_return instanceMethod = true
+BB 1
+	outgoing: 4 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_err_response 
+		 6: 
+		 7: GETFIELD %self->logger def_%v_3 %self[2.0,] 
+		 8: err_response->[] def_%v_4 err_response[2.5,] 	 SYMBOL:error_msg,	 ARGS:Symbol,
+		 9: %v_3->warn def_%v_5 %v_3[2.7,] %v_4[2.8,] 	 SYMBOL:	 ARGS:%v_4,
+		 10: 
+		 11: RETURN err_response[2.5,2.8,] %self[2.0,] 
+BB 4
+	outgoing: 
+	datadep: 
+	instructions:
+

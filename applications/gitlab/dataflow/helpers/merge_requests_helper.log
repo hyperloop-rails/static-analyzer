@@ -1,0 +1,465 @@
+SET IRMethod, name = new_mr_path_from_push_event instanceMethod = true
+BB 1
+	outgoing: 5 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_event 
+		 6: 
+		 7: event->project def_%v_3 event[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->forked_from_project def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_4[2.8,] 
+BB 3
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: event->project def_%v_5 event[2.5,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_4 %v_5[3.0,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_target_project %v_4[3.1,2.8,] 
+		 1: 
+		 2: event->project def_%v_6 event[2.5,] 	 SYMBOL:	 ARGS:
+		 3: %v_6->namespace def_%v_7 %v_6[4.2,] 	 SYMBOL:	 ARGS:
+		 4: event->project def_%v_8 event[4.2,2.5,] 	 SYMBOL:	 ARGS:
+		 5: %self->new_mr_from_push_event def_%v_9 %self[2.0,] event[4.2,4.4,2.5,] target_project[4.0,] 	 SYMBOL:	 ARGS:event,target_project,
+		 6: %self->new_namespace_project_merge_request_path def_%v_10 %self[4.5,2.0,] %v_7[4.3,] %v_8[4.4,] %v_9[4.5,] 	 SYMBOL:	 ARGS:%v_7,%v_8,%v_9,
+		 7: RETURN %v_10[4.6,] %self[4.5,4.6,2.0,] 
+BB 5
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = new_mr_from_push_event instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_event 
+		 6: RECEIVEARG def_target_project 
+		 7: 
+		 8: event->project def_%v_3 event[2.5,] 	 SYMBOL:	 ARGS:
+		 9: %v_3->id def_%v_4 %v_3[2.8,] 	 SYMBOL:	 ARGS:
+		 10: target_project->id def_%v_5 target_project[2.6,] 	 SYMBOL:	 ARGS:
+		 11: event->branch_name def_%v_6 event[2.5,2.8,] 	 SYMBOL:	 ARGS:
+		 12: target_project->repository def_%v_7 target_project[2.6,2.10,] 	 SYMBOL:	 ARGS:
+		 13: %v_7->root_ref def_%v_8 %v_7[2.12,] 	 SYMBOL:	 ARGS:
+		 14: HASH-source_project_id-target_project_id-source_branch-target_branch- def_%v_9 %v_4[2.9,] %v_5[2.10,] %v_6[2.11,] %v_8[2.13,] 
+		 15: HASH-merge_request- def_%v_10 %v_9[2.14,] 
+		 16: RETURN %v_10[2.15,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mr_css_classes instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_mr 
+		 6: 
+		 7: COPY TYPE_StringLiteral "merge-request" def_%v_3 
+		 8: COPY TYPE_PASS def_classes %v_3[2.7,] 
+		 9: 
+		 10: mr->closed? def_%v_4 mr[2.5,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %v_4[2.10,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral " closed" def_%v_5 
+		 1: classes-><< def_%v_6 classes[2.8,] %v_5[3.0,] 	 SYMBOL:	 ARGS:%v_5,
+		 2: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: mr->merged? def_%v_7 mr[2.5,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_7[5.1,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_StringLiteral " merged" def_%v_8 
+		 1: classes-><< def_%v_9 classes[2.8,] %v_8[6.0,] 	 SYMBOL:	 ARGS:%v_8,
+		 2: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN classes[2.8,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = ci_build_details_path instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_merge_request 
+		 6: 
+		 7: merge_request->source_project def_%v_3 merge_request[2.5,] 	 SYMBOL:	 ARGS:
+		 8: %v_3->ci_service def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: merge_request->last_commit def_%v_5 merge_request[2.5,2.7,] 	 SYMBOL:	 ARGS:
+		 10: %v_5->sha def_%v_6 %v_5[2.9,] 	 SYMBOL:	 ARGS:
+		 11: merge_request->source_branch def_%v_7 merge_request[2.5,2.7,2.9,] 	 SYMBOL:	 ARGS:
+		 12: %v_4->build_page def_%v_8 %v_4[2.8,] %v_6[2.10,] %v_7[2.11,] 	 SYMBOL:	 ARGS:%v_6,%v_7,
+		 13: COPY TYPE_PASS def_build_url %v_8[2.12,] 
+		 14: 
+		 15: BRANCH %v_8[2.12,] 
+BB 3
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: 
+		 2: (URI) def_%v_10 
+		 3: %v_10->parse def_%v_11 %v_10[3.2,] build_url[2.13,] 	 SYMBOL:	 ARGS:build_url,
+		 4: COPY TYPE_PASS def_parsed_url %v_11[3.3,] 
+		 5: 
+		 6: %v_11->userinfo def_%v_12 %v_11[3.3,] 	 SYMBOL:	 ARGS:
+		 7: %v_12->blank? def_%v_13 %v_12[3.6,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_13[3.7,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_14 
+		 1: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "" def_%v_15 
+		 2: ATTRASSIGN parsed_url->userinfo %v_15[7.1,] 
+		 3: COPY TYPE_PASS def_%v_14 %v_15[7.1,] 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: parsed_url->to_s def_%v_16 parsed_url[7.2,3.4,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_16[8.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = merge_path_description instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_merge_request 
+		 6: RECEIVEARG def_separator 
+		 7: 
+		 8: merge_request->for_fork? def_%v_3 merge_request[2.5,] 	 SYMBOL:	 ARGS:
+		 9: BRANCH %v_3[2.8,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Project:Branches: " def_%v_4 
+		 2: GETFIELD %self->merge_request def_%v_5 %self[2.0,] 
+		 3: %v_5->source_project_path def_%v_6 %v_5[3.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral ":" def_%v_7 
+		 5: GETFIELD %self->merge_request def_%v_8 %self[2.0,] 
+		 6: %v_8->source_branch def_%v_9 %v_8[3.5,] 	 SYMBOL:	 ARGS:
+		 7: COPY TYPE_StringLiteral " " def_%v_10 
+		 8: COPY TYPE_StringLiteral " " def_%v_11 
+		 9: GETFIELD %self->merge_request def_%v_12 %self[2.0,] 
+		 10: %v_12->target_project def_%v_13 %v_12[3.9,] 	 SYMBOL:	 ARGS:
+		 11: %v_13->path_with_namespace def_%v_14 %v_13[3.10,] 	 SYMBOL:	 ARGS:
+		 12: COPY TYPE_StringLiteral ":" def_%v_15 
+		 13: GETFIELD %self->merge_request def_%v_16 %self[2.0,] 
+		 14: %v_16->target_branch def_%v_17 %v_16[3.13,] 	 SYMBOL:	 ARGS:
+		 15: BUILDSTRING def_%v_18 %v_4[3.1,] %v_6[3.3,] %v_7[3.4,] %v_9[3.6,] %v_10[3.7,] separator[2.6,] %v_11[3.8,] %v_14[3.11,] %v_15[3.12,] %v_17[3.14,] 
+		 16: RETURN %v_18[3.15,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "Branches: " def_%v_19 
+		 2: GETFIELD %self->merge_request def_%v_20 %self[2.0,] 
+		 3: %v_20->source_branch def_%v_21 %v_20[4.2,] 	 SYMBOL:	 ARGS:
+		 4: COPY TYPE_StringLiteral " " def_%v_22 
+		 5: COPY TYPE_StringLiteral " " def_%v_23 
+		 6: GETFIELD %self->merge_request def_%v_24 %self[2.0,] 
+		 7: %v_24->target_branch def_%v_25 %v_24[4.6,] 	 SYMBOL:	 ARGS:
+		 8: BUILDSTRING def_%v_26 %v_19[4.1,] %v_21[4.3,] %v_22[4.4,] separator[2.6,] %v_23[4.5,] %v_25[4.7,] 
+		 9: RETURN %v_26[4.8,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = issues_sentence instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_issues 
+		 6: 
+		 7: issues->map def_%v_3 issues[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:issues,
+CLOSURE BEGIN: %self[2.0,] issue[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_issue 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: GETFIELD %self->project def_%cl_1_3 %self[2.0,] 
+		 2: issue->to_reference def_%cl_1_4 issue[2.2,] %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:%cl_1_3,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 8: %v_3->sort def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->to_sentence def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: RETURN %v_5[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mr_change_branches_path instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_merge_request 
+		 6: 
+		 7: GETFIELD %self->project def_%v_3 %self[2.0,] 
+		 8: %v_3->namespace def_%v_4 %v_3[2.7,] 	 SYMBOL:	 ARGS:
+		 9: GETFIELD %self->project def_%v_5 %self[2.0,] 
+		 10: GETFIELD %self->merge_request def_%v_6 %self[2.0,] 
+		 11: %v_6->source_project_id def_%v_7 %v_6[2.10,] 	 SYMBOL:	 ARGS:
+		 12: GETFIELD %self->merge_request def_%v_8 %self[2.0,] 
+		 13: %v_8->target_project_id def_%v_9 %v_8[2.12,] 	 SYMBOL:	 ARGS:
+		 14: GETFIELD %self->merge_request def_%v_10 %self[2.0,] 
+		 15: %v_10->source_branch def_%v_11 %v_10[2.14,] 	 SYMBOL:	 ARGS:
+		 16: GETFIELD %self->merge_request def_%v_12 %self[2.0,] 
+		 17: %v_12->target_branch def_%v_13 %v_12[2.16,] 	 SYMBOL:	 ARGS:
+		 18: HASH-source_project_id-target_project_id-source_branch-target_branch- def_%v_14 %v_7[2.11,] %v_9[2.13,] %v_11[2.15,] %v_13[2.17,] 
+		 19: HASH-merge_request-change_branches- def_%v_15 %v_14[2.18,] 
+		 20: %self->new_namespace_project_merge_request_path def_%v_16 %self[2.0,] %v_4[2.8,] %v_5[2.9,] %v_15[2.19,] 	 SYMBOL:	 ARGS:%v_4,%v_5,%v_15,
+		 21: RETURN %v_16[2.20,] %self[2.0,2.20,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = source_branch_with_namespace instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_merge_request 
+		 6: 
+		 7: merge_request->source_branch def_%v_3 merge_request[2.5,] 	 SYMBOL:	 ARGS:
+		 8: merge_request->source_project def_%v_4 merge_request[2.5,2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_4->namespace def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 10: merge_request->source_project def_%v_6 merge_request[2.5,2.7,2.8,] 	 SYMBOL:	 ARGS:
+		 11: merge_request->source_branch def_%v_7 merge_request[2.5,2.7,2.8,2.10,] 	 SYMBOL:	 ARGS:
+		 12: %self->namespace_project_commits_path def_%v_8 %self[2.0,] %v_5[2.9,] %v_6[2.10,] %v_7[2.11,] 	 SYMBOL:	 ARGS:%v_5,%v_6,%v_7,
+		 13: %self->link_to def_%v_9 %self[2.0,2.12,] %v_3[2.7,] %v_8[2.12,] 	 SYMBOL:	 ARGS:%v_3,%v_8,
+		 14: COPY TYPE_PASS def_branch %v_9[2.13,] 
+		 15: 
+		 16: merge_request->for_fork? def_%v_10 merge_request[2.5,2.7,2.8,2.10,2.11,] 	 SYMBOL:	 ARGS:
+		 17: BRANCH %v_10[2.16,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: merge_request->source_project_namespace def_%v_11 merge_request[2.5,] 	 SYMBOL:	 ARGS:
+		 2: merge_request->source_project def_%v_12 merge_request[3.1,2.5,] 	 SYMBOL:	 ARGS:
+		 3: %self->project_path def_%v_13 %self[2.0,] %v_12[3.2,] 	 SYMBOL:	 ARGS:%v_12,
+		 4: %self->link_to def_%v_14 %self[3.3,2.0,] %v_11[3.1,] %v_13[3.3,] 	 SYMBOL:	 ARGS:%v_11,%v_13,
+		 5: COPY TYPE_PASS def_namespace %v_14[3.4,] 
+		 6: 
+		 7: COPY TYPE_StringLiteral ":" def_%v_15 
+		 8: %v_14->+ def_%v_16 %v_14[3.4,] %v_15[3.7,] 	 SYMBOL:	 ARGS:%v_15,
+		 9: %v_16->+ def_%v_17 %v_16[3.8,] branch[2.14,] 	 SYMBOL:	 ARGS:branch,
+		 10: RETURN %v_17[3.9,] %self[3.3,3.4,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN branch[2.14,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = format_mr_branch_names instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_merge_request 
+		 6: 
+		 7: merge_request->source_project_path def_%v_3 merge_request[2.5,] 	 SYMBOL:	 ARGS:
+		 8: COPY TYPE_PASS def_source_path %v_3[2.7,] 
+		 9: 
+		 10: merge_request->target_project_path def_%v_4 merge_request[2.5,2.7,] 	 SYMBOL:	 ARGS:
+		 11: COPY TYPE_PASS def_target_path %v_4[2.10,] 
+		 12: 
+		 13: merge_request->source_branch def_%v_5 merge_request[2.5,2.7,2.10,] 	 SYMBOL:	 ARGS:
+		 14: COPY TYPE_PASS def_source_branch %v_5[2.13,] 
+		 15: 
+		 16: merge_request->target_branch def_%v_6 merge_request[2.5,2.7,2.10,2.13,] 	 SYMBOL:	 ARGS:
+		 17: COPY TYPE_PASS def_target_branch %v_6[2.16,] 
+		 18: 
+		 19: source_path->== def_%v_7 source_path[2.8,] target_path[2.11,] 	 SYMBOL:	 ARGS:target_path,
+		 20: BRANCH %v_7[2.19,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Array def_%v_8 source_branch[2.14,] target_branch[2.17,] 
+		 2: RETURN source_branch[2.14,] target_branch[2.17,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral ":" def_%v_9 
+		 2: BUILDSTRING def_%v_10 source_path[2.8,] %v_9[4.1,] source_branch[2.14,] 
+		 3: COPY TYPE_StringLiteral ":" def_%v_11 
+		 4: BUILDSTRING def_%v_12 target_path[2.11,] %v_11[4.3,] target_branch[2.17,] 
+		 5: COPY TYPE_Array def_%v_13 %v_10[4.2,] %v_12[4.4,] 
+		 6: RETURN %v_13[4.5,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,256 @@
+SET IRMethod, name = image instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 6 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (AppConfig) def_%v_3 
+		 7: %v_3->privacy def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: %v_4->camo def_%v_5 %v_4[2.7,] 	 SYMBOL:	 ARGS:
+		 9: %v_5->proxy_opengraph_thumbnails? def_%v_6 %v_5[2.8,] 	 SYMBOL:	 ARGS:
+		 10: BRANCH %v_6[2.9,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Diaspora) def_%v_7 
+		 2: (inherit Camo) def_%v_8 %v_7[3.1,] 
+		 3: %v_8[3.2,] 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: %v_7->const_missing def_%v_8 %v_7[3.1,] 	 SYMBOL:Camo,	 ARGS:Symbol,
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %self->[] def_%v_9 %self[2.0,] 	 SYMBOL:image,	 ARGS:Symbol,
+		 1: %v_8->image_url def_%v_10 %v_8[4.0,3.2,] %v_9[5.0,] 	 SYMBOL:	 ARGS:%v_9,
+		 2: RETURN %v_10[5.1,] %self[5.0,2.0,] 
+BB 6
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->[] def_%v_11 %self[2.0,] 	 SYMBOL:image,	 ARGS:Symbol,
+		 2: RETURN %v_11[6.1,] %self[6.1,2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = find_or_create_by instanceMethod = false
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_opts 
+		 6: 
+		 7: (OpenGraphCache) def_%v_3 
+		 8: %v_3->find_or_initialize_by def_%v_4 %v_3[2.7,] opts[2.5,] 	 SYMBOL:	 ARGS:opts,
+		 9: COPY TYPE_PASS def_cache %v_4[2.8,] 
+		 10: 
+		 11: %v_4->persisted? def_%v_5 %v_4[2.8,] 	 SYMBOL:	 ARGS:
+		 12: BRANCH %v_5[2.11,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_6 
+		 1: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: cache->fetch_and_save_opengraph_data! def_%v_7 cache[2.9,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_%v_6 %v_7[4.0,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: 
+		 1: cache->persisted? def_%v_8 cache[2.9,] 	 SYMBOL:	 ARGS:
+		 2: BRANCH %v_8[5.1,] 
+BB 6
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_PASS def_%v_9 cache[2.9,] 
+		 1: RETURN %v_9[6.0,] %self[2.0,] 
+BB 7
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: RETURN %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = fetch_and_save_opengraph_data! instanceMethod = true
+BB 1
+	outgoing: 20 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: GLOBALVAR $! def_%v_3 
+BB 4
+	outgoing: 5 6 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: 
+		 2: (OpenGraphReader) def_%v_6 
+		 3: %self->url def_%v_7 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 4: %v_6->fetch! def_%v_8 %v_6[4.2,] %v_7[4.3,] 	 SYMBOL:	 ARGS:%v_7,
+		 5: COPY TYPE_PASS def_object %v_8[4.4,] 
+		 6: 
+		 7: BRANCH %v_8[4.4,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_9 
+		 1: 
+BB 6
+	outgoing: 7 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_10 
+		 1: 
+		 2: %v_3[2.5,] 
+BB 7
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: RETURN %v_10[6.0,] %self[2.0,] 
+BB 8
+	outgoing: 9 10 
+	datadep: 
+	instructions:
+		 0: 
+		 1: object->og def_%v_11 object[4.5,] 	 SYMBOL:	 ARGS:
+		 2: %v_11->title def_%v_12 %v_11[8.1,] 	 SYMBOL:	 ARGS:
+		 3: %v_12->truncate def_%v_13 %v_12[8.2,] 	 SYMBOL:	 ARGS:Fixnum,
+		 4: ATTRASSIGN %self->title %v_13[8.3,] 
+		 5: 
+		 6: object->og def_%v_14 object[8.1,4.5,] 	 SYMBOL:	 ARGS:
+		 7: %v_14->type def_%v_15 %v_14[8.6,] 	 SYMBOL:	 ARGS:
+		 8: ATTRASSIGN %self->ob_type %v_15[8.7,] 
+		 9: 
+		 10: object->og def_%v_16 object[8.1,8.6,4.5,] 	 SYMBOL:	 ARGS:
+		 11: %v_16->image def_%v_17 %v_16[8.10,] 	 SYMBOL:	 ARGS:
+		 12: %v_17->url def_%v_18 %v_17[8.11,] 	 SYMBOL:	 ARGS:
+		 13: ATTRASSIGN %self->image %v_18[8.12,] 
+		 14: 
+		 15: object->og def_%v_19 object[8.1,8.6,8.10,4.5,] 	 SYMBOL:	 ARGS:
+		 16: %v_19->url def_%v_20 %v_19[8.15,] 	 SYMBOL:	 ARGS:
+		 17: ATTRASSIGN %self->url %v_20[8.16,] 
+		 18: 
+		 19: object->og def_%v_21 object[8.1,8.6,8.10,8.15,4.5,] 	 SYMBOL:	 ARGS:
+		 20: %v_21->description def_%v_22 %v_21[8.19,] 	 SYMBOL:	 ARGS:
+		 21: ATTRASSIGN %self->description %v_22[8.20,] 
+		 22: 
+		 23: %self->save def_%v_23 %self[8.4,8.8,8.13,8.17,8.21,2.0,] 	 SYMBOL:	 ARGS:
+		 24: COPY TYPE_PASS def_%v_5 %v_23[8.23,] 
+		 25: 
+		 26: %v_3[2.5,] 
+BB 9
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+BB 10
+	outgoing: 11 12 18 
+	datadep: 
+	instructions:
+		 0: 
+		 1: def_%v_24 
+		 2: (OpenGraphReader) def_%v_25 
+		 3: (inherit NoOpenGraphDataError) def_%v_26 %v_25[10.2,] 
+		 4: %v_26[10.3,] 
+BB 11
+	outgoing: 12 18 
+	datadep: 
+	instructions:
+		 0: %v_25->const_missing def_%v_26 %v_25[10.2,] 	 SYMBOL:NoOpenGraphDataError,	 ARGS:Symbol,
+BB 12
+	outgoing: 13 14 18 
+	datadep: 
+	instructions:
+		 0: (OpenGraphReader) def_%v_27 
+		 1: (inherit InvalidObjectError) def_%v_28 %v_27[12.0,] 
+		 2: %v_28[12.1,] 
+BB 13
+	outgoing: 14 18 
+	datadep: 
+	instructions:
+		 0: %v_27->const_missing def_%v_28 %v_27[12.0,] 	 SYMBOL:InvalidObjectError,	 ARGS:Symbol,
+BB 14
+	outgoing: 15 16 18 
+	datadep: 
+	instructions:
+		 0: def_%v_29 %v_26[11.0,10.3,] %v_28[13.0,12.1,] %v_24[10.1,] 
+		 1: BRANCH %v_29[14.0,] 
+BB 15
+	outgoing: 18 20 
+	datadep: 
+	instructions:
+		 0: %v_24[10.1,] 
+BB 16
+	outgoing: 17 18 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: %v_3[2.5,] 
+BB 17
+	outgoing: 19 
+	datadep: 
+	instructions:
+		 0: 
+BB 18
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: def_%v_30 
+		 1: def_%v_31 %v_30[18.0,] %v_3[2.5,] 
+		 2: %v_30[18.0,] 
+BB 19
+	outgoing: 20 
+	datadep: 
+	instructions:
+		 0: RETURN %v_5[8.24,16.0,] %self[8.4,8.8,8.13,8.17,8.21,2.0,] 
+BB 20
+	outgoing: 
+	datadep: 
+	instructions:
+

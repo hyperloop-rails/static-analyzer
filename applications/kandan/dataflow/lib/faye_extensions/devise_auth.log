@@ -1,0 +1,77 @@
+SET IRMethod, name = incoming instanceMethod = true
+BB 1
+	outgoing: 9 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 7 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_message 
+		 6: RECEIVEARG def_callback 
+		 7: 
+		 8: COPY TYPE_StringLiteral "channel" def_%v_3 
+		 9: message->[] def_%v_4 message[2.5,] %v_3[2.8,] 	 SYMBOL:	 ARGS:%v_3,
+		 10: COPY TYPE_StringLiteral "/meta/subscribe" def_%v_5 
+		 11: %v_4->== def_%v_6 %v_4[2.9,] %v_5[2.10,] 	 SYMBOL:	 ARGS:%v_5,
+		 12: BRANCH %v_6[2.11,] 
+BB 3
+	outgoing: 4 5 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "ext" def_%v_7 
+		 2: message->[] def_%v_8 message[2.5,] %v_7[3.1,] 	 SYMBOL:	 ARGS:%v_7,
+		 3: COPY TYPE_StringLiteral "auth_token" def_%v_9 
+		 4: %v_8->[] def_%v_10 %v_8[3.2,] %v_9[3.3,] 	 SYMBOL:	 ARGS:%v_9,
+		 5: COPY TYPE_PASS def_auth_token %v_10[3.4,] 
+		 6: 
+		 7: (User) def_%v_11 
+		 8: %v_11->find_by_authentication_token def_%v_12 %v_11[3.7,] %v_10[3.4,] 	 SYMBOL:	 ARGS:auth_token,
+		 9: COPY TYPE_PASS def_user %v_12[3.8,] 
+		 10: 
+		 11: BRANCH %v_12[3.8,] 
+BB 4
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (ActiveUsers) def_%v_13 
+		 2: COPY TYPE_StringLiteral "clientId" def_%v_14 
+		 3: message->[] def_%v_15 message[2.5,] %v_14[4.2,] 	 SYMBOL:	 ARGS:%v_14,
+		 4: %v_13->add def_%v_16 %v_13[4.1,] %v_15[4.3,] user[3.9,] 	 SYMBOL:	 ARGS:%v_15,user,
+		 5: 
+		 6: callback->call def_%v_17 callback[2.6,] message[4.3,2.5,] 	 SYMBOL:	 ARGS:message,
+		 7: RETURN %v_17[4.6,] %self[2.0,] 
+BB 5
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_StringLiteral "error" def_%v_19 
+		 2: COPY TYPE_StringLiteral "Invalid auth token" def_%v_20 
+		 3: ATTRASSIGN message->[] %v_19[5.1,] %v_20[5.2,] 
+		 4: COPY TYPE_PASS def_%v_18 %v_20[5.2,] 
+		 5: 
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_18 
+BB 8
+	outgoing: 9 
+	datadep: 
+	instructions:
+		 0: 
+		 1: callback->call def_%v_21 callback[2.6,] message[5.3,2.5,] 	 SYMBOL:	 ARGS:message,
+		 2: RETURN %v_21[8.1,] %self[2.0,] 
+BB 9
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,532 @@
+SET IRMethod, name = conversation instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_conversation_model 
+		 6: RECEIVEARG def_community_id 
+		 7: 
+		 8: (Conversation) def_%v_3 
+		 9: conversation_model->id def_%v_4 conversation_model[2.5,] 	 SYMBOL:	 ARGS:
+		 10: conversation_model->listing def_%v_5 conversation_model[2.5,2.9,] 	 SYMBOL:	 ARGS:
+		 11: conversation_model->messages def_%v_6 conversation_model[2.5,2.9,2.10,] 	 SYMBOL:	 ARGS:
+		 12: %self->messages def_%v_7 %self[2.0,] %v_6[2.11,] community_id[2.6,] 	 SYMBOL:	 ARGS:%v_6,community_id,
+		 13: conversation_model->last_message_at def_%v_8 conversation_model[2.5,2.9,2.10,2.11,] 	 SYMBOL:	 ARGS:
+		 14: (PersonEntity) def_%v_9 
+		 15: conversation_model->starter def_%v_10 conversation_model[2.5,2.9,2.10,2.11,2.13,] 	 SYMBOL:	 ARGS:
+		 16: %v_9->person def_%v_11 %v_9[2.14,] %v_10[2.15,] community_id[2.6,] 	 SYMBOL:	 ARGS:%v_10,community_id,
+		 17: (PersonEntity) def_%v_12 
+		 18: conversation_model->starter def_%v_13 conversation_model[2.5,2.9,2.10,2.11,2.13,2.15,] 	 SYMBOL:	 ARGS:
+		 19: conversation_model->other_party def_%v_14 conversation_model[2.5,2.9,2.10,2.11,2.13,2.15,2.18,] %v_13[2.18,] 	 SYMBOL:	 ARGS:%v_13,
+		 20: %v_12->person def_%v_15 %v_12[2.17,] %v_14[2.19,] community_id[2.6,] 	 SYMBOL:	 ARGS:%v_14,community_id,
+		 21: HASH-id-listing-messages-last_message_at-starter_person-other_person- def_%v_16 %v_4[2.9,] %v_5[2.10,] %v_7[2.12,] %v_8[2.13,] %v_11[2.16,] %v_15[2.20,] 
+		 22: %v_3->[] def_%v_17 %v_3[2.8,] %v_16[2.21,] 	 SYMBOL:	 ARGS:%v_16,
+		 23: RETURN %v_17[2.22,] %self[2.0,2.12,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = deleted_conversation_placeholder instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (Conversation) def_%v_3 
+		 7: COPY TYPE_StringLiteral "this is a placeholder for conversation that was deleted, probably due a participant deleting his profile." def_%v_4 
+		 8: HASH-last_transition_at-metadata- def_%v_5 %v_4[2.7,] 
+		 9: %v_3->[] def_%v_6 %v_3[2.6,] %v_5[2.8,] 	 SYMBOL:	 ARGS:%v_5,
+		 10: RETURN %v_6[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = messages instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_message_models 
+		 6: RECEIVEARG def_community_id 
+		 7: 
+		 8: message_models->reject def_%v_3 message_models[2.5,] %self[2.0,] 	 SYMBOL:	 ARGS:message_models,
+CLOSURE BEGIN: msg[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_msg 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: msg->content def_%cl_1_3 msg[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_3->blank? def_%cl_1_4 %cl_1_3[3.1,] 	 SYMBOL:	 ARGS:
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 9: %v_3->map def_%v_4 %v_3[2.8,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_3,
+CLOSURE BEGIN: %self[2.0,] msg[2.8,] community_id[2.6,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_msg 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: %self->message def_%cl_2_3 %self[2.0,] msg[2.2,] community_id[] 	 SYMBOL:	 ARGS:msg,community_id,
+		 2: RETURN %cl_2_3[3.1,] %self[3.1,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_4 
+		 1: def_%cl_2_5 %cl_2_4[4.0,] 
+		 2: RETURN %cl_2_5[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 10: RETURN %v_4[2.9,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = message instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_message_model 
+		 6: RECEIVEARG def_community_id 
+		 7: 
+		 8: (Message) def_%v_3 
+		 9: (PersonEntity) def_%v_4 
+		 10: message_model->sender def_%v_5 message_model[2.5,] 	 SYMBOL:	 ARGS:
+		 11: %v_4->person def_%v_6 %v_4[2.9,] %v_5[2.10,] community_id[2.6,] 	 SYMBOL:	 ARGS:%v_5,community_id,
+		 12: message_model->content def_%v_7 message_model[2.5,2.10,] 	 SYMBOL:	 ARGS:
+		 13: message_model->created_at def_%v_8 message_model[2.5,2.10,2.12,] 	 SYMBOL:	 ARGS:
+		 14: HASH-sender-content-created_at- def_%v_9 %v_6[2.11,] %v_7[2.12,] %v_8[2.13,] 
+		 15: %v_3->[] def_%v_10 %v_3[2.8,] %v_9[2.14,] 	 SYMBOL:	 ARGS:%v_9,
+		 16: RETURN %v_10[2.15,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mark_as_read instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_conversation_id 
+		 6: RECEIVEARG def_person_id 
+		 7: 
+		 8: (CommandHelper) def_%v_3 
+		 9: %v_3->get_participation_relation def_%v_4 %v_3[2.8,] conversation_id[2.5,] person_id[2.6,] 	 SYMBOL:	 ARGS:conversation_id,person_id,
+		 10: HASH-is_read- def_%v_5 
+		 11: %v_4->update_all def_%v_6 %v_4[2.9,] %v_5[2.10,] 	 SYMBOL:	 ARGS:%v_5,
+		 12: RETURN %v_6[2.11,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = mark_as_unread instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_conversation_id 
+		 6: RECEIVEARG def_person_id 
+		 7: 
+		 8: (CommandHelper) def_%v_3 
+		 9: %v_3->get_participation_relation def_%v_4 %v_3[2.8,] conversation_id[2.5,] person_id[2.6,] 	 SYMBOL:	 ARGS:conversation_id,person_id,
+		 10: HASH-is_read- def_%v_5 
+		 11: %v_4->update_all def_%v_6 %v_4[2.9,] %v_5[2.10,] 	 SYMBOL:	 ARGS:%v_5,
+		 12: RETURN %v_6[2.11,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_participation_relation instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_conversation_id 
+		 6: RECEIVEARG def_person_id 
+		 7: 
+		 8: (ParticipationModel) def_%v_3 
+		 9: HASH-conversation_id- def_%v_4 conversation_id[2.5,] 
+		 10: %v_3->where def_%v_5 %v_3[2.8,] %v_4[2.9,] 	 SYMBOL:	 ARGS:%v_4,
+		 11: HASH-person_id- def_%v_6 person_id[2.6,] 
+		 12: %v_5->where def_%v_7 %v_5[2.10,] %v_6[2.11,] 	 SYMBOL:	 ARGS:%v_6,
+		 13: RETURN %v_7[2.12,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = conversation_for_person instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_conversation_id 
+		 6: RECEIVEARG def_person_id 
+		 7: RECEIVEARG def_community_id 
+		 8: 
+		 9: %self->conversations_for_person def_%v_3 %self[2.0,] person_id[2.6,] community_id[2.7,] 	 SYMBOL:	 ARGS:person_id,community_id,
+		 10: HASH-id- def_%v_4 conversation_id[2.5,] 
+		 11: %v_3->where def_%v_5 %v_3[2.9,] %v_4[2.10,] 	 SYMBOL:	 ARGS:%v_4,
+		 12: %v_5->first def_%v_6 %v_5[2.11,] 	 SYMBOL:	 ARGS:
+		 13: COPY TYPE_PASS def_conversation %v_6[2.12,] 
+		 14: 
+		 15: BRANCH %v_6[2.12,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Entity) def_%v_7 
+		 2: %v_7->conversation def_%v_8 %v_7[3.1,] conversation[2.13,] community_id[2.7,] 	 SYMBOL:	 ARGS:conversation,community_id,
+		 3: RETURN %v_8[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = conversations_for_person instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_person_id 
+		 6: RECEIVEARG def_community_id 
+		 7: 
+		 8: (ConversationModel) def_%v_3 
+		 9: %v_3->joins def_%v_4 %v_3[2.8,] 	 SYMBOL:participations,	 ARGS:Symbol,
+		 10: HASH-person_id- def_%v_5 person_id[2.5,] 
+		 11: HASH-participations- def_%v_6 %v_5[2.10,] 
+		 12: %v_4->where def_%v_7 %v_4[2.9,] %v_6[2.11,] 	 SYMBOL:	 ARGS:%v_6,
+		 13: HASH-community_id- def_%v_8 community_id[2.6,] 
+		 14: %v_7->where def_%v_9 %v_7[2.12,] %v_8[2.13,] 	 SYMBOL:	 ARGS:%v_8,
+		 15: RETURN %v_9[2.14,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = latest_messages_for_conversations instanceMethod = true
+BB 1
+	outgoing: 8 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_conversation_ids 
+		 6: 
+		 7: conversation_ids->empty? def_%v_3 conversation_ids[2.5,] 	 SYMBOL:	 ARGS:
+		 8: BRANCH %v_3[2.7,] 
+BB 3
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Array def_%v_4 
+		 1: RETURN %v_4[3.0,] %self[2.0,] 
+BB 4
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_5 
+		 1: 
+		 2: (ActiveRecord) def_%v_6 
+		 3: (inherit Base) def_%v_7 %v_6[4.2,] 
+		 4: %v_7[4.3,] 
+BB 6
+	outgoing: 7 
+	datadep: 
+	instructions:
+		 0: %v_6->const_missing def_%v_7 %v_6[4.2,] 	 SYMBOL:Base,	 ARGS:Symbol,
+BB 7
+	outgoing: 8 
+	datadep: 
+	instructions:
+		 0: %v_7->connection def_%v_8 %v_7[6.0,4.3,] 	 SYMBOL:	 ARGS:
+		 1: COPY TYPE_PASS def_connection %v_8[7.0,] 
+		 2: 
+		 3: (SQLUtils) def_%v_9 
+		 4: GETFIELD %self->construct_last_message_content_sql def_%v_10 %self[2.0,] 
+		 5: HASH-conversation_ids- def_%v_11 conversation_ids[2.5,] 
+		 6: %v_9->ar_quote def_%v_12 %v_9[7.3,] %v_8[7.0,] %v_10[7.4,] %v_11[7.5,] 	 SYMBOL:	 ARGS:connection,%v_10,%v_11,
+		 7: COPY TYPE_PASS def_message_sql %v_12[7.6,] 
+		 8: 
+		 9: connection->execute def_%v_13 connection[7.1,] %v_12[7.6,] 	 SYMBOL:	 ARGS:message_sql,
+		 10: HASH- def_%v_14 
+		 11: %v_13->reduce def_%v_15 %v_13[7.9,] %v_14[7.10,] %self[2.0,] 	 SYMBOL:	 ARGS:%v_14,%v_13,
+CLOSURE BEGIN: memo[] conversation_id[] memo_at[] created_at[] memo_id[] id[] content[] 
+BB 1
+	outgoing: 13 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 11 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_memo 
+		 3: RECEIVEARG def_%cl_1_1 
+		 4: def_%cl_1_2 %cl_1_1[2.3,] 
+		 5: def_id %cl_1_2[2.4,] 
+		 6: def_conversation_id %cl_1_2[2.4,] 
+		 7: def_content %cl_1_2[2.4,] 
+		 8: def_created_at %cl_1_2[2.4,] 
+		 9: COPY TYPE_CurrentScope def_%current_scope 
+		 10: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 5 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: memo->[] def_%cl_1_5 memo[2.2,] conversation_id[2.6,] 	 SYMBOL:	 ARGS:conversation_id,
+		 2: def_%cl_1_6 %cl_1_5[3.1,] 
+		 3: def_%cl_1_7 %cl_1_6[3.2,] 
+		 4: def_%cl_1_8 %cl_1_6[3.2,] 
+		 5: def_%cl_1_9 %cl_1_6[3.2,] 
+		 6: COPY TYPE_PASS def__ %cl_1_7[3.3,] 
+		 7: COPY TYPE_PASS def_memo_id %cl_1_8[3.4,] 
+		 8: COPY TYPE_PASS def_memo_at %cl_1_9[3.5,] 
+		 9: 
+		 10: %cl_1_9->nil? def_%cl_1_10 %cl_1_9[3.5,] 	 SYMBOL:	 ARGS:
+		 11: BRANCH %cl_1_10[3.10,] 
+BB 4
+	outgoing: 5 11 
+	datadep: 
+	instructions:
+		 0: memo_at->< def_%cl_1_11 memo_at[3.8,] created_at[2.8,] 	 SYMBOL:	 ARGS:created_at,
+		 1: COPY TYPE_PASS def_%cl_1_10 %cl_1_11[4.0,] 
+BB 5
+	outgoing: 6 7 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_10[4.1,3.10,] 
+BB 6
+	outgoing: 7 11 
+	datadep: 
+	instructions:
+		 0: memo_id->< def_%cl_1_12 memo_id[3.7,] id[2.5,] 	 SYMBOL:	 ARGS:id,
+		 1: COPY TYPE_PASS def_%cl_1_10 %cl_1_12[6.0,] 
+BB 7
+	outgoing: 8 9 
+	datadep: 
+	instructions:
+		 0: BRANCH %cl_1_10[6.1,4.1,3.10,] 
+BB 8
+	outgoing: 10 11 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Array def_%cl_1_13 content[2.7,] id[2.5,] created_at[2.8,] 
+		 2: ATTRASSIGN memo->[] conversation_id[2.6,] %cl_1_13[8.1,] 
+		 3: 
+BB 9
+	outgoing: 10 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%cl_1_13 
+BB 10
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: 
+		 1: RETURN memo[8.2,2.2,] %self[2.0,] 
+BB 11
+	outgoing: 13 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_14 
+		 1: def_%cl_1_15 %cl_1_14[11.0,] 
+		 2: RETURN %cl_1_15[11.1,] %self[2.0,] 
+BB 13
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: memo_id[3.7,] conversation_id[2.6,] created_at[2.8,] id[2.5,] memo_at[3.8,] content[2.7,] _[3.6,] 
+		 12: COPY TYPE_PASS def_latest_messages %v_15[7.11,] 
+		 13: 
+		 14: (HashUtils) def_%v_16 
+		 15: %v_16->map_values def_%v_17 %v_16[7.14,] %v_15[7.11,] %self[2.0,] 	 SYMBOL:	 ARGS:latest_messages,%v_16,
+CLOSURE BEGIN: content[7.11,] at[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_2_0 
+		 2: RECEIVEARG def_%cl_2_1 
+		 3: def_%cl_2_2 %cl_2_1[2.2,] 
+		 4: def_content %cl_2_2[2.3,] 
+		 5: def__ %cl_2_2[2.3,] 
+		 6: def_at %cl_2_2[2.3,] 
+		 7: COPY TYPE_CurrentScope def_%current_scope 
+		 8: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: COPY TYPE_Array def_%cl_2_5 content[2.4,] at[2.6,] 
+		 2: RETURN %cl_2_5[3.1,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_2_6 
+		 1: def_%cl_2_7 %cl_2_6[4.0,] 
+		 2: RETURN %cl_2_7[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: at[2.6,] _[2.5,] 
+		 16: RETURN %v_17[7.15,] %self[2.0,] 
+BB 8
+	outgoing: 
+	datadep: 
+	instructions:
+

@@ -1,0 +1,106 @@
+SET IRMethod, name = username_or_email instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: %self->user def_%v_3 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 7: BRANCH %v_3[2.6,] 
+BB 3
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->user def_%v_4 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: %v_4->name def_%v_5 %v_4[3.0,] 	 SYMBOL:	 ARGS:
+		 2: RETURN %v_5[3.1,] %self[3.0,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: %self->email def_%v_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 1: RETURN %v_6[4.0,] %self[4.0,2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = link_to_user instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_id 
+		 6: 
+		 7: ATTRASSIGN %self->user_id id[2.5,] 
+		 8: 
+		 9: %self->save def_%v_3 %self[2.0,2.7,] 	 SYMBOL:	 ARGS:
+		 10: 
+		 11: %self->tasks def_%v_4 %self[2.0,2.7,2.9,] 	 SYMBOL:	 ARGS:
+		 12: %v_4->each def_%v_5 %v_4[2.11,] %self[2.0,2.7,2.9,2.11,] 	 SYMBOL:	 ARGS:%v_4,
+CLOSURE BEGIN: task[] %self[2.0,2.7,2.9,2.11,] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_task 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: task->email_addresses def_%cl_1_3 task[2.2,] 	 SYMBOL:	 ARGS:
+		 2: %cl_1_3->delete def_%cl_1_4 %cl_1_3[3.1,] %self[2.0,] 	 SYMBOL:	 ARGS:%self,
+		 3: 
+		 4: task->watchers def_%cl_1_5 task[3.1,2.2,] 	 SYMBOL:	 ARGS:
+		 5: %self->user def_%cl_1_6 %self[2.0,] 	 SYMBOL:	 ARGS:
+		 6: %cl_1_5-><< def_%cl_1_7 %cl_1_5[3.4,] %cl_1_6[3.5,] 	 SYMBOL:	 ARGS:%cl_1_6,
+		 7: RETURN %cl_1_7[3.6,] %self[3.5,2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_8 
+		 1: def_%cl_1_9 %cl_1_8[4.0,] 
+		 2: RETURN %cl_1_9[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 13: 
+		 14: %self->work_logs def_%v_6 %self[2.0,2.7,2.9,2.11,] 	 SYMBOL:	 ARGS:
+		 15: %self->user_id def_%v_7 %self[2.0,2.7,2.9,2.11,2.14,] 	 SYMBOL:	 ARGS:
+		 16: HASH-user_id-email_address_id- def_%v_8 %v_7[2.15,] 
+		 17: %v_6->update_all def_%v_9 %v_6[2.14,] %v_8[2.16,] 	 SYMBOL:	 ARGS:%v_8,
+		 18: RETURN %v_9[2.17,] %self[2.0,2.7,2.9,2.11,2.14,2.15,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+

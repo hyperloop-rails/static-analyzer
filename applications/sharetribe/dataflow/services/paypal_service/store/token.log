@@ -1,0 +1,264 @@
+SET IRMethod, name = from_model instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_model 
+		 6: 
+		 7: (Token) def_%v_3 
+		 8: (EntityUtils) def_%v_4 
+		 9: %v_4->model_to_hash def_%v_5 %v_4[2.8,] model[2.5,] 	 SYMBOL:	 ARGS:model,
+		 10: model->item_price def_%v_6 model[2.5,] 	 SYMBOL:	 ARGS:
+		 11: model->shipping_total def_%v_7 model[2.5,2.10,] 	 SYMBOL:	 ARGS:
+		 12: HASH-item_price-shipping_total- def_%v_8 %v_6[2.10,] %v_7[2.11,] 
+		 13: %v_5->merge def_%v_9 %v_5[2.9,] %v_8[2.12,] 	 SYMBOL:	 ARGS:%v_8,
+		 14: %v_3->call def_%v_10 %v_3[2.7,] %v_9[2.13,] 	 SYMBOL:	 ARGS:%v_9,
+		 15: RETURN %v_10[2.14,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = create instanceMethod = true
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 4 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_opts 
+		 6: 
+		 7: opts->[] def_%v_3 opts[2.5,] 	 SYMBOL:community_id,	 ARGS:Symbol,
+		 8: opts->[] def_%v_4 opts[2.5,2.7,] 	 SYMBOL:token,	 ARGS:Symbol,
+		 9: opts->[] def_%v_5 opts[2.5,2.7,2.8,] 	 SYMBOL:transaction_id,	 ARGS:Symbol,
+		 10: opts->[] def_%v_6 opts[2.5,2.7,2.8,2.9,] 	 SYMBOL:payment_action,	 ARGS:Symbol,
+		 11: opts->[] def_%v_7 opts[2.5,2.7,2.8,2.9,2.10,] 	 SYMBOL:merchant_id,	 ARGS:Symbol,
+		 12: opts->[] def_%v_8 opts[2.5,2.7,2.8,2.9,2.10,2.11,] 	 SYMBOL:receiver_id,	 ARGS:Symbol,
+		 13: opts->[] def_%v_9 opts[2.5,2.7,2.8,2.9,2.10,2.11,2.12,] 	 SYMBOL:item_name,	 ARGS:Symbol,
+		 14: opts->[] def_%v_10 opts[2.5,2.7,2.8,2.9,2.10,2.11,2.12,2.13,] 	 SYMBOL:item_quantity,	 ARGS:Symbol,
+		 15: opts->[] def_%v_11 opts[2.5,2.7,2.8,2.9,2.10,2.11,2.12,2.13,2.14,] 	 SYMBOL:item_price,	 ARGS:Symbol,
+		 16: opts->[] def_%v_12 opts[2.5,2.7,2.8,2.9,2.10,2.11,2.12,2.13,2.14,2.15,] 	 SYMBOL:express_checkout_url,	 ARGS:Symbol,
+		 17: HASH-community_id-token-transaction_id-payment_action-merchant_id-receiver_id-item_name-item_quantity-item_price-express_checkout_url- def_%v_13 %v_3[2.7,] %v_4[2.8,] %v_5[2.9,] %v_6[2.10,] %v_7[2.11,] %v_8[2.12,] %v_9[2.13,] %v_10[2.14,] %v_11[2.15,] %v_12[2.16,] 
+		 18: COPY TYPE_PASS def_pt_opts %v_13[2.17,] 
+		 19: 
+		 20: opts->[] def_%v_14 opts[2.5,2.7,2.8,2.9,2.10,2.11,2.12,2.13,2.14,2.15,2.16,] 	 SYMBOL:shipping_total,	 ARGS:Symbol,
+		 21: BRANCH %v_14[2.20,] 
+BB 3
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: opts->[] def_%v_15 opts[2.5,] 	 SYMBOL:shipping_total,	 ARGS:Symbol,
+		 1: ATTRASSIGN pt_opts->[] %v_15[3.0,] 
+		 2: 
+BB 4
+	outgoing: 5 
+	datadep: 
+	instructions:
+		 0: COPY TYPE_Nil def_%v_15 
+BB 5
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (PaypalTokenModel) def_%v_16 
+		 2: %v_16->create! def_%v_17 %v_16[5.1,] pt_opts[3.1,2.18,] 	 SYMBOL:	 ARGS:pt_opts,
+		 3: RETURN %v_17[5.2,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = delete instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_community_id 
+		 6: RECEIVEARG def_transaction_id 
+		 7: 
+		 8: (PaypalTokenModel) def_%v_3 
+		 9: HASH-community_id-transaction_id- def_%v_4 community_id[2.5,] transaction_id[2.6,] 
+		 10: %v_3->where def_%v_5 %v_3[2.8,] %v_4[2.9,] 	 SYMBOL:	 ARGS:%v_4,
+		 11: %v_5->destroy_all def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: RETURN %v_6[2.11,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_community_id 
+		 6: RECEIVEARG def_token 
+		 7: 
+		 8: (PaypalTokenModel) def_%v_3 
+		 9: HASH-token-community_id- def_%v_4 token[2.6,] community_id[2.5,] 
+		 10: %v_3->where def_%v_5 %v_3[2.8,] %v_4[2.9,] 	 SYMBOL:	 ARGS:%v_4,
+		 11: %v_5->first def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: %self->Maybe def_%v_7 %self[2.0,] %v_6[2.11,] 	 SYMBOL:	 ARGS:%v_6,
+		 13: %v_7->map def_%v_8 %v_7[2.12,] %self[2.0,2.12,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: model[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_model 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Entity) def_%cl_1_3 
+		 2: %cl_1_3->from_model def_%cl_1_4 %cl_1_3[3.1,] model[2.2,] 	 SYMBOL:	 ARGS:model,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 14: %v_8->or_else def_%v_9 %v_8[2.13,] 	 SYMBOL:	 ARGS:Nil,
+		 15: RETURN %v_9[2.14,] %self[2.0,2.12,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_for_transaction instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: RECEIVEARG def_community_id 
+		 6: RECEIVEARG def_transaction_id 
+		 7: 
+		 8: (PaypalTokenModel) def_%v_3 
+		 9: HASH-community_id-transaction_id- def_%v_4 community_id[2.5,] transaction_id[2.6,] 
+		 10: %v_3->where def_%v_5 %v_3[2.8,] %v_4[2.9,] 	 SYMBOL:	 ARGS:%v_4,
+		 11: %v_5->first def_%v_6 %v_5[2.10,] 	 SYMBOL:	 ARGS:
+		 12: %self->Maybe def_%v_7 %self[2.0,] %v_6[2.11,] 	 SYMBOL:	 ARGS:%v_6,
+		 13: %v_7->map def_%v_8 %v_7[2.12,] %self[2.0,2.12,] 	 SYMBOL:	 ARGS:%v_7,
+CLOSURE BEGIN: model[] 
+BB 1
+	outgoing: 6 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%cl_1_0 
+		 2: RECEIVEARG def_model 
+		 3: COPY TYPE_CurrentScope def_%current_scope 
+		 4: COPY TYPE_ScopeModule def_%current_module 
+BB 3
+	outgoing: 4 6 
+	datadep: 
+	instructions:
+		 0: 
+		 1: (Entity) def_%cl_1_3 
+		 2: %cl_1_3->from_model def_%cl_1_4 %cl_1_3[3.1,] model[2.2,] 	 SYMBOL:	 ARGS:model,
+		 3: RETURN %cl_1_4[3.2,] %self[2.0,] 
+BB 4
+	outgoing: 6 
+	datadep: 
+	instructions:
+		 0: def_%cl_1_5 
+		 1: def_%cl_1_6 %cl_1_5[4.0,] 
+		 2: RETURN %cl_1_6[4.1,] %self[2.0,] 
+BB 6
+	outgoing: 
+	datadep: 
+	instructions:
+CLOSURE END: 
+		 14: %v_8->or_else def_%v_9 %v_8[2.13,] 	 SYMBOL:	 ARGS:Nil,
+		 15: RETURN %v_9[2.14,] %self[2.0,2.12,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
+SET IRMethod, name = get_all instanceMethod = true
+BB 1
+	outgoing: 3 2 
+	datadep: 
+	instructions:
+BB 2
+	outgoing: 3 
+	datadep: 
+	instructions:
+		 0: def_%self 
+		 1: def_%v_0 
+		 2: COPY TYPE_CurrentScope def_%current_scope 
+		 3: COPY TYPE_ScopeModule def_%current_module 
+		 4: 
+		 5: 
+		 6: (PaypalToken) def_%v_3 
+		 7: %v_3->all def_%v_4 %v_3[2.6,] 	 SYMBOL:	 ARGS:
+		 8: RETURN %v_4[2.7,] %self[2.0,] 
+BB 3
+	outgoing: 
+	datadep: 
+	instructions:
+
