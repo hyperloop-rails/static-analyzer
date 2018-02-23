@@ -13,19 +13,19 @@ modify "run\_command" function to let it actually execute the commands
 if app has helper folder:
 
 ```
-$ ruby main.rb -a #{app\_name} -e
+$ ruby main.rb -a #{app_name} -e
 ```
 
 else:
 
 ```
-$ ruby main.rb -a #{app\_name}
+$ ruby main.rb -a #{app_name}
 ```
 
 * generate next actions:
 
 ```
-$ ruby main.rb -a #{app\_name} -f
+$ ruby main.rb -a #{app_name} -f
 ```
 
 copy the "path\_funcs.sh" to the application directory and run the script
@@ -35,5 +35,5 @@ copy the "path\_funcs.txt" from the application directory back to this dir
 then generate the next action files:
 
 ```
-$ruby main.rb -a #{app\_name} -e -n
+$ruby main.rb -a #{app_name} -e -n
 ```
