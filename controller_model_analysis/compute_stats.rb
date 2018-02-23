@@ -1002,4 +1002,15 @@ def helper_print_stat(general, readSink, readSource, write, label, print_branch=
 	$graph_file.puts("\t\t\t<fromConst>#{write.get_from_const}<\/fromConst>")
 	$graph_file.puts("\t\t\t<fromGlobal>#{write.get_from_global}<\/fromGlobal>")
 	$graph_file.puts("\t\t<\/writeSource>")
+	
+	loop_invariant_file = "#{output_dir}/loop_invariant.xml"
+	$loop_invariant_file = File.open(loop_invariant_file, "w")
+	compute_loop_invariant
+	$loop_invariant_file.close
+	
+	dead_store_file = "#{output_dir}/dead_store.xml"
+	$dead_store_file = File.open(dead_store_file, "w")
+	compute_dead_store_query
+	$dead_store_file.close
+
 end
