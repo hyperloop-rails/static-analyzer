@@ -3,25 +3,32 @@
 $ gem install yard
 ```
 
-* compile extract\_ruby.cpp to extract\_ruby
+* MAKE A COPY of your application folder:
 ```
-$g++ extract_ruby.cpp -o extract_ruby
-```
-
-* replace controller/helper file:
-
-if app has helper folder:
-
-```
-$ ruby main.rb -a #{app_name} -e
+$ cp -r APP_FOLDER NEW_APP_FOLDER
+$ cd NEW_APP_FOLDER
 ```
 
-else:
-
+* make sure the following file exists:
 ```
-$ ruby main.rb -a #{app_name}
+$ ls db/schema.rb
+$ ls config/routes.rb
 ```
 
+* run the script to replace view rendering calls in controllers with all ruby code extracted from view files (mainly .erb files), and replace `ANALYZER_APP_PATH` with the path where the analyzer stores the application, e.g., `path_to_static-analyzer/applications/APP_NAME`:
+```
+$ ./preprocess.sh ANALYZER_APP_PATH
+```
+
+If `app/helpers` exists, all view rendering calls in helpers will be replaced too.
+
+* copy other folders to `ANALYZER_APP_PATH`, if ruby file exists in those folders, for example:
+```
+$ cp app/mailers ANALYZER_APP_PATH/
+```
+
+
+===========OPTIONAL=========
 * generate next actions:
 
 ```
