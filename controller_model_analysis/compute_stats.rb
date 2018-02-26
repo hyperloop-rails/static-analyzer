@@ -753,7 +753,7 @@ def compute_dataflow_stat(output_dir, start_class, start_function, build_node_li
 
 	$graph_file.puts("<stat>")
 	$graph_file.puts("\t<general>")
-	helper_print_stat(@general_stat, @read_sink_stat, @read_source_stat, @write_source_stat, "STATS")
+	helper_print_stat(output_dir, @general_stat, @read_sink_stat, @read_source_stat, @write_source_stat, "STATS")
 	$graph_file.puts("\t\t<queryOnlyFromUser>#{@singleQ_stat.only_from_user_input}<\/queryOnlyFromUser>")
 	
 	if $compute_querydep_controlflow
@@ -782,7 +782,7 @@ def compute_dataflow_stat(output_dir, start_class, start_function, build_node_li
 	if $print_table_detail
 		@table_general_stat.each do |k, v|
 			$graph_file.puts("\t<#{k}>")
-			helper_print_stat(v, @table_read_stat[k], nil, @table_write_stat[k], k, false)
+			helper_print_stat(output_dir, v, @table_read_stat[k], nil, @table_write_stat[k], k, false)
 			$graph_file.puts("\t<\/#{k}>")
 		end
 	end
@@ -945,7 +945,7 @@ def compute_dataflow_stat(output_dir, start_class, start_function, build_node_li
 
 end
 
-def helper_print_stat(general, readSink, readSource, write, label, print_branch=true)
+def helper_print_stat(output_dir, general, readSink, readSource, write, label, print_branch=true)
 	$graph_file.puts("\t\t<queryTotal>#{general.total}<\/queryTotal>")
 	$graph_file.puts("\t\t<readTotal>#{general.read}<\/readTotal>")
 	$graph_file.puts("\t\t<writeTotal>#{general.write}<\/writeTotal>")
