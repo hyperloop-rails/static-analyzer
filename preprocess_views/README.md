@@ -1,12 +1,12 @@
+* install yard
+```
+$ gem install yard
+```
+
 * compile extract\_ruby.cpp to extract\_ruby
 ```
 $g++ extract_ruby.cpp -o extract_ruby
 ```
-* run extract\_ruby and generate ruby views
-```
-$ vi util.rb
-```
-modify "run\_command" function to let it actually execute the commands
 
 * replace controller/helper file:
 
