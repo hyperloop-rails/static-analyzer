@@ -1,3 +1,5 @@
+# THIS REPO IS MERGED INTO [static-checker](https://github.com/hyperloop-rails/static-checker) AND IS NO LONGER MAINTAINED!
+
 This repository hosts the static analyzer. It analyzes the control flow and data flow, and identifies each ORM APIs that issues DB queries. 
 
 This analyzer can help find some anti-patterns mentioned in the paper. For example, by checking how the query result is used in the application, it understands where unnecessary data retrieval happens. 
