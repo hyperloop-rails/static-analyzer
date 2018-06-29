@@ -1,4 +1,4 @@
-# THIS REPO IS MERGED INTO [static-checker](https://github.com/hyperloop-rails/static-checker) AND IS NO LONGER MAINTAINED!
+# THIS REPO HAS BEEN MERGED INTO [static-checker](https://github.com/hyperloop-rails/static-checker) AND IS NO LONGER MAINTAINED!
 
 This repository hosts the static analyzer. It analyzes the control flow and data flow, and identifies each ORM APIs that issues DB queries. 
 
